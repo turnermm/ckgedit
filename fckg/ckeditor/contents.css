@@ -1,0 +1,496 @@
+/*
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+body
+{
+	/* Font */
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 12px;
+
+	/* Text color */
+	color: #222;
+
+	/* Remove the background color to make it transparent */
+	background-color: #fff;
+}
+
+ol,ul,dl
+{
+	/* IE7: reset rtl list margin. (#7334) */
+	*margin-right:0px;
+	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
+    padding:0 40px;
+}
+
+
+body, td, th {
+    font: 80%  "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+}
+
+body
+{
+	background-color: #ffffff;
+	padding: 5px 5px 5px 5px;
+	margin: 0px;
+}
+
+
+
+th, .tblheader {
+  padding: 3px;
+  border: 1px solid #8cacbb !important;
+  background-color: #dee7ec;
+  font-weight: bold;
+}
+
+td {
+  padding: 3px;
+  border: 1px solid #8cacbb !important;
+}
+td
+{
+/*	font-family: Arial, Verdana, sans-serif;
+	font-size: 10pt;
+	*/
+}
+
+a[href]
+{
+/*	color: -moz-hyperlinktext !important;	*/	/* For Firefox... mark as important, otherwise it becomes black */
+/*	text-decoration: -moz-anchor-decoration; */	/* For Firefox 3, otherwise no underline will be used */
+}
+
+/*
+	Just uncomment the following block if you want to avoid spaces between
+	paragraphs. Remember to apply the same style in your output front end page.
+*/
+
+/*
+p, ul, li
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+*/
+
+/*
+    The following are some sample styles used in the "Styles" toolbar command.
+    You should instead remove them, and include the styles used by the site
+    you are using the editor in.
+*/
+
+.Bold
+{
+	font-weight: bold;
+}
+
+.Title
+{
+	font-weight: bold;
+	font-size: 18px;
+	color: #cc3300;
+}
+
+
+pre {
+  margin: 0 0 1.0em 0;
+  font-size: 120%;
+  padding: 0.5em;
+  border: 1px dashed black;
+  color: black;
+  overflow: auto;
+}
+
+/* code blocks by code tag */
+pre.code {
+  background-color: #f7f9fa;
+  line-height:100%;
+}
+pre.file { 
+  background-color:  #dee7ec; 
+  line-height:100%;
+}
+
+h1,h2,h3,h4,h5 {
+    color: black;
+    background-color: inherit;
+    font-size: 100%;
+    font-weight: normal;
+    margin: 0 0 1em 0;
+    padding: 0.5em 0 0 0;
+    border-bottom: 1px solid #8cacbb;
+    clear: left;
+}
+
+
+h1,h2,h3,h4,h5
+ {
+  color: black !important;
+  text-decoration: none !important;
+}
+
+h1 {font-size: 160%; margin-left: 0px; font-weight: bold;}
+h2 {font-size: 150%; margin-left: 20px;}
+h3 {font-size: 140%; margin-left: 40px; border-bottom: none; font-weight: bold;}
+h4 {font-size: 120%; margin-left: 60px; border-bottom: none; font-weight: bold; }
+h5 {font-size: 100%;  margin-left: 80px; border-bottom: none; font-weight: bold;}
+
+div.level1 {margin-left: 3px;}
+div.level2 {margin-left: 23px;}
+div.level3 {margin-left: 43px;}
+div.level4 {margin-left: 63px;}
+div.dokuwiki div.level5 {margin-left: 83px;}
+
+img.media {
+  border: 0;
+  margin: 3px;
+}
+
+img.medialeft {
+  border: 0;
+  margin: 0 1.5em 0 0;
+  float: left;
+}
+
+img.baseline {
+  vertical-align:bottom;
+  text-align:left;
+  display:block;
+  border: 0;
+  margin: 3px;
+}
+
+img.mediaright {
+  border: 0;
+  float: right;
+  margin: 0 0 0 1.5em;
+}
+
+img.mediacenter, .mediacenter {
+  text-align:center;
+  display:block;
+  border: 0 ;
+  border-top: 3px solid none;
+  margin: 0 auto;
+}
+
+
+.leftalign {text-align: left;}
+.centeralign {text-align: center;}
+.rightalign {text-align: right;}
+
+
+div.footnotes {
+  clear: both;
+  border-top: 1px solid black;
+  padding-left: 1em;
+  margin-top: 1em;
+}
+        
+div.fn {
+  font-size: 90%;
+}
+  
+a.fn_bot {
+ font-weight: bold;
+}
+.dwcode {
+    font-family: sans-serif;
+ }
+/* unordered lists */
+ul {
+  line-height: 1.5em;
+  list-style-type: square;
+  list-style-image: none;
+  margin: 0 0 1em 3.5em;
+  color: black;
+}
+
+/* ordered lists */
+ol {
+  line-height: 1.5em;
+  list-style-image: none;
+  margin: 0 0 1em 3.5em;
+  color: black;
+ 
+}
+
+/* no gap in between nested lists */
+li ul {
+  margin-bottom: 0;
+}
+li ol {
+  margin-bottom: 0;
+}
+
+
+ol {list-style-type: decimal}
+ol ol {list-style-type: upper-roman}
+ol ol ol {list-style-type: lower-alpha}
+ol ol ol ol {list-style-type: lower-greek}
+
+li { font-weight: normal; }
+
+a.windows {
+  background: transparent url(images/windows.gif) 0px 1px no-repeat;
+  padding: 1px 0px 1px 16px;
+  color: #436976 !important;
+  text-decoration: none !important;
+}
+
+a.urlextern {
+ background: transparent url(images/link_icon.gif) 0px 1px no-repeat;
+ padding: 1px 0px 1px 16px;
+ color: #436976 !important;
+ text-decoration: none !important;
+}
+
+a.wikilink2 {
+  color: red !important;
+  text-decoration: none !important;
+}
+
+
+a.wikilink1 {
+  color: green !important;
+  text-decoration: none !important;  
+}
+                
+span.np_break {
+  line-height: 50%;
+  border:0px;
+  padding:0px;
+  margin:0px;
+}
+
+/* filenames for file and code blocks */
+ dl.file,
+ dl.code {
+    margin-top: 2em;
+    margin-bottom: 2.5em;
+}
+
+ dl.file dt,
+ dl.code dt {
+    border: 1px dashed #8cacbb;
+    display: inline;
+    padding: 0.1em 1em;
+    margin-left: 5em;
+}
+
+ dl.code dt a,
+ dl.file dt a {
+    color:#000;
+}
+
+ dl.code dt {
+    background-color: __background_other__;
+    border-bottom: 1px solid __background_other__;
+}
+
+ dl.file dt {
+    background-color: #dee7ec;
+    border-bottom: 1px solid #dee7ec;
+}
+
+dd pre.file {
+    line-height: 125%;
+}
+/* syntax highlighting code */
+.code .br0  { color: #66cc66; }
+.code .co0  { color: #808080; font-style: italic; }
+.code .co1  { color: #808080; font-style: italic; }
+.code .co2  { color: #808080; font-style: italic; }
+.code .co3  { color: #808080; }
+.code .coMULTI  { color: #808080; font-style: italic; }
+.code .es0  { color: #000099; font-weight: bold; }
+.code .kw1  { color: #b1b100; }
+.code .kw2  { color: #000000; font-weight: bold; }
+.code .kw3  { color: #000066; }
+.code .kw4  { color: #993333; }
+.code .kw5  { color: #0000ff; }
+.code .me1  { color: #006600; }
+.code .me2  { color: #006600; }
+.code .nu0  { color: #cc66cc; }
+.code .re0  { color: #0000ff; }
+.code .re1  { color: #0000ff; }
+.code .re2  { color: #0000ff; }
+.code .re3  { color: #ff3333; font-weight:bold; }
+.code .re4  { color: #009999; }
+.code .st0  { color: #ff0000; }
+.code .sy0  { color: #66cc66; }
+
+a.mediafile {
+    background: url(images/fileicons/file.png) no-repeat scroll 0 1px transparent;
+    padding-bottom: 1px;
+    padding-left: 18px;
+    color: #436976 !important;
+    text-decoration: none !important;
+}
+
+/* email link */
+a.mail {
+  background: transparent url(images/mail_icon.gif) 0px 1px no-repeat;
+  padding: 1px 0px 1px 16px;
+  color: #436976 !important;
+  text-decoration: none !important;
+}
+
+a.mf_gz {
+    background-image: url(images/fileicons/gz.png);
+}
+a.mf_csv {
+    background-image: url(images/fileicons/csv.png);
+}
+a.mf_gif {
+    background-image: url(images/fileicons/gif.png);
+}
+
+a.mf_png {
+    background-image: url(images/fileicons/png.png);
+}
+
+a.mf_txt {
+    background-image: url(images/fileicons/txt.png);
+}
+a.mf_tar {
+    background-image: url(images/fileicons/tar.png);
+}
+a.mf_jpg {
+    background-image: url(images/fileicons/jpg.png);
+}
+
+a.mf_xml {
+    background-image: url(images/fileicons/xml.png);
+}
+a.mf_c {
+    background-image: url(images/fileicons/c.png);
+}
+a.mf_ppt {
+    background-image: url(images/fileicons/ppt.png);
+}
+a.mf_conf {
+    background-image: url(images/fileicons/conf.png);
+}
+
+a.mf_xls {
+    background-image: url(images/fileicons/xls.png);
+}
+a.mf_doc {
+    background-image: url(images/fileicons/doc.png);
+}
+
+a.mf_php {
+    background-image: url(images/fileicons/php.png);
+}
+a.mf_cs {
+    background-image: url(images/fileicons/cs.png);
+}
+a.mf_pdf {
+    background-image: url(images/fileicons/pdf.png);
+}
+
+a.mf_odc {
+    background-image: url(images/fileicons/odg.png);
+}
+a.mf_cpp {
+    background-image: url(images/fileicons/cpp.png);
+}
+a.mf_sql {
+    background-image: url(images/fileicons/sql.png);
+}
+
+a.mf_bz2 {
+    background-image: url(images/fileicons/bz2.png);
+}
+
+a.mf_zip {
+    background-image: url(images/fileicons/zip.png);
+}
+a.mf_deb {
+    background-image: url(images/fileicons/deb.png);
+}
+a.mf_jpeg {
+    background-image: url(images/fileicons/jpeg.png);
+}
+a.mf_odg {
+    background-image: url(images/fileicons/odg.png);
+}
+a.mf_py {
+    background-image: url(images/fileicons/py.png);
+}
+a.mf_js {
+    background-image: url(images/fileicons/js.png);
+}
+a.mf_java {
+    background-image: url(images/fileicons/java.png);
+}
+a.mf_htm {
+    background-image: url(images/fileicons/htm.png);
+}
+
+a.mf_odt {
+    background-image: url(images/fileicons/odt.png);
+}
+a.mf_rtf {
+    background-image: url(images/fileicons/rtf.png);
+}
+a.mf_odf {
+    background-image: url(images/fileicons/odg.png);
+}
+a.mf_css {
+    background-image: url(images/fileicons/css.png);
+}
+a.mf_docx {
+    background-image: url(images/fileicons/docx.png);
+}
+a.mf_xlsx {
+    background-image: url(images/fileicons/xlsx.png);
+}
+a.mf_odp {
+    background-image: url(images/fileicons/odg.png);
+}
+a.mf_rar {
+    background-image: url(images/fileicons/rar.png);
+}
+a.mf_tgz {
+    background-image: url(images/fileicons/tgz.png);
+}
+a.mf_7z {
+    background-image: url(images/fileicons/7z.png);
+}
+a.mf_html {
+    background-image: url(images/fileicons/html.png);
+}
+a.mf_pl {
+    background-image: url(images/fileicons/pl.png);
+}
+a.mf_rpm {
+    background-image: url(images/fileicons/rpm.png);
+}
+a.mf_ps {
+    background-image: url(images/fileicons/ps.png);
+}
+
+a.mf_swf {
+    background-image: url(images/fileicons/swf.png);
+}
+
+a.mf_epub {
+    background-image: url(images/fileicons/epub.png);
+}
+
+a.interwiki {
+    background: url(images/fileicons/wp.gif) no-repeat scroll 0 1px transparent;
+    padding-bottom: 1px;
+    padding-left: 18px;
+    color: #436976 !important;
+    text-decoration: none !important;
+}    
+/*
+a.interwiki {
+    background-image: url(images/fileicons/wp.gif);
+}
+*/

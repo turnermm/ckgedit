@@ -1,0 +1,55 @@
+Adding Entities to the Entities Defintions Array.
+
+You create an Entity definition file with the format illustrated below, and then run the php
+script  ents_seri.php
+
+Name your definitions file add.ent
+
+Then at the command line type:
+    php ents_seri.php
+
+Alternatively, you can give your entity definition file any name you want and feed
+the file name to the script at the command line:
+         php ents_seri.php  your_entity_file     
+
+This creates a new entities file called ent.ser, which must then be copied to
+the fckg/action subdirectory.  You would be wise to first back up the original ent.ser 
+before over-writing it.
+
+There are two definition files in the action/entities:  ents.data  and fcked-ents.data.
+These are required and must not be removed from the directory.
+
+The definition file has the following format:
+
+character
+entity numeric code
+entity character code
+
+character
+entity numeric code
+entity character code
+
+etc.
+
+There is one empty line between each definition.  Here is an actual example.
+ 
+<
+&#60;
+&lt;
+
+>
+&#62;
+&gt;
+
+¡
+&#161;
+&iexcl;
+
+¢
+&#162;
+&cent;
+
+£
+&#163;
+&pound;
+

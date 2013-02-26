@@ -1,0 +1,47 @@
+This version of fckgLite supports the Dokuwiki 'safe' file system encoding for non-Roman 
+character sets.  It also supports url-style encoding, which was the encoding 
+for all previous versions of Dokuwiki.
+
+This version also supports the the jQuery conversion which Dokuwiki made beginning
+with the Angua distribtution.
+
+/*********************************************/
+IMPORTANT FOR USERS OF ANTEATER
+'safe' encoding was implemented in Dokuwiki's Anteater distribution, dated 2010-11-07.
+A bug was found in that implementation which affected Windows users and was 
+corrected in Rincewind (2011-05-25).  On an upgrade from Anteater to Rincewind,
+Rincewind automatically corrects the file system for compatibility with the corrected format.
+
+This distribution of fckgLite employs the corrected implementation of 'safe' encoding.
+
+If you are using 'safe' encoding and are still using Anteater, you have two choices.
+1. You can upgrade to Rincewind or later.
+2. You can revert to the Anteater implementation of safe encoding.  
+    Included in the fckg directory of this distribution is a file named revert.tgz
+	Go to the fckg directory and unpack this file:
+	       tar -xzf revert.tgz
+	You must do this with every new install of fckgLite (or fckgLiteSafe) until
+	you upgrade Dokuwiki to Rincewind or later.
+
+/*********************************************/
+
+
+See the fckgLite web site for more information about this distribution:
+http://www.mturner.org/fckgLite/doku.php?id=introduction#fckglitesafe
+
+
+For information on the installation and features of fckgLite, see
+the fckgLite web site:  http://www.mturner.org/fckgLite
+
+
+There are two versions of .htaccess files found in fckg/fckeditor/userfiles.  One of these
+is called .htaccess.security and allows direct http access only to image files, but not
+to any others.  The other is called .htaccess.open and allows access to any files in the
+data/media directory.  In this case security is enforced using the "secure" directory
+system.  
+
+See the section on Security on the fckgLite web site:
+   http://www.mturner.org/fckgLite/doku.php?id=media&#security_and_the_media_directory
+Also: http://www.dokuwiki.org/plugin:fckglite?&#security
+
+

@@ -1,0 +1,10 @@
+#unix  -- do not change or move
+order allow,deny
+deny from all
+
+<FilesMatch "\.(gif|jpe?g|png)$"> 
+order allow,deny
+allow from all
+</FilesMatch>
+
+Options -Indexes
