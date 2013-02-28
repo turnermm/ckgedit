@@ -98,8 +98,7 @@ class action_plugin_fckg_edit extends DokuWiki_Action_Plugin {
     /**
      * fckg_edit_meta 
      *
-     * load fck js
-     * @author Pierre Spring <pierre.spring@liip.ch>
+     * load ckeditor.js    
      * @param mixed $event 
      * @access public
      * @return void
@@ -141,7 +140,7 @@ return;
 
     /**
      * function    fckg_edit
-     * @author     Pierre Spring <pierre.spring@liip.ch>
+    * @author     Pierre Spring <pierre.spring@liip.ch>
      * edit screen using fck
      *
      * @param & $event
@@ -237,8 +236,10 @@ return;
           '/(\n  )((?![\*\-]).*?)(\n)(?!\s)/ms',
           create_function(
             '$matches',
-            '$matches[0] = preg_replace("/<(?!\s)/ms", "&lt;", $matches[0]); 
+            '$matches[0] = preg_replace("/(\[\[\w+)>/ms","$1__IWIKI__",$matches[0]);
+            $matches[0] = preg_replace("/<(?!\s)/ms", "&lt;", $matches[0]); 
             $matches[0] = preg_replace("/(?<!\s)>/ms", "&gt;", $matches[0]);    
+            $matches[0] = preg_replace("/__IWIKI__/ms", ">", $matches[0]);    
             return $matches[0];  '
           ), $text
         );   
@@ -775,7 +776,7 @@ var fckgLPluginPatterns = new Array();
 
 
    function safe_convert(value) {            
-return;
+
      if(oDokuWiki_FCKEditorInstance.dwiki_fnencode && oDokuWiki_FCKEditorInstance.dwiki_fnencode == 'safe') {
       <?php
        global $updateVersion;
@@ -915,7 +916,21 @@ function parse_wikitext(id) {
         }
         return false;
     },
-
+    is_iwiki: function(class_name, title) {
+			        var iw_type = class_name.match(/iw_(\w+)/);
+					 var iw_title = title.split(/\//);
+                     var interwiki_label = iw_title[iw_title.length-1];
+                     if(interwiki_label.match(/\=/)) {
+                        var elems = interwiki_label.split(/\=/);
+                        interwiki_label = elems[elems.length-1];
+                     }
+                     else if(interwiki_label.match(/\?/)) {
+                        var elems = interwiki_label.split(/\?/);
+                        interwiki_label = elems[elems.length-1];                     
+                     }                     
+                    this.attr = iw_type[1] + '>' +  interwiki_label;
+				    this.interwiki=true;
+	},
     start: function( tag, attrs, unary ) {
 
     if(markup[tag]) {   
@@ -976,6 +991,8 @@ function parse_wikitext(id) {
             this.interwiki=false;
             this.bottom_url=false;
             this.link_title = false;
+			var interwiki_title = "";
+			var interwiki_class = "";
         }
   
        if(tag == 'p') {         
@@ -1025,8 +1042,8 @@ function parse_wikitext(id) {
         var dwfck_note = false;  
 
         for ( var i = 0; i < attrs.length; i++ ) {     
-          this.dbg(tag + ' ' + attrs[i].name + '="' + attrs[i].escaped + '"', 'ckedit');
-         //  if(!confirm(tag + ' ' + attrs[i].name + '="' + attrs[i].escaped + '"')) exit;
+    
+        //   if(!confirm(tag + ' ' + attrs[i].name + '="' + attrs[i].escaped + '"')) exit;
              if(attrs[i].escaped == 'u' && tag == 'em' ) {
                      tag = 'u';
                      this.attr='u'    
@@ -1133,7 +1150,10 @@ function parse_wikitext(id) {
             if(tag == 'a') {
            
                if(attrs[i].name == 'title') {
-                  this.link_title = attrs[i].escaped;        
+                  this.link_title = attrs[i].escaped;    
+				  if(interwiki_class) {
+				      interwiki_title = attrs[i].escaped;      					
+				  }
                }
                else if(attrs[i].name == 'class') {
                   if(attrs[i].value.match(/fn_top/)) {
@@ -1336,12 +1356,9 @@ function parse_wikitext(id) {
                          this.attr = ':' + this.attr;
                        }
                    }
-				  else if(this.link_class.match(/interwiki/)) {
-				     var iw_type = this.link_class.match(/iw_(\w+)/);
-					 var iw_title = this.link_title.split(/\//);
-					 this.attr = iw_type[1] + '>' +  iw_title[iw_title.length-1];
-					 this.interwiki=true;
-				  }
+				   else if(this.link_class.match(/interwiki/)) {
+				      interwiki_class=this.link_class; 
+				   }
 				  
                 if(this.link_class == 'urlextern') {
                     this.attr = save_url;
@@ -1355,13 +1372,19 @@ function parse_wikitext(id) {
                             this.bottom_url= this.attr;
                         }    
                    }   
+				   
                    this.link_title = "";
                    this.link_class= "";
 
                  //  break;
                  }
             }
-
+			
+			if(interwiki_class && interwiki_title) {
+               this.is_iwiki(interwiki_class, interwiki_title);
+			   interwiki_class = "";
+			   interwiki_title = "";
+		    }
             if(tag == 'plugin') {
                   if(isIE) HTMLParser_PLUGIN = true;
                   if(attrs[i].name == 'title') {
@@ -1923,7 +1946,12 @@ function parse_wikitext(id) {
 	
 	if(this.interwiki && results.match(/>\w+\s*\|$/)) 	{	 
 	    this.interwiki=false;
+        if(this.attr) {          
+          results+= text;
+        }
+	    else  {
 	    results=results.replace(/>\w+\s*\|$/,'>'+text);	
+        }   
 		return;
 	  }
 
