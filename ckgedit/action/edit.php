@@ -237,12 +237,14 @@ return;
           '/(\n  )((?![\*\-]).*?)(\n)(?!\s)/ms',
           create_function(
             '$matches',
-            '$matches[0] = preg_replace("/<(?!\s)/ms", "&lt;", $matches[0]); 
+            '$matches[0] = preg_replace("/(\[\[\w+)>/ms","$1__IWIKI__",$matches[0]);
+            $matches[0] = preg_replace("/<(?!\s)/ms", "&lt;", $matches[0]); 
             $matches[0] = preg_replace("/(?<!\s)>/ms", "&gt;", $matches[0]);    
+            $matches[0] = preg_replace("/__IWIKI__/ms", ">", $matches[0]);    
             return $matches[0];  '
           ), $text
         );   
-      
+		
        $pos = strpos($text, '<');
 
        if($pos !== false) {
