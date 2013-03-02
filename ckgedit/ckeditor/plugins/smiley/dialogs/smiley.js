@@ -12,14 +12,8 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 
 	// Simulate "this" of a dialog for non-dialog events.
 	// @type {CKEDITOR.dialog}
-	var dialog;
- //  alert(config.dokuSmileyImages);
-   
- //  alert(config.smiley_descriptions);
-//   alert(config.smiley_path);
-  // alert(images);
-  // alert(config.dokuSmileyPath);
-  alert( config.dokuSmileyConfImages);
+	var dialog; 
+  
 	var onClick = function( evt ,data) {
    
 			var target = evt.data.getTarget(),

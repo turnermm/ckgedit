@@ -193,7 +193,7 @@ function sack(file) {
 	this.createAJAX();
 }
      
-      var ckedit_path =  window.location.protocol +'//' + top.dokuBase + 'lib/plugins/fckg/ckeditor/';
+      var ckedit_path =  window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
       config.doku_url = window.location.protocol+ '//' + top.dokuBase;
       
     //  config.format_code = { element : 'code', attributes : { 'class' : 'dwcode' } };

@@ -2,7 +2,7 @@
     Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
-var update_fckgInternalLink, update_fckgMediaLink;
+var update_ckgeditInternalLink, update_ckgeditMediaLink;
 var fckgInternalInputId, fckgMediaInputId;
 
  window.onbeforeunload = function() { };
@@ -342,7 +342,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
            document.getElementById(fckgInternalInputId).value = text; 
         };
         
-    update_fckgInternalLink = insertInternalLinkText;
+    update_ckgeditInternalLink = insertInternalLinkText;
 
       var  insertMediaLinkText = function (text)
        {
@@ -353,7 +353,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
            document.getElementById(fckgMediaInputId).value = text; 
         };
    
-     update_fckgMediaLink  =  insertMediaLinkText;   
+     update_ckgeditMediaLink  =  insertMediaLinkText;   
      
      var fckg_display_obj = function(obj) {
 
