@@ -20,7 +20,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.internal_link_rewrite_2 = /doku.php\/(.*)/;
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
     oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
-    
+  
+    editor.config.linkShowTargetTab=false;
+	
 	// Handles the event when the "Target" selection box is changed.
 	var targetChanged = function()
 	{
@@ -55,7 +57,13 @@ CKEDITOR.dialog.add( 'link', function( editor )
  		}
 
 	};
-
+  var showAdvanced = function() {	
+	  var dialog = this.getDialog();	
+	  var msg  = dialog.getContentElement( 'advanced', 'msg' );		
+	  msg.focus();
+      dialog.showPage( 'info' );
+  };
+  
 	// Handles the event when the "Type" selection box is changed.
 	var linkTypeChanged = function()
 	{
@@ -90,8 +98,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			if ( !uploadInitiallyHidden )
 				dialog.hidePage( 'upload' );
 		}
- //  var url_input_id = dialog.getContentElement('info', 'url').getInputElement().$.id;     
- //  var text_input = document.getElementById(url_input_id).value ? document.getElementById(url_input_id).value : '';
+
    
    fckgInternalInputId = dialog.getContentElement('info', 'internal').getInputElement().$.id;
    fckgMediaInputId = dialog.getContentElement('info', 'media').getInputElement().$.id;
@@ -128,8 +135,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 	var popupFeaturesRegex = /(?:^|,)([^=]+)=(\d+|yes|no)/gi;
 
 	var parseLink = function( editor, element )
-	{
-    //alert("parseLink");
+	{  
 		var href = ( element  && ( element.data( 'cke-saved-href' ) || element.getAttribute( 'href' ) ) ) || '',
 		 	javascriptMatch,
 			emailMatch,
@@ -625,10 +631,16 @@ CKEDITOR.dialog.add( 'link', function( editor )
 							},
 							{
 								type : 'button',
-								id : 'browse',
-								hidden : 'true',
+								id : 'browse',							
 								filebrowser : 'info:url',
 								label : commonLang.browseServer
+							},
+							{
+								type : 'button',
+								id : 'getadvanced',									
+								onClick: showAdvanced,
+								label : 'Advanced Options'							
+								
 							}
 						]
 					},
@@ -1149,12 +1161,19 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			{
 				id : 'advanced',
 				label : linkLang.advanced,
-				title : linkLang.advanced,
+				title : linkLang.advanced,		
+				hidden: true,
 				elements :
 				[
+				    {  
+					    id : 'msg',
+						type: 'html',
+						html: "Advanced Options Still in Preperation"
+					},
 					{
 						type : 'vbox',
-						padding : 1,
+						padding : 1,	
+						hidden: true,
 						children :
 						[
 							{
@@ -1236,6 +1255,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					{
 						type : 'vbox',
 						padding : 1,
+						hidden: true,
 						children :
 						[
 							{
@@ -1572,7 +1592,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 			if ( !editor.config.linkShowTargetTab )
 				this.hidePage( 'target' );		//Hide Target tab.
-
+				
+             this.showPage('info');
 		},
 		// Inital focus on 'url' field if link is of type URL.
 		onFocus : function()
