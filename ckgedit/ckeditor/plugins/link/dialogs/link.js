@@ -22,7 +22,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
   
     editor.config.linkShowTargetTab=false;
-	
+	 var fckgSMBInputId;
 	// Handles the event when the "Target" selection box is changed.
 	var targetChanged = function()
 	{
@@ -63,7 +63,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 	  msg.focus();
       dialog.showPage( 'info' );
   };
-  
+  var getSMBInput = function ()   {  return fckgSMBInputId; };
 	// Handles the event when the "Type" selection box is changed.
 	var linkTypeChanged = function()
 	{
@@ -72,7 +72,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
       oDokuWiki_FCKEditorInstance.isUrlExtern = false;       
       oDokuWiki_FCKEditorInstance.isDwikiMediaFile = false;
 		var dialog = this.getDialog(),
-			partIds = [ 'urlOptions', 'anchorOptions', 'emailOptions','internalOptions','mediaOptions' ],
+			partIds = [ 'urlOptions', 'anchorOptions', 'emailOptions','internalOptions','mediaOptions','sambaOptions' ],
 			typeValue = this.getValue(),
 			uploadTab = dialog.definition.getContents( 'upload' ),
 			uploadInitiallyHidden = uploadTab && uploadTab.hidden;
@@ -102,6 +102,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
    
    fckgInternalInputId = dialog.getContentElement('info', 'internal').getInputElement().$.id;
    fckgMediaInputId = dialog.getContentElement('info', 'media').getInputElement().$.id;
+   fckgSMBInputId = dialog.getContentElement('info', 'samba').getInputElement().$.id;
+   
 		for ( var i = 0 ; i < partIds.length ; i++ )
 		{
 			var element = dialog.getContentElement( 'info', partIds[i] );          
@@ -497,11 +499,12 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						'default' : 'url',
 						items :
 						[
-							[ linkLang.toUrl, 'url' ],
-							[ linkLang.toAnchor, 'anchor' ],
-							[ linkLang.toEmail, 'email' ],
+							[ linkLang.toUrl, 'url' ],							
                             [ 'internal link', 'internal' ],
                             [ 'internal media', 'media' ],
+							[ linkLang.toEmail, 'email' ],
+							[ 'Samba share', 'samba' ]
+							//[ linkLang.toAnchor, 'anchor' ]						
 						],
 						onChange : linkTypeChanged,
 						setup : function( data )
@@ -532,14 +535,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
 										'default' : 'http://',
 										items :
 										[
-											// Force 'ltr' for protocol names in BIDI. (#5433)
-                                            [ 'internal link',":" ],
-                                            [ 'internal media',":" ],
 											[ 'http://\u200E', 'http://' ],                                            
 											[ 'https://\u200E', 'https://' ],
 											[ 'ftp://\u200E', 'ftp://' ],
-											[ 'news://\u200E', 'news://' ],
-											[ linkLang.other , '' ]
+											[ 'news://\u200E', 'news://' ]																				
 										],
 										setup : function( data )
 										{
@@ -631,7 +630,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 							},
 							{
 								type : 'button',
-								id : 'browse',							
+								id : 'browse0',							
 								filebrowser : 'info:url',
 								label : commonLang.browseServer
 							},
@@ -652,7 +651,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						[
 							{
 								type : 'button',
-								id : 'browse',
+								id : 'browse1',
 								hidden : 'true',
 								filebrowser : 'info:url',
 								label : commonLang.browseServer
@@ -682,8 +681,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						[
 							{
 								type : 'button',
-								id : 'browse',
-								hidden: true,
+								id : 'browse2',							
 								filebrowser : 'info:url',
 								label : commonLang.browseServer
 							},
@@ -700,6 +698,30 @@ CKEDITOR.dialog.add( 'link', function( editor )
                                                    var id = data.url.protocol.replace(/^\:/,"");
                                                    this.setValue(':'+ id );
                                             }
+                                           }
+                                        },       
+                            },              
+						]
+					},
+					{
+						type : 'vbox',					
+                        id : 'sambaOptions',   						
+						children :
+						[
+						    {
+										type: 'html',
+										id: 'smb_msg',
+										html: "Enter your share as: \\\\Server\\directory\\file", 
+							},
+                            {
+										type : 'text',
+										id : 'samba',
+                                        width: '50',
+										label : "Samba Share",												
+										required: true,                                       
+                                        setup : function( data )
+                                        {                                           
+                                           if(data) {                                            
                                            }
                                         },       
                             },              
@@ -1363,7 +1385,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 			this.commitContent( data );
              var other_media = false;
-			// Compose the URL.
+			 
+			// Compose the URL.			
+		 
 			switch ( data.type || 'url' )
 			{
                 case 'media':
@@ -1407,7 +1431,18 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						id = ( data.anchor && data.anchor.id );
 					attributes[ 'data-cke-saved-href' ] = '#' + ( name || id || '' );
 					break;                
-             
+                 case 'samba':
+				    data.url.url=document.getElementById(getSMBInput()).value;
+					if(!data.url.url) { 
+						  alert("Missing Samba Url");
+						  return;
+					}
+					data.url.protocol = "";
+				    var protocol = "";    // ( data.url && data.url.protocol != undefined ) ? data.url.protocol : '',
+					url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
+					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;  	
+					data.adv.advCSSClasses = "windows";
+				break;
 				case 'email':
 
 					var linkHref,
