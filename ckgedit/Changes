@@ -1,4 +1,4 @@
-rev 13-Mar_03-23_12
+rev 13-Mar_04-19_06
 
 Initial Development distribution
 
@@ -8,3 +8,7 @@ Added support for interwiki links
 3 March
 Added missing preprocessor support for interwikilinks.
 Added support for smaba shares in link.js (plugin)
+
+4 March
+Added support for Samba editor window selections (link.js)
+Rationlized some of the code in link.js

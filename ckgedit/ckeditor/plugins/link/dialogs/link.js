@@ -19,8 +19,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.internal_link = /doku.php\?id=(.*)/;
     oRegex.internal_link_rewrite_2 = /doku.php\/(.*)/;
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
-    oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
-  
+    //oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
+	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
+        
     editor.config.linkShowTargetTab=false;
 	 var fckgSMBInputId;
 	// Handles the event when the "Target" selection box is changed.
@@ -57,6 +58,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
  		}
 
 	};
+	
   var showAdvanced = function() {	
 	  var dialog = this.getDialog();	
 	  var msg  = dialog.getContentElement( 'advanced', 'msg' );		
@@ -99,11 +101,11 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				dialog.hidePage( 'upload' );
 		}
 
-   
+   /*
    fckgInternalInputId = dialog.getContentElement('info', 'internal').getInputElement().$.id;
    fckgMediaInputId = dialog.getContentElement('info', 'media').getInputElement().$.id;
    fckgSMBInputId = dialog.getContentElement('info', 'samba').getInputElement().$.id;
-   
+   */
 		for ( var i = 0 ; i < partIds.length ; i++ )
 		{
 			var element = dialog.getContentElement( 'info', partIds[i] );          
@@ -210,18 +212,36 @@ CKEDITOR.dialog.add( 'link', function( editor )
             {
                     retval.type = 'internal';
                     retval.url = {};
-				    retval.url.protocol = urlMatch[1];
-				    retval.url.url = urlMatch[2];
-                    
+					retval.url.selected =urlMatch[1];
+				    retval.url.protocol = "";
+				    retval.url.url = "";
+					alert(retval.url.selected);
+
                 }
            else if((urlMatch = href.match(oRegex.media_internal)) || (urlMatch = href.match(oRegex.media_rewrite_1)) 
               || (urlMatch = href.match(oRegex.media_rewrite_2)) ) {
                     retval.type = 'media';
                   	retval.url = {};
-				    retval.url.protocol = urlMatch[1];
-				    retval.url.url = urlMatch[2];
+				    retval.url.protocol =  "";
+					retval.url.url = "";
+					retval.url.selected =urlMatch[1];
               }
-                  
+		    else if(urlMatch = href.match(oRegex.samba)) {
+			     retval.type = 'samba';				 
+				 retval.url = {};
+				 retval.url.url = "";
+				 retval.url.protocol = '';
+				 retval.url.selected = '\\\\'+ urlMatch[1].replace(/\//g,"\\");
+
+			}
+			else if(urlMatch = href.match(oRegex.samba_unsaved)) {
+			    retval.type = 'samba';
+				retval.url = {};
+				retval.url.url = "";
+				retval.url.protocol = '';
+			    retval.url.selected = urlMatch[0];
+			}
+			
 			// urlRegex matches empty strings, so need to check for href as well.
 			else if (  href && ( urlMatch = href.match( urlRegex ) ) )
 			{ 
@@ -483,8 +503,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 	return {
 		title : linkLang.title,
-		minWidth : 350,
-		minHeight : 230,
+		minWidth :  375, //350,
+		minHeight : 250, //230,
 		contents : [
 			{
 				id : 'info',
@@ -621,6 +641,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 											this.allowOnChange = false;
 										}
 									}
+
 								],
 								setup : function( data )
 								{
@@ -642,6 +663,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 								
 							}
 						]
+
 					},
 					                    
 					{
@@ -664,9 +686,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
 										required: true,
                                         setup : function( data )
                                         {                                           
-                                           if(data) {                                            
-                                            if (data.url &&  data.url.protocol ) {
-                                                   var id = data.url.protocol.replace(/^\:/,"");
+                                           if(data) {    										   
+                                            if (data.url &&  data.url.selected ) {
+                                                   var id = data.url.selected.replace(/^\:/,"");
                                                    this.setValue(':'+ id );
                                             }
                                            }
@@ -694,8 +716,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
                                         setup : function( data )
                                         {                                           
                                            if(data) {                                            
-                                            if (data.url &&  data.url.protocol ) {
-                                                   var id = data.url.protocol.replace(/^\:/,"");
+                                            if (data.url &&  data.url.selected ) {
+                                                   var id = data.url.selected.replace(/^\:/,"");
                                                    this.setValue(':'+ id );
                                             }
                                            }
@@ -721,8 +743,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
 										required: true,                                       
                                         setup : function( data )
                                         {                                           
-                                           if(data) {                                            
-                                           }
+                                            if (data.url && data.url.selected) {                                                 
+                                                   this.setValue(data.url.selected);
+                                            }
                                         },       
                             },              
 						]
@@ -1273,6 +1296,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 								]
 							}
 						]
+				
 					},
 					{
 						type : 'vbox',
@@ -1376,7 +1400,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		onOk : function()
 		{
             var ImagesAllowed = new RegExp( oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions);
-            
+          
 			var attributes = {},
 				removeAttributes = [],
 				data = {},
@@ -1431,17 +1455,20 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						id = ( data.anchor && data.anchor.id );
 					attributes[ 'data-cke-saved-href' ] = '#' + ( name || id || '' );
 					break;                
-                 case 'samba':
-				    data.url.url=document.getElementById(getSMBInput()).value;
+                 case 'samba':				
+				   if(!data.url.url) {                                            
+				      data.url.url=document.getElementById(getSMBInput()).value;
+				   }
 					if(!data.url.url) { 
 						  alert("Missing Samba Url");
-						  return;
+						  return false;
 					}
 					data.url.protocol = "";
 				    var protocol = "";    // ( data.url && data.url.protocol != undefined ) ? data.url.protocol : '',
 					url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
 					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;  	
 					data.adv.advCSSClasses = "windows";
+					data.adv.advTitle = data.url.url;
 				break;
 				case 'email':
 
@@ -1622,14 +1649,23 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		},
 		onLoad : function()
 		{
+	
+			
+			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
+            fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
+            fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;
+			
 			if ( !editor.config.linkShowAdvancedTab )
 				this.hidePage( 'advanced' );		//Hide Advanded tab.
 
 			if ( !editor.config.linkShowTargetTab )
 				this.hidePage( 'target' );		//Hide Target tab.
 				
-             this.showPage('info');
+             this.showPage('info');						 
+ 
 		},
+	
+
 		// Inital focus on 'url' field if link is of type URL.
 		onFocus : function()
 		{
