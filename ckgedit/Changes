@@ -1,4 +1,4 @@
-rev 13-Mar_04-19_06
+rev 13-Mar_06-20_28
 
 Initial Development distribution
 
@@ -11,4 +11,9 @@ Added support for smaba shares in link.js (plugin)
 
 4 March
 Added support for Samba editor window selections (link.js)
-Rationlized some of the code in link.js
+Rationlized some of the code in link.js 
+
+6 March
+Check for files and/or directories in userfiles that have not been converted into
+links to data/media or have been converted to directories (Weatherwas). If found
+delete them so that the links can be created.
