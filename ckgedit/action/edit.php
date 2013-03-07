@@ -2299,8 +2299,7 @@ function parse_wikitext(id) {
 <?php } ?>
 
 <?php  
-  
-  $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';    
+   $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';    
   echo "var script_url = '$url';";
 //  $safe_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js';       
 ?>
@@ -2309,6 +2308,7 @@ function parse_wikitext(id) {
 try {
   if(!HTMLParserInstalled){
     LoadScript(script_url);   
+	if(_getSelection) window.getSelection =  _getSelection;
   }
 }
 catch (ex) {  

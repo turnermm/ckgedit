@@ -464,7 +464,7 @@ function CTRL_Key_Formats(parm) {
 
   }
 
- 
+   
   var DWikifnEncode = "$fnencode";
 
 /* Make sure that show buttons in top and/or bottom clear the fckl file */  
@@ -478,7 +478,8 @@ function CTRL_Key_Formats(parm) {
         }
      }
   }
- window.getSelection =  _getSelection;
+  if (_getSelection)  window.getSelection =  _getSelection;
+ 
  /* make sure the entire page has been loaded */
  setTimeout("get_showButtons()", 3000);
  //]]>

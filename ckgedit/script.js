@@ -283,33 +283,22 @@ if(document.getSelection) { // Mozilla et al.
 sel.start = textArea.selectionStart;
 sel.end = textArea.selectionEnd;
 sel.scroll = textArea.scrollTop;
-} else if(document.selection) { // MSIE
-/*
-* This huge lump of code is neccessary to work around two MSIE bugs:
-*
-* 1. Selections trim newlines at the end of the code
-* 2. Selections count newlines as two characters
-*/
-// The current selection
+} else if(document.selection) { 
 sel.rangeCopy = document.selection.createRange().duplicate();
 if (textArea.tagName === 'INPUT') {
 var before_range = textArea.createTextRange();
-before_range.expand('textedit'); // Selects all the text
+before_range.expand('textedit'); 
 } else {
 var before_range = document.body.createTextRange();
-before_range.moveToElementText(textArea); // Selects all the text
+before_range.moveToElementText(textArea); 
 }
-before_range.setEndPoint("EndToStart", sel.rangeCopy); // Moves the end where we need it
+before_range.setEndPoint("EndToStart", sel.rangeCopy); 
 var before_finished = false, selection_finished = false;
 var before_text, selection_text;
-// Load the text values we need to compare
 before_text = before_range.text;
 selection_text = sel.rangeCopy.text;
 sel.start = before_text.length;
 sel.end = sel.start + selection_text.length;
-// Check each range for trimmed newlines by shrinking the range by 1 character and seeing
-// if the text property has changed. If it has not changed then we know that IE has trimmed
-// a \r\n from the end.
 do {
 if (!before_finished) {
 if (before_range.compareEndPoints("StartToEnd", before_range) == 0) {
@@ -337,7 +326,7 @@ selection_finished = true;
 }
 }
 } while ((!before_finished || !selection_finished));
-// count number of newlines in str to work around stupid IE selection bug
+
 var countNL = function(str) {
 var m = str.split("\r\n");
 if (!m || !m.length) return 0;

@@ -1,4 +1,4 @@
-rev 13-Mar_06-20_28
+rev 13-Mar_07-13_08
 
 Initial Development distribution
 
@@ -17,3 +17,6 @@ Rationlized some of the code in link.js
 Check for files and/or directories in userfiles that have not been converted into
 links to data/media or have been converted to directories (Weatherwas). If found
 delete them so that the links can be created.
+
+7 Mar
+Re-compressed script.js to include _getSelection
