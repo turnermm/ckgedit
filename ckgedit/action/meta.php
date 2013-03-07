@@ -226,6 +226,12 @@ function check_userfiles() {
 	  if(@file_exists($userfiles)) {
 		   foreach($links as $name => $path) {		
 			  if(!is_link($path)) {		                      
+                     if(file_exists($path) && is_file($path) ){
+					       unlink($path);
+                       }					 
+                    if(file_exists($path) && is_dir($path) ){
+					       rmdir($path);
+                       }					 
 					 if(!@symlink($data_media,$path) ) {
 					     $bad_create = true;
 						  if($show_msg)  msg("unable to create $name link:  $path",-1);			  
