@@ -54,7 +54,8 @@ FCKXml.prototype.LoadUrl = function( urlToCall, asyncFunctionPointer )
 	var oXmlHttp = this.GetHttpRequest() ;
 
 	oXmlHttp.open( "GET", urlToCall, bAsync ) ;
-
+	// For IE 10
+    try { oXmlHttp.responseType = 'msxml-document'; } catch(e){}
 	if ( bAsync )
 	{
 		oXmlHttp.onreadystatechange = function()
@@ -68,7 +69,7 @@ FCKXml.prototype.LoadUrl = function( urlToCall, asyncFunctionPointer )
 					// but we've moved the responseXML assignment into the try{}
 					// so we don't even have to check the return status codes.
 					var test = oXmlHttp.responseXML.firstChild ;
-					oXml = oXmlHttp.responseXML ;
+					oXml = oXmlHttp.responseXML ;				
 				}
 				catch ( e )
 				{
@@ -98,13 +99,15 @@ FCKXml.prototype.LoadUrl = function( urlToCall, asyncFunctionPointer )
 
 	if ( ! bAsync )
 	{
-		if ( oXmlHttp.status == 200 || oXmlHttp.status == 304 )
-			this.DOMDocument = oXmlHttp.responseXML ;
+		if ( oXmlHttp.status == 200 || oXmlHttp.status == 304 ) {
+			this.DOMDocument = oXmlHttp.responseXML ;				
+			}
 		else
 		{
 			alert( 'XML request error: ' + oXmlHttp.statusText + ' (' + oXmlHttp.status + ')' ) ;
 		}
 	}
+
 }
 
 FCKXml.prototype.SelectNodes = function( xpath )

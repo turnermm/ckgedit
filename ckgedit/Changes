@@ -1,4 +1,4 @@
-rev 13-Mar_07-13_08
+rev 13-Mar_07-23_11
 
 Initial Development distribution
 
@@ -20,3 +20,5 @@ delete them so that the links can be created.
 
 7 Mar
 Re-compressed script.js to include _getSelection
+
+Fix for IE 10 XPATH/httpRequest failure in  fckxml.js
