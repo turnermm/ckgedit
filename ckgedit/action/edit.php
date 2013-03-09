@@ -777,7 +777,7 @@ var ckgeditLPluginPatterns = new Array();
 
 
    function safe_convert(value) {            
-return;
+
      if(oDokuWiki_FCKEditorInstance.dwiki_fnencode && oDokuWiki_FCKEditorInstance.dwiki_fnencode == 'safe') {
       <?php
        global $updateVersion;
@@ -1044,7 +1044,7 @@ function parse_wikitext(id) {
 
         for ( var i = 0; i < attrs.length; i++ ) {     
     
-         //  if(!confirm(tag + ' ' + attrs[i].name + '="' + attrs[i].escaped + '"')) exit;
+          // if(!confirm(tag + ' ' + attrs[i].name + '="' + attrs[i].escaped + '"')) exit;
              if(attrs[i].escaped == 'u' && tag == 'em' ) {
                      tag = 'u';
                      this.attr='u'    
@@ -1131,10 +1131,10 @@ function parse_wikitext(id) {
                                
               }
               else if(attrs[i].name == 'class') {
-                   matches = attrs[i].value.match(/\s+(\w+)align/);
+                   matches = attrs[i].value.match(/\s*(\w+)align/);
                    if(matches) {
                        this.td_align = matches[1];
-                   }
+                   }				   
               }
               else if(attrs[i].name == 'colspan') {
                   HTMLParser_COLSPAN = true;

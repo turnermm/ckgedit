@@ -1,4 +1,4 @@
-rev 13-Mar_07-23_11
+rev 13-Mar_09-17_24
 
 Initial Development distribution
 
@@ -22,3 +22,8 @@ delete them so that the links can be created.
 Re-compressed script.js to include _getSelection
 
 Fix for IE 10 XPATH/httpRequest failure in  fckxml.js
+
+9 March
+Set minimum width for tables at 50%.  
+Made default template for editor the dokuwiki css.
+Update of ckeditor's table plugin and begin update of table properties plugin.
