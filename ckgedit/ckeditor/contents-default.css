@@ -93,78 +93,65 @@ p, ul, li
 	color: #cc3300;
 }
 
-pre,
-tt,
-code,
-samp,
-kbd {
-    background-color: #eee;
-    color: #333;
-}
-/* fix if background-color hides underlining */
-em.u code {
-    text-decoration: underline;
-}
 
-/*code new tmpl  start*/
 pre {
-    border: 1px solid #ccc;
-    padding: .75em 1em;
-}
-/* for code in <file> */
-pre.file {
-}
-
-/* filenames for downloadable file and code blocks */
-dl.code,
-dl.file {	
+  margin: 0 0 1.0em 0;
+  font-size: 120%;
+  padding: 0.5em;
+  border: 1px dashed black;
+  color: black;
+  overflow: auto;
 }
 
-dl.code dt,
-dl.file dt {
-    background-color: #eee; 
-    color: inherit;
-    border: 1px solid #ccc;
-    border-bottom-color: #eee;
-    border-top-left-radius: .3em;
-    border-top-right-radius: .3em;
-    padding: .3em .6em .1em; 
-    padding-bottom: 1px;
-    margin-bottom: -1px;
-    margin-left:0px;
-    float: left;
+/* code blocks by code tag */
+pre.code {
+  background-color: #f7f9fa;
+  line-height:100%;
 }
-dl.code dt a,
-dl.file dt a {
-    background-color: transparent;
-    font-size: 0.875em;
+pre.file { 
+  background-color:  #dee7ec; 
+  line-height:100%;
+}
+
+h1,h2,h3,h4,h5 {
+    color: black;
+    background-color: inherit;
+    font-size: 100%;
     font-weight: normal;
-    display: block;
-    /*min-height: 16px;*/
-	color: #51A5D6 !important;
-}
-dl.code dd,
-dl.file dd {
-    margin: 0;
+    margin: 0 0 1em 0;
+    padding: 0.5em 0 0 0;
+    border-bottom: 1px solid #8cacbb;
     clear: left;
 }
-/* Code new tmpl ends */
 
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-caption,
-legend {
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    background-color: inherit;
-    padding: 0;
-    line-height: 1.2;
-    clear: left; /* ideally 'both', but problems with toc */
+h1,h2,h3,h4,h5
+ {
+  color: black !important;
+  text-decoration: none !important;
+}
+
+h1 {font-size: 160%; margin-left: 0px; font-weight: bold;}
+h2 {font-size: 150%; margin-left: 20px;}
+h3 {font-size: 140%; margin-left: 40px; border-bottom: none; font-weight: bold;}
+h4 {font-size: 120%; margin-left: 60px; border-bottom: none; font-weight: bold; }
+h5 {font-size: 100%;  margin-left: 80px; border-bottom: none; font-weight: bold;}
+
+div.level1 {margin-left: 3px;}
+div.level2 {margin-left: 23px;}
+div.level3 {margin-left: 43px;}
+div.level4 {margin-left: 63px;}
+div.dokuwiki div.level5 {margin-left: 83px;}
+
+img.media {
+  border: 0;
+  margin: 3px;
+}
+
+img.medialeft {
+  border: 0;
+  margin: 0 1.5em 0 0;
+  float: left;
 }
 
 img.baseline {
@@ -175,29 +162,18 @@ img.baseline {
   margin: 3px;
 }
 
-/* image alignment */
-.medialeft {
-    float: left;
-}
-.mediaright {
-    float: right;
-}
-.mediacenter {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-img.media {
-    margin: .2em 0;
-}
-img.medialeft {
-    margin: .2em 1em .2em 0;
-}
 img.mediaright {
-    margin: .2em 0 .2em 1em;
+  border: 0;
+  float: right;
+  margin: 0 0 0 1.5em;
 }
-img.mediacenter {
-    margin: .2em auto;
+
+img.mediacenter, .mediacenter {
+  text-align:center;
+  display:block;
+  border: 0 ;
+  border-top: 3px solid none;
+  margin: 0 auto;
 }
 
 
@@ -220,54 +196,42 @@ div.fn {
 a.fn_bot {
  font-weight: bold;
 }
+.dwcode {
+    font-family: sans-serif;
+ }
+/* unordered lists */
+ul {
+  line-height: 1.5em;
+  list-style-type: square;
+  list-style-image: none;
+  margin: 0 0 1em 3.5em;
+  color: black;
+}
 
-/*____________ lists ____________*/
-
-ul,
+/* ordered lists */
 ol {
-    padding: 0 0 0 1.5em;
-}
-li,
-dd {
-    padding: 0;
-    margin: 0 0 0 1.5em;
-}
-dt {
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
+  line-height: 1.5em;
+  list-style-image: none;
+  margin: 0 0 1em 3.5em;
+  color: black;
+ 
 }
 
-li ul,
-li ol,
-li dl,
-dl ul,
-dl ol,
-dl dl {
-    margin-bottom: 0;
-    padding: 0;
+/* no gap in between nested lists */
+li ul {
+  margin-bottom: 0;
 }
-li li {
-    font-size: 100%;
+li ol {
+  margin-bottom: 0;
 }
 
-ul             { list-style: square outside; }
-ol             { list-style: decimal outside; }
-ol ol          { list-style-type: lower-alpha; }
-ol ol ol       { list-style-type: upper-roman; }
-ol ol ol ol    { list-style-type: upper-alpha; }
-ol ol ol ol ol { list-style-type: lower-roman; }
 
+ol {list-style-type: decimal}
+ol ol {list-style-type: upper-roman}
+ol ol ol {list-style-type: lower-alpha}
+ol ol ol ol {list-style-type: lower-greek}
 
-a.urlextern,
-a.windows,
-a.mail,
-a.mediafile,
-a.interwiki {
-    background-repeat: no-repeat;
-    background-position: 0 center;
-    padding: 0 0 0 20px;
-}
+li { font-weight: normal; }
 
 a.windows {
   background: transparent url(images/windows.gif) 0px 1px no-repeat;
@@ -282,19 +246,6 @@ a.urlextern {
  color: #436976 !important;
  text-decoration: none !important;
 }
-
-
-a.wikilink2:link,
-a.wikilink2:visited {
-    border-bottom: 1px dashed;
-}
-a.wikilink2:hover,
-a.wikilink2:active,
-a.wikilink2:focus {
-    border-bottom-width: 0;
-}
-
-
 
 a.wikilink2 {
   color: red !important;
@@ -314,7 +265,39 @@ span.np_break {
   margin:0px;
 }
 
+/* filenames for file and code blocks */
+ dl.file,
+ dl.code {
+    margin-top: 2em;
+    margin-bottom: 2.5em;
+}
 
+ dl.file dt,
+ dl.code dt {
+    border: 1px dashed #8cacbb;
+    display: inline;
+    padding: 0.1em 1em;
+    margin-left: 5em;
+}
+
+ dl.code dt a,
+ dl.file dt a {
+    color:#000;
+}
+
+ dl.code dt {
+    background-color: __background_other__;
+    border-bottom: 1px solid __background_other__;
+}
+
+ dl.file dt {
+    background-color: #dee7ec;
+    border-bottom: 1px solid #dee7ec;
+}
+
+dd pre.file {
+    line-height: 125%;
+}
 /* syntax highlighting code */
 .code .br0  { color: #66cc66; }
 .code .co0  { color: #808080; font-style: italic; }
@@ -506,5 +489,8 @@ a.interwiki {
     color: #436976 !important;
     text-decoration: none !important;
 }    
-
-    
+/*
+a.interwiki {
+    background-image: url(images/fileicons/wp.gif);
+}
+*/
