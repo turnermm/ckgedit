@@ -1,4 +1,4 @@
-rev 13-Mar_09-23_15
+rev 13-Mar_10-10_53
 
 Initial Development distribution
 
@@ -28,3 +28,7 @@ Set minimum width for tables at 50%.
 Made default template for editor the dokuwiki css.
 Update of ckeditor's table plugin and begin update of table properties plugin.
 Finished updating cell properties dialog.
+
+10 March
+Compressed smileys dialog
+Added ckgeditor version to CKEditor's about app

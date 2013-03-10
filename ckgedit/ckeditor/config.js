@@ -287,8 +287,23 @@ var ajax = new sack();
 }catch(ex){
 
 }
-	// The toolbar groups arrangement, optimized for two toolbar rows.
+config.sack =sack;
+config.ckgEditorVer;
+var get_ckgeditor_version = function() {
+    var ajax = new sack();  
+	ajax.requestFile =  ckedit_path + "get_version.php";
+	ajax.method = 'POST';
+	ajax.onCompletion = function() {
+	    if(ajax.responseStatus && ajax.responseStatus[0] == 200) {
+		   config.ckgEditorVer=ajax.response;		   
+        }
+	};
+	ajax.runAJAX();
+
+}
     
+get_ckgeditor_version();   
+	// The toolbar groups arrangement, optimized for two toolbar rows.    
 	config.toolbarGroups = [
     	{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
