@@ -1,4 +1,4 @@
-rev 13-Mar_09-17_24
+rev 13-Mar_09-23_15
 
 Initial Development distribution
 
@@ -27,3 +27,4 @@ Fix for IE 10 XPATH/httpRequest failure in  fckxml.js
 Set minimum width for tables at 50%.  
 Made default template for editor the dokuwiki css.
 Update of ckeditor's table plugin and begin update of table properties plugin.
+Finished updating cell properties dialog.

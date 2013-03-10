@@ -2524,7 +2524,7 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
         $xhtml = preg_replace('/^<pre/',"<p>&nbsp;</p><pre",$xhtml);  
         //remove empty markup remaining after removing marked-up acronyms in lists
         $xhtml = preg_replace('/<(em|b|u|i)>\s+<\/(em|b|u|i)>/ms',"",$xhtml);
-
+        $xhtml = preg_replace("/col\d+\s+(\w+align)/ms", "$1",$xhtml);  //remove col number for cell prpoerties dialog
 
        if($smiley_as_text) {
            if($haveDokuSmilies) {
