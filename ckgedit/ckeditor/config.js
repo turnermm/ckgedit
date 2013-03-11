@@ -202,7 +202,7 @@ function sack(file) {
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
       config.scayt_autoStartup = true; 
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
-     
+     config.extraSpecialChars  = ['↔'];
     config.toolbar_Dokuwiki =
 	[
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
@@ -301,7 +301,7 @@ var get_ckgeditor_version = function() {
 	ajax.runAJAX();
 
 }
-    
+
 get_ckgeditor_version();   
 	// The toolbar groups arrangement, optimized for two toolbar rows.    
 	config.toolbarGroups = [

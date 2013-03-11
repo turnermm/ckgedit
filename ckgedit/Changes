@@ -1,4 +1,4 @@
-rev 13-Mar_10-10_53
+rev 13-Mar_11-10_25
 
 Initial Development distribution
 
@@ -32,3 +32,7 @@ Finished updating cell properties dialog.
 10 March
 Compressed smileys dialog
 Added ckgeditor version to CKEditor's about app
+
+11 March
+Fixed CKEditor bug in special characters plugin which failed to load in the extraSpecialChars
+from config.js.
