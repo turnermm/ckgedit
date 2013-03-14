@@ -34,7 +34,7 @@ global $sep;
 global $useNixStyle;
 global $Dwfck_conf_values;
 $Dwfck_conf_values = doku_config_values();
-//file_put_contents('confvalues.txt', print_r($Dwfck_conf_values,true));
+
 $DWFCK_con_dbg = false;  
 // SECURITY: You must explicitly enable this "connector". (Set it to "true").
 // WARNING: don't just set "$Config['Enabled'] = true ;", you must be sure that only
@@ -123,8 +123,8 @@ $useNixStyle = false;
 $sep = $isWindows ? '\\' : '/';
 $dwfck_local = false;
 $useNixStyle=false;
-if(isset($Dwfck_conf_values['plugin']['ckgedit']['nix_style'])) {
-   $useNixStyle = $Dwfck_conf_values['plugin']['ckgedit']['nix_style']; 
+if(isset($Dwfck_conf_values['plugin']['fckg']['nix_style'])) {
+   $useNixStyle = $Dwfck_conf_values['plugin']['fckg']['nix_style']; 
 }
 if(isset($_REQUEST['DWFCK_Browser']) && $_REQUEST['DWFCK_Browser'] == 'local') {
      $useWinStyle = true;
@@ -147,7 +147,10 @@ if(!isset($Config['UserFilesAbsolutePath']) || !isset($Config['UserFilesPath']))
          $Config['UserFilesAbsolutePath'] = str_replace('\\media', '\\pages', $Config['UserFilesAbsolutePath']);
      }
      else {
-        $Config['UserFilesAbsolutePath'] = str_replace('/media', '/pages', $Config['UserFilesAbsolutePath']);
+         if($Dwfck_conf_values['ckg_savedir']) {     
+             $Config['UserFilesAbsolutePath'] = $Dwfck_conf_values['ckg_savedir'] . '/pages';
+         }     
+         else $Config['UserFilesAbsolutePath'] = str_replace('/media', '/pages', $Config['UserFilesAbsolutePath']);
      }
     }
     if($DWFCK_con_dbg) DWFCK_cfg_dbg('win_paths.txt');
@@ -217,11 +220,11 @@ function setupBasePathsWin() {
  
     $data_media = $isWindows ? 'data\\media\\' : 'data/media/';
     if($useNixStyle) {
-    $regex = $isWindows ? '\editor\filemanager\connectors' : 'lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors'; 
+    $regex = $isWindows ? '\editor\filemanager\connectors' : 'lib/plugins/fckg/fckeditor/editor/filemanager/connectors'; 
 	$data_media = '\\userfiles\\';
     }  
     else {
-       $regex = $isWindows ? 'lib\plugins\ckgedit\fckeditor\editor\filemanager\connectors' : 'lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors'; 
+       $regex = $isWindows ? 'lib\plugins\fckg\fckeditor\editor\filemanager\connectors' : 'lib/plugins/fckg/fckeditor/editor/filemanager/connectors'; 
      }
     $dir = dirname(__FILE__) ;   
        
@@ -233,7 +236,7 @@ function setupBasePathsWin() {
      
     $base_url = getBaseURL_fck();
     if($useNixStyle) {
-       $Config['UserFilesPath'] =  $base_url . 'lib/plugins/ckgedit/fckeditor/userfiles/';
+       $Config['UserFilesPath'] =  $base_url . 'lib/plugins/fckg/fckeditor/userfiles/';
      }  
     else $Config['UserFilesPath'] =  $base_url . 'data/media/';
 
@@ -306,7 +309,10 @@ function setUpMediaPaths() {
 	$isWindows = false;
   }
   $ALLOWED_MIMES = DOKU_INC . 'conf/mime.conf';
-  
+  if(!file_exists($ALLOWED_MIMES)) {
+      $ALLOWED_MIMES = DOKU_CONF . '/mime.conf';
+      $MIMES_LOCAL = DOKU_CONF . '/mime.local.conf';
+  }
   $out=@file($ALLOWED_MIMES,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
   
   if(file_exists(DOKU_INC . 'conf/mime.local.conf'))
@@ -314,7 +320,10 @@ function setUpMediaPaths() {
   	$out_local = @file(DOKU_INC . 'conf/mime.local.conf',FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);  	
   	$out = array_merge($out,$out_local);
   }
-  
+  elseif(isset($MIMES_LOCAL) && file_exists($MIMES_LOCAL)) {
+   	$out_local = @file($MIMES_LOCAL,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);  	   
+  	$out = array_merge($out,$out_local);
+  }
   $extensions = array();
   $image_extensions = array();
   foreach($out as $line) {
@@ -350,7 +359,7 @@ function setUpMediaPaths() {
     
     if(count($extensions) ) {
        $Config['AllowedExtensions']['File']	 = array_merge($Config['AllowedExtensions']['File'],$extensions);	
-    }
+}
     $Config['DeniedExtensions']['File']		= array() ;
     $Config['AllowedExtensions']['Image']	= array_merge(array('bmp','gif','jpeg','jpg','png'),$image_extensions) ;
     $Config['DeniedExtensions']['Image']	= array() ;
@@ -369,11 +378,11 @@ function setUpMediaPaths() {
           $current__Folder=get_start_dir();           
         }
    } 
-       
+    
     $sess_id = session_id();
     if(!isset($sess_id) || $sess_id != $_COOKIE['FCK_NmSp_acl']) {
-         session_id($_COOKIE['FCK_NmSp_acl']);
-         session_start();
+        session_id($_COOKIE['FCK_NmSp_acl']);
+        session_start();      
     }
    //file_put_contents('session.txt',print_r($_SESSION,true));
    if($_SESSION['dwfck_openfb'] == 'y') {
@@ -456,15 +465,14 @@ function DWFCK_is_OS($os) {
   return false;
 }
 
-function DWFCK_cfg_dbg($fname) {
-   global $Config;
-   $request = print_r($_REQUEST,true);
-   file_put_contents($fname, $Config['UserFilesAbsolutePath'] . "\r\n" . $Config['UserFilesPath'] . "\r\n" .$request ."\r\n");
-}
-
-function doku_config_values() {
+function doku_config_values() {  
   $dwphp = DOKU_INC . 'conf/dokuwiki.php';
-  $localphp = DOKU_INC . 'conf/local.php';
+  if(!file_exists($dwphp)) {
+     $dwphp = DOKU_CONF . 'dokuwiki.php';
+     $localphp = DOKU_CONF . 'local.php';
+  }
+  else $localphp = DOKU_INC . 'conf/local.php';
+  
   if(file_exists($dwphp))
   {
   	include($dwphp);
@@ -472,10 +480,23 @@ function doku_config_values() {
     {
       include($localphp);
     }
+   if(trim($conf['savedir'],'/.\/') != 'data') {
+     $conf['ckg_savedir']= $conf['savedir'];
+   }
+   else $conf['ckg_savedir'] = "";
     return $conf;
   }
 
   return false;
 }
 
+function config_write_debug($what) {
+return;
+if(is_array($what)) {
+   $what = print_r($what,true);
+}
+$dwfckFHandle = fopen("fbrowser_dbg.txt", "a");
+fwrite($dwfckFHandle, "$what\n");
+fclose($dwfckFHandle);
+}
 ?>

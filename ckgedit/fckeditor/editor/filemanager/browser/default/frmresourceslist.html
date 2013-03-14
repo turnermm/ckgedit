@@ -38,6 +38,23 @@ var isInternalLink = parent.isLocalDwikiBrowser;
 var ImagesAllowed = new RegExp(parent.DwikiImageUploadAllowedExtensions);
 var isDwikiUrlExtern = parent.isDwikiUrlExtern;
 var isDwikiMediaFile = parent.isDwikiMediaFile;
+var FCKImageSaveDir = false;
+
+function getFCKSaveDir() {
+   //alert(dwikiUTF8_decodeFN(document.cookie,DwikiFNencode)); 
+   var allcookies = document.cookie;
+   var pos = allcookies.indexOf("FCK_media=");
+   if(pos != -1) {
+       var start = pos+10;
+       var end = allcookies.indexOf(";",start);
+       if(end == -1) end = allcookies.length;
+       var value = allcookies.substring(start,end);
+       value = decodeURIComponent(value);
+       return dwikiUTF8_decodeFN(value,DwikiFNencode); 
+   }
+    return false;
+} 
+
 window.onbeforeunload = function() { };
  
 oListManager.Clear = function()
@@ -391,6 +408,12 @@ function GetFoldersAndFilesCallBack( fckXml )
 		var oFileUrlAtt = oNodes[j].attributes.getNamedItem('url') ;
 		var sFileUrl = oFileUrlAtt != null ? oFileUrlAtt.value : sCurrentFolderUrl + sFileName ;
 
+         if(isImage && FCKImageSaveDir) {
+           sFileUrl=sFileUrl.replace(/^.*?\/image\//,"");
+           sFileUrl = FCKImageSaveDir + sFileUrl;
+        }
+
+
         sFileUrl = dwikiUTF8_decodeFN(sFileUrl,DwikiFNencode);
         sFileUrl = decodeURI(sFileUrl);
         sFileUrl = decodeURI(sFileUrl);         
@@ -431,6 +454,8 @@ window.onload = function()
 {
 	window.top.IsLoadedResourcesList = true ;
         setupLanguage();
+       FCKImageSaveDir=getFCKSaveDir() ;       
+     //  alert(FCKImageSaveDir);     
   
 }
 	</script>

@@ -60,7 +60,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
 
   // restore preview button if standard DW editor is in place
   // $FCKG_show_preview is set in edit.php in the register() function
- if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE'])) {    
+if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$FCKG_show_preview) {    
      echo '<style type="text/css">#edbtn__preview { display:none; }</style>';
  }
  elseif($FCKG_show_preview) {
@@ -169,9 +169,26 @@ function check_userfiles() {
 	}
 	
     global $INFO;
+    global $conf;
 	$userfiles = DOKU_PLUGIN . 'ckgedit/fckeditor/userfiles/';
-    $data_media = DOKU_INC.'data/media/';
-	
+    
+    $save_dir = trim($conf['savedir']);  
+// msg('BASE='. DOKU_BASE);
+// msg(DOKU_URL);
+// msg('REL='. DOKU_REL);
+    if(!preg_match('#^\.\/data$#',$save_dir)) {
+        $data_media = $conf['savedir']  . '/media/';
+        
+        $expire = null;        
+        list($prefix,$mdir) = explode(trim(DOKU_BASE, '/'),$userfiles);
+        $media_dir = DOKU_BASE . $mdir . 'image/';
+        setcookie('FCK_media',$media_dir, $expire, '/');           
+
+     }
+     else {
+         $data_media = DOKU_INC.'data/media/';
+     }
+     
      if(!is_writable($userfiles)){
 		      return;
      }		   
