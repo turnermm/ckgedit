@@ -147,6 +147,7 @@ function DetectHtml( $filePath )
 	{
 		if( false !== strpos( $chunk, $tag ) )
 		{
+            if($tag == '<title' && preg_match("/svg-edit/",$chunk)) continue;
 			return true ;
 		}
 	}
