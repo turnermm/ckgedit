@@ -499,4 +499,13 @@ $dwfckFHandle = fopen("fbrowser_dbg.txt", "a");
 fwrite($dwfckFHandle, "$what\n");
 fclose($dwfckFHandle);
 }
+
+
+function DWFCK_cfg_dbg($fname) {
+   global $Config;
+   global $Dwfck_conf_values;
+   $request = print_r($_REQUEST,true);
+   $request .= "\n" .  print_r($Dwfck_conf_values,true);
+   file_put_contents($fname, $Config['UserFilesAbsolutePath'] . "\r\n" . $Config['UserFilesPath'] . "\r\n" .$request ."\r\n");
+}
 ?>
