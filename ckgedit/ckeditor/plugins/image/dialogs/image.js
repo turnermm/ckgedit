@@ -138,7 +138,7 @@ window.onbeforeunload = function() { };
                      ckgeditImageReselectObj['link'] = "";
                  }
                  oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser=false;
-                 oDokuWiki_FCKEditorInstance.isDwikiMediaFile = false;
+               //  oDokuWiki_FCKEditorInstance.isDwikiMediaFile = false;
                  ckgeditImageReselectObj = { 'align': "", 'link':""};
 				if ( element ) {
 					// Commit this field and broadcast to target fields.
@@ -502,7 +502,8 @@ window.onbeforeunload = function() { };
 						this.addFocusable( doc.getById( btnResetSizeId ), 5 );
 						this.addFocusable( doc.getById( btnLockSizesId ), 5 );
 					}
-
+                    oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser=false;
+                    oDokuWiki_FCKEditorInstance.isDwikiMediaFile = true;
 					this.commitContent = commitContent;
 				},
 				onHide: function() {
