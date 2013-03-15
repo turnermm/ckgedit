@@ -23,7 +23,11 @@
  */
 
 ob_start() ;
+function getAccessNum () { 
+  usleep(300);
+  return microtime(true);
 
+}
 require('./config.php') ;
 require('./util.php') ;
 require('./io.php') ;

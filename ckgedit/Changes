@@ -1,4 +1,6 @@
-rev 13-Mar_11-10_25
+rev 13-Mar_15-08_31
+
+rev 13-Mar_15-07_55
 
 Initial Development distribution
 
@@ -36,3 +38,8 @@ Added ckgeditor version to CKEditor's about app
 11 March
 Fixed CKEditor bug in special characters plugin which failed to load in the extraSpecialChars
 from config.js.
+
+
+15 March
+Fixed filebrowser so that it now works properly in both Debian/Ubuntu and other
+linux distributions.

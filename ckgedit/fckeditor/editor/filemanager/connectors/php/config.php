@@ -129,7 +129,7 @@ if(isset($Dwfck_conf_values['plugin']['fckg']['nix_style'])) {
 if(isset($_REQUEST['DWFCK_Browser']) && $_REQUEST['DWFCK_Browser'] == 'local') {
      $useWinStyle = true;
      $dwfck_local = true;
-	 $useNixStyle = false;
+	 $useNixStyle = false;    
 }
 
 $Config['isWinStyle'] = $useWinStyle;
@@ -138,7 +138,7 @@ if(!isset($Config['UserFilesAbsolutePath']) || !isset($Config['UserFilesPath']))
    if(isset($_COOKIE['FCKConnector']) && $_COOKIE['FCKConnector'] == 'WIN') {
       $useWinStyle = true;  
    }
-
+   
    if($isWindows || $useWinStyle) {
     setupBasePathsWin();
     if($dwfck_local) {
@@ -148,16 +148,21 @@ if(!isset($Config['UserFilesAbsolutePath']) || !isset($Config['UserFilesPath']))
      }
      else {
          if($Dwfck_conf_values['ckg_savedir']) {     
-             $Config['UserFilesAbsolutePath'] = $Dwfck_conf_values['ckg_savedir'] . '/pages';
+             $Config['UserFilesAbsolutePath'] = $Dwfck_conf_values['ckg_savedir'] . '/pages/';
          }     
-         else $Config['UserFilesAbsolutePath'] = str_replace('/media', '/pages', $Config['UserFilesAbsolutePath']);
+         else $Config['UserFilesAbsolutePath'] = str_replace('/media', '/pages/', $Config['UserFilesAbsolutePath']);
      }
     }
-    if($DWFCK_con_dbg) DWFCK_cfg_dbg('win_paths.txt');
+    if($DWFCK_con_dbg && $isWindows) {
+          DWFCK_cfg_dbg('win_paths.txt');
+       }
+       else {
+          if($DWFCK_con_dbg) DWFCK_cfg_dbg('nix_local_paths-' . getAccessNum () .  '.txt');   
+       }
    }
    else {
      setupBasePathsNix();
-     if($DWFCK_con_dbg) DWFCK_cfg_dbg('nix_paths.txt');   
+     if($DWFCK_con_dbg) DWFCK_cfg_dbg('nix_paths-' . getAccessNum () .  '.txt');   
    }
 
   
@@ -483,11 +488,19 @@ function doku_config_values() {
    if(trim($conf['savedir'],'/.\/') != 'data') {
      $conf['ckg_savedir']= $conf['savedir'];
    }
-   else $conf['ckg_savedir'] = "";
+   else $conf['ckg_savedir'] =DOKU_INC . 'data';
     return $conf;
   }
 
   return false;
+}
+
+function DWFCK_cfg_dbg($fname) {
+   global $Config;
+   global $Dwfck_conf_values;
+   $request = print_r($_REQUEST,true);
+   $request .= "\n" .  print_r($Dwfck_conf_values,true);
+   file_put_contents($fname, $Config['UserFilesAbsolutePath'] . "\r\n" . $Config['UserFilesPath'] . "\r\n" .$request ."\r\n");
 }
 
 function config_write_debug($what) {
@@ -498,14 +511,5 @@ if(is_array($what)) {
 $dwfckFHandle = fopen("fbrowser_dbg.txt", "a");
 fwrite($dwfckFHandle, "$what\n");
 fclose($dwfckFHandle);
-}
-
-
-function DWFCK_cfg_dbg($fname) {
-   global $Config;
-   global $Dwfck_conf_values;
-   $request = print_r($_REQUEST,true);
-   $request .= "\n" .  print_r($Dwfck_conf_values,true);
-   file_put_contents($fname, $Config['UserFilesAbsolutePath'] . "\r\n" . $Config['UserFilesPath'] . "\r\n" .$request ."\r\n");
 }
 ?>
