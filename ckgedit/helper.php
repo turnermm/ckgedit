@@ -478,8 +478,7 @@ function CTRL_Key_Formats(parm) {
         }
      }
   }
-  if (_getSelection)  window.getSelection =  _getSelection;
- 
+
  /* make sure the entire page has been loaded */
  setTimeout("get_showButtons()", 3000);
  //]]>

@@ -272,67 +272,11 @@ function dwedit_draft_delete(cname) {
   }
 var dokuBase = location.host + DOKU_BASE;
 
-function _getSelection(textArea) {
-if(!textArea) return;
-var sel = new selection_class();
-sel.obj = textArea;
-sel.start = textArea.value.length;
-sel.end = textArea.value.length;
-textArea.focus();
-if(document.getSelection) { // Mozilla et al.
-sel.start = textArea.selectionStart;
-sel.end = textArea.selectionEnd;
-sel.scroll = textArea.scrollTop;
-} else if(document.selection) { 
-sel.rangeCopy = document.selection.createRange().duplicate();
-if (textArea.tagName === 'INPUT') {
-var before_range = textArea.createTextRange();
-before_range.expand('textedit'); 
-} else {
-var before_range = document.body.createTextRange();
-before_range.moveToElementText(textArea); 
-}
-before_range.setEndPoint("EndToStart", sel.rangeCopy); 
-var before_finished = false, selection_finished = false;
-var before_text, selection_text;
-before_text = before_range.text;
-selection_text = sel.rangeCopy.text;
-sel.start = before_text.length;
-sel.end = sel.start + selection_text.length;
-do {
-if (!before_finished) {
-if (before_range.compareEndPoints("StartToEnd", before_range) == 0) {
-before_finished = true;
-} else {
-before_range.moveEnd("character", -1);
-if (before_range.text == before_text) {
-sel.start += 2;
-sel.end += 2;
-} else {
-before_finished = true;
-}
-}
-}
-if (!selection_finished) {
-if (sel.rangeCopy.compareEndPoints("StartToEnd", sel.rangeCopy) == 0) {
-selection_finished = true;
-} else {
-sel.rangeCopy.moveEnd("character", -1);
-if (sel.rangeCopy.text == selection_text) {
-sel.end += 2;
-} else {
-selection_finished = true;
-}
-}
-}
-} while ((!before_finished || !selection_finished));
-
-var countNL = function(str) {
-var m = str.split("\r\n");
-if (!m || !m.length) return 0;
-return m.length-1;
-};
-sel.fix = countNL(sel.obj.value.substring(0,sel.start));
-}
-return sel;
-}
+ if(window.getSelection != undefined) {   
+    var doku_ckg_getSelection = window.getSelection;
+    window.getSelection = function(ta) {
+        if(!ta) return;
+        return doku_ckg_getSelection(ta);
+    };
+ }
+ 

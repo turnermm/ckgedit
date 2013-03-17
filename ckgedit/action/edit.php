@@ -2306,9 +2306,8 @@ function parse_wikitext(id) {
 
 
 try {
-  if(!HTMLParserInstalled){
+  if(!window.HTMLParserInstalled){
     LoadScript(script_url);   
-	if(_getSelection) window.getSelection =  _getSelection;
   }
 }
 catch (ex) {  
@@ -2510,7 +2509,7 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
            
            $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_OPEN~\s*~/', "~ ~ MULTI_PLUGIN_OPEN~ ~\n\n<span class='multi_p_open'>\n\n</span>", $xhtml);
            $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_CLOSE~\s*~/', "<span class='multi_p_close'>\n\n</span>\n\n~ ~ MULTI_PLUGIN_CLOSE~ ~\n", $xhtml);
-
+           
 
         }  
 
