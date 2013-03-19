@@ -1,4 +1,4 @@
-rev 13-Mar_15-08_31
+rev 13-Mar_19-09_13
 
 rev 13-Mar_15-07_55
 
@@ -41,5 +41,8 @@ from config.js.
 
 
 15 March
-Fixed filebrowser so that it now works properly in both Debian/Ubuntu and other
+Fixed filebrowser so that it now works properly in both Debain/Ubuntu and other
 linux distributions.
+
+19 March 
+Removed file size from link titles, which in fckgLite corrputed internal media links.

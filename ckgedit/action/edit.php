@@ -1155,6 +1155,7 @@ function parse_wikitext(id) {
 				  if(interwiki_class) {
 				      interwiki_title = attrs[i].escaped;      					
 				  }
+                  else this.link_title =  this.link_title.replace(/\s+.*$/,"") ;                                 
                }
                else if(attrs[i].name == 'class') {
                   if(attrs[i].value.match(/fn_top/)) {
