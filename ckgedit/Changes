@@ -1,4 +1,4 @@
-rev 13-Mar_17-09_55
+rev 13-Mar_19-08_22
 
 Initial Development distribution
 
@@ -44,3 +44,6 @@ link onLoad.
 17 March
 Removed _getSelection from script.js, using Dokuwiki's getSelection when textArea is not null.
 Synced some compressed plugins with gitHub.
+
+19 March
+Removed file size from title which, in fckgLite, corrupted links.
