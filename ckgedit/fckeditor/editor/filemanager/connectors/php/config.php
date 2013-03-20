@@ -123,8 +123,8 @@ $useNixStyle = false;
 $sep = $isWindows ? '\\' : '/';
 $dwfck_local = false;
 $useNixStyle=false;
-if(isset($Dwfck_conf_values['plugin']['fckg']['nix_style'])) {
-   $useNixStyle = $Dwfck_conf_values['plugin']['fckg']['nix_style']; 
+if(isset($Dwfck_conf_values['plugin']['ckgedit']['nix_style'])) {
+   $useNixStyle = $Dwfck_conf_values['plugin']['ckgedit']['nix_style']; 
 }
 if(isset($_REQUEST['DWFCK_Browser']) && $_REQUEST['DWFCK_Browser'] == 'local') {
      $useWinStyle = true;
@@ -225,11 +225,11 @@ function setupBasePathsWin() {
  
     $data_media = $isWindows ? 'data\\media\\' : 'data/media/';
     if($useNixStyle) {
-    $regex = $isWindows ? '\editor\filemanager\connectors' : 'lib/plugins/fckg/fckeditor/editor/filemanager/connectors'; 
+    $regex = $isWindows ? '\editor\filemanager\connectors' : 'lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors'; 
 	$data_media = '\\userfiles\\';
     }  
     else {
-       $regex = $isWindows ? 'lib\plugins\fckg\fckeditor\editor\filemanager\connectors' : 'lib/plugins/fckg/fckeditor/editor/filemanager/connectors'; 
+       $regex = $isWindows ? 'lib\plugins\ckgedit\fckeditor\editor\filemanager\connectors' : 'lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors'; 
      }
     $dir = dirname(__FILE__) ;   
        
@@ -241,7 +241,7 @@ function setupBasePathsWin() {
      
     $base_url = getBaseURL_fck();
     if($useNixStyle) {
-       $Config['UserFilesPath'] =  $base_url . 'lib/plugins/fckg/fckeditor/userfiles/';
+       $Config['UserFilesPath'] =  $base_url . 'lib/plugins/ckgedit/fckeditor/userfiles/';
      }  
     else $Config['UserFilesPath'] =  $base_url . 'data/media/';
 
