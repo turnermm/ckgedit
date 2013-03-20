@@ -6,6 +6,9 @@ in development for 4 years. While ckgedit takes great advantage of this developm
 it is missing a few of features which are available in fckgLite and will be added in 
 due course.  For details on these, see the fckgLite web site dalies page.
 
-This version is for use with versions  of Dokuwiki installed with the  Debian/Ubuntu package manager.
+This version of ckgeditor should work with Linux, Windows, and versions of Dokuwiki installed with the 
+Ubuntu/Debian package manager.
+
+
 
 
