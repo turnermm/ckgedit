@@ -1,4 +1,4 @@
-rev 13-Mar_19-08_22
+rev 13-Mar_20-11_11
 
 Initial Development distribution
 
@@ -47,3 +47,6 @@ Synced some compressed plugins with gitHub.
 
 19 March
 Removed file size from title which, in fckgLite, corrupted links.
+
+20 March
+Updated entities database.
