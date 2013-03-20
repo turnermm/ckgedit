@@ -1,4 +1,4 @@
-rev 13-Mar_20-11_11
+rev 13-Mar_20-14_15
 
 Initial Development distribution
 
@@ -37,9 +37,13 @@ Added ckgeditor version to CKEditor's about app
 Fixed CKEditor bug in special characters plugin which failed to load in the extraSpecialChars
 from config.js.
 
+<<<<<<< HEAD
 15 March
 Removed potential recognition conflict between local filebrowser and media browser. Setting local to false in
 link onLoad.
+
+Fixed filebrowser so that it now works properly in both Debain/Ubuntu and other
+linux distributions.
 
 17 March
 Removed _getSelection from script.js, using Dokuwiki's getSelection when textArea is not null.
@@ -50,3 +54,6 @@ Removed file size from title which, in fckgLite, corrupted links.
 
 20 March
 Updated entities database.
+
+Fixed path specs and path regex in config.php for Windows.
+

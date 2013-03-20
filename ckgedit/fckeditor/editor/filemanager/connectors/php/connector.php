@@ -22,13 +22,12 @@
  * This is the File Manager Connector for PHP.
  */
 
-
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1' );
-
 ob_start() ;
+function getAccessNum () { 
+  usleep(300);
+  return microtime(true);
 
+}
 require('./config.php') ;
 require('./util.php') ;
 require('./io.php') ;

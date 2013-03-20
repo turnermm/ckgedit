@@ -44,6 +44,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   function registerOnLoad($js){
   global $ID;
   global $lang;
+  
   $preview_button = $lang['btn_preview'];
 
   $ckgedit_conf_direction = $this->getConf('direction');
@@ -76,6 +77,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
    $user_type = 'user';
   }
   $save_dir = DOKU_URL . ltrim($conf['savedir'],'/.\/');
+
   // if no ACL is used always return upload rights
   if($conf['useacl']) {
      $client = $_SERVER['REMOTE_USER']; 
@@ -94,7 +96,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   if($INFO['isadmin'] || $INFO['ismanager']) {    
      $client = "";
   }
-
+ 
   $ver_anteater = mktime(0,0,0,11,7,2010); 
   $dwiki_version=mktime(0,0,0,01,01,2008);
 
@@ -399,9 +401,9 @@ function FCKeditor_OnComplete( editorInstance )
   oDokuWiki_FCKEditorInstance.isUrlExtern = false; 
   oDokuWiki_FCKEditorInstance.isDwikiMediaFile = false; 
   oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions="$ImageUploadAllowedExtensions";
-  oDokuWiki_FCKEditorInstance.save_dir = "$save_dir"; 
  
   /*
+   oDokuWiki_FCKEditorInstance.save_dir = "$save_dir"; 
   if(window.addEventListener){
     editorInstance.EditorDocument.addEventListener('keydown', CTRL_Key_Formats, false) ;
   }
@@ -419,6 +421,7 @@ function FCKeditor_OnComplete( editorInstance )
   }
  
   //test_for_inner(editorInstance);
+  
 }
 
 function test_for_inner(editorInstance) {
