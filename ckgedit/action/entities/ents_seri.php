@@ -5,7 +5,7 @@ define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/');
 $entities = array();
 serialize_ents('ents.data');
 serialize_ents('fcked-ents.data');
-
+serialize_ents('ents.merge.data');
 $file = "";
 
 if(isset($argv[1])) {
@@ -33,11 +33,10 @@ function serialize_ents($file) {
 global $entities;
 
     $entities_file = FCK_ACTION_SUBDIR . $file;
+    if(!file_exists($entities_file)) return;
     $lines = file_get_contents($entities_file);
-     //$lines = file_get_contents($file);
-
     $lines_array=preg_split('/^\n/ms',$lines);
-
+  
     foreach ($lines_array as $line) {
         if(isset($line) && strlen($line)) { 
             list($icon, $numeric,$character) = @preg_split('/\s+/',$line);      

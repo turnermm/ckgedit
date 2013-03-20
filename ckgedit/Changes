@@ -1,4 +1,4 @@
-rev 13-Mar_19-09_13
+rev 13-Mar_20-11_16
 
 rev 13-Mar_15-07_55
 
@@ -46,3 +46,6 @@ linux distributions.
 
 19 March 
 Removed file size from link titles, which in fckgLite corrputed internal media links.
+
+20 March
+Updated entities database
