@@ -37,7 +37,6 @@ Added ckgeditor version to CKEditor's about app
 Fixed CKEditor bug in special characters plugin which failed to load in the extraSpecialChars
 from config.js.
 
-<<<<<<< HEAD
 15 March
 Removed potential recognition conflict between local filebrowser and media browser. Setting local to false in
 link onLoad.
