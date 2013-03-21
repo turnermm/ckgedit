@@ -140,8 +140,8 @@ function auth_aclcheck($id,$user,$groups, $_auth=1){
 
 function auth_isCaseSensitive() {
   global $Dwfck_conf_values;
-  $fckg = $Dwfck_conf_values['plugin']['fckg'];
-  if(isset($fckg['auth_ci']) && $fckg['auth_ci']) {
+  $ckgedit = $Dwfck_conf_values['plugin']['ckgedit'];
+  if(isset($ckgedit['auth_ci']) && $ckgedit['auth_ci']) {
      return false;
   }
   return true;
