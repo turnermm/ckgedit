@@ -1,4 +1,4 @@
-rev 13-Mar_20-14_15
+rev 13-Mar_23-14_06
 
 Initial Development distribution
 
@@ -49,10 +49,12 @@ Removed _getSelection from script.js, using Dokuwiki's getSelection when textAre
 Synced some compressed plugins with gitHub.
 
 19 March
-Removed file size from title which, in fckgLite, corrupted links.
+Removed file size from link titles, which in fckgLite corrputed internal media links.
 
 20 March
 Updated entities database.
 
 Fixed path specs and path regex in config.php for Windows.
 
+21 March
+Merged version for all OSes including windows : no longer needs separate version for Ubuntu/Debian package manager.
