@@ -22,4 +22,6 @@ $conf['scayt'] = 'on';
 $conf['scayt_auto']= 'on';
 $conf['scayt_lang'] = "American English/en_US";
 $conf['smiley_hack'] = 0;
+#$conf['complex_tables'] = 0;
+$conf['duplicate_notes'] = 0;
 

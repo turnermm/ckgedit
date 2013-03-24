@@ -58,3 +58,6 @@ Fixed path specs and path regex in config.php for Windows.
 
 21 March
 Merged version for all OSes including windows : no longer needs separate version for Ubuntu/Debian package manager.
+
+24 March
+Handle multiple footnotes with identical texts.
