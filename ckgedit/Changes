@@ -1,4 +1,4 @@
-rev 13-Mar_23-14_06
+rev 13-Mar_25-17_34
 
 Initial Development distribution
 
@@ -61,3 +61,6 @@ Merged version for all OSes including windows : no longer needs separate version
 
 24 March
 Handle multiple footnotes with identical texts.
+
+25 March
+Re-inserted accidentally missing code for creating geshi code blocks in edit.php

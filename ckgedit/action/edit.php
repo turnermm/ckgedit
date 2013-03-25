@@ -266,7 +266,15 @@ return;
             '/<(code|file)(.*?)(>)(.*?)(<\/\1>)/ms',
             create_function(
                 '$matches',         
-                 'if(preg_match("/\w+/",$matches[2])) {
+                 ' //file_put_contents("geshi.txt", print_r($matches,true));
+                 if(preg_match("/(^\s*geshi:\s*(\w+)(\s+\w+\.\w+)*\s*)$/m",$matches[0],$gmatch)){
+                      $gmatch[0] = preg_replace("/\s*geshi:\s+/","",$gmatch[0]);                    
+                      $matches[1] .= " " . trim($gmatch[0]);                       
+                      //file_put_contents("gmatch.txt", print_r($gmatch,true));
+                      $c=1;
+                      $matches[4] = str_replace($gmatch[1],"",$matches[4],$c);
+                  }
+                 if(preg_match("/\w+/",$matches[2])) {
                    $matches[4] = str_replace("CHEVRONescC", ">>",$matches[4]);
                    $matches[4] = str_replace("CHEVRONescO", "<<",$matches[4]);
                    $matches[4] = preg_replace("/<(?!\s)/ms", "__GESHI_OPEN__", $matches[4]); 
