@@ -83,6 +83,8 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
      $client = $_SERVER['REMOTE_USER']; 
   }
   else $client = "";
+  $user_name = $USERINFO['name'];
+  $user_email = $USERINFO['mail'];
   
   $fnencode = isset($conf['fnencode']) ? $conf['fnencode'] : 'url';  
   $user_groups = $USERINFO['grps'];
@@ -401,6 +403,8 @@ function FCKeditor_OnComplete( editorInstance )
   oDokuWiki_FCKEditorInstance.isUrlExtern = false; 
   oDokuWiki_FCKEditorInstance.isDwikiMediaFile = false; 
   oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions="$ImageUploadAllowedExtensions";
+  oDokuWiki_FCKEditorInstance.fckgUserName = "$user_name";
+  oDokuWiki_FCKEditorInstance.fckgUserMail="$user_email"; 
  
   /*
    oDokuWiki_FCKEditorInstance.save_dir = "$save_dir"; 

@@ -2628,7 +2628,8 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
  $list = array_diff($list,$exclusions);
 
  foreach($list as $plugin) {
-   if(preg_match('/ckgedit_dwplugin/',$plugin)) continue;
+//   if(preg_match('/ckgedit_dwplugin/',$plugin)) continue;
+   if(preg_match('/(ckgedit_dwplugin|mathjax)/',$plugin)) continue;
    $plugin = 'plugin_' . $plugin;
 
    $indices = array_keys($data, $plugin);

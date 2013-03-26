@@ -1,4 +1,4 @@
-rev 13-Mar_25-17_34
+rev 13-Mar_26-08_09
 
 Initial Development distribution
 
@@ -64,3 +64,8 @@ Handle multiple footnotes with identical texts.
 
 25 March
 Re-inserted accidentally missing code for creating geshi code blocks in edit.php
+
+Removed mathjax plugin from plugin patterns, as it corrupts output, particularly code with $-signs as in php.
+
+26 March
+Added Signature item to toolbar

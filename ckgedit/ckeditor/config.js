@@ -203,20 +203,19 @@ function sack(file) {
       config.scayt_autoStartup = true; 
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
      config.extraSpecialChars  = ['↔'];
+      config.extraPlugins = 'signature';
     config.toolbar_Dokuwiki =
 	[
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },        
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar'] },   
+		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  'Signature' ] },   
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' , 'Source'] },
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] },
-		{ name: 'clipboard',   items: [ 'clipboard', 'undo' ] },
-
-	//	'/',
-		{ name: 'tools', items : [ 'Maximize','-','About' ] }
+		//{ name: 'clipboard',   items: [ 'clipboard', 'undo'] },	
+		{ name: 'tools', items : [ 'Maximize','-','About' ] },
 	];
     
         config.toolbar_DokuwikiNoGuest =
