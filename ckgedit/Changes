@@ -1,4 +1,4 @@
-rev 13-Mar_26-08_09
+rev 13-Mar_26-11_00
 
 Initial Development distribution
 
@@ -69,3 +69,4 @@ Removed mathjax plugin from plugin patterns, as it corrupts output, particularly
 
 26 March
 Added Signature item to toolbar
+Added geshi insertion when parsing so that geshi blocks do not have to wait for preprocessing

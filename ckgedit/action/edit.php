@@ -2031,7 +2031,14 @@ function parse_wikitext(id) {
     else {
       text = text.replace(/&lt;\s/g, '<');   
       text = text.replace(/\s&gt;/g, '>');            
+      var geshi =text.match(/^\s*geshi:\s+(.*)$/m);
+      if(geshi) {      
+         results= results.replace(/<(code|file)>\s*$/, '<'  + "$1" + ' ' + geshi[1]  + '>');         
+         text = text.replace( geshi[0], "");
     }
+    
+     }
+    
 
     if(this.attr && this.attr == 'dwfcknote') {
          if(text.match(/ckgeditL\d+/)) {
