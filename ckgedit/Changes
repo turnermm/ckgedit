@@ -1,4 +1,4 @@
-rev 13-Mar_27-20_49
+rev 13-Mar_28-08_41
 
 Initial Development distribution
 
@@ -74,3 +74,6 @@ Added geshi insertion when parsing so that geshi blocks do not have to wait for 
 27 March
 Added footnote plugin to ckeditor
 Fixed bug in handling of identical footnotes
+
+28 March
+Updated handling of guest toolbar.

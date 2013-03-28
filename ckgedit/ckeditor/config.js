@@ -224,6 +224,19 @@ function sack(file) {
 		{ name: 'tools', items : [ 'About' ] }
 	];
    
+   
+    config.toolbar_DokuwikiGuest =
+	[
+    	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },        
+		{ name: 'insert', items : [ 'Table','HorizontalRule','Smiley','SpecialChar', 'Footnotes'] },              		
+		{ name: 'styles', items : [ 'Format', 'Styles' ] },
+		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
+   		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','-','Undo','Redo' ] },
+    	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] },
+		{ name: 'tools', items : [ 'Maximize','-','About' ] },
+	];
+	
 config.dokuSmileyPath = 'http://' + top.dokuBase + 'lib/images/smileys/';    
 config.dokuSmileyImages	=
                           [['8-)','icon_cool.gif'],

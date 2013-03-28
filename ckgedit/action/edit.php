@@ -466,6 +466,9 @@ return;
         if(!isset($INFO['userinfo']) && !$guest_toolbar) {  
             $toolbar = "DokuwikiNoGuest";  
         }
+       else if(!isset($INFO['userinfo']) && !$guest_media) {            
+	        $toolbar = "DokuwikiGuest";
+	   }
         else $toolbar = 'Dokuwiki';
 $doku_url=  DOKU_URL;        
 $ckeditor_replace =<<<CKEDITOR_REPLACE
@@ -484,35 +487,7 @@ CKEDITOR_REPLACE;
 
 		 echo  $this->helper->registerOnLoad($ckeditor_replace);
 
-/*		
-        if(!isset($INFO['userinfo']) && !$guest_toolbar) {        
-            
-                echo  $this->helper->registerOnLoad(
-                    ' fck = new FCKeditor("wiki__text", "100%", "600"); 
-                     fck.BasePath = "'.DOKU_BASE.'lib/plugins/ckgedit/'.$this->fck_location.'/"; 
-                     fck.ToolbarSet = "DokuwikiNoGuest";  
-                     fck.ReplaceTextarea();'
-                     );
-        }
-        else if(!isset($INFO['userinfo']) && !$guest_media) {            
 
-            echo  $this->helper->registerOnLoad(
-                ' fck = new FCKeditor("wiki__text", "100%", "600"); 
-                 fck.BasePath = "'.DOKU_BASE.'lib/plugins/ckgedit/'.$this->fck_location.'/"; 
-                 fck.ToolbarSet = "DokuwikiGuest";  
-                 fck.ReplaceTextarea();'
-                 );
-        }
-        
-        else {
-            echo  $this->helper->registerOnLoad(
-                ' fck = new FCKeditor("wiki__text", "100%", "600"); 
-                 fck.BasePath = "'.DOKU_BASE.'lib/plugins/ckgedit/'.$this->fck_location.'/"; 
-                 fck.ToolbarSet = "Dokuwiki";  
-                 fck.ReplaceTextarea();'
-                 );
-        }
-*/
 
 ?>
 
