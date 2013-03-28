@@ -141,10 +141,9 @@ var ourLockTimerINI = false;
 var oldBeforeunload;
 
   var ckgedit_onload = function() { $js };
-  if(window.jQuery && jQuery.bind) {
+  
       jQuery(window).bind('load',{},ckgedit_onload);
-  }
-  else window.addEvent(window, 'load', ckgedit_onload);
+  
  function ckgeditEditorTextChanged() {
    window.textChanged = false;   
    oldBeforeunload(); 

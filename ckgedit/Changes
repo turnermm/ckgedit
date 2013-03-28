@@ -1,4 +1,4 @@
-rev 13-Mar_28-08_41
+rev 13-Mar_28-16_38
 
 Initial Development distribution
 
@@ -77,3 +77,4 @@ Fixed bug in handling of identical footnotes
 
 28 March
 Updated handling of guest toolbar.
+Removed pre-jQuery compatiblity functions.
