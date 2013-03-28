@@ -2041,7 +2041,7 @@ function parse_wikitext(id) {
     
 
     if(this.attr && this.attr == 'dwfcknote') {
-         if(text.match(/ckgeditL\d+/)) {
+         if(text.match(/fckgL\d+/)) {
              return;
          }
           if(text.match(/^[\-,:;!_]/)) {
@@ -2273,6 +2273,8 @@ function parse_wikitext(id) {
     results = results.replace(/(={3,}.*?)(\{\{.*?\}\})(.*?={3,})/g,"$1$3\n\n$2");
     // remove any empty footnote markup left after section re-edits
     results = results.replace(/(<sup>)*\s*\[\[\s*\]\]\s*(<\/sup>)*\n*/g,""); 
+    // remove piled up sups with ((notes))
+    results = results.replace(/<sup>(.*?)(\(\(.*\)\))\s*<\/sup>/mg,"$1$2"); 
     
     if(HTMLParser_MULTI_LINE_PLUGIN) {
         results = results.replace(/<\s+/g, '<');

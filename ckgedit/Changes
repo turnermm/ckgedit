@@ -1,4 +1,4 @@
-rev 13-Mar_26-11_00
+rev 13-Mar_27-20_49
 
 Initial Development distribution
 
@@ -70,3 +70,7 @@ Removed mathjax plugin from plugin patterns, as it corrupts output, particularly
 26 March
 Added Signature item to toolbar
 Added geshi insertion when parsing so that geshi blocks do not have to wait for preprocessing
+
+27 March
+Added footnote plugin to ckeditor
+Fixed bug in handling of identical footnotes
