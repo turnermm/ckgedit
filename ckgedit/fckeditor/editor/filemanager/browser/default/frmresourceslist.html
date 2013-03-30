@@ -311,8 +311,7 @@ function OpenFile( fileUrl )
         fileUrl = window.location.protocol +'//' + window.location.host + '/' + decodeURI( fileUrl ).replace( '#', '%23' ) ;
     }
     if(isDwikiImage) {
-     fileUrl=encodeURI(encodeURI(fileUrl));
-     alert(fileUrl);
+     fileUrl=encodeURI(encodeURI(fileUrl));    
     }
     window.top.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl);
     if(isInternalLink) {  
