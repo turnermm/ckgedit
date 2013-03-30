@@ -1294,9 +1294,22 @@ function parse_wikitext(id) {
                     }
 
                    if(!this.attr && this.link_title) {
-                       if(this.link_class == 'media') {
+                       if(matches = this.link_class.match(/media(.*)/)) {
+                            this.link_title=decodeURIComponent(safe_convert(this.link_title));					   	
                             this.attr=this.link_title;
-                            local_image = true;
+                            var m = matches[1].split(/_/);
+                            if(m && m[1]) {
+                             media_type = m[1];
+                            }
+                            else if(m) {
+                                media_type = m[0];
+                            }
+                            else media_type = 'mf';							   
+                            if(!this.attr.match(/^:/)) {      
+                                this.attr = ':' + this.attr.replace(/^\s+/,"");
+                            }
+                            this.external_mime = true; 
+                            local_image = false;
                        }
                     }
 

@@ -1,4 +1,4 @@
-rev 13-Mar_28-16_38
+rev 13-Mar_29-23_34
 
 Initial Development distribution
 
@@ -78,3 +78,7 @@ Fixed bug in handling of identical footnotes
 28 March
 Updated handling of guest toolbar.
 Removed pre-jQuery compatiblity functions.
+
+29 March
+Corrected for non-Latin internal media names
+Fix for  handling of internal media after re-saves
