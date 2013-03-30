@@ -1650,7 +1650,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		onLoad : function()
 		{
 	
-			
+            oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
             fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
             fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;

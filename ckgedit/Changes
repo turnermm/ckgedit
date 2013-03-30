@@ -1,4 +1,4 @@
-rev 13-Mar_29-23_34
+rev 13-Mar_30-11_53
 
 Initial Development distribution
 
@@ -82,3 +82,6 @@ Removed pre-jQuery compatiblity functions.
 29 March
 Corrected for non-Latin internal media names
 Fix for  handling of internal media after re-saves
+
+30 March
+Corrected image file names for non-Latin characters

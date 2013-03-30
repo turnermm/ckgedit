@@ -39,6 +39,7 @@ var ImagesAllowed = new RegExp(parent.DwikiImageUploadAllowedExtensions);
 var isDwikiUrlExtern = parent.isDwikiUrlExtern;
 var isDwikiMediaFile = parent.isDwikiMediaFile;
 var FCKImageSaveDir = false;
+var isDwikiImage = parent.isDwikiImage;
 
 function getFCKSaveDir() {
    //alert(dwikiUTF8_decodeFN(document.cookie,DwikiFNencode)); 
@@ -309,6 +310,10 @@ function OpenFile( fileUrl )
     if(isDwikiUrlExtern) {
         fileUrl = window.location.protocol +'//' + window.location.host + '/' + decodeURI( fileUrl ).replace( '#', '%23' ) ;
     }
+    if(isDwikiImage) {
+     fileUrl=encodeURI(encodeURI(fileUrl));
+     alert(fileUrl);
+    }
     window.top.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl);
     if(isInternalLink) {  
         window.top.opener.update_ckgeditInternalLink(fileUrl.replace(/^.*?\/data\/pages\//,""));
@@ -417,6 +422,10 @@ function GetFoldersAndFilesCallBack( fckXml )
         sFileUrl = dwikiUTF8_decodeFN(sFileUrl,DwikiFNencode);
         sFileUrl = decodeURI(sFileUrl);
         sFileUrl = decodeURI(sFileUrl);         
+        if(isImage) {
+            sFileUrl = encodeURI(sFileUrl);         
+            sFileUrl = encodeURI(sFileUrl);         
+       }
 		oHtml.Append( oListManager.GetFileRowHtml( sFileName, sFileUrl, sFileSize, isImage) ) ;
 	}
 

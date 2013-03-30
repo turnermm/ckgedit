@@ -504,6 +504,7 @@ window.onbeforeunload = function() { };
 					}
                     oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser=false;
                     oDokuWiki_FCKEditorInstance.isDwikiMediaFile = true;
+                    oDokuWiki_FCKEditorInstance.isDwikiImage = true;
 					this.commitContent = commitContent;
 				},
 				onHide: function() {
