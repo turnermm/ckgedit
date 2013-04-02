@@ -1563,6 +1563,7 @@ function parse_wikitext(id) {
                 return;
            }
           if(this.link_only) tag = 'img';
+		  
           if(tag == 'br') {  
                 if(this.in_multi_plugin) {
                     results += "\n";
