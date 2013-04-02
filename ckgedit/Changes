@@ -1,4 +1,4 @@
-rev 13-Mar_30-11_53
+rev 13-Apr_01-20_46
 
 Initial Development distribution
 
@@ -85,3 +85,6 @@ Fix for  handling of internal media after re-saves
 
 30 March
 Corrected image file names for non-Latin characters
+
+1 April
+Added strong tag for bold, required by CKEditor

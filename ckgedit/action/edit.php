@@ -814,7 +814,7 @@ function parse_wikitext(id) {
  window.dwfckTextChanged = false;
  if(id != 'bakup')  draft_delete();
  var line_break = "\nL_BR_K  \n";
-    var markup = { 'b': '**', 'i':'//', 'em': '//', 'u': '__', 'br':line_break, 
+    var markup = {'strong': '**',  'b': '**', 'i':'//', 'em': '//', 'u': '__', 'br':line_break, 
          'del': '<del>', 'strike': '<del>', p: "\n\n" , 'a':'[[', 'img': '\{\{',
          'h1': "\n====== ", 'h2': "\n===== ", 'h3': "\n==== ", 'h4': "\n=== ", 'h5': "\n== ",
          'td': "|", 'th': "^", 'tr':" ", 'table': "\n\n", 'ol':"  - ", 'ul': "  * ", 'li': "",
@@ -836,7 +836,7 @@ function parse_wikitext(id) {
     markup['p_insert'] = '_PARA__TABLE_INS_';
     markup['format_space'] = '_FORMAT_SPACE_';
     markup['pre_td'] = '<';  //removes newline from before < which corrupts table
-    var format_chars = {'b':true, 'i': true, 'em':true,'u':true, 'del':true,'strike':true, 'code':true};  
+    var format_chars = { 'strong':true,  'b':true, 'i': true, 'em':true,'u':true, 'del':true,'strike':true, 'code':true};  
     
     var results=""; 
     var HTMLParser_LBR = false;
