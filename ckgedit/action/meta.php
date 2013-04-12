@@ -22,7 +22,7 @@ if(isset($conf['lang'])) {
 class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $session_id = false;    
   var $draft_file;
-
+  var $user_rewrite = false;
   /*
    * Register its handlers with the dokuwiki's event controller
    */
@@ -33,6 +33,8 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'file_type');         
             $controller->register_hook('TPL_CONTENT_DISPLAY', 'AFTER', $this, 'setupDWEdit');       
             $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'fnencode_check');                 
+            $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
+                         
   }
 
  
@@ -115,17 +117,11 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$F
   global $INFO;
   $cname =  $INFO['draft'];   
     
- $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/jq_alt.js';    
+
  
   echo <<<SCRIPT
     <script type="text/javascript">
     //<![CDATA[ 
-    
-      if(!window.jQuery){
-        LoadScript("$url"); 
-      }
- 
-        
     
     function setDWEditCookie(which, e) { 
        var cname = "$cname";       
@@ -489,13 +485,19 @@ function is_safeUpgraded() {
   
 function fnencode_check() {
 
-
+      global $ACT;
        global $conf;
        global $updateVersion;
        $rencode = false;
 	  
+       if($ACT == 'edit') {
+          $this->user_rewrite = $conf['userewrite'];
+	     $conf['userewrite']  = 0; 
+       }
+       
         if($conf['fnencode'] != 'safe') return;
 
+        
         if(isset($updateVersion) && $updateVersion >= 31) {           
           $rencode = true;     
         }
@@ -533,6 +535,13 @@ function fnencode_check() {
 
       
 
+function restore_conf() {
+    global $conf;
+    if($this->user_rewrite !==false) {
+         $conf['userewrite']   = $this->user_rewrite; 
+    }
+    
+}
 
 function write_debug($data) {
   return;

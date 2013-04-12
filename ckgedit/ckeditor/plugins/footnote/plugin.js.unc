@@ -34,12 +34,20 @@ CKEDITOR.plugins.add( 'footnote',
 		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.dialogDefinition.html
 		CKEDITOR.dialog.add( 'footnoteDialog', function( editor )
 		{
+         
+    	var html = [ '<div style="padding: 18px;font-size:125%;line-height:125%;">',
+           '<ul style="list-style-type:disc;"><li>To create a footnote enter the footnote text into the editing box and click OK</li>',
+           '<li>To edit a footnote enter the footnote id into the id box and click the Load button. <br /> The footnote will ',
+           'appear in the editing box, where you can then edit it.<br /> When you are finished editing, click OK to save.</li>' ,         
+           '<li> A footnote id has this form: <b>fckgL_&lt;n&gt;</b>, where n is the number of the note.</li></ul></div>'
+        ];
 			return {
 				// Basic properties of the dialog window: title, minimum size.
 				// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.dialogDefinition.html
-				title : 'Link Properties',
+				title : 'Footnote Dialog',
 				minWidth : 400,
 				minHeight : 200,
+                fontSize: "14pt",
                 onShow: function() {
                 /*
                 var el = this.getContentElement( 'general', 'contents').getInputElement().$.id;
@@ -139,7 +147,22 @@ CKEDITOR.plugins.add( 'footnote',
                             
 							
 						]
-					}
+					},
+                    {
+                    	id : 'info',
+						label : 'Info',
+						elements :
+						[
+							// Dialog window UI element: HTML code field.
+							// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html
+							{
+								type : 'html',
+								// HTML code to be shown inside the field.
+								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html#constructor
+								html : html.join(""),
+							},
+                       ]   
+                    },
 				],
 				onOk : function()
 				{

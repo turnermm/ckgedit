@@ -1,4 +1,4 @@
-rev 13-Apr_01-20_46
+rev 13-Apr_11-19_53
 
 Initial Development distribution
 
@@ -87,4 +87,35 @@ Fix for  handling of internal media after re-saves
 Corrected image file names for non-Latin characters
 
 1 April
-Added strong tag for bold, required by CKEditor
+ctables
+Added strong tag for bold, needed by CKEDitor
+
+2 April
+Added faclity for creating font styles using CKEDitor's font tools.
+
+fixed broken direct and detail image links on re-saves
+
+3 April
+
+Added shorcut keys plugin for headers and code text
+
+5 April
+Implemented fix to handle media files with nice urls: change to rewrite 0 on edit and then restore on exit.
+
+6 April
+Created placeholder _CKG_ASTERISK_ for '*' which is restored at end of parsing process.  This preserves the asterisk
+for saves but protects regular expression use (previously asterisks were escaped with %%);
+
+7 April 
+Added info tab to footnote plugin
+
+10 April
+Removed remaining jquery compatibility script loader.
+
+11 April
+skins/mono/editor_gecko.css and readme.md: notes fix for Artic and possibly other templates,
+submitted by Josef Meile.
+
+
+
+

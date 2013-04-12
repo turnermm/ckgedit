@@ -169,9 +169,15 @@ var oldBeforeunload;
     *    handles both mousepresses and keystrokes from FCKeditor window
     *    assigned in fckeditor.html
   */
+ 
  function handlekeypress (e) {  
-   //  var key = e.data.keyCode;
-  //  alert(key);
+ 
+//   var kc = e.data.keyCode,
+ //       csa = ~(CKEDITOR.CTRL | CKEDITOR.SHIFT | CKEDITOR.ALT);
+ //    var key =  (kc & csa);
+ //    console.log(kc, kc & csa, key, CKEDITOR.CTRL);
+ 
+ 
    if(ourLockTimerIsSet) {
          lockTimerRefresh();        
    }
@@ -405,73 +411,29 @@ function FCKeditor_OnComplete( editorInstance )
   oDokuWiki_FCKEditorInstance.fckgUserName = "$user_name";
   oDokuWiki_FCKEditorInstance.fckgUserMail="$user_email"; 
  
-  /*
-   oDokuWiki_FCKEditorInstance.save_dir = "$save_dir"; 
-  if(window.addEventListener){
-    editorInstance.EditorDocument.addEventListener('keydown', CTRL_Key_Formats, false) ;
-  }
-  else {
-   editorInstance.EditorDocument.attachEvent('onkeydown', CTRL_Key_Formats) ;
-  }  
-  */
-  
- // dwfckKeypressInstallHandler();
-  editorInstance.on( 'key', handlekeypress, editorInstance );
   var index = navigator.userAgent.indexOf('Safari'); 
   if(index == -1  || (navigator.userAgent.indexOf('Chrome'))) {
     oldBeforeunload = window.onbeforeunload;
     window.onbeforeunload = ckgeditEditorTextChanged;
   }
  
-  //test_for_inner(editorInstance);
+  // test_for_inner(editorInstance);
   
 }
 
 function test_for_inner(editorInstance) {
-  ck = editorInstance.element;
-  alert(ck["$"].value);
-  ck["$"].value = "<h1>abc</h1>";
-  for(var i in ck) {
+  var ck = editorInstance.element;
+ 
+ // ck["$"].value = "<h1>abc</h1>";
+ ck = ck["$"];
+  for(var i in ck) {    
      var msg = i + "="+ck[i];
      if(!confirm(msg)) return;
+    
   }
 }
-
-function CTRL_Key_Formats(parm) {
-
-     if(!parm.ctrlKey) return;
-  
-    if(parm.keyCode == 56) {
-		oDokuWiki_FCKEditorInstance.get_FCK().ToolbarSet.CurrentInstance.Commands.GetCommand('InsertUnorderedList').Execute();	
-		return;
- 	}
-	
-	if(parm.keyCode == 109) {	 
-		oDokuWiki_FCKEditorInstance.get_FCK().ToolbarSet.CurrentInstance.Commands.GetCommand('InsertOrderedList').Execute();
-		return;
-    }
-		
-    /* h1 - h5 */
-     if(parm.keyCode >=49 && parm.keyCode <=53) {
-         var n = parm.keyCode - 48;
-         oDokuWiki_FCKEditorInstance.get_FCK().Styles.ApplyStyle('_FCK_h' + n);
-         return;  
-     }
-     /*  code/monospace -> 77 = 'm' */
-     if(parm.keyCode == 77) {
-        oDokuWiki_FCKEditorInstance.get_FCK().Styles.ApplyStyle('_FCK_code');
-		return;
-     }
-
-    /* CTRL-0 = Normal, i.e. <p> */
-    if(parm.keyCode == 48) {
-        oDokuWiki_FCKEditorInstance.get_FCK().Styles.ApplyStyle('_FCK_p');
-    }
-
-  }
-
    
-  var DWikifnEncode = "$fnencode";
+ var DWikifnEncode = "$fnencode";
 
 /* Make sure that show buttons in top and/or bottom clear the fckl file */  
  function get_showButtons() {	

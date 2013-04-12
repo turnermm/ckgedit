@@ -4,7 +4,22 @@
  */
 
  CKEDITOR.editorConfig = function( config ) {
+config.keystrokes = [
 
+   // [ CKEDITOR.CTRL + 76, null ],                       // CTRL + L
+      [ CKEDITOR.ALT  + CKEDITOR.SHIFT + 56, 'bulletedlist' ],       // CTRL + *    
+      [ CKEDITOR.ALT + 56, 'bulletedlist' ],                                    // ALT + 8
+      [ CKEDITOR.ALT + 173, 'numberedlist' ],                               // ALT + -
+      [ CKEDITOR.ALT + 48, 'ckgundoheader' ],                               // ALT + 0
+      [ CKEDITOR.ALT + 49, 'ckginsheaderone' ],                          // ALT + 1
+      [ CKEDITOR.ALT + 50, 'ckginsheadertwo' ],                          // ALT + 2
+      [ CKEDITOR.ALT + 51, 'ckginsheaderthree' ],                          // ALT + 4
+      [ CKEDITOR.ALT + 52, 'ckginsheaderfour' ],                          // ALT +4 
+      [ CKEDITOR.ALT + 53, 'ckginsheaderfive' ],                          // ALT + 5
+      [ CKEDITOR.ALT + 77, 'ckginscode' ],          //ALT +m
+   
+
+];
 function sack(file) {
 	this.xmlhttp = null;
 
@@ -203,7 +218,7 @@ function sack(file) {
       config.scayt_autoStartup = true; 
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
      config.extraSpecialChars  = ['↔'];
-      config.extraPlugins = 'signature,footnote';
+      config.extraPlugins = 'signature,footnote,shortcuts';
      
     config.toolbar_Dokuwiki =
 	[
@@ -211,11 +226,13 @@ function sack(file) {
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },        
 		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  'Signature' ,'Footnotes'] },           
    		{ name: 'links', items : [ 'Link','Unlink' ] },
-		{ name: 'styles', items : [ 'Format', 'Styles' , 'Source'] },
+		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize', 'Source'] },
+    	{ name: 'colors',      items : [ 'TextColor','BGColor' ] },		
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] },
-		{ name: 'tools', items : [ 'Maximize','-','About' ] },
+		{ name: 'tools', items : [ 'Maximize','-','About', 'Timestamp' ] },
+          //{ name: 'bibliography', items : [ 'showtime' ] }
 	];
     
         config.toolbar_DokuwikiNoGuest =

@@ -3,7 +3,7 @@ $conf['groups'] = 'ANY';
 $conf['guest_toolbar']= 1;
 $conf['guest_media']= 1;
 $conf['open_upload']=0;
-$conf['xcl_plugins']="ckgedit_dwplugin";
+# $conf['xcl_plugins']="ckgedit_dwplugin";
 $conf['default_fb'] = 'acl';
 $conf['openfb'] = 0;
 #$conf['csrf'] = 0;
@@ -22,6 +22,6 @@ $conf['scayt'] = 'on';
 $conf['scayt_auto']= 'on';
 $conf['scayt_lang'] = "American English/en_US";
 $conf['smiley_hack'] = 0;
-#$conf['complex_tables'] = 0;
+$conf['complex_tables'] = 0;
 $conf['duplicate_notes'] = 0;
 

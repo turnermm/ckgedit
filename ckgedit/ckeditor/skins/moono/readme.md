@@ -1,5 +1,10 @@
 "Moono" Skin
 ====================
+---------------------
+Dokuwiki Note:
+See http://www.freelists.org/post/fckglite/ckgEdit-Controls-wont-be-shown-with-the-arctic-template,2
+The fix cited there is included, but commented out, in editor gecko.css.
+-------------------
 
 This skin has been chosen for the **default skin** of CKEditor 4.x, elected from the CKEditor
 [skin contest](http://ckeditor.com/blog/new_ckeditor_4_skin) and further shaped by

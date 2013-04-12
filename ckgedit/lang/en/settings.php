@@ -9,13 +9,8 @@ $lang['fck_preview'] = "FCK Preview Group";
 $lang['guest_toolbar'] = "Display Toolbar to Guests";
 $lang['guest_media'] = "Guest Can Link to Media Files";
 $lang['open_upload'] = "Guest Can Upload";
-$list = plugin_list('syntax');
-$list = implode  (", "  , $list);  
-$lang['xcl_plugins'] ="Comma delimited list of Immutable Syntax plugins. " .
-      "Their names should be exactly as appears in this list of Currently Installed Plugins: $list";
 $lang['default_fb'] = "Default file-browing access. With none, acl does not apply.";
 $lang['openfb'] = "Open File Browsing. This gives user access to entire directory structure, whether or not the user has permissions. ACL still applies to uploads.";
-#$lang['csrf'] = "If you get a CSRF warning, check this box.";                     
 $lang['dw_edit_display'] = 'Controls which users have access to the "DW Edit" button. Choices: "all" for all users; "admin" for admin and managers only; "none" for no one. Defaults to "all".';
 $lang['smiley_as_text']  = 'Display smileys as text in CKeditor (will still display as image in browser)';
 $lang['editor_bak'] = "Save backup to meta/&lt;namespace&gt;.ckgedit";
@@ -32,6 +27,6 @@ $lang['scayt_auto'] = 'Automatically enable the SCAYT spellchecker. Defaults to 
 $lang['scayt'] = 'Use the SCAYT spellchecker. This defaults to "on"; selecting "off" will switch to the spellerpages checker';  
 $lang['scayt_lang']="Set SCAYT default language.";
 $lang['smiley_hack'] = "Reset URL for CKeditor's smilies when moving to new server. This is done on a page by page basis when page is loaded for editing and saved.  This option should normally be turned off.";
-#$lang['complex_tables'] ="Use the complex tables algorithm.  As opposed to the standard parsing of tables, this should give better results when mixing complex arrangements of rowspans and colspans.";
+$lang['complex_tables'] ="Use the complex tables algorithm.  As opposed to the standard parsing of tables, this should give better results when mixing complex arrangements of rowspans and colspans. But slightly more processing time.";
 $lang['duplicate_notes'] = "Set this to true if users create multiple footnotes with the same footnote texts; required to prevent notes from being corrupted.";
 

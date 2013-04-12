@@ -208,11 +208,26 @@ return;
                  if(!$text && $this->page_from_template) $text = $this->page_from_template;
             }
 
+     $text = preg_replace_callback(
+    '/(~~NOCACHE~~|\{\{rss>http:\/\/.*?\}\})/ms',
+     create_function(
+               '$matches',
+               '$matches[0] = str_replace("{{rss>http", "{ { rss>Feed",  $matches[0]);
+               $matches[0] = str_replace("~", "~ ",  $matches[0]);
+               return $matches[0];'
+               ),$text);
     if($this->getConf('smiley_hack')) {
         $new_addr = $_SERVER['SERVER_NAME'] . DOKU_BASE;
         $text=preg_replace("#(?<=http://)(.*?)(?=lib/plugins/ckgedit/fckeditor/editor/images/smiley/msn)#s", $new_addr,$text);
      }
 
+      global $useComplexTables;
+      if($this->getConf('complex_tables') || strpos($text, '~~COMPLEX_TABLES~~') !== false) {     
+          $useComplexTables=true;
+      }
+      else {
+         $useComplexTables=false;
+      }
       if(strpos($text, '%%') !== false) {     
          $text= preg_replace_callback(
             '/(<nowiki>)*(\s*)%%\s*([^%]+)\s*%%(<\/nowiki>)*(\s*)/ms',
@@ -318,9 +333,10 @@ return;
           );
          $text = preg_replace('/TPRE_CLOSE\s+/ms',"TPRE_CLOSE",$text); 
       
-         $text = preg_replace('/<(?!code|file|plugin|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/plugin|\/sup|\/sub)/ms',"//<//",$text);
+        // $text = preg_replace('/<(?!code|file|plugin|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/plugin|\/sup|\/sub)/ms',"//<//",$text);
+         $text = preg_replace('/<(?!code|file|plugin|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/plugin|\/sup|\/sub)/ms',"&lt;",$text);
    
-         $text = str_replace('%%//<//', '&#37;&#37;&#60;', $text);              
+         $text = str_replace('%%&lt;', '&#37;&#37;&#60;', $text);              
 
          $text = preg_replace_callback('/<plugin(.*?)(?=<\/plugin>)/ms',
                         create_function(
@@ -487,7 +503,7 @@ CKEDITOR_REPLACE;
 
 		 echo  $this->helper->registerOnLoad($ckeditor_replace);
 
-
+            
 
 ?>
 
@@ -672,6 +688,11 @@ global $INFO;
                  /><span id='ckgedit_timer_label'
                     style = 'display:none'>Disable editor time-out messsages </span> 
 
+     <?php  //global $useComplexTables;  if(!$useComplexTables) { ?>               
+        <input type="checkbox" name="complex_tables" value="complex_tables"  id = "complex_tables"                      
+                          onclick="setComplexTables(1);"                      
+                     /><span id='complex_tables_label'> Enable Complex Tables (<a href="https://www.dokuwiki.org/plugin:fckglite#table_handling" target='_blank'>what's this?</a>)</span> 
+     <?php //} ?>              
 
       <input style="display:none;" class="button" id="edbtn__save" type="submit" name="do[save]" 
                       value="<?php echo $lang['btn_save']?>" 
@@ -690,7 +711,7 @@ global $INFO;
 
   <script type="text/javascript">
 //<![CDATA[
-        
+         var embedComplexTableMacro = false;        
 
         <?php  echo 'var backup_empty = "' . $ckgedit_lang['backup_empty'] .'";'; ?>
 
@@ -715,32 +736,25 @@ global $INFO;
         }
 
 
-var ckgeditLPluginPatterns = new Array();
+   setComplexTables = (function() {
+   var on=false;
+   
+     return function(b) {
+        if(b) on = !on; 
+        embedComplexTableMacro = on;        
+        return on;
+     };
+    
+     })();
+
+    <?php  global $useComplexTables;  if($useComplexTables) { ?>               
+        document.getElementById('complex_tables').click();            
+    <?php } ?>  
+
+   
 
 <?php
-   global $ckgeditLPluginPatterns; 
-   foreach($ckgeditLPluginPatterns as $pat) {  
-     $pat[0] = preg_replace('/\s+$/',"",$pat[0]);  
-    // $pat[0] = preg_quote($pat[0], "/");    
-     $pat[1] = str_replace('&','&amp;', $pat[1]);    
-     $pat[0] = str_replace('&','&amp;',$pat[0]);    
-     $pat[0] = str_replace('>', '&gt;',$pat[0]);    
-     $pat[0] = str_replace('<', '&lt;',$pat[0]);    
-     $pat[1] = str_replace('>', '&gt;',$pat[1]);    
-     $pat[1] = str_replace('<', '&lt;',$pat[1]);    
-     $pat[0] = str_replace(' ', '\s+',$pat[0]);    
-     $pat[0] = str_replace('*', '%%\*%%',$pat[0]);    
-     $pat[0] = preg_quote($pat[0], "/");   
-     echo "ckgeditLPluginPatterns.push({'pat': '$pat[0]', 'orig': '$pat[1]' });\n"; 
- 
-   }
-
-   global $fckLImmutables;
-   echo "if(!fckLImmutables) var fckLImmutables = new Array();\n";
-
-   for($i=0; $i< count($fckLImmutables); $i++) {
-      echo "fckLImmutables.push('$fckLImmutables[$i]');\n";         
-   }
+   
    
    $pos = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE');
    if($pos === false) {
@@ -811,11 +825,150 @@ RegExp.escape = function(str)
 
 var HTMLParser_DEBUG = "";
 function parse_wikitext(id) {
+
+   var useComplexTables = setComplexTables();   
+   
+    var this_debug;
+    
+    <?php if($this->debug) { ?>
+    
+    function show_rowspans(rows) {
+    
+    if(!useComplexTables) return;   
+    var str = "";
+ 
+    for(var i=0; i < rows.length; i++) {     
+       str+="ROW" + i + "\n"; 
+
+              for(var col=0; col<rows[i].length; col++) {                                  
+                           str += "[" + col + "]";
+                           str+=   "text="+rows[i][col].text + " ";           
+                           str+="  type="+rows[i][col].type + " ";           
+                           str+= "  rowspan=" +rows[i][col].rowspan + "  ";                      
+                           str+= "  colspan=" +rows[i][col].colspan + "  ";                      
+              }   
+              str += "\n";
+        }
+ 
+     
+       this_debug(str,'show_rowspans');
+        
+         str = "";
+       for(var i=0; i < rows.length; i++) {
+              for(var col=0; col<rows[i].length; col++) {                          
+                    str+=   "|"+rows[i][col].text + " ";
+              }
+              str += "|\n";
+        }
+        this_debug(str,'show_rowspans');
+        
+    }     
+    
+    function debug_row(rows,row,col,which) {
+
+    var not_found = "";
+    try {
+         this_debug("row:"+row
+                         +",column:"+col
+                         +", rowspans:"+ rows[row][col].rowspan
+                         +", colspans:"+ rows[row][col].colspan                         
+                         +", text:"+rows[row][col].text,                         
+                         which);
+        }catch(ex) {
+            not_found+="row:"+row +",column:"+col;
+        }
+        if(not_found) this_debug(not_found,"not_found");
+    }
+    <?php } ?>
+    function check_rowspans(rows,start_row, ini) {
+        var tmp=new Array();    
+        for(var i=start_row; i < rows.length; i++) {                    
+                  for(var col=0; col<rows[i].length; col++) {    
+                        if(rows[i][col].rowspan > 0) {
+                              var _text = rows[i][col].text;                                                         
+                              tmp.push({row:i,column:col, spans: rows[i][col].rowspan,text:_text});         
+                              if(!ini) break;
+                        }   
+                  }   
+            }
+        return tmp;
+    }    
+
+    function insert_rowspan(row,col,spans,rows,shift) {
+              
+        var prev_colspans = rows[row][col].colspan ? rows[row][col].colspan: 0;            
+        rows[row][col].rowspan = 0;
+          for(i=0; i<spans-1;i++) {     
+          //debug_row(rows,row,col,"insert_rowspan start");
+           rows[++row].splice(col, 0,{type:'td', rowspan:0,colspan:prev_colspans,prev_colspan:prev_colspans,text:" ::: "});
+
+          }
+    } 
+ 
+ 
+  
+   function reorder_span_rows(rows) {
+        var tmp_start = check_rowspans(rows,0,true);   
+        var num_spans = tmp_start.length;   
+        if(!num_spans) return false;
+
+        
+        var row =   tmp_start[0].row;
+        var col = tmp_start[0].column;
+        insert_rowspan(row,col,tmp_start[0].spans,rows); 
+        
+       num_spans--;       
+       for(var i=0; i < num_spans; i++) {
+             row++;
+            var tmp = check_rowspans(rows,row,false);   
+            if(tmp.length) {
+                insert_rowspan(tmp[0].row,tmp[0].column,tmp[0].spans,rows);  
+            }
+       }
+       return true;
+ 
+   }
+   
+   function insert_table(rows) {
+       if(!useComplexTables) return;
+        for(var i=0; i<rows.length;i++) {
+          if(!reorder_span_rows(rows)) break;;
+        }
+      
+        results+="\n";
+        for(var i=0; i < rows.length; i++) {                    
+                  results+="\n";
+                  for(var col=0; col<rows[i].length; col++) {                           
+                     var type = rows[i][col].type == 'td'? '|': '^';                    
+                     results+= type;   
+                     var align = rows[i][col].align ? rows[i][col].align : false;                    
+                     if(align == 'center' || align == 'right') {
+                         results += "  ";
+                     }
+ 
+                     results += rows[i][col].text;
+                     if(align == 'center' || align == 'left') {
+                          results += "  ";
+                     }
+ 
+                     if(rows[i][col].colspan) {                     
+                     for(var n=0; n < rows[i][col].colspan-1; n++) {                              
+                               results+=type;
+                          }
+                     }
+                  }   
+                  
+                   results += '|';
+                
+               }   
+   }
+   
+ 
  window.dwfckTextChanged = false;
  if(id != 'bakup')  draft_delete();
  var line_break = "\nL_BR_K  \n";
-    var markup = {'strong': '**',  'b': '**', 'i':'//', 'em': '//', 'u': '__', 'br':line_break, 
-         'del': '<del>', 'strike': '<del>', p: "\n\n" , 'a':'[[', 'img': '\{\{',
+    var markup = { 'b': '**', 'i':'//', 'em': '//', 'u': '__', 'br':line_break, 
+         'del': '<del>', 'strike': '<del>', p: "\n\n" , 'a':'[[', 'img': '\{\{', 'strong': '**',
          'h1': "\n====== ", 'h2': "\n===== ", 'h3': "\n==== ", 'h4': "\n=== ", 'h5': "\n== ",
          'td': "|", 'th': "^", 'tr':" ", 'table': "\n\n", 'ol':"  - ", 'ul': "  * ", 'li': "",
          'plugin': '<plugin ', 'code': "\'\'",'pre': "\n<", 'hr': "\n\n----\n\n", 'sub': '<sub>',         
@@ -826,9 +979,18 @@ function parse_wikitext(id) {
           'h1': " ======\n", 'h2': " =====\n", 'h3': " ====\n", 'h4': " ===\n", 'h5': " ==\n", 
           'td': " ", 'th': " ", 'tr':"|\n", 'ol':" ", 'ul': " ", 'li': "\n", 'plugin': '</plugin>',
            'pre': "\n</",'sub': '</sub>', 'sup': '</sup> ', 'div':"\n\n", 'p': "\n\n",
-           'font': "</font> "
+           'font': "\n\n</font> "
      }; 
    
+    markup['temp_u'] = "CKGE_TMP_u";
+    markup['temp_strong'] = "CKGE_TMP_strong";
+    markup['temp_em'] = "CKGE_TMP_em";
+     markup['temp_i'] = "CKGE_TMP_i";
+    markup['temp_b'] = "CKGE_TMP_b";
+    markup['temp_del'] = "CKGE_TMP_del";
+    markup['temp_strike'] = "CKGE_TMP_strike";
+     markup['temp_code'] = "CKGE_TMP_code";
+     
     markup['blank'] = "";
     markup['fn_start'] = '((';
     markup['fn_end'] = '))';
@@ -836,7 +998,7 @@ function parse_wikitext(id) {
     markup['p_insert'] = '_PARA__TABLE_INS_';
     markup['format_space'] = '_FORMAT_SPACE_';
     markup['pre_td'] = '<';  //removes newline from before < which corrupts table
-    var format_chars = { 'strong':true,  'b':true, 'i': true, 'em':true,'u':true, 'del':true,'strike':true, 'code':true};  
+    var format_chars = {'strong': true,'b':true, 'i': true, 'em':true,'u':true, 'del':true,'strike':true, 'code':true};  
     
     var results=""; 
     var HTMLParser_LBR = false;
@@ -850,13 +1012,17 @@ function parse_wikitext(id) {
     var HTMLParser_NOWIKI = false;
     var HTMLFormatInList = false;
     var HTMLAcroInList = false;
+    var CurrentTable;
 
     var HTMLParserTopNotes = new Array();
     var HTMLParserBottomNotes = new Array();
     var HTMLParserOpenAngleBracket = false;
     var HTMLParserParaInsert = markup['p_insert'];
- //   var geshi_classes = 'br0|co0|co1|co2|co3|coMULTI|es0|kw1|kw2|kw3|kw4|kw5|me1|me2|nu0|re0|re1|re2|re3|re4|st0|sy0|sy1|sy2|sy3|sy4';
-      var geshi_classes = '(br|co|coMULTI|es|kw|me|nu|re|st|sy)[0-9]';
+
+    var geshi_classes = '(br|co|coMULTI|es|kw|me|nu|re|st|sy)[0-9]';
+    String.prototype.splice = function( idx, rem, s ) {    
+        return (this.slice(0,idx) + s + this.slice(idx + Math.abs(rem)));
+   };
 
    geshi_classes = new RegExp(geshi_classes);
    HTMLParser( CKEDITOR.instances.wiki__text.getData(), {
@@ -870,8 +1036,11 @@ function parse_wikitext(id) {
     td_rowspan: 0,
     rowspan_col: 0, 
     last_column: -1,
+    row:0,
+    col:0,
     td_no: 0,
     tr_no: 0,
+    current_row:false,
     in_table: false,
     in_multi_plugin: false,
     is_rowspan: false,
@@ -892,15 +1061,20 @@ function parse_wikitext(id) {
     downloadable_file: "", 
     external_mime: false,
     in_header: false,
-    is_acronym: false, 
     curid: false,
     format_in_list: false,
-    prev_li: new Array(),
-    immutable_plugin: false,
+    prev_li: new Array(),  
     link_only: false,
 	in_font: false,
 	interwiki: false,
     bottom_url: false,
+    font_family: "arial",
+    font_size: "9pt",
+    font_weight: "normal",
+    font_color: "#000000",
+    font_bgcolor: "#ffffff",
+    font_style: "inherit",
+    is_mediafile: false, 
 
     backup: function(c1,c2) {
         var c1_inx = results.lastIndexOf(c1);     // start position of chars to delete
@@ -930,14 +1104,18 @@ function parse_wikitext(id) {
 				    this.interwiki=true;
 	},
     start: function( tag, attrs, unary ) {
-
+    this_debug = this.dbg;
     if(markup[tag]) {   
       if(format_chars[tag] && this.in_link) {                 
                   this.link_formats.push(tag);
                   return; 
          }
-      if(format_chars[tag] && this.in_font) {          
-                  return; 
+      if(format_chars[tag] && this.in_font) {  
+                results += " ";               
+                 var t = 'temp_' + tag;                 
+                 results += markup[t];
+                 results += " ";
+                 return; 
          }
 	 
      else if(tag == 'acronym') {
@@ -957,6 +1135,8 @@ function parse_wikitext(id) {
              this.prev_li = new Array(); 
         }
 
+        this.is_mediafile =false;
+      
         if(tag == 'img') {
             var img_size="?";
             var width;
@@ -1000,26 +1180,32 @@ function parse_wikitext(id) {
               HTMLParser_TABLE=true;
           }
        }
-       else if(tag=='span') {
-          var font_family = "arial";
-          var font_size = "9pt";
-          var font_weight = "normal";
-          var font_color;
-          var font_bgcolor;
-       }
        
+                 
        if(tag == 'table') {
         this.td_no = 0;
         this.tr_no = 0;
         this.in_table = true; 
         this.is_rowspan = false;
+        this.row=-1;         
+        this.rows = new Array();
+        CurrentTable = this.rows;     
+        this.table_start = results.length;
        }
        else if(tag == 'tr') {
            this.tr_no++;
            this.td_no = 0;         
+           this.col=-1;
+           this.row++;
+           this.rows[this.row] = new Array();
+           this.current_row = this.rows[this.row];
        }
        else if(tag == 'td' || tag == 'th') { 
           this.td_no++;           
+          this.col++;
+          this.current_row[this.col] = {type:tag, rowspan:0,colspan:0,text:""};       
+          this.cell_start = results.length;          
+          this.current_cell = this.current_row[this.col];
           if(this.td_rowspan && this.rowspan_col == this.td_no && this.td_no != this.last_column) {
                this.is_rowspan = true;   
                this.td_rowspan --;
@@ -1035,13 +1221,26 @@ function parse_wikitext(id) {
         var matches;        
         this.attr=false;           
         this.format_tag = false;
-        
+       
         if(format_chars[tag])this.format_tag = true;
         var dwfck_note = false;  
 
         for ( var i = 0; i < attrs.length; i++ ) {     
     
           // if(!confirm(tag + ' ' + attrs[i].name + '="' + attrs[i].escaped + '"')) exit;
+             if(tag == 'td' || tag == 'th') {         
+                 if(attrs[i].name  =='colspan') {
+                     this.current_row[this.col].colspan = attrs[i].value;
+                 }    
+                 if(attrs[i].name  =='class') {                
+                     if((matches=attrs[i].value.match(/(left|center|right)/))) {
+                        this.current_row[this.col].align = matches[1];
+                     }
+                 }
+             if(attrs[i].name == 'rowspan') {
+                  this.current_row[this.col].rowspan= attrs[i].value
+               } 
+            }
              if(attrs[i].escaped == 'u' && tag == 'em' ) {
                      tag = 'u';
                      this.attr='u'    
@@ -1085,38 +1284,38 @@ function parse_wikitext(id) {
                  }
             }
 
-            if(tag == 'span' && attrs[i].name == 'id') {                   
-               if((matches= attrs[i].value.match(/imm_(\d+)/))) {                  
-                   this.immutable_plugin = fckLImmutables[matches[1]];
-               }
-            }
-            else if(tag == 'span') {
-               if(attrs[i].name == 'face') {
-			   	   this.in_font=true;    		   	   
-                   font_family = attrs[i].value;
-               }
+
+            if(tag == 'span') {
                if(attrs[i].name == 'style') {
-                   matches = attrs[i].value.match(/font-size:\s*(\d+(\w+|%))/);
+                   if(!this.in_font) results += "__STYLE__";
+             	   this.in_font=true;    		   	   
+                   matches = attrs[i].value.match(/font-family:\s*([\w\-\s,]+);?/);
                    if(matches){
-                     font_size = matches[1];
+                     this.font_family = matches[1];
                    }
-                   matches = attrs[i].value.match(/font-weight:\s*(\w+)/);   
+                  
+                   //matches = attrs[i].value.match(/font-size:\s*(\d+(\w+|%));?/);
+                   matches = attrs[i].value.match(/font-size:\s*(.*)/);
+                   if(matches){
+                     matches[1]=matches[1].replace(/;/,"");                   
+                     this.font_size = matches[1];
+                   }
+                   matches = attrs[i].value.match(/font-weight:\s*(\w+);?/);   
                    if(matches) {
-                      font_weight = matches[1];
+                      this.font_weight = matches[1];
                    }
-                   matches = attrs[i].value.match(/[^\-]color:\s*([#\w\s\d,\(\)]+);?/);                      
-                   if(matches) {
-                      font_color = matches[1];
+                   matches = attrs[i].value.match(/.*?color:\s*(.*)/);                     
+                   if(matches) {                
+                      matches[1]=matches[1].replace(/;/,"");
+                     if(matches[0].match(/background/)) {                     
+                         this.font_bgcolor = matches[1];
+                     }                     
+                     else  {                     
+                       this.font_color = matches[1];
+                       }
                    }
-				 
-                 matches = attrs[i].value.match(/background[-]color:\s*([#\w\s\d,\(\)]+);?/i);			
-                   if(matches) {
-                      font_bgcolor = matches[1];
-                   }
-               }
-               else if(attrs[i].name == 'color') {
-                    font_color = attrs[i].value;
-               }
+               }      
+             
             }
             if(tag == 'td' || tag == 'th') { 
               if(tag == 'td') {
@@ -1293,10 +1492,10 @@ function parse_wikitext(id) {
                         }                        
                     }
 
-                   if(!this.attr && this.link_title) {
+                   if(!this.attr && this.link_title) {			
                        if(matches = this.link_class.match(/media(.*)/)) {
                             this.link_title=decodeURIComponent(safe_convert(this.link_title));					   	
-                            this.attr=this.link_title;
+                            this.attr=this.link_title;						
                             var m = matches[1].split(/_/);
                             if(m && m[1]) {
                              media_type = m[1];
@@ -1310,7 +1509,7 @@ function parse_wikitext(id) {
                             }
                             this.external_mime = true; 
                             local_image = false;
-                       }
+                        }
                     }
 
                    if(this.attr.match && this.attr.match(/%[a-fA-F0-9]{2}/)  && (matches = this.attr.match(/userfiles\/file\/(.*)/))) {
@@ -1493,8 +1692,7 @@ function parse_wikitext(id) {
                                 regex = new RegExp(regex);                                                
                                 matches = attrs[i].escaped.match(regex);
                             }
-                            if(matches && matches[1]) { 
-                         //   alert('matches 1='+ matches[1] );
+                            if(matches && matches[1]) {                         
                                src = matches[1].replace(/\//g, ':');  
                                src = ':' + src;
                              //  src = safe_convert(src);
@@ -1563,7 +1761,6 @@ function parse_wikitext(id) {
                 return;
            }
           if(this.link_only) tag = 'img';
-		  
           if(tag == 'br') {  
                 if(this.in_multi_plugin) {
                     results += "\n";
@@ -1654,28 +1851,17 @@ function parse_wikitext(id) {
                     this.link_class = 'media';
                     return;             
                  }
+           
+              if(media_class  && media_class == 'mediafile'  )  {           
                results += markup['img'];
-               if(this.attr) {
                    results += this.attr + '|';
+                   this.is_mediafile = true;
                }
+
                return;
           }
-          else if(this.in_font || tag == 'font') {
-              /* <font 18pt:bold/garamond;;color;;background_color>  */
-			   if(!font_family) {			 
-				   return;
-			   }
-               if(font_color)  font_color = font_color.replace(/\s+/g,"");
-               if(font_bgcolor) font_bgcolor = font_bgcolor.replace(/\s+/g,"");			   
-               if(!font_color) font_color = "#000000";
-               if(!font_bgcolor) font_bgcolor = "#ffffff";
-             
-               if(font_color) font_family = font_family + ';;'+ font_color;
-               if(font_bgcolor)  {
-                   font_family = font_family + ';;'+ font_bgcolor;
-               }
-               var font_tag = '<font ' + font_size + ':'+ font_weight + '/'+font_family+'>';
-               results += font_tag ;   
+          else if(this.in_font) {
+              /* <font 18pt:bold,italic/garamond;;color;;background_color>  */
                return;            
        }
 
@@ -1746,15 +1932,19 @@ function parse_wikitext(id) {
 
     end: function( tag ) {
 
-     if(format_chars[tag] && this.in_font) {     
-                 results+=' ';     
-                  return; 
+     if(format_chars[tag] && this.in_font) {  
+                 results += " ";
+                 var t = 'temp_' + tag;
+                 results += markup[t] ;
+                 results += " ";
+                 return; 
          }
     if(this.in_endnotes && tag == 'a') return;
     if(this.link_only){     
        this.link_only=false;
        return;
     }
+    
     if(!markup[tag]) return; 
 
      if(tag == 'sup' && this.attr == 'dwfcknote') {         
@@ -1765,7 +1955,17 @@ function parse_wikitext(id) {
         if(tag !='li') return;
      }
 	 if(tag == 'span' && this.in_font) {
-	      tag = 'font';
+	       tag = 'font';
+          //<font 18pt/garamond;;color;;background_color>  */
+          var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">\n\n";        
+          var font_start = results.lastIndexOf('__STYLE__');            
+          results = results.splice(font_start,9,font_str);
+          this.font_family="arial";
+          this.font_size="9pt";
+          this.font_weight="normal";
+          this.font_color="#000000";
+          this.font_bgcolor="#ffffff";
+
 		  this.in_font=false;		
 	 }
      if(tag == 'span' && this.curid) {
@@ -1776,7 +1976,11 @@ function parse_wikitext(id) {
          this.downloadable_code = false;
          return;
      }
-
+     if(useComplexTables &&  (tag == 'td' || tag == 'th')) {       
+          this.current_cell.text = results.substring(this.cell_start);
+           this.current_cell.text = this.current_cell.text.replace(/:::/gm,"");          
+           this.current_cell.text = this.current_cell.text.replace(/^[\s\|\^]+/,"");   
+     }
      if(tag == 'a' && (this.export_code || this.code_snippet)) {
           this.export_code = false;
           this.code_snippet = false;
@@ -1795,6 +1999,10 @@ function parse_wikitext(id) {
      }
      else if(tag == 'table') {
         this.in_table = false;  
+        if(useComplexTables ) {
+            results = results.substring(0, this.table_start);
+            insert_table(this.rows); 
+         }   
        }
 
      if(tag == 'p' && this.in_table) {              
@@ -1828,8 +2036,12 @@ function parse_wikitext(id) {
             tag = "\n\n";
     }
     else if(tag == 'a' && this.external_mime) {
-           tag = '}} ';
            this.external_mime = false;
+          if(this.is_mediafile)  {
+              tag = '}} ';
+           }
+           else return; 
+          
     }
     else if(tag == 'pre') {
           tag = markup_end[tag];
@@ -1907,7 +2119,7 @@ function parse_wikitext(id) {
        }
         this.last_tag = current_tag;
 
-        if(this.td_colspan) {    
+        if(this.td_colspan && !useComplexTables) {    
             if(this.td_align == 'center') results += ' ';    
             var _colspan = "|";            
             if(current_tag == 'th')
@@ -1947,11 +2159,7 @@ function parse_wikitext(id) {
             this.link_formats = new Array();
             this.in_link = false;
 
-         }
-         else if(current_tag == 'span' ) {
-                  this.immutable_plugin = false;
-         }
- 
+         } 
     },
 
     chars: function( text ) {
@@ -1988,11 +2196,7 @@ function parse_wikitext(id) {
             text = text.replace(/^(&nbsp;)+/, '');
             text = text.replace(/(&nbsp;)+/, ' ');   
         }
-        if(this.immutable_plugin) {
-             text = this.immutable_plugin;
-             text = text.replace(/\/\/<\/\//g,'<');
-             this.immutable_plugin = false;
-        }
+
         if(this.format_tag) {
           if(!this.list_started || this.in_table) text = text.replace(/^\s+/, '@@_SP_@@');  
         }
@@ -2005,9 +2209,7 @@ function parse_wikitext(id) {
 	       HTMLParser_NOWIKI=true;   
 	   }
 
-        if(this.is_acronym) {
-          this.is_acronym = false;
-        }
+
         if(this.format_in_list ) {  
            text = text.replace(/^[\n\s]+$/g, '');       
         }
@@ -2065,7 +2267,8 @@ function parse_wikitext(id) {
                               // don't touch samba share or Windows path backslashes
         if(!results.match(/\[\[\\\\.*?\|$/) && !text.match(/\w:(\\(\w?))+/ ))
          {
-             text = text.replace(/([\*\\])/g, '%%$1%%');            
+             text = text.replace(/([\\])/g, '%%$1%%');            
+             text = text.replace(/([\*])/g, '_CKG_ASTERISK_');            
          }
     }
 
@@ -2144,12 +2347,6 @@ function parse_wikitext(id) {
     );
 
 
-    for(var i=0; i < ckgeditLPluginPatterns.length; i++) {
-      ckgeditLPluginPatterns[i].pat = ckgeditLPluginPatterns[i].pat.replace(/\|/g,"\\|");
-      ckgeditLPluginPatterns[i].pat = ckgeditLPluginPatterns[i].pat.replace(/([\.\?\[\]])/g, "\\$1");
-      var pattern = new RegExp(ckgeditLPluginPatterns[i].pat,"gm");     
-      results = results.replace(pattern, ckgeditLPluginPatterns[i].orig);
-}
     /*
       we allow escaping of troublesome characters in plugins by enclosing them withinback slashes, as in \*\
       the escapes are removed here together with any DW percent escapes
@@ -2162,11 +2359,21 @@ function parse_wikitext(id) {
 
      results = results.replace(/%*\\%*([^\w]{1})%*\\%*/g, "$1");      
      results=results.replace(/_SMB_/g, "\\");     
- 
+         results = results.replace(/CKGE_TMP_(\w+)/gm, function(m,tag) {
+            if(tag == 'b')  return '**';  
+            if(tag == 'em')  return '//';  
+            if(tag == 'u')  return '__';  
+            //if(tag == 'del' || tag == 'strike') 
+           if(tag == 'code') return "\'\'";
+            return "";
+     } );
+     
     if(id == 'test') {
       if(!HTMLParser_test_result(results)) return;     
     }
-
+	results = results.replace(/\{ \{ rss&gt;Feed/mg,'{{rss&gt;http');
+    results = results.replace(/~ ~ NOCACHE~ ~/mg,'~~NOCACHE~~');
+  
     if(HTMLParser_FORMAT_SPACE) { 
         if(HTMLParser_COLSPAN) {           
              results =results.replace(/\s*([\|\^]+)((\W\W_FORMAT_SPACE_)+)/gm,function(match,pipes,format) {
@@ -2290,6 +2497,13 @@ function parse_wikitext(id) {
     results = results.replace(/\n{3,}/g,'\n\n');
     results = results.replace(/_LIST_EOFL_/gm, " " + line_break_final + " ");
 	
+    if(embedComplexTableMacro) {
+        if(results.indexOf('~~COMPLEX_TABLES~~') == -1) {
+           results = "~~COMPLEX_TABLES~~\n" + results;
+        }
+    }
+    results=results.replace(/_CKG_ASTERISK_/gm,'*');      
+
     if(id == 'test') {
       if(HTMLParser_test_result(results)) {
          alert(results);
@@ -2300,8 +2514,7 @@ function parse_wikitext(id) {
     var dwform = GetE('dw__editform');
     dwform.elements.fck_wikitext.value = results;
 
-   if(id == 'bakup') {
-      //alert(results);
+   if(id == 'bakup') {     
       return;
    }
     if(id) {
@@ -2452,52 +2665,12 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
                 return $matches[1] . $quot . $matches[3];' 
           ), $text); 
 
-
-        global $ckgeditLPluginPatterns;
-        $ckgeditLPluginPatterns = array();
-
-        $instructions = p_get_instructions("=== header ==="); // loads DOKU_PLUGINS array --M.T. Dec 22 2009
-
-        $installed_plugins = $this->get_plugins();
-        $regexes = $installed_plugins['plugins'];
-
-        $text = preg_replace_callback('/('. $regexes .')/', 
-                create_function(
-                '$matches', 
-                'global $ckgeditLPluginPatterns;                                 
-                 $retv =  preg_replace("/([\{\}\@\:&~\?\!<>])/", "$1 ", $matches[0]);            
-                 $ckgeditLPluginPatterns[] = array($retv, $matches[0]);
-                 return $retv;' 
-               ),
-          $text);
-
-        global $fckLImmutables;                                 
-        $ckgeditlImmutables=array();           
-
-         foreach($installed_plugins['xcl'] as $xcl) {                           
-               $text = preg_replace_callback('/'. $xcl . '/',
-               create_function(
-               '$matches',
-              'global $fckLImmutables;
-               if(preg_match("#//<//font#",$matches[0])) {
-                   return str_replace("//<//", "<", $matches[0]);
-               }
-               $index = count($fckLImmutables);
-               $fckLImmutables[] = $matches[0]; 
-               return "<span id=\'imm_" . "$index\' title=\'imm_" . "$index\' >" . str_replace("//<//", "<", $matches[0]) . "</span>" ;' 
-              
-              ),
-          $text);   
-
-          }   
-
+    
+            $instructions = p_get_instructions("=== header ==="); // loads DOKU_PLUGINS array --M.T. Dec 22 2009
             global $multi_block;
-            if(preg_match('/(?=MULTI_PLUGIN_OPEN)(.*?)(?<=MULTI_PLUGIN_CLOSE)/ms', $text, $matches)) {
-             //file_put_contents('multi_text-2.txt',$matches[1]);             
+            if(preg_match('/(?=MULTI_PLUGIN_OPEN)(.*?)(?<=MULTI_PLUGIN_CLOSE)/ms', $text, $matches)) {             
              $multi_block = $matches[1];
            }
-
-        
         
         $instructions = p_get_instructions($text);
         if(is_null($instructions)) return '';
@@ -2511,8 +2684,12 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
        
         // Loop through the instructions
         foreach ( $instructions as $instruction ) {
-            // Execute the callback against the Renderer
-            call_user_func_array(array(&$Renderer, $instruction[0]),$instruction[1]);
+             if ($instruction[0] == 'plugin') {              
+                $Renderer->doc .= "<span> ".$instruction[1][3]."</span> ";
+          } else {
+               // Execute the callback against the Renderer
+               call_user_func_array(array(&$Renderer, $instruction[0]),$instruction[1]);              
+            }
         }
 
         //set info array
@@ -2593,91 +2770,7 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
      fwrite($handle,"$what\n");
      fclose($handle);
   }
- /**
-  *  @author Myron Turner <turnermm02@shaw.ca>
-  *  Converts FCK extended syntax to native DokuWiki syntax
- */
-  function fck_convert_text(&$event) {
-  }
-  
-
- function big_file() {   
- }
-
-/**
- * get regular expressions for installed plugins 
- * @author     Myron Turner <turnermm02@shaw.ca>
- * return string of regexes suitable for PCRE matching
-*/
- function get_plugins() {
- global $DOKU_PLUGINS;
-
- $list = plugin_list('syntax');
- $data =  $DOKU_PLUGINS['syntax'][$list[0]]->Lexer->_regexes['base']->_labels; 
- $patterns = $DOKU_PLUGINS['syntax'][$list[0]]->Lexer->_regexes['base']->_patterns;
- $labels = array();
- $regex = '~~NOCACHE~~';
- $regex .= "|\{\{rss>http:\/\/.*?\}\}";
-
- $exclusions = $this->getConf('xcl_plugins');
- $exclusions = trim($exclusions, " ,");
- $exclusions = explode  (',', $exclusions);
- $exclusions[] = 'ckgedit_font';
- $list = array_diff($list,$exclusions);
-
- foreach($list as $plugin) {
-//   if(preg_match('/ckgedit_dwplugin/',$plugin)) continue;
-   if(preg_match('/(ckgedit_dwplugin|mathjax)/',$plugin)) continue;
-   $plugin = 'plugin_' . $plugin;
-
-   $indices = array_keys($data, $plugin);
-   if(empty($indices)) {
-       $plugin = '_' . $plugin;
-
-      $indices = array_keys($data, $plugin);
-   }
-
-   if(!empty($indices)) {
-       foreach($indices as $index) {
-          $labels[] = "$index: " . $patterns[$index];         
-          $pattern = $patterns[$index];       
-          $pattern = preg_replace('/^\(\^/',"(",$pattern); 
-          $regex .= "|$pattern";       
-       }
-    }
-    
- }
- $regex = ltrim($regex, '|'); 
-
- $regex_xcl = array();
- foreach($exclusions as $plugin) {
-   if(preg_match('/ckgedit_dwplugin/',$plugin)) continue;
-   $plugin = 'plugin_' . $plugin;
-
-   $indices = array_keys($data, $plugin);
-   if(empty($indices)) {
-       $plugin = '_' . $plugin;
-      $indices = array_keys($data, $plugin);
-   }
-
-   if(!empty($indices)) {
-       foreach($indices as $index) { 
-            $pos = strpos($patterns[$index],'<');
-            if($pos !== false) {
-               $pattern = str_replace('<', '\/\/<\/\/', $patterns[$index]);
-               $pattern = str_replace('?=',"",$pattern);
-               $regex_xcl[] = $pattern; 
-            }
-          }
-       }
-    }
-
- return array('plugins'=> $regex, 'xcl'=> $regex_xcl);
- //return $regex; 
-
- }
 
 } //end of action class
-
 
 ?>
