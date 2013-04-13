@@ -1,4 +1,4 @@
-rev 13-Apr_11-19_53
+rev 13-Apr_12-20_58
 
 Initial Development distribution
 
@@ -117,5 +117,7 @@ skins/mono/editor_gecko.css and readme.md: notes fix for Artic and possibly othe
 submitted by Josef Meile.
 
 
+12 April
+Compressed image and link dialog scripts, trimmed down link.js.
 
-
+Fixed image dialog so that it displays correctly in all browsers.
