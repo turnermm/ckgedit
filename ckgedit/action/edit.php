@@ -333,7 +333,6 @@ return;
           );
          $text = preg_replace('/TPRE_CLOSE\s+/ms',"TPRE_CLOSE",$text); 
       
-        // $text = preg_replace('/<(?!code|file|plugin|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/plugin|\/sup|\/sub)/ms',"//<//",$text);
          $text = preg_replace('/<(?!code|file|plugin|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/plugin|\/sup|\/sub)/ms',"&lt;",$text);
    
          $text = str_replace('%%&lt;', '&#37;&#37;&#60;', $text);              
@@ -2683,6 +2682,11 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
         $Renderer->interwiki = getInterwiki();
        
         // Loop through the instructions
+        /*
+           By-passing plugin processing was sugested and first implemented
+           by Matti Lattu<matti.lattu@iki.fi>
+           It is a significant contribution to the functionality of ckgEdit
+        */
         foreach ( $instructions as $instruction ) {
              if ($instruction[0] == 'plugin') {              
                 $Renderer->doc .= "<span> ".$instruction[1][3]."</span> ";
@@ -2713,8 +2717,8 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
             $xhtml
           );
            
-           $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_OPEN~\s*~/', "~ ~ MULTI_PLUGIN_OPEN~ ~\n\n<span class='multi_p_open'>\n\n</span>", $xhtml);
-           $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_CLOSE~\s*~/', "<span class='multi_p_close'>\n\n</span>\n\n~ ~ MULTI_PLUGIN_CLOSE~ ~\n", $xhtml);
+           $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_OPEN~\s*~/', "~~MULTI_PLUGIN_OPEN~~\n\n<span class='multi_p_open'>\n\n</span>", $xhtml);
+           $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_CLOSE~\s*~/', "<span class='multi_p_close'>\n\n</span>\n\n~~MULTI_PLUGIN_CLOSE~~\n", $xhtml);
            
 
         }  
