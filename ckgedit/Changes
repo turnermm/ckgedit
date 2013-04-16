@@ -1,4 +1,4 @@
-rev 13-Apr_12-20_58
+rev 13-Apr_16-09_40
 
 Initial Development distribution
 
@@ -121,3 +121,10 @@ submitted by Josef Meile.
 Compressed image and link dialog scripts, trimmed down link.js.
 
 Fixed image dialog so that it displays correctly in all browsers.
+
+
+15 April
+Removed left-over spacing escapes from Multi_OPEN/MULT_CLOSE Plugin
+
+16 April
+Removed newlines and spaces from beginnings and ends of text enclosed by font tags.  Too subtle for javascript; I did it in save.php.

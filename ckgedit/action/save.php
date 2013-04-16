@@ -95,6 +95,17 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
  
         $this->replace_entities();
 
+        $TEXT = preg_replace_callback(
+         '|(<font.*?>)(.*?)(?=</font>)|ms',
+         create_function(
+             '$matches',
+               '$matches[2]=preg_replace("/^\s+/ms","",$matches[2]);
+               $matches[2]=preg_replace("/\s+$/ms","",$matches[2]);              
+               return $matches[1]. $matches[2];'
+         ),
+         $TEXT
+       );
+
      
          return;
     
