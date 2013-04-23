@@ -1,4 +1,4 @@
-rev 13-Apr_22-21_18
+rev 13-Apr_23-11_12
 
 Initial Development distribution
 
@@ -131,3 +131,6 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
 
 22 April
 Added a plugin to view and update font plugin syntax
+
+23 April
+Made clickable textbox for fontAssist plugin to select font syntax for copying.

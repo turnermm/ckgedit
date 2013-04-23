@@ -76,7 +76,14 @@ CKEDITOR.plugins.add( 'fontAssist',
                 var InputId = dialog.getContentElement(page,el).getInputElement().$.id;           
                 return  document.getElementById(InputId);
          };
-         
+
+         var display_fontOpen = function(dialog){
+             var a = ckgedit_getEID(dialog,'general','alert');
+            // a.innerHTML = style_spec.open_tag();
+            a.value = style_spec.open_tag();
+            a.value = a.value.replace(/&lt;/, '<');
+            a.value = a.value.replace(/&gt;/, '>');
+         };
          /* 1 .Assign either forground or background color to css style of the display div: general:contents
                  If the foreground color has been changed, pass the text through
                  replace_formats() 
@@ -99,7 +106,8 @@ CKEDITOR.plugins.add( 'fontAssist',
                      el.style.backgroundColor = style_spec.get(which);
                  }
                  dialog.enableButton( 'ok' );
-                 dialog.selectPage( 'general' );        
+                 dialog.selectPage( 'general' ); 
+                display_fontOpen(dialog);
         };
         
         var resetColor = function(dialog) {
@@ -111,14 +119,16 @@ CKEDITOR.plugins.add( 'fontAssist',
                 el.style.color = style_spec.get('fg'); 
                 el.style.backgroundColor = style_spec.get('bg'); 
 
-                el.innerHTML = replace_formats(selectedText);                                    
+                el.innerHTML = replace_formats(selectedText); 
+                display_fontOpen(dialog);                
         };
         
         var setFont = function(dialog) {
                    var font_style = style_spec.get_font_style(false);                   
                    var d = ckgedit_getEID(dialog,'general','contents');
                    d.style.font =  font_style;                    
-                   d.innerHTML = replace_formats(selectedText);                          
+                   d.innerHTML = replace_formats(selectedText); 
+                  display_fontOpen(dialog);                   
         };
         
         var resetFont = function(dialog) {
@@ -310,11 +320,17 @@ CKEDITOR.plugins.add( 'fontAssist',
 								label : 'Text',
 							},
 							{                            
-								type : 'html',
-                                html: '<div style="max-width:400px; padding-left: 6px;  white-space: pre-wrap; text-align:center; overflow:auto;"></div>',
+								type : 'text',                                
 								id : 'alert',
+                               // style: 'outline:none; border:0;',
 								// Text that labels the field.
-								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.labeledElement.html#constructor								
+								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.labeledElement.html#constructor		
+                                onClick: function() {
+                                    var dialog = this.getDialog();
+                                    var el =  ckgedit_getEID(dialog,'general','alert')                                  
+                                    el.focus();
+                                    el.select();
+                              },                             
 							}, 
                             
                             {
@@ -531,7 +547,9 @@ CKEDITOR.plugins.add( 'fontAssist',
 'Clicking anywhere on the plugin syntax or its text will enable you to check the appearance of the font, its colors, and its size.'+
 '<br /><br />You can also update the plugin syntax in place.  To do this you must select both the font syntax itself and the enclosed text:' +
 '<p style="text-indent: 50px; font-size: 12pt;">  &lt;font. . . &gt;text&lt;/font&gt;</p>' +
-'Then whatever changes you  make with this tool can be inserted into the editor window, by clicking OK, and will replace the current font syntax. </div>'
+'Then whatever changes you  make with this tool can be inserted into the editor window, by clicking OK, and will replace the current font syntax. ' +
+'<br /><br />The font syntax will appear in the textbox below the display window and is updated with each change. '+ 
+'Clicking on the text will select the text for copying.</div>'
 
                        }
                       ],
@@ -556,7 +574,7 @@ CKEDITOR.plugins.add( 'fontAssist',
                         if(!text1.match(/&lt;font(.*)\/font&gt;/) && !text1.match(/<font(.*)\/font>/)) { 
                            nonReplaceable = true;                         
                            var a = ckgedit_getEID(this,'general','alert');
-                           a.innerHTML = "Changes will not be inserted into editor.  See Info for details";  
+                           a.value = "Changes will not be inserted into editor.  See Info for details";  
                          }  
                       
                        
