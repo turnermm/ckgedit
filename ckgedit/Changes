@@ -1,4 +1,4 @@
-rev 13-Apr_23-11_12
+rev 13-Apr_24-08_55
 
 Initial Development distribution
 
@@ -134,3 +134,6 @@ Added a plugin to view and update font plugin syntax
 
 23 April
 Made clickable textbox for fontAssist plugin to select font syntax for copying.
+
+24 April
+Made font recognition selection case insensitive for dsplaying font on startup

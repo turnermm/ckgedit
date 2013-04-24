@@ -77,9 +77,9 @@ CKEDITOR.plugins.add( 'fontAssist',
                 return  document.getElementById(InputId);
          };
 
+       // displays open tag of font plugin below display window         
          var display_fontOpen = function(dialog){
-             var a = ckgedit_getEID(dialog,'general','alert');
-            // a.innerHTML = style_spec.open_tag();
+             var a = ckgedit_getEID(dialog,'general','alert');         
             a.value = style_spec.open_tag();
             a.value = a.value.replace(/&lt;/, '<');
             a.value = a.value.replace(/&gt;/, '>');
@@ -198,9 +198,9 @@ CKEDITOR.plugins.add( 'fontAssist',
             };
             
             var updateSelectList = function (sel, item) {
-            
+
                    for(var i = 0; i < sel.options.length; i++) {
-                       var regex = new RegExp(sel.options[i].label);
+                       var regex = new RegExp(sel.options[i].label,"i");
                        if(item.match(regex) )  {
                                sel.options[i].selected = true;
                                break;
