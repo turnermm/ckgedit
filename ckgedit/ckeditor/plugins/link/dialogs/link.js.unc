@@ -1441,7 +1441,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                     }
                      data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
                      data.url.url = data.url.url.replace(/^\:/,"");
-                     data.url.url =  ':' + data.url.url.replace(/\//,':');      
+                     data.url.url =  ':' + data.url.url.replace(/\//g,':');      
                      data.adv.advCSSClasses = "wikilink1";
                      data.adv.advTitle = data.url.url;
                      data.url.url=editor.config.doku_url + 'doku.php?id=' + data.url.url;                    

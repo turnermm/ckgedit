@@ -1,4 +1,4 @@
-rev 13-Apr_24-08_55
+rev 13-Apr_25-08_09
 
 Initial Development distribution
 
@@ -136,4 +136,7 @@ Added a plugin to view and update font plugin syntax
 Made clickable textbox for fontAssist plugin to select font syntax for copying.
 
 24 April
-Made font recognition selection case insensitive for dsplaying font on startup
+Made font recognition case insensitive for displaying font in Select at startup
+
+25 April
+Fixed regex in link.js that converts '/' to ':' so that all, not  just first '/' is converted.
