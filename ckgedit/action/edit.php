@@ -46,10 +46,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         global $FCKG_show_preview;
         $FCKG_show_preview = true;
 
-        if(isset($_REQUEST['do']) && $_REQUEST['do'] == 'draft') {
-          //return;
-        }
-
         if(isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'dwiki') {
           $FCKG_show_preview = true;
           return;

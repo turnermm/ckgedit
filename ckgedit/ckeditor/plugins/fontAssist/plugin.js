@@ -146,7 +146,9 @@ CKEDITOR.plugins.add( 'fontAssist',
              var dialog = this.getDialog();   
              dialog.disableButton('ok'); 
              var n = ckgedit_getEID(dialog,'colors','fg');
-             onClickInsert(evt, n);        
+             var value = onClickInsert(evt, n);               
+             var n = ckgedit_getEID(dialog,'colors','fgsample');
+             n.style.backgroundColor = value;
              toggle_ok(dialog,true);
          };
 
@@ -154,7 +156,9 @@ CKEDITOR.plugins.add( 'fontAssist',
              var dialog = this.getDialog();  
              dialog.disableButton('ok'); 
              var n = ckgedit_getEID(dialog,'backgroundcolors','bg');                  
-             onClickInsert(evt, n); 
+             var value = onClickInsert(evt, n); 
+             var n = ckgedit_getEID(dialog,'backgroundcolors','bgsample');
+             n.style.backgroundColor = value;             
              toggle_ok(dialog,true);
          };
          
@@ -170,7 +174,7 @@ CKEDITOR.plugins.add( 'fontAssist',
                 }
                 else matches[1] = hex2rgb(matches[1]);
                 which.value =   matches[1]; 
-          
+                return matches[1];
              };
              
              var toggle_ok = function(dialog,onff) {
@@ -433,7 +437,7 @@ CKEDITOR.plugins.add( 'fontAssist',
 							}, 
                             {
         					type: 'hbox',
-							widths: [ '40%', '20%', '20%' ],
+							widths: [ '40%', '10%', '25%', '25%' ],
                             children: [
 							   {
 								type : 'text',
@@ -444,6 +448,11 @@ CKEDITOR.plugins.add( 'fontAssist',
 								{
 									data.fg = this.getValue();
 								}
+                              },
+							   {
+                                type: 'html',
+                                id: 'fgsample',
+                                html: '<table style="border: 1px solid silver;"><tr><td style="width:24px;">&nbsp;</td><tr></table>',                                
                               },
 							   {
 								type : 'button',
@@ -494,7 +503,7 @@ CKEDITOR.plugins.add( 'fontAssist',
                             
                             {  
         					type: 'hbox',
-							widths: [ '40%', '20%', '20%' ],
+							widths: [ '40%', '10%', '25%', '25%' ],
                             children: [
 							   {
 								type : 'text',
@@ -506,6 +515,11 @@ CKEDITOR.plugins.add( 'fontAssist',
 									data.fg = this.getValue();
 								}
                               },
+                              {
+                                type: 'html',
+                                id: 'bgsample',
+                                html: '<table style="border: 1px solid silver;"><tr><td style="width:24px;">&nbsp;</td><tr></table>',                                
+                              },                              
 							   {
 								type : 'button',
 								id : 'bgb_confirm',                              

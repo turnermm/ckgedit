@@ -1,4 +1,4 @@
-rev 13-Apr_25-08_09
+rev 13-Apr_26-07_57
 
 Initial Development distribution
 
@@ -140,3 +140,8 @@ Made font recognition case insensitive for displaying font in Select at startup
 
 25 April
 Fixed regex in link.js that converts '/' to ':' so that all, not  just first '/' is converted.
+
+Bring edit.php into sync with original parsing for nice urls; in switch distro only.
+
+26 April
+Add color sample box to text and background color panels of fontAssist
