@@ -1,4 +1,4 @@
-rev 13-Apr_26-07_57
+rev 13-Apr_29-13_37
 
 Initial Development distribution
 
@@ -145,3 +145,6 @@ Bring edit.php into sync with original parsing for nice urls; in switch distro o
 
 26 April
 Add color sample box to text and background color panels of fontAssist
+
+29 April
+Added pt-br.php to action/lang (Benedito Carneiro)
