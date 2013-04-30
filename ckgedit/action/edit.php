@@ -37,7 +37,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     function action_plugin_ckgedit_edit()
     {
         $this->setupLocale();
-        $this->helper =& plugin_load('helper', 'ckgedit');
+        $this->helper = plugin_load('helper', 'ckgedit');
     }
 
 
@@ -96,6 +96,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
      *
      * load fck js
      * @author Pierre Spring <pierre.spring@liip.ch>
+    * @author Myron Turner <turnermm03@shaw.ca>     
      * @param mixed $event 
      * @access public
      * @return void
@@ -117,14 +118,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
                 'charset'=>'utf-8', 
                 '_data'=>'',
                  'src'=>DOKU_BASE.'lib/plugins/ckgedit/' .$this->fck_location. '/ckeditor.js'
-            );
-return;
-        $event->data['script'][] = 
-            array( 
-                'type'=>'text/javascript', 
-                'charset'=>'utf-8', 
-                '_data'=>'',
-                 'src'=>DOKU_BASE.'lib/plugins/ckgedit/scripts/vki_kb.js'
             );
 
       $ua = strtolower ($_SERVER['HTTP_USER_AGENT']);
@@ -243,19 +236,6 @@ return;
             );   
       }
        
-        /* convert html tags to entities in indented code blocks*/
-       $text= preg_replace_callback(
-          '/(\n  )((?![\*\-]).*?)(\n)(?!\s)/ms',
-          create_function(
-            '$matches',
-            '$matches[0] = preg_replace("/(\[\[\w+)>/ms","$1__IWIKI__",$matches[0]);
-            $matches[0] = preg_replace("/<(?!\s)/ms", "&lt;", $matches[0]); 
-            $matches[0] = preg_replace("/(?<!\s)>/ms", "&gt;", $matches[0]);    
-            $matches[0] = preg_replace("/__IWIKI__/ms", ">", $matches[0]);    
-            return $matches[0];  '
-          ), $text
-        );   
-		
        $pos = strpos($text, '<');
 
        if($pos !== false) {
@@ -2268,7 +2248,9 @@ function parse_wikitext(id) {
     }
 
     if(this.in_endnotes && HTMLParserTopNotes.length) {
-     if(text.match(/\w/) && ! text.match(/\d\)/)) {
+    
+     if(text.match(/\w/) && ! text.match(/^\s*\d\)\s*$/)) {        
+       text= text.replace(/\)\s*$/, "_FN_PAREN_C_");     
         var index = HTMLParserTopNotes.length-1; 
         if(this.bottom_url)  { 
             if(this.link_class && this.link_class == 'media') {
@@ -2448,7 +2430,7 @@ function parse_wikitext(id) {
         for(var i in HTMLParserBottomNotes) {  // re-insert DW's bottom notes at text level
             var matches =  i.match(/_(\d+)/);    
             var pattern = new RegExp('(\<sup\>)*[\(]+' + matches[1] +  '[\)]+(<\/sup>)*');          
-            results = results.replace(pattern,'((' + HTMLParserBottomNotes[i] +'))');
+            results = results.replace(pattern,'((' + HTMLParserBottomNotes[i].replace(/_FN_PAREN_C_/g, ") ") +'))');                       
          }
        results = results.replace(/<sup><\/sup>/g, "");
        results = results.replace(/((<sup>\(\(.*\)\)\)?<\/sup>))/mg, function(fn) {           
@@ -2642,7 +2624,7 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
         }
         else{
             // Maybe a plugin is available?
-            $Renderer =& plugin_load('renderer',$mode);	    
+            $Renderer = plugin_load('renderer',$mode);	    
             if(is_null($Renderer)){
                 msg("No renderer for $mode found",-1);
                 return null;
@@ -2765,7 +2747,7 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
 
   function write_debug($what) {
      return;
-     $handle = fopen("edit_php.txt", "a");
+     $handle = fopen("ckgedit_php.txt", "a");
      if(is_array($what)) $what = print_r($what,true);
      fwrite($handle,"$what\n");
      fclose($handle);
