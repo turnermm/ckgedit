@@ -1,4 +1,4 @@
-rev 13-Apr_29-13_37
+rev 13-Apr_29-21_08
 
 Initial Development distribution
 
@@ -148,3 +148,4 @@ Add color sample box to text and background color panels of fontAssist
 
 29 April
 Added pt-br.php to action/lang (Benedito Carneiro)
+Fix for footnotes with embedded parentheses.
