@@ -215,7 +215,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					retval.url.selected =urlMatch[1];
 				    retval.url.protocol = "";
 				    retval.url.url = "";
-					alert(retval.url.selected);
+					//alert(retval.url.selected);
 
                 }
            else if((urlMatch = href.match(oRegex.media_internal)) || (urlMatch = href.match(oRegex.media_rewrite_1)) 
