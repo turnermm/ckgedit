@@ -15,9 +15,11 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.doku_base = new RegExp('^' + Doku_Base.replace(/\//g,'\\/'),'g');
     oRegex.media_internal = /lib\/exe\/fetch\.php\/(.*)/;
     oRegex.media_rewrite_1 = /^_media\/(.*)/;
+    oRegex.media_rewrite_1Doku_Base = new RegExp('^' + Doku_Base + '_media\/(.*)');    
     oRegex.media_rewrite_2=/exe\/fetch.php\?media=(.*)/;
     oRegex.internal_link = /doku.php\?id=(.*)/;
     oRegex.internal_link_rewrite_2 = /doku.php\/(.*)/;
+    oRegex.internal_link_rewrite_1 = new RegExp('^' + Doku_Base + '(?!_media)(.*)');    
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
     //oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
 	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
@@ -208,7 +210,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				subjectMatch && ( email.subject = decodeURIComponent( subjectMatch[ 1 ] ) );
 				bodyMatch && ( email.body = decodeURIComponent( bodyMatch[ 1 ] ) );
 			}
-            else if( (urlMatch = href.match( internalLinkRegex )) || ( urlMatch = href.match(oRegex.internal_link_rewrite_2))) 
+            else if( (urlMatch = href.match( internalLinkRegex )) || ( urlMatch = href.match(oRegex.internal_link_rewrite_2)) 
+                        || (urlMatch = href.match( oRegex.internal_link_rewrite_1 ))
+                     ) 
             {
                     retval.type = 'internal';
                     retval.url = {};
@@ -219,7 +223,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
                 }
            else if((urlMatch = href.match(oRegex.media_internal)) || (urlMatch = href.match(oRegex.media_rewrite_1)) 
-              || (urlMatch = href.match(oRegex.media_rewrite_2)) ) {
+              || (urlMatch = href.match(oRegex.media_rewrite_2)) || (urlMatch = href.match(oRegex.media_rewrite_1Doku_Base))) {
                     retval.type = 'media';
                   	retval.url = {};
 				    retval.url.protocol =  "";

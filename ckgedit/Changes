@@ -1,4 +1,4 @@
-rev 13-May_01-09_08
+rev 13-May_01-11_29
 
 Initial Development distribution
 
@@ -152,3 +152,5 @@ Fix for footnotes with embedded parentheses.
 
 1 May
 Removed debugging alert from link.js
+Updated handling of rewrite 1 links in  links.js (currently affect only switch distro)
+In switch distro fixed edit.php's recognition of rewrite 1 links
