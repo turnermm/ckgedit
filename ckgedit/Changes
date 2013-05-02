@@ -1,4 +1,4 @@
-rev 13-May_01-11_29
+rev 13-May_02-10_40
 
 Initial Development distribution
 
@@ -154,3 +154,7 @@ Fix for footnotes with embedded parentheses.
 Removed debugging alert from link.js
 Updated handling of rewrite 1 links in  links.js (currently affect only switch distro)
 In switch distro fixed edit.php's recognition of rewrite 1 links
+
+2 May 
+check for unsetDokuWikiLockTimer changed to window.unsetDokuWikiLockTimer in edit.php;
+prevents JS error if not found.

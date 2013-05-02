@@ -696,7 +696,7 @@ global $INFO;
                     "smallwin", "width=600,height=500,scrollbars=yes");
         }
 
-        if(unsetDokuWikiLockTimer) unsetDokuWikiLockTimer();  
+        if(window.unsetDokuWikiLockTimer) window.unsetDokuWikiLockTimer();  
 
         function dwfck_size_ctl(which) {
            var height = parseInt(document.getElementById('wiki__text___Frame').style.height); 
