@@ -198,7 +198,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             }
 
      $text = preg_replace_callback(
-    '/(~~NOCACHE~~|\{\{rss>http:\/\/.*?\}\})/ms',
+    '/(~~NOCACHE~~|~~NOTOC~~|\{\{rss>http:\/\/.*?\}\})/ms',
      create_function(
                '$matches',
                '$matches[0] = str_replace("{{rss>http", "{ { rss>Feed",  $matches[0]);
@@ -2349,7 +2349,7 @@ function parse_wikitext(id) {
       if(!HTMLParser_test_result(results)) return;     
     }
 	results = results.replace(/\{ \{ rss&gt;Feed/mg,'{{rss&gt;http');
-    results = results.replace(/~ ~ NOCACHE~ ~/mg,'~~NOCACHE~~');
+    results = results.replace(/~ ~ (NOCACHE|NOTOC)~ ~/mg,'~~'+"$1"+'~~');
   
     if(HTMLParser_FORMAT_SPACE) { 
         if(HTMLParser_COLSPAN) {           

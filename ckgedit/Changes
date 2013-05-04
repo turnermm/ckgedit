@@ -1,4 +1,4 @@
-rev 13-May_02-10_40
+rev 13-May_04-08_07
 
 Initial Development distribution
 
@@ -158,3 +158,6 @@ In switch distro fixed edit.php's recognition of rewrite 1 links
 2 May 
 check for unsetDokuWikiLockTimer changed to window.unsetDokuWikiLockTimer in edit.php;
 prevents JS error if not found.
+
+4 May
+Added support fo ~~NOTOC~~ macro
