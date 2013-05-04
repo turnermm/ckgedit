@@ -1,4 +1,4 @@
-rev 13-May_04-08_07
+rev 13-May_04-10_35
 
 Initial Development distribution
 
@@ -160,4 +160,6 @@ check for unsetDokuWikiLockTimer changed to window.unsetDokuWikiLockTimer in edi
 prevents JS error if not found.
 
 4 May
-Added support fo ~~NOTOC~~ macro
+Added support for ~~NOTOC~~ macro
+Fixed bug in formresourceslist.html which reset localBrowser to false
+with each file selection

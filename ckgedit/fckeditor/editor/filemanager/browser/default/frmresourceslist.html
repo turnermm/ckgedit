@@ -327,8 +327,9 @@ function OpenFile( fileUrl )
            fileUrl = url[1];
        }      
        window.top.opener.update_ckgeditMediaLink(fileUrl);    
-    }
     parent.opener.oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser=false;
+    }
+  
   } 
   catch(e) {   
   }
