@@ -2138,7 +2138,7 @@ function parse_wikitext(id) {
     },
 
     chars: function( text ) {
-	
+	text = text.replace(/\t/g,"    ");
 	if(this.interwiki && results.match(/>\w+\s*\|$/)) 	{	 
 	    this.interwiki=false;
         if(this.attr) {          
