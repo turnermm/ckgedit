@@ -222,7 +222,9 @@ oIcons.GetIcon = function( fileName )
 
 function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 {
-	if (errorNumber == "1")
+   // alert( errorNumber +"\nurl="+ fileUrl+"\nfname="+ fileName+"\nmsg="+ customMsg );
+    
+	if (errorNumber == "1" || parseInt(errorNumber) > 300) 
 		window.frames['frmUpload'].OnUploadCompleted( errorNumber, customMsg ) ;
 	else
 		window.frames['frmUpload'].OnUploadCompleted( errorNumber, fileName ) ;

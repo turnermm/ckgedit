@@ -1,4 +1,4 @@
-rev 13-May_14-10_24
+rev 13-May_14-19_33
 
 Initial Development distribution
 
@@ -163,3 +163,8 @@ prevents JS error if not found.
 Added support for ~~NOTOC~~ macro
 Fixed bug in formresourceslist.html which reset localBrowser to false
 with each file selection
+
+14 May
+Fix for nested lists: replaced tabs inserted by ckeditor with 4 spaces.
+Additoinal error checking for file uploads in fckeditor, e.g. exceeding
+php ini maximums.

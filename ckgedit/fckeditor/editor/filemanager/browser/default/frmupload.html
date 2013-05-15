@@ -78,8 +78,10 @@ function OnUploadCompleted( errorNumber, data )
 		document.getElementById('frmUpload').reset() ;
 
 	// Reset the interface elements.
+    if(!errorNumber) {
         var upload_msg = translateItem('DlgFileBrowserUpMsg','Upload a new file in this folder (Upload in progress, please wait...)');
 	document.getElementById('eUploadMessage').innerHTML = upload_msg ;
+    }
 	document.getElementById('btnUpload').disabled = false ;
 
 	switch ( errorNumber )
@@ -101,6 +103,16 @@ function OnUploadCompleted( errorNumber, data )
                 case 203:
                        alert(translateItem('FileBrowserError_203','--You do not have permission to upload files to this folder. If you think this is incorrect please notify your administrator.'));                       
                        break;  
+         case 301: 
+         case 302: 
+         case 303: 
+         case 304: 
+         case 305: 
+         case 306:                       
+         case 307: 
+         case 308:                       
+                alert(errorNumber +': ' +data);
+                break;
 		default :
 
                         var default_err = translateItem('FileBrowserError_default', 'Error on file upload. Error number: ');
