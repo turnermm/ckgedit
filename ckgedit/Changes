@@ -1,4 +1,4 @@
-rev 13-May_14-19_33
+rev 13-May_16-19_11
 
 Initial Development distribution
 
@@ -168,3 +168,6 @@ with each file selection
 Fix for nested lists: replaced tabs inserted by ckeditor with 4 spaces.
 Additoinal error checking for file uploads in fckeditor, e.g. exceeding
 php ini maximums.
+
+16 May 
+Added language support for fckeditor filebrowser.

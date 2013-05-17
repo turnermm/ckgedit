@@ -9,6 +9,7 @@ var fckgInternalInputId, fckgMediaInputId;
    
 CKEDITOR.dialog.add( 'link', function( editor )
 {
+    oDokuWiki_FCKEditorInstance.Lang = editor.lang;
     var Doku_Base = oDokuWiki_FCKEditorInstance.dwiki_doku_base;
 	var plugin = CKEDITOR.plugins.link;
     var oRegex = new Object() ;

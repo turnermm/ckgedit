@@ -10,6 +10,7 @@ window.onbeforeunload = function() { };
 (function() {
 	var imageDialog = function( editor, dialogType ) {
 			// Load image preview.
+            oDokuWiki_FCKEditorInstance.Lang = editor.lang;
 			var IMAGE = 1,
 				LINK = 2,
 				PREVIEW = 4,
