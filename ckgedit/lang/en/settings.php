@@ -21,7 +21,7 @@ $lang['acl_del'] =  "Default (box not checked) allows users with upload permissi
 $lang['auth_ci'] = "The user login id is case insensitive, that is you can login as both USER and user";
 $lang['nix_style'] = "For Windows Servers (Vista and Later).  This setting makes it possible to access data\\media through ckgedit\\CKeditor\\userfiles, if links to media and file have been successfully created in userfiles";
 $lang['no_symlinks']  = "Disable automatic creation of symbolic links in ckgedit/userfiles.";            
-$lang['direction'] = 'Set Language direction in CKeditor:  <b>nocheck</b>: ckgeditLite will make no changes to the default direction setting; ' 
+$lang['direction'] = 'Set Language direction in CKeditor:  <b>nocheck</b>: ckgedit will make no changes to the default direction setting; ' 
                        . ' <b>dokuwiki</b>:  the current Dokuwiki language direction;  <b>ltr</b>: Left-to-right ; <b>rtl</b>: Right-to-left.';
 $lang['scayt_auto'] = 'Automatically enable the SCAYT spellchecker. Defaults to "on". To turn off SCAYT select "off"';
 $lang['scayt'] = 'Use the SCAYT spellchecker. This defaults to "on"; selecting "off" will switch to the spellerpages checker';  
