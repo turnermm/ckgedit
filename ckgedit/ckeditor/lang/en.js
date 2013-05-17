@@ -32,6 +32,13 @@ FileBrowserError_304: "No file was uploaded.",
 FileBrowserError_306:  "Missing a temporary folder.",        
 FileBrowserError_307:  "Failed to write file to disk.",
 FileBrowserError_308: "PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help.",
+DlgFileBrowserUpMsg: "Upload a new file in this folder",
+DlgFileBrowserRead  : "read-only",
+DlgFileBrowserWrite : "uploadable",
+DlgFileBrowserNewFolder: "Create Folder",
+DlgFileBrowserResourceType: "Resource Type",
+DlgLnkUpload		: "Upload",
+DlgFileBrowserMove: "Move",
 
 };
 

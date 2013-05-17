@@ -10,6 +10,7 @@ function setupLanguage() {
 
      if (parent && parent.opener.oDokuWiki_FCKEditorInstance.Lang) {
         fck_Lang=parent.opener.oDokuWiki_FCKEditorInstance.Lang['fbrowser'];          
+        ckgTranslatePage(document);
         return;  
  }
  
@@ -49,4 +50,29 @@ function translateErrorAny(err_str) {
   return err_str;  
 }
  
+function ckgTranslatePage(d) {
 
+   var spans = d.getElementsByTagName('span');
+    
+   for(i=0; i<spans.length; i++) {
+      if(spans[i].getAttribute("fckLang")) {
+         var val = spans[i].getAttribute("fckLang");
+         var translation = translateItem(val,  "");
+         if(translation) {
+            spans[i].innerHTML = translation;
+         }
+      }
+   }
+
+   var input = d.getElementsByTagName('input');
+    for(i=0; i<input.length; i++) {
+      if(input[i].getAttribute("fckLang")) {
+         var val = input[i].getAttribute("fckLang");        
+         var translation = translateItem(val,  "");
+         if(translation) {
+            input[i].value = translation;
+         }
+      }
+   }
+ 
+}
