@@ -1,4 +1,4 @@
-rev 13-May_16-22_55
+rev 13-May_17-08_05
 
 Initial Development distribution
 
@@ -171,3 +171,6 @@ php ini maximums.
 
 16 May 
 Added language support for fckeditor filebrowser.
+
+17 May
+Activated language direction config option

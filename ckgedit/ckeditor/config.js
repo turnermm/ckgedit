@@ -274,6 +274,8 @@ function sack(file) {
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
       config.extraSpecialChars  = ['↔'];
       config.extraPlugins = 'signature,footnote,shortcuts,fontAssist'; //,devtools';
+      config.contentsLangDirection = '';
+      if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
      
     config.toolbar_Dokuwiki =
 	[
