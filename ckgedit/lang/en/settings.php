@@ -29,4 +29,4 @@ $lang['scayt_lang']="Set SCAYT default language.";
 $lang['smiley_hack'] = "Reset URL for CKeditor's smilies when moving to new server. This is done on a page by page basis when page is loaded for editing and saved.  This option should normally be turned off.";
 $lang['complex_tables'] ="Use the complex tables algorithm.  As opposed to the standard parsing of tables, this should give better results when mixing complex arrangements of rowspans and colspans. But slightly more processing time.";
 $lang['duplicate_notes'] = "Set this to true if users create multiple footnotes with the same footnote texts; required to prevent notes from being corrupted.";
-
+$lang['winstyle'] = 'Use direct path to media directory instead of fckeditor/userfiles. This requires that fckeditor/userfiles/.htaccess.security be copied  to data/media and renamed .htaccess';

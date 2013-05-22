@@ -1,4 +1,4 @@
-rev 13-May_17-08_05
+rev 13-May_22-10_07
 
 Initial Development distribution
 
@@ -174,3 +174,6 @@ Added language support for fckeditor filebrowser.
 
 17 May
 Activated language direction config option
+
+22 May
+Implemented winstyle option

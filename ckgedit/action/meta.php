@@ -361,9 +361,9 @@ function check_userfiles() {
                   setcookie('FCK_SCAYT_LANG',$scayt_lang_code, $expire, '/'); 
                }
            }
-           
-               
-               
+           if ($this->getConf('winstyle')) {
+               setcookie('FCKConnector','WIN', $expire, '/');                            
+           }
                    
   }
 

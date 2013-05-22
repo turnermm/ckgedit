@@ -4,7 +4,7 @@ base directory for this version is ckgedit. However, at the present time, only o
 be enabled at any one time.  fckgLite has had thousands of users and downlaods and has been
 in development for 4 years. While ckgedit takes great advantage of this development history,
 it may be missing a few features which are available in fckgLite and will be added in 
-due course.  For details on these, see the fckgLite web site fckgLite dailies page or the ckgedit
+due course.  For details on these, see the fckgLite web site, fckgLite dailies page, or the ckgedit
 plugin page at Dokuwiki.org.
 
 This version of ckgeditor should work with Linux, Windows, and versions of Dokuwiki installed with the 
