@@ -1,4 +1,4 @@
-rev 13-May_22-10_07
+rev 13-May_23-21_36
 
 Initial Development distribution
 
@@ -177,3 +177,6 @@ Activated language direction config option
 
 22 May
 Implemented winstyle option
+
+23 May
+Cleaned up link.js and added facility to create anchors to Dokuwiki headings in pages

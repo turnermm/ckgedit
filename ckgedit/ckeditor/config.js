@@ -265,7 +265,7 @@ function sack(file) {
      
       var ckedit_path =  window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
       config.doku_url = window.location.protocol+ '//' + top.dokuBase;
-      
+      config.ckedit_path = window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
     //  config.format_code = { element : 'code', attributes : { 'class' : 'dwcode' } };
 	// Define changes to default configuration here.
 	// For the complete reference:

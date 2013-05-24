@@ -64,10 +64,62 @@ CKEDITOR.dialog.add( 'link', function( editor )
 	
   var showAdvanced = function() {	
 	  var dialog = this.getDialog();	
-	  var msg  = dialog.getContentElement( 'advanced', 'msg' );		
-	  msg.focus();
+	  var anchors  = dialog.getContentElement( 'advanced', 'internalAnchor' );		
+	  anchors.focus();
       dialog.showPage( 'info' );
   };
+  
+    var getInternalHeaders = function() {     
+    
+	  var dialog = this.getDialog();	
+      var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;          
+      var select =document.getElementById(select_id);
+      var wiki_id = dialog.getContentElement('info', 'internal').getInputElement().$.id;  
+      wiki_id = document.getElementById(wiki_id).value;        
+      if(!wiki_id) return;
+      
+      var anchorOption = {
+        push: function(title, value) { 
+           this.stack[this.Index] = (new Option(title,value,false,false));
+           this.Index++;
+        },
+        Index: 0,
+        stack: undefined,
+        selection: "",
+        ini: function(title) {
+          this.stack = select.options;
+          this.stack.length = 0;
+          this.Index = 0;    
+          this.push(title,'');     
+        }
+    };
+    
+        var ajax = new editor.config.sack();    
+        ajax.requestFile =  editor.config.ckedit_path + "get_headers.php";   
+        ajax.method = 'GET';        
+        ajax.setVar('dw_id',wiki_id);
+        ajax.onCompletion = function() {
+            if(ajax.responseStatus && ajax.responseStatus[0] == 200) {         
+                 var str = decodeURIComponent(ajax.response);                              
+                 if(str.match(/^\s*__EMPTY__\s*$/)) {
+                        anchorOption.ini('No Headers Found');
+                        anchorOption.selection = "";
+                        return;
+                 }
+                   anchorOption.ini('Headings Menu')
+                   anchorOption.push('Cancel Selection',"");
+                   var pairs = str.split('@@');
+                    for (var i in pairs) {
+                          var elems = pairs[i].split(/;;/);
+                          anchorOption.push(elems[0],elems[1]);
+                     }
+            }
+          };
+         ajax.runAJAX();   
+         
+	};	  
+    
+  
   var getSMBInput = function ()   {  return fckgSMBInputId; };
 	// Handles the event when the "Type" selection box is changed.
 	var linkTypeChanged = function()
@@ -104,11 +156,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				dialog.hidePage( 'upload' );
 		}
 
-   /*
-   fckgInternalInputId = dialog.getContentElement('info', 'internal').getInputElement().$.id;
-   fckgMediaInputId = dialog.getContentElement('info', 'media').getInputElement().$.id;
-   fckgSMBInputId = dialog.getContentElement('info', 'samba').getInputElement().$.id;
-   */
+ 
 		for ( var i = 0 ; i < partIds.length ; i++ )
 		{
 			var element = dialog.getContentElement( 'info', partIds[i] );          
@@ -265,107 +313,14 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			var target = element.getAttribute( 'target' );
 			retval.target = {};
 			retval.adv = {};
-
-			// IE BUG: target attribute is an empty string instead of null in IE if it's not set.
-			if ( !target )
-			{
-				var onclick = element.data( 'cke-pa-onclick' ) || element.getAttribute( 'onclick' ),
-					onclickMatch = onclick && onclick.match( popupRegex );
-				if ( onclickMatch )
-				{
-					retval.target.type = 'popup';
-					retval.target.name = onclickMatch[1];
-
-					var featureMatch;
-					while ( ( featureMatch = popupFeaturesRegex.exec( onclickMatch[2] ) ) )
-					{
-						// Some values should remain numbers (#7300)
-						if ( ( featureMatch[2] == 'yes' || featureMatch[2] == '1' ) && !( featureMatch[1] in { height:1, width:1, top:1, left:1 } ) )
-							retval.target[ featureMatch[1] ] = true;
-						else if ( isFinite( featureMatch[2] ) )
-							retval.target[ featureMatch[1] ] = featureMatch[2];
-					}
-				}
-			}
-			else
-			{
-				var targetMatch = target.match( selectableTargets );
-				if ( targetMatch )
-					retval.target.type = retval.target.name = target;
-				else
-				{
-					retval.target.type = 'frame';
-					retval.target.name = target;
-				}
-			}
-
 			var me = this;
-			var advAttr = function( inputName, attrName )
-			{
-				var value = element.getAttribute( attrName );
-				if ( value !== null )
-					retval.adv[ inputName ] = value || '';
-			};
-			advAttr( 'advId', 'id' );
-			advAttr( 'advLangDir', 'dir' );
-			advAttr( 'advAccessKey', 'accessKey' );
-
-			retval.adv.advName =
-				element.data( 'cke-saved-name' )
-				|| element.getAttribute( 'name' )
-				|| '';
-			advAttr( 'advLangCode', 'lang' );
-			advAttr( 'advTabIndex', 'tabindex' );
-			advAttr( 'advTitle', 'title' );
-			advAttr( 'advContentType', 'type' );
-			CKEDITOR.plugins.link.synAnchorSelector ?
-				retval.adv.advCSSClasses = getLinkClass( element )
-				: advAttr( 'advCSSClasses', 'class' );
-			advAttr( 'advCharset', 'charset' );
-			advAttr( 'advStyles', 'style' );
-			advAttr( 'advRel', 'rel' );
 		}
-
-		// Find out whether we have any anchors in the editor.
-		var anchors = retval.anchors = [],
-			i, count, item;
-
-		// For some browsers we set contenteditable="false" on anchors, making document.anchors not to include them, so we must traverse the links manually (#7893).
-		if ( CKEDITOR.plugins.link.emptyAnchorFix )
-		{
-			var links = editor.document.getElementsByTag( 'a' );
-			for ( i = 0, count = links.count(); i < count; i++ )
-			{
-				item = links.getItem( i );
-				if ( item.data( 'cke-saved-name' ) || item.hasAttribute( 'name' ) )
-					anchors.push( { name : item.data( 'cke-saved-name' ) || item.getAttribute( 'name' ), id : item.getAttribute( 'id' ) } );
-			}
-		}
-		else
-		{
-			var anchorList = new CKEDITOR.dom.nodeList( editor.document.$.anchors );
-			for ( i = 0, count = anchorList.count(); i < count; i++ )
-			{
-				item = anchorList.getItem( i );
-				anchors[ i ] = { name : item.getAttribute( 'name' ), id : item.getAttribute( 'id' ) };
-			}
-		}
-
-		if ( CKEDITOR.plugins.link.fakeAnchor )
-		{
-			var imgs = editor.document.getElementsByTag( 'img' );
-			for ( i = 0, count = imgs.count(); i < count; i++ )
-			{
-				if ( ( item = CKEDITOR.plugins.link.tryRestoreFakeAnchor( editor, imgs.getItem( i ) ) ) )
-					anchors.push( { name : item.getAttribute( 'name' ), id : item.getAttribute( 'id' ) } );
-			}
-		}
-
-
+        
 		// Record down the selected element in the dialog.
 		this._.selectedElement = element;
 		return retval;
         };
+        
      var  insertInternalLinkText = function (text)
        {
            if(!text) return;
@@ -528,8 +483,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                             [ 'internal link', 'internal' ],
                             [ 'internal media', 'media' ],
 							[ linkLang.toEmail, 'email' ],
-							[ 'Samba share', 'samba' ]
-							//[ linkLang.toAnchor, 'anchor' ]						
+							[ 'Samba share', 'samba' ]												
 						],
 						onChange : linkTypeChanged,
 						setup : function( data )
@@ -662,6 +616,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 							},
 							{
 								type : 'button',
+                                hidden: true,
 								id : 'getadvanced',									
 								onClick: showAdvanced,
 								label : 'Advanced Options'							
@@ -686,19 +641,24 @@ CKEDITOR.dialog.add( 'link', function( editor )
                             {
 										type : 'text',
 										id : 'internal',
-                                       // width: '24em',
+                                       
 										label : "internal link",
 										required: true,
                                         setup : function( data )
                                         {                                           
                                            if(data) {    										   
-                                            if (data.url &&  data.url.selected ) {
+                                            if (data.url &&  data.url.selected ) {                                        
                                                    var id = data.url.selected.replace(/^\:/,"");
                                                    this.setValue(':'+ id );
                                             }
                                            }
                                         },       
-                            },              
+                            },
+                            {
+                                id: 'anchorsmsg',
+                                type: 'html',
+                                html: 'Use the advanced tab to create anchors to dokuwiki headers',
+                             }                            
 						]
 					},
                     {
@@ -755,131 +715,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                             },              
 						]
 					},
-					{
-						type : 'vbox',
-						id : 'anchorOptions',
-						width : 260,
-						align : 'center',
-						padding : 0,
-						children :
-						[
-							{
-								type : 'fieldset',
-								id : 'selectAnchorText',
-								label : linkLang.selectAnchor,
-								setup : function( data )
-								{
-									if ( data.anchors.length > 0 )
-										this.getElement().show();
-									else
-										this.getElement().hide();
-								},
-								children :
-								[
-									{
-										type : 'hbox',
-										id : 'selectAnchor',
-										children :
-										[
-											{
-												type : 'select',
-												id : 'anchorName',
-												'default' : '',
-												label : linkLang.anchorName,
-												style : 'width: 100%;',
-												items :
-												[
-													[ '' ]
-												],
-												setup : function( data )
-												{
-													this.clear();
-													this.add( '' );
-													for ( var i = 0 ; i < data.anchors.length ; i++ )
-													{
-														if ( data.anchors[i].name )
-															this.add( data.anchors[i].name );
-													}
 
-													if ( data.anchor )
-														this.setValue( data.anchor.name );
-
-													var linkType = this.getDialog().getContentElement( 'info', 'linkType' );
-													if ( linkType && linkType.getValue() == 'email' )
-														this.focus();
-												},
-												commit : function( data )
-												{
-													if ( !data.anchor )
-														data.anchor = {};
-
-													data.anchor.name = this.getValue();
-												}
-											},
-											{
-												type : 'select',
-												id : 'anchorId',
-												'default' : '',
-												label : linkLang.anchorId,
-												style : 'width: 100%;',
-												items :
-												[
-													[ '' ]
-												],
-												setup : function( data )
-												{
-													this.clear();
-													this.add( '' );
-													for ( var i = 0 ; i < data.anchors.length ; i++ )
-													{
-														if ( data.anchors[i].id )
-															this.add( data.anchors[i].id );
-													}
-
-													if ( data.anchor )
-														this.setValue( data.anchor.id );
-												},
-												commit : function( data )
-												{
-													if ( !data.anchor )
-														data.anchor = {};
-
-													data.anchor.id = this.getValue();
-												}
-											}
-										],
-										setup : function( data )
-										{
-											if ( data.anchors.length > 0 )
-												this.getElement().show();
-											else
-												this.getElement().hide();
-										}
-									}
-								]
-							},
-							{
-								type : 'html',
-								id : 'noAnchors',
-								style : 'text-align: center;',
-								html : '<div role="note" tabIndex="-1">' + CKEDITOR.tools.htmlEncode( linkLang.noAnchors ) + '</div>',
-								// Focus the first element defined in above html.
-								focus : true,
-								setup : function( data )
-								{
-									if ( data.anchors.length < 1 )
-										this.getElement().show();
-									else
-										this.getElement().hide();
-								}
-							}
-						],
-						setup : function( data )
-						{
-							if ( !this.getDialog().getContentElement( 'info', 'linkType' ) )
-								this.getElement().hide();
-						}
-					},
 					{
 						type :  'vbox',
 						id : 'emailOptions',
@@ -964,226 +800,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					}
 				]
 			},
-			{
-				id : 'target',
-				label : linkLang.target,
-				title : linkLang.target,
-				elements :
-				[
-					{
-						type : 'hbox',
-						widths : [ '50%', '50%' ],
-						children :
-						[
-							{
-								type : 'select',
-								id : 'linkTargetType',
-								label : commonLang.target,
-								'default' : 'notSet',
-								style : 'width : 100%;',
-								'items' :
-								[
-									[ commonLang.notSet, 'notSet' ],
-									[ linkLang.targetFrame, 'frame' ],
-									[ linkLang.targetPopup, 'popup' ],
-									[ commonLang.targetNew, '_blank' ],
-									[ commonLang.targetTop, '_top' ],
-									[ commonLang.targetSelf, '_self' ],
-									[ commonLang.targetParent, '_parent' ]
-								],
-								onChange : targetChanged,
-								setup : function( data )
-								{
-									if ( data.target )
-										this.setValue( data.target.type || 'notSet' );
-									targetChanged.call( this );
-								},
-								commit : function( data )
-								{
-									if ( !data.target )
-										data.target = {};
 
-									data.target.type = this.getValue();
-								}
-							},
-							{
-								type : 'text',
-								id : 'linkTargetName',
-								label : linkLang.targetFrameName,
-								'default' : '',
-								setup : function( data )
-								{
-									if ( data.target )
-										this.setValue( data.target.name );
-								},
-								commit : function( data )
-								{
-									if ( !data.target )
-										data.target = {};
-
-									data.target.name = this.getValue().replace(/\W/gi, '');
-								}
-							}
-						]
-					},
-					{
-						type : 'vbox',
-						width : '100%',
-						align : 'center',
-						padding : 2,
-						id : 'popupFeatures',
-						children :
-						[
-							{
-								type : 'fieldset',
-								label : linkLang.popupFeatures,
-								children :
-								[
-									{
-										type : 'hbox',
-										children :
-										[
-											{
-												type : 'checkbox',
-												id : 'resizable',
-												label : linkLang.popupResizable,
-												setup : setupPopupParams,
-												commit : commitPopupParams
-											},
-											{
-												type : 'checkbox',
-												id : 'status',
-												label : linkLang.popupStatusBar,
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											}
-										]
-									},
-									{
-										type : 'hbox',
-										children :
-										[
-											{
-												type : 'checkbox',
-												id : 'location',
-												label : linkLang.popupLocationBar,
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											},
-											{
-												type : 'checkbox',
-												id : 'toolbar',
-												label : linkLang.popupToolbar,
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											}
-										]
-									},
-									{
-										type : 'hbox',
-										children :
-										[
-											{
-												type : 'checkbox',
-												id : 'menubar',
-												label : linkLang.popupMenuBar,
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											},
-											{
-												type : 'checkbox',
-												id : 'fullscreen',
-												label : linkLang.popupFullScreen,
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											}
-										]
-									},
-									{
-										type : 'hbox',
-										children :
-										[
-											{
-												type : 'checkbox',
-												id : 'scrollbars',
-												label : linkLang.popupScrollBars,
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											},
-											{
-												type : 'checkbox',
-												id : 'dependent',
-												label : linkLang.popupDependent,
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											}
-										]
-									},
-									{
-										type : 'hbox',
-										children :
-										[
-											{
-												type :  'text',
-												widths : [ '50%', '50%' ],
-												labelLayout : 'horizontal',
-												label : commonLang.width,
-												id : 'width',
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											},
-											{
-												type :  'text',
-												labelLayout : 'horizontal',
-												widths : [ '50%', '50%' ],
-												label : linkLang.popupLeft,
-												id : 'left',
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											}
-										]
-									},
-									{
-										type : 'hbox',
-										children :
-										[
-											{
-												type :  'text',
-												labelLayout : 'horizontal',
-												widths : [ '50%', '50%' ],
-												label : commonLang.height,
-												id : 'height',
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											},
-											{
-												type :  'text',
-												labelLayout : 'horizontal',
-												label : linkLang.popupTop,
-												widths : [ '50%', '50%' ],
-												id : 'top',
-												setup : setupPopupParams,
-												commit : commitPopupParams
-
-											}
-										]
-									}
-								]
-							}
-						]
-					}
-				]
-			},
 			{
 				id : 'upload',
 				label : linkLang.upload,
@@ -1211,129 +828,47 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			{
 				id : 'advanced',
 				label : linkLang.advanced,
-				title : linkLang.advanced,		
-				hidden: true,
+				title : linkLang.advanced,						
 				elements :
 				[
 				    {  
 					    id : 'msg',
 						type: 'html',
-						html: "Advanced Options Still in Preperation"
+						html: "<p style='max-width:350px; white-space: pre-wrap;'>To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.</p>"
 					},
 					{
-						type : 'vbox',
-						padding : 1,	
-						hidden: true,
-						children :
+						id : 'internalAnchor',
+						type : 'select',
+						//label : 'Create page anchors from Dokuwiki headers',
+						'default' : '',
+						items :
 						[
-							{
-								type : 'hbox',
-								widths : [ '45%', '35%', '20%' ],
-								children :
-								[
-									{
-										type : 'text',
-										id : 'advId',
-										label : linkLang.id,
-										setup : setupAdvParams,
-										commit : commitAdvParams
-									},
-									{
-										type : 'select',
-										id : 'advLangDir',
-										label : linkLang.langDir,
-										'default' : '',
-										style : 'width:110px',
-										items :
-										[
-											[ commonLang.notSet, '' ],
-											[ linkLang.langDirLTR, 'ltr' ],
-											[ linkLang.langDirRTL, 'rtl' ]
-										],
-										setup : setupAdvParams,
-										commit : commitAdvParams
-									},
-									{
-										type : 'text',
-										id : 'advAccessKey',
-										width : '80px',
-										label : linkLang.acccessKey,
-										maxLength : 1,
-										setup : setupAdvParams,
-										commit : commitAdvParams
-
-									}
-								]
-							},
-							{
-								type : 'hbox',
-								widths : [ '45%', '35%', '20%' ],
-								children :
-								[
-									{
-										type : 'text',
-										label : linkLang.name,
-										id : 'advName',
-										setup : setupAdvParams,
-										commit : commitAdvParams
-
-									},
-									{
-										type : 'text',
-										label : linkLang.langCode,
-										id : 'advLangCode',
-										width : '110px',
-										'default' : '',
-										setup : setupAdvParams,
-										commit : commitAdvParams
-
-									},
-									{
-										type : 'text',
-										label : linkLang.tabIndex,
-										id : 'advTabIndex',
-										width : '80px',
-										maxLength : 5,
-										setup : setupAdvParams,
-										commit : commitAdvParams
-
-									}
-								]
-							}
-						]
-				
+							['Not Set' , '' ],				
+						],					
+						setup : function( data )
+						{                      
+							if ( data.hash )
+								this.setValue( data.hash );
+						},
+						commit : function( data )
+						{
+							data.hash = this.getValue();                                 
+						}
 					},
+                   {
+                    type : 'button',                   
+                    id : 'getheaders',									
+                    onClick:  getInternalHeaders,
+                    label : 'Get Headings'							
+                    
+                  },
 					{
 						type : 'vbox',
 						padding : 1,
 						hidden: true,
 						children :
 						[
-							{
-								type : 'hbox',
-								widths : [ '45%', '55%' ],
-								children :
-								[
-									{
-										type : 'text',
-										label : linkLang.advisoryTitle,
-										'default' : '',
-										id : 'advTitle',
-										setup : setupAdvParams,
-										commit : commitAdvParams
 
-									},
-									{
-										type : 'text',
-										label : linkLang.advisoryContentType,
-										'default' : '',
-										id : 'advContentType',
-										setup : setupAdvParams,
-										commit : commitAdvParams
-
-									}
-								]
-							},
 							{
 								type : 'hbox',
 								widths : [ '45%', '55%' ],
@@ -1359,30 +894,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 									}
 								]
 							},
-							{
-								type : 'hbox',
-								widths : [ '45%', '55%' ],
-								children :
-								[
-									{
-										type : 'text',
-										label : linkLang.rel,
-										'default' : '',
-										id : 'advRel',
-										setup : setupAdvParams,
-										commit : commitAdvParams
-									},
-									{
-										type : 'text',
-										label : linkLang.styles,
-										'default' : '',
-										id : 'advStyles',
-										validate : CKEDITOR.dialog.validate.inlineStyle( editor.lang.common.invalidInlineStyle ),
-										setup : setupAdvParams,
-										commit : commitAdvParams
-									}
-								]
-							}
 						]
 					}
 				]
@@ -1443,13 +954,14 @@ CKEDITOR.dialog.add( 'link', function( editor )
                 case 'internal':                  
                      if(!data.url.url) {                                            
                         data.url.url=document.getElementById(fckgInternalInputId).value;
-                    }
+                    }                    
                      data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
                      data.url.url = data.url.url.replace(/^\:/,"");
                      data.url.url =  ':' + data.url.url.replace(/\//g,':');      
                      data.adv.advCSSClasses = "wikilink1";
                      data.adv.advTitle = data.url.url;
-                     data.url.url=editor.config.doku_url + 'doku.php?id=' + data.url.url;                    
+                     data.url.url=editor.config.doku_url + 'doku.php?id=' + data.url.url;   
+                     if(data.hash) { data.url.url += '#' +data.hash;  }
 				case 'url':               
 					var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
 						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
@@ -1525,45 +1037,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					break;
 			}
 
-			// Popups and target.
-			if ( data.target )
-			{
-				if ( data.target.type == 'popup' )
-				{
-					var onclickList = [ 'window.open(this.href, \'',
-							data.target.name || '', '\', \'' ];
-					var featureList = [ 'resizable', 'status', 'location', 'toolbar', 'menubar', 'fullscreen',
-							'scrollbars', 'dependent' ];
-					var featureLength = featureList.length;
-					var addFeature = function( featureName )
-					{
-						if ( data.target[ featureName ] )
-							featureList.push( featureName + '=' + data.target[ featureName ] );
-					};
-
-					for ( var i = 0 ; i < featureLength ; i++ )
-						featureList[i] = featureList[i] + ( data.target[ featureList[i] ] ? '=yes' : '=no' ) ;
-					addFeature( 'width' );
-					addFeature( 'left' );
-					addFeature( 'height' );
-					addFeature( 'top' );
-
-					onclickList.push( featureList.join( ',' ), '\'); return false;' );
-					attributes[ 'data-cke-pa-onclick' ] = onclickList.join( '' );
-
-					// Add the "target" attribute. (#5074)
-					removeAttributes.push( 'target' );
-				}
-				else
-				{
-					if ( data.target.type != 'notSet' && data.target.name )
-						attributes.target = data.target.name;
-					else
-						removeAttributes.push( 'target' );
-
-					removeAttributes.push( 'data-cke-pa-onclick', 'onclick' );
-				}
-			}
 
 			// Advanced attributes.
 			if ( data.adv )
@@ -1665,9 +1138,20 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 			if ( !editor.config.linkShowTargetTab )
 				this.hidePage( 'target' );		//Hide Target tab.
-				
-             this.showPage('info');						 
- 
+                
+	       this.showPage('info');				
+           
+           var tab = this._.tabs[ 'advanced' ] && this._.tabs[ 'advanced' ][ 0 ];               
+           var dialog = this;                       
+           tab.on('focus', function(evt) {      
+               var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;          
+               var select =document.getElementById(select_id); 
+               select.selectedIndex = -1;
+               select.options.length = 0;    
+               select.options[0] =  new Option("Not set","",false,false);  
+               alert(data.hash);
+           });             
+   
 		},
 	
 
