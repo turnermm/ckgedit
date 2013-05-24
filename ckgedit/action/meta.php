@@ -362,7 +362,7 @@ function check_userfiles() {
                }
            }
            if ($this->getConf('winstyle')) {
-               setcookie('FCKConnector','WIN', $expire, '/');                            
+              setcookie('FCKConnector','WIN', $expire, DOKU_BASE);                                
            }
                    
   }
