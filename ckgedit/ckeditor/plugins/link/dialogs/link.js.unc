@@ -94,29 +94,28 @@ CKEDITOR.dialog.add( 'link', function( editor )
         }
     };
     
-        var ajax = new editor.config.sack();    
-        ajax.requestFile =  editor.config.ckedit_path + "get_headers.php";   
-        ajax.method = 'GET';        
-        ajax.setVar('dw_id',wiki_id);
-        ajax.onCompletion = function() {
-            if(ajax.responseStatus && ajax.responseStatus[0] == 200) {         
-                 var str = decodeURIComponent(ajax.response);                              
-                 if(str.match(/^\s*__EMPTY__\s*$/)) {
-                        anchorOption.ini('No Headers Found');
-                        anchorOption.selection = "";
-                        return;
-                 }
-                   anchorOption.ini('Headings Menu')
-                   anchorOption.push('Cancel Selection',"");
-                   var pairs = str.split('@@');
-                    for (var i in pairs) {
-                          var elems = pairs[i].split(/;;/);
-                          anchorOption.push(elems[0],elems[1]);
-                     }
-            }
-          };
-         ajax.runAJAX();   
-         
+        var params="dw_id=" +wiki_id;
+        editor.config.jquery.post(
+                editor.config.ckedit_path + "get_headers.php",
+                params,
+                function (data,status) { 
+                    if(status=="success") {                       
+                         var str = decodeURIComponent(data);                              
+                         if(str.match(/^\s*__EMPTY__\s*$/)) {
+                                anchorOption.ini('No Headers Found');
+                                anchorOption.selection = "";
+                                return;
+                         }
+                           anchorOption.ini('Headings Menu');                        
+                           var pairs = str.split('@@');
+                            for (var i in pairs) {
+                                  var elems = pairs[i].split(/;;/);
+                                  anchorOption.push(elems[0],elems[1]);
+                             }                          
+                        }
+                    },                
+                'html'
+            );
 	};	  
     
   

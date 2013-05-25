@@ -1,4 +1,4 @@
-rev 13-May_24-07_41
+rev 13-May_25-08_45
 
 Initial Development distribution
 
@@ -184,3 +184,6 @@ Cleaned up link.js and added facility to create anchors to Dokuwiki headings in 
 24 May
 Restrict FCKConnector cookie domain to DOKU_BASE, instead of '/', so that more than one 
 instance of ckgedit can run in same browser at same time with winstyle option.
+
+25 May
+Converted sack ajax calls to jQuery (packaged with Dokuwiki)
