@@ -27,8 +27,16 @@ CKEDITOR.dialog.add( 'link', function( editor )
         
   //  editor.config.linkShowTargetTab=false;
 	 var fckgSMBInputId;
-
-
+     var defaultFBLang = CKEDITOR.lang['en']['fbrowser'];     
+     var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
+    
+    var  translateItem = function (js_code) {     
+      if(fck_Lang[js_code] && fck_Lang[js_code] != "") {
+            return fck_Lang[js_code];
+      }  
+      return defaultFBLang[js_code];
+    }   ; 
+    
     var getInternalHeaders = function() {     
     
 	  var dialog = this.getDialog();	
@@ -417,9 +425,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		return className ? className.replace( /\s*(?:cke_anchor_empty|cke_anchor)(?:\s*$)?/g, '' ) : '';
 	}
 
+    
 	var commonLang = editor.lang.common,
 		linkLang = editor.lang.link;
-
+     
 	return {
 		title : linkLang.title,
 		minWidth :  375, //350,
@@ -439,8 +448,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						items :
 						[
 							[ linkLang.toUrl, 'url' ],							
-                            [ 'internal link', 'internal' ],
-                            [ 'internal media', 'media' ],
+                            [ translateItem('InternalLink'), 'internal' ],
+                            [translateItem('InternalMedia'), 'media' ],
 							[ linkLang.toEmail, 'email' ],
 							[ 'Samba share', 'samba' ]												
 						],
@@ -594,7 +603,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 										type : 'text',
 										id : 'internal',
                                        
-										label : "internal link",
+										label : translateItem('InternalLink'), //"internal link",
 										required: true,
                                         setup : function( data )
                                         {                                           
@@ -609,7 +618,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                             {
                                 id: 'anchorsmsg',
                                 type: 'html',
-                                html: 'Use the advanced tab to create page anchors and query strings',
+                                html: translateItem('AdvancedTabPrompt'), //'Use the advanced tab to create page anchors and query strings',
                              }                            
 						]
 					},
@@ -628,7 +637,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 										type : 'text',
 										id : 'media',
                                         //width: '24em',
-										label : "link to media file",
+										label :  translateItem('MediaFileLink'), //"link to media file",
 										required: true,                                       
                                         setup : function( data )
                                         {                                           
@@ -650,13 +659,13 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						    {
 										type: 'html',
 										id: 'smb_msg',
-										html: "Enter your share as: \\\\Server\\directory\\file", 
+										html: translateItem('SMBExample'),	//"Enter your share as: \\\\Server\\directory\\file", 
 							},
                             {
 										type : 'text',
 										id : 'samba',
                                         width: '50',
-										label : "Samba Share",												
+										label :  translateItem('SMBLabel'), //"Samba Share",												
 										required: true,                                       
                                         setup : function( data )
                                         {                                           
@@ -786,7 +795,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				    {  
 					    id : 'msg',
 						type: 'html',
-						html: "<p style='max-width:350px; white-space: pre-wrap;'>To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.</p>"
+						html: "<p style='max-width:350px; white-space: pre-wrap;'>" +
+                        translateItem('AdvancedInfo')  +"</p>"
 					},
 					{
 						id : 'internalAnchor',
@@ -810,7 +820,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                     type : 'button',                   
                     id : 'getheaders',									
                     onClick:  getInternalHeaders,
-                    label : 'Get Headings'	
+                    label : translateItem('GetHeadingsLabel'), //'Get Headings'	
                   },
                    {
                     type: 'html',
@@ -819,7 +829,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                    {
                     type : 'text',                   
                     id : 'queryString',		
-                    label : 'Query String (For example: value_1=1&value_2=2) ',	
+                    label : translateItem('QStringLabel'), //'Query String (For example: value_1=1&value_2=2) ',	
                     setup : function( data )
                     {                      
                         if ( data.qstring )
@@ -839,7 +849,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                         var qs = document.getElementById(qs_id);                       
                         qs.value = "";
                     },
-                    label : 'Reset Query String'	
+                    label : translateItem('ResetQS'), //'Reset Query String'	
                   },                
 					{
 						type : 'vbox',
@@ -1117,13 +1127,14 @@ CKEDITOR.dialog.add( 'link', function( editor )
 	       this.showPage('info');				
            
            var tab = this._.tabs[ 'advanced' ] && this._.tabs[ 'advanced' ][ 0 ];               
-           var dialog = this;                       
+           var dialog = this;                  
+           var notSet = translateItem('NotSetOption');           
            tab.on('focus', function(evt) {      
                var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;          
                var select =document.getElementById(select_id); 
                select.selectedIndex = -1;
-               select.options.length = 0;    
-               select.options[0] =  new Option("Not set","",false,false);  
+               select.options.length = 0;                   
+               select.options[0] =  new Option(notSet,"",false,false);  
                alert(data.hash);
            });             
    

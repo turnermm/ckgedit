@@ -1,4 +1,4 @@
-rev 13-Jun_03-23_23
+rev 13-Jun_04-08_19
 
 Initial Development distribution
 
@@ -196,3 +196,6 @@ Handle copy and paste images with https urls.
 
 3 June
 Reset image url for smiley hack
+
+4 June
+Update language support for link dialog

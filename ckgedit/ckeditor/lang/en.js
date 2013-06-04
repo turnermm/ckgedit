@@ -39,6 +39,16 @@ DlgFileBrowserNewFolder: "Create Folder",
 DlgFileBrowserResourceType: "Resource Type",
 DlgLnkUpload		: "Upload",
 DlgFileBrowserMove: "Move",
-
+InternalLink: "internal link",
+InternalMedia: "internal media",
+MediaFileLink: "link to media file",
+SMBLabel: "Samba Share",
+GetHeadingsLabel: 'Get Headings'	,
+QStringLabel: 'Query String (For example: value_1=1&value_2=2) ',	
+ResetQS: 'Reset Query String',
+NotSetOption: 'Not Set',
+AdvancedInfo: "To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.",
+AdvancedTabPrompt: 'Use the advanced tab to create page anchors and query strings',
+SMBExample: "Enter your share as: \\\\Server\\directory\\file", 
 };
 
