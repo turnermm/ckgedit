@@ -207,7 +207,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
                ),$text);
     if($this->getConf('smiley_hack')) {
         $new_addr = $_SERVER['SERVER_NAME'] . DOKU_BASE;
-        $text=preg_replace("#(?<=http://)(.*?)(?=lib/plugins/ckgedit/fckeditor/editor/images/smiley/msn)#s", $new_addr,$text);
+        $text=preg_replace("#(?<=http://)(.*?)(?=lib/plugins/ckgedit/ckeditor/plugins/smiley/images)#s", $new_addr,$text);        
      }
 
       global $useComplexTables;
@@ -1636,7 +1636,7 @@ function parse_wikitext(id) {
                             var uri = elems[1];
                             src = decodeURIComponent ? decodeURIComponent(uri) : unescape(uri); 
                         }
-                         if(!src.match(/http:/)  && !src.match(/^:/)) src = ':' + src;  
+                         if(!src.match(/https?:/)  && !src.match(/^:/)) src = ':' + src;  
                      } 
                      else if(attrs[i].escaped.match(/http:\/\//)){
                               src = attrs[i].escaped;

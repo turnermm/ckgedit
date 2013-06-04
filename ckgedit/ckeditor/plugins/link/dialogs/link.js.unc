@@ -25,50 +25,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
     //oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
 	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
         
-    editor.config.linkShowTargetTab=false;
+  //  editor.config.linkShowTargetTab=false;
 	 var fckgSMBInputId;
-	// Handles the event when the "Target" selection box is changed.
-	var targetChanged = function()
-	{
-  
-		var dialog = this.getDialog(),
-			popupFeatures = dialog.getContentElement( 'target', 'popupFeatures' ),
-			targetName = dialog.getContentElement( 'target', 'linkTargetName' ),
-			value = this.getValue();
 
-		if ( !popupFeatures || !targetName )
-			return;
 
-		popupFeatures = popupFeatures.getElement();
-		popupFeatures.hide();
-		targetName.setValue( '' );
-      
-		switch ( value )
- 		{
-			case 'frame' :
-				targetName.setLabel( editor.lang.link.targetFrameName );
-				targetName.getElement().show();
-				break;
-			case 'popup' :
-				popupFeatures.show();
-				targetName.setLabel( editor.lang.link.targetPopupName );
-				targetName.getElement().show();
-				break;
-			default :
-				targetName.setValue( value );
-				targetName.getElement().hide();
-				break;
- 		}
-
-	};
-	
-  var showAdvanced = function() {	
-	  var dialog = this.getDialog();	
-	  var anchors  = dialog.getContentElement( 'advanced', 'internalAnchor' );		
-	  anchors.focus();
-      dialog.showPage( 'info' );
-  };
-  
     var getInternalHeaders = function() {     
     
 	  var dialog = this.getDialog();	
@@ -133,24 +93,24 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			uploadTab = dialog.definition.getContents( 'upload' ),
 			uploadInitiallyHidden = uploadTab && uploadTab.hidden;
 
+         dialog.hidePage( 'advanced' );		//Hide Advanded tab.   
          if(typeValue == 'internal') {
             oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser = true;
+           dialog.showPage('advanced');
          }
          else if(typeValue == 'media') {
             oDokuWiki_FCKEditorInstance.isDwikiMediaFile = true;
          } 
 		if ( typeValue == 'url' )
 		{
-            oDokuWiki_FCKEditorInstance.isUrlExtern = true;
-            
-			if ( editor.config.linkShowTargetTab )
-				dialog.showPage( 'target' );
+            oDokuWiki_FCKEditorInstance.isUrlExtern = true;            
+
 			if ( !uploadInitiallyHidden )
 				dialog.showPage( 'upload' );
 		}
 		else
 		{
-			dialog.hidePage( 'target' );
+			//dialog.hidePage( 'target' );
 			if ( !uploadInitiallyHidden )
 				dialog.hidePage( 'upload' );
 		}
@@ -613,14 +573,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 								filebrowser : 'info:url',
 								label : commonLang.browseServer
 							},
-							{
-								type : 'button',
-                                hidden: true,
-								id : 'getadvanced',									
-								onClick: showAdvanced,
-								label : 'Advanced Options'							
-								
-							}
+
 						]
 
 					},
@@ -656,7 +609,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                             {
                                 id: 'anchorsmsg',
                                 type: 'html',
-                                html: 'Use the advanced tab to create anchors to dokuwiki headers',
+                                html: 'Use the advanced tab to create page anchors and query strings',
                              }                            
 						]
 					},
@@ -837,8 +790,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					},
 					{
 						id : 'internalAnchor',
-						type : 'select',
-						//label : 'Create page anchors from Dokuwiki headers',
+						type : 'select',					
 						'default' : '',
 						items :
 						[
@@ -858,9 +810,37 @@ CKEDITOR.dialog.add( 'link', function( editor )
                     type : 'button',                   
                     id : 'getheaders',									
                     onClick:  getInternalHeaders,
-                    label : 'Get Headings'							
-                    
+                    label : 'Get Headings'	
                   },
+                   {
+                    type: 'html',
+                    html: "<br />",
+                   },
+                   {
+                    type : 'text',                   
+                    id : 'queryString',		
+                    label : 'Query String (For example: value_1=1&value_2=2) ',	
+                    setup : function( data )
+                    {                      
+                        if ( data.qstring )
+                            this.setValue( data.qstring );
+                    },
+                    commit : function( data )
+                    {
+                        data.qstring = this.getValue();                    
+                    }                    
+                  },
+                   {
+                    type : 'button',                   
+                    id : 'clearquerystring',									
+                    onClick:  function() {
+                        var dialog = this.getDialog();
+                        var qs_id = dialog.getContentElement('advanced', 'queryString').getInputElement().$.id;
+                        var qs = document.getElementById(qs_id);                       
+                        qs.value = "";
+                    },
+                    label : 'Reset Query String'	
+                  },                
 					{
 						type : 'vbox',
 						padding : 1,
@@ -961,6 +941,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                      data.adv.advTitle = data.url.url;
                      data.url.url=editor.config.doku_url + 'doku.php?id=' + data.url.url;   
                      if(data.hash) { data.url.url += '#' +data.hash;  }
+                     if(data.qstring) { data.url.url += '&' +data.qstring;  }
 				case 'url':               
 					var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
 						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
@@ -1131,13 +1112,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
             fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
             fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;
-			
-			if ( !editor.config.linkShowAdvancedTab )
-				this.hidePage( 'advanced' );		//Hide Advanded tab.
-
-			if ( !editor.config.linkShowTargetTab )
-				this.hidePage( 'target' );		//Hide Target tab.
-                
+		
+		   this.hidePage( 'advanced' );		//Hide Advanded tab.
 	       this.showPage('info');				
            
            var tab = this._.tabs[ 'advanced' ] && this._.tabs[ 'advanced' ][ 0 ];               

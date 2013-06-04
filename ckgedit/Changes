@@ -1,4 +1,4 @@
-rev 13-May_25-08_45
+rev 13-Jun_03-23_23
 
 Initial Development distribution
 
@@ -187,3 +187,12 @@ instance of ckgedit can run in same browser at same time with winstyle option.
 
 25 May
 Converted sack ajax calls to jQuery (packaged with Dokuwiki)
+
+26 May
+Added query string option to internal links in link.js
+
+30 May
+Handle copy and paste images with https urls.
+
+3 June
+Reset image url for smiley hack
