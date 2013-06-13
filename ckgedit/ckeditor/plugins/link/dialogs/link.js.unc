@@ -1135,7 +1135,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
                select.selectedIndex = -1;
                select.options.length = 0;                   
                select.options[0] =  new Option(notSet,"",false,false);  
-               alert(data.hash);
            });             
    
 		},
