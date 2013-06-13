@@ -26,8 +26,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
         
   //  editor.config.linkShowTargetTab=false;
-	 var fckgSMBInputId;
-     var defaultFBLang = CKEDITOR.lang['en']['fbrowser'];     
+	 var fckgSMBInputId;   
+     defaultFBLang = editor.config.defaultFBrowser;
      var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
     
     var  translateItem = function (js_code) {     

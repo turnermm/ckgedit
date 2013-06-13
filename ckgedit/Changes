@@ -1,4 +1,4 @@
-rev 13-Jun_04-08_19
+rev 13-Jun_13-08_39
 
 Initial Development distribution
 
@@ -199,3 +199,10 @@ Reset image url for smiley hack
 
 4 June
 Update language support for link dialog
+
+12 June
+Removed debugging alert from link.js
+Added wp.gif to images/fileicons
+
+13 June
+Put filebrowser strings in config.js, not accessible from lang/en.js when language is not English
