@@ -206,3 +206,7 @@ Added wp.gif to images/fileicons
 
 13 June
 Put filebrowser strings in config.js, not accessible from lang/en.js when language is not English
+
+14 June
+Removed filebrowser strings from config.js and included default strings for link dialog diretely in link.js.
+
