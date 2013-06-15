@@ -70,6 +70,8 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   $open_upload = $this->getConf('open_upload');
   $editor_backup = $this->getConf('editor_bak');
   $create_folder = $this->getConf('create_folder');
+  $interface_lang = $this->getConf('other_lang');
+ 
   if(!isset($INFO['userinfo']) && !$open_upload) {
     $user_type = 'visitor';
   }
@@ -389,6 +391,11 @@ return direction == 'rtl';
   
 }
 
+function ckgedit_language_chk(config) { 
+   var lang = "$interface_lang"; 
+   if(lang ==  'default') return; ;
+   config.language = lang;
+}
 
 var oDokuWiki_FCKEditorInstance;
 function FCKeditor_OnComplete( editorInstance )

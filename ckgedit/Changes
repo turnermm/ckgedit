@@ -1,4 +1,4 @@
-rev 13-Jun_13-18_36
+rev 13-Jun_15-00_12
 
 Initial Development distribution
 
@@ -208,5 +208,5 @@ Added wp.gif to images/fileicons
 Put filebrowser strings in config.js, not accessible from lang/en.js when language is not English
 
 14 June
-Removed filebrowser strings from config.js and included default strings for link dialog diretely in link.js.
-
+Removed filebrowser strings from config.js and included default strings for link dialog in link.js.
+Implemented Dokuwiki Configuration Manager Option for selecting langauge of CKEditor.

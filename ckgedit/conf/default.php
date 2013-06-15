@@ -25,3 +25,4 @@ $conf['smiley_hack'] = 0;
 $conf['complex_tables'] = 0;
 $conf['duplicate_notes'] = 0;
 $conf['winstyle'] = 0;
+$conf['other_lang'] = 'default';
