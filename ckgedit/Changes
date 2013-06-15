@@ -1,4 +1,4 @@
-rev 13-Jun_15-00_12
+rev 13-Jun_15-13_15
 
 Initial Development distribution
 
@@ -210,3 +210,6 @@ Put filebrowser strings in config.js, not accessible from lang/en.js when langua
 14 June
 Removed filebrowser strings from config.js and included default strings for link dialog in link.js.
 Implemented Dokuwiki Configuration Manager Option for selecting langauge of CKEditor.
+
+15 June
+Removed duplicate ~~COMPLEX_TABLES~~ macros
