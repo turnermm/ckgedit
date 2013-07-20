@@ -1,4 +1,4 @@
-rev 13-Jun_15-13_15
+rev 13-Jul_19-19_14
 
 Initial Development distribution
 
@@ -213,3 +213,6 @@ Implemented Dokuwiki Configuration Manager Option for selecting langauge of CKEd
 
 15 June
 Removed duplicate ~~COMPLEX_TABLES~~ macros
+
+19 Jul
+Dutch language files for settings.php and action/lang

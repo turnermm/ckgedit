@@ -15,13 +15,13 @@ $lang['dw_edit_display'] = 'Controls which users have access to the "DW Edit" bu
 $lang['smiley_as_text']  = 'Display smileys as text in CKeditor (will still display as image in browser)';
 $lang['editor_bak'] = "Save backup to meta/&lt;namespace&gt;.ckgedit";
 $lang['create_folder'] = "Enable folder creation button in file browser (y/n)";
-$lang['dwedit_ns'] = "Comma separated list of namespaces where FckgLite automatically switches " .
+$lang['dwedit_ns'] = "Comma separated list of namespaces where ckgedit automatically switches " .
                      "over to the native DokuWiki Editor."; 
 $lang['acl_del'] =  "Default (box not checked) allows users with upload permission to delete media files; if box is checked, then user needs delete permission to delete from the folder.";
 $lang['auth_ci'] = "The user login id is case insensitive, that is you can login as both USER and user";
 $lang['nix_style'] = "For Windows Servers (Vista and Later).  This setting makes it possible to access data\\media through ckgedit\\CKeditor\\userfiles, if links to media and file have been successfully created in userfiles";
 $lang['no_symlinks']  = "Disable automatic creation of symbolic links in ckgedit/userfiles.";            
-$lang['direction'] = 'Set Language direction in CKeditor:  <b>nocheck</b>: ckgeditLite will make no changes to the default direction setting; ' 
+$lang['direction'] = 'Set Language direction in CKeditor:  <b>nocheck</b>: ckgedit will make no changes to the default direction setting; ' 
                        . ' <b>dokuwiki</b>:  the current Dokuwiki language direction;  <b>ltr</b>: Left-to-right ; <b>rtl</b>: Right-to-left.';
 $lang['scayt_auto'] = 'Automatically enable the SCAYT spellchecker. Defaults to "on". To turn off SCAYT select "off"';
 $lang['scayt'] = 'Use the SCAYT spellchecker. This defaults to "on"; selecting "off" will switch to the spellerpages checker';  
