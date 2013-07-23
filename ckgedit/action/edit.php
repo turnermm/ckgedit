@@ -378,6 +378,14 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             $this->xhtml
           );
       
+          $this->xhtml = preg_replace_callback(
+            '/~~MULTI_PLUGIN_OPEN~~(.*?)~~MULTI_PLUGIN_CLOSE~~/ms',
+            create_function(
+                '$matches',                          
+                'return str_replace("&lt;", "< ",$matches[0]);'
+            ),
+            $this->xhtml
+          );
        
        $cname = getCacheName($INFO['client'].$ID,'.draft.fckl');
        if(file_exists($cname)) {
@@ -2149,7 +2157,9 @@ function parse_wikitext(id) {
         }   
 		return;
 	  }
-
+      if(this.in_multi_plugin) {
+         text=text.replace('&lt; ','&lt;');
+      }
 	 text = text.replace(/&#39;/g,"'");  //replace single quote entities with single quotes
          
       //adjust spacing on multi-formatted strings

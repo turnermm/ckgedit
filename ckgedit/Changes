@@ -1,4 +1,4 @@
-rev 13-Jul_19-19_14
+rev 13-Jul_22-22_46
 
 Initial Development distribution
 
@@ -216,3 +216,7 @@ Removed duplicate ~~COMPLEX_TABLES~~ macros
 
 19 Jul
 Dutch language files for settings.php and action/lang
+
+22 Jul
+Replace open brackets (&lt;) in MULT_PLUGINs with &lt; plus space and then remove space in javascript
+parsing of result, because ckeditor converts &lt to '<' and any markup using open  brackets is lost.
