@@ -1,4 +1,4 @@
-rev 13-Jul_22-22_46
+rev 13-Jul_25-08_31
 
 Initial Development distribution
 
@@ -220,3 +220,6 @@ Dutch language files for settings.php and action/lang
 22 Jul
 Replace open brackets (&lt;) in MULT_PLUGINs with &lt; plus space and then remove space in javascript
 parsing of result, because ckeditor converts &lt to '<' and any markup using open  brackets is lost.
+
+25 Jul
+Fixed missing FIXME DELETEME images in smileys

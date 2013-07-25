@@ -169,6 +169,7 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
        html.push('<tr>');
        dwimages = config.dokuFixmeSmiley;
        for(i=0; i< dwimages.length; i++) {
+        var descr = dwimages[i][0];
 		html.push( '<td colspan="4" class="cke_dark_background cke_centered" style="vertical-align: middle;" role="presentation">' +
 			'<a href="javascript:void(0)" role="option"', ' aria-posinset="' + ( i + 1 ) + '"', ' aria-setsize="' + size + '"', ' aria-labelledby="' + smileyLabelId + '"', ' class="cke_smile cke_hand" tabindex="-1" onkeydown="CKEDITOR.tools.callFunction( ', onKeydown, ', event, this );">', '<img class="cke_hand doku" title="', descr, '"' +
 					' cke_src="', CKEDITOR.tools.htmlEncode( config.dokuSmileyPath + dwimages[ i ][1] ), '" alt="', descr, '"', ' src="', 
