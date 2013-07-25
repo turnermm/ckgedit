@@ -1,4 +1,4 @@
-rev 13-Jul_25-08_31
+rev 13-Jul_25-13_56
 
 Initial Development distribution
 
@@ -223,3 +223,5 @@ parsing of result, because ckeditor converts &lt to '<' and any markup using ope
 
 25 Jul
 Fixed missing FIXME DELETEME images in smileys
+
+Fixed bug that deletes final monopace markup from list items

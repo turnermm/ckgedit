@@ -1997,7 +1997,7 @@ function parse_wikitext(id) {
         return; 
      }
 
-     if(tag == 'code') {     // empty code markup corrupts results
+     if(tag == 'code' && ! this.list_started) {     // empty code markup corrupts results    
            if(results.match(/''\s*$/m)) {                     
              results = results.replace(/''\s*$/, "\n");                
              return;
