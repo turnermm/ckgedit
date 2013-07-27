@@ -1,4 +1,4 @@
-rev 13-Jul_25-13_56
+rev 13-Jul_27-07_52
 
 Initial Development distribution
 
@@ -225,3 +225,6 @@ parsing of result, because ckeditor converts &lt to '<' and any markup using ope
 Fixed missing FIXME DELETEME images in smileys
 
 Fixed bug that deletes final monopace markup from list items
+
+27 Jul
+Added missing final </code> tag to ALT-M shortcut in plugins/shortcuts

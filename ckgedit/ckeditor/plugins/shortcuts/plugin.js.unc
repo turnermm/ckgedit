@@ -1,0 +1,107 @@
+/**
+ * Basic sample plugin inserting current date and time into CKEditor editing area.
+ */
+(function () {
+// Register the plugin with the editor.
+// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.plugins.html
+CKEDITOR.plugins.add( 'shortcuts',
+{
+    
+	// The plugin initialization logic goes inside this method.
+	// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.pluginDefinition.html#init
+	init: function( editor )
+	{
+		// Define an editor command that inserts a timestamp. 
+		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.editor.html#addCommand
+		editor.addCommand( 'ckgundoheader',
+			{
+				// Define a function that will be fired when the command is executed.
+				// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.commandDefinition.html#exec
+				exec : function( editor )
+				{    
+                     var text =   get_selected_text(editor);
+					// var timestamp = new Date();
+					// Insert the timestamp into the document.
+					// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.editor.html#insertHtml
+                   editor.insertHtml( '<div>&nbsp;</div>' );
+					editor.insertHtml( '<div>' + text + '</div>' );
+				}
+			});		
+            
+		editor.addCommand( 'ckginsheaderone',
+			{
+
+				// Define a function that will be fired when the command is executed.
+				// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.commandDefinition.html#exec
+				exec : function( editor )
+				{    
+                    var text =  get_selected_text(editor);					
+                    write_header(editor,text,"1");				
+				}
+			});	    
+            
+		editor.addCommand( 'ckginsheadertwo',
+			{
+				exec : function( editor )
+				{    
+                    var text =  get_selected_text(editor);					
+                    write_header(editor,text,"2");				
+				}
+			}) ;           
+            
+        editor.addCommand( 'ckginsheaderthree',
+			{
+				exec : function( editor )
+				{    
+                    var text =  get_selected_text(editor);					
+                    write_header(editor,text,"3");				
+				}
+			});   
+            
+		editor.addCommand( 'ckginsheaderfour',
+			{
+				exec : function( editor )
+				{    
+                    var text =  get_selected_text(editor);					
+                    write_header(editor,text,"4");				
+				}
+			});
+            
+		editor.addCommand( 'ckginsheaderfive',
+			{
+				exec : function( editor )
+				{    
+                    var text =  get_selected_text(editor);					
+                    write_header(editor,text,"5");				
+				}
+			});
+            
+		editor.addCommand( 'ckginscode',
+			{
+				exec : function( editor )
+				{    
+                    var text =  get_selected_text(editor);					
+                    editor.insertHtml( '<code>' +text + '</code>' );      
+				}
+			});            
+	}
+}
+ );
+ function get_selected_text(ed) {
+        var selection = ed.getSelection();
+        if(selection)   {
+             var text = selection.getSelectedText();
+             return text;
+         }
+            return "";
+ }
+
+ function write_header(ed,text,n) {
+       var h = 'h' + n +'>';
+       var o = '<'+h;
+       var c = '</'+h;
+       
+       ed.insertHtml( '<div>' +o  +text +  c + '</div>' );      
+ }
+ 
+})();
