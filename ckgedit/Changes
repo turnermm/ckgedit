@@ -1,4 +1,4 @@
-rev 13-Jul_27-07_52
+rev 13-Jul_27-14_38
 
 Initial Development distribution
 
@@ -228,3 +228,6 @@ Fixed bug that deletes final monopace markup from list items
 
 27 Jul
 Added missing final </code> tag to ALT-M shortcut in plugins/shortcuts
+
+In Chrome source window still freezes. Instead of bare 'return' when dom not supplied for getSelection,
+set dom variable ('ta') to wiki__text and pass it to getSelection (script.js line 252).

@@ -250,7 +250,7 @@ var dokuBase = location.host + DOKU_BASE;
  if(window.getSelection != undefined) {   
     var doku_ckg_getSelection = window.getSelection;
     window.getSelection = function(ta) {
-        if(!ta) return;
+        if(!ta) ta = GetE("wiki__text");       
         return doku_ckg_getSelection(ta);
     };
  }
