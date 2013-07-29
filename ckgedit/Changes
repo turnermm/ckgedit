@@ -1,4 +1,4 @@
-rev 13-Jul_27-14_38
+rev 13-Jul_29-13_31
 
 Initial Development distribution
 
@@ -231,3 +231,6 @@ Added missing final </code> tag to ALT-M shortcut in plugins/shortcuts
 
 In Chrome source window still freezes. Instead of bare 'return' when dom not supplied for getSelection,
 set dom variable ('ta') to wiki__text and pass it to getSelection (script.js line 252).
+
+29 Jul
+Removed extra newline insertion in lists with formatted text.

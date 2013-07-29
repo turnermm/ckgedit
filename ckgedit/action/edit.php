@@ -2197,6 +2197,9 @@ function parse_wikitext(id) {
 
         if(this.format_in_list ) {  
            text = text.replace(/^[\n\s]+$/g, '');       
+          if(text.match(/\n{2,}\s{1,}/)) {                 
+                text = text.replace(/\n{2,}/, "\n");         
+            }
         }
 
        if(this.in_td && !text) {
