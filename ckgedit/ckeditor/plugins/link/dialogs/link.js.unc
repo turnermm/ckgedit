@@ -26,7 +26,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
         
   //  editor.config.linkShowTargetTab=false;
-	 var fckgSMBInputId;   
+	 var fckgSMBInputId;
      var defaultFBLang = {
         InternalLink: "internal link",
         InternalMedia: "internal media",
@@ -437,8 +437,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		var className = ele.getAttribute( 'class' );
 		return className ? className.replace( /\s*(?:cke_anchor_empty|cke_anchor)(?:\s*$)?/g, '' ) : '';
 	}
-
-    
+ 
 	var commonLang = editor.lang.common,
 		linkLang = editor.lang.link;
      
@@ -1076,7 +1075,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 
 			var selection = editor.getSelection();
-
 			// Browser need the "href" fro copy/paste link to work. (#6641)
 			attributes.href = attributes[ 'data-cke-saved-href' ];
 
@@ -1094,10 +1092,21 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					selection.selectRanges( ranges );
 				}
 
-				// Apply style.
-				var style = new CKEDITOR.style( { element : 'a', attributes : attributes } );
-				style.type = CKEDITOR.STYLE_INLINE;		// need to override... dunno why.
-				style.apply( editor.document );
+                if(navigator.userAgent.indexOf('MSIE') != -1) {             
+                    var el = editor.document.createElement( 'a' );
+                    el.setAttribute( 'href',  attributes['href']);
+                    el.setHtml(selection.getSelectedText());
+                    for(attr in attributes) {
+                         if(attr.match(/href/i))continue;
+                         el.setAttribute( attr,  attributes[attr]);
+                    }
+                    editor.insertElement( el );
+                }				
+                else {  // Apply style.   
+                    var style = new CKEDITOR.style( { element : 'a', attributes : attributes } );
+                    style.type = CKEDITOR.STYLE_INLINE;		// need to override... dunno why.
+                    style.apply( editor.document );
+                }
 			}
 			else
 			{
@@ -1147,7 +1156,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                var select =document.getElementById(select_id); 
                select.selectedIndex = -1;
                select.options.length = 0;                   
-               select.options[0] =  new Option(notSet,"",false,false);  
+               select.options[0] =  new Option(notSet,"",false,false);               
            });             
    
 		},

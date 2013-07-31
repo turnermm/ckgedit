@@ -1,4 +1,4 @@
-rev 13-Jul_29-13_31
+rev 13-Jul_31-13_11
 
 Initial Development distribution
 
@@ -234,3 +234,6 @@ set dom variable ('ta') to wiki__text and pass it to getSelection (script.js lin
 
 29 Jul
 Removed extra newline insertion in lists with formatted text.
+
+31 Jul
+Fix for IE failure to create links from selected text elements.
