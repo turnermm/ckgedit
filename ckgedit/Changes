@@ -1,4 +1,4 @@
-rev 13-Jul_31-13_11
+rev 13-Aug_13-08_48
 
 Initial Development distribution
 
@@ -237,3 +237,6 @@ Removed extra newline insertion in lists with formatted text.
 
 31 Jul
 Fix for IE failure to create links from selected text elements.
+
+13 Aug
+Preserve plain text samba share syntax
