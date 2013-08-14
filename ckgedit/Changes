@@ -1,4 +1,4 @@
-rev 13-Aug_13-08_48
+rev 13-Aug_13-22_01
 
 Initial Development distribution
 
@@ -240,3 +240,5 @@ Fix for IE failure to create links from selected text elements.
 
 13 Aug
 Preserve plain text samba share syntax
+
+Removed Dokuwiki max/min buttons from editor frame.

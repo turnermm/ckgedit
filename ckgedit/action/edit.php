@@ -541,18 +541,7 @@ $DW_EDIT_hide = $this->dw_edit_displayed();
 ?>
 
     <div id="wiki__editbar">
-      <div id="size__ctl"></div>
-      <div id = "fck_size__ctl" style="display: none">
-       
-       <img src = "<?php echo DOKU_BASE ?>lib/images/smaller.gif"
-                    title="edit window smaller"
-                    onclick="dwfck_size_ctl('smaller');"   
-                    />
-       <img src = "<?php echo DOKU_BASE ?>lib/images/larger.gif"
-                    title="edit window larger"
-                    onclick="dwfck_size_ctl('larger');"   
-           />
-      </div>
+      <div id="size__ctl" style="display: none"></div>
       <?php if($wr){?>
          <div class="editButtons">
             <input type="checkbox" name="ckgedit" value="ckgedit" checked="checked" style="display: none"/>
@@ -705,19 +694,6 @@ global $INFO;
         }
 
         if(window.unsetDokuWikiLockTimer) window.unsetDokuWikiLockTimer();  
-
-        function dwfck_size_ctl(which) {
-           var height = parseInt(document.getElementById('wiki__text___Frame').style.height); 
-           if(which == 'smaller') {
-               height -= 50;
-           }
-           else {
-              height += 50;
-           }
-           document.getElementById('wiki__text___Frame').style.height = height + 'px'; 
-   
-        }
-
 
    setComplexTables = (function() {
    var on=false;
