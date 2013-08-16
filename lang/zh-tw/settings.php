@@ -8,8 +8,6 @@ $lang['fck_preview'] = "FCK 預覽群組";
 $lang['guest_toolbar'] = "允許訪客使用工具列";
 $lang['guest_media'] = "允許訪客將媒體檔案連結到頁面";
 $lang['open_upload'] = "上傳權限開放給訪客";
-$list = plugin_list('syntax');
-$list = implode  (", "  , $list); 
 $lang['xcl_plugins'] ="用逗號區隔不可改變的 Syntax 插件" .
       "插件的名稱應該如同已安裝的後方已安裝的清單 : $list";
 $lang['default_fb'] = "媒體檔案瀏覽權限，設定 none 將會使 acl 失效";

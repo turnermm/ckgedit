@@ -9,8 +9,6 @@ $lang['fck_preview'] = "Gruppo anteprima FCK";
 $lang['guest_toolbar'] = "Mostra la barra strumenti agli Ospiti";
 $lang['guest_media'] = "Gli ospiti possono vedere i files in Media";
 $lang['open_upload'] = "Gli ospiti possono usare la funzione Carica";
-$list = plugin_list('syntax');
-$list = implode  (", "  , $list);  
 $lang['xcl_plugins'] ="Elenco dei plugin, separati da virgole, con Sintassi Immutabile. " .
       "Il loro nome dovrebbe essere esattamente come compare nella lista dei plugin attualmente installati: $list";
 $lang['default_fb'] = "Accesso navigazione file predefinita. Se 'none', non si applica la modalità ACL.";
