@@ -9,8 +9,6 @@ $lang['fck_preview'] = "FCK Voorbeeld Groep";
 $lang['guest_toolbar'] = "Toon werkbalk aan Gast";
 $lang['guest_media'] = "Gast mag Media bestanden linken";
 $lang['open_upload'] = "Gast mag uploaden";
-#$list = plugin_list('syntax');
-#$list = implode  (", "  , $list);
 $lang['xcl_plugins'] ="Comma gescheiden lijst van onveranderlijke Syntax plugins. " .
 		"De namen moeten gespeld worden zoals in de lijst van geinstalleerde plugins: $list";
 $lang['default_fb'] = "Verstek bestandsbenadering. Zonder (none) verstekwaarde is ACL niet van toepassing.";
