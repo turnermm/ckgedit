@@ -1,4 +1,4 @@
-rev 13-Aug_15-22_29
+rev 13-Aug_27-12_27
 
 Initial Development distribution
 
@@ -247,3 +247,7 @@ Removed Dokuwiki max/min buttons from editor frame.
 fix to filter entry in dialog_iequirks.css
 
 removed code from settings.php
+
+27 Aug
+Interwiki links: preserve lost forward slashes and query strings
+

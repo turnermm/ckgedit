@@ -210,6 +210,12 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         $text=preg_replace("#(?<=http://)(.*?)(?=lib/plugins/ckgedit/ckeditor/plugins/smiley/images)#s", $new_addr,$text);        
      }
 
+    $text = preg_replace_callback('/\[\[\w+>.*?\]\]/ms',
+    create_function(
+        '$matches',
+        'return str_replace("/", "__IWIKI_FSLASH__" ,$matches[0]);'
+    ), $text);
+    
       global $useComplexTables;
       if($this->getConf('complex_tables') || strrpos($text, '~~COMPLEX_TABLES~~') !== false) {     
           $useComplexTables=true;
@@ -342,6 +348,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $text = preg_replace('/{{(.*)\.swf(\s*)}}/ms',"SWF$1.swf$2FWS",$text);
        $this->xhtml = $this->_render_xhtml($text);
 
+       $this->xhtml = str_replace("__IWIKI_FSLASH__", "&frasl;", $this->xhtml);
 	   if($this->getConf('duplicate_notes')) {
 			$this->xhtml = preg_replace("/FNoteINSert\d+/ms", "",$this->xhtml);
 	   }
@@ -982,7 +989,7 @@ function parse_wikitext(id) {
     String.prototype.splice = function( idx, rem, s ) {    
         return (this.slice(0,idx) + s + this.slice(idx + Math.abs(rem)));
    };
-
+   String.frasl = new RegExp("⁄\|&frasl;\|&#8260;\|&#x2044;",'g');
    geshi_classes = new RegExp(geshi_classes);
    HTMLParser( CKEDITOR.instances.wiki__text.getData(), {
     attribute: "",
@@ -1051,14 +1058,7 @@ function parse_wikitext(id) {
 			        var iw_type = class_name.match(/iw_(\w+)/);
 					 var iw_title = title.split(/\//);
                      var interwiki_label = iw_title[iw_title.length-1];
-                     if(interwiki_label.match(/\=/)) {
-                        var elems = interwiki_label.split(/\=/);
-                        interwiki_label = elems[elems.length-1];
-                     }
-                     else if(interwiki_label.match(/\?/)) {
-                        var elems = interwiki_label.split(/\?/);
-                        interwiki_label = elems[elems.length-1];                     
-                     }                     
+                    interwiki_label = interwiki_label.replace(String.frasl,"\/");                      
                     this.attr = iw_type[1] + '>' +  interwiki_label;
 				    this.interwiki=true;
 	},
@@ -2123,6 +2123,9 @@ function parse_wikitext(id) {
 
     chars: function( text ) {
 	text = text.replace(/\t/g,"    ");
+    if(this.interwiki) {
+       text = text.replace(String.frasl,"\/");  
+    }
 	if(this.interwiki && results.match(/>\w+\s*\|$/)) 	{	 
 	    this.interwiki=false;
         if(this.attr) {          
