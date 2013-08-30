@@ -7,16 +7,23 @@
 config.keystrokes = [
 
    // [ CKEDITOR.CTRL + 76, null ],                       // CTRL + L
-      [ CKEDITOR.ALT  + CKEDITOR.SHIFT + 56, 'bulletedlist' ],       // CTRL + *    
+      [ CKEDITOR.ALT  + CKEDITOR.SHIFT + 56, 'bulletedlist' ],       // ALT + *    
       [ CKEDITOR.ALT + 56, 'bulletedlist' ],                                    // ALT + 8
       [ CKEDITOR.ALT + 173, 'numberedlist' ],                               // ALT + -
-      [ CKEDITOR.ALT + 48, 'ckgundoheader' ],                               // ALT + 0
-      [ CKEDITOR.ALT + 49, 'ckginsheaderone' ],                          // ALT + 1
-      [ CKEDITOR.ALT + 50, 'ckginsheadertwo' ],                          // ALT + 2
-      [ CKEDITOR.ALT + 51, 'ckginsheaderthree' ],                          // ALT + 4
-      [ CKEDITOR.ALT + 52, 'ckginsheaderfour' ],                          // ALT +4 
-      [ CKEDITOR.ALT + 53, 'ckginsheaderfive' ],                          // ALT + 5
+      [ CKEDITOR.CTRL + 48, 'ckgundoheader' ],                               // ALT + 0   
+      [ CKEDITOR.CTRL + 49, 'ckginsheaderone' ],                          // ALT + 1
+      [ CKEDITOR.CTRL + 50, 'ckginsheadertwo' ],                          // ALT + 2
+      [ CKEDITOR.CTRL + 51, 'ckginsheaderthree' ],                          // ALT + 4
+      [ CKEDITOR.CTRL + 52, 'ckginsheaderfour' ],                          // ALT +4 
+      [ CKEDITOR.CTRL + 53, 'ckginsheaderfive' ],                          // ALT + 5
       [ CKEDITOR.ALT + 77, 'ckginscode' ],          //ALT +m
+      /* turn off ALT to avoid conflict with AltGr */
+      [ CKEDITOR.ALT + 48, null ],                           
+      [ CKEDITOR.ALT + 49, null ],                         
+      [ CKEDITOR.ALT + 50, null ],                         
+      [ CKEDITOR.ALT + 51, null ],                       
+      [ CKEDITOR.ALT + 52, null ],                         
+      [ CKEDITOR.ALT + 53, null ],                          
    
 
 ];

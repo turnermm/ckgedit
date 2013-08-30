@@ -1,4 +1,4 @@
-rev 13-Aug_27-12_27
+rev 13-Aug_30-13_14
 
 Initial Development distribution
 
@@ -251,3 +251,5 @@ removed code from settings.php
 27 Aug
 Interwiki links: preserve lost forward slashes and query strings
 
+30 Aug
+Revised short-cut keys to prevent conflicts with Alt Gr key
