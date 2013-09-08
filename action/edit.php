@@ -2628,11 +2628,21 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
         // prevents utf8 conversions of quotation marks
          $text = str_replace('"',"_ckgedit_QUOT_",$text);        
 
-         $text = preg_replace_callback('/(<code|file.*?>)(.*?)(<\/code>)/ms',
+         $text = preg_replace_callback('/(<code.*?>)([^<]+)(<\/code>)/ms',
              create_function(
                '$matches',              
                '$quot =  str_replace("_ckgedit_QUOT_",\'"\',$matches[2]); 
                 $quot = str_replace("\\\\ ","_ckgedit_NL",$quot); 
+                $quot .= "_ckgedit_NL";                
+                return $matches[1] . $quot . $matches[3];' 
+          ), $text); 
+
+         $text = preg_replace_callback('/(<file.*?>)([^<]+)(<\/file>)/ms',
+             create_function(
+               '$matches',              
+               '$quot =  str_replace("_ckgedit_QUOT_",\'"\',$matches[2]); 
+                $quot = str_replace("\\\\ ","_ckgedit_NL",$quot); 
+                $quot .= "_ckgedit_NL";                
                 return $matches[1] . $quot . $matches[3];' 
           ), $text); 
 

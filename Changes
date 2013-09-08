@@ -1,4 +1,4 @@
-rev 13-Aug_30-13_14
+rev 13-Sep_08-10_04
 
 Initial Development distribution
 
@@ -253,3 +253,6 @@ Interwiki links: preserve lost forward slashes and query strings
 
 30 Aug
 Revised short-cut keys to prevent conflicts with Alt Gr key
+
+8 Sep
+Updated CSS for code/file blocks; added newlines in editor to ends of code/file blocks for easier edting.

@@ -110,10 +110,9 @@ em.u code {
 pre {
     border: 1px solid #ccc;
     padding: .75em 1em;
+    
 }
 /* for code in <file> */
-pre.file {
-}
 
 /* filenames for downloadable file and code blocks */
 dl.code,
@@ -122,10 +121,10 @@ dl.file {
 
 dl.code dt,
 dl.file dt {
-    background-color: #eee; 
+    background-color: #fbfaf9; 
     color: inherit;
     border: 1px solid #ccc;
-    border-bottom-color: #eee;
+    border-bottom-color: #fbfaf9;
     border-top-left-radius: .3em;
     border-top-right-radius: .3em;
     padding: .3em .6em .1em; 
@@ -134,19 +133,20 @@ dl.file dt {
     margin-left:0px;
     float: left;
 }
+/*
 dl.code dt a,
 dl.file dt a {
     background-color: transparent;
     font-size: 0.875em;
     font-weight: normal;
     display: block;
-    /*min-height: 16px;*/
-	color: #51A5D6 !important;
 }
+*/
 dl.code dd,
 dl.file dd {
     margin: 0;
     clear: left;
+     background-color: #fbfaf9; 
 }
 /* Code new tmpl ends */
 
@@ -506,5 +506,45 @@ a.interwiki {
     color: #436976 !important;
     text-decoration: none !important;
 }    
+
+pre {
+    overflow: auto;
+    word-wrap: normal;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: inset 0 0 .5em #ccc;
+    padding: .7em 1em;
+   background-color: #fbfaf9 !important;
+}
+
+ dl.code dt a,
+ dl.file dt a {
+    background-color: transparent;
+    font-size: 0.875em;
+    font-weight: normal;
+    display: block;
+    min-height: 16px;
+    color: #2b73b7 !important;
+}
+
+ dl.code dd,
+ dl.file dd {
+    margin: 0;
+    clear: left;
+    min-height: 1px; /* for IE7 */
+}
+
+[dir=rtl] .dokuwiki dl.code dd,
+[dir=rtl] .dokuwiki dl.file dd {
+    clear: right;
+}
+
+dl.code pre,
+dl.file pre {
+    box-shadow: inset -4px -4px .5em -.3em #ccc;
+}
+
+
+
 
     
