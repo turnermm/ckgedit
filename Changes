@@ -1,4 +1,4 @@
-rev 13-Sep_08-10_04
+rev 13-Sep_15-13_01
 
 Initial Development distribution
 
@@ -255,4 +255,7 @@ Interwiki links: preserve lost forward slashes and query strings
 Revised short-cut keys to prevent conflicts with Alt Gr key
 
 8 Sep
-Updated CSS for code/file blocks; added newlines in editor to ends of code/file blocks for easier edting.
+Updated CSS for code/file blocks; added newlines in editor to ends of code/file blocks for easier editing.
+
+15 Sep
+Added label tag to "what's this" and ckgedit_lang variables for "what's this" and 'minor edit'

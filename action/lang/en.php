@@ -23,6 +23,8 @@ $ckgedit_lang['btn_exit_draft'] = "Exit Draft";
 $ckgedit_lang['title_draft'] = "View, Show, Edit Draft";
 $ckgedit_lang['title_exit_draft'] = "Return to current document";
 $ckgedit_lang['draft_msg']= "This document has a draft file. The draft button toggles between the this document and the draft. You can edit and save either of the two." ;
-
+$ckgedit_lang['whats_this'] = "what's this?";
+$ckgedit_lang['complex_tables'] = "Enable Complex Tables";
+$ckgedit_lang['minor_changes'] = "Minor changes";
 
 
