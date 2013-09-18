@@ -276,6 +276,7 @@ function check_userfiles() {
 			 }
 	  }
 	  			io_saveFile($meta,$version);
+                chmod($meta, 0666);
 }
             
   

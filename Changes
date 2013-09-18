@@ -1,4 +1,4 @@
-rev 13-Sep_15-13_01
+rev 13-Sep_18-07_14
 
 Initial Development distribution
 
@@ -259,3 +259,6 @@ Updated CSS for code/file blocks; added newlines in editor to ends of code/file 
 
 15 Sep
 Added label tag to "what's this" and ckgedit_lang variables for "what's this" and 'minor edit'
+
+18 Sep
+Makes symchk writable by all, so that it can be manually deleted by all when necessary.
