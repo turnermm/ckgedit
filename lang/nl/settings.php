@@ -13,7 +13,6 @@ $lang['xcl_plugins'] ="Comma gescheiden lijst van onveranderlijke Syntax plugins
 		"De namen moeten gespeld worden zoals in de lijst van geinstalleerde plugins: $list";
 $lang['default_fb'] = "Verstek bestandsbenadering. Zonder (none) verstekwaarde is ACL niet van toepassing.";
 $lang['openfb'] = "Open bestandsbenadering. De gebruiker krijgt hierdoor toegang tot de volledige directory structuur, ongeacht de gebruikersrechten dit al dan niet toelaten. ACL is wel van toepassing op uploads.";
-#$lang['csrf'] = "If you get a CSRF warning, check this box.";
 $lang['dw_edit_display'] = 'Welke gebruikers mogen de "DW Editor" knop gebruiken. Selecteer: "all" voor alle gebruikers; "admin" voor administrator en beheerders; "none" voor niemand. Verstekwaarde is "all".';
 $lang['smiley_as_text']  = 'Toon smileys als tekst in FCKeditor (wordt wel als afbeelding getoond in de browser)';
 $lang['editor_bak'] = "Sla backup op in meta/&lt;namespace&gt;.ckgedit";

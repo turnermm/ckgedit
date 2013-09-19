@@ -12,7 +12,6 @@ $lang['xcl_plugins'] ="用逗號區隔不可改變的 Syntax 插件" .
       "插件的名稱應該如同已安裝的後方已安裝的清單 : $list";
 $lang['default_fb'] = "媒體檔案瀏覽權限，設定 none 將會使 acl 失效";
 $lang['openfb'] = "允許使用者瀏覽全部的目錄(不論是否權限允許)，但是 ACL 仍會限制上傳權限";
-#$lang['csrf'] = "請勾選若出現CSRF警告";                    
 $lang['dw_edit_display'] = '設定可以使用"DW Edit"按鈕的群組。all為所有人;admin即為admin群組。none就不顯示該按鈕';
 $lang['smiley_as_text']  = '在CKeditor內仍以文字來表示笑臉符號(但在頁面會顯示為圖案)';
 $lang['editor_bak'] = "備份檔案存到 meta/&lt;namespace&gt;.ckgedit";
