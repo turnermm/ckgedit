@@ -1,4 +1,4 @@
-rev 13-Sep_18-07_14
+rev 13-Oct_13-08_43
 
 Initial Development distribution
 
@@ -262,3 +262,10 @@ Added label tag to "what's this" and ckgedit_lang variables for "what's this" an
 
 18 Sep
 Makes symchk writable by all, so that it can be manually deleted by all when necessary.
+
+19 Sep
+Removed comments from settings.php files for dokuwiki translation tool
+
+13 Oct
+Changed Signature plugin command name to insertSignature from insertTimestamp (left over from development version)
+Compressed Signature plugin.js
