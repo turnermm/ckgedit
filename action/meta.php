@@ -93,10 +93,10 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$F
 
      $pos = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE');
      if($pos === false) {
-                 $button['onclick'] = 'return setDWEditCookie(1, this);';
+     	$button['onclick'] = 'setDWEditCookie(1, this);document.location.reload(true);return false;';
      }
      else {
-                $button['onmousedown'] = 'return setDWEditCookie(1, this);';
+     	$button['onmousedown'] = 'setDWEditCookie(1, this);document.location.reload(true);return false;';
      }
 
     $pos = $event->data->findElementByAttribute('type','submit');
@@ -147,7 +147,6 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$F
             dom.value = 'dwiki';        
 
         }
-         e.form.submit();
     }
   
  
