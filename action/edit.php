@@ -570,13 +570,20 @@ $DW_EDIT_hide = $this->dw_edit_displayed();
             />
 
             <input type="checkbox" name="ckgedit" value="ckgedit" style="display: none"/>
-             
+            <?php
+	            $pos = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE');
+	            if($pos === false) {
+	                $onclick = "setDWEditCookie(2, this);parent.window.location.reload(true);return false;";
+	            } else {
+	                $onclick = "window.event.cancelBubble = true;setDWEditCookie(2, this);parent.window.location.reload(true);return false;";
+	            }
+	        ?>
              <input class="button"  
                  <?php echo $DW_EDIT_disabled; ?>                 
                  <?php echo $DW_EDIT_hide; ?>
                  style = "font-size: 100%;"
-                 onclick ="setDWEditCookie(2, this);parse_wikitext('edbtn__save');this.form.submit();" 
-                 type="submit" name="do[save]" value="<?php echo $ckgedit_lang['btn_dw_edit']?>"  
+                 onclick ="<?php  echo $onclick;?>" 
+                 type="submit" name="" value="<?php echo $ckgedit_lang['btn_dw_edit']?>"  
                  title="<?php echo $ckgedit_lang['title_dw_edit']?>"
                   />
 
