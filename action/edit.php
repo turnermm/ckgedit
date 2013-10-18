@@ -2419,7 +2419,6 @@ function parse_wikitext(id) {
          results = results.replace(/\/\/&lt;\/\/\s*/g,'&lt;');
     }
    if(HTMLParserTopNotes.length) {
-        results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");
         results = results.replace(/\(\(+(\d+)\)\)+/,"(($1))");   
         for(var i in HTMLParserBottomNotes) {  // re-insert DW's bottom notes at text level
             var matches =  i.match(/_(\d+)/);    
