@@ -114,15 +114,14 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$F
    if(is_string($act) && $act != 'edit') {  
         return;
    }
-  global $INFO;
+  global $INFO, $ckgedit_lang;
   $cname =  $INFO['draft'];   
-    
-
+  $discard = $ckgedit_lang['discard_edits'];  
  
   echo <<<SCRIPT
     <script type="text/javascript">
     //<![CDATA[ 
-    
+    var ckgedit_dwedit_reject = false;
     function setDWEditCookie(which, e) { 
        var cname = "$cname";       
        var dom = document.getElementById('ckgedit_mode_type');          
@@ -139,6 +138,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$F
                     }
            }
            else dom.value = 'fck';  
+           e.form.submit(); 
        }
         else {            
             var nextFCKyear=new Date();
@@ -146,8 +146,13 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$F
             document.cookie = 'FCKW_USE=_false_;expires=' + nextFCKyear.toGMTString() + ';';    
             dom.value = 'dwiki';        
 
+            if(window.dwfckTextChanged  && !window.confirm("$discard")) {            
+               var dom = GetE('dwsave_select');                
+               ckgedit_dwedit_reject=true;
+               window.dwfckTextChanged = false;
         }
-         e.form.submit();
+       }
+        
     }
   
  

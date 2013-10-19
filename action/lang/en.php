@@ -26,5 +26,5 @@ $ckgedit_lang['draft_msg']= "This document has a draft file. The draft button to
 $ckgedit_lang['whats_this'] = "what's this?";
 $ckgedit_lang['complex_tables'] = "Enable Complex Tables";
 $ckgedit_lang['minor_changes'] = "Minor changes";
-
+$ckgedit_lang['discard_edits'] = "To Save your edits click OK; to Discard click Cancel";
 

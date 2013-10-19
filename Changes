@@ -1,4 +1,4 @@
-rev 13-Oct_15-11_44
+rev 13-Oct_18-19_48
 
 Initial Development distribution
 
@@ -274,3 +274,6 @@ Added interwiki fix to swtich version (see Aug 27).
 
 15 Oct
 Removed blank footnote sups.
+
+18 Oct
+Pop up Edits Save or Discard  Confirm for 'DW Edit'

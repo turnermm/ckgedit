@@ -594,6 +594,7 @@ global $INFO;
 ?>
             <input class="button" type="submit" 
                  name="do[draftdel]" 
+                 id = "ebut_cancel"
                  value="<?php echo $lang['btn_cancel']?>" 
                  onmouseup="draft_delete();" 
                  style = "font-size: 100%;"
@@ -790,7 +791,11 @@ RegExp.escape = function(str)
 
 var HTMLParser_DEBUG = "";
 function parse_wikitext(id) {
-
+    if(ckgedit_dwedit_reject) {
+          var dom =  GetE('ebut_cancel');  
+          dom.click();
+          return true;
+   }    
    var useComplexTables = setComplexTables();   
    
     var this_debug;
