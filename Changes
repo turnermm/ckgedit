@@ -1,4 +1,4 @@
-rev 13-Oct_21-09_19
+rev 13-Oct_21-16_05
 
 Initial Development distribution
 
@@ -280,3 +280,5 @@ Pop up Edits Save or Discard  Confirm for 'DW Edit'
 
 21 Oct
 Subtituted translation variables for hard-coded English texts in footnote plugin (with update to en.js).
+
+Same as above for Signature and fontassist plugins.

@@ -67,4 +67,34 @@ Title : 'Footnote Dialog',
 Validate: 'The footnote text field cannot be empty.',
 
 };
+CKEDITOR.lang['en']['fontassist'] = {
+ToolTip: 'Check and Revise Font Styling',
+MainHeader: 'View and optionally alter text styled with the font plugin .',
+SelectColor : ' Select Color',
+SelectedTextColor : 'Selected Text Color',	
+SelectedBGColor : 'Selected Background Color',	
+BGColors : 'Background Colors',	
+InfoText :  '<div style="max-width:400px; font-size: 12pt; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; height: 350px; overflow:auto;">' +                         
+ 'This tool works with the font  plugin and is used to update the font plugin\'s syntax and/or view its enclosed text. ' +
+'Clicking anywhere on the plugin syntax or its text will enable you to check the appearance of the font, its colors, and its size.'+
+'<br /><br />You can also update the plugin syntax in place.  To do this you must select both the font syntax itself and the enclosed text:' +
+'<p style="text-indent: 50px; font-size: 12pt;">  &lt;font. . . &gt;text&lt;/font&gt;</p>' +
+'Then whatever changes you  make with this tool can be inserted into the editor window, by clicking OK, and will replace the current font syntax. ' +
+'<br /><br />The font syntax will appear in the textbox below the display window and is updated with each change. '+ 
+'Clicking on the text will select the text for copying.</div>',
+Main: 'Main',
+Text : 'Text',
+IfChecked : ' If checked, uncheck to activate OK button',
+Fonts : 'Fonts',
+FontSizes :  'Font Sizes (px)',
+ResetFont : 'Reset font',
+ResetAll : 'Reset all',
+TextColors : 'Text Colors',
+Accept :'Accept',	
+Reset : 'Reset',		
+none : 'none',
+};
+CKEDITOR.lang['en']['signature'] = {
+tooltip: 'Insert signature'
+};
 
