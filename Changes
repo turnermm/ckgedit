@@ -1,4 +1,4 @@
-rev 13-Oct_13-08_43
+rev 13-Oct_15-11_44
 
 Initial Development distribution
 
@@ -269,3 +269,8 @@ Removed comments from settings.php files for dokuwiki translation tool
 13 Oct
 Changed Signature plugin command name to insertSignature from insertTimestamp (left over from development version)
 Compressed Signature plugin.js
+
+Added interwiki fix to swtich version (see Aug 27).
+
+15 Oct
+Removed blank footnote sups.
