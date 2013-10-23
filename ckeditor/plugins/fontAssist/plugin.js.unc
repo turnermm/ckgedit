@@ -293,7 +293,7 @@ CKEDITOR.plugins.add( 'fontAssist',
 			return {
 				// Basic properties of the dialog window: title, minimum size.
 				// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.dialogDefinition.html
-				title : 'Font Plugin Assitant',
+				title :  lang.Title, //'Font Plugin Assitant',
 				minWidth : 440,
 				minHeight : 480,
 				// Dialog window contents.

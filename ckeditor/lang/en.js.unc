@@ -68,6 +68,7 @@ Validate: 'The footnote text field cannot be empty.',
 
 };
 CKEDITOR.lang['en']['fontassist'] = {
+Title: 'Font Plugin Editor',
 ToolTip: 'Check and Revise Font Styling',
 MainHeader: 'View and optionally alter text styled with the font plugin .',
 SelectColor : ' Select Color',
