@@ -1,4 +1,4 @@
-rev 13-Oct_23-11_17
+rev 13-Oct_23-22_16
 
 Initial Development distribution
 
@@ -176,7 +176,7 @@ Added language support for fckeditor filebrowser.
 Activated language direction config option
 
 22 May
-Implemented winstyle option
+Implemented winstyle option 
 
 23 May
 Cleaned up link.js and added facility to create anchors to Dokuwiki headings in pages
@@ -195,7 +195,7 @@ Added query string option to internal links in link.js
 Handle copy and paste images with https urls.
 
 3 June
-Reset image url for smiley hack
+Reset image url for smiley hack 
 
 4 June
 Update language support for link dialog
@@ -246,7 +246,7 @@ Removed Dokuwiki max/min buttons from editor frame.
 15 Aug 
 fix to filter entry in dialog_iequirks.css
 
-removed code from settings.php
+removed code from settings.php 
 
 27 Aug
 Interwiki links: preserve lost forward slashes and query strings
@@ -285,3 +285,4 @@ Same as above for Signature and fontassist plugins.
 
 23 Oct
 Adds fontAssist Dialog Title localization
+Upgrade from CKEditor 4.01 engint to 4.2.2
