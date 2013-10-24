@@ -1,4 +1,4 @@
-rev 13-Oct_24-10_40
+rev 13-Oct_24-16_56
 
 Initial Development distribution
 
@@ -288,4 +288,5 @@ Adds fontAssist Dialog Title localization
 Upgrade from CKEditor 4.01 engine to 4.2.2
 
 24 Oct
-Reconfigured Scayt configuration settings
+Reconfigured Scayt configuration settings.
+Fixed bug in language recogniton for non-CKEditor-packaged plugins.

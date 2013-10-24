@@ -11,7 +11,8 @@ CKEDITOR.plugins.add( 'footnote',
 		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialogCommand.html
         editor.addCommand( 'footnoteDialog', new CKEDITOR.dialogCommand( 'footnoteDialog' ) );
         var lang = editor.lang.footnote;
-        //alert(lang.FNTest);
+        if(!lang) lang = CKEDITOR.lang['default']['footnote'];
+      
          if(!oDokuWiki_FCKEditorInstance.oinsertHtmlCodeObj) {
              oDokuWiki_FCKEditorInstance.oinsertHtmlCodeObj = new Object();
              oDokuWiki_FCKEditorInstance.oinsertHtmlCodeObj.notes = new Array();
