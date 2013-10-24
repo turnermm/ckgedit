@@ -90,7 +90,7 @@ config.colors = new Array(
 	// For the complete reference:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
       top.ckgedit_language_chk(config);  //resets language if $conf['other_lang'] != 'default'
-      config.scayt_autoStartup = true; 
+     // config.scayt_autoStartup = true;      
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
       config.extraSpecialChars  = ['↔'];
       config.extraPlugins = 'signature,footnote,shortcuts,fontAssist'; //,devtools';
