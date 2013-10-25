@@ -96,6 +96,6 @@ Reset : 'Reset',
 none : 'none',
 };
 CKEDITOR.lang['en']['signature'] = {
-tooltip: 'Insert signature'
+ToolTip: 'Insert signature'
 };
 
