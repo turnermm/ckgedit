@@ -1,4 +1,4 @@
-rev 13-Oct_24-16_56
+rev 13-Oct_28-09_09
 
 Initial Development distribution
 
@@ -290,3 +290,7 @@ Upgrade from CKEditor 4.01 engine to 4.2.2
 24 Oct
 Reconfigured Scayt configuration settings.
 Fixed bug in language recogniton for non-CKEditor-packaged plugins.
+Correct tooltip reference for Signature plugin
+
+28 Oct
+Changed 'FCK Editor' label to 'CKG Editor' in action/lang files

@@ -2,7 +2,7 @@
 global $fckg_lang;
 
 $fckg_lang['btn_dw_edit'] = "DW Editor";
-$fckg_lang['dw_btn_fck_preview']="FCK Voorbeeld";
+$fckg_lang['dw_btn_fck_preview']="CKG Voorbeeld";
 $fckg_lang['dw_btn_lang']="Taal";
 $fckg_lang['title_dw_delete'] = "Pagina schrappen";
 $fckg_lang['title_dw_edit'] = "Werk opslaan, Stop, en terugschakelen naar de originele DokuWiki Editor";
@@ -10,7 +10,7 @@ $fckg_lang['dw_btn_revert'] = "Terugkeren";
 $fckg_lang['title_dw_revert'] = "Terugkeren naar vorige back-up";
 $fckg_lang['title_dw_lang']="Selecteer taal voor spellingcontrole";
 $fckg_lang['title_dw_cancel']='Stop Editor';
-$fckg_lang['btn_fck_edit'] = "FCK Editor";
+$fckg_lang['btn_fck_edit'] = "CKG Editor";
 $fckg_lang['confirm_delete'] = "Wil je deze pagina schrappen? Zeker?";
 $fckg_lang['confirm_preview'] = "Niet opgeslagen werk gaat verloren.";
 

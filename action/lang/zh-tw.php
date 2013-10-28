@@ -2,7 +2,7 @@
 global $ckgedit_lang;
 
 $ckgedit_lang['btn_dw_edit'] = "DW編輯";
-$ckgedit_lang['dw_btn_fck_preview']="FCK預覽";
+$ckgedit_lang['dw_btn_fck_preview']="CKG預覽";
 $ckgedit_lang['dw_btn_lang']="語言";
 $ckgedit_lang['title_dw_delete'] = "刪除頁面";
 $ckgedit_lang['title_dw_edit'] = "存檔離開後切換到預設編輯器";
@@ -10,7 +10,7 @@ $ckgedit_lang['dw_btn_revert'] = "還原";
 $ckgedit_lang['title_dw_revert'] = "還原備份檔";
 $ckgedit_lang['title_dw_lang']="選擇拼字檢查的語言";
 $ckgedit_lang['title_dw_cancel']='離開編輯器';
-$ckgedit_lang['btn_fck_edit'] = "FCK編輯";
+$ckgedit_lang['btn_fck_edit'] = "CKG編輯";
 $ckgedit_lang['confirm_delete'] = "確定要刪除頁面嗎?";
 $ckgedit_lang['confirm_preview'] = "你將會遺失尚未儲存的資料";
 
