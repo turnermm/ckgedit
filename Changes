@@ -1,4 +1,4 @@
-rev 13-Oct_28-09_09
+rev 13-Oct_28-16_59
 
 Initial Development distribution
 
@@ -294,3 +294,4 @@ Correct tooltip reference for Signature plugin
 
 28 Oct
 Changed 'FCK Editor' label to 'CKG Editor' in action/lang files
+Replace 'strike" tag with 's' tag in parser.
