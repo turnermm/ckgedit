@@ -11,7 +11,17 @@ CKEDITOR.plugins.add( 'footnote',
 		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialogCommand.html
         editor.addCommand( 'footnoteDialog', new CKEDITOR.dialogCommand( 'footnoteDialog' ) );
         var lang = editor.lang.footnote;
-        if(!lang) lang = CKEDITOR.lang['default']['footnote'];
+        if(!lang) {
+            lang = CKEDITOR.lang['default']['footnote'];
+        }
+        else {
+            var lang_default = CKEDITOR.lang['default']['footnote'];
+             for(var k in lang_default) {
+                 if(!lang[k]) {
+                     lang[k] = lang_default[k];
+                 }
+             }
+       }        
       
          if(!oDokuWiki_FCKEditorInstance.oinsertHtmlCodeObj) {
              oDokuWiki_FCKEditorInstance.oinsertHtmlCodeObj = new Object();
