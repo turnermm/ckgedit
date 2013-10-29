@@ -1788,7 +1788,9 @@ function parse_wikitext(id) {
                   if(results.match(/_FORMAT_SPACE_\s*$/)) {   
                       results = results.replace(/_FORMAT_SPACE_\s*$/,"\n");  
                   }
+                  if(this.list_level > 1) {
                   results += '  ';
+              }
               }
              
              if(this.prev_list_level > 0 && markup['li'] == markup['ol']) {

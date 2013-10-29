@@ -1,4 +1,4 @@
-rev 13-Oct_28-16_59
+rev 13-Oct_29-08_36
 
 Initial Development distribution
 
@@ -295,3 +295,6 @@ Correct tooltip reference for Signature plugin
 28 Oct
 Changed 'FCK Editor' label to 'CKG Editor' in action/lang files
 Replace 'strike" tag with 's' tag in parser.
+
+29 Oct
+Removed extra spaces from start of lists.
