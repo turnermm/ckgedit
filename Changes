@@ -1,4 +1,4 @@
-rev 13-Oct_29-10_48
+rev 13-Oct_31-11_37
 
 Initial Development distribution
 
@@ -299,3 +299,6 @@ Replace 'strike" tag with 's' tag in parser.
 29 Oct
 Removed extra spaces from start of lists.
 Assign unset CKEditor language strings from default.
+
+31 Oct
+Fix config.php to properly rewrite local path when both UserFilesAbsolutePath and UserFilesPath are hard-coded.
