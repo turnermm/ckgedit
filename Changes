@@ -1,4 +1,4 @@
-rev 13-Oct_31-11_37
+rev 13-Nov_01-13_07
 
 Initial Development distribution
 
@@ -302,3 +302,6 @@ Assign unset CKEditor language strings from default.
 
 31 Oct
 Fix config.php to properly rewrite local path when both UserFilesAbsolutePath and UserFilesPath are hard-coded.
+
+1 Nov
+Fix to savedir facility
