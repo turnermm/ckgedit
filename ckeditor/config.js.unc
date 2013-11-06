@@ -321,5 +321,6 @@ CKEDITOR.lang['default']['signature'] = {
 ToolTip: 'Insert signature'
 };
 
+config.allowedContent = true;
 
 };

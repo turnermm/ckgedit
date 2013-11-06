@@ -1,4 +1,4 @@
-rev 13-Nov_01-13_07
+rev 13-Nov_06-14_07
 
 Initial Development distribution
 
@@ -305,3 +305,6 @@ Fix config.php to properly rewrite local path when both UserFilesAbsolutePath an
 
 1 Nov
 Fix to savedir facility
+
+6 Nov
+Set allowedContent to true  in config.js. Enables div for footnotes.
