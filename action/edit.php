@@ -2678,7 +2678,7 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
         */
         foreach ( $instructions as $instruction ) {
              if ($instruction[0] == 'plugin') {              
-                $Renderer->doc .= "<span> ".$instruction[1][3]."</span> ";
+                $Renderer->doc .= $instruction[1][3];
           } else {
                // Execute the callback against the Renderer
                call_user_func_array(array(&$Renderer, $instruction[0]),$instruction[1]);              

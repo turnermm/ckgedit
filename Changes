@@ -1,4 +1,4 @@
-rev 13-Nov_06-14_07
+rev 13-Nov_09-12_00
 
 Initial Development distribution
 
@@ -308,3 +308,6 @@ Fix to savedir facility
 
 6 Nov
 Set allowedContent to true  in config.js. Enables div for footnotes.
+
+9 Nov
+Removed span from around plugin syntax; can break lists.
