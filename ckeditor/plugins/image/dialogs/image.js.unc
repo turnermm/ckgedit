@@ -431,12 +431,7 @@ window.onbeforeunload = function() { };
 						this.imageElement.setAttribute( 'alt', '' );
 					}
    
-                     var align_sel = document.getElementById(ckgeditAlignInputId);     
-                     if(align_sel.selectedIndex > 0) {
-                         var img_alignment =  align_sel.options[align_sel.selectedIndex].value;
-                         this.imageElement.setAttribute( 'class', img_alignment );
-                     }
-                     else this.imageElement.setAttribute( 'class', 'media' );
+
                      var link_sel = document.getElementById(ckgeditLinkTypeId);                          
                      var linktype = 'detail';
                      if(link_sel.selectedIndex > 0) {
@@ -449,6 +444,14 @@ window.onbeforeunload = function() { };
 
 					// Set attributes.                    
 					this.commitContent( IMAGE, this.imageElement );
+                    
+                                         var align_sel = document.getElementById(ckgeditAlignInputId);     
+                     if(align_sel.selectedIndex > 0) {
+                         var img_alignment =  align_sel.options[align_sel.selectedIndex].value;
+                         this.imageElement.setAttribute( 'class', img_alignment );
+                     }
+                     else this.imageElement.setAttribute( 'class', 'media' );
+                     
 					// Remove empty style attribute.
 					if ( !this.imageElement.getAttribute( 'style' ) )
 						this.imageElement.removeAttribute( 'style' );
@@ -953,18 +956,29 @@ window.onbeforeunload = function() { };
                                         [ "Center" , 'mediacenter'],
                                         [ "Baseline" , 'baseline'],
 									],
-                                    
-									onChange: function() {
+                                    									onChange: function() {
 										updatePreview( this.getDialog() );
 										commitInternally.call( this, 'advanced:txtdlgGenStyle' );
 									},
 									setup: function( type, element ) {                                    
 									},
 									commit: function( type, element, internalCommit ) {
-										var value = this.getValue();
+										var value = this.getValue();                                       
 										if ( type == IMAGE || type == PREVIEW ) {
-											if ( value )
-												element.setStyle( 'float', value );
+											if ( value ) {                                                                                          
+                                                value =  value.replace(/media/,"");                                               
+                                                switch(value) {
+                                                    case 'center':
+                                                       element.removeStyle( 'float' );                                                     
+                                                       element.setAttribute( 'class', 'mediacenter');  
+                                                       break;
+                                                    case 'baseline':                                                    
+                                                       value = 'left';                                                    
+                                                    default:
+                                                      element.setStyle( 'float', value );                                                    
+                                                   }
+												
+                                                }
 											else
 												element.removeStyle( 'float' );
 
@@ -995,8 +1009,8 @@ window.onbeforeunload = function() { };
 								type: 'html',
 								id: 'htmlPreview',
 								style: 'width:95%;',
-								html: '<div>' + CKEDITOR.tools.htmlEncode( editor.lang.common.preview ) + '<br>' +
-									'<div id="' + imagePreviewLoaderId + '" class="ImagePreviewLoader" style="display:none"><div class="loading">&nbsp;</div></div>' +
+								html: '<style type = "text/css">.mediacenter { display: block; margin-left: auto; margin-right: auto;}</style><div>' + CKEDITOR.tools.htmlEncode( editor.lang.common.preview ) + '<br>' +                                                                         
+								     	'<div id="' + imagePreviewLoaderId + '" class="ImagePreviewLoader" style="display:none"><div class="loading">&nbsp;</div></div>' +
 									'<div class="ImagePreviewBox"><table><tr><td>' +
 										'<a href="javascript:void(0)" target="_blank" onclick="return false;" id="' + previewLinkId + '">' +
 										'<img id="' + previewImageId + '" alt="" /></a>' +

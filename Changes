@@ -1,4 +1,4 @@
-rev 13-Nov_12-09_49
+rev 13-Nov_14-16_57
 
 Initial Development distribution
 
@@ -314,3 +314,6 @@ Removed span from around plugin syntax; can break lists.
 
 12 Nov
 French GUI translation from JGuilbaud
+
+14 Nov
+Fixed image placement in image dialog
