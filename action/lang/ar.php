@@ -2,7 +2,7 @@
 global $ckgedit_lang;
 
 $ckgedit_lang['btn_dw_edit'] = "المحرر النصي";
-$ckgedit_lang['dw_btn_fck_preview']="معاينة FCK";
+$ckgedit_lang['dw_btn_fck_preview']="معاينة CKG";
 $ckgedit_lang['dw_btn_lang']="اللغة";
 $ckgedit_lang['title_dw_delete'] = "احذف الصفحة";
 $ckgedit_lang['title_dw_edit'] = "احفظ العمل، أخرج، وحول إلى المحرر النصي الافتراضي";
