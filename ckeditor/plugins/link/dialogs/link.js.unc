@@ -938,7 +938,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                     data.adv.advTitle = data.url.url;
                     
                     var mf = data.url.url.match(/(\.(\w+))$/);           
-                    data.url.url=editor.config.doku_url + 'doku.php?id=' + data.url.url;                     
+                    data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;                         
                     if( mf[1].match(ImagesAllowed)) {                        
                         data.adv['advContentType'] = 'linkonly';
                    }
@@ -961,7 +961,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                      data.url.url =  ':' + data.url.url.replace(/\//g,':');      
                      data.adv.advCSSClasses = "wikilink1";
                      data.adv.advTitle = data.url.url;
-                     data.url.url=editor.config.doku_url + 'doku.php?id=' + data.url.url;   
+                     data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;   
                      if(data.hash) { data.url.url += '#' +data.hash;  }
                      if(data.qstring) { data.url.url += '&' +data.qstring;  }
 				case 'url':               
@@ -1075,6 +1075,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 
 			var selection = editor.getSelection();
+            var hasSelectedText = selection.getSelectedText() ? selection.getSelectedText() : false;
 			// Browser need the "href" fro copy/paste link to work. (#6641)
 			attributes.href = attributes[ 'data-cke-saved-href' ];
 
@@ -1095,7 +1096,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
                 if(navigator.userAgent.indexOf('MSIE') != -1) {             
                     var el = editor.document.createElement( 'a' );
                     el.setAttribute( 'href',  attributes['href']);
-                    el.setHtml(selection.getSelectedText());
+                    if(!hasSelectedText &&  (data.type == 'media' || data.type == 'internal')) {
+                        el.setHtml(data.adv.advTitle);                  
+                    }
+                    else el.setHtml(selection.getSelectedText());                  
                     for(attr in attributes) {
                          if(attr.match(/href/i))continue;
                          el.setAttribute( attr,  attributes[attr]);

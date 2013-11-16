@@ -1,4 +1,4 @@
-rev 13-Nov_14-16_57
+rev 13-Nov_16-14_57
 
 Initial Development distribution
 
@@ -317,3 +317,9 @@ French GUI translation from JGuilbaud
 
 14 Nov
 Fixed image placement in image dialog
+
+15 Nov
+Changed FCK to CKG in action/lang/de.php and action/lang/ar.php
+
+16 Nov
+Fixed displayed  html for internal links and internal media in IE.
