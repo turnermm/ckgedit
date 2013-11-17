@@ -57,6 +57,9 @@ FCKXml.prototype.LoadUrl = function( urlToCall, asyncFunctionPointer )
 	// For IE 10
     //See: https://blogs.msdn.com/b/ie/archive/2012/07/19/xmlhttprequest-responsexml-in-ie10-release-preview.aspx?Redirected=true
     try { oXmlHttp.responseType = 'msxml-document'; } catch(e){}
+    
+    this.RespType = oXmlHttp.responseType;
+
 	if ( bAsync )
 	{
 		oXmlHttp.onreadystatechange = function()
@@ -113,7 +116,8 @@ FCKXml.prototype.LoadUrl = function( urlToCall, asyncFunctionPointer )
 
 FCKXml.prototype.SelectNodes = function( xpath )
 {
-	if ( navigator.userAgent.indexOf('MSIE') >= 0 )		// IE
+	
+    if(this.RespType && this.RespType == 'msxml-document' || navigator.userAgent.indexOf('MSIE') >= 0) 
 		return this.DOMDocument.selectNodes( xpath ) ;
 	else					// Gecko
 	{
@@ -136,8 +140,10 @@ FCKXml.prototype.SelectNodes = function( xpath )
 
 FCKXml.prototype.SelectSingleNode = function( xpath )
 {
-	if ( navigator.userAgent.indexOf('MSIE') >= 0 )		// IE
+
+    if(this.RespType && this.RespType == 'msxml-document' || navigator.userAgent.indexOf('MSIE') >= 0) {
 		return this.DOMDocument.selectSingleNode( xpath ) ;
+      }  
 	else					// Gecko
 	{
 		var xPathResult = this.DOMDocument.evaluate( xpath, this.DOMDocument,
@@ -149,7 +155,4 @@ FCKXml.prototype.SelectSingleNode = function( xpath )
 			return null ;
 	}
 }
-  if(window.document.documentMode && window.document.documentMode > 8) {
-     document.writeln( '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />');
-      
-  }
+

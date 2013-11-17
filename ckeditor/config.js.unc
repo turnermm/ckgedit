@@ -4,6 +4,7 @@
  */
 
  CKEDITOR.editorConfig = function( config ) {
+
 config.keystrokes = [
 
    // [ CKEDITOR.CTRL + 76, null ],                       // CTRL + L
