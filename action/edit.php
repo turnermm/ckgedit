@@ -2373,7 +2373,7 @@ function parse_wikitext(id) {
 
         results = results.replace(/\n@@_SP_@@\n/g,'');
         results = results.replace(/@@_SP_@@\n/g,'');
-        results = results.replace(/@@_SP_@@/g,'');
+        results = results.replace(/@@_SP_@@/g,' ');
 	
         var regex = new RegExp(HTMLParser_FORMAT_SPACE + '([^\\)\\]\\}\\{\\-\\.,;:\\!\?"\x94\x92\u201D\u2019' + "'" + '])',"g");
         results = results.replace(regex," $1");
