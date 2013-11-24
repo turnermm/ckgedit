@@ -2152,7 +2152,6 @@ function parse_wikitext(id) {
     if(text.match(/^&\w+;/)) {
 	    results=results.replace(/_FORMAT_SPACE_\s*$/,"");   // remove unwanted space after character entity
     }	
-    text = text.replace(/(&\w+;)(\s|&nbsp;)/g, "$1@@_sp_@@");  
 
     if(this.link_only) {
 	    if(text) {
@@ -2374,8 +2373,8 @@ function parse_wikitext(id) {
 
         results = results.replace(/\n@@_SP_@@\n/g,'');
         results = results.replace(/@@_SP_@@\n/g,'');
-        results = results.replace(/@@_SP_@@/g,' ');
-        results = results.replace(/@@_sp_@@/g,' ');
+        results = results.replace(/@@_SP_@@/g,'');
+	
         var regex = new RegExp(HTMLParser_FORMAT_SPACE + '([^\\)\\]\\}\\{\\-\\.,;:\\!\?"\x94\x92\u201D\u2019' + "'" + '])',"g");
         results = results.replace(regex," $1");
         regex = new RegExp(HTMLParser_FORMAT_SPACE,"g");
