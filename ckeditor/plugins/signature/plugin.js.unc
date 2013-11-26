@@ -10,7 +10,7 @@ CKEDITOR.plugins.add( 'signature',
 	// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.pluginDefinition.html#init
 	init: function( editor )
 	{
-         var lang = editor.lang.signature;      
+         var lang = editor.lang.signature;   
          if(!lang) lang = CKEDITOR.lang['default']['signature'];
              
 		// Define an editor command that inserts a timestamp. 

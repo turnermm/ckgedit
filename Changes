@@ -1,4 +1,4 @@
-rev 13-Nov_23-12_07
+rev 13-Nov_24-10_05
 
 Initial Development distribution
 
@@ -324,5 +324,5 @@ Changed FCK to CKG in action/lang/de.php and action/lang/ar.php
 16 Nov
 Fixed displayed  html for internal links and internal media in IE.
 
-23 Nov
-Spacing fixes after entities and multiple formats
+24 Nov
+Inserted space after multiple formats
