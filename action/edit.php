@@ -937,7 +937,7 @@ function parse_wikitext(id) {
  window.dwfckTextChanged = false;
  if(id != 'bakup')  draft_delete();
  var line_break = "\nL_BR_K  \n";
-    var markup = { 'b': '**', 'i':'//', 'em': '//', 'u': '__', 'br':line_break, 
+    var markup = { 'b': '**', 'i':'//', 'em': '//', 'u': '__', 'br':line_break, 'strike': '<del>',
          'del': '<del>', 's': '<del>', p: "\n\n" , 'a':'[[', 'img': '\{\{', 'strong': '**',
          'h1': "\n====== ", 'h2': "\n===== ", 'h3': "\n==== ", 'h4': "\n=== ", 'h5': "\n== ",
          'td': "|", 'th': "^", 'tr':" ", 'table': "\n\n", 'ol':"  - ", 'ul': "  * ", 'li': "",
@@ -945,7 +945,7 @@ function parse_wikitext(id) {
          'font': "\n",
          'sup': '<sup>', 'div':"\n\n", 'span': "\n", 'dl': "\n", 'dd': "\n", 'dt': "\n"
      };
-    var markup_end = { 'del': '</del>', 's': '</del>', 'p': " ", 'br':" ", 'a': ']]','img': '\}\}',
+    var markup_end = { 'del': '</del>', 's': '</del>', 'strike': '</del>', 'p': " ", 'br':" ", 'a': ']]','img': '\}\}',
           'h1': " ======\n", 'h2': " =====\n", 'h3': " ====\n", 'h4': " ===\n", 'h5': " ==\n", 
           'td': " ", 'th': " ", 'tr':"|\n", 'ol':" ", 'ul': " ", 'li': "\n", 'plugin': '</plugin>',
            'pre': "\n</",'sub': '</sub>', 'sup': '</sup> ', 'div':"\n\n", 'p': "\n\n",

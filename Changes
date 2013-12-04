@@ -1,4 +1,4 @@
-rev 13-Nov_27-13_49
+rev 13-Dec_04-11_19
 
 Initial Development distribution
 
@@ -326,3 +326,6 @@ Fixed displayed  html for internal links and internal media in IE.
 
 24 Nov
 Inserted space after multiple formats
+
+4 Dec
+Corrected for CKEditor's use of 'strike' instead of 'de'or 's'
