@@ -2163,7 +2163,7 @@ function parse_wikitext(id) {
     if(!this.code_type) { 
         if(! this.last_col_pipes) {
             text = text.replace(/\x20{6,}/, "   "); 
-            text = text.replace(/^(&nbsp;)+/, '');
+            text = text.replace(/^(&nbsp;)+\s*$/, '_FCKG_BLANK_TD_');
             text = text.replace(/(&nbsp;)+/, ' ');   
         }
 

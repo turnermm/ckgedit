@@ -1,4 +1,4 @@
-rev 13-Dec_04-11_19
+rev 13-Dec_09-15_39
 
 Initial Development distribution
 
@@ -328,4 +328,7 @@ Fixed displayed  html for internal links and internal media in IE.
 Inserted space after multiple formats
 
 4 Dec
-Corrected for CKEditor's use of 'strike' instead of 'de'or 's'
+Corrected for CKEditor's use of 'strike' instead of 'del'or 's'
+
+9 Dec
+Fixed corrupted tables with vertical span and empty parallel cells (on initial table creation)
