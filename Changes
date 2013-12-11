@@ -1,4 +1,4 @@
-rev 13-Dec_09-15_39
+rev 13-Dec_10-20_00
 
 Initial Development distribution
 
@@ -332,3 +332,6 @@ Corrected for CKEditor's use of 'strike' instead of 'del'or 's'
 
 9 Dec
 Fixed corrupted tables with vertical span and empty parallel cells (on initial table creation)
+
+10 Dec
+Removed inadvertent _FCKG_BLANK_TD_ markers inserted by 9 Dec fix

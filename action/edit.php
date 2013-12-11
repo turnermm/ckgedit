@@ -2415,12 +2415,9 @@ function parse_wikitext(id) {
    // fix for colspans which have had text formatting which cause extra empty cells to be created
      results = results.replace(/(\||\^)[ ]+(\||\^)\s$/g, "$1\n");
      results = results.replace(/(\||\^)[ ]+(\||\^)/g, "$1");
-    
+    }
      // prevents valid empty td/th cells from being removed above
      results = results.replace(/_FCKG_BLANK_TD_/g, " ");
-     
-    
-    }
 
     if(HTMLParserOpenAngleBracket) {
          results = results.replace(/\/\/&lt;\/\/\s*/g,'&lt;');
