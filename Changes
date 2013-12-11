@@ -1,4 +1,4 @@
-rev 13-Dec_10-20_00
+rev 13-Dec_11-13_11
 
 Initial Development distribution
 
@@ -335,3 +335,8 @@ Fixed corrupted tables with vertical span and empty parallel cells (on initial t
 
 10 Dec
 Removed inadvertent _FCKG_BLANK_TD_ markers inserted by 9 Dec fix
+
+11 Dec 
+Implemented _REMOVE_FONTS_START_. . ._REMOVE_FONTS_END macros:
+Font markup found between these macros will be removed.  The
+macros areinserted into the editor when editing and are removed together with font tags.
