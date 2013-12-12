@@ -95,6 +95,23 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
  
         $this->replace_entities();
 
+/* 11 Dec 2013 see comment below        
+Remove discarded font syntax    
+*/
+        $TEXT = preg_replace_callback(
+            '|_REMOVE_FONTS_START_(.*?)_REMOVE_FONTS_END_|ms',
+            create_function(
+                '$matches',
+                '$matches[1] = preg_replace("/<font.*?>/ms","",$matches[1]);
+                 return preg_replace("/<\/font>/ms","",$matches[1]);'
+            ),
+            $TEXT
+        );
+
+ /* 
+6 April 2013
+Removed newlines and spaces from beginnings and ends of text enclosed by font tags.  Too subtle for javascript. 
+ */
         $TEXT = preg_replace_callback(
          '|(<font.*?>)(.*?)(?=</font>)|ms',
          create_function(

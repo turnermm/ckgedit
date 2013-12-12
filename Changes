@@ -1,4 +1,4 @@
-rev 13-Dec_11-13_11
+rev 13-Dec_11-19_25
 
 Initial Development distribution
 
@@ -340,3 +340,5 @@ Removed inadvertent _FCKG_BLANK_TD_ markers inserted by 9 Dec fix
 Implemented _REMOVE_FONTS_START_. . ._REMOVE_FONTS_END macros:
 Font markup found between these macros will be removed.  The
 macros areinserted into the editor when editing and are removed together with font tags.
+
+Moved removal of _REMOVE_FONTS_ macros to save.php (See above April 16 2013)

@@ -2334,13 +2334,6 @@ function parse_wikitext(id) {
           return brackets+block + ']]';
      }); 
 
-      if(results.match(/_REMOVE_FONTS_START_/)) {
-         results = results.replace(/_REMOVE_FONTS_START_\s+(.*?)\s+_REMOVE_FONTS_END/gm, function(m,text) { 
-             text = text.replace(/&lt;font.*?&gt;/g,"");
-             return text.replace(/&lt;\/font&gt;/g,"");        
-         }
-         );
-    }
      results = results.replace(/%*\\%*([^\w]{1})%*\\%*/g, "$1");      
      results=results.replace(/_SMB_/g, "\\");     
          results = results.replace(/CKGE_TMP_(\w+)/gm, function(m,tag) {
