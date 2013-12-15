@@ -1,4 +1,4 @@
-rev 13-Dec_11-19_25
+rev 13-Dec_15-12_42
 
 Initial Development distribution
 
@@ -342,3 +342,6 @@ Font markup found between these macros will be removed.  The
 macros areinserted into the editor when editing and are removed together with font tags.
 
 Moved removal of _REMOVE_FONTS_ macros to save.php (See above April 16 2013)
+
+15 Dec
+Remove ~~COMPLEX_TABLES~~ macro in save.php and disable macro checkbox if complex set in config manager

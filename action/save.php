@@ -67,6 +67,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
         $TEXT = preg_replace('/__n__/',"\n", $TEXT);
         $TEXT = str_replace("__code_NL__","\n", $TEXT);
         $TEXT = str_replace("FCKGPERCENTESC", '%%',  $TEXT);
+        if($this->getConf('complex_tables')) {
+            $TEXT = str_replace('~~COMPLEX_TABLES~~','',$TEXT);
+        }
         $TEXT .= "\n";
         // Removes relics of markup characters left over after acronym markup has been removed
         //$TEXT = preg_replace('/([\*\/_]{2})\s+\\1\s*([A-Z]+)\s*\\1+/ms',"$2",$TEXT);
