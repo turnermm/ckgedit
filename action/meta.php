@@ -23,10 +23,17 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $session_id = false;    
   var $draft_file;
   var $user_rewrite = false;
+  var $helper;
+  
+  function __construct() {
+      $this->helper = plugin_load('helper', 'ckgedit');
+  }
   /*
    * Register its handlers with the dokuwiki's event controller
    */
   function register(&$controller) {            
+
+            if($this->helper->is_outOfScope()) return;
             $controller->register_hook( 'TPL_METAHEADER_OUTPUT', 'AFTER', $this, 'loadScript');    
             $controller->register_hook( 'HTML_EDITFORM_INJECTION', 'AFTER', $this, 'preprocess'); 
             $controller->register_hook( 'HTML_EDITFORM_OUTPUT', 'BEFORE', $this, 'insertFormElement');            

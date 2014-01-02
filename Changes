@@ -1,4 +1,4 @@
-rev 13-Dec_15-12_42
+rev 14-Jan_02-13_08
 
 Initial Development distribution
 
@@ -345,3 +345,8 @@ Moved removal of _REMOVE_FONTS_ macros to save.php (See above April 16 2013)
 
 15 Dec
 Remove ~~COMPLEX_TABLES~~ macro in save.php and disable macro checkbox if complex set in config manager
+
+----------------2014----------------
+1 Jan 2014 
+Abandoned separate switch edit.php and switch helper.php.  
+Only remaining differences are the syntax/ files and addition of scripts/switch_tpl.php

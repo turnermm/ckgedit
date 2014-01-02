@@ -41,6 +41,18 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
      return '.(' . implode('|',$uploadImageTypes) .')$';
   }
   
+  function is_outOfScope(&$which="") {
+        $list = plugin_list('action');  
+         if(in_array( 'fckg_edit' , $list)) {       
+            if(!isset($_COOKIE['ckgEditSwitch'])) return true;
+            $which = $_COOKIE['ckgEditSwitch'];
+             if($_COOKIE['ckgEditSwitch'] != 'ckgedit') return true;   
+             
+        }
+
+      return false;
+  }
+  
   function registerOnLoad($js){
   global $ID;
   global $lang;

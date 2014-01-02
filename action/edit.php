@@ -43,6 +43,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 
     function register(&$controller)
     {
+         if($this->helper->is_outOfScope()) return;
+ 
         global $FCKG_show_preview;
         $FCKG_show_preview = true;
 
