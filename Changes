@@ -1,4 +1,4 @@
-rev 14-Jan_02-13_08
+rev 14-Jan_05-10_21
 
 Initial Development distribution
 
@@ -350,3 +350,6 @@ Remove ~~COMPLEX_TABLES~~ macro in save.php and disable macro checkbox if comple
 1 Jan 2014 
 Abandoned separate switch edit.php and switch helper.php.  
 Only remaining differences are the syntax/ files and addition of scripts/switch_tpl.php
+
+5 Jan 
+Fixed bug that caused rss syntax to result in following open italic markup
