@@ -125,8 +125,12 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
          ),
          $TEXT
        );
+       $TEXT = preg_replace('/__QUOTE__/ms',">",$TEXT);
+       $TEXT = preg_replace('/[\t\x20]+$/ms',"",$TEXT);
+       $TEXT = preg_replace('/\n{4,}/ms',"\n\n",$TEXT);
+       $TEXT = preg_replace('/\n{3,}/ms',"\n\n",$TEXT);
 
-     
+
          return;
     
     }

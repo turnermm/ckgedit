@@ -341,6 +341,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 				 ), $text
 			);			 
 		}
+       $text = preg_replace('/^\>/ms',"_QUOT_",$text);  // dw quotes
        $text = str_replace('>>','CHEVRONescC',$text);
        $text = str_replace('<<','CHEVRONescO',$text);
        $text = preg_replace('/(={3,}.*?)(\{\{.*?\}\})(.*?={3,})/',"$1$3\n$2",$text);
@@ -359,7 +360,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $this->xhtml = str_replace("__GESHI_OPEN__", "&#60; ", $this->xhtml); 
        $this->xhtml = str_replace('CHEVRONescC', '>>',$this->xhtml);
        $this->xhtml = str_replace('CHEVRONescO', '<<',$this->xhtml);
-     
+       $this->xhtml = preg_replace('/_QUOT_/ms','>',$this->xhtml);  // dw quotes     
 
        if($pos !== false) {
        $this->xhtml = preg_replace_callback(
@@ -2149,7 +2150,10 @@ function parse_wikitext(id) {
          text=text.replace('&lt; ','&lt;');
       }
 	 text = text.replace(/&#39;/g,"'");  //replace single quote entities with single quotes
-         
+     text = text.replace(/^(&gt;)+/,function(match,quotes) {
+         return(match.replace(/(&gt;)/g, "\__QUOTE__")) ;         
+     }
+     );     
       //adjust spacing on multi-formatted strings
     results=results.replace(/([\/\*_])_FORMAT_SPACE_([\/\*_]{2})_FORMAT_SPACE_$/,"$1$2");
     if(text.match(/^&\w+;/)) {
