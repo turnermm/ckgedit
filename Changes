@@ -1,4 +1,4 @@
-rev 14-Jan_05-19_28
+rev 14-Jan_07-19_55
 
 Initial Development distribution
 
@@ -353,5 +353,8 @@ Only remaining differences are the syntax/ files and addition of scripts/switch_
 
 5 Jan 
 Fixed bug that caused rss syntax to result in following open italic markup
-
 fixed parsing and output of Dokuwiki quote syntax
+
+7 Jan
+Refactored code for handling non-parsed blocks in edit.php preprocessor. Removed plugin handling code
+left over from fckgLite.

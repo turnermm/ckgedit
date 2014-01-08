@@ -225,23 +225,27 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
       else {
          $useComplexTables=false;
       }
-      if(strpos($text, '%%') !== false) {     
-         $text= preg_replace_callback(
-            '/(<nowiki>)*(\s*)%%\s*([^%]+)\s*%%(<\/nowiki>)*(\s*)/ms',
-             create_function(
-               '$matches',
-                'if(preg_match("/<nowiki>/",$matches[1])) {
-                   $matches[1] .= "%%";
-                }
-                else  $matches[1] = "<nowiki>";
-                if(preg_match("/<\/nowiki>/",$matches[4])) {
-                   $matches[4] = "%%</nowiki>";
-                }
-                else $matches[4] = "</nowiki>";  
-                return   $matches[1] .  $matches[2] .  $matches[3] . $matches[4] . $matches[5];'  
-             ),
-             $text
-            );   
+      
+      if(strpos($text, '%%') !== false) {  
+
+        $text = preg_replace_callback(
+            "/<(nowiki|code|file)>(.*?)<\/(nowiki|code|file)/ms",
+            function ($matches) {
+                $matches[0] = str_replace('%%', 'DBLPERCENT',$matches[0]);
+                return $matches[0];
+            },
+           $text
+        );
+
+        $text = preg_replace_callback(
+            "/(?<!nowiki>)%%(.*?)%%/ms",
+            function($matches) {
+            return '<nowiki>' . $matches[1] . '</nowiki>';
+            },
+            $text
+        );
+
+        $text =  str_replace('DBLPERCENT','%%',$text);    
       }
        
        $pos = strpos($text, '<');
@@ -317,19 +321,11 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
           );
          $text = preg_replace('/TPRE_CLOSE\s+/ms',"TPRE_CLOSE",$text); 
       
-         $text = preg_replace('/<(?!code|file|plugin|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/plugin|\/sup|\/sub)/ms',"&lt;",$text);
+         $text = preg_replace('/<(?!code|file|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/sup|\/sub)/ms',"&lt;",$text);
    
          $text = str_replace('%%&lt;', '&#37;&#37;&#60;', $text);              
-
-         $text = preg_replace_callback('/<plugin(.*?)(?=<\/plugin>)/ms',
-                        create_function(
-                          '$matches', 
-                           'return str_replace("//","", $matches[0]);'
-                       ),
-                       $text
-                 ); 
-         $text = str_replace('</plugin>','</plugin> ', $text);           
        }  
+       
 	   if($this->getConf('duplicate_notes')) {
 			$text = preg_replace_callback('/\(\(/ms',
 				  create_function(
@@ -945,13 +941,13 @@ function parse_wikitext(id) {
          'del': '<del>', 's': '<del>', p: "\n\n" , 'a':'[[', 'img': '\{\{', 'strong': '**',
          'h1': "\n====== ", 'h2': "\n===== ", 'h3': "\n==== ", 'h4': "\n=== ", 'h5': "\n== ",
          'td': "|", 'th': "^", 'tr':" ", 'table': "\n\n", 'ol':"  - ", 'ul': "  * ", 'li': "",
-         'plugin': '<plugin ', 'code': "\'\'",'pre': "\n<", 'hr': "\n\n----\n\n", 'sub': '<sub>',         
+         'code': "\'\'",'pre': "\n<", 'hr': "\n\n----\n\n", 'sub': '<sub>',         
          'font': "\n",
          'sup': '<sup>', 'div':"\n\n", 'span': "\n", 'dl': "\n", 'dd': "\n", 'dt': "\n"
      };
     var markup_end = { 'del': '</del>', 's': '</del>', 'strike': '</del>', 'p': " ", 'br':" ", 'a': ']]','img': '\}\}',
           'h1': " ======\n", 'h2': " =====\n", 'h3': " ====\n", 'h4': " ===\n", 'h5': " ==\n", 
-          'td': " ", 'th': " ", 'tr':"|\n", 'ol':" ", 'ul': " ", 'li': "\n", 'plugin': '</plugin>',
+          'td': " ", 'th': " ", 'tr':"|\n", 'ol':" ", 'ul': " ", 'li': "\n",
            'pre': "\n</",'sub': '</sub>', 'sup': '</sup> ', 'div':"\n\n", 'p': "\n\n",
            'font': "\n\n</font> "
      }; 
@@ -980,7 +976,6 @@ function parse_wikitext(id) {
     var HTMLParser_Geshi = false;
     var HTMLParser_TABLE = false;
     var HTMLParser_COLSPAN = false;
-    var HTMLParser_PLUGIN = false;
     var HTMLParser_FORMAT_SPACE = false;
     var HTMLParser_MULTI_LINE_PLUGIN = false;
     var HTMLParser_NOWIKI = false;
@@ -1562,13 +1557,6 @@ function parse_wikitext(id) {
 			   interwiki_class = "";
 			   interwiki_title = "";
 		    }
-            if(tag == 'plugin') {
-                  if(isIE) HTMLParser_PLUGIN = true;
-                  if(attrs[i].name == 'title') {
-                       this.attr = ' title="' + attrs[i].escaped + '" '; 
-                       break;                          
-                  }
-             }
 
             if(tag == 'sup') {
                if(attrs[i].name == 'class') {                 
@@ -1888,7 +1876,7 @@ function parse_wikitext(id) {
                results += this.attr + '}}';
                this.attr = 'src';
           }
-          else if(tag == 'plugin' || tag == 'pre' || tag == 'pre_td') {               
+          else if(tag == 'pre' || tag == 'pre_td') {               
                if(this.downloadable_file) this.attr += ' ' +  this.downloadable_file; 
                if(!this.attr) this.attr = 'code';          
                results += this.attr + '>'; 
@@ -2277,13 +2265,6 @@ function parse_wikitext(id) {
     }
 
 
-    if(HTMLParser_PLUGIN) {
-      HTMLParser_PLUGIN=false; 
-      if(results.match(/>\s*<\/plugin>\s*$/)) {        
-        results = results.replace(/\s*<\/plugin>\s*$/, text + '<\/plugin>');   
-        return;  
-      }   
-   } 
    if(text && text.length) { 
       results += text;        
    }
