@@ -1,4 +1,4 @@
-rev 14-Jan_07-19_55
+rev 14-Jan_23-09_11
 
 Initial Development distribution
 
@@ -358,3 +358,7 @@ fixed parsing and output of Dokuwiki quote syntax
 7 Jan
 Refactored code for handling non-parsed blocks in edit.php preprocessor. Removed plugin handling code
 left over from fckgLite.
+
+23 Jan
+Removed query string from copied/pasted images; interfered with parsing of url. Affects
+mainly thumbnails with sizes.

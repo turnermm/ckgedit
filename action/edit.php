@@ -1618,8 +1618,9 @@ function parse_wikitext(id) {
                         }
                          if(!src.match(/https?:/)  && !src.match(/^:/)) src = ':' + src;  
                      } 
-                     else if(attrs[i].escaped.match(/http:\/\//)){
+                     else if(attrs[i].escaped.match(/https?:\/\//)){
                               src = attrs[i].escaped;
+                              src = src.replace(/\?.*?$/,"");
                      }
                      // url rewrite 1
                      else if(matches = attrs[i].escaped.match(/\/_media\/(.*)/)) {                       
