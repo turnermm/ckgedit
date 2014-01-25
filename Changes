@@ -1,4 +1,4 @@
-rev 14-Jan_23-09_11
+rev 14-Jan_25-06_47
 
 Initial Development distribution
 
@@ -362,3 +362,6 @@ left over from fckgLite.
 23 Jan
 Removed query string from copied/pasted images; interfered with parsing of url. Affects
 mainly thumbnails with sizes.
+
+25 Jan
+Compressed ckeditor/config.js
