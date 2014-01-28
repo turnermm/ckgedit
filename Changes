@@ -1,4 +1,4 @@
-rev 14-Jan_27-20_43
+rev 14-Jan_28-10_33
 
 Initial Development distribution
 
@@ -369,3 +369,6 @@ Compressed ckeditor/config.js
 27 Jan
 Added support for copying images into editor from clipboard; only images convertible by PHP
 are considered valid.
+
+28 Jan
+Imoprovements to image copy notifications

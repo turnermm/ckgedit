@@ -2,6 +2,7 @@
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 if(!defined('DOKU_MEDIA')) define('DOKU_MEDIA',DOKU_INC.'data/media/');
+define ('BROKEN_IMAGE', DOKU_URL . 'lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34');
 require_once(DOKU_PLUGIN.'action.php');
 define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/');
 /**
@@ -43,7 +44,8 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                 'list($ext,$base) = explode(";",$matches[1]);
                 if($ext = "jpeg") $ext = "jpg";      
                 if(!imagecreatefromstring (base64_decode($matches[2]))) {
-                     return "\nClipboard paste: invalid image format\n";
+                     msg("Clipboard paste: invalid $ext image format");
+                     return "{{" . BROKEN_IMAGE .  "}}";
                  }                 
                   file_put_contents(DOKU_MEDIA . md5($matches[2]) . ".$ext", base64_decode($matches[2]));
                  $retv = "{{:". md5($matches[2]) . ".$ext" . "}}";
