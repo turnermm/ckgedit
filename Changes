@@ -1,4 +1,4 @@
-rev 14-Jan_25-06_47
+rev 14-Jan_27-20_43
 
 Initial Development distribution
 
@@ -365,3 +365,7 @@ mainly thumbnails with sizes.
 
 25 Jan
 Compressed ckeditor/config.js
+
+27 Jan
+Added support for copying images into editor from clipboard; only images convertible by PHP
+are considered valid.

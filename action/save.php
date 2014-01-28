@@ -1,6 +1,7 @@
 <?php
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+if(!defined('DOKU_MEDIA')) define('DOKU_MEDIA',DOKU_INC.'data/media/');
 require_once(DOKU_PLUGIN.'action.php');
 define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/');
 /**
@@ -34,7 +35,23 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
               $TEXT = trim($TEXT);
         }
 
-
+    if(strpos($TEXT,'data:image') !== false) {
+        $TEXT = preg_replace_callback(
+             '|\{\{data:image\/(\w+;base64,)(.*?)\?nolink&\}\}|ms',
+             create_function(
+                '$matches',
+                'list($ext,$base) = explode(";",$matches[1]);
+                if($ext = "jpeg") $ext = "jpg";      
+                if(!imagecreatefromstring (base64_decode($matches[2]))) {
+                     return "\nClipboard paste: invalid image format\n";
+                 }                 
+                  file_put_contents(DOKU_MEDIA . md5($matches[2]) . ".$ext", base64_decode($matches[2]));
+                 $retv = "{{:". md5($matches[2]) . ".$ext" . "}}";
+                 return $retv;'
+             ),
+             $TEXT
+             );
+        }     
       $TEXT = str_replace('%%', "FCKGPERCENTESC",  $TEXT);
      
           $TEXT = preg_replace_callback('/^(.*?)(\[\[.*?\]\])*(.*?)$/ms', 
