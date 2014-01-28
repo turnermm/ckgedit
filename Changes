@@ -1,4 +1,4 @@
-rev 14-Jan_28-10_33
+rev 14-Jan_28-13_15
 
 Initial Development distribution
 
@@ -371,4 +371,6 @@ Added support for copying images into editor from clipboard; only images convert
 are considered valid.
 
 28 Jan
-Imoprovements to image copy notifications
+Improvements to image copy notifications
+
+Add GD lib check for above
