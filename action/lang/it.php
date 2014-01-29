@@ -2,7 +2,7 @@
 global $ckgedit_lang;
 
 $ckgedit_lang['btn_dw_edit'] = "Modifica DW";
-$ckgedit_lang['dw_btn_fck_preview']= "Anteprima FCK";
+$ckgedit_lang['dw_btn_fck_preview']= "Anteprima CKG";
 $ckgedit_lang['dw_btn_lang']= "Lingua";
 $ckgedit_lang['title_dw_delete'] = "Elimina pagina";
 $ckgedit_lang['title_dw_edit'] = "Salva, Esci e passa all'editor nativo di DokuWiki";
@@ -10,7 +10,7 @@ $ckgedit_lang['dw_btn_revert'] = "Ripristina";
 $ckgedit_lang['title_dw_revert'] = "Ripristina il backup precedente";
 $ckgedit_lang['title_dw_lang']= "Seleziona lingua per controllo ortografico";
 $ckgedit_lang['title_dw_cancel']= "Uscita editor";
-$ckgedit_lang['btn_fck_edit'] = "Modifica FCK";
+$ckgedit_lang['btn_fck_edit'] = "Modifica CKG";
 $ckgedit_lang['confirm_delete'] = "Sei sicuro di voler eliminare questa pagina?";
 $ckgedit_lang['confirm_preview'] = "I dati non salvati andranno persi.";
 

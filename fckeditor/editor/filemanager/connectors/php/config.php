@@ -164,12 +164,23 @@ if(!isset($Config['UserFilesAbsolutePath']) || !isset($Config['UserFilesPath']))
      setupBasePathsNix();
      if($DWFCK_con_dbg) DWFCK_cfg_dbg('nix_paths-' . getAccessNum () .  '.txt');   
    }
-
-  
 }
-//$isWindows=false;
+else {  //if both UserFilesPath and UserFilesAbsolutePath are set
+   if($isWindows || $useWinStyle) {  
+    if($dwfck_local) {
+     $Config['UserFilesPath'] = str_replace('/media', '/pages', $Config['UserFilesPath']);
+     if($isWindows) {
+         $Config['UserFilesAbsolutePath'] = str_replace('\\media', '\\pages', $Config['UserFilesAbsolutePath']);
+     }
+     else {
+        $Config['UserFilesAbsolutePath'] = str_replace('/media', '/pages', $Config['UserFilesAbsolutePath']);
+     }
+    }
+    if($DWFCK_con_dbg) DWFCK_cfg_dbg('win_paths.txt');
+   }
+}
+
 setUpMediaPaths();
-//$isWindows=true; 
 
 // Due to security issues with Apache modules, it is recommended to leave the
 // following setting enabled.

@@ -1,6 +1,8 @@
 <?php
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+if(!defined('DOKU_MEDIA')) define('DOKU_MEDIA',DOKU_INC.'data/media/');
+define ('BROKEN_IMAGE', DOKU_URL . 'lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34');
 require_once(DOKU_PLUGIN.'action.php');
 define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/');
 /**
@@ -34,7 +36,24 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
               $TEXT = trim($TEXT);
         }
 
-
+    if(strpos($TEXT,'data:image') !== false) {
+        $TEXT = preg_replace_callback(
+             '|\{\{data:image\/(\w+;base64,)(.*?)\?nolink&\}\}|ms',
+             create_function(
+                '$matches',
+                'list($ext,$base) = explode(";",$matches[1]);
+                if($ext = "jpeg") $ext = "jpg";      
+                 if(function_exists("imagecreatefromstring") && !imagecreatefromstring (base64_decode($matches[2]))) {
+                     msg("Clipboard paste: invalid $ext image format");
+                     return "{{" . BROKEN_IMAGE .  "}}";
+                 }                 
+                  file_put_contents(DOKU_MEDIA . md5($matches[2]) . ".$ext", base64_decode($matches[2]));
+                 $retv = "{{:". md5($matches[2]) . ".$ext" . "}}";
+                 return $retv;'
+             ),
+             $TEXT
+             );
+        }     
       $TEXT = str_replace('%%', "FCKGPERCENTESC",  $TEXT);
      
           $TEXT = preg_replace_callback('/^(.*?)(\[\[.*?\]\])*(.*?)$/ms', 
@@ -67,6 +86,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
         $TEXT = preg_replace('/__n__/',"\n", $TEXT);
         $TEXT = str_replace("__code_NL__","\n", $TEXT);
         $TEXT = str_replace("FCKGPERCENTESC", '%%',  $TEXT);
+        if($this->getConf('complex_tables')) {
+            $TEXT = str_replace('~~COMPLEX_TABLES~~','',$TEXT);
+        }
         $TEXT .= "\n";
         // Removes relics of markup characters left over after acronym markup has been removed
         //$TEXT = preg_replace('/([\*\/_]{2})\s+\\1\s*([A-Z]+)\s*\\1+/ms',"$2",$TEXT);
@@ -95,6 +117,23 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
  
         $this->replace_entities();
 
+/* 11 Dec 2013 see comment below        
+Remove discarded font syntax    
+*/
+        $TEXT = preg_replace_callback(
+            '|_REMOVE_FONTS_START_(.*?)_REMOVE_FONTS_END_|ms',
+            create_function(
+                '$matches',
+                '$matches[1] = preg_replace("/<font.*?>/ms","",$matches[1]);
+                 return preg_replace("/<\/font>/ms","",$matches[1]);'
+            ),
+            $TEXT
+        );
+
+ /* 
+6 April 2013
+Removed newlines and spaces from beginnings and ends of text enclosed by font tags.  Too subtle for javascript. 
+ */
         $TEXT = preg_replace_callback(
          '|(<font.*?>)(.*?)(?=</font>)|ms',
          create_function(
@@ -105,8 +144,12 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
          ),
          $TEXT
        );
+       $TEXT = preg_replace('/__QUOTE__/ms',">",$TEXT);
+       $TEXT = preg_replace('/[\t\x20]+$/ms',"",$TEXT);
+       $TEXT = preg_replace('/\n{4,}/ms',"\n\n",$TEXT);
+       $TEXT = preg_replace('/\n{3,}/ms',"\n\n",$TEXT);
 
-     
+
          return;
     
     }

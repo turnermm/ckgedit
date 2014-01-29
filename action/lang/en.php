@@ -2,7 +2,7 @@
 global $ckgedit_lang;
 
 $ckgedit_lang['btn_dw_edit'] = "DW Edit";
-$ckgedit_lang['dw_btn_fck_preview']="FCK Preview";
+$ckgedit_lang['dw_btn_fck_preview']="CKG Preview";
 $ckgedit_lang['dw_btn_lang']="Language";
 $ckgedit_lang['title_dw_delete'] = "Delete Page";
 $ckgedit_lang['title_dw_edit'] = "Save Work, Exit, and Switch to Native DokuWiki Editor";
@@ -10,7 +10,7 @@ $ckgedit_lang['dw_btn_revert'] = "Revert";
 $ckgedit_lang['title_dw_revert'] = "Revert to previous backup";
 $ckgedit_lang['title_dw_lang']="Select language for spell checker";
 $ckgedit_lang['title_dw_cancel']='Exit Editor';
-$ckgedit_lang['btn_fck_edit'] = "FCK Edit";
+$ckgedit_lang['btn_fck_edit'] = "CKG Edit";
 $ckgedit_lang['confirm_delete'] = "Are you sure you want to delete this page?";
 $ckgedit_lang['confirm_preview'] = "Any work not saved will be lost.";
 
@@ -26,5 +26,5 @@ $ckgedit_lang['draft_msg']= "This document has a draft file. The draft button to
 $ckgedit_lang['whats_this'] = "what's this?";
 $ckgedit_lang['complex_tables'] = "Enable Complex Tables";
 $ckgedit_lang['minor_changes'] = "Minor changes";
-
+$ckgedit_lang['discard_edits'] = "To Save your edits click OK; to Discard click Cancel";
 

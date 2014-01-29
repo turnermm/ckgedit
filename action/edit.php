@@ -43,6 +43,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 
     function register(&$controller)
     {
+         if($this->helper->is_outOfScope()) return;
+ 
         global $FCKG_show_preview;
         $FCKG_show_preview = true;
 
@@ -201,7 +203,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     '/(~~NOCACHE~~|~~NOTOC~~|\{\{rss>http:\/\/.*?\}\})/ms',
      create_function(
                '$matches',
-               '$matches[0] = str_replace("{{rss>http", "{ { rss>Feed",  $matches[0]);
+               '$matches[0] = str_replace("{{rss>http://", "{ { rss>Feed:",  $matches[0]);
                $matches[0] = str_replace("~", "~ ",  $matches[0]);
                return $matches[0];'
                ),$text);
@@ -223,23 +225,27 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
       else {
          $useComplexTables=false;
       }
-      if(strpos($text, '%%') !== false) {     
-         $text= preg_replace_callback(
-            '/(<nowiki>)*(\s*)%%\s*([^%]+)\s*%%(<\/nowiki>)*(\s*)/ms',
-             create_function(
-               '$matches',
-                'if(preg_match("/<nowiki>/",$matches[1])) {
-                   $matches[1] .= "%%";
-                }
-                else  $matches[1] = "<nowiki>";
-                if(preg_match("/<\/nowiki>/",$matches[4])) {
-                   $matches[4] = "%%</nowiki>";
-                }
-                else $matches[4] = "</nowiki>";  
-                return   $matches[1] .  $matches[2] .  $matches[3] . $matches[4] . $matches[5];'  
-             ),
-             $text
-            );   
+      
+      if(strpos($text, '%%') !== false) {  
+
+        $text = preg_replace_callback(
+            "/<(nowiki|code|file)>(.*?)<\/(nowiki|code|file)/ms",
+            function ($matches) {
+                $matches[0] = str_replace('%%', 'DBLPERCENT',$matches[0]);
+                return $matches[0];
+            },
+           $text
+        );
+
+        $text = preg_replace_callback(
+            "/(?<!nowiki>)%%(.*?)%%/ms",
+            function($matches) {
+            return '<nowiki>' . $matches[1] . '</nowiki>';
+            },
+            $text
+        );
+
+        $text =  str_replace('DBLPERCENT','%%',$text);    
       }
        
        $pos = strpos($text, '<');
@@ -315,19 +321,11 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
           );
          $text = preg_replace('/TPRE_CLOSE\s+/ms',"TPRE_CLOSE",$text); 
       
-         $text = preg_replace('/<(?!code|file|plugin|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/plugin|\/sup|\/sub)/ms',"&lt;",$text);
+         $text = preg_replace('/<(?!code|file|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/sup|\/sub)/ms',"&lt;",$text);
    
          $text = str_replace('%%&lt;', '&#37;&#37;&#60;', $text);              
-
-         $text = preg_replace_callback('/<plugin(.*?)(?=<\/plugin>)/ms',
-                        create_function(
-                          '$matches', 
-                           'return str_replace("//","", $matches[0]);'
-                       ),
-                       $text
-                 ); 
-         $text = str_replace('</plugin>','</plugin> ', $text);           
        }  
+       
 	   if($this->getConf('duplicate_notes')) {
 			$text = preg_replace_callback('/\(\(/ms',
 				  create_function(
@@ -339,6 +337,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 				 ), $text
 			);			 
 		}
+       $text = preg_replace('/^\>/ms',"_QUOT_",$text);  // dw quotes
        $text = str_replace('>>','CHEVRONescC',$text);
        $text = str_replace('<<','CHEVRONescO',$text);
        $text = preg_replace('/(={3,}.*?)(\{\{.*?\}\})(.*?={3,})/',"$1$3\n$2",$text);
@@ -357,7 +356,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $this->xhtml = str_replace("__GESHI_OPEN__", "&#60; ", $this->xhtml); 
        $this->xhtml = str_replace('CHEVRONescC', '>>',$this->xhtml);
        $this->xhtml = str_replace('CHEVRONescO', '<<',$this->xhtml);
-     
+       $this->xhtml = preg_replace('/_QUOT_/ms','>',$this->xhtml);  // dw quotes     
 
        if($pos !== false) {
        $this->xhtml = preg_replace_callback(
@@ -594,6 +593,7 @@ global $INFO;
 ?>
             <input class="button" type="submit" 
                  name="do[draftdel]" 
+                 id = "ebut_cancel"
                  value="<?php echo $lang['btn_cancel']?>" 
                  onmouseup="draft_delete();" 
                  style = "font-size: 100%;"
@@ -715,8 +715,9 @@ global $INFO;
     <?php  global $useComplexTables;  if($useComplexTables) { ?>               
         document.getElementById('complex_tables').click();            
     <?php } ?>  
-
-   
+    <?php  if($this->getConf('complex_tables')) { ?>
+         document.getElementById('complex_tables').disabled = true;
+    <?php } ?>  
 
 <?php
    
@@ -790,7 +791,11 @@ RegExp.escape = function(str)
 
 var HTMLParser_DEBUG = "";
 function parse_wikitext(id) {
-
+    if(ckgedit_dwedit_reject) {
+          var dom =  GetE('ebut_cancel');  
+          dom.click();
+          return true;
+   }    
    var useComplexTables = setComplexTables();   
    
     var this_debug;
@@ -932,17 +937,17 @@ function parse_wikitext(id) {
  window.dwfckTextChanged = false;
  if(id != 'bakup')  draft_delete();
  var line_break = "\nL_BR_K  \n";
-    var markup = { 'b': '**', 'i':'//', 'em': '//', 'u': '__', 'br':line_break, 
-         'del': '<del>', 'strike': '<del>', p: "\n\n" , 'a':'[[', 'img': '\{\{', 'strong': '**',
+    var markup = { 'b': '**', 'i':'//', 'em': '//', 'u': '__', 'br':line_break, 'strike': '<del>',
+         'del': '<del>', 's': '<del>', p: "\n\n" , 'a':'[[', 'img': '\{\{', 'strong': '**',
          'h1': "\n====== ", 'h2': "\n===== ", 'h3': "\n==== ", 'h4': "\n=== ", 'h5': "\n== ",
          'td': "|", 'th': "^", 'tr':" ", 'table': "\n\n", 'ol':"  - ", 'ul': "  * ", 'li': "",
-         'plugin': '<plugin ', 'code': "\'\'",'pre': "\n<", 'hr': "\n\n----\n\n", 'sub': '<sub>',         
+         'code': "\'\'",'pre': "\n<", 'hr': "\n\n----\n\n", 'sub': '<sub>',         
          'font': "\n",
          'sup': '<sup>', 'div':"\n\n", 'span': "\n", 'dl': "\n", 'dd': "\n", 'dt': "\n"
      };
-    var markup_end = { 'del': '</del>', 'strike': '</del>', 'p': " ", 'br':" ", 'a': ']]','img': '\}\}',
+    var markup_end = { 'del': '</del>', 's': '</del>', 'strike': '</del>', 'p': " ", 'br':" ", 'a': ']]','img': '\}\}',
           'h1': " ======\n", 'h2': " =====\n", 'h3': " ====\n", 'h4': " ===\n", 'h5': " ==\n", 
-          'td': " ", 'th': " ", 'tr':"|\n", 'ol':" ", 'ul': " ", 'li': "\n", 'plugin': '</plugin>',
+          'td': " ", 'th': " ", 'tr':"|\n", 'ol':" ", 'ul': " ", 'li': "\n",
            'pre': "\n</",'sub': '</sub>', 'sup': '</sup> ', 'div':"\n\n", 'p': "\n\n",
            'font': "\n\n</font> "
      }; 
@@ -971,7 +976,6 @@ function parse_wikitext(id) {
     var HTMLParser_Geshi = false;
     var HTMLParser_TABLE = false;
     var HTMLParser_COLSPAN = false;
-    var HTMLParser_PLUGIN = false;
     var HTMLParser_FORMAT_SPACE = false;
     var HTMLParser_MULTI_LINE_PLUGIN = false;
     var HTMLParser_NOWIKI = false;
@@ -1553,13 +1557,6 @@ function parse_wikitext(id) {
 			   interwiki_class = "";
 			   interwiki_title = "";
 		    }
-            if(tag == 'plugin') {
-                  if(isIE) HTMLParser_PLUGIN = true;
-                  if(attrs[i].name == 'title') {
-                       this.attr = ' title="' + attrs[i].escaped + '" '; 
-                       break;                          
-                  }
-             }
 
             if(tag == 'sup') {
                if(attrs[i].name == 'class') {                 
@@ -1621,8 +1618,9 @@ function parse_wikitext(id) {
                         }
                          if(!src.match(/https?:/)  && !src.match(/^:/)) src = ':' + src;  
                      } 
-                     else if(attrs[i].escaped.match(/http:\/\//)){
+                     else if(attrs[i].escaped.match(/https?:\/\//)){
                               src = attrs[i].escaped;
+                              src = src.replace(/\?.*?$/,"");
                      }
                      // url rewrite 1
                      else if(matches = attrs[i].escaped.match(/\/_media\/(.*)/)) {                       
@@ -1783,7 +1781,9 @@ function parse_wikitext(id) {
                   if(results.match(/_FORMAT_SPACE_\s*$/)) {   
                       results = results.replace(/_FORMAT_SPACE_\s*$/,"\n");  
                   }
+                  if(this.list_level > 1) {
                   results += '  ';
+              }
               }
              
              if(this.prev_list_level > 0 && markup['li'] == markup['ol']) {
@@ -1877,7 +1877,7 @@ function parse_wikitext(id) {
                results += this.attr + '}}';
                this.attr = 'src';
           }
-          else if(tag == 'plugin' || tag == 'pre' || tag == 'pre_td') {               
+          else if(tag == 'pre' || tag == 'pre_td') {               
                if(this.downloadable_file) this.attr += ' ' +  this.downloadable_file; 
                if(!this.attr) this.attr = 'code';          
                results += this.attr + '>'; 
@@ -2139,7 +2139,10 @@ function parse_wikitext(id) {
          text=text.replace('&lt; ','&lt;');
       }
 	 text = text.replace(/&#39;/g,"'");  //replace single quote entities with single quotes
-         
+     text = text.replace(/^(&gt;)+/,function(match,quotes) {
+         return(match.replace(/(&gt;)/g, "\__QUOTE__")) ;         
+     }
+     );     
       //adjust spacing on multi-formatted strings
     results=results.replace(/([\/\*_])_FORMAT_SPACE_([\/\*_]{2})_FORMAT_SPACE_$/,"$1$2");
     if(text.match(/^&\w+;/)) {
@@ -2156,7 +2159,7 @@ function parse_wikitext(id) {
     if(!this.code_type) { 
         if(! this.last_col_pipes) {
             text = text.replace(/\x20{6,}/, "   "); 
-            text = text.replace(/^(&nbsp;)+/, '');
+            text = text.replace(/^(&nbsp;)+\s*$/, '_FCKG_BLANK_TD_');
             text = text.replace(/(&nbsp;)+/, ' ');   
         }
 
@@ -2263,13 +2266,6 @@ function parse_wikitext(id) {
     }
 
 
-    if(HTMLParser_PLUGIN) {
-      HTMLParser_PLUGIN=false; 
-      if(results.match(/>\s*<\/plugin>\s*$/)) {        
-        results = results.replace(/\s*<\/plugin>\s*$/, text + '<\/plugin>');   
-        return;  
-      }   
-   } 
    if(text && text.length) { 
       results += text;        
    }
@@ -2341,7 +2337,7 @@ function parse_wikitext(id) {
     if(id == 'test') {
       if(!HTMLParser_test_result(results)) return;     
     }
-	results = results.replace(/\{ \{ rss&gt;Feed/mg,'{{rss&gt;http');
+	results = results.replace(/\{ \{ rss&gt;Feed:/mg,'{{rss&gt;http://');
     results = results.replace(/~ ~ (NOCACHE|NOTOC)~ ~/mg,'~~'+"$1"+'~~');
   
     if(HTMLParser_FORMAT_SPACE) { 
@@ -2366,7 +2362,7 @@ function parse_wikitext(id) {
 
         results = results.replace(/\n@@_SP_@@\n/g,'');
         results = results.replace(/@@_SP_@@\n/g,'');
-        results = results.replace(/@@_SP_@@/g,'');
+        results = results.replace(/@@_SP_@@/g,' ');
 	
         var regex = new RegExp(HTMLParser_FORMAT_SPACE + '([^\\)\\]\\}\\{\\-\\.,;:\\!\?"\x94\x92\u201D\u2019' + "'" + '])',"g");
         results = results.replace(regex," $1");
@@ -2408,12 +2404,9 @@ function parse_wikitext(id) {
    // fix for colspans which have had text formatting which cause extra empty cells to be created
      results = results.replace(/(\||\^)[ ]+(\||\^)\s$/g, "$1\n");
      results = results.replace(/(\||\^)[ ]+(\||\^)/g, "$1");
-    
+    }
      // prevents valid empty td/th cells from being removed above
      results = results.replace(/_FCKG_BLANK_TD_/g, " ");
-     
-    
-    }
 
     if(HTMLParserOpenAngleBracket) {
          results = results.replace(/\/\/&lt;\/\/\s*/g,'&lt;');
@@ -2671,7 +2664,7 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
         */
         foreach ( $instructions as $instruction ) {
              if ($instruction[0] == 'plugin') {              
-                $Renderer->doc .= "<span> ".$instruction[1][3]."</span> ";
+                $Renderer->doc .= $instruction[1][3];
           } else {
                // Execute the callback against the Renderer
                call_user_func_array(array(&$Renderer, $instruction[0]),$instruction[1]);              

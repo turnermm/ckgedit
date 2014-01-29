@@ -41,6 +41,18 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
      return '.(' . implode('|',$uploadImageTypes) .')$';
   }
   
+  function is_outOfScope(&$which="") {
+        $list = plugin_list('action');  
+         if(in_array( 'fckg_edit' , $list)) {       
+            if(!isset($_COOKIE['ckgEditSwitch'])) return true;
+            $which = $_COOKIE['ckgEditSwitch'];
+             if($_COOKIE['ckgEditSwitch'] != 'ckgedit') return true;   
+             
+        }
+
+      return false;
+  }
+  
   function registerOnLoad($js){
   global $ID;
   global $lang;
@@ -71,6 +83,10 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   $editor_backup = $this->getConf('editor_bak');
   $create_folder = $this->getConf('create_folder');
   $interface_lang = $this->getConf('other_lang');
+  $scayt_lang = $this->getConf('scayt_lang');
+  list($name,$scayt_lang) = explode('/', $scayt_lang);
+  
+  $scayt_auto = $this->getConf('scayt_auto');
  
   if(!isset($INFO['userinfo']) && !$open_upload) {
     $user_type = 'visitor';
@@ -173,11 +189,6 @@ var oldBeforeunload;
   */
  
  function handlekeypress (e) {  
- 
-//   var kc = e.data.keyCode,
- //       csa = ~(CKEDITOR.CTRL | CKEDITOR.SHIFT | CKEDITOR.ALT);
- //    var key =  (kc & csa);
- //    console.log(kc, kc & csa, key, CKEDITOR.CTRL);
  
  
    if(ourLockTimerIsSet) {
@@ -392,6 +403,11 @@ return direction == 'rtl';
 }
 
 function ckgedit_language_chk(config) { 
+    if("$scayt_auto" == 'on') {
+        config.scayt_autoStartup = true;      
+    }
+    else config.scayt_autoStartup = false;
+    config.scayt_sLang="$scayt_lang";  
    var lang = "$interface_lang"; 
    if(lang ==  'default') return; ;
    config.language = lang;
@@ -424,21 +440,9 @@ function FCKeditor_OnComplete( editorInstance )
     window.onbeforeunload = ckgeditEditorTextChanged;
   }
  
-  // test_for_inner(editorInstance);
   
 }
 
-function test_for_inner(editorInstance) {
-  var ck = editorInstance.element;
- 
- // ck["$"].value = "<h1>abc</h1>";
- ck = ck["$"];
-  for(var i in ck) {    
-     var msg = i + "="+ck[i];
-     if(!confirm(msg)) return;
-    
-  }
-}
    
  var DWikifnEncode = "$fnencode";
 

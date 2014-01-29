@@ -1,4 +1,4 @@
-rev 13-Oct_15-11_44
+rev 14-Jan_28-13_15
 
 Initial Development distribution
 
@@ -176,7 +176,7 @@ Added language support for fckeditor filebrowser.
 Activated language direction config option
 
 22 May
-Implemented winstyle option
+Implemented winstyle option 
 
 23 May
 Cleaned up link.js and added facility to create anchors to Dokuwiki headings in pages
@@ -195,7 +195,7 @@ Added query string option to internal links in link.js
 Handle copy and paste images with https urls.
 
 3 June
-Reset image url for smiley hack
+Reset image url for smiley hack 
 
 4 June
 Update language support for link dialog
@@ -246,7 +246,7 @@ Removed Dokuwiki max/min buttons from editor frame.
 15 Aug 
 fix to filter entry in dialog_iequirks.css
 
-removed code from settings.php
+removed code from settings.php 
 
 27 Aug
 Interwiki links: preserve lost forward slashes and query strings
@@ -270,7 +270,107 @@ Removed comments from settings.php files for dokuwiki translation tool
 Changed Signature plugin command name to insertSignature from insertTimestamp (left over from development version)
 Compressed Signature plugin.js
 
-Added interwiki fix to swtich version (see Aug 27).
+Added interwiki fix to switch version (see Aug 27).
 
 15 Oct
 Removed blank footnote sups.
+
+18 Oct
+Pop up Edits Save or Discard  Confirm for 'DW Edit'
+
+21 Oct
+Subtituted translation variables for hard-coded English texts in footnote plugin (with update to en.js).
+
+Same as above for Signature and fontassist plugins.
+
+23 Oct
+Adds fontAssist Dialog Title localization
+Upgrade from CKEditor 4.01 engine to 4.2.2
+
+24 Oct
+Reconfigured Scayt configuration settings.
+Fixed bug in language recogniton for non-CKEditor-packaged plugins.
+Correct tooltip reference for Signature plugin
+
+28 Oct
+Changed 'FCK Editor' label to 'CKG Editor' in action/lang files
+Replace 'strike' tag with 's' tag in parser.
+
+29 Oct
+Removed extra spaces from start of lists.
+Assign unset CKEditor language strings from default.
+
+31 Oct
+Fix config.php to properly rewrite local path when both UserFilesAbsolutePath and UserFilesPath are hard-coded.
+
+1 Nov
+Fix to savedir facility
+
+6 Nov
+Set allowedContent to true  in config.js. Enables div for footnotes.
+
+9 Nov
+Removed span from around plugin syntax; can break lists.
+
+12 Nov
+French GUI translation from JGuilbaud
+
+14 Nov
+Fixed image placement in image dialog
+
+15 Nov
+Changed FCK to CKG in action/lang/de.php and action/lang/ar.php
+
+16 Nov
+Fixed displayed  html for internal links and internal media in IE.
+
+24 Nov
+Inserted space after multiple formats
+
+4 Dec
+Corrected for CKEditor's use of 'strike' instead of 'del'or 's'
+
+9 Dec
+Fixed corrupted tables with vertical span and empty parallel cells (on initial table creation)
+
+10 Dec
+Removed inadvertent _FCKG_BLANK_TD_ markers inserted by 9 Dec fix
+
+11 Dec 
+Implemented _REMOVE_FONTS_START_. . ._REMOVE_FONTS_END macros:
+Font markup found between these macros will be removed.  The
+macros areinserted into the editor when editing and are removed together with font tags.
+
+Moved removal of _REMOVE_FONTS_ macros to save.php (See above April 16 2013)
+
+15 Dec
+Remove ~~COMPLEX_TABLES~~ macro in save.php and disable macro checkbox if complex set in config manager
+
+----------------2014----------------
+1 Jan 2014 
+Abandoned separate switch edit.php and switch helper.php.  
+Only remaining differences are the syntax/ files and addition of scripts/switch_tpl.php
+
+5 Jan 
+Fixed bug that caused rss syntax to result in following open italic markup
+fixed parsing and output of Dokuwiki quote syntax
+
+7 Jan
+Refactored code for handling non-parsed blocks in edit.php preprocessor. Removed plugin handling code
+left over from fckgLite.
+
+23 Jan
+Removed query string from copied/pasted images; interfered with parsing of url. Affects
+mainly thumbnails with sizes.
+
+25 Jan
+Compressed ckeditor/config.js
+
+27 Jan
+Added support for copying images into editor from clipboard; only images convertible by PHP
+are considered valid.
+
+28 Jan
+Improvements to image copy notifications
+
+Add GD lib check for above

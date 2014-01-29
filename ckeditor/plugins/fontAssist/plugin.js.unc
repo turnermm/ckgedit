@@ -1,0 +1,691 @@
+// Register a new CKEditor plugin.
+// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.resourceManager.html#add
+
+CKEDITOR.plugins.add( 'fontAssist',
+{
+   
+	// The plugin initialization logic goes inside this method.
+	// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.pluginDefinition.html#init
+	init: function( editor )
+	{
+		// Create an editor command that stores the dialog initialization command.
+		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.command.html
+		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialogCommand.html
+		editor.addCommand( 'fontAssistDialog', new CKEDITOR.dialogCommand( 'fontAssistDialog' ) );
+                var lang = editor.lang.fontassist;       
+                if(!lang) {
+                    lang = CKEDITOR.lang['default']['fontassist'];
+                }
+                else {
+                    var lang_default = CKEDITOR.lang['default']['fontassist'];
+                     for(var k in lang_default) {
+                         if(!lang[k]) {
+                             lang[k] = lang_default[k];
+                         }
+                     }
+               }    
+              
+
+		// Create a toolbar button that executes the plugin command defined above.
+		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.html#addButton
+		editor.ui.addButton( 'FontAssist',
+		{
+			// Toolbar button tooltip.
+			label: lang.ToolTip, //'Check and Revise Font Styling',
+			// Reference to the plugin command name.
+			command: 'fontAssistDialog',
+			// Button's icon file path.
+			icon: this.path + 'images/fonts.png'
+		} );
+ 
+		// Add a new dialog window definition containing all UI elements and listeners.
+		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.html#.add
+		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.dialogDefinition.html
+		CKEDITOR.dialog.add( 'fontAssistDialog', function( editor )
+		{
+         var ohtml;
+         var selectedText;
+         var nonReplaceable = false;
+         var style_spec = {
+          fg : "",
+          bg : "",
+          font_style : "",
+          font : "",
+          font_size: "",
+          start :'&lt;',
+          close : '&gt;',         
+          save_color: function(which, color) {
+              this[which] = color;
+          },
+          get: function(which) {         
+             return this[which];
+          },
+          save_font: function(family) {
+              this['font'] = family;
+          },
+          save_size: function(sz) {
+              this['font_size'] = sz;
+          },
+          get_font_style: function(slash) {
+              var sep = slash ? '/' : " ";
+              return   this['font_size'] + sep + this['font'];   
+          },
+          open_tag: function() {
+              return this.start + 'font ' + this.get_font_style(true) + ';;' + this.get('fg') + ';;' + this.get('bg') + this.close;              
+          },
+          close_tag: function() {
+              return this.start + '/font' + this.close;
+          },          
+         };
+
+         var original_styles = {
+          fg : "",
+          bg : "",
+          font : "",
+          font_size: "",
+         };        
+        
+         var ckgedit_getEID = function (dialog,page,el) {   
+                var InputId = dialog.getContentElement(page,el).getInputElement().$.id;           
+                return  document.getElementById(InputId);
+         };
+
+       // displays open tag of font plugin below display window         
+         var display_fontOpen = function(dialog){
+             var a = ckgedit_getEID(dialog,'general','alert');         
+            a.value = style_spec.open_tag();
+            a.value = a.value.replace(/&lt;/, '<');
+            a.value = a.value.replace(/&gt;/, '>');
+         };
+         /* 1 .Assign either forground or background color to css style of the display div: general:contents
+                 If the foreground color has been changed, pass the text through
+                 replace_formats() 
+             2. save the value in the style_spec object
+             3. enable the OK button
+             4. switch from the color tab to the main tab to display result of color change
+             
+         */
+        var setColor = function(dialog,ui_el) {
+                 var which = (ui_el == 'colors') ? 'fg': 'bg';     // ui_el = colors or backgroundcolors        
+                 var el = ckgedit_getEID(dialog,ui_el,which);
+                 style_spec.save_color(which,el.value);                                  
+                 var el = ckgedit_getEID(dialog,'general','contents');
+                 if(which == 'fg') {
+                    el.style.color = style_spec.get(which);
+                    var d = ckgedit_getEID(dialog,'general','contents');
+                    d.innerHTML = replace_formats(selectedText);                    
+                 }
+                 else {
+                     el.style.backgroundColor = style_spec.get(which);
+                 }
+                 dialog.enableButton( 'ok' );
+                 dialog.selectPage( 'general' ); 
+                display_fontOpen(dialog);
+        };
+        
+        var resetColor = function(dialog) {
+                style_spec.save_color('fg', original_styles['fg']); 
+                style_spec.save_color('bg', original_styles['bg']);                 
+                
+                var el = ckgedit_getEID(dialog,'general','contents');
+                
+                el.style.color = style_spec.get('fg'); 
+                el.style.backgroundColor = style_spec.get('bg'); 
+
+                el.innerHTML = replace_formats(selectedText); 
+                display_fontOpen(dialog);                
+        };
+        
+        var setFont = function(dialog) {
+                   var font_style = style_spec.get_font_style(false);                   
+                   var d = ckgedit_getEID(dialog,'general','contents');
+                   d.style.font =  font_style;                    
+                   d.innerHTML = replace_formats(selectedText); 
+                  display_fontOpen(dialog);                   
+        };
+        
+        var resetFont = function(dialog) {
+                style_spec.save_font(original_styles['font']); 
+                style_spec.save_size(original_styles['font_size']);                 
+                setFont(dialog);             
+                var n = ckgedit_getEID(dialog,'general','fontopts');
+                n.options[0].selected = true;
+                n = ckgedit_getEID(dialog,'general','sizeopts'); 
+                n.options[0].selected = true;                
+                
+        };
+        
+        var onClickfg = function (evt,data) { 
+             var dialog = this.getDialog();   
+             dialog.disableButton('ok'); 
+             var n = ckgedit_getEID(dialog,'colors','fg');
+             var value = onClickInsert(evt, n);               
+             var n = ckgedit_getEID(dialog,'colors','fgsample');
+             n.style.backgroundColor = value;
+             toggle_ok(dialog,true);
+         };
+
+         var onClickbg = function (evt,data) { 
+             var dialog = this.getDialog();  
+             dialog.disableButton('ok'); 
+             var n = ckgedit_getEID(dialog,'backgroundcolors','bg');                  
+             var value = onClickInsert(evt, n); 
+             var n = ckgedit_getEID(dialog,'backgroundcolors','bgsample');
+             n.style.backgroundColor = value;             
+             toggle_ok(dialog,true);
+         };
+         
+         var onClickInsert = function( evt ,which) {        
+			 var target = evt.data.getTarget(),
+			        targetName = target.getName();                  
+
+    	       if ( targetName != 'td' ) return;           
+               var elems = target.getAttribute( 'style' ).split(/#/);
+               var matches = target.getAttribute( 'style' ).match(/(#[A-Z0-9]+);/);
+               if(!matches) {
+                     matches = target.getAttribute( 'style' ).match(/(rgb\([,\s\d]+\))/);
+                }
+                else matches[1] = hex2rgb(matches[1]);
+                which.value =   matches[1]; 
+                return matches[1];
+             };
+             
+             var toggle_ok = function(dialog,onff) {
+                var t = ckgedit_getEID(dialog,'general','oktoggle');            
+                t.checked = onff;             
+             };
+             
+            var hex2rgb = function(val) {            
+                var hexToR = function(h) { return parseInt((cutHex(h)).substring(0,2),16)};
+                var hexToG = function(h) { return parseInt((cutHex(h)).substring(2,4),16)};
+                var hexToB = function(h) { return parseInt((cutHex(h)).substring(4,6),16)};
+                var cutHex = function(h) { return (h.charAt(0)=="#") ? h.substring(1,7):h};
+
+                R = hexToR(val);
+                G = hexToG(val);
+                B = hexToB(val);
+                return "rgb(" + R +", " +G  +", " +B+")";            
+            };
+
+            var createSelectList =  function(sel, list) {
+                       for(var i = 0; i < list.length; i++) {                        
+                            var elems = list[i].split('\/');
+                            sel.options[sel.options.length] = new Option(elems[0],elems[1]);
+                       }
+            };
+            
+            var updateSelectList = function (sel, item) {
+
+                   for(var i = 0; i < sel.options.length; i++) {
+                       var regex = new RegExp(sel.options[i].label,"i");
+                       if(item.match(regex) )  {
+                               sel.options[i].selected = true;
+                               break;
+                       }
+                   }
+            };
+              // Create the color chart for fg and bg colors
+                function colorSelector() 
+                {
+                     if(ohtml) return ohtml.join('');
+                
+                    ohtml = [
+                    '<div style="width:90%;margin:auto; height: 400px; overflow:auto;">',
+                    '<style type="text/css">#c_chart td { height: 16px; width: 16px; border: 2px solid white; }</style>',
+                    '<table  id = "c_chart"  style="border:2px solid white;" cellspacing="2" cellpadding="2"><tbody><tr>'
+                    ];
+                    
+                    var color_vals = editor.config.colors;         
+                    for(var i = 0; i< color_vals.length; i++) {
+                    
+                        if(i%26 == 0) {
+                            ohtml.push('<tr>');
+                        }    
+                       ohtml.push('<td style="background-color: #' + color_vals[i] + ';" title= #"'+ color_vals[i] + '"></td>');
+                         
+                    }
+
+                    ohtml.push( '</tbody></table></div>' );
+                    var s = ohtml.join('');
+                 
+                    return s;
+                
+                };
+                
+                /*
+                    Assign color and font values to formatted text, i.e. bold, italic, underline, etc.
+                */
+               function replace_formats(text) 
+               {            
+          
+   
+                           text = text.replace(/<(b|i|em|u|strong|sup|sub|code)>/g, function(el,tag) {
+                            var font_style = style_spec.get_font_style(false),
+                                     fg_color = style_spec.get('fg'),
+                                font_family = style_spec.get('font'),
+                                          size = style_spec.get('font_size') ;
+
+                               var format="";
+                               var alt_font_style = "";
+                               switch(tag) {
+                                  case 'b':
+                                 case 'strong':
+                                      format = "; font-weight: bold; " ;
+                                      break;
+                                case 'i':
+                                case 'em':                                
+                                     format = "; font-style: italic; " ;    
+                                     break;                                     
+                                 case 'u':
+                                     format = "; text-decoration:underline; "; 
+                                     break;
+                                 case 'sup':                                                                             
+                                    var sz = parseInt(size);
+                                    sz = parseInt(sz *.75);                                 
+                                   // format = "; vertical-align: text-top; font-size: " + sz +"pt;  ";        
+                                    format = "; vertical-align:super; ";        
+                                    alt_font_style =   sz + "pt " + font_family ;
+                                    break;                                    
+                                 case 'sub':                                      
+                                    var sz = parseInt(size);
+                                    sz = parseInt(sz *.75);                                 
+                                    format = "; vertical-align: sub; ";        
+                                    alt_font_style =   sz + "pt " + font_family ;
+                                    break;  
+                                  case 'code':
+                                      fg_color = 'black';
+                                      format = "; background-color: white; ";
+                                    break;                                  
+                               }
+                               return "<" + tag  +  " style='color:" + fg_color + "; font: " + (alt_font_style ? alt_font_style : font_style)  + format +"'>";
+                           });
+                       
+                           return text;
+              }
+                
+			return {
+				// Basic properties of the dialog window: title, minimum size.
+				// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.dialogDefinition.html
+				title :  lang.Title, //'Font Plugin Assitant',
+				minWidth : 440,
+				minHeight : 480,
+				// Dialog window contents.
+				// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.definition.content.html
+				contents :
+				[
+					{
+						// Definition of the Settings dialog window tab (page) with its id, label and contents.
+						// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.contentDefinition.html
+						id : 'general',
+						label : lang.Main, //'Main',
+						elements :
+						[
+							// Dialog window UI element: HTML code field.
+							// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html
+							{
+								type : 'html',
+								// HTML code to be shown inside the field.
+								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html#constructor
+								html : lang.MainHeader, //'View and optionally alter text styled with the font plugin .'
+							},
+							{                            
+								type : 'html',
+                                html: '<div style="max-width:400px;  white-space: pre-wrap;border:1px solid black; margin:auto; height: 300px; overflow:auto;"></div>',
+								id : 'contents',
+								// Text that labels the field.
+								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.labeledElement.html#constructor
+								label : lang.Text, //'Text',
+							},
+							{                            
+								type : 'text',                                
+								id : 'alert',
+                               // style: 'outline:none; border:0;',
+								// Text that labels the field.
+								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.labeledElement.html#constructor		
+                                onClick: function() {
+                                    var dialog = this.getDialog();
+                                    var el =  ckgedit_getEID(dialog,'general','alert')                                  
+                                    el.focus();
+                                    el.select();
+                              },                             
+							}, 
+                            
+                            {
+                               id: 'oktoggle', 
+                               label: lang.IfChecked, //' If checked, uncheck to activate OK button',
+                               type: 'checkbox',                              
+                               'default' : false,
+                               onChange: function() {  
+                                 var dialog = this.getDialog();                                
+                                 dialog.enableButton( 'ok' );
+                                 toggle_ok(dialog,false);  
+                              },
+                            },
+                            { 
+                             type: 'hbox',
+                             children:[                              
+                         	{
+                            type : 'select',
+                            id : 'fontopts',
+                            label : lang.Fonts, //'Fonts',
+                            // Items that will appear inside the selection field, in pairs of displayed text and value.
+                            // http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.select.html#constructor
+                            items : 
+                            [
+                                [ '< '+ lang.none + ' >', '' ] 
+                            ],                            
+                            onChange: function() {
+                               style_spec.save_font(this.getValue());  
+                               setFont(this.getDialog());
+                            },
+                            commit : function( data )
+                            {
+                                data.style = this.getValue();
+                            }
+                         },   //end fontopts
+                         
+             	         {
+                            type : 'select',
+                            id : 'sizeopts',
+                            label : lang.FontSizes, // 'Font Sizes (px)',
+                            // Items that will appear inside the selection field, in pairs of displayed text and value.
+                            // http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.select.html#constructor
+                            items : 
+                            [
+                                 [ '< '+ lang.none + ' >', '' ] 
+                            ],                            
+                            onChange: function() {                                
+                                style_spec.save_size(this.getValue());
+                                setFont(this.getDialog());
+                            },
+                            commit : function( data )
+                            {
+                                data.style = this.getValue();
+                            }
+                         },   //end sizeopts                      
+                         ]    // end hbox children
+                         },   // end hbox font selection
+                         { 
+                            type: 'hbox',  // resets
+                             children:[                              
+                         	{
+                              type: 'button',
+                              label: lang.ResetFont, //'Reset font',
+                              onClick: function() {
+                                   resetFont(this.getDialog());
+                              },
+                            },
+                            
+                         	{
+                              type: 'button',
+                              label: lang.ResetAll, //'Reset all',
+                              onClick: function() {
+                                  var dialog = this.getDialog();
+                                  resetFont(dialog);
+                                  resetColor(dialog);                                  
+                              },                              
+                            },                              
+                            ]
+                          },   // end hbox resets
+						]    //end Main elements
+					},
+                    {
+                     	id : 'colors',
+						label : lang.TextColors, // 'Text Colors',
+						elements :
+                        [
+                        	{
+								type : 'html',
+								// HTML code to be shown inside the field.
+								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html#constructor
+								html : lang.SelectColor, //'Select Color'
+							},
+                        	{
+                                id: 'textcolors',
+								type : 'html',
+								// HTML code to be shown inside the field.
+								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html#constructor
+								html : colorSelector(),                              
+                                onClick: onClickfg                                                  
+							}, 
+                            {
+        					type: 'hbox',
+							widths: [ '40%', '10%', '25%', '25%' ],
+                            children: [
+							   {
+								type : 'text',
+								id : 'fg',
+                                width: '12em',
+								label : lang.SelectedTextColor, //'Selected Text Color',						
+								commit : function( data )
+								{
+									data.fg = this.getValue();
+								}
+                              },
+                              {
+                                type: 'html',
+                                id: 'fgsample',
+                                html: '<table style="border: 1px solid silver;"><tr><td style="width:24px;">&nbsp;</td><tr></table>',                                
+                              },
+							   {
+								type : 'button',
+								id : 'fgb_confirm',                              
+								label : lang.Accept, //'Accept',	
+                               onClick: function() {                                     
+                                     var dialog = this.getDialog();
+                                     setColor(dialog,'colors');
+                                     dialog.enableButton( 'ok' );
+                                     toggle_ok(dialog,false);
+                                },                                
+                              },                              
+							   {
+								type : 'button',
+								id : 'fgb_reset',                             
+								label : lang.Reset, //'Reset',		
+                                onClick: function() {                                     
+                                    var dialog = this.getDialog();
+                                    var el = ckgedit_getEID(dialog,'colors','fg');
+                                    el.value = "";                                    
+                                    dialog.enableButton( 'ok' );
+                                    toggle_ok(dialog,false);
+                                } ,
+                              },                                                            
+                            ],
+                            }
+                        ],
+                    },
+                    {
+                     	id : 'backgroundcolors',
+						label : lang.BGColors, //'Background Colors',
+						elements :
+                        [
+                        	{
+								type : 'html',
+								// HTML code to be shown inside the field.
+								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html#constructor
+								html :  lang.SelectColor, // ' Select Color'
+							},
+                        	{
+                                id: 'bgcolors',
+								type : 'html',
+								// HTML code to be shown inside the field.
+								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html#constructor
+								html : colorSelector(),                              
+                                onClick: onClickbg                                                  
+							},                             
+                            
+                            {  
+        					type: 'hbox',
+							widths: [ '40%', '10%', '25%', '25%' ],
+                            children: [
+							   {
+								type : 'text',
+								id : 'bg',
+                                width: '12em',
+								label : lang.SelectedBGColor, 
+								commit : function( data )
+								{
+									data.fg = this.getValue();
+								}
+                              },
+                              {
+                                type: 'html',
+                                id: 'bgsample',
+                                html: '<table style="border: 1px solid silver;"><tr><td style="width:24px;">&nbsp;</td><tr></table>',                                
+                              },                              
+							   {
+								type : 'button',
+								id : 'bgb_confirm',                              
+								label : lang.Accept, //'Accept',	
+                                onClick: function() {
+                                     var dialog = this.getDialog();
+                                     setColor(dialog,'backgroundcolors');
+                                     dialog.enableButton( 'ok' );
+                                     toggle_ok(dialog,false);                                   
+                                },                                
+                              },                              
+							   {
+								type : 'button',
+								id : 'bgb_reset',                             
+								label : lang.Reset, //'Reset',		
+                               onClick: function() {                                    
+                                    var dialog = this.getDialog();
+                                    var el = ckgedit_getEID(dialog,'backgroundcolors','bg');
+                                    el.value = "";
+                                    dialog.enableButton( 'ok' );                                     
+                                    toggle_ok(dialog,false);                                    
+                                } ,
+                              },                                                            
+                            ],
+                            },
+                            
+                        ],
+                    },
+                    {
+                      id: 'info',
+                      label: 'Info',
+                      elements:
+                      [
+                       {
+                         type: 'html',
+                         html: lang.InfoText,
+ /*'<div style="max-width:400px; font-size: 12pt; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; height: 350px; overflow:auto;">' +                         
+ 'This tool works with the font  plugin and is used to update the font plugin\'s syntax and/or view its enclosed text. ' +
+'Clicking anywhere on the plugin syntax or its text will enable you to check the appearance of the font, its colors, and its size.'+
+'<br /><br />You can also update the plugin syntax in place.  To do this you must select both the font syntax itself and the enclosed text:' +
+'<p style="text-indent: 50px; font-size: 12pt;">  &lt;font. . . &gt;text&lt;/font&gt;</p>' +
+'Then whatever changes you  make with this tool can be inserted into the editor window, by clicking OK, and will replace the current font syntax. ' +
+'<br /><br />The font syntax will appear in the textbox below the display window and is updated with each change. '+ 
+'Clicking on the text will select the text for copying.</div>'*/
+
+                       }
+                      ],
+                    }                    
+				],
+
+                 onShow : function()
+                  {
+                    var editor = this.getParentEditor(),
+                        selection = editor.getSelection();
+                        nonReplaceable = false;  
+                        var a = ckgedit_getEID(this,'general','alert');
+                        a.innerHTML = "";
+                        
+                        this.enableButton( 'ok' );  
+                        var text1 = selection.getSelectedText();     
+                        var range = selection.getRanges( true )[ 0 ];
+                        range.shrink( CKEDITOR.SHRINK_TEXT );
+                        var root = range.getCommonAncestor();
+                        var p = root.getAscendant( 'p', true );                       
+                        if(!p) return;
+                        if(!text1.match(/&lt;font(.*)\/font&gt;/) && !text1.match(/<font(.*)\/font>/)) { 
+                           nonReplaceable = true;                         
+                           var a = ckgedit_getEID(this,'general','alert');
+                           a.value = "Changes will not be inserted into editor.  See Info for details";  
+                         }  
+                      
+                       
+                        text = p.getHtml();  
+                        if(!text && nonReplaceable) {
+                             if(text1) {
+                             text = text1;                             
+                             }
+                         
+                        }
+                        text = text.replace(/&lt;/g, '<');
+                        text = text.replace(/&gt;/g, '>');
+                        text = text.replace(/<span.*?scayt.*?>(.*?)<\/span>/g,"$1");
+                      
+                        var d = ckgedit_getEID(this,'general','contents');
+
+                        var matches = text.match(/<font(.*?)>(.*)/m);                  
+                        if(matches && matches[2]) {
+                           var elems = matches[1].split(/;;/);
+                           d.style.color = elems[1];                           
+                           d.style.backgroundColor = elems[2];         
+                     
+                           style_spec.save_color('fg',elems[1]);
+                           style_spec.save_color('bg',elems[2]);
+                           original_styles['fg'] = elems[1];
+                           original_styles['bg'] = elems[2];                           
+                           
+                           var font = elems[0].split('/');
+                           var font_style = font[0] + " " + font[1];                           
+                           d.style.font =  font_style;
+                           
+                           style_spec.save_size(font[0]);
+                           style_spec.save_font(font[1]);
+                           original_styles['font'] = font[1];
+                           original_styles['font_size'] = font[0];
+                     
+                           matches[2] = matches[2].replace(/<\/font>/,"");      
+                           matches[2] = matches[2].replace(/<br\/?>/, ' ' );
+                           selectedText = matches[2];                              
+                           d.innerHTML = replace_formats(matches[2]);
+                           
+                           var sel = ckgedit_getEID(this,'general','fontopts');
+                           updateSelectList(sel,original_styles['font']);
+                           sel = ckgedit_getEID(this,'general','sizeopts');
+                           updateSelectList(sel,original_styles['font_size']);
+                        }  
+                   
+                },
+               
+                onLoad : function()
+                {
+                       editor = this.getParentEditor();
+                   
+                        var n = ckgedit_getEID(this,'general','fontopts');
+                        var font_names = CKEDITOR.config.font_names.split(/;/);                      
+                        createSelectList(n,font_names);   
+                        
+                        var n = ckgedit_getEID(this,'general','sizeopts');                   
+                        var size_list = CKEDITOR.config.fontSize_sizes.split(/;/);                      
+                        createSelectList(n,size_list);   
+                      
+                       var tab = this._.tabs[ 'general' ] && this._.tabs[ 'general' ][ 0 ];               
+                       var dialog = this;                       
+                       tab.on('focus', function(evt) {              
+                           dialog.enableButton( 'ok' ); 
+                           var t = ckgedit_getEID(dialog,'general','oktoggle');                              
+                           t.checked = false;                           
+                       });
+
+                        //CKEDITOR.config.fontSize_sizes = '8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;36/36px;48/48px;72/72px';
+                },                
+				onOk : function()
+				{
+                   if(nonReplaceable) return; 
+                    
+					var p = editor.document.createElement( 'p' );
+                    var revision = style_spec.open_tag() + selectedText +  style_spec.close_tag();  
+					p.setHtml( revision);
+                    
+					// Insert paragraph element into the current cursor position in the editor.
+					// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.editor.html#insertElement
+					editor.insertElement( p );
+				}
+			};
+		} );
+	}
+} );

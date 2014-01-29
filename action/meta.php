@@ -23,10 +23,17 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $session_id = false;    
   var $draft_file;
   var $user_rewrite = false;
+  var $helper;
+  
+  function __construct() {
+      $this->helper = plugin_load('helper', 'ckgedit');
+  }
   /*
    * Register its handlers with the dokuwiki's event controller
    */
   function register(&$controller) {            
+
+            if($this->helper->is_outOfScope()) return;
             $controller->register_hook( 'TPL_METAHEADER_OUTPUT', 'AFTER', $this, 'loadScript');    
             $controller->register_hook( 'HTML_EDITFORM_INJECTION', 'AFTER', $this, 'preprocess'); 
             $controller->register_hook( 'HTML_EDITFORM_OUTPUT', 'BEFORE', $this, 'insertFormElement');            
@@ -114,15 +121,14 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$F
    if(is_string($act) && $act != 'edit') {  
         return;
    }
-  global $INFO;
+  global $INFO, $ckgedit_lang;
   $cname =  $INFO['draft'];   
-    
-
+  $discard = $ckgedit_lang['discard_edits'];  
  
   echo <<<SCRIPT
     <script type="text/javascript">
     //<![CDATA[ 
-    
+    var ckgedit_dwedit_reject = false;
     function setDWEditCookie(which, e) { 
        var cname = "$cname";       
        var dom = document.getElementById('ckgedit_mode_type');          
@@ -139,6 +145,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$F
                     }
            }
            else dom.value = 'fck';  
+           e.form.submit(); 
        }
         else {            
             var nextFCKyear=new Date();
@@ -146,8 +153,13 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKW_USE']) && !$F
             document.cookie = 'FCKW_USE=_false_;expires=' + nextFCKyear.toGMTString() + ';';    
             dom.value = 'dwiki';        
 
+            if(window.dwfckTextChanged  && !window.confirm("$discard")) {            
+               var dom = GetE('dwsave_select');                
+               ckgedit_dwedit_reject=true;
+               window.dwfckTextChanged = false;
         }
-         e.form.submit();
+       }
+        
     }
   
  
@@ -174,10 +186,13 @@ function check_userfiles() {
 // msg('REL='. DOKU_REL);
     if(!preg_match('#^\.\/data$#',$save_dir)) {
         $data_media = $conf['savedir']  . '/media/';
-        
+        $is_domain = trim('/',DOKU_BASE);        
         $expire = null;        
         list($prefix,$mdir) = explode(trim(DOKU_BASE, '/'),$userfiles);
+        if($mdir && !$is_domain) {
         $media_dir = DOKU_BASE . $mdir . 'image/';
+        }
+        else $media_dir =  DOKU_URL .'lib/plugins/ckgedit/fckeditor/userfiles/image/';        
         setcookie('FCK_media',$media_dir, $expire, '/');           
 
      }

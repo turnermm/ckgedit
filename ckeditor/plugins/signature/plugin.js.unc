@@ -10,7 +10,9 @@ CKEDITOR.plugins.add( 'signature',
 	// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.pluginDefinition.html#init
 	init: function( editor )
 	{
- 
+         var lang = editor.lang.signature;   
+         if(!lang) lang = CKEDITOR.lang['default']['signature'];
+             
 		// Define an editor command that inserts a timestamp. 
 		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.editor.html#addCommand
 		editor.addCommand( 'insertSignature',
@@ -33,7 +35,7 @@ CKEDITOR.plugins.add( 'signature',
                        +  this.numbersToTwoDigits(d.getDate())
                        + ' ' + this.numbersToTwoDigits(d.getHours())
                        + ':' + this.numbersToTwoDigits(d.getMinutes());
-                    var mail = '&mdash; <i><a href="mailto:' + email+'">' + user_name +'</a> ' + date_str +' &mdash;</i>';
+                    var mail = '&mdash; <i><a href="mailto:' + email+'">' + user_name +'</a> ' + date_str +'</i>&mdash;';
 
 					// Insert the timestamp into the document.
 					// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.editor.html#insertHtml				
@@ -45,7 +47,7 @@ CKEDITOR.plugins.add( 'signature',
 		editor.ui.addButton( 'Signature',
 		{
 			// Toolbar button tooltip.
-			label: 'Insert signature',
+			label: lang.ToolTip, // 'Insert signature',
 			// Reference to the plugin command name.
 			command: 'insertSignature',
 			// Button's icon file path.

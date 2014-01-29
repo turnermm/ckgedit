@@ -10,7 +10,19 @@ CKEDITOR.plugins.add( 'footnote',
 		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.command.html
 		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialogCommand.html
         editor.addCommand( 'footnoteDialog', new CKEDITOR.dialogCommand( 'footnoteDialog' ) );
-        
+        var lang = editor.lang.footnote;
+        if(!lang) {
+            lang = CKEDITOR.lang['default']['footnote'];
+        }
+        else {
+            var lang_default = CKEDITOR.lang['default']['footnote'];
+             for(var k in lang_default) {
+                 if(!lang[k]) {
+                     lang[k] = lang_default[k];
+                 }
+             }
+       }        
+         
          if(!oDokuWiki_FCKEditorInstance.oinsertHtmlCodeObj) {
              oDokuWiki_FCKEditorInstance.oinsertHtmlCodeObj = new Object();
              oDokuWiki_FCKEditorInstance.oinsertHtmlCodeObj.notes = new Array();
@@ -22,7 +34,7 @@ CKEDITOR.plugins.add( 'footnote',
 		editor.ui.addButton( 'Footnotes',
 		{
 			// Toolbar button tooltip.
-			label: 'Insert a footnote',
+			label:  lang.ToolTip, //'Insert a footnote',
 			// Reference to the plugin command name.
 			command: 'footnoteDialog',
 			// Button's icon file path.
@@ -35,16 +47,11 @@ CKEDITOR.plugins.add( 'footnote',
 		CKEDITOR.dialog.add( 'footnoteDialog', function( editor )
 		{
          
-    	var html = [ '<div style="padding: 18px;font-size:125%;line-height:125%;">',
-           '<ul style="list-style-type:disc;"><li>To create a footnote enter the footnote text into the editing box and click OK</li>',
-           '<li>To edit a footnote enter the footnote id into the id box and click the Load button. <br /> The footnote will ',
-           'appear in the editing box, where you can then edit it.<br /> When you are finished editing, click OK to save.</li>' ,         
-           '<li> A footnote id has this form: <b>fckgL_&lt;n&gt;</b>, where n is the number of the note.</li></ul></div>'
-        ];
+
 			return {
 				// Basic properties of the dialog window: title, minimum size.
 				// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.dialogDefinition.html
-				title : 'Footnote Dialog',
+				title :  lang.Title, //'Footnote Dialog',
 				minWidth : 400,
 				minHeight : 200,
                 fontSize: "14pt",
@@ -63,7 +70,7 @@ CKEDITOR.plugins.add( 'footnote',
 						// Definition of the Settings dialog window tab (page) with its id, label and contents.
 						// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.dialog.contentDefinition.html
 						id : 'general',
-						label : 'Settings',
+						label :  lang.Settings, //'Settings',
 						elements :
 						[
 							// Dialog window UI element: HTML code field.
@@ -72,7 +79,7 @@ CKEDITOR.plugins.add( 'footnote',
 								type : 'html',
 								// HTML code to be shown inside the field.
 								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html#constructor
-								html : 'This dialog window lets you create and edit footnotes.'
+								html : lang.Header, //'This dialog window lets you create and edit footnotes.'
 							},
 							// Dialog window UI element: a textarea field for the link text.
 							// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.textarea.html
@@ -81,9 +88,9 @@ CKEDITOR.plugins.add( 'footnote',
 								id : 'contents',
 								// Text that labels the field.
 								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.labeledElement.html#constructor
-								label : 'Footnote Text (required)',
+								label : lang.Label_1, //'Footnote Text (required)',
 								// Validation checking whether the field is not empty.
-								validate : CKEDITOR.dialog.validate.notEmpty( 'The footnote text field cannot be empty.' ),
+								validate : CKEDITOR.dialog.validate.notEmpty(lang.Validate),  //'The footnote text field cannot be empty.'
 
 								// Function to be run when the commitContent method of the parent dialog window is called.
 								// Get the value of this field and save it in the data object attribute.
@@ -105,7 +112,7 @@ CKEDITOR.plugins.add( 'footnote',
                             [
                                 {
                                     type: 'html',
-                                    html: 'Footnote Id: ',
+                                    html: lang.Label_2, //'Footnote Id: ',
                                 },
                                 {
                                     type : 'text',
@@ -127,7 +134,7 @@ CKEDITOR.plugins.add( 'footnote',
 
                                 {
                                     type : 'button',
-                                    label: 'Load Note In Editor',
+                                    label:  lang.LoadButtonLabel, //'Load Note In Editor',
                                     id : 'id3',
                                     onClick: function () {
                                             var dialog = this.getDialog();                                    
@@ -159,7 +166,7 @@ CKEDITOR.plugins.add( 'footnote',
 								type : 'html',
 								// HTML code to be shown inside the field.
 								// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.ui.dialog.html.html#constructor
-								html : html.join(""),
+								html :  lang.FootNoteInfo,  //html.join(""),
 							},
                        ]   
                     },
