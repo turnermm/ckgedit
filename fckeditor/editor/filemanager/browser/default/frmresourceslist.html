@@ -340,7 +340,8 @@ function OpenFile( fileUrl )
 function LoadResources( resourceType, folderPath )
 {
     //alert(resourceType + "\n" + folderPath);
-	oListManager.Clear() ;
+	oListManager.Clear();
+	document.body.innerHTML = translateItem('DlgFileBrowserWaitingMsg', 'Loading, please wait.'); //Show waiting message
 	oConnector.ResourceType = resourceType ;
 	oConnector.CurrentFolder = folderPath ;
 	oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
@@ -357,6 +358,7 @@ function GetFoldersAndFilesCallBack( fckXml )
    imageArray = new Array();
    KBArray = new Array();
    imgProcessingStack = new Array();
+   oListManager.Clear();//Clear waiting message
 
 	if ( oConnector.CheckError( fckXml ) != 0 )
 		return ;
