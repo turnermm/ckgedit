@@ -1,4 +1,4 @@
-rev 14-Jan_28-13_15
+rev 14-Jan_29-12_56
 
 Initial Development distribution
 
@@ -374,3 +374,6 @@ are considered valid.
 Improvements to image copy notifications
 
 Add GD lib check for above
+
+29 Jan
+Fixed bug in extension identification in image copy/paste (save.php)

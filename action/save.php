@@ -42,7 +42,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
              create_function(
                 '$matches',
                 'list($ext,$base) = explode(";",$matches[1]);
-                if($ext = "jpeg") $ext = "jpg";      
+                if($ext == "jpeg") $ext = "jpg";                    
                  if(function_exists("imagecreatefromstring") && !imagecreatefromstring (base64_decode($matches[2]))) {
                      msg("Clipboard paste: invalid $ext image format");
                      return "{{" . BROKEN_IMAGE .  "}}";
