@@ -1,4 +1,4 @@
-rev 14-Jan_29-23_17
+rev 14-Jan_30-12_59
 
 Initial Development distribution
 
@@ -380,3 +380,6 @@ Fixed bug in extension identification in image copy/paste (save.php)
 
 Merged pull request "Media Manager Waiting"
 Added Language entry in en.js for above pull request.
+
+30 Jan
+For image copy/paste placed saved image in page id's namespace

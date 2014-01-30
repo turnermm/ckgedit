@@ -47,8 +47,28 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                      msg("Clipboard paste: invalid $ext image format");
                      return "{{" . BROKEN_IMAGE .  "}}";
                  }                 
-                  file_put_contents(DOKU_MEDIA . md5($matches[2]) . ".$ext", base64_decode($matches[2]));
-                 $retv = "{{:". md5($matches[2]) . ".$ext" . "}}";
+                  global $INFO,$conf;                 
+                  $ns = getNS($INFO["id"]);                                    
+                  $ns = trim($ns);
+                  if(!empty($ns)) {                     
+                      $ns = ":$ns:";
+                       $dir = str_replace(":","/",$ns);                     
+                  }
+                  else {  // root namespace
+                      $dir = "/";
+                      $ns = ":";
+                  }
+                  
+                 $fn = md5($matches[2]) . ".$ext";
+                 $path = $conf["mediadir"] . $dir .  $fn;   
+                 @io_makeFileDir($path);
+                 if(!file_exists($path)) {
+                    @file_put_contents($path, base64_decode($matches[2]));
+                 }
+                 else {
+                     msg("file for this image previousely saved",2);
+                 }
+                $retv = "{{" . $ns. $fn . "}}";              
                  return $retv;'
              ),
              $TEXT
