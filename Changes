@@ -1,4 +1,4 @@
-rev 14-Jan_30-12_59
+rev 14-Feb_06-13_36
 
 Initial Development distribution
 
@@ -383,3 +383,6 @@ Added Language entry in en.js for above pull request.
 
 30 Jan
 For image copy/paste placed saved image in page id's namespace
+
+6 Feb
+Support for placement of copy/paste images using Image Properties, without haaving to save and re-load.

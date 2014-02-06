@@ -38,12 +38,12 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
 
     if(strpos($TEXT,'data:image') !== false) {
         $TEXT = preg_replace_callback(
-             '|\{\{data:image\/(\w+;base64,)(.*?)\?nolink&\}\}|ms',
+             '|\{\{(\s*)data:image\/(\w+;base64,)(.*?)\?nolink&(\s*)\}\}|ms',
              create_function(
                 '$matches',
-                'list($ext,$base) = explode(";",$matches[1]);
+                'list($ext,$base) = explode(";",$matches[2]);
                 if($ext == "jpeg") $ext = "jpg";                    
-                 if(function_exists("imagecreatefromstring") && !imagecreatefromstring (base64_decode($matches[2]))) {
+                 if(function_exists("imagecreatefromstring") && !imagecreatefromstring (base64_decode($matches[3]))) {
                      msg("Clipboard paste: invalid $ext image format");
                      return "{{" . BROKEN_IMAGE .  "}}";
                  }                 
@@ -58,17 +58,21 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                       $dir = "/";
                       $ns = ":";
                   }
-                  
-                 $fn = md5($matches[2]) . ".$ext";
+                 $fn = md5($matches[3]) . ".$ext";
                  $path = $conf["mediadir"] . $dir .  $fn;   
                  @io_makeFileDir($path);
                  if(!file_exists($path)) {
-                    @file_put_contents($path, base64_decode($matches[2]));
+                    @file_put_contents($path, base64_decode($matches[3]));
                  }
                  else {
                      msg("file for this image previousely saved",2);
                  }
-                $retv = "{{" . $ns. $fn . "}}";              
+                 $left = "{{";
+                 $right = "}}";
+                 if($matches[1]) $left .= $matches[1];
+                 if($matches[4]) $right = $matches[4] . $right;
+                 
+                $retv = "$left" . $ns. $fn . "$right";              
                  return $retv;'
              ),
              $TEXT
