@@ -1106,6 +1106,7 @@ function parse_wikitext(id) {
             var style = false;            
             var img_align = '';   
             var alt = "";                     
+            var from_clipboard = false;            
             this.is_smiley = false;
 			this.in_link = false;
         }
@@ -1639,7 +1640,6 @@ function parse_wikitext(id) {
                      else {   
                           // first insertion from media mananger   
                             matches = attrs[i].escaped.match(/^.*?\/userfiles\/image\/(.*)/); 
-                           // alert('matches 1='+ matches[1] + "  \narrtrs i=" + attrs[i].escaped);
                      
                             if(!matches) {  // windows style
                                 var regex =  doku_base + 'data/media/';
@@ -1651,14 +1651,12 @@ function parse_wikitext(id) {
                             if(matches && matches[1]) {                         
                                src = matches[1].replace(/\//g, ':');  
                                src = ':' + src;
-                             //  src = safe_convert(src);
-                              // alert(src);
                             }
                            else {                  
                                src = decodeURIComponent ? decodeURIComponent(attrs[i].escaped) : unescape(attrs[i].escaped);        
-                
-                              // src = unescape(attrs[i].escaped);  // external image (or smiley) 
-
+                                if(src.search(/data:image.*?;base64/) > -1) {
+                                   from_clipboard = true;
+                               }
                            }
                           if(src && src.match(/lib\/images\/smileys/)) {
                                 // src = 'http://' + window.location.host + src;
@@ -1844,7 +1842,7 @@ function parse_wikitext(id) {
                var link_type = this.image_link_type;              
                this.image_link_type="";
                if(this.link_only) link_type = 'link_only';
-               if(!link_type){
+               if(!link_type || from_clipboard){
                   link_type = 'nolink'; 
                }
                else if(link_type == 'detail') {

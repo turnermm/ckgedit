@@ -1,4 +1,4 @@
-rev 14-Feb_06-13_36
+rev 14-Feb_06-20_15
 
 Initial Development distribution
 
@@ -386,3 +386,4 @@ For image copy/paste placed saved image in page id's namespace
 
 6 Feb
 Support for placement of copy/paste images using Image Properties, without haaving to save and re-load.
+Link type reverts to 'nolink' which can be changed after save and re-load.
