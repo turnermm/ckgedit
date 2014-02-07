@@ -1,4 +1,4 @@
-rev 14-Feb_06-20_15
+rev 14-Feb_07-09_05
 
 Initial Development distribution
 
@@ -387,3 +387,6 @@ For image copy/paste placed saved image in page id's namespace
 6 Feb
 Support for placement of copy/paste images using Image Properties, without haaving to save and re-load.
 Link type reverts to 'nolink' which can be changed after save and re-load.
+
+7 Feb
+Removed button for aspell and aspell_window(), since CKEditor does not support aspell without special plugins

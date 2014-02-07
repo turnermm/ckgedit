@@ -600,12 +600,7 @@ global $INFO;
                  title = "<?php echo $ckgedit_lang['title_dw_cancel']?>"
              />
 
-  
-            <input class="button" type="button" value = "<?php echo $ckgedit_lang['dw_btn_lang']?>"
-                  <?php if ($using_scayt) echo 'style = "display:none";'?>
-                   title="<?php echo $ckgedit_lang['title_dw_lang']?>"
-                   onclick="aspell_window();"  
-                  /> 
+           <!-- aspell button removed, not supported -->
 
             <input class="button" type="button" value = "Test"
                    title="Test"  
@@ -692,13 +687,7 @@ global $INFO;
          var embedComplexTableMacro = false;        
 
         <?php  echo 'var backup_empty = "' . $ckgedit_lang['backup_empty'] .'";'; ?>
-
-        function aspell_window() {
-          var DURL = "<?php echo DOKU_URL; ?>";
-          window.open( DURL + "/lib/plugins/ckgedit/fckeditor/aspell.php?dw_conf_lang=<?php global $conf; echo $conf['lang']?>",
-                    "smallwin", "width=600,height=500,scrollbars=yes");
-        }
-
+        /* aspell_window removed, not supported */
         if(window.unsetDokuWikiLockTimer) window.unsetDokuWikiLockTimer();  
 
    setComplexTables = (function() {
