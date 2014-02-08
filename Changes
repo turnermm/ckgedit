@@ -1,4 +1,4 @@
-rev 14-Feb_07-09_05
+rev 14-Feb_08-11_28
 
 Initial Development distribution
 
@@ -390,3 +390,6 @@ Link type reverts to 'nolink' which can be changed after save and re-load.
 
 7 Feb
 Removed button for aspell and aspell_window(), since CKEditor does not support aspell without special plugins
+
+8 Feb
+Option to give Dokuwiki Editor priority on startup

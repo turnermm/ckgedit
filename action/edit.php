@@ -52,8 +52,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
           $FCKG_show_preview = true;
           return;
         }
-        elseif(isset($_COOKIE['FCKW_USE'])) {
-             preg_match('/_\w+_/',  $_COOKIE['FCKW_USE'], $matches);
+        elseif(isset($_COOKIE['FCKG_USE'])) {
+             preg_match('/_\w+_/',  $_COOKIE['FCKG_USE'], $matches);
              if($matches[0] == '_false_') {
                   $FCKG_show_preview = true;     
                    return;
