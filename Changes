@@ -1,4 +1,4 @@
-rev 14-Feb_08-11_28
+rev 14-Feb_12-14_24
 
 Initial Development distribution
 
@@ -393,3 +393,7 @@ Removed button for aspell and aspell_window(), since CKEditor does not support a
 
 8 Feb
 Option to give Dokuwiki Editor priority on startup
+
+12 Feb
+Removed safe encoding check from meta.php, which does apply to this distribution.
+Added check for ckgedit editor  before switching to userewrite 0.

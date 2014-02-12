@@ -41,7 +41,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook( 'HTML_EDITFORM_OUTPUT', 'BEFORE', $this, 'insertFormElement');            
             $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'file_type');         
             $controller->register_hook('TPL_CONTENT_DISPLAY', 'AFTER', $this, 'setupDWEdit');       
-            $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'fnencode_check');                 
+            $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'reset_user_rewrite_check');                 
             $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
                          
   }
@@ -497,79 +497,28 @@ SCRIPT;
 
   }
 
-function is_safeUpgraded() {
-   $safescript = DOKU_PLUGIN . 'ckgedit/scripts/safeFN_class.js';
-    if(!file_exists($safescript) ){	    
-		return false; 
-	}
-   $lines = file($safescript );
 	
-	for($i=0; $i<count($lines); $i++) {    
-	  if(strpos($lines[$i],'/**')){
-		 if(isset($lines[$i+1])) { 
-			if(stripos($lines[$i+1], 'upgrade') !== false) {
-			 return true;
-		  } 
-		}
-	   }
-	  }
-	  return false;
-}
   
-function fnencode_check() {
+function reset_user_rewrite_check() {
 
       global $ACT;
        global $conf;
-       global $updateVersion;
-       $rencode = false;
 	  
+       if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] =='_false_' ) return;
        if($ACT == 'edit') {
           $this->user_rewrite = $conf['userewrite'];
 	     $conf['userewrite']  = 0; 
        }
        
-        if($conf['fnencode'] != 'safe') return;
-
-        
-        if(isset($updateVersion) && $updateVersion >= 31) {           
-          $rencode = true;     
-        }
-        else {
-            $list = plugin_list('action');
-            if(in_array('safefnrecode', $list)){
-                $rencode = true;   
-     
-            }
-            elseif(file_exists($conf['datadir'].'_safefn.recoded') ||
-               file_exists($conf['metadir'].'_safefn.recoded') ||
-               file_exists($conf['mediadir'].'_safefn.recoded') )
-            { 
-               $rencode = true;
-            }
-        }
-
-
-      if($rencode && !file_exists(DOKU_PLUGIN . 'ckgedit/saferencode')) {
-         msg("This version of ckgeditLiteSafe does not support the re-encoded safe filenames. "
-         . "You risk corrupting your file system.  Download an fnrencode version from either gitHub or the ckgeditLite web site."
-         . " <a style='color:blue' href='http://www.dokuwiki.org/plugin:ckgeditlite?&#ckgeditlitesafe'>See ckgeditLite at Dokuwiki.org</a>  ",
-            -1);
-      }	 
-      else if(!$rencode && file_exists(DOKU_PLUGIN . 'ckgedit/saferencode') && $this->is_safeUpgraded() )   {	    
-	    msg("This version of ckgeditLiteSafe requires a newer version of Dokuwiki (2011-05-25 Rincewind or later).  You risk corrupting your file system. "
-		 .   "To convert this distribution of ckgeditLite/ckgeditLiteSafe for use with earlier versions of Dokuwiki,  see the README file or " 
-		 . " <a style='color:blue' href='http://www.mturner.org/ckgeditLite/doku.php?id=docs:upgrade_6&#anteater'>or the ckgeditLite web site</a>  ",
-		-1);
     }	  
-}
-
-
-
 
       
 
 function restore_conf() {
     global $conf;
+    global $ACT;
+    if($ACT == 'edit') { return; }
+   
     if($this->user_rewrite !==false) {
          $conf['userewrite']   = $this->user_rewrite; 
     }
