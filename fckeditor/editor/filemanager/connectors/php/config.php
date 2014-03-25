@@ -144,7 +144,10 @@ if(!isset($Config['UserFilesAbsolutePath']) || !isset($Config['UserFilesPath']))
     if($dwfck_local) {
      $Config['UserFilesPath'] = str_replace('/media', '/pages', $Config['UserFilesPath']);
      if($isWindows) {
-         $Config['UserFilesAbsolutePath'] = str_replace('\\media', '\\pages', $Config['UserFilesAbsolutePath']);
+          if($Dwfck_conf_values['ckg_savedir']) {     
+             $Config['UserFilesAbsolutePath'] = $Dwfck_conf_values['ckg_savedir'] . '/pages/';
+         }   
+         else $Config['UserFilesAbsolutePath'] = str_replace('\\media', '\\pages', $Config['UserFilesAbsolutePath']);
      }
      else {
          if($Dwfck_conf_values['ckg_savedir']) {     
@@ -499,7 +502,7 @@ function doku_config_values() {
    if(trim($conf['savedir'],'/.\/') != 'data') {
      $conf['ckg_savedir']= $conf['savedir'];
    }
-   else $conf['ckg_savedir'] =DOKU_INC . 'data';
+ 
     return $conf;
   }
 

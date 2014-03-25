@@ -239,6 +239,14 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				subjectMatch && ( email.subject = decodeURIComponent( subjectMatch[ 1 ] ) );
 				bodyMatch && ( email.body = decodeURIComponent( bodyMatch[ 1 ] ) );
 			}
+           else if((urlMatch = href.match(oRegex.media_internal)) || (urlMatch = href.match(oRegex.media_rewrite_1)) 
+              || (urlMatch = href.match(oRegex.media_rewrite_2)) || (urlMatch = href.match(oRegex.media_rewrite_1Doku_Base))) {
+                    retval.type = 'media';
+                  	retval.url = {};
+				    retval.url.protocol =  "";
+					retval.url.url = "";
+					retval.url.selected =urlMatch[1];
+              }
             else if( (urlMatch = href.match( internalLinkRegex )) || ( urlMatch = href.match(oRegex.internal_link_rewrite_2)) 
                         || (urlMatch = href.match( oRegex.internal_link_rewrite_1 ))
                      ) 
@@ -251,14 +259,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					//alert(retval.url.selected);
 
                 }
-           else if((urlMatch = href.match(oRegex.media_internal)) || (urlMatch = href.match(oRegex.media_rewrite_1)) 
-              || (urlMatch = href.match(oRegex.media_rewrite_2)) || (urlMatch = href.match(oRegex.media_rewrite_1Doku_Base))) {
-                    retval.type = 'media';
-                  	retval.url = {};
-				    retval.url.protocol =  "";
-					retval.url.url = "";
-					retval.url.selected =urlMatch[1];
-              }
 		    else if(urlMatch = href.match(oRegex.samba)) {
 			     retval.type = 'samba';				 
 				 retval.url = {};
@@ -928,7 +928,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
              var other_media = false;
 			 
 			// Compose the URL.			
-		 
+		   var other_mime_file = "";
 			switch ( data.type || 'url' )
 			{
                 case 'media':
@@ -938,12 +938,15 @@ CKEDITOR.dialog.add( 'link', function( editor )
                     data.adv.advTitle = data.url.url;
                     
                     var mf = data.url.url.match(/(\.(\w+))$/);           
+                     other_mime_file = data.url.url.replace(/^:/,"");
                     data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;                         
+                    
                     if( mf[1].match(ImagesAllowed)) {                        
                         data.adv['advContentType'] = 'linkonly';
                    }
                    else { 
                         data.adv['advContentType'] = "other_mime";            
+                       data.url.url=top.dokuBase + 'lib/exe/fetch.php?media=' +  other_mime_file;
                          other_media = true;
                    }
                    data.adv[ 'advCSSClasses'] ="media mediafile";
@@ -1118,7 +1121,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				var element = this._.selectedElement,
 					href = element.data( 'cke-saved-href' ),
 					textView = element.getHtml();
-
+                 if(other_media) {
+                     attributes['type'] = 'other_mime';   
+                     attributes['title'] = ':' + other_mime_file;   
+                 }    
 				element.setAttributes( attributes );
 				element.removeAttributes( removeAttributes );
 

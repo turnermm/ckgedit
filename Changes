@@ -1,4 +1,4 @@
-rev 14-Feb_12-14_24
+rev 14-Mar_25-12_59
 
 Initial Development distribution
 
@@ -397,3 +397,11 @@ Option to give Dokuwiki Editor priority on startup
 12 Feb
 Removed safe encoding check from meta.php, which does not apply to this distribution.
 Added check for ckgedit editor  before switching to userewrite 0.
+
+Mar 21
+Fixed savedir for Windows access to data/pages.  Symlinks are neeeded in fckeditor/userfiles
+of moved data dir.
+
+Mar 25
+link.js: on edit of selection regex did not correctly identify media files
+and if OK pressed, formatting of link was corrupted.  Both fixed.
