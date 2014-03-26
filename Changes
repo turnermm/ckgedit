@@ -1,4 +1,4 @@
-rev 14-Mar_25-12_59
+rev 14-Mar_26-09_55
 
 Initial Development distribution
 
@@ -405,3 +405,6 @@ of moved data dir.
 Mar 25
 link.js: on edit of selection regex did not correctly identify media files
 and if OK pressed, formatting of link was corrupted.  Both fixed.
+
+March 26
+Adjusted filebrowser window and font sizes.

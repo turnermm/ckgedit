@@ -24,8 +24,7 @@
 body
 {
 	background-color: #dedede;  
-	margin-top:0;
-	margin-bottom:0;
+	margin:auto; 
 }
 
 form
@@ -48,14 +47,14 @@ body.FileArea
 
 body, td, input, select
 {
-	font-size: 11px;
+	font-size: 14px;
 	font-family: 'Microsoft Sans Serif' , Arial, Helvetica, Verdana;
 }
 
 .ActualFolder
 {
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 18px;
 }
 
 .PopupButtons
@@ -102,7 +101,7 @@ body, td, input, select
 	background-image: url(images/FolderOpenedRO.gif);
 }
 
-td { font-size: 8pt; } 
+td { font-size: 10pt; } 
 
 .fullHeight {
 	height: 100%;

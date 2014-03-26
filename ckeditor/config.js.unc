@@ -204,6 +204,9 @@ var get_ckgeditor_version = function() {
             'html'
         );
 }
+config.filebrowserWindowWidth='60%';
+config.filebrowserWindowHeight = '60%';
+//config.filebrowserWindowFeatures = 'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes,left=20';
 
 get_ckgeditor_version();   
 
