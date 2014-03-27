@@ -1,4 +1,4 @@
-rev 14-Mar_26-09_55
+rev 14-Mar_26-21_12
 
 Initial Development distribution
 
@@ -408,3 +408,6 @@ and if OK pressed, formatting of link was corrupted.  Both fixed.
 
 March 26
 Adjusted filebrowser window and font sizes.
+Fixes link dialog so that manually entered internal links are created in current namespace without user having
+   to specify the full namespace path to the new page.
+Adds IE 11 recognition in link.js (Trident)
