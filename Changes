@@ -1,4 +1,4 @@
-rev 14-Mar_26-21_12
+rev 14-Mar_27-22_16
 
 Initial Development distribution
 
@@ -411,3 +411,4 @@ Adjusted filebrowser window and font sizes.
 Fixes link dialog so that manually entered internal links are created in current namespace without user having
    to specify the full namespace path to the new page.
 Adds IE 11 recognition in link.js (Trident)
+Link dialog attaches manually entered internal link to selected text string in editor.

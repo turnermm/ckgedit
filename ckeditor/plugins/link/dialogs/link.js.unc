@@ -917,7 +917,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		onOk : function()
 		{
             var ImagesAllowed = new RegExp( oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions);
-          
 			var attributes = {},
 				removeAttributes = [],
 				data = {},
@@ -956,23 +955,18 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;                 
                 break;
                 case 'internal':                  
-                     var _selection = editor.getSelection();
-                     var _hasSelectedText = _selection.getSelectedText();                     
                      if(!data.url.url) {                                            
                         data.url.url=document.getElementById(fckgInternalInputId).value;
-                        if(!_hasSelectedText) { 
                             if(!data.url.url.match(/[^\w\:]/)) {
                                 var ns = top.getCurrentWikiNS() + ':';
                                 ns = ns.replace(/:$/,"");
                                 var regex = new RegExp(':?'+ ns+':');   
-                                 // alert(regex + "\n" +    data.url.url);                             
                                 if(!data.url.url.match(regex)) {           
                                      data.url.url = ns +':' + data.url.url;
                                      data.url.url = data.url.url.replace(/\:{2,}/g,':');                               
                                 }
                             }
                         }                          
-                    }                    
                      data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
                      data.url.url = data.url.url.replace(/^\:/,"");
                      data.url.url =  ':' + data.url.url.replace(/\//g,':');      
