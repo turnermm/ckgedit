@@ -1,4 +1,4 @@
-rev 14-Mar_27-22_16
+rev 14-Apr_11-12_28
 
 Initial Development distribution
 
@@ -412,3 +412,6 @@ Fixes link dialog so that manually entered internal links are created in current
    to specify the full namespace path to the new page.
 Adds IE 11 recognition in link.js (Trident)
 Link dialog attaches manually entered internal link to selected text string in editor.
+
+April 11
+Fixed filebrowser access for domain root
