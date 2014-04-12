@@ -1,4 +1,4 @@
-rev 14-Apr_11-12_28
+rev 14-Apr_11-19_28
 
 Initial Development distribution
 
@@ -415,3 +415,5 @@ Link dialog attaches manually entered internal link to selected text string in e
 
 April 11
 Fixed filebrowser access for domain root
+
+Corrected typo in meta.php

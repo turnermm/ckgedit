@@ -195,11 +195,12 @@ function check_userfiles() {
 // msg('REL='. DOKU_REL);
     if(!preg_match('#^\.\/data$#',$save_dir)) {
         $data_media = $conf['savedir']  . '/media/';
-        $domain = trim($DOKU_BASE,'/');
-        $is_domain = empty($is_domain )?true:false;  
+        
+        $domain = trim(DOKU_BASE,'/');    
+        
         $expire = null;        
   
-        if(!$is_domain) {
+        if(! empty($domain )) {
         list($prefix,$mdir) = explode(trim(DOKU_BASE, '/'),$userfiles);
         $media_dir = DOKU_BASE . $mdir . 'image/';
         }
