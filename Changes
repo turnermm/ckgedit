@@ -1,4 +1,4 @@
-rev 14-Apr_11-19_28
+rev 14-Apr_13-11_43
 
 Initial Development distribution
 
@@ -417,3 +417,6 @@ April 11
 Fixed filebrowser access for domain root
 
 Corrected typo in meta.php
+
+April 13
+Removed extra forward slash from FCK_media cookie

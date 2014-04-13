@@ -202,6 +202,7 @@ function check_userfiles() {
   
         if(! empty($domain )) {
         list($prefix,$mdir) = explode(trim(DOKU_BASE, '/'),$userfiles);
+           $mdir = ltrim($mdir, '/');
         $media_dir = DOKU_BASE . $mdir . 'image/';
         }
         else $media_dir = '/lib/plugins/ckgedit/fckeditor/userfiles/image/';        
