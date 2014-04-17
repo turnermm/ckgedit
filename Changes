@@ -1,4 +1,4 @@
-rev 14-Apr_13-11_43
+rev 14-Apr_17-15_20
 
 Initial Development distribution
 
@@ -420,3 +420,6 @@ Corrected typo in meta.php
 
 April 13
 Removed extra forward slash from FCK_media cookie
+
+17 April
+Corrected for pipe entities inserted into urls: replace(/%7c/,'%257c');
