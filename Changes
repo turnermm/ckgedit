@@ -1,4 +1,4 @@
-rev 14-Apr_17-15_20
+rev 14-Apr_22-18_46
 
 Initial Development distribution
 
@@ -423,3 +423,8 @@ Removed extra forward slash from FCK_media cookie
 
 17 April
 Corrected for pipe entities inserted into urls: replace(/%7c/,'%257c');
+
+21 April
+Fix external media urls, so that they are not corrupted
+by being mistaken for local internal media when marked up as
+media instead of as external links

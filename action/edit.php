@@ -1456,7 +1456,7 @@ function parse_wikitext(id) {
                                 media_type = m[0];
                             }
                             else media_type = 'mf';							   
-                            if(!this.attr.match(/^:/)) {      
+                            if(!this.attr.match(/^:/) && !this.attr.match(/^https?\:/)) {      
                                 this.attr = ':' + this.attr.replace(/^\s+/,"");
                             }
                             this.external_mime = true; 
