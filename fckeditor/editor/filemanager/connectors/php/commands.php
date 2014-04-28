@@ -103,6 +103,7 @@ function GetFolders( $resourceType, $currentFolder )
                             $class = 'r';                         
                        }              
                        else $class = ($_FolderClass < 8) ? 'r' : 'u';  
+                       can_delete($class);
                        if($_FolderClass) {    
  			  	           $aFolders[] = '<Folder name="' . ConvertToXmlAttribute( $sFile ) .   
                             '" class="'. $class .'" />' ;
@@ -206,6 +207,7 @@ function GetFoldersAndFiles( $resourceType, $currentFolder )
             $sfclass = $_FolderClass >= 16 ? 'u' : 'r'; 
          }
          else $sfclass = ($_FolderClass >= 8  || has_open_access()) ? 'u' : 'r'; 
+         can_delete($sfclass);
     }
     if(!$_FolderClass) return;
     $aFolders[] = '<Folder name="' . ConvertToXmlAttribute( $sFile ) .   
@@ -238,6 +240,7 @@ function GetFoldersAndFiles( $resourceType, $currentFolder )
                        }
                        else {
                               $class = ($_FolderClass < 8) ? 'r' : 'u';                        
+                              can_delete($class);                              
                        }   
                        if($_FolderClass){               
 				  	       $aFolders[] = '<Folder name="' . ConvertToXmlAttribute( $sFile ) .   
@@ -784,6 +787,11 @@ function send_ckg_UploadError($err,$sFileUrl, $file) {
        SendUploadResults( $upload_error, $sFileUrl, $file,  $msg ) ;
       
 }   
+
+function can_delete(&$class) {
+   global $_FolderClass;
+   if($_FolderClass >=16) $class = 'd'; 
+}
 
 function cmd_write_debug($what) {
 return;

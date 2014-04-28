@@ -1,4 +1,4 @@
-rev 14-Apr_22-18_46
+rev 14-Apr_28-10_46
 
 Initial Development distribution
 
@@ -428,3 +428,6 @@ Corrected for pipe entities inserted into urls: replace(/%7c/,'%257c');
 Fix external media urls, so that they are not corrupted
 by being mistaken for local internal media when marked up as
 media instead of as external links
+
+28 April
+Fix ACL delete.  Previously Upload could delete.
