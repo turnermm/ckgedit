@@ -423,7 +423,7 @@ function normalizeWIN($path) {
   
    $path = str_replace($winSearch,$winChars,$path);
    $path = str_replace('/','\\',$path);
-   $path = preg_replace('#\\\\{2,}#','\\',$path);
+  // $path = preg_replace('#\\\\{2,}#','\\',$path);
    $path = str_replace('.\\','\\',$path);
   
    return str_replace('+',' ', $path);

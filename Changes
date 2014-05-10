@@ -1,4 +1,4 @@
-rev 14-Apr_28-10_46
+rev 14-May_10-10_13
 
 Initial Development distribution
 
@@ -431,3 +431,6 @@ media instead of as external links
 
 28 April
 Fix ACL delete.  Previously Upload could delete.
+
+10 May
+Fixed bug in commands.php which removed intial slashes from Windows share paths.
