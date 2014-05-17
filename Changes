@@ -1,4 +1,4 @@
-rev 14-May_10-10_13
+rev 14-May_17-16_52
 
 Initial Development distribution
 
@@ -339,12 +339,12 @@ Removed inadvertent _FCKG_BLANK_TD_ markers inserted by 9 Dec fix
 11 Dec 
 Implemented _REMOVE_FONTS_START_. . ._REMOVE_FONTS_END macros:
 Font markup found between these macros will be removed.  The
-macros areinserted into the editor when editing and are removed together with font tags.
+macros are inserted into the editor when editing and are removed together with font tags.
 
 Moved removal of _REMOVE_FONTS_ macros to save.php (See above April 16 2013)
 
 15 Dec
-Remove ~~COMPLEX_TABLES~~ macro in save.php and disable macro checkbox if complex set in config manager
+Remove ~~COMPLEX_TABLES~~ macro in save.php and disable macro checkbox if complex set in config manager  
 
 ----------------2014----------------
 1 Jan 2014 
@@ -428,9 +428,12 @@ Corrected for pipe entities inserted into urls: replace(/%7c/,'%257c');
 Fix external media urls, so that they are not corrupted
 by being mistaken for local internal media when marked up as
 media instead of as external links
-
+ 
 28 April
 Fix ACL delete.  Previously Upload could delete.
 
 10 May
 Fixed bug in commands.php which removed intial slashes from Windows share paths.
+
+17 May
+Updated ckeditor/contents.css to better reflect dokuwiki template

@@ -5,9 +5,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 body
 {
-	/* Font */
-	font-family: Arial, Verdana, sans-serif;
-	font-size: 12px;
+    font: normal 87.5%/1.4 Arial, sans-serif;
+    /* default font size: 100% => 16px; 93.75% => 15px; 87.5% => 14px; 81.25% => 13px; 75% => 12px */
+            -webkit-text-size-adjust: 100%;
 
 	/* Text color */
 	color: #222;
@@ -25,18 +25,13 @@ ol,ul,dl
 }
 
 
-body, td, th {
-    font: 80%  "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+table {
+    border-collapse: collapse;
+    empty-cells: show;
+    border-spacing: 0;
+    border: 1px solid #ccc;
+     min-width: 40%;
 }
-
-body
-{
-	background-color: #ffffff;
-	padding: 5px 5px 5px 5px;
-	margin: 0px;
-}
-
-table {  min-width: 50%; }
 
 th, .tblheader {
   padding: 3px;
@@ -44,16 +39,26 @@ th, .tblheader {
   background-color: #dee7ec;
   font-weight: bold;
 }
-
-td {
-  padding: 3px;
-  border: 1px solid #8cacbb !important;
+caption {
+    caption-side: top;
+    text-align: left;
 }
-td
-{
-/*	font-family: Arial, Verdana, sans-serif;
-	font-size: 10pt;
-	*/
+[dir=rtl] caption {
+    text-align: right;
+}
+
+th,
+td {
+    padding: .3em .5em;
+    margin: 0;
+    vertical-align: top;
+    border: 1px solid #ccc;
+}
+
+th {
+    font-weight: bold;
+    background-color: #eee;
+    text-align: left;
 }
 
 a[href]
