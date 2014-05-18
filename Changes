@@ -1,4 +1,4 @@
-rev 14-May_17-16_52
+rev 14-May_18-08_26
 
 Initial Development distribution
 
@@ -437,3 +437,5 @@ Fixed bug in commands.php which removed intial slashes from Windows share paths.
 
 17 May
 Updated ckeditor/contents.css to better reflect dokuwiki template
+18 May
+additional css updates

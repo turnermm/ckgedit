@@ -103,8 +103,15 @@ tt,
 code,
 samp,
 kbd {
-    background-color: #eee;
+ font-family: Consolas, "Andale Mono WT", "Andale Mono", "Bitstream Vera Sans Mono", "Nimbus Mono L", Monaco, "Courier New", monospace;
+    /* same font stack should be used for ".dokuwiki table.diff td" in _diff.css */
+    font-size: 1em;
+    direction: ltr;
+    text-align: left;
+    background-color: "#fbfaf9;
     color: #333;
+    box-shadow: inset 0 0 .3em #ccc;
+    border-radius: 2px;
 }
 /* fix if background-color hides underlining */
 em.u code {
@@ -123,6 +130,25 @@ pre {
 dl.code,
 dl.file {	
 }
+pre {
+    overflow: auto;
+    word-wrap: normal;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: inset 0 0 .5em #ccc;
+    padding: .7em 1em;
+   background-color: #fbfaf9 !important;
+}
+
+ dl.code dt a,
+ dl.file dt a {
+    background-color: transparent;
+    font-size: 0.875em;
+    font-weight: normal;
+    display: block;
+    min-height: 16px;
+    color: #2b73b7 !important;
+}
 
 dl.code dt,
 dl.file dt {
@@ -138,15 +164,7 @@ dl.file dt {
     margin-left:0px;
     float: left;
 }
-/*
-dl.code dt a,
-dl.file dt a {
-    background-color: transparent;
-    font-size: 0.875em;
-    font-weight: normal;
-    display: block;
-}
-*/
+
 dl.code dd,
 dl.file dd {
     margin: 0;
@@ -512,25 +530,6 @@ a.interwiki {
     text-decoration: none !important;
 }    
 
-pre {
-    overflow: auto;
-    word-wrap: normal;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    box-shadow: inset 0 0 .5em #ccc;
-    padding: .7em 1em;
-   background-color: #fbfaf9 !important;
-}
-
- dl.code dt a,
- dl.file dt a {
-    background-color: transparent;
-    font-size: 0.875em;
-    font-weight: normal;
-    display: block;
-    min-height: 16px;
-    color: #2b73b7 !important;
-}
 
  dl.code dd,
  dl.file dd {
@@ -544,10 +543,7 @@ pre {
     clear: right;
 }
 
-dl.code pre,
-dl.file pre {
-    box-shadow: inset -4px -4px .5em -.3em #ccc;
-}
+
 
 
 
