@@ -213,7 +213,9 @@ function check_userfiles() {
          $data_media = DOKU_INC.'data/media/';
      }
      
+     if($this->getConf('winstyle')) return;    
      if(!is_writable($userfiles)){
+              msg("ckgedit cannot write to $userfiles. Please check the permissions.");
 		      return;
      }		   
 	$version = io_readFile(DOKU_PLUGIN . 'ckgedit/version');
