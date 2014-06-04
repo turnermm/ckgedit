@@ -293,14 +293,14 @@ a.interwiki {
 }
 
 a.windows {
-  background: transparent url(images/windows.gif) 0px 1px no-repeat;
+  background: transparent url(images/unc.png) 0px 1px no-repeat;
   padding: 1px 0px 1px 16px;
   color: #436976 !important;
   text-decoration: none !important;
 }
 
 a.urlextern {
- background: transparent url(images/link_icon.gif) 0px 1px no-repeat;
+ background: transparent url(images/external-link.png) 0px 1px no-repeat;
  padding: 1px 0px 1px 16px;
  color: #436976 !important;
  text-decoration: none !important;

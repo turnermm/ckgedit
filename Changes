@@ -1,4 +1,4 @@
-rev 14-Jun_03-07_46
+rev 14-Jun_04-14_15
 
 Initial Development distribution
 
@@ -442,3 +442,6 @@ additional css updates
 
 3 June
 Warning msg if userfiles is not writable. By-pass link creation if winstyle is true.
+
+4 June
+Updaated some url icons in editor window
