@@ -214,8 +214,8 @@ function check_userfiles() {
      }
      
      if($this->getConf('winstyle')) return;    
-     if(!is_writable($userfiles)){
-              msg("ckgedit cannot write to $userfiles. Please check the permissions.");
+     if(!is_readable($userfiles) && !is_writable($userfiles)){
+              msg("ckgedit cannot access $userfiles. Please check the permissions.");
 		      return;
      }		   
 	$version = io_readFile(DOKU_PLUGIN . 'ckgedit/version');

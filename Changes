@@ -1,4 +1,4 @@
-rev 14-Jun_04-14_15
+rev 14-Jun_06-14_00
 
 Initial Development distribution
 
@@ -445,3 +445,6 @@ Warning msg if userfiles is not writable. By-pass link creation if winstyle is t
 
 4 June
 Updaated some url icons in editor window
+
+6 June
+Check userfiles readable as well as writable in meta.php
