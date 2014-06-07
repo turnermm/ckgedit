@@ -1,4 +1,4 @@
-rev 14-Jun_06-14_00
+rev 14-Jun_06-21_15
 
 Initial Development distribution
 
@@ -448,3 +448,4 @@ Updaated some url icons in editor window
 
 6 June
 Check userfiles readable as well as writable in meta.php
+Remove newlines from table cells in edit.php preprocessor
