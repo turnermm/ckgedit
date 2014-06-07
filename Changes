@@ -1,4 +1,4 @@
-rev 14-Jun_06-21_15
+rev 14-Jun_07-13_05
 
 Initial Development distribution
 
@@ -449,3 +449,6 @@ Updaated some url icons in editor window
 6 June
 Check userfiles readable as well as writable in meta.php
 Remove newlines from table cells in edit.php preprocessor
+
+7 June
+Deleted regex that removes newlines from tables; poor functioning
