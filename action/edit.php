@@ -2605,11 +2605,6 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
                 return null;
             }
         }
-        $text = preg_replace_callback('/\|.*?\|/ms',
-                 create_function(
-                   '$matches',                    
-                    'return preg_replace("#\\\\\s*\n#ms", "\\\\ ",$matches[0]);'
-         ),$text);      
         
         // prevents utf8 conversions of quotation marks
          $text = str_replace('"',"_ckgedit_QUOT_",$text);        
