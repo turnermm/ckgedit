@@ -1,4 +1,4 @@
-rev 14-Jun_07-15_12
+rev 14-Jun_09-20_09
 
 Initial Development distribution
 
@@ -452,3 +452,8 @@ Remove newlines from table cells in edit.php preprocessor
 
 7 June
 Deleted regex that removes newlines from tables; poor functioning
+
+9 June
+Fixed switch from ckgedit to dwedit so that it doesn't automatically save file
+and insert new entry in Old Revisions.  Also added refactored version of
+code that removes newlines from table cells which hold wrap containerss.

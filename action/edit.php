@@ -574,7 +574,7 @@ $DW_EDIT_hide = $this->dw_edit_displayed();
                  <?php echo $DW_EDIT_disabled; ?>                 
                  <?php echo $DW_EDIT_hide; ?>
                  style = "font-size: 100%;"
-                 onclick ="setDWEditCookie(2, this);parse_wikitext('edbtn__save');this.form.submit();" 
+                 onclick ="setDWEditCookie(2, this);parse_wikitext('edbtn__dwedit');this.form.submit();" 
                  type="submit" name="do[save]" value="<?php echo $ckgedit_lang['btn_dw_edit']?>"  
                  title="<?php echo $ckgedit_lang['title_dw_edit']?>"
                   />
@@ -780,6 +780,9 @@ RegExp.escape = function(str)
 
 var HTMLParser_DEBUG = "";
 function parse_wikitext(id) {
+    if(id == 'edbtn__dwedit' && !window.dwfckTextChanged)  {
+       ckgedit_dwedit_reject=true;       
+    }
     if(ckgedit_dwedit_reject) {
           var dom =  GetE('ebut_cancel');  
           dom.click();
@@ -2470,7 +2473,8 @@ function parse_wikitext(id) {
       return;
    }
     if(id) {
-       var dom =  GetE(id);
+      if(id == 'edbtn__dwedit') id = 'edbtn__save';
+      var dom =  GetE(id);
       dom.click();
       return true;
     }
@@ -2605,6 +2609,14 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
                 return null;
             }
         }
+// aimed at wrap plugin which allows multiple newlines in a cell
+$text = preg_replace_callback(
+    '#(\|.*?)\|.?[\n\r]#ms',
+        function ($matches) {
+            $matches[0] = preg_replace("#\\\\\\\\\s*[\r\n]#ms", "  \\\\\\\\  ",$matches[0]);
+            return ($matches[0]);
+        },
+    $text);    
         
         // prevents utf8 conversions of quotation marks
          $text = str_replace('"',"_ckgedit_QUOT_",$text);        
