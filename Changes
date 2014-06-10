@@ -1,4 +1,4 @@
-rev 14-Jun_09-20_09
+rev 14-Jun_10-18_25
 
 Initial Development distribution
 
@@ -457,3 +457,6 @@ Deleted regex that removes newlines from tables; poor functioning
 Fixed switch from ckgedit to dwedit so that it doesn't automatically save file
 and insert new entry in Old Revisions.  Also added refactored version of
 code that removes newlines from table cells which hold wrap containerss.
+
+10 June
+Removed new ckgedit to dwedit switch; causes return _false_ in Chrome

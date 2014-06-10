@@ -574,7 +574,7 @@ $DW_EDIT_hide = $this->dw_edit_displayed();
                  <?php echo $DW_EDIT_disabled; ?>                 
                  <?php echo $DW_EDIT_hide; ?>
                  style = "font-size: 100%;"
-                 onclick ="setDWEditCookie(2, this);parse_wikitext('edbtn__dwedit');this.form.submit();" 
+                 onclick ="setDWEditCookie(2, this);parse_wikitext('edbtn__save');this.form.submit();" 
                  type="submit" name="do[save]" value="<?php echo $ckgedit_lang['btn_dw_edit']?>"  
                  title="<?php echo $ckgedit_lang['title_dw_edit']?>"
                   />
@@ -780,9 +780,6 @@ RegExp.escape = function(str)
 
 var HTMLParser_DEBUG = "";
 function parse_wikitext(id) {
-    if(id == 'edbtn__dwedit' && !window.dwfckTextChanged)  {
-       ckgedit_dwedit_reject=true;       
-    }
     if(ckgedit_dwedit_reject) {
           var dom =  GetE('ebut_cancel');  
           dom.click();
@@ -2473,7 +2470,6 @@ function parse_wikitext(id) {
       return;
    }
     if(id) {
-      if(id == 'edbtn__dwedit') id = 'edbtn__save';
       var dom =  GetE(id);
       dom.click();
       return true;
