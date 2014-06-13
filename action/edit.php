@@ -544,6 +544,11 @@ if(($guest_user || $guest_group) && $guest_perm <= 2) $DW_EDIT_disabled = 'disab
 
 $DW_EDIT_hide = $this->dw_edit_displayed(); 
 
+$is_ckgeditChrome = false;
+ if(stripos($_SERVER['HTTP_USER_AGENT'],'Chrome') !== false) {
+      $is_ckgeditChrome =true;
+} 
+
 ?>
 
     <div id="wiki__editbar">
@@ -569,7 +574,7 @@ $DW_EDIT_hide = $this->dw_edit_displayed();
             />
 
             <input type="checkbox" name="ckgedit" value="ckgedit" style="display: none"/>
-             
+             <?php if(!$is_ckgeditChrome): ?> 
              <input class="button"  
                  <?php echo $DW_EDIT_disabled; ?>                 
                  <?php echo $DW_EDIT_hide; ?>
@@ -578,14 +583,13 @@ $DW_EDIT_hide = $this->dw_edit_displayed();
                  type="submit" name="do[save]" value="<?php echo $ckgedit_lang['btn_dw_edit']?>"  
                  title="<?php echo $ckgedit_lang['title_dw_edit']?>"
                   />
-
+             <?php endif; ?>
 <?php
- 
 global $INFO;
 
   $disabled = 'Disabled';
   $inline = $this->test ? 'inline' : 'none';
-
+  $chrome_dwedit_link =  '<a href="doku.php?id=' . $INFO['id']. '&do=edit&mode=dwiki&fck_preview_mode=nil" ' . 'onclick="draft_delete();"class="action edit" rel="nofollow" title="DW Edit"><span>DW Edit</span></a>';
   $backup_btn = isset($ckgedit_lang['dw_btn_backup'])? $ckgedit_lang['dw_btn_backup'] : $ckgedit_lang['dw_btn_refresh'];
   $backup_title = isset($ckgedit_lang['title_dw_backup'])? $ckgedit_lang['title_dw_backup'] : $ckgedit_lang['title_dw_refresh'];   
   $using_scayt = ($this->getConf('scayt')) == 'on';
@@ -631,6 +635,11 @@ global $INFO;
                    onclick="revert_to_prev()"  
                   />&nbsp;&nbsp;&nbsp;
               
+
+
+<?php                  
+if($is_ckgeditChrome) echo $chrome_dwedit_link;
+?>
  <br />
 
  <?php }  ?>

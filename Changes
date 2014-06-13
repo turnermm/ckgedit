@@ -1,4 +1,4 @@
-rev 14-Jun_10-18_25
+rev 14-Jun_12-19_16
 
 Initial Development distribution
 
@@ -460,3 +460,13 @@ code that removes newlines from table cells which hold wrap containerss.
 
 10 June
 Removed new ckgedit to dwedit switch; causes return _false_ in Chrome
+
+10 June
+redid dwedit switch and set alternate dwedit button for Chrome, which
+is only browser where it fails.
+
+11 June
+removed above
+
+12 June
+Substituted action link for DW Edit Button in Chrome.
