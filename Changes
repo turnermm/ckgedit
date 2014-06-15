@@ -1,4 +1,4 @@
-rev 14-Jun_14-19_25
+rev 14-Jun_15-11_45
 
 Initial Development distribution
 
@@ -472,4 +472,7 @@ removed above
 Substituted action link for DW Edit Button in Chrome.
 
 14 June
-Moved end of HTML in edit.php above the major javascript container beginning at about line 710 of edit.php. Improves download peerformance.
+Moved end of HTML in edit.php above the major javascript container beginning at about line 710 of edit.php. Improves download performance.
+
+15 June
+Linted and compressed ckeditor/contents.css; updated fileicons to dokuwiki template.

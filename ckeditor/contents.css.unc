@@ -1,0 +1,551 @@
+/*
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+body
+{
+    font: normal 87.5%/1.4 Arial, sans-serif;
+    /* default font size: 100% => 16px; 93.75% => 15px; 87.5% => 14px; 81.25% => 13px; 75% => 12px */
+            -webkit-text-size-adjust: 100%;
+ 
+	/* Text color */
+	color: #222;
+
+	/* Remove the background color to make it transparent */
+	background-color: #fff;
+}
+
+ol,ul,dl
+{	
+	margin-right:0px;
+	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
+    padding:0 40px;
+}
+
+
+table {
+    border-collapse: collapse;
+    empty-cells: show;
+    border-spacing: 0;
+    border: 1px solid #ccc;
+     min-width: 40%;
+}
+
+th, .tblheader {
+  padding: 3px;
+  border: 1px solid #8cacbb !important;
+  background-color: #dee7ec;
+  font-weight: bold;
+}
+caption {
+    caption-side: top;
+    text-align: left;
+}
+[dir=rtl] caption {
+    text-align: right;
+}
+
+th,
+td {
+    padding: .3em .5em;
+    margin: 0;
+    vertical-align: top;
+    border: 1px solid #ccc;
+}
+
+th {
+    font-weight: bold;
+    background-color: #eee;
+    text-align: left;
+}
+
+a[href]
+{
+/*	color: -moz-hyperlinktext !important;	*/	/* For Firefox... mark as important, otherwise it becomes black */
+/*	text-decoration: -moz-anchor-decoration; */	/* For Firefox 3, otherwise no underline will be used */
+}
+
+/*
+	Just uncomment the following block if you want to avoid spaces between
+	paragraphs. Remember to apply the same style in your output front end page.
+*/
+
+/*
+p, ul, li
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+*/
+
+/*
+    The following are some sample styles used in the "Styles" toolbar command.
+    You should instead remove them, and include the styles used by the site
+    you are using the editor in.
+*/
+
+.Bold
+{
+	font-weight: bold;
+}
+
+.Title
+{
+	font-weight: bold;
+	font-size: 18px;
+	color: #cc3300;
+}
+
+pre,
+tt,
+code,
+samp,
+kbd {
+ font-family: Consolas, "Andale Mono WT", "Andale Mono", "Bitstream Vera Sans Mono", "Nimbus Mono L", Monaco, "Courier New", monospace;
+    /* same font stack should be used for ".dokuwiki table.diff td" in _diff.css */
+    font-size: 1em;
+    direction: ltr;
+    text-align: left;
+    background-color: #fbfaf9;
+    color: #333;
+    box-shadow: inset 0 0 .3em #ccc;
+    border-radius: 2px;
+}
+/* fix if background-color hides underlining */
+em.u code {
+    text-decoration: underline;
+}
+
+/*code new tmpl  start*/
+pre {
+    border: 1px solid #ccc;
+    padding: .75em 1em;
+  
+}
+
+/* for code in <file> */
+
+/* filenames for downloadable file and code blocks */
+dl.code,
+dl.file {	
+}
+pre {
+    overflow: auto;
+    word-wrap: normal;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: inset 0 0 .5em #ccc;
+    padding: .7em 1em;
+   background-color: #fbfaf9 !important;
+}
+
+ dl.code dt a,
+ dl.file dt a {
+    background-color: transparent;
+    font-size: 0.875em;
+    font-weight: normal;
+    display: block;
+    min-height: 16px;
+    color: #2b73b7 !important;
+}
+
+dl.code dt,
+dl.file dt {
+    background-color: #fbfaf9; 
+    color: inherit;
+    border: 1px solid #ccc;
+    border-bottom-color: #fbfaf9;
+    border-top-left-radius: .3em;
+    border-top-right-radius: .3em;
+    padding: .3em .6em .1em; 
+    padding-bottom: 1px;
+    margin-bottom: -1px;
+    margin-left:0px;
+    float: left;
+}
+
+dl.code dd,
+dl.file dd {
+    margin: 0;
+    clear: left;
+     background-color: #fbfaf9; 
+}
+/* Code new tmpl ends */
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+caption,
+legend {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    background-color: inherit;
+    padding: 0;
+    line-height: 1.2;
+    clear: left; /* ideally 'both', but problems with toc */
+}
+
+img.baseline {
+  vertical-align:bottom;
+  text-align:left;
+  display:block;
+  border: 0;
+  margin: 3px;
+}
+
+/* image alignment */
+.medialeft {
+    float: left;
+}
+.mediaright {
+    float: right;
+}
+.mediacenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+img.media {
+    margin: .2em 0;
+}
+img.medialeft {
+    margin: .2em 1em .2em 0;
+}
+img.mediaright {
+    margin: .2em 0 .2em 1em;
+}
+img.mediacenter {
+    margin: .2em auto;
+}
+
+
+.leftalign {text-align: left;}
+.centeralign {text-align: center;}
+.rightalign {text-align: right;}
+
+
+div.footnotes {
+  clear: both;
+  border-top: 1px solid black;
+  padding-left: 1em;
+  margin-top: 1em;
+}
+        
+div.fn {
+  font-size: 90%;
+}
+  
+a.fn_bot {
+ font-weight: bold;
+}
+
+/*____________ lists ____________*/
+
+ul,
+ol {
+    padding: 0 0 0 1.5em;
+}
+li,
+dd {
+    padding: 0;
+    margin: 0 0 0 1.5em;
+}
+dt {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+li ul,
+li ol,
+li dl,
+dl ul,
+dl ol,
+dl dl {
+    margin-bottom: 0;
+    padding: 0;
+}
+li li {
+    font-size: 100%;
+}
+
+ul             { list-style: square outside; }
+ol             { list-style: decimal outside; }
+ol ol          { list-style-type: lower-alpha; }
+ol ol ol       { list-style-type: upper-roman; }
+ol ol ol ol    { list-style-type: upper-alpha; }
+ol ol ol ol ol { list-style-type: lower-roman; }
+
+
+a.urlextern,
+a.windows,
+a.mail,
+a.mediafile,
+a.interwiki {
+    background-repeat: no-repeat;
+    background-position: 0 center;
+    padding: 0 0 0 20px;
+}
+
+a.windows {
+  background: transparent url(images/unc.png) 0px 1px no-repeat;
+  padding: 1px 0px 1px 16px;
+  color: #436976 !important;
+  text-decoration: none !important;
+}
+
+a.urlextern {
+ background: transparent url(images/external-link.png) 0px 1px no-repeat;
+ padding: 1px 0px 1px 16px;
+ color: #436976 !important;
+ text-decoration: none !important;
+}
+
+
+a.wikilink2:link,
+a.wikilink2:visited {
+    border-bottom: 1px dashed;
+}
+a.wikilink2:hover,
+a.wikilink2:active,
+a.wikilink2:focus {
+    border-bottom-width: 0;
+}
+
+
+
+a.wikilink2 {
+  color: red !important;
+  text-decoration: none !important;
+}
+
+
+a.wikilink1 {
+  color: green !important;
+  text-decoration: none !important;  
+}
+                
+span.np_break {
+  line-height: 50%;
+  border:0px;
+  padding:0px;
+  margin:0px;
+}
+
+
+/* syntax highlighting code */
+.code .br0  { color: #66cc66; }
+.code .co0  { color: #808080; font-style: italic; }
+.code .co1  { color: #808080; font-style: italic; }
+.code .co2  { color: #808080; font-style: italic; }
+.code .co3  { color: #808080; }
+.code .coMULTI  { color: #808080; font-style: italic; }
+.code .es0  { color: #000099; font-weight: bold; }
+.code .kw1  { color: #b1b100; }
+.code .kw2  { color: #000000; font-weight: bold; }
+.code .kw3  { color: #000066; }
+.code .kw4  { color: #993333; }
+.code .kw5  { color: #0000ff; }
+.code .me1  { color: #006600; }
+.code .me2  { color: #006600; }
+.code .nu0  { color: #cc66cc; }
+.code .re0  { color: #0000ff; }
+.code .re1  { color: #0000ff; }
+.code .re2  { color: #0000ff; }
+.code .re3  { color: #ff3333; font-weight:bold; }
+.code .re4  { color: #009999; }
+.code .st0  { color: #ff0000; }
+.code .sy0  { color: #66cc66; }
+
+a.mediafile {
+    background: url(images/fileicons/file.png) no-repeat scroll 0 1px transparent;
+    padding-bottom: 1px;
+    padding-left: 18px;
+    color: #436976 !important;
+    text-decoration: none !important;
+}
+
+/* email link */
+a.mail {
+  background: transparent url(images/mail_icon.gif) 0px 1px no-repeat;
+  padding: 1px 0px 1px 16px;
+  color: #436976 !important;
+  text-decoration: none !important;
+}
+
+a.mf_gz {
+    background-image: url(images/fileicons/gz.png);
+}
+a.mf_csv {
+    background-image: url(images/fileicons/csv.png);
+}
+a.mf_gif {
+    background-image: url(images/fileicons/gif.png);
+}
+
+a.mf_png {
+    background-image: url(images/fileicons/png.png);
+}
+
+a.mf_txt {
+    background-image: url(images/fileicons/txt.png);
+}
+a.mf_tar {
+    background-image: url(images/fileicons/tar.png);
+}
+a.mf_jpg {
+    background-image: url(images/fileicons/jpg.png);
+}
+
+a.mf_xml {
+    background-image: url(images/fileicons/xml.png);
+}
+a.mf_c {
+    background-image: url(images/fileicons/c.png);
+}
+a.mf_ppt {
+    background-image: url(images/fileicons/ppt.png);
+}
+a.mf_conf {
+    background-image: url(images/fileicons/conf.png);
+}
+
+a.mf_xls {
+    background-image: url(images/fileicons/xls.png);
+}
+a.mf_doc {
+    background-image: url(images/fileicons/doc.png);
+}
+
+a.mf_php {
+    background-image: url(images/fileicons/php.png);
+}
+a.mf_cs {
+    background-image: url(images/fileicons/cs.png);
+}
+a.mf_pdf {
+    background-image: url(images/fileicons/pdf.png);
+}
+
+a.mf_odc {
+    background-image: url(images/fileicons/odg.png);
+}
+a.mf_cpp {
+    background-image: url(images/fileicons/cpp.png);
+}
+a.mf_sql {
+    background-image: url(images/fileicons/sql.png);
+}
+
+a.mf_bz2 {
+    background-image: url(images/fileicons/bz2.png);
+}
+
+a.mf_zip {
+    background-image: url(images/fileicons/zip.png);
+}
+a.mf_deb {
+    background-image: url(images/fileicons/deb.png);
+}
+a.mf_jpeg {
+    background-image: url(images/fileicons/jpeg.png);
+}
+a.mf_odg {
+    background-image: url(images/fileicons/odg.png);
+}
+a.mf_py {
+    background-image: url(images/fileicons/py.png);
+}
+a.mf_js {
+    background-image: url(images/fileicons/js.png);
+}
+a.mf_java {
+    background-image: url(images/fileicons/java.png);
+}
+a.mf_htm {
+    background-image: url(images/fileicons/htm.png);
+}
+
+a.mf_odt {
+    background-image: url(images/fileicons/odt.png);
+}
+a.mf_rtf {
+    background-image: url(images/fileicons/rtf.png);
+}
+a.mf_odf {
+    background-image: url(images/fileicons/odg.png);
+}
+a.mf_css {
+    background-image: url(images/fileicons/css.png);
+}
+a.mf_docx {
+    background-image: url(images/fileicons/docx.png);
+}
+a.mf_xlsx {
+    background-image: url(images/fileicons/xlsx.png);
+}
+a.mf_odp {
+    background-image: url(images/fileicons/odg.png);
+}
+a.mf_rar {
+    background-image: url(images/fileicons/rar.png);
+}
+a.mf_tgz {
+    background-image: url(images/fileicons/tgz.png);
+}
+a.mf_7z {
+    background-image: url(images/fileicons/7z.png);
+}
+a.mf_html {
+    background-image: url(images/fileicons/html.png);
+}
+a.mf_pl {
+    background-image: url(images/fileicons/pl.png);
+}
+a.mf_rpm {
+    background-image: url(images/fileicons/rpm.png);
+}
+a.mf_ps {
+    background-image: url(images/fileicons/ps.png);
+}
+
+a.mf_swf {
+    background-image: url(images/fileicons/swf.png);
+}
+
+a.mf_epub {
+    background-image: url(images/fileicons/epub.png);
+}
+
+a.interwiki {
+    background: url(images/fileicons/wp.gif) no-repeat scroll 0 1px transparent;
+    padding-bottom: 1px;
+    padding-left: 18px;
+    color: #436976 !important;
+    text-decoration: none !important;
+}    
+
+
+ dl.code dd,
+ dl.file dd {
+    margin: 0;
+    clear: left;
+    min-height: 1px; /* for IE7 */
+}
+
+[dir=rtl] .dokuwiki dl.code dd,
+[dir=rtl] .dokuwiki dl.file dd {
+    clear: right;
+}
+
+
+
+
+
+
+    
