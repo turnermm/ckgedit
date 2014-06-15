@@ -1,4 +1,4 @@
-rev 14-Jun_12-19_16
+rev 14-Jun_14-19_25
 
 Initial Development distribution
 
@@ -470,3 +470,6 @@ removed above
 
 12 June
 Substituted action link for DW Edit Button in Chrome.
+
+14 June
+Moved end of HTML in edit.php above the major javascript container beginning at about line 710 of edit.php. Improves download peerformance.
