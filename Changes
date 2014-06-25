@@ -1,4 +1,4 @@
-rev 14-Jun_15-11_45
+rev 14-Jun_25-12_31
 
 Initial Development distribution
 
@@ -476,3 +476,6 @@ Moved end of HTML in edit.php above the major javascript container beginning at 
 
 15 June
 Linted and compressed ckeditor/contents.css; updated fileicons to dokuwiki template.
+
+25 June
+Removed parse_wiki() from edit.php; now loaded from scripts/parse_wiki-cmpr.js, speeds up loading into browser.
