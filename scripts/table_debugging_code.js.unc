@@ -1,0 +1,51 @@
+     var this_debug;
+     
+    function show_rowspans(rows) {
+    
+    if(!useComplexTables) return;   
+    var str = "";
+ 
+    for(var i=0; i < rows.length; i++) {     
+       str+="ROW" + i + "\n"; 
+
+              for(var col=0; col<rows[i].length; col++) {                                  
+                           str += "[" + col + "]";
+                           str+=   "text="+rows[i][col].text + " ";           
+                           str+="  type="+rows[i][col].type + " ";           
+                           str+= "  rowspan=" +rows[i][col].rowspan + "  ";                      
+                           str+= "  colspan=" +rows[i][col].colspan + "  ";                      
+              }   
+              str += "\n";
+        }
+ 
+     
+       this_debug(str,'show_rowspans');
+        
+         str = "";
+       for(var i=0; i < rows.length; i++) {
+              for(var col=0; col<rows[i].length; col++) {                          
+                    str+=   "|"+rows[i][col].text + " ";
+              }
+              str += "|\n";
+        }
+        this_debug(str,'show_rowspans');
+        
+    }     
+    
+    function debug_row(rows,row,col,which) {
+
+    var not_found = "";
+    try {
+         this_debug("row:"+row
+                         +",column:"+col
+                         +", rowspans:"+ rows[row][col].rowspan
+                         +", colspans:"+ rows[row][col].colspan                         
+                         +", text:"+rows[row][col].text,                         
+                         which);
+        }catch(ex) {
+            not_found+="row:"+row +",column:"+col;
+        }
+        if(not_found) this_debug(not_found,"not_found");
+    }
+    <?php } ?>
+

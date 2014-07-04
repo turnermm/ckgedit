@@ -1,4 +1,4 @@
-rev 14-Jun_25-12_31
+rev 14-Jun_26-12_23
 
 Initial Development distribution
 
@@ -479,3 +479,6 @@ Linted and compressed ckeditor/contents.css; updated fileicons to dokuwiki templ
 
 25 June
 Removed parse_wiki() from edit.php; now loaded from scripts/parse_wiki-cmpr.js, speeds up loading into browser.
+
+26 June
+Removed complex tables debugging code from parse_wiki() in parse_wiki-cmpr.js
