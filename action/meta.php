@@ -461,6 +461,10 @@ SCRIPT;
   global $ACT;
 
   $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';
+  if($ACT == 'login'  && $this->getConf('preload_ckeditorjs')) {
+     $url2 = DOKU_BASE.'lib/plugins/ckgedit/ckeditor/ckeditor.js';
+  }
+  else $url2 = "0";
   echo <<<SCRIPT
 
     <script type="text/javascript">
@@ -474,7 +478,9 @@ SCRIPT;
     catch (ex) {  
          LoadScript("$url");        
     }             
-
+    if("$url2") {
+       LoadScript("$url2");        
+    }
     function createRequestValue() {
         try{
         var inputNode=document.createElement('input');

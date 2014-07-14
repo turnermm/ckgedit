@@ -1,4 +1,4 @@
-rev 14-Jun_26-12_23
+rev 14-Jul_14-07_19
 
 Initial Development distribution
 
@@ -482,3 +482,6 @@ Removed parse_wiki() from edit.php; now loaded from scripts/parse_wiki-cmpr.js, 
 
 26 June
 Removed complex tables debugging code from parse_wiki() in parse_wiki-cmpr.js
+ 
+14 July
+Option to preload ckeditor javascript at login to speed up subsequent loading of editor.

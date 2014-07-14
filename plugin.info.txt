@@ -1,7 +1,7 @@
 base  ckgedit
 author  Myron Turner
 email  turnermm02@shaw.ca
-date  2014-06-26
+date  2014-07-14
 name  ckgedit
 desc  WYSIWYG plugin for Dokuwiki
 url  http://www.mturner.org/fckgLite

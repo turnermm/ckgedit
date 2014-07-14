@@ -27,3 +27,4 @@ $meta['other_lang'] = array('multichoice','_choices' => array('default','af','ar
                                                              'de','el','en-au','en-ca','en-gb','en','eo','es','et','eu','fa','fi','fo','fr-ca','fr','gl','gu','he','hi','hr','hu',
                                                              'is','it','ja','ka','km','ko','ku','lt','lv','mk','mn','ms','nb','nl','no','pl','pt-br','pt','ro','ru','sk','sl','sr',
                                                              'sr-latn','sv','th','tr','ug','uk','vi','zh-cn','zh'));
+$meta['preload_ckeditorjs']  = array('onoff'); 
