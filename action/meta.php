@@ -455,7 +455,7 @@ SCRIPT;
  *    1. load script, if not loaded
  *    2. Re-label Cancel Button "Exit" when doing a preview  
  *    3. set up $REQUEST value to identify a preview when in DW Edit , used in 
- *       set_session to remove ckgeditLite and DW drafts if present after a DW preview  
+ *       set_session to remove ckgedit and DW drafts if present after a DW preview  
 */
   function setupDWEdit(&$event) {
   global $ACT;
@@ -464,7 +464,7 @@ SCRIPT;
   if($ACT == 'login'  && $this->getConf('preload_ckeditorjs')) {
      $url2 = DOKU_BASE.'lib/plugins/ckgedit/ckeditor/ckeditor.js';
   }
-  else $url2 = "0";
+  else $url2 = "";
   echo <<<SCRIPT
 
     <script type="text/javascript">

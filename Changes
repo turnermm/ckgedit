@@ -1,4 +1,4 @@
-rev 14-Jul_14-07_19
+rev 14-Jul_15-07_44
 
 Initial Development distribution
 
@@ -485,3 +485,6 @@ Removed complex tables debugging code from parse_wiki() in parse_wiki-cmpr.js
  
 14 July
 Option to preload ckeditor javascript at login to speed up subsequent loading of editor.
+
+15 July
+Changed preload test to empty string instead of string 0
