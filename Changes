@@ -1,4 +1,4 @@
-rev 14-Jul_15-07_44
+rev 14-Jul_17-08_09
 
 Initial Development distribution
 
@@ -488,3 +488,7 @@ Option to preload ckeditor javascript at login to speed up subsequent loading of
 
 15 July
 Changed preload test to empty string instead of string 0
+
+17 July
+Revised Chrome's "DW Edit" link to set cookie for switching between editors, with do=show instead of do=edit, making it consistent
+with behavior of other browsers.

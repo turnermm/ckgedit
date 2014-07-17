@@ -589,7 +589,8 @@ global $INFO;
 
   $disabled = 'Disabled';
   $inline = $this->test ? 'inline' : 'none';
-  $chrome_dwedit_link =  '<a href="doku.php?id=' . $INFO['id']. '&do=edit&mode=dwiki&fck_preview_mode=nil" ' . 'onclick="draft_delete();"class="action edit" rel="nofollow" title="DW Edit"><span>DW Edit</span></a>';
+  //$chrome_dwedit_link =  '<a href="doku.php?id=' . $INFO['id']. '&do=show&mode=dwiki&fck_preview_mode=nil" ' . 'onclick="draft_delete();setDWEditCookie(2, this);"class="action edit" rel="nofollow" title="DW Edit"><span>DW Edit</span></a>';
+  $chrome_dwedit_link =  '<a href="doku.php?id=' . $INFO['id']. '&do=show" ' . 'onclick="draft_delete();setDWEditCookie(2);"class="action edit" rel="nofollow" title="DW Edit"><span>DW Edit</span></a>';
   $backup_btn = isset($ckgedit_lang['dw_btn_backup'])? $ckgedit_lang['dw_btn_backup'] : $ckgedit_lang['dw_btn_refresh'];
   $backup_title = isset($ckgedit_lang['title_dw_backup'])? $ckgedit_lang['title_dw_backup'] : $ckgedit_lang['title_dw_refresh'];   
   $using_scayt = ($this->getConf('scayt')) == 'on';
