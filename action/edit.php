@@ -825,7 +825,11 @@ var HTMLParser_DEBUG = "";
 <?php  
    $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';    
   echo "var script_url = '$url';";
-  $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
+  if($this->test) {
+     $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc';
+  }
+  else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
+  
   echo "var parse_url = '$parse_url';";
 //  $safe_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js';       
 ?>
@@ -861,6 +865,13 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
      */
     function _render_xhtml($text){
         $mode = 'ckgedit';
+
+        $text = preg_replace_callback('/(\[\[\w+>)(.*?)([\]\|])/ms',
+             create_function(
+               '$matches',              
+               '  //if(preg_match("/^\w+$/",$matches[2])) return $matches[0];
+                return $matches[1] . "oIWIKIo" . $matches[2] ."cIWIKIc" . $matches[3] ;' 
+          ), $text); 
 
        global $Smilies;
        $smiley_as_text = @$this->getConf('smiley_as_text');
@@ -992,6 +1003,27 @@ $text = preg_replace_callback(
         trigger_event('RENDERER_CONTENT_POSTPROCESS',$data);
         $xhtml = $Renderer->doc;
 
+         if(strpos($xhtml,'oIWIKIo') !== false) {
+            $xhtml = preg_replace_callback(
+                '/(.)oIWIKIo(.*?)cIWIKIc/ms',
+                 create_function(
+                   '$matches',              
+                   ' if(preg_match("/^\w+$/",$matches[2]) && $matches[1] == "/")  return "/". $matches[2];
+                     return $matches[0];'               
+              ),        
+              $xhtml              
+            );  
+            $xhtml = preg_replace_callback(
+                '/>oIWIKIo(.*?)cIWIKIc(?=<\/a>)/ms',
+                 create_function(
+                   '$matches',              
+                   ' return ">". $matches[1] ;'               
+              ),        
+              $xhtml              
+            );              
+            
+           }
+           
         $pos = strpos($xhtml, 'MULTI_PLUGIN_OPEN');
         if($pos !== false) {
            $xhtml = preg_replace('/MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE/ms', $multi_block, $xhtml);

@@ -1497,7 +1497,7 @@ function parse_wikitext(id) {
     }
 	results = results.replace(/\{ \{ rss&gt;Feed:/mg,'{{rss&gt;http://');
     results = results.replace(/~ ~ (NOCACHE|NOTOC)~ ~/mg,'~~'+"$1"+'~~');
-  
+    results = results.replace(/>.*?oIWIKIo(.*?)cIWIKIc/mg,'>'+"$1");
     if(HTMLParser_FORMAT_SPACE) { 
         if(HTMLParser_COLSPAN) {           
              results =results.replace(/\s*([\|\^]+)((\W\W_FORMAT_SPACE_)+)/gm,function(match,pipes,format) {
