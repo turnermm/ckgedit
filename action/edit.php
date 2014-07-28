@@ -344,7 +344,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $email_regex = '/\/\/\<\/\/(.*?@.*?)>/';
        $text = preg_replace($email_regex,"<$1>",$text);
 
-       $text = preg_replace('/{{(.*)\.swf(\s*)}}/ms',"SWF$1.swf$2FWS",$text);
+       $text = preg_replace('/{{(.*)\.swf(\s*)}}/ms',"__SWF__$1.swf$2__FWS__",$text);
        $this->xhtml = $this->_render_xhtml($text);
 
        $this->xhtml = str_replace("__IWIKI_FSLASH__", "&frasl;", $this->xhtml);

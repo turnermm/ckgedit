@@ -38,7 +38,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
 
     if(strpos($TEXT,'data:image') !== false) {
         $TEXT = preg_replace_callback(
-             '|\{\{(\s*)data:image\/(\w+;base64,)(.*?)\?nolink&(\s*)\}\}|ms',
+             '|\{\{(\s*)data:image\/(\w+;base64,\s*)(.*?)\?nolink&(\s*)\}\}|ms',
              create_function(
                 '$matches',
                 'list($ext,$base) = explode(";",$matches[2]);

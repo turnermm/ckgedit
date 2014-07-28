@@ -1,4 +1,4 @@
-rev 14-Jul_17-08_09
+rev 14-Jul_28-09_31
 
 Initial Development distribution
 
@@ -492,3 +492,9 @@ Changed preload test to empty string instead of string 0
 17 July
 Revised Chrome's "DW Edit" link to set cookie for switching between editors, with do=show instead of do=edit, making it consistent
 with behavior of other browsers.
+
+24 July
+Fix for interwiki links with more than one-word links
+
+28 July
+Fixed corrupted base64 strings by changing SWF/FSW markup to __SWF__/__FSW__
