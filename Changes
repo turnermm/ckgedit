@@ -1,4 +1,4 @@
-rev 14-Jul_28-09_31
+rev 14-Aug_02-23_33
 
 Initial Development distribution
 
@@ -498,3 +498,7 @@ Fix for interwiki links with more than one-word links
 
 28 July
 Fixed corrupted base64 strings by changing SWF/FSW markup to __SWF__/__FSW__
+
+2 Aug
+Improved ckeditor.js preload. Preload starts on initial entry into site, and if not finished loading
+will be completed when login page is called; otherwise left unfinished for non-logins.

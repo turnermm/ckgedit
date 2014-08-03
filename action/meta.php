@@ -407,8 +407,8 @@ function check_userfiles() {
   }
 
   function file_type(&$event, $param) {	 
-       global $ACT, $TEXT;
-       global $USERINFO, $INFO, $ID; 
+       global $ACT;
+       global $ID; 
 
 	   $this->check_userfiles(); 
 	   
@@ -461,7 +461,7 @@ SCRIPT;
   global $ACT;
 
   $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';
-  if($ACT == 'login'  && $this->getConf('preload_ckeditorjs')) {
+  if(($ACT == 'login' || $this->session_id == false) && $this->getConf('preload_ckeditorjs')) {
      $url2 = DOKU_BASE.'lib/plugins/ckgedit/ckeditor/ckeditor.js';
   }
   else $url2 = "";
