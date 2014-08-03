@@ -31,4 +31,4 @@ $lang['duplicate_notes'] = "Set this to true if users create multiple footnotes 
 $lang['winstyle'] = 'Use direct path to media directory instead of fckeditor/userfiles. This requires that fckeditor/userfiles/.htaccess.security be copied  to data/media and renamed .htaccess';
 $lang['other_lang'] = 'Your default language for the CKEditor is the language set for your browser.   You can, however, choose another language here; it is independent of the Dokuwiki interface language.';
 $lang['dw_priority'] = "Make Dokuwiki editor the default editor"; 
-$lang['preload_ckeditorjs'] = "Preload the ckeditor's javascript (during login) to speed up subsequent loading of editor";
+$lang['preload_ckeditorjs'] = "Preload the ckeditor's javascript to speed up subsequent loading of editor";
