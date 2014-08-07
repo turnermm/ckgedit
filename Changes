@@ -1,4 +1,4 @@
-rev 14-Aug_02-23_33
+rev 14-Aug_06-18_20
 
 Initial Development distribution
 
@@ -502,3 +502,6 @@ Fixed corrupted base64 strings by changing SWF/FSW markup to __SWF__/__FSW__
 2 Aug
 Improved ckeditor.js preload. Preload starts on initial entry into site, and if not finished loading
 will be completed when login page is called; otherwise left unfinished for non-logins.
+
+6 Aug
+Removed vkeyboard files left ovr from fckglite
