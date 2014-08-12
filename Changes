@@ -1,4 +1,4 @@
-rev 14-Aug_06-18_20
+rev 14-Aug_12-10_21
 
 Initial Development distribution
 
@@ -505,3 +505,6 @@ will be completed when login page is called; otherwise left unfinished for non-l
 
 6 Aug
 Removed vkeyboard files left ovr from fckglite
+
+12 Aug
+Separate code blocks from lists to prevent corrupting of blocks.

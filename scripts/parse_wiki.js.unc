@@ -1214,8 +1214,7 @@ function parse_wikitext(id) {
 
  
     if(markup['li']) { 
-
-         if(results.match(/\n$/)) {
+         if(results.match(/\n$/) && !this.list_level) {
                   tag = "";
         }
   
