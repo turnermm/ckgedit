@@ -1,4 +1,4 @@
-rev 14-Aug_12-10_21
+rev 14-Aug_18-18_13
 
 Initial Development distribution
 
@@ -508,3 +508,6 @@ Removed vkeyboard files left ovr from fckglite
 
 12 Aug
 Separate code blocks from lists to prevent corrupting of blocks.
+
+18 Aug
+By-pass editing (hence disabling plugin) if PHP < 5.3
