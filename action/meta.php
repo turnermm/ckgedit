@@ -6,18 +6,6 @@
 if(!defined('DOKU_INC')) die();
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'action.php');
-global $conf;
-global $ckgedit_lang;
-
-
-$default_english_file = DOKU_PLUGIN . 'ckgedit/action/lang/en.php';
-require_once($default_english_file);
-if(isset($conf['lang'])) {
-  $default_lang_file = DOKU_PLUGIN . 'ckgedit/action/lang/' . $conf['lang'] . '.php';
-  if(file_exists($default_lang_file)) {                                       
-    @include_once($default_lang_file);
-  }
-}
  
 class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $session_id = false;    
@@ -94,10 +82,10 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
             '_elem' => 'button',
             'type' => 'submit',
             '_action' => 'cancel',
-            'value' => $ckgedit_lang['btn_fck_edit'],
+            'value' => $this->getLang('btn_fck_edit'),
             'class' => 'button',
             'id' => 'edbtn__edit',            
-            'title' => $ckgedit_lang['btn_fck_edit']             
+            'title' => $this->getLang('btn_fck_edit')             
         );
 
      $pos = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE');
@@ -125,7 +113,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
    }
   global $INFO, $ckgedit_lang;
   $cname =  $INFO['draft'];   
-  $discard = $ckgedit_lang['discard_edits'];  
+  $discard = $this->getLang('discard_edits');  
   $dokuwiki_priority =$this->dokuwiki_priority;
   echo "<script type='text/javascript'>\n//<![CDATA[ \n";
   echo "var useDW_Editor =$dokuwiki_priority;";

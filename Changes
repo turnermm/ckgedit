@@ -1,4 +1,4 @@
-rev 14-Aug_18-18_13
+rev 14-Aug_22-06_17
 
 Initial Development distribution
 
@@ -437,6 +437,7 @@ Fixed bug in commands.php which removed intial slashes from Windows share paths.
 
 17 May
 Updated ckeditor/contents.css to better reflect dokuwiki template
+
 18 May
 additional css updates
 
@@ -497,7 +498,7 @@ with behavior of other browsers.
 Fix for interwiki links with more than one-word links
 
 28 July
-Fixed corrupted base64 strings by changing SWF/FSW markup to __SWF__/__FSW__
+Fixed corrupted base64 strings by changing SWF/FSW markup to __SWF__/__FSW__ 
 
 2 Aug
 Improved ckeditor.js preload. Preload starts on initial entry into site, and if not finished loading
@@ -511,3 +512,6 @@ Separate code blocks from lists to prevent corrupting of blocks.
 
 18 Aug
 By-pass editing (hence disabling plugin) if PHP < 5.3
+
+22 Aug
+Moved language files from action/lang/ to lang/ and updated $ckgedit_lang to $this->getConf

@@ -2,17 +2,7 @@
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'action.php');
-global $conf;
 
-$default_english_file = DOKU_PLUGIN . 'ckgedit/action/lang/en.php';
-require_once($default_english_file);
-
-if(isset($conf['lang']) && $conf['lang'] != 'en' ) {
-  $default_lang_file = DOKU_PLUGIN . 'ckgedit/action/lang/' . $conf['lang'] . '.php';
-  if(file_exists($default_lang_file)) {                                       
-    @include($default_lang_file);
-  }
-}
 
 /**
  * @license    GNU GPLv2 version 2 or later (http://www.gnu.org/licenses/gpl.html)
@@ -409,7 +399,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
           if (!in_array('code', $matches[1]) && !in_array('file', $matches[1]) && !in_array('nowiki', $matches[1])) {
               $this->draft_text = $cdata['text'];
               $this->draft_found = true;
-              msg($ckgedit_lang['draft_msg']) ;
+              msg($this->getLang('draft_msg')) ;
           }
           unlink($cname);
        }    
@@ -574,10 +564,10 @@ $is_ckgeditChrome = false;
             <input class="button" id="ebtn__delete" type="submit" 
                    <?php echo $DW_EDIT_disabled; ?>
                    name="do[delete]" value="<?php echo $lang['btn_delete']?>"
-                   title="<?php echo $ckgedit_lang['title_dw_delete'] ?>"
+                   title="<?php echo $this->getLang('title_dw_delete') ?>"
                    style = "font-size: 100%;"
                    onmouseup="draft_delete();"
-                   onclick = "return confirm('<?php echo $ckgedit_lang['confirm_delete']?>');"
+                   onclick = "return confirm('<?php echo $this->getLang('confirm_delete')?>');"
             />
 
             <input type="checkbox" name="ckgedit" value="ckgedit" style="display: none"/>
@@ -587,8 +577,8 @@ $is_ckgeditChrome = false;
                  <?php echo $DW_EDIT_hide; ?>
                  style = "font-size: 100%;"
                  onclick ="setDWEditCookie(2, this);parse_wikitext('edbtn__save');this.form.submit();" 
-                 type="submit" name="do[save]" value="<?php echo $ckgedit_lang['btn_dw_edit']?>"  
-                 title="<?php echo $ckgedit_lang['title_dw_edit']?>"
+                 type="submit" name="do[save]" value="<?php echo $this->getLang('btn_dw_edit')?>"  
+                 title="<?php echo $this->getLang('title_dw_edit')?>"
                   />
              <?php endif; ?>
 <?php
@@ -596,10 +586,9 @@ global $INFO;
 
   $disabled = 'Disabled';
   $inline = $this->test ? 'inline' : 'none';
-  //$chrome_dwedit_link =  '<a href="doku.php?id=' . $INFO['id']. '&do=show&mode=dwiki&fck_preview_mode=nil" ' . 'onclick="draft_delete();setDWEditCookie(2, this);"class="action edit" rel="nofollow" title="DW Edit"><span>DW Edit</span></a>';
   $chrome_dwedit_link =  '<a href="doku.php?id=' . $INFO['id']. '&do=show" ' . 'onclick="draft_delete();setDWEditCookie(2);"class="action edit" rel="nofollow" title="DW Edit"><span>DW Edit</span></a>';
-  $backup_btn = isset($ckgedit_lang['dw_btn_backup'])? $ckgedit_lang['dw_btn_backup'] : $ckgedit_lang['dw_btn_refresh'];
-  $backup_title = isset($ckgedit_lang['title_dw_backup'])? $ckgedit_lang['title_dw_backup'] : $ckgedit_lang['title_dw_refresh'];   
+  $backup_btn =$this->getLang('dw_btn_backup') ? $this->getLang('dw_btn_backup') : $this->getLang('dw_btn_refresh');
+  $backup_title = $this->getLang('title_dw_backup') ? $this->getLang('title_dw_backup') : $this->getLang('title_dw_refresh');   
   $using_scayt = ($this->getConf('scayt')) == 'on';
   
 ?>
@@ -609,7 +598,7 @@ global $INFO;
                  value="<?php echo $lang['btn_cancel']?>" 
                  onmouseup="draft_delete();" 
                  style = "font-size: 100%;"
-                 title = "<?php echo $ckgedit_lang['title_dw_cancel']?>"
+                 title = "<?php echo $this->getLang('title_dw_cancel')?>"
              />
 
            <!-- aspell button removed, not supported -->
@@ -625,8 +614,8 @@ global $INFO;
                  onclick ="ckgedit_get_draft();" 
                  style = "background-color: yellow"
                  id="ckgedit_draft_btn" 
-                 type="button" value="<?php echo $ckgedit_lang['btn_draft'] ?>"  
-                 title="<?php echo $ckgedit_lang['title_draft'] ?>"
+                 type="button" value="<?php echo $this->getLang('btn_draft') ?>"  
+                 title="<?php echo $this->getLang('title_draft') ?>"
                   />
  <?php } else { ?>
 
@@ -638,8 +627,8 @@ global $INFO;
                   />
  
              <input class="button" type="button"
-                   value="<?php echo $ckgedit_lang['dw_btn_revert']?>"  
-                   title="<?php echo $ckgedit_lang['title_dw_revert']?>"  
+                   value="<?php echo $this->getLang('dw_btn_revert')?>"  
+                   title="<?php echo $this->getLang('title_dw_revert')?>"  
                    onclick="revert_to_prev()"  
                   />&nbsp;&nbsp;&nbsp;
               
@@ -672,17 +661,10 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
  </div>
 
 
-<input type="checkbox" name="ckgedit_timer" value="ckgedit_timer"  id = "ckgedit_timer"
-                      style = 'display:none'
-                      onclick="disableDokuWikiLockTimer();"
-                      <?php echo $disabled  ?>
-                 /><span id='ckgedit_timer_label'
-                    style = 'display:none'>Disable editor time-out messsages </span> 
-
      <label class="nowrap" for="complex_tables" >     
         <input type="checkbox" name="complex_tables" value="complex_tables"  id = "complex_tables"                      
                           onclick="setComplexTables(1);"                      
-                     /><span id='complex_tables_label'> <?php echo $ckgedit_lang['complex_tables'];?> (<a href="https://www.dokuwiki.org/plugin:fckglite#table_handling" target='_blank'><?php echo $ckgedit_lang['whats_this']?></a>)</span></label> 
+                     /><span id='complex_tables_label'> <?php echo $this->getLang('complex_tables');?> (<a href="https://www.dokuwiki.org/plugin:fckglite#table_handling" target='_blank'><?php echo $this->getLang('whats_this')?></a>)</span></label> 
 
       <input style="display:none;" class="button" id="edbtn__save" type="submit" name="do[save]" 
                       value="<?php echo $lang['btn_save']?>" 
@@ -706,7 +688,7 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
             <div class="summary">
                 <label for="edit__summary" class="nowrap"><?php echo $lang['summary']?>:</label>
                 <input type="text" class="edit" name="summary" id="edit__summary" size="50" value="<?php echo formText($SUM)?>" tabindex="2" />
-                <label class="nowrap" for="minoredit"><input type="checkbox" id="minoredit" name="minor" value="1" tabindex="3" /> <span><?php echo $ckgedit_lang['minor_changes'] ?></span></label>
+                <label class="nowrap" for="minoredit"><input type="checkbox" id="minoredit" name="minor" value="1" tabindex="3" /> <span><?php echo $this->getLang('minor_changes') ?></span></label>
             </div>
         <?php }?>
     </div>
@@ -718,7 +700,7 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
 //<![CDATA[
          var embedComplexTableMacro = false;        
 
-        <?php  echo 'var backup_empty = "' . $ckgedit_lang['backup_empty'] .'";'; ?>
+        <?php  echo 'var backup_empty = "' . $this->getLang('backup_empty') .'";'; ?>
         /* aspell_window removed, not supported */
         if(window.unsetDokuWikiLockTimer) window.unsetDokuWikiLockTimer();  
 
@@ -755,8 +737,8 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
      
 ?>  
           
-   var ckgedit_draft_btn = "<?php echo $ckgedit_lang['btn_exit_draft'] ?>";
-   var ckgedit_draft_btn_title = "<?php echo $ckgedit_lang['title_exit_draft']?>";
+   var ckgedit_draft_btn = "<?php echo $this->getLang('btn_exit_draft') ?>";
+   var ckgedit_draft_btn_title = "<?php echo $this->getLang('title_exit_draft')?>";
    function ckgedit_get_draft() {
       var dom = GetE('ckgedit_draft_html');
       var draft = dom.innerHTML;
