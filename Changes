@@ -1,4 +1,4 @@
-rev 14-Aug_22-06_17
+rev 14-Aug_24-16_20
 
 Initial Development distribution
 
@@ -515,3 +515,6 @@ By-pass editing (hence disabling plugin) if PHP < 5.3
 
 22 Aug
 Moved language files from action/lang/ to lang/ and updated $ckgedit_lang to $this->getConf
+
+24 Aug
+Moved dom 1 events to jQuery.ready in parse_wiki. .

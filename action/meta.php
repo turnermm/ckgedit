@@ -397,6 +397,8 @@ function check_userfiles() {
   function file_type(&$event, $param) {	 
        global $ACT;
        global $ID; 
+       global $JSINFO;
+       $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
 
 	   $this->check_userfiles(); 
 	   

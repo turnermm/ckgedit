@@ -1623,6 +1623,7 @@ function parse_wikitext(id) {
            results += "~~COMPLEX_TABLES~~\n"; 
         }
     }
+    else results = results.replace(/~~COMPLEX_TABLES~~/gm,"")
     results=results.replace(/_CKG_ASTERISK_/gm,'*');      
 
     if(id == 'test') {
@@ -1644,3 +1645,47 @@ function parse_wikitext(id) {
       return true;
     }
 }
+
+jQuery(document).ready(function() {
+
+ jQuery( "#ebut_test" ).mousedown(function() { 
+  parse_wikitext('test');
+});
+
+jQuery( "#ebtn__delete" ).click(function() { 
+   return confirm(JSINFO['confirm_delete']); 
+});
+
+jQuery( "#ebtn__delete" ).mouseup(function() { 
+  draft_delete();
+});
+
+jQuery( "#ebtn__dwedit" ).click(function() { 
+   setDWEditCookie(2, this);parse_wikitext('edbtn__save');this.form.submit();
+});
+
+jQuery( "#ckgedit_draft_btn" ).click(function() { 
+   ckgedit_get_draft();
+});
+jQuery( "#backup_button" ).click(function() { 
+   renewLock(true);
+});
+jQuery( "#backup_button" ).click(function() { 
+   renewLock(true);
+});
+jQuery( "#revert_to_prev_btn" ).click(function() { 
+   revert_to_prev();
+});
+
+jQuery( "#complex_tables" ).click(function() { 
+   setComplexTables(jQuery( "#complex_tables" ).get(0).checked);
+});
+
+
+jQuery( "#ebut_cancel" ).mouseup(function() { 
+   draft_delete();
+});
+jQuery( "#save_button" ).mousedown(function() { 
+  parse_wikitext('edbtn__save');
+});
+});

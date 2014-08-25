@@ -553,12 +553,11 @@ $is_ckgeditChrome = false;
       <?php if($wr){?>
          <div class="editButtons">
             <input type="checkbox" name="ckgedit" value="ckgedit" checked="checked" style="display: none"/>
-             <input class="button" type="button" 
+             <input class="button" type="button" id = "save_button"
                    name="do[save]"
                    value="<?php echo $lang['btn_save']?>" 
                    title="<?php echo $lang['btn_save']?> "   
-                   <?php echo $DW_EDIT_disabled; ?>
-                   onmousedown="parse_wikitext('edbtn__save');"
+                   <?php echo $DW_EDIT_disabled; ?>                   
                   /> 
 
             <input class="button" id="ebtn__delete" type="submit" 
@@ -566,18 +565,17 @@ $is_ckgeditChrome = false;
                    name="do[delete]" value="<?php echo $lang['btn_delete']?>"
                    title="<?php echo $this->getLang('title_dw_delete') ?>"
                    style = "font-size: 100%;"
-                   onmouseup="draft_delete();"
-                   onclick = "return confirm('<?php echo $this->getLang('confirm_delete')?>');"
             />
 
-            <input type="checkbox" name="ckgedit" value="ckgedit" style="display: none"/>
+            
              <?php if(!$is_ckgeditChrome): ?> 
-             <input class="button"  
+             <input class="button"  id = "ebtn__dwedit"
                  <?php echo $DW_EDIT_disabled; ?>                 
                  <?php echo $DW_EDIT_hide; ?>
-                 style = "font-size: 100%;"
-                 onclick ="setDWEditCookie(2, this);parse_wikitext('edbtn__save');this.form.submit();" 
-                 type="submit" name="do[save]" value="<?php echo $this->getLang('btn_dw_edit')?>"  
+                 style = "font-size: 100%;"            
+                 type="submit" 
+                 name="do[save]" 
+                 value="<?php echo $this->getLang('btn_dw_edit')?>"  
                  title="<?php echo $this->getLang('title_dw_edit')?>"
                   />
              <?php endif; ?>
@@ -595,8 +593,7 @@ global $INFO;
             <input class="button" type="submit" 
                  name="do[draftdel]" 
                  id = "ebut_cancel"
-                 value="<?php echo $lang['btn_cancel']?>" 
-                 onmouseup="draft_delete();" 
+                 value="<?php echo $lang['btn_cancel']?>"                  
                  style = "font-size: 100%;"
                  title = "<?php echo $this->getLang('title_dw_cancel')?>"
              />
@@ -610,8 +607,7 @@ global $INFO;
                   /> 
 
  <?php if($this->draft_found) { ?>
-             <input class="button"                   
-                 onclick ="ckgedit_get_draft();" 
+             <input class="button"       
                  style = "background-color: yellow"
                  id="ckgedit_draft_btn" 
                  type="button" value="<?php echo $this->getLang('btn_draft') ?>"  
@@ -620,16 +616,18 @@ global $INFO;
  <?php } else { ?>
 
   
-             <input class="button" type="button"
+             <input class="button" type="button" 
+                   id = "backup_button"
                    value="<?php echo $backup_btn ?>"
                    title="<?php echo $backup_title ?>"  
-                   onclick="renewLock(true);"  
+                   
                   />
  
              <input class="button" type="button"
+                   id = "revert_to_prev_btn"
                    value="<?php echo $this->getLang('dw_btn_revert')?>"  
                    title="<?php echo $this->getLang('title_dw_revert')?>"  
-                   onclick="revert_to_prev()"  
+                   
                   />&nbsp;&nbsp;&nbsp;
               
 
@@ -662,8 +660,7 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
 
 
      <label class="nowrap" for="complex_tables" >     
-        <input type="checkbox" name="complex_tables" value="complex_tables"  id = "complex_tables"                      
-                          onclick="setComplexTables(1);"                      
+        <input type="checkbox" name="complex_tables" value="complex_tables"  id = "complex_tables" 
                      /><span id='complex_tables_label'> <?php echo $this->getLang('complex_tables');?> (<a href="https://www.dokuwiki.org/plugin:fckglite#table_handling" target='_blank'><?php echo $this->getLang('whats_this')?></a>)</span></label> 
 
       <input style="display:none;" class="button" id="edbtn__save" type="submit" name="do[save]" 
@@ -672,7 +669,7 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
                       <?php echo $DW_EDIT_disabled; ?>
                       title="<?php echo $lang['btn_save']?> "  />
 
-            <!-- Not used by ckgeditLite but required to prevent null error when DW adds events -->
+            <!-- Not used by ckgedit but required to prevent null error when DW adds events -->
             <input type="button" id='edbtn__preview' style="display: none"/>
 
 
@@ -709,7 +706,7 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
    
      return function(b) {
         if(b) on = !on; 
-        embedComplexTableMacro = on;        
+        embedComplexTableMacro = on;   
         return on;
      };
     
