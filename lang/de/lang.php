@@ -18,4 +18,4 @@ $lang['backup_empty'] = "Es ist kein Backup vorhanden. Wollen Sie fortfahren?";
 $lang['btn_draft'] = "Entwurf &ouml;ffnen";
 $lang['title_draft'] = "Entwurf anzeigen und bearbeiten";
 $lang['btn_exit_draft'] = "Entwurf schliessen";
-$lang['draft_msg']= "Für dieses Dokument besteht eine Entwurfsversion. Der Knopf 'Entwurf' schaltet zwischen diesem Dokument und dem Entwurf hin und her. Es k&ouml;nnen beide Dokumente bearbeitet oder gesichert werden." ;
+$lang['draft_msg']= "F&uuml;r dieses Dokument besteht eine Entwurfsversion. Der Knopf 'Entwurf' schaltet zwischen diesem Dokument und dem Entwurf hin und her. Es k&ouml;nnen beide Dokumente bearbeitet oder gesichert werden." ;
