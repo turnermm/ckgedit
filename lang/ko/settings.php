@@ -1,0 +1,32 @@
+<?php 
+
+$lang['groups'] = "잠금 기간을 무효화 할 수있는 그룹 (폐지 예정)"; 
+$lang['middot'] = "& amp; nbsp;에 & amp; middot;을 사용하는 그룹의 쉼표로 구분 된 목록"; 
+$lang['big_files'] = "거대한 파일을 안전하게 편집"; 
+$lang['big_file_sz'] = "거대한 파일의 크기 (bytes)"; 
+$lang['big_file_tm'] = "거대한 파일을 처리 할 때 시간 초과 (초)"; 
+$lang['fck_preview'] = "FCK 미리보기 그룹"; 
+$lang['guest_toolbar'] = "손님에 도구 모음을 표시"; 
+$lang['guest_media'] = "손님은 미디어 파일에 링크 가능"; 
+$lang['open_upload'] = "손님은 미디어 파일 업로드 가능"; 
+$lang['default_fb'] = "파일 브라우저의 기본 권한 .none의 경우 ACL이 적용되지 않습니다."; 
+$lang['openfb'] = "파일 브라우저를 오픈한다.이를 통해 사용자는 권한에 관계없이 모든 디렉토리 구조에 액세스 할 수 있지만 업로드는 ACL이 적용됩니다."; 
+$lang['dw_edit_display'] = ' "텍스트 모드"버튼을 사용할 수있는 사용자를 제한한다. <b> all </b> : 모든 사용자 <b> admin </b> : admin과 manager 만 <b> none </b> : 아무도 사용할 수 없다. 기본값은 <b> all </b>. '; 
+$lang['smiley_as_text'] = 'CKeditor에서 이모티콘을 문자열로 표시 (이 설정을 사용하여 표시시 이미지로 표시됩니다)'; 
+$lang['editor_bak'] = "meta / &lt; namespace &gt; .ckgedit에 백업을 저장"; 
+$lang['create_folder'] = "파일 브라우저에서 폴더 만들기 버튼을 활성화합니다. (y / n)"; 
+$lang['dwedit_ns'] = "텍스트 모드로 자동 전환 네임 스페이스 목록 (쉼표로 구분)"; 
+$lang['acl_del'] = "기본 (체크하지 않음)의 경우 업로드 권한을 가진 사용자에 미디어 파일을 삭제할 수있는 권한을 부여합니다. 체크하면 폴더에서 파일을 삭제하려면 삭제 권한이 있어야 입니다. "; 
+$lang['auth_ci'] = "사용자의 로그인 ID는 대소 문자를 구분하지 않는다. 즉 USER와 user 도 로그인 가능"; 
+$lang['nix_style'] = "Windows 서버 (Vista 이상)의 설정이 설정을 사용하면 userfiles 미디어와 파일에 대한 링크를 성공적으로 만들 수있는 경우 data \\ media에 ckgedit \\ CKeditor \\ userfiles에 액세스 할 수 있도록합니다. "; 
+$lang['no_symlinks'] = "ckgedit / userfiles에 심볼릭 링크를 자동으로 생성하지"; 
+$lang['direction'] = 'CKeditor에서 문자의 방향 : <b> nocheck </b> : ckgedit 기본 방향 설정을 변경하지 않는다. <b> dokuwiki </b> : Dokuwiki 문자의 방향 설정에 따른다. <b> ltr </b> : 왼쪽에서 오른쪽. <b> rtl </b> : 오른쪽에서 왼쪽. '; 
+$lang['scayt_auto'] = '맞춤법 검사기를 자동으로 활성화. 기본값은 "on". 맞춤법 검사기를 해제하려면 "off"를 선택하십시오. '; 
+$lang['scayt_lang'] = "맞춤법 검사기의 기본 언어"; 
+$lang['smiley_hack'] = "새 서버로 이동했을 때 CKeditor 이모티콘의 URL을 초기화합니다. 이것은 페이지마다 페이지가 편집을 위해 로드, 저장되었을 때 이루어집니다.이 옵션은 일반적으로 off로합니다. "; 
+$lang['complex_tables'] = "복잡한 표 알고리즘을 사용. 보통 표 에 비해 rowspan과 colspan을 사용한 복잡한 표를 더 잘 표시할 수 있지만 처리 시간이 다소 길어집니다 "; 
+$lang['duplicate_notes'] = "사용자가 동일한 각주 텍스트에 대해 여러 각주를 붙이는 경우에 체크하십시오. 각주가 충돌하지 않도록하기 위해 필요합니다."; 
+$lang['winstyle'] = 'fckeditor / userfiles 대신 미디어 디렉토리에 직접 경로를 사용합니다. 이를 위해서는 fckeditor / userfiles / .htaccess.security을 data / media에 복사하여 .htaccess 이름이 바뀔 필요가 있습니다. '; 
+$lang['other_lang'] = 'CKEditor의 기본 언어. 기본적으로 브라우저의 언어가 사용되지만 여기에서 다른 언어를 선택할 수 있습니다. 이 설정은 Dokuwiki의 인터페이스 언어와는 독립적입니다. ';
+$lang['preload_ckeditorjs'] = 'CKEditor를 미리읽어서 편집을 시작할 때의 지연시간을 줄입니다.';
+$lang['dw_priority'] = 'CKEditor가 아닌 도쿠위키기본편집기를 기본으로 사용합니다.';
