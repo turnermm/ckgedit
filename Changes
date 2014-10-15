@@ -1,4 +1,4 @@
-rev 14-Oct_08-21_09
+rev 14-Oct_15-09_16
 
 Initial Development distribution
 
@@ -521,3 +521,6 @@ Moved dom 1 events to jQuery.ready in parse_wiki. .
 
 8 Oct 
 Fix for double backslashes (\\) being converted to single '%', when occuring internal to text or apart from samba shares.
+
+15 Oct
+Add double arrow entities to fcked-ents.data and recompiled ents.ser.
