@@ -1,4 +1,4 @@
-rev 14-Aug_24-16_20
+rev 14-Oct_08-21_09
 
 Initial Development distribution
 
@@ -518,3 +518,6 @@ Moved language files from action/lang/ to lang/ and updated $ckgedit_lang to $th
 
 24 Aug
 Moved dom 1 events to jQuery.ready in parse_wiki. .
+
+8 Oct 
+Fix for double backslashes (\\) being converted to single '%', when occuring internal to text or apart from samba shares.

@@ -1480,7 +1480,9 @@ function parse_wikitext(id) {
           return brackets+block + ']]';
      }); 
 
+    results = results.replace(/%%\\%%/g,'_ESC_BKSLASH_');     
      results = results.replace(/%*\\%*([^\w]{1})%*\\%*/g, "$1");      
+     
      results=results.replace(/_SMB_/g, "\\");     
          results = results.replace(/CKGE_TMP_(\w+)/gm, function(m,tag) {
             if(tag == 'b')  return '**';  
@@ -1625,7 +1627,7 @@ function parse_wikitext(id) {
     }
     else results = results.replace(/~~COMPLEX_TABLES~~/gm,"")
     results=results.replace(/_CKG_ASTERISK_/gm,'*');      
-
+    results = results.replace(/_ESC_BKSLASH_/g,'\\');
     if(id == 'test') {
       if(HTMLParser_test_result(results)) {
          alert(results);
