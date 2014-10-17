@@ -1,4 +1,4 @@
-rev 14-Oct_15-09_16
+rev 14-Oct_17-09_10
 
 Initial Development distribution
 
@@ -524,3 +524,7 @@ Fix for double backslashes (\\) being converted to single '%', when occuring int
 
 15 Oct
 Add double arrow entities to fcked-ents.data and recompiled ents.ser.
+
+17 Oct
+Fix for interwiki links in MULTI_PLUGINs
+

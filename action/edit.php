@@ -1012,6 +1012,7 @@ $text = preg_replace_callback(
            
         $pos = strpos($xhtml, 'MULTI_PLUGIN_OPEN');
         if($pos !== false) {
+           $multi_block = str_replace(array('oIWIKIo','cIWIKIc'),"",$multi_block);  /*  remove wikilink macros */
            $xhtml = preg_replace('/MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE/ms', $multi_block, $xhtml);
            $xhtml = preg_replace_callback(
             '|MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE|ms',
