@@ -203,6 +203,7 @@ function parse_wikitext(id) {
     font_bgcolor: "#ffffff",
     font_style: "inherit",
     is_mediafile: false, 
+    end_nested: false,
 
     backup: function(c1,c2) {
         var c1_inx = results.lastIndexOf(c1);     // start position of chars to delete
@@ -1144,14 +1145,21 @@ function parse_wikitext(id) {
             // if local image without link content, as in <a . . .></a>, delete link markup 
           if(this.backup('\[\[', '\{')) return;  
     }
-   
+
+    if( this.end_nested) {
+        this.end_nested = false;
+        return;    // prevent newline from being inserted between end of nested list and return to previous nested level 
+    }
+    
     if(tag == 'ol' || tag == 'ul') {  
             this.list_level--;    
             if(!this.list_level) this.format_in_list = false;
             if(this.prev_li.length) {
-            markup['li']= this.prev_li.pop();
-            }
-            tag = "\n\n";
+                markup['li']= this.prev_li.pop();
+                this.end_nested = true;              
+                return;                
+            }               
+            tag = "\n\n";         
     }
     else if(tag == 'a' && this.external_mime) {
            this.external_mime = false;
@@ -1223,7 +1231,7 @@ function parse_wikitext(id) {
      if(this.in_link && format_chars[current_tag] && this.link_formats.length) {            
            return;
      }       
-
+     
        results += tag;
   
       if(format_chars[current_tag]) {               
@@ -1521,8 +1529,7 @@ function parse_wikitext(id) {
 
         results = results.replace(/\n@@_SP_@@\n/g,'');
         results = results.replace(/@@_SP_@@\n/g,'');
-        results = results.replace(/@@_SP_@@/g,' ');
-	
+        results = results.replace(/@@_SP_@@/g,' ');	    
         var regex = new RegExp(HTMLParser_FORMAT_SPACE + '([^\\)\\]\\}\\{\\-\\.,;:\\!\?"\x94\x92\u201D\u2019' + "'" + '])',"g");
         results = results.replace(regex," $1");
         regex = new RegExp(HTMLParser_FORMAT_SPACE,"g");
@@ -1537,8 +1544,7 @@ function parse_wikitext(id) {
          }
     }
 
-    var line_break_final = "\\\\";
-
+    var line_break_final = "\\\\";   
     if(HTMLParser_LBR) {		
         results = results.replace(/(L_BR_K)+/g,line_break_final);		
         results = results.replace(/L_BR_K/gm, line_break_final) ;

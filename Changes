@@ -1,4 +1,4 @@
-rev 14-Oct_17-09_10
+rev 14-Oct_23-07_46
 
 Initial Development distribution
 
@@ -528,3 +528,5 @@ Add double arrow entities to fcked-ents.data and recompiled ents.ser.
 17 Oct
 Fix for interwiki links in MULTI_PLUGINs
 
+23 Oct
+Remove newlines between nested list and return to previous list level
