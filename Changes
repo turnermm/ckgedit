@@ -1,4 +1,4 @@
-rev 14-Oct_24-20_37
+rev 14-Oct_25-08_53
 
 Initial Development distribution
 
@@ -538,3 +538,6 @@ fontAssist tool in the editor.
 Improved regex for font recognition
 
 Added ~~NO_STYLING~~ macro.  If found on page, font markup is left in tact.
+
+25 Oct
+Fix for broken font syntax context by using end_makrup['span'] = " "
