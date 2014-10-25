@@ -1,4 +1,4 @@
-rev 14-Oct_24-20_37
+rev 14-Oct_25-05_05
 
 Initial Development distribution
 
@@ -531,10 +531,5 @@ Fix for interwiki links in MULTI_PLUGINs
 23 Oct
 Remove newlines between nested list and return to previous list level
 
-24 Oct
-Experimental: font html (color/face/size) reconstructed in preprocessor from font plugin markup. No need for
-fontAssist tool in the editor.
-
-Improved regex for font recognition
-
-Added ~~NO_STYLING~~ macro.  If found on page, font markup is left in tact.
+25 Oct
+Moved experimental font reconstruction to its own branch

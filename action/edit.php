@@ -851,7 +851,8 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
      */
     function _render_xhtml($text){
         $mode = 'ckgedit';
-        $skip_styling = false;
+        $skip_styling = true;
+        
         if(strpos($text,'~~NO_STYLING~~') !== false) {
             $skip_styling = true;
         }
@@ -999,7 +1000,7 @@ $text = preg_replace_callback(
                '<span style = "font-size:' . $matches[1] .'">' .
                '<span style = "font-family:' . $matches[2] .'">' .
                '<span style = "background-color:' . $matches[4] .'">' .
-                $matches[5] . '</span></span></span></span>';
+                $matches[5] . '</span></span></span></span><span>&nbsp;</span>';
              }, $xhtml
         );
         }
