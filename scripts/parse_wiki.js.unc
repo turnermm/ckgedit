@@ -1504,7 +1504,7 @@ function parse_wikitext(id) {
 
     results = results.replace(/%%\\%%/g,'_ESC_BKSLASH_');     
      results = results.replace(/%*\\%*([^\w]{1})%*\\%*/g, "$1");      
-     alert(results);
+     
      results=results.replace(/_SMB_/g, "\\");     
          results = results.replace(/CKGE_TMP_(\w+)/gm, function(m,tag) {
             if(tag == 'b')  return '**';  
