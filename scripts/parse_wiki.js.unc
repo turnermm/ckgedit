@@ -118,7 +118,8 @@ function parse_wikitext(id) {
     markup['temp_b'] = "CKGE_TMP_b";
     markup['temp_del'] = "CKGE_TMP_del";
     markup['temp_strike'] = "CKGE_TMP_strike";
-     markup['temp_code'] = "CKGE_TMP_code";
+    markup['temp_code'] = "CKGE_TMP_code";
+    markup['temp_sup'] = "CKGE_TMP_sup"; 
      
     markup['blank'] = "";
     markup['fn_start'] = '((';
@@ -127,7 +128,7 @@ function parse_wikitext(id) {
     markup['p_insert'] = '_PARA__TABLE_INS_';
     markup['format_space'] = '_FORMAT_SPACE_';
     markup['pre_td'] = '<';  //removes newline from before < which corrupts table
-    var format_chars = {'strong': true,'b':true, 'i': true, 'em':true,'u':true, 'del':true,'strike':true, 'code':true};  
+    var format_chars = {'strong': true,'b':true, 'i': true, 'em':true,'u':true, 'del':true,'strike':true, 'code':true,'sup':true};  
     
     var results=""; 
     var HTMLParser_LBR = false;
@@ -1231,9 +1232,9 @@ function parse_wikitext(id) {
      if(this.in_link && format_chars[current_tag] && this.link_formats.length) {            
            return;
      }       
-     
+          
        results += tag;
-  
+      
       if(format_chars[current_tag]) {               
             if(this.list_level) {
                   this.format_in_list = true; 
@@ -1494,6 +1495,7 @@ function parse_wikitext(id) {
      results=results.replace(/_SMB_/g, "\\");     
          results = results.replace(/CKGE_TMP_(\w+)/gm, function(m,tag) {
             if(tag == 'b')  return '**';  
+            if(tag == 'strong')  return '**';              
             if(tag == 'em')  return '//';  
             if(tag == 'u')  return '__';  
             //if(tag == 'del' || tag == 'strike') 
