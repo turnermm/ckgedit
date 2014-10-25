@@ -989,6 +989,16 @@ $text = preg_replace_callback(
         trigger_event('RENDERER_CONTENT_POSTPROCESS',$data);
         $xhtml = $Renderer->doc;
 
+        $xhtml = preg_replace_callback(
+            '|&amp;lt;font\s+(\d+p.)/([\w ,\-]+);;([rgb\(\)),\w,\s\#]+);;([rgb\(\)),\w,\s\#]+)&gt;(.*?)&amp;lt;/font&gt;|ms',
+             function($matches) {
+               return '<span style = "color:' . $matches[3] .'">' .
+               '<span style = "font-size:' . $matches[1] .'">' .
+               '<span style = "font-family:' . $matches[2] .'">' .
+               '<span style = "background-color:' . $matches[4] .'">' .
+                $matches[5] . '</span></span></span></span>';
+             }, $xhtml
+        );
          if(strpos($xhtml,'oIWIKIo') !== false) {
             $xhtml = preg_replace_callback(
                 '/(.)oIWIKIo(.*?)cIWIKIc/ms',
