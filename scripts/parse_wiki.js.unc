@@ -120,6 +120,16 @@ function parse_wikitext(id) {
     markup['temp_strike'] = "CKGE_TMP_strike";
     markup['temp_code'] = "CKGE_TMP_code";
     markup['temp_sup'] = "CKGE_TMP_sup"; 
+    markup['temp_csup'] = "CKGE_TMP_csup"; 
+    markup['temp_sub'] = "CKGE_TMP_sub"; 
+    markup['temp_csub'] = "CKGE_TMP_csub"; 
+    markup['temp_del'] = "CKGE_TMP_del";     
+    markup['temp_cdel'] = "CKGE_TMP_cdel";     
+    markup['temp_strike'] = "CKGE_TMP_del";     
+    markup['temp_cstrike'] = "CKGE_TMP_cdel";     
+    markup['temp_s'] = "CKGE_TMP_del";     
+    markup['temp_cs'] = "CKGE_TMP_cdel";     
+
      
     markup['blank'] = "";
     markup['fn_start'] = '((';
@@ -128,7 +138,7 @@ function parse_wikitext(id) {
     markup['p_insert'] = '_PARA__TABLE_INS_';
     markup['format_space'] = '_FORMAT_SPACE_';
     markup['pre_td'] = '<';  //removes newline from before < which corrupts table
-    var format_chars = {'strong': true,'b':true, 'i': true, 'em':true,'u':true, 'del':true,'strike':true, 'code':true,'sup':true};  
+    var format_chars = {'strong': true,'b':true, 'i': true, 'em':true,'u':true, 'del':true,'strike':true, 'code':true,'sup':true,'sub':true,'s':true};  
     
     var results=""; 
     var HTMLParser_LBR = false;
@@ -1054,7 +1064,10 @@ function parse_wikitext(id) {
 
      if(format_chars[tag] && this.in_font) {  
                  results += " ";
-                 var t = 'temp_' + tag;
+                 if(tag == 'sup' || tag == 'sub' || tag == 'del' || tag == 'strike' || tag == 's') {
+                     var t = 'temp_c' + tag;
+                  }                 
+                 else var t = 'temp_' + tag;
                  results += markup[t] ;
                  results += " ";
                  return; 
@@ -1491,14 +1504,19 @@ function parse_wikitext(id) {
 
     results = results.replace(/%%\\%%/g,'_ESC_BKSLASH_');     
      results = results.replace(/%*\\%*([^\w]{1})%*\\%*/g, "$1");      
-     
+     alert(results);
      results=results.replace(/_SMB_/g, "\\");     
          results = results.replace(/CKGE_TMP_(\w+)/gm, function(m,tag) {
             if(tag == 'b')  return '**';  
             if(tag == 'strong')  return '**';              
             if(tag == 'em')  return '//';  
             if(tag == 'u')  return '__';  
-            //if(tag == 'del' || tag == 'strike') 
+            if(tag == 'sup')  return '<sup>';  
+            if(tag == 'csup')  return '</sup>';              
+            if(tag == 'sub')  return '<sub>';  
+            if(tag == 'csub')  return '</sub>';                          
+           if(tag == 'del' || tag == 'strike') return '<del>';
+           if(tag == 'cdel' || tag == 'cstrike'|| tag == 'cs') return '</del>';           
            if(tag == 'code') return "\'\'";
             return "";
      } );
