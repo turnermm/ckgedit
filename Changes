@@ -1,4 +1,4 @@
-rev 14-Oct_24-19_15
+rev 14-Oct_24-20_37
 
 Initial Development distribution
 
@@ -536,3 +536,5 @@ Experimental: font html (color/face/size) reconstructed in preprocessor from fon
 fontAssist tool in the editor.
 
 Improved regex for font recognition
+
+Added ~~NO_STYLING~~ macro.  If found on page, font markup is left in tact.

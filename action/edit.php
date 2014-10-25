@@ -851,7 +851,10 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
      */
     function _render_xhtml($text){
         $mode = 'ckgedit';
-
+        $skip_styling = false;
+        if(strpos($text,'~~NO_STYLING~~') !== false) {
+            $skip_styling = true;
+        }
         $text = preg_replace_callback('/(\[\[\w+>)(.*?)([\]\|])/ms',
              create_function(
                '$matches',              
@@ -988,7 +991,7 @@ $text = preg_replace_callback(
         $data = array($mode,& $Renderer->doc);
         trigger_event('RENDERER_CONTENT_POSTPROCESS',$data);
         $xhtml = $Renderer->doc;
-
+        if(!$skip_styling) { 
         $xhtml = preg_replace_callback(
             '|&amp;lt;font\s+(\d+p.)/([\w ,\-]+);;([rgb\(\)),\w,\s\#]+);;([rgb\(\)),\w,\s\#]+)&gt;(.*?)&amp;lt;/font&gt;|ms',
              function($matches) {
@@ -999,6 +1002,7 @@ $text = preg_replace_callback(
                 $matches[5] . '</span></span></span></span>';
              }, $xhtml
         );
+        }
          if(strpos($xhtml,'oIWIKIo') !== false) {
             $xhtml = preg_replace_callback(
                 '/(.)oIWIKIo(.*?)cIWIKIc/ms',
