@@ -25,3 +25,4 @@ $conf['winstyle'] = 0;
 $conf['other_lang'] = 'default';
 $conf['dw_priority'] = 0;
 $conf['preload_ckeditorjs'] = 0;
+$conf['nofont_styling'] = 0;

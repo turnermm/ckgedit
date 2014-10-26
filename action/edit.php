@@ -851,7 +851,8 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
      */
     function _render_xhtml($text){
         $mode = 'ckgedit';
-        $skip_styling = false;
+        $skip_styling =  $this->getConf('nofont_styling');
+        
         if(strpos($text,'~~NO_STYLING~~') !== false) {
             $skip_styling = true;
         }
@@ -993,7 +994,7 @@ $text = preg_replace_callback(
         $xhtml = $Renderer->doc;
         if(!$skip_styling) { 
         $xhtml = preg_replace_callback(
-            '|&amp;lt;font\s+(\d+p.)/([\w ,\-]+);;([rgb\(\)),\w,\s\#]+);;([rgb\(\)),\w,\s\#]+)&gt;(.*?)&amp;lt;/font&gt;|ms',
+            '|&amp;lt;font\s+(.*?)/([\w ,\-]+);;([\(\)),\w,\s\#]+);;([\(\)),\w,\s\#]+)&gt;(.*?)&amp;lt;/font&gt;|ms',
              function($matches) {
                return '<span style = "color:' . $matches[3] .'">' .
                '<span style = "font-size:' . $matches[1] .'">' .

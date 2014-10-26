@@ -1,4 +1,4 @@
-rev 14-Oct_25-08_53
+rev 14-Oct_26-10_26
 
 Initial Development distribution
 
@@ -541,3 +541,7 @@ Added ~~NO_STYLING~~ macro.  If found on page, font markup is left in tact.
 
 25 Oct
 Fix for broken font syntax context by using end_makrup['span'] = " "
+
+26 Oct
+Added Configuration Option 'nofont_styling'. On = Display font styles in editor
+as plugin markup.
