@@ -130,6 +130,8 @@ function parse_wikitext(id) {
     markup['temp_s'] = "CKGE_TMP_del";     
     markup['temp_cs'] = "CKGE_TMP_cdel";     
 
+  var $FORMAT_SUBST = {'CKGE_TMP_b' :'**', 'CKGE_TMP_strong' :'**', 'CKGE_TMP_em' : '\/\/', 'CKGE_TMP_u' : '__', 'CKGE_TMP_sup' : '<sup>','CKGE_TMP_sub' :'<sub>',
+  'CKGE_TMP_csub' : '</sub>','CKGE_TMP_csup' : '</sup>','CKGE_TMP_del' : '<del>','CKGE_TMP_strike' : '<del>','CKGE_TMP_code' : "\'\'"};
      
     markup['blank'] = "";
     markup['fn_start'] = '((';
@@ -1093,11 +1095,6 @@ function parse_wikitext(id) {
           var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">\n\n";        
           var font_start = results.lastIndexOf('__STYLE__');            
           results = results.splice(font_start,9,font_str);
-          this.font_family="arial";
-          this.font_size="9pt";
-          this.font_weight="normal";
-          this.font_color="#000000";
-          this.font_bgcolor="#ffffff";
 
 		  this.in_font=false;		
 	 }
@@ -1506,19 +1503,10 @@ function parse_wikitext(id) {
      results = results.replace(/%*\\%*([^\w]{1})%*\\%*/g, "$1");      
      
      results=results.replace(/_SMB_/g, "\\");     
-         results = results.replace(/CKGE_TMP_(\w+)/gm, function(m,tag) {
-            if(tag == 'b')  return '**';  
-            if(tag == 'strong')  return '**';              
-            if(tag == 'em')  return '//';  
-            if(tag == 'u')  return '__';  
-            if(tag == 'sup')  return '<sup>';  
-            if(tag == 'csup')  return '</sup>';              
-            if(tag == 'sub')  return '<sub>';  
-            if(tag == 'csub')  return '</sub>';                          
-           if(tag == 'del' || tag == 'strike') return '<del>';
-           if(tag == 'cdel' || tag == 'cstrike'|| tag == 'cs') return '</del>';           
-           if(tag == 'code') return "\'\'";
-            return "";
+     
+         results = results.replace(/(CKGE_TMP_\w+)/gm, function(m,tag) {      
+            if($FORMAT_SUBST[tag]) return $FORMAT_SUBST[tag];       
+            return m;
      } );
      
     if(id == 'test') {
