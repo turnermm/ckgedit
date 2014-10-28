@@ -29,3 +29,5 @@ $lang['other_lang'] = 'Your default language for the CKEditor is the language se
 $lang['dw_priority'] = "Make Dokuwiki editor the default editor"; 
 $lang['preload_ckeditorjs'] = "Preload the ckeditor's javascript to speed up subsequent loading of editor";
 $lang['nofont_styling']  = 'Display font styles in editor as plugin markup. See the ckgedit plugin page at Dokuwiki.org for details.';
+$lang['font_options']  = 'Remove font options.';
+$lang['color_options']  = 'Remove Color options.';
