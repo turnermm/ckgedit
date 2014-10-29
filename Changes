@@ -545,3 +545,9 @@ Fix for broken font syntax context by using end_makrup['span'] = " "
 26 Oct
 Added Configuration Option 'nofont_styling'. On = Display font styles in editor
 as plugin markup.
+
+28 Oct
+Some updates to font styling in parse_wiki. Two new ConfigOptions, to 
+remove color and font buttons from editor.
+
+Added new Editor button to switch editor to no font styling mode.

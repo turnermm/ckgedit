@@ -502,6 +502,7 @@ CKEDITOR_REPLACE;
       <input type="hidden" name="prefix" value="<?php echo formText($PRE)?>" />
       <input type="hidden" name="suffix" value="<?php echo formText($SUF)?>" />
       <input type="hidden" id="ckgedit_mode_type"  name="mode" value="" />
+      <input type="hidden" id="styling"  name="styling" value="styled" />
       <input type="hidden" id="fck_preview_mode"  name="fck_preview_mode" value="nil" />
       <input type="hidden" id="fck_wikitext"    name="fck_wikitext" value="__false__" />     
       <?php
@@ -623,6 +624,13 @@ global $INFO;
                    
                   />
  
+              <input class="button" type="submit"
+                   id = "no_styling_btn"                   
+                   value="<?php echo $this->getLang('dw_btn_styling')?>"  
+                   title="<?php echo $this->getLang('title_styling')?>"  
+                   
+                  />
+                  
              <input class="button" type="button"
                    id = "revert_to_prev_btn"
                    value="<?php echo $this->getLang('dw_btn_revert')?>"  
@@ -852,7 +860,9 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
     function _render_xhtml($text){
         $mode = 'ckgedit';
         $skip_styling =  $this->getConf('nofont_styling');
-        
+        if(!$skip_styling && $_POST['styling'] == 'no_styles') {
+            $skip_styling = true;
+        }  
         if(strpos($text,'~~NO_STYLING~~') !== false) {
             $skip_styling = true;
         }
