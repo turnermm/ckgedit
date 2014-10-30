@@ -1,4 +1,4 @@
-rev 14-Oct_26-10_26
+rev 14-Oct_30-15_26
 
 Initial Development distribution
 
@@ -551,3 +551,6 @@ Some updates to font styling in parse_wiki. Two new ConfigOptions, to
 remove color and font buttons from editor.
 
 Added new Editor button to switch editor to no font styling mode.
+
+30 Oct 
+Fixed Javascript typo error in en.js/en.js.unc

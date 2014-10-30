@@ -101,4 +101,4 @@ CKEDITOR.lang['en']['signature'] = {
 ToolTip: 'Insert signature'
 };
 
-CKEDITOR.lang['en']['toolbar']['stylescombo']['label']= 'Code Styles';
+
