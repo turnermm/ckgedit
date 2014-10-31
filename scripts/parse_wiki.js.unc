@@ -1689,14 +1689,6 @@ jQuery( "#backup_button" ).click(function() {
 jQuery( "#backup_button" ).click(function() { 
    renewLock(true);
 });
-jQuery( "#no_styling_btn" ).click(function() {   
-
-      this.name="do[edit]";          
-      this.form.styling.value='no_styles';
-      this.form.submit();
-     
-});
-
 jQuery( "#revert_to_prev_btn" ).click(function() { 
    revert_to_prev();
 });

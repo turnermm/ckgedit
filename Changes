@@ -1,4 +1,4 @@
-rev 14-Oct_30-15_26
+rev 14-Oct_31-08_55
 
 Initial Development distribution
 
@@ -554,3 +554,8 @@ Added new Editor button to switch editor to no font styling mode.
 
 30 Oct 
 Fixed Javascript typo error in en.js/en.js.unc
+
+31 Oct
+Fixed 'Edit Fonts" button so that it doesn't cause duplication of prefix and suffix texts.
+Added code to Save.php to reconfigure multiple fonts (in testing stage).
+
