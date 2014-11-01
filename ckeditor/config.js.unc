@@ -97,7 +97,7 @@ config.colors = new Array(
       config.extraPlugins = 'signature,footnote,shortcuts,fontAssist'; //,devtools';
       config.contentsLangDirection = '';
       if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
-     
+     config.removeButtons = 'BGColor';
      
     config.toolbar_Dokuwiki =
 	[

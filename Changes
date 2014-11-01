@@ -533,3 +533,6 @@ Remove newlines between nested list and return to previous list level
 
 25 Oct
 Moved experimental font reconstruction to its own branch
+
+1 Nov
+Removed BGcolor tool because it creates  multiple spans
