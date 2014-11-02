@@ -493,19 +493,6 @@ CKEDITOR_REPLACE;
             
 ?>
 
-     <?php if(!$skip_styling) : ?>
-      <form  id="stying_form"  method="post"  name="stying_form" action="<?php echo script()?>"  accept-charset="<?php echo $lang['encoding']?>">
-      <div class="no">
-               <input type="hidden" id="styling"  name="styling" value="no_styles" />
-              <input class="button" type="submit"
-                  name ="do[edit]"; 
-                   id = "no_styling_btn"                   
-                   value="<?php echo $this->getLang('dw_btn_styling')?>"  
-                   title="<?php echo $this->getLang('title_styling')?>"  
-
-                  />
-    </form>
-    <?php endif ?>
  
    <form id="dw__editform" method="post" action="<?php echo script()?>"  accept-charset="<?php echo $lang['encoding']?>">
     <div class="no">
@@ -641,10 +628,21 @@ global $INFO;
                    value="<?php echo $this->getLang('dw_btn_revert')?>"  
                    title="<?php echo $this->getLang('title_dw_revert')?>"  
                    
-                  />&nbsp;&nbsp;&nbsp;
+                  />
               
 
+    <?php if(!$skip_styling) : ?>
+               <input type="hidden" id="styling"  name="styling" value="styles" />
+              <input class="button" type="submit" id="edit__styles"
+                   name ="do[edit]"; 
+                   id = "no_styling_btn"                   
+                   value="<?php echo $this->getLang('dw_btn_styling')?>"  
+                   title="<?php echo $this->getLang('title_styling')?>"  
 
+                  />
+
+    <?php endif ?>
+    &nbsp;&nbsp;&nbsp;
 <?php                  
 if($is_ckgeditChrome) echo $chrome_dwedit_link;
 ?>

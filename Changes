@@ -559,3 +559,6 @@ Fixed Javascript typo error in en.js/en.js.unc
 Fixed 'Edit Fonts" button so that it doesn't cause duplication of prefix and suffix texts.
 Added code to Save.php to reconfigure multiple fonts (in testing stage).
 
+2 Nov
+Moved 'Edit Fonts' button to button panel beneath editor; abandoned reconfiguring of multiple fonts.
+
