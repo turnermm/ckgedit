@@ -258,6 +258,9 @@ function parse_wikitext(id) {
      else if(tag == 'acronym') {
           return;
      }
+      if(format_chars[tag] && this.in_endnotes) {  
+         if(tag == 'sup') return;
+      }
         if(tag == 'ol' || tag == 'ul') {    
             this.prev_list_level = this.list_level;
             this.list_level++;     
@@ -1242,7 +1245,7 @@ function parse_wikitext(id) {
      if(this.in_link && format_chars[current_tag] && this.link_formats.length) {            
            return;
      }       
-          
+      if(this.in_endnotes  && current_tag == 'sup') {return}
        results += tag;
       
       if(format_chars[current_tag]) {               
