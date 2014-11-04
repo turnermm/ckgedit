@@ -561,7 +561,7 @@ Added code to Save.php to reconfigure multiple fonts (in testing stage).
 
 2 Nov
 Moved 'Edit Fonts' button to button panel beneath editor; abandoned reconfiguring of multiple fonts.
-Multiples font spans are caused by Scayt populating output with font markup.
+Multiples font span are caused by Scayt populating output with font markup.
 
 3 Nov
 Removed extraneous <sup> tags left by footnote parsing
