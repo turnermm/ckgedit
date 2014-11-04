@@ -87,6 +87,8 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   list($name,$scayt_lang) = explode('/', $scayt_lang);
   
   $scayt_auto = $this->getConf('scayt_auto');
+ $color_opts = $this->getConf('color_options');
+ $font_opts = $this->getConf('font_options');
  
   if(!isset($INFO['userinfo']) && !$open_upload) {
     $user_type = 'visitor';
@@ -401,6 +403,24 @@ var direction = "$ckgedit_lang_direction";
 return direction == 'rtl';
   
 }
+
+function remove_styling() {
+//'TextColor,BGColor, FontAssist,Font,FontSize';
+var opts = "";
+var color_opts = parseInt( "$color_opts");
+var font_opts =  parseInt("$font_opts");
+if(color_opts) {
+  opts ='TextColor,BGColor, FontAssist';
+}
+if(font_opts) {
+  if(color_opts) opts+=',';
+  opts +='Font,FontSize';
+}
+
+return opts;
+
+}
+
 
 function ckgedit_language_chk(config) { 
     if("$scayt_auto" == 'on') {

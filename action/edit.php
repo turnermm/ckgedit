@@ -489,10 +489,23 @@ CKEDITOR_REPLACE;
 
 		 echo  $this->helper->registerOnLoad($ckeditor_replace);
 
+         global $skip_styling;
             
-
 ?>
 
+     <?php if(!$skip_styling) : ?>
+      <form  id="stying_form"  method="post"  name="stying_form" action="<?php echo script()?>"  accept-charset="<?php echo $lang['encoding']?>">
+      <div class="no">
+               <input type="hidden" id="styling"  name="styling" value="no_styles" />
+              <input class="button" type="submit"
+                  name ="do[edit]"; 
+                   id = "no_styling_btn"                   
+                   value="<?php echo $this->getLang('dw_btn_styling')?>"  
+                   title="<?php echo $this->getLang('title_styling')?>"  
+
+                  />
+    </form>
+    <?php endif ?>
  
    <form id="dw__editform" method="post" action="<?php echo script()?>"  accept-charset="<?php echo $lang['encoding']?>">
     <div class="no">
@@ -851,8 +864,13 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
      */
     function _render_xhtml($text){
         $mode = 'ckgedit';
-        $skip_styling = true;
-        
+
+        global $skip_styling;
+        $skip_styling =  $this->getConf('nofont_styling');
+        if(!$skip_styling && $_POST['styling'] == 'no_styles') {
+            $skip_styling = true;
+        }  
+
         if(strpos($text,'~~NO_STYLING~~') !== false) {
             $skip_styling = true;
         }
@@ -994,13 +1012,13 @@ $text = preg_replace_callback(
         $xhtml = $Renderer->doc;
         if(!$skip_styling) { 
         $xhtml = preg_replace_callback(
-            '|&amp;lt;font\s+(\d+p.)/([\w ,\-]+);;([rgb\(\)),\w,\s\#]+);;([rgb\(\)),\w,\s\#]+)&gt;(.*?)&amp;lt;/font&gt;|ms',
+            '|&amp;lt;font\s+(.*?)/([\w ,\-]+);;([\(\)),\w,\s\#]+);;([\(\)),\w,\s\#]+)&gt;(.*?)&amp;lt;/font&gt;|ms',
              function($matches) {
                return '<span style = "color:' . $matches[3] .'">' .
                '<span style = "font-size:' . $matches[1] .'">' .
                '<span style = "font-family:' . $matches[2] .'">' .
                '<span style = "background-color:' . $matches[4] .'">' .
-                $matches[5] . '</span></span></span></span><span>&nbsp;</span>';
+                $matches[5] . '</span></span></span></span>';
              }, $xhtml
         );
         }

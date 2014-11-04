@@ -97,8 +97,12 @@ config.colors = new Array(
       config.extraPlugins = 'signature,footnote,shortcuts,fontAssist'; //,devtools';
       config.contentsLangDirection = '';
       if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
-     config.removeButtons = 'BGColor';
      
+     config.removeButtons = top. remove_styling(); 
+     var font_assist = 'FontAssist';
+     //config.removeButtons = 'TextColor,BGColor, FontAssist,Font,FontSize';
+     if(config.removeButtons.match(/FontAssist/)) font_assist = "";
+
     config.toolbar_Dokuwiki =
 	[
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
@@ -106,7 +110,7 @@ config.colors = new Array(
 		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  'Signature' ,'Footnotes'] },           
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
-    	{ name: 'colors',      items : [ 'TextColor','BGColor', 'FontAssist' ] },		
+    	{ name: 'colors',      items : [ 'TextColor','BGColor', font_assist ] },		
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] },
@@ -212,6 +216,7 @@ get_ckgeditor_version();
 
 //	config.removeButtons = 'Underline,Subscript,Superscript,Anchor';
 // This is actually the default value.
+/*
 config.toolbar_Full =
 [
     { name: 'document',    items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
@@ -228,6 +233,7 @@ config.toolbar_Full =
     { name: 'colors',      items : [ 'TextColor','BGColor' ] },
     { name: 'tools',       items : [ 'Maximize', 'ShowBlocks','-','About' ] }
 ];
+*/
 
 CKEDITOR.lang['default'] = {};
 CKEDITOR.lang['default']['fbrowser'] = {

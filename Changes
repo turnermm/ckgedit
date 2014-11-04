@@ -1,4 +1,4 @@
-rev 14-Oct_25-05_05
+rev 14-Nov_3-15_37_
 
 Initial Development distribution
 
@@ -534,5 +534,39 @@ Remove newlines between nested list and return to previous list level
 25 Oct
 Moved experimental font reconstruction to its own branch
 
-1 Nov
-Removed BGcolor tool because it creates  multiple spans
+Added ~~NO_STYLING~~ macro.  If found on page, font markup is left in tact.
+
+25 Oct
+Fix for broken font syntax context by using end_makrup['span'] = " "
+
+26 Oct
+Added Configuration Option 'nofont_styling'. On = Display font styles in editor
+as plugin markup.
+
+28 Oct
+Some updates to font styling in parse_wiki. Two new ConfigOptions, to 
+remove color and font buttons from editor.
+
+Added new Editor button to switch editor to no font styling mode.
+
+30 Oct 
+Fixed Javascript typo error in en.js/en.js.unc
+
+31 Oct
+Fixed 'Edit Fonts" button so that it doesn't cause duplication of prefix and suffix texts.
+Added code to Save.php to reconfigure multiple fonts (in testing stage).
+
+2 Nov
+Moved 'Edit Fonts' button to button panel beneath editor; abandoned reconfiguring of multiple fonts.
+Multiple font span are caused by Scayt populating output with font markup; temporarily disabling
+Scayt solves this problem
+
+2 Nov
+Restored 'Edit Fonts' button to its own form
+
+3 Nov
+Removed extraneous <sup> tags left by footnote parsing
+
+
+
+

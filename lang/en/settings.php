@@ -1,10 +1,6 @@
 <?php
 
 $lang['groups'] = "Group allowed to disable lock timer (deprecated)";
-$lang['middot'] = "Comma delimited list of groups using &amp;middot; for &amp;nbsp;";
-$lang['big_files'] = "Check to safely edit oversized files";
-$lang['big_file_sz'] = "Oversized File Size (bytes)";
-$lang['big_file_tm'] = "Oversized File processing will time out after (seconds):";
 $lang['fck_preview'] = "FCK Preview Group";
 $lang['guest_toolbar'] = "Display Toolbar to Guests";
 $lang['guest_media'] = "Guest Can Link to Media Files";
@@ -32,3 +28,6 @@ $lang['winstyle'] = 'Use direct path to media directory instead of fckeditor/use
 $lang['other_lang'] = 'Your default language for the CKEditor is the language set for your browser.   You can, however, choose another language here; it is independent of the Dokuwiki interface language.';
 $lang['dw_priority'] = "Make Dokuwiki editor the default editor"; 
 $lang['preload_ckeditorjs'] = "Preload the ckeditor's javascript to speed up subsequent loading of editor";
+$lang['nofont_styling']  = 'Display font styles in editor as plugin markup. See the ckgedit plugin page at Dokuwiki.org for details.';
+$lang['font_options']  = 'Remove font options.';
+$lang['color_options']  = 'Remove Color options.';

@@ -26,4 +26,5 @@ $lang['whats_this'] = "what's this?";
 $lang['complex_tables'] = "Enable Complex Tables";
 $lang['minor_changes'] = "Minor changes";
 $lang['discard_edits'] = "To Save your edits click OK; to Discard click Cancel";
-
+$lang['dw_btn_styling'] = "Edit Fonts";
+$lang['title_styling'] = 'Open with font styles shown as markup';
