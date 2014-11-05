@@ -567,6 +567,9 @@ Restored 'Edit Fonts' button to its own form
 3 Nov
 Removed extraneous <sup> tags left by footnote parsing
 
+5 Nov
+Moved to CKEditor 4.4.5
+
 
 
 
