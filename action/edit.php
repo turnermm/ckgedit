@@ -971,6 +971,21 @@ $text = preg_replace_callback(
                 return $matches[1] . $quot . $matches[3];' 
           ), $text); 
 
+         $text = preg_replace_callback('/(<code.*?>)([^<]+)(<\/code>)/ms',
+             create_function(
+               '$matches',             
+               '$matches[2] = str_replace("&lt;font",ckgeditFONTOpen,$matches[2]);
+               $matches[2] = str_replace("font&gt;",ckgeditFONTClose,$matches[2]);
+                return $matches[1] .$matches[2] . $matches[3]; '
+          ), $text); 
+    
+          $text = preg_replace_callback('/(<file.*?>)([^<]+)(<\/file>)/ms',
+             create_function(
+               '$matches',             
+               '$matches[2] = str_replace("&lt;font",ckgeditFONTOpen,$matches[2]);
+               $matches[2] = str_replace("font&gt;",ckgeditFONTClose,$matches[2]);
+                return $matches[1] .$matches[2] . $matches[3]; '
+          ), $text); 
     
             $instructions = p_get_instructions("=== header ==="); // loads DOKU_PLUGINS array --M.T. Dec 22 2009
             global $multi_block;
@@ -1074,7 +1089,8 @@ $text = preg_replace_callback(
         //remove empty markup remaining after removing marked-up acronyms in lists
         $xhtml = preg_replace('/<(em|b|u|i)>\s+<\/(em|b|u|i)>/ms',"",$xhtml);
         $xhtml = preg_replace("/col\d+\s+(\w+align)/ms", "$1",$xhtml);  //remove col number for cell prpoerties dialog
-
+        $xhtml = str_replace('ckgeditFONTOpen', '&amp;lt;font',$xhtml);  // protect font markup in code blocks
+        $xhtml = str_replace('ckgeditFONTClose', 'font&amp;gt;',$xhtml);
        if($smiley_as_text) {
            if($haveDokuSmilies) {
                  $s_values = array_values($Smilies);
