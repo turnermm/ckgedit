@@ -971,21 +971,15 @@ $text = preg_replace_callback(
                 return $matches[1] . $quot . $matches[3];' 
           ), $text); 
 
-         $text = preg_replace_callback('/(<code.*?>)([^<]+)(<\/code>)/ms',
+       
+          $text = preg_replace_callback('/(<code>|<file>)([^<]+)(<\/code>|<\/file>)/ms',
              create_function(
                '$matches',             
-               '$matches[2] = str_replace("&lt;font",ckgeditFONTOpen,$matches[2]);
-               $matches[2] = str_replace("font&gt;",ckgeditFONTClose,$matches[2]);
+               '$matches[2] = str_replace("&lt;font","ckgeditFONTOpen",$matches[2]);
+               $matches[2] = str_replace("font&gt;","ckgeditFONTClose",$matches[2]);
                 return $matches[1] .$matches[2] . $matches[3]; '
           ), $text); 
     
-          $text = preg_replace_callback('/(<file.*?>)([^<]+)(<\/file>)/ms',
-             create_function(
-               '$matches',             
-               '$matches[2] = str_replace("&lt;font",ckgeditFONTOpen,$matches[2]);
-               $matches[2] = str_replace("font&gt;",ckgeditFONTClose,$matches[2]);
-                return $matches[1] .$matches[2] . $matches[3]; '
-          ), $text); 
     
             $instructions = p_get_instructions("=== header ==="); // loads DOKU_PLUGINS array --M.T. Dec 22 2009
             global $multi_block;

@@ -1,4 +1,4 @@
-rev 14-Nov_5-11_49_
+rev 14-Nov_6-08_20_
 
 Initial Development distribution
 
@@ -570,5 +570,7 @@ Removed extraneous <sup> tags left by footnote parsing
 5 November
 Protect font tags inside code and file blocks
 
+6 Nov
+Fixed buf in above an d refactored  it
 
 
