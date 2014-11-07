@@ -1,4 +1,4 @@
-rev 14-Nov_4-08_42_
+rev 14-Nov_7-08_42_
 
 Initial Development distribution
 
@@ -567,9 +567,10 @@ Restored 'Edit Fonts' button to its own form
 3 Nov
 Removed extraneous <sup> tags left by footnote parsing
 
-5 Nov
-Moved to CKEditor 4.4.5
+5 November
+Protect font tags inside code and file blocks
 
-
+6 Nov
+Fixed bug in above an d refactored  it
 
 
