@@ -1,4 +1,4 @@
-rev 14-Nov_7-08_42_
+rev 14-Nov_8-08_45_
 
 Initial Development distribution
 
@@ -571,6 +571,9 @@ Removed extraneous <sup> tags left by footnote parsing
 Protect font tags inside code and file blocks
 
 6 Nov
-Fixed bug in above an d refactored  it
+Fixed bug in above and refactored  it
+
+8 Nov
+Changed labels for indent and outdent to 'Nested List' and 'Decrease Nesting'
 
 
