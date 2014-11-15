@@ -139,13 +139,6 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
 
          }
  
-     $TEXT = preg_replace_callback(
-    "#_CLEAN_FONTS_START_\s*(\<font.*?>)(.*?)(\\1)\s*_CLEAN_FONTS_END_#ms",
-         function($matches) {
-            $matches[2] = str_replace('</font>','',$matches[2]);
-            return $matches[1] . $matches[2];
-    }, $TEXT
-);
         $this->replace_entities();
 
 /* 11 Dec 2013 see comment below        
