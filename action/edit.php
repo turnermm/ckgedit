@@ -410,7 +410,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     * function dw_edit_displayed
     * @author  Myron Turner
     * determines whether or not to show  or hide the
-      'DW Edit' button
+    *  'DW Edit' button
    */
 
    function dw_edit_displayed() 
