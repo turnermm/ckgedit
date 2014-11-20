@@ -1,4 +1,6 @@
-rev 14-Nov_8-08_20_
+rev 14-Nov_18-13_39
+
+
 
 Initial Development distribution
 
@@ -576,6 +578,8 @@ Fixed bug in above and refactored  it
 8 Nov
 Updated labels for indent and outdent to 'Nested List' and 'Decrease Nesting'
 
+15 Nov
+Synced with github
 
-
-
+18 Nov
+Experimental toolbar customization

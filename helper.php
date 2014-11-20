@@ -42,14 +42,6 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   }
   
   function is_outOfScope(&$which="") {
-        $list = plugin_list('action');  
-         if(in_array( 'fckg_edit' , $list)) {       
-            if(!isset($_COOKIE['ckgEditSwitch'])) return true;
-            $which = $_COOKIE['ckgEditSwitch'];
-             if($_COOKIE['ckgEditSwitch'] != 'ckgedit') return true;   
-             
-        }
-
       return false;
   }
   
@@ -89,7 +81,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   $scayt_auto = $this->getConf('scayt_auto');
  $color_opts = $this->getConf('color_options');
  $font_opts = $this->getConf('font_options');
- 
+  $toolbar_opts = $this->getConf('alt_toolbar');
   if(!isset($INFO['userinfo']) && !$open_upload) {
     $user_type = 'visitor';
   }
@@ -415,6 +407,10 @@ if(color_opts) {
 if(font_opts) {
   if(color_opts) opts+=',';
   opts +='Font,FontSize';
+}
+if("$toolbar_opts") {
+  if(opts) opts+=',';
+  opts+="$toolbar_opts";
 }
 
 return opts;

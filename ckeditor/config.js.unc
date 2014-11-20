@@ -103,11 +103,15 @@ config.colors = new Array(
      //config.removeButtons = 'TextColor,BGColor, FontAssist,Font,FontSize';
      if(config.removeButtons.match(/FontAssist/)) font_assist = "";
 
+     config.ToolBarItemsAlt = {  
+     'Signature':'Signature' ,'Footnotes':'Footnotes'
+     };
+     
     config.toolbar_Dokuwiki =
 	[
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },        
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  'Signature' ,'Footnotes'] },           
+		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes']] },           
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors',      items : [ 'TextColor','BGColor', font_assist ] },		
