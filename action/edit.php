@@ -502,8 +502,9 @@ CKEDITOR_REPLACE;
                    id = "no_styling_btn"                   
                    value="<?php echo $this->getLang('dw_btn_styling')?>"  
                    title="<?php echo $this->getLang('title_styling')?>"  
-
                   />
+              <input type="hidden" name="id"   value="<?php echo $ID?>" />
+
     </form>
     <?php endif ?>
  

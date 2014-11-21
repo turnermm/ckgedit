@@ -1,4 +1,4 @@
-rev 14-Nov_8-08_20_
+rev 14-Nov_21-04_55_
 
 Initial Development distribution
 
@@ -576,6 +576,8 @@ Fixed bug in above and refactored  it
 8 Nov
 Updated labels for indent and outdent to 'Nested List' and 'Decrease Nesting'
 
+21 Nov
+Added missing id input field from 'Edit Fonts' button
 
 
 
