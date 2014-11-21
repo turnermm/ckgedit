@@ -410,7 +410,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     * function dw_edit_displayed
     * @author  Myron Turner
     * determines whether or not to show  or hide the
-      'DW Edit' button
+    *  'DW Edit' button
    */
 
    function dw_edit_displayed() 
@@ -502,8 +502,9 @@ CKEDITOR_REPLACE;
                    id = "no_styling_btn"                   
                    value="<?php echo $this->getLang('dw_btn_styling')?>"  
                    title="<?php echo $this->getLang('title_styling')?>"  
-
                   />
+              <input type="hidden" name="id"   value="<?php echo $ID?>" />
+
     </form>
     <?php endif ?>
  
