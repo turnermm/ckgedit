@@ -579,5 +579,9 @@ Updated labels for indent and outdent to 'Nested List' and 'Decrease Nesting'
 21 Nov
 Added missing id input field from 'Edit Fonts' button
 
+22 Nov
+Moved Edit Fonts button to dw__editform FORM, set no_styling in onclick
+
+
 
 

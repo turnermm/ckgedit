@@ -1700,7 +1700,7 @@ jQuery( "#complex_tables" ).click(function() {
    setComplexTables(jQuery( "#complex_tables" ).get(0).checked);
 });
 
-jQuery( "#edit__styles" ).click(function() { 
+jQuery( "#no_styling_btn" ).click(function() { 
    this.form.styling.value  ="no_styles";
 });
 
