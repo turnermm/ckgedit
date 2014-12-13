@@ -1,4 +1,4 @@
-rev 14-Nov_21-04_55_
+rev 14-Dec_13-12_52
 
 Initial Development distribution
 
@@ -576,14 +576,22 @@ Fixed bug in above and refactored  it
 8 Nov
 Updated labels for indent and outdent to 'Nested List' and 'Decrease Nesting'
 
+15 Nov
+Synced with github
+
+18 Nov
+Experimental toolbar customization
+
 21 Nov
 Added missing id input field from 'Edit Fonts' button
 
 22 Nov
+Updated version
 Moved Edit Fonts button to dw__editform FORM, set no_styling in onclick
 
-Dec 13
+13 Dec
 Load ckeditor.js with defer parameter
+
 
 
 

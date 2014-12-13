@@ -31,3 +31,5 @@ $lang['preload_ckeditorjs'] = "Preload the ckeditor's javascript to speed up sub
 $lang['nofont_styling']  = 'Display font styles in editor as plugin markup. See the ckgedit plugin page at Dokuwiki.org for details.';
 $lang['font_options']  = 'Remove font options.';
 $lang['color_options']  = 'Remove Color options.';
+$lang['alt_toolbar'] = 'Functions to remove from CKEditor toolbar';
+

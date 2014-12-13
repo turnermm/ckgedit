@@ -28,3 +28,4 @@ $conf['preload_ckeditorjs'] = 0;
 $conf['color_options'] = 0;
 $conf['font_options']  = 0;
 $conf['nofont_styling'] = 0;
+$conf['alt_toolbar'] = '';
