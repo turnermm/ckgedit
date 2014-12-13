@@ -432,6 +432,11 @@ function loadScript(&$event) {
      document.write( '<scr' + 'ipt type="text/javascript" src="' + url + '"><\/scr' + 'ipt>' ) ;        
 
     }
+   function LoadScriptDefer( url )
+    {
+     document.write( '<scr' + 'ipt type="text/javascript" src="' + url + '" defer><\/scr' + 'ipt>' ) ;        
+
+    }
 //]]> 
 
  </script>
@@ -461,7 +466,7 @@ SCRIPT;
     //<![CDATA[ 
 
     try {
-    if(!HTMLParserInstalled){
+    if(!window.HTMLParserInstalled || !HTMLParserInstalled){
          LoadScript("$url");        
     }
     }
@@ -469,7 +474,7 @@ SCRIPT;
          LoadScript("$url");        
     }             
     if("$url2") {
-       LoadScript("$url2");        
+       LoadScriptDefer("$url2");        
     }
     function createRequestValue() {
         try{

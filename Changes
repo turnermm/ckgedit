@@ -1,6 +1,4 @@
-rev 14-Nov_21-12_37
-
-
+rev 14-Dec_13-12_52
 
 Initial Development distribution
 
@@ -589,3 +587,11 @@ Added missing id input field from 'Edit Fonts' button
 
 22 Nov
 Updated version
+Moved Edit Fonts button to dw__editform FORM, set no_styling in onclick
+
+13 Dec
+Load ckeditor.js with defer parameter
+
+
+
+
