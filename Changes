@@ -1,3 +1,5 @@
+rev 14-Dec_15-14_49
+
 rev 14-Dec_13-12_52
 
 Initial Development distribution
@@ -592,6 +594,5 @@ Moved Edit Fonts button to dw__editform FORM, set no_styling in onclick
 13 Dec
 Load ckeditor.js with defer parameter
 
-
-
-
+15 Dec
+Fixed failure to open file browser in external savedir

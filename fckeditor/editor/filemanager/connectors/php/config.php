@@ -142,7 +142,13 @@ if(!isset($Config['UserFilesAbsolutePath']) || !isset($Config['UserFilesPath']))
    if($isWindows || $useWinStyle) {
     setupBasePathsWin();
     if($dwfck_local) {
-     $Config['UserFilesPath'] = str_replace('/media', '/pages', $Config['UserFilesPath']);
+     $savedir = $Dwfck_conf_values['savedir'];
+     if(trim($savedir,'./') != 'data') {
+        $Config['UserFilesPath'] = $savedir .'/pages/';
+        $Config['UserFilesAbsolutePath'] = $Config['UserFilesPath'];
+     }
+     else $Config['UserFilesPath'] = str_replace('/media', '/pages', $Config['UserFilesPath']);     
+     //$Config['UserFilesPath'] = str_replace('/media', '/pages', $Config['UserFilesPath']);
      if($isWindows) {
           if($Dwfck_conf_values['ckg_savedir']) {     
              $Config['UserFilesAbsolutePath'] = $Dwfck_conf_values['ckg_savedir'] . '/pages/';
