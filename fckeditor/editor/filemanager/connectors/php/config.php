@@ -52,65 +52,10 @@ $Config['osDarwin'] = DWFCK_is_OS('DARWIN') ? true : false;
 
   
 /** 
-
-   PATHS
-   This script will atempt to implement the two paths described below automatically.  
-   But if that fails, here is what you must do.
-
-   Two Paths Required:  absolute and relative.  Both must refer to the same directory.
-   On a Windows System the Absolute Path is the complete path from the Drive Letter to the
-   userfiles directory.
-
-   The relative or UserfilesPath starts at the directory where you have your DokuWiki
-   installed and refers to the data/media directory:  /<dokuwiki>/data/media/
-   You fill in <dokuwiki> with the name of your own dokuwiki directory.  If <dokuwiki>
-   is in a subdirectory, then your relative path must begin with that subdirectory.  In other
-   words what you want here is the directory that would appear in the browser's url.  
-
-   If your web site is http://my_website.org and dokuwiki is accesses as
-               http://my_website.org/dokuwiki
-  then your relative path is as above
-              /dokuwiki/data/media/
-  But if the web address is
-              http://my_website.org/software/dokuwiki
-  then your relative path is
-              /software/dokuwiki/data/media 
-
-   What you want is the paths to your dokuwiki data/media directory.
-
-  On a Windows system:
-  The Absolute Path uses the Windows style with back-slashes, while the relative path uses
-  the Unix-style with forward slashes.  
-  NOTE:  The PHP programming language requires two backslashes to represent a single backslash:
-    'C:\\Program Files\\. . . . \\'
-
-  Both paths must be enclosed in single quotes and both paths must end with slashes--a single
-  forward slash in the relative path and a double backslash in the Windows.  And the relative
-  path must begin with a single forward slash:
-     Windows Absolute:  'C:\\Program Files\\. . . . \\'
-     Linux/Unix Absolute:  /var/www/htdocs . . ./'
-
-     Relative on all Systems:  '/. . /data/media/'
-
-  The absolute path is assigned to  $Config['UserFilesAbsolutePath'] 
-  The relative path is assigned to  $Config['UserFilesPath']
-*/
-
-/**
- Example absolute paths
-   Example absolute On Windows System:
-  $Config['UserFilesAbsolutePath'] = 'C:\\Program Files\\Apache Software Foundation\\Apache2.2\\htdocs\\dokuwiki\\data\\media\\';
- 
-  Example absolute on Unix/Linux system:
-  $Config['UserFilesAbsolutePath'] = '/var/www/htdocs/dokuwiki/data/media/';
-
-*/
-
-/** 
- Example relative path
-   This is the path to user files relative to the document root.
-   This must use the Unix style path, even on a Windows system, i.e. single forward slashes
-   $Config['UserFilesPath'] = '/dokuwiki/data/media/';
+  For filebrowser installation documents relating to this file, see the following:
+  http://www.mturner.org/fckgLite/doku.php?id=file_browser_install
+  http://www.mturner.org/fckgLite/doku.php?id=docs:auto_install
+  http://www.mturner.org/fckgLite/doku.php?id=media#security_and_the_media_directory
 
 */
 

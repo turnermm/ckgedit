@@ -1,4 +1,4 @@
-rev 14-Dec_15-14_49
+rev 14-Dec_18-19_58
 
 rev 14-Dec_13-12_52
 
@@ -596,3 +596,6 @@ Load ckeditor.js with defer parameter
 
 15 Dec
 Fixed failure to open file browser in external savedir
+
+18 Dec
+Replaced long top comment in config.php with links to web site
