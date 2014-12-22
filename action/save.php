@@ -83,8 +83,8 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
           $TEXT = preg_replace_callback('/^(.*?)(\[\[.*?\]\])*(.*?)$/ms', 
                create_function(
                      '$matches',         
-                     '$matches[1] = preg_replace("/%([A-F]+)/i", "URLENC_PERCENT$1", $matches[1]);
-                      $matches[3] = preg_replace("/%([A-F]+)/i", "URLENC_PERCENT$1", $matches[3]);
+                     '$matches[1] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[1]);
+                      $matches[3] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[3]);
                       return $matches[1].$matches[2].$matches[3];'            
                 ),
                 $TEXT

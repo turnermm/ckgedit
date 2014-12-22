@@ -1,4 +1,4 @@
-rev 14-Dec_18-19_58
+rev 14-Dec_21-21_19
 
 rev 14-Dec_13-12_52
 
@@ -599,3 +599,6 @@ Fixed failure to open file browser in external savedir
 
 18 Dec
 Replaced long top comment in config.php with links to web site
+
+21 Dec
+Fixed corrupted url per-cent escapes caused by preg_repace in action/save.php
