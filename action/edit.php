@@ -472,7 +472,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 	        $toolbar = "DokuwikiGuest";
 	   }
         else $toolbar = 'Dokuwiki';
-$doku_url=  DOKU_URL;        
+$doku_url=  rtrim(DOKU_URL,'/');        
 $ckeditor_replace =<<<CKEDITOR_REPLACE
 
 		   ckgeditCKInstance = CKEDITOR.replace('wiki__text',

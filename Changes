@@ -1,4 +1,4 @@
-rev 15-Jan_04-22_54
+rev 15-Jan_09-07_51
 
 rev 14-Dec_13-12_52
 
@@ -605,3 +605,9 @@ Fixed corrupted url per-cent escapes caused by preg_repace in action/save.php
 
 4 Jan 2015
 Removed extra '/' from absolute local path in php/config.php
+
+7 Jan
+Dutch language update
+
+9 Jan 
+Removed extra '/' from Connector url in edit.php
