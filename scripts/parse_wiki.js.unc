@@ -1702,6 +1702,9 @@ jQuery( "#complex_tables" ).click(function() {
 
 jQuery( "#no_styling_btn" ).click(function() { 
    this.form.styling.value  ="no_styles";
+   this.form.prefix.value="";
+   this.form.suffix.value="";
+   this.form.rev.value="";
 });
 
 jQuery( "#ebut_cancel" ).mouseup(function() { 
