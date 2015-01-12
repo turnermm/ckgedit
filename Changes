@@ -1,4 +1,4 @@
-rev 15-Jan_09-07_51
+rev 15-Jan_12-06_52
 
 rev 14-Dec_13-12_52
 
@@ -611,3 +611,6 @@ Dutch language update
 
 9 Jan 
 Removed extra '/' from Connector url in edit.php
+
+12 Jan
+Disabled Edit Fonts button except in test mode: duplicates texts in section editing
