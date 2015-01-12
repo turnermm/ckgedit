@@ -630,7 +630,7 @@ global $INFO;
                    title="<?php echo $this->getLang('title_dw_revert')?>"  
                    
                   />
-     <?php if(!$skip_styling && $this->test) : ?>              
+     <?php if(!$skip_styling) : ?>              
               <input class="button" type="submit"
                   name ="do[edit]"; 
                    id = "no_styling_btn"                   
