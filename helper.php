@@ -42,6 +42,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   }
   
   function is_outOfScope(&$which="") {
+      if(isset($_REQUEST['target']) && $_REQUEST['target'] == 'plugin_data') return true; 
       return false;
   }
   

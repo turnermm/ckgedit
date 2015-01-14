@@ -1,4 +1,4 @@
-rev 15-Jan_12-08_01
+rev 15-Jan_13-20_12
 
 rev 14-Dec_13-12_52
 
@@ -616,3 +616,6 @@ Removed extra '/' from Connector url in edit.php
 Disabled Edit Fonts button except in test mode: duplicates texts in section editing
 
 Fixed Edit Fonts duplicates issue
+
+13 Jan
+Partial accommodation for Structured Data Plugin via helper.php:is_outOfScope.
