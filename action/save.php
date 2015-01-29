@@ -90,10 +90,10 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                 $TEXT
              );
         
-
+        $TEXT = preg_replace('/URLENC_PERCENT/', '%',$TEXT); 
         $TEXT = rawurldecode($TEXT);
         $TEXT = preg_replace('/NOWIKI_(.)_/', '$1',$TEXT);
-        $TEXT = preg_replace('/URLENC_PERCENT/', '%',$TEXT); 
+        
           /* preserve newlines in code blocks */
           $TEXT = preg_replace_callback(
             '/(<code>|<file>)(.*?)(<\/code>|<\/file>)/ms',

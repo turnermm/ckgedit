@@ -1,4 +1,4 @@
-rev 15-Jan_13-20_12
+rev 15-Jan_29-10_09
 
 rev 14-Dec_13-12_52
 
@@ -619,3 +619,6 @@ Fixed Edit Fonts duplicates issue
 
 13 Jan
 Partial accommodation for Structured Data Plugin via helper.php:is_outOfScope.
+
+29 Jan
+save.php: fixed urls in which url-encoded strings failed to be unencoded.
