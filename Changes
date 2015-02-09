@@ -1,4 +1,4 @@
-rev 15-Jan_29-10_09
+rev 15-Feb_08-18_55
 
 rev 14-Dec_13-12_52
 
@@ -622,3 +622,7 @@ Partial accommodation for Structured Data Plugin via helper.php:is_outOfScope.
 
 29 Jan
 save.php: fixed urls in which url-encoded strings failed to be unencoded.
+
+8 Feb
+Removed trailing question marks from filebrowser urls (in edit.php)
+Thanks to https://github.com/kjetilbmoe
