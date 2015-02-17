@@ -73,7 +73,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   $_OS = strtolower(PHP_OS);
   $cname = getCacheName($INFO['client'].$ID,'.draft');
   $useheading = $conf['useheading'];
-  if($useheading && $useheading != 'content') {
+  if($useheading && $useheading != 'content' && $useheading != '0') {
        $useheading = 'y';
   }
   else $useheading = 'n';

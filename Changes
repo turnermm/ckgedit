@@ -1,4 +1,4 @@
-rev 15-Feb_17-08_53
+rev 15-Feb_17-13_56
 
 rev 14-Dec_13-12_52
 
@@ -629,3 +629,4 @@ Thanks to https://github.com/kjetilbmoe
 
 17 Feb
 Installed useheading support (link.js, helper.php)
+Non-substantive fix  for useheading recognition in helper.php
