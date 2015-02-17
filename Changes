@@ -1,4 +1,4 @@
-rev 15-Feb_08-18_55
+rev 15-Feb_17-08_53
 
 rev 14-Dec_13-12_52
 
@@ -626,3 +626,6 @@ save.php: fixed urls in which url-encoded strings failed to be unencoded.
 8 Feb
 Removed trailing question marks from filebrowser urls (in edit.php)
 Thanks to https://github.com/kjetilbmoe
+
+17 Feb
+Installed useheading support (link.js, helper.php)

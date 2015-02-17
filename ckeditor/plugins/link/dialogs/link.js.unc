@@ -25,7 +25,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
     //oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
 	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
         
-  //  editor.config.linkShowTargetTab=false;
+  
 	 var fckgSMBInputId;
      var defaultFBLang = {
         InternalLink: "internal link",
@@ -99,6 +99,29 @@ CKEDITOR.dialog.add( 'link', function( editor )
             );
 	};	  
     
+var useHeading = function(wiki_id) {
+        var retv = wiki_id;
+        var debug = 0;
+         var params="dw_id=" +encodeURIComponent(wiki_id);
+         editor.config.jquery.ajax({
+           url: editor.config.ckedit_path + "useheading.php",
+           async: false,
+           data: params,    
+           type: 'POST',
+           dataType: 'html',         
+           success: function(data){                 
+               if(debug) {            
+                  alert(data);
+               }              
+               retv = decodeURIComponent(data);  
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+            retv = wiki_id;
+        }
+    });
+    return retv;
+};
+
   
   var getSMBInput = function ()   {  return fckgSMBInputId; };
 	// Handles the event when the "Type" selection box is changed.
@@ -967,11 +990,17 @@ CKEDITOR.dialog.add( 'link', function( editor )
                                 }
                             }
                         }                          
+
                      data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
                      data.url.url = data.url.url.replace(/^\:/,"");
                      data.url.url =  ':' + data.url.url.replace(/\//g,':');      
                      data.adv.advCSSClasses = "wikilink1";
+                     if(oDokuWiki_FCKEditorInstance.useheading == 'y') {
+                         data.adv.advTitle = useHeading(data.url.url)
+                    }
+                     else {
                      data.adv.advTitle = data.url.url;
+                     }   
                      data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;   
                      if(data.hash) { data.url.url += '#' +data.hash;  }
                      if(data.qstring) { data.url.url += '&' +data.qstring;  }

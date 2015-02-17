@@ -72,6 +72,12 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   global $USERINFO;
   $_OS = strtolower(PHP_OS);
   $cname = getCacheName($INFO['client'].$ID,'.draft');
+  $useheading = $conf['useheading'];
+  if($useheading && $useheading != 'content') {
+       $useheading = 'y';
+  }
+  else $useheading = 'n';
+  //msg('uh='.$useheading);
   $open_upload = $this->getConf('open_upload');
   $editor_backup = $this->getConf('editor_bak');
   $create_folder = $this->getConf('create_folder');
@@ -450,6 +456,8 @@ function FCKeditor_OnComplete( editorInstance )
   oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions="$ImageUploadAllowedExtensions";
   oDokuWiki_FCKEditorInstance.fckgUserName = "$user_name";
   oDokuWiki_FCKEditorInstance.fckgUserMail="$user_email"; 
+  oDokuWiki_FCKEditorInstance.useheading = "$useheading"; 
+  
  
   var index = navigator.userAgent.indexOf('Safari'); 
   if(index == -1  || (navigator.userAgent.indexOf('Chrome'))) {
