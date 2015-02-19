@@ -1,4 +1,4 @@
-rev 15-Feb_17-13_56
+rev 15-Feb_18-22_37
 
 rev 14-Dec_13-12_52
 
@@ -630,3 +630,6 @@ Thanks to https://github.com/kjetilbmoe
 17 Feb
 Installed useheading support (link.js, helper.php)
 Non-substantive fix  for useheading recognition in helper.php
+
+18 Feb 
+Restored deleted icons to ckeditor/images
