@@ -1,4 +1,4 @@
-rev 15-Feb_18-22_37
+rev 15-Feb_19-08_03
 
 rev 14-Dec_13-12_52
 
@@ -633,3 +633,6 @@ Non-substantive fix  for useheading recognition in helper.php
 
 18 Feb 
 Restored deleted icons to ckeditor/images
+
+19 Feb
+Excludes styles parsing if font and color options are turned off. Fixed html typo in edit.php.

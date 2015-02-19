@@ -426,7 +426,7 @@ function parse_wikitext(id) {
             }
 
 
-            if(tag == 'span') {
+            if(tag == 'span' && !ckgedit_xcl_styles) {
                if(attrs[i].name == 'style') {
                    if(!this.in_font) results += "__STYLE__";
              	   this.in_font=true;    		   	   
@@ -1092,7 +1092,7 @@ function parse_wikitext(id) {
         this.is_smiley = false;    
         if(tag !='li') return;
      }
-	 if(tag == 'span' && this.in_font) {
+	 if(tag == 'span' && this.in_font && !ckgedit_xcl_styles) {
 	       tag = 'font';
           //<font 18pt/garamond;;color;;background_color>  */
           var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">\n\n";        

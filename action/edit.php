@@ -632,7 +632,7 @@ global $INFO;
                   />
      <?php if(!$skip_styling) : ?>              
               <input class="button" type="submit"
-                  name ="do[edit]"; 
+                   name ="do[edit]" 
                    id = "no_styling_btn"                   
                    value="<?php echo $this->getLang('dw_btn_styling')?>"  
                    title="<?php echo $this->getLang('title_styling')?>"  
@@ -796,7 +796,9 @@ RegExp.escape = function(str)
     var specials = new RegExp("[.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
     return str.replace(specials, "\\$&");
 }
-
+var ckgedit_xcl_fonts =parseInt  ("<?php echo $this->getConf('font_options') ;?>");
+var ckgedit_xcl_colors =parseInt("<?php echo $this->getConf('color_options') ;?>");
+var ckgedit_xcl_styles = (ckgedit_xcl_fonts + ckgedit_xcl_colors ==2) ? true : false;
 var HTMLParser_DEBUG = "";
 
 
