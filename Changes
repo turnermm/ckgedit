@@ -1,4 +1,4 @@
-rev 15-Feb_19-08_03
+rev 15-Feb_19-14_57
 
 rev 14-Dec_13-12_52
 
@@ -636,3 +636,5 @@ Restored deleted icons to ckeditor/images
 
 19 Feb
 Excludes styles parsing if font and color options are turned off. Fixed html typo in edit.php.
+
+************** New Branch ************
