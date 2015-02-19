@@ -1,6 +1,6 @@
 ﻿/**
- * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.html or http://ckeditor.com/license
+ * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.dialog.add( 'smiley', function( editor ) {
@@ -12,10 +12,8 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 
 	// Simulate "this" of a dialog for non-dialog events.
 	// @type {CKEDITOR.dialog}
-	var dialog; 
-  
-	var onClick = function( evt ,data) {
-   
+	var dialog;
+	var onClick = function( evt ) {
 			var target = evt.data.getTarget(),
 				targetName = target.getName();
 
@@ -23,17 +21,9 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 				target = target.getChild( 0 );
 			else if ( targetName != 'img' )
 				return;
-           
+
 			var src = target.getAttribute( 'cke_src' ),
-			title = target.getAttribute( 'title' ),
-            img_class = target.getAttribute( 'class' );
-                     
-            if(img_class.match(/doku/)) {
-                editor.insertText(title + " ");
-                dialog.hide();
-			    evt.data.preventDefault();
-                return;
-            }
+				title = target.getAttribute( 'title' );
 
 			var img = editor.document.createElement( 'img', {
 				attributes: {
@@ -44,9 +34,10 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 					width: target.$.width,
 					height: target.$.height
 				}
-			});
+			} );
 
-			editor.insertElement( img );		
+			editor.insertElement( img );
+
 			dialog.hide();
 			evt.data.preventDefault();
 		};
@@ -81,13 +72,12 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 				// ENTER
 				// SPACE
 			case 32:
-				onClick({ data: ev } );
+				onClick( { data: ev } );
 				ev.preventDefault();
 				break;
 
 				// RIGHT-ARROW
-			case rtl ? 37:
-				39 :
+			case rtl ? 37 : 39:
 				// relative is TD
 				if ( ( relative = element.getParent().getNext() ) ) {
 					nodeToMove = relative.getChild( 0 );
@@ -104,8 +94,7 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 				break;
 
 				// LEFT-ARROW
-			case rtl ? 39:
-				37 :
+			case rtl ? 39 : 37:
 				// relative is TD
 				if ( ( relative = element.getParent().getPrevious() ) ) {
 					nodeToMove = relative.getChild( 0 );
@@ -123,7 +112,7 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 				// Do not stop not handled events.
 				return;
 		}
-	});
+	} );
 
 	// Build the HTML for the smiley images table.
 	var labelId = CKEDITOR.tools.getNextId() + '_smiley_emtions_label';
@@ -205,8 +194,7 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 	}
 
 	html.push( '</tbody></table></div>' );
- 
-    
+
 	var smileySelector = {
 		type: 'html',
 		id: 'smileySelector',
@@ -244,5 +232,4 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 		],
 		buttons: [ CKEDITOR.dialog.cancelButton ]
 	};
-   
-});
+} );
