@@ -719,7 +719,9 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
      };
     
      })();
-
+  function getComplexTables() {   
+     return  document.getElementById('complex_tables').checked;
+  }
     <?php  global $useComplexTables;  if($useComplexTables) { ?>               
         document.getElementById('complex_tables').click();            
     <?php } ?>  
