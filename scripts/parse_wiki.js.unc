@@ -4,7 +4,7 @@ function parse_wikitext(id) {
           dom.click();
           return true;
    }    
-   var useComplexTables = setComplexTables();   
+   var useComplexTables = getComplexTables();   
    
   /**
      table debugging code;
