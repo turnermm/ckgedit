@@ -1637,7 +1637,7 @@ function parse_wikitext(id) {
     results = results.replace(/\n{3,}/g,'\n\n');
     results = results.replace(/_LIST_EOFL_/gm, " " + line_break_final + " ");
 	
-    if(embedComplexTableMacro) {
+    if(useComplexTables) {
         if(results.indexOf('~~COMPLEX_TABLES~~') == -1) {
            results += "~~COMPLEX_TABLES~~\n"; 
         }
@@ -1694,10 +1694,6 @@ jQuery( "#backup_button" ).click(function() {
 });
 jQuery( "#revert_to_prev_btn" ).click(function() { 
    revert_to_prev();
-});
-
-jQuery( "#complex_tables" ).click(function() { 
-   setComplexTables(jQuery( "#complex_tables" ).get(0).checked);
 });
 
 jQuery( "#no_styling_btn" ).click(function() { 
