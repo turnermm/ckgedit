@@ -703,25 +703,15 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
         <div id="draft__status"></div>
   <script type="text/javascript">
 //<![CDATA[
-         var embedComplexTableMacro = false;        
-
         <?php  echo 'var backup_empty = "' . $this->getLang('backup_empty') .'";'; ?>
         /* aspell_window removed, not supported */
         if(window.unsetDokuWikiLockTimer) window.unsetDokuWikiLockTimer();  
 
-   setComplexTables = (function() {
-   var on=false;
    
-     return function(b) {
-        if(b) on = !on; 
-        embedComplexTableMacro = on;   
-        return on;
-     };
-    
-     })();
   function getComplexTables() {   
      return  document.getElementById('complex_tables').checked;
   }
+
     <?php  global $useComplexTables;  if($useComplexTables) { ?>               
         document.getElementById('complex_tables').click();            
     <?php } ?>  
