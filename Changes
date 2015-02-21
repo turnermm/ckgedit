@@ -1,4 +1,4 @@
-rev 15-Feb_21-07_31
+rev 15-Feb_21-14_35
 
 rev 14-Dec_13-12_52
 
@@ -643,3 +643,5 @@ Fixed bug which failed to recognize complex tables
 
 21 Feb
 Corrects failure of Complex Tables setting to persist between sessions.
+
+Restore mssing useheadings code to link.js
