@@ -4,6 +4,7 @@
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
  * @author Michael <michael@krmr.org>
+ * @author Juergen-aus-Koeln <H-J-Schuemmer@Web.de>
  */
 $lang['groups']                = 'Gruppe die den Timer für die Sperre deaktivieren darf (veraltet)';
 $lang['fck_preview']           = 'Gruppe für FCK Vorschau';
@@ -34,3 +35,4 @@ $lang['preload_ckeditorjs']    = 'Für schnelleres Laden des Editors Javascript 
 $lang['nofont_styling']        = 'Schriftstile im Editor als Plugin markup anzeigen. Mehr Details dazu auf der Plugin-Seite für ckgedit auf Dokuwiki.org';
 $lang['font_options']          = 'Schriftoptionen entfernen';
 $lang['color_options']         = 'Farboptionen entfernen';
+$lang['alt_toolbar']           = 'Funktionen, die aus der CKEditor-Toolbar entfernt werden sollen';
