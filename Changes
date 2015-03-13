@@ -1,4 +1,4 @@
-rev 15-Feb_21-14_35
+rev 15-Mar_12-19_33
 
 rev 14-Dec_13-12_52
 
@@ -645,3 +645,6 @@ Fixed bug which failed to recognize complex tables
 Corrects failure of Complex Tables setting to persist between sessions.
 
 Restore mssing useheadings code to link.js
+
+12 Mar
+Removed liststye from ckeditor context menu

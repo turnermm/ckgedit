@@ -191,6 +191,7 @@ function do_smileys() {
         );
 }
 
+config.removePlugins = 'liststyle';
 config.dokuFixmeSmiley = new Array();
 config.dokuSmileyConfImages;
 try {
