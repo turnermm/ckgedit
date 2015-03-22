@@ -1,4 +1,4 @@
-rev 15-Mar_12-19_33
+rev 15-Mar_22-08_25
 
 rev 14-Dec_13-12_52
 
@@ -645,3 +645,6 @@ Corrects failure of Complex Tables setting to persist between sessions.
 
 12 Mar
 Removed liststye from ckeditor context menu
+
+22 Mar
+Placed MULTI_PLUGIN macros in css block to keep them on separate lines in editor
