@@ -969,17 +969,11 @@ $text = preg_replace_callback(
                 return $matches[1] .$matches[2] . $matches[3]; '
           ), $text); 
     
-    
             $instructions = p_get_instructions("=== header ==="); // loads DOKU_PLUGINS array --M.T. Dec 22 2009
-            global $multi_block;
-            if(preg_match('/(?=MULTI_PLUGIN_OPEN)(.*?)(?<=MULTI_PLUGIN_CLOSE)/ms', $text, $matches)) {             
-             $multi_block = $matches[1];
-           }
         
         $instructions = p_get_instructions($text);
         if(is_null($instructions)) return '';
               
-
         $Renderer->notoc();
         $Renderer->smileys = getSmileys();
         $Renderer->entities = getEntities();
@@ -1043,23 +1037,22 @@ $text = preg_replace_callback(
            
         $pos = strpos($xhtml, 'MULTI_PLUGIN_OPEN');
         if($pos !== false) {
-           $multi_block = str_replace(array('oIWIKIo','cIWIKIc'),"",$multi_block);  /*  remove wikilink macros */
-           $xhtml = preg_replace('/MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE/ms', $multi_block, $xhtml);
            $xhtml = preg_replace_callback(
             '|MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE|ms',
             create_function(
                 '$matches',                          
                   '$matches[0] = str_replace("//<//", "< ",$matches[0]);
+                  $matches[0] = str_replace(array("oIWIKIo","cIWIKIc"),"",$matches[0]);
                   return preg_replace("/\n/ms","<br />",$matches[0]);'            
             ),
             $xhtml
           );
            
-           $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_OPEN~\s*~/', "~~MULTI_PLUGIN_OPEN~~\n\n<span class='multi_p_open'>\n\n</span>", $xhtml);
-           $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_CLOSE~\s*~/', "<span class='multi_p_close'>\n\n</span>\n\n~~MULTI_PLUGIN_CLOSE~~\n", $xhtml);
-           
+           $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_OPEN~\s*~/', "\n\n~~MULTI_PLUGIN_OPEN~~<span class='multi_p_open'>\n\n</span>\n\n", $xhtml);
+           $xhtml = preg_replace('/~\s*~\s*MULTI_PLUGIN_CLOSE~\s*~/', "<span class='multi_p_close'>\n\n</span>\n\n~~MULTI_PLUGIN_CLOSE~~\n\n", $xhtml);
 
         }  
+
 
          // remove empty paragraph: see _ckgedit_NPBBR_ comment above
         $xhtml = preg_replace('/<p>\s+_ckgedit_NPBBR_\s+<\/p>/ms',"\n",$xhtml);
