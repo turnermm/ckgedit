@@ -543,6 +543,10 @@ a.interwiki {
     clear: right;
 }
 
+span.multi_p_open 
+{
+    display: block;
+}
 
 
 

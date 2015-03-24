@@ -494,3 +494,9 @@ a.interwiki {
     background-image: url(images/fileicons/wp.gif);
 }
 */
+
+span.multi_p_open
+{
+    display: block;
+}
+    

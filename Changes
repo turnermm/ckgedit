@@ -1,6 +1,5 @@
-rev 15-Mar_12-19_33
+rev 15-Mar_24-07_05
 
-rev 14-Dec_13-12_52
 
 Initial Development distribution
 
@@ -648,3 +647,8 @@ Restore mssing useheadings code to link.js
 
 12 Mar
 Removed liststye from ckeditor context menu
+
+22 Mar
+Placed MULTI_PLUGIN macros in css block to keep them on separate lines in editor
+
+Gpl license header in de/lang.php

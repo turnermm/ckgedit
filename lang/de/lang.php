@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * 
+ */
 $lang['btn_dw_edit'] = "DW Edit";
 $lang['dw_btn_fck_preview']="CKG Vorschau";
 $lang['dw_btn_lang']="Sprache";
