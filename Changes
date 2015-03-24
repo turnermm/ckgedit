@@ -1,4 +1,4 @@
-rev 15-Mar_24-07_05
+rev 15-Mar_24-08_45
 
 
 Initial Development distribution
@@ -652,3 +652,6 @@ Removed liststye from ckeditor context menu
 Placed MULTI_PLUGIN macros in css block to keep them on separate lines in editor
 
 Gpl license header in de/lang.php
+
+24 Mar
+Refactored MULTI_PLUGIN macros to enable multiple MULTI_PLUGINS on page
