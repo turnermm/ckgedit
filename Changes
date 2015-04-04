@@ -1,4 +1,4 @@
-rev 15-Mar_24-07_58
+rev 15-Apr_04-15_25
 
 Initial Development distribution
 
@@ -649,3 +649,7 @@ Placed MULTI_PLUGIN macros in css block to keep them on separate lines in editor
 
 24 Mar
 Refactored MULTI_PLUGIN macros to enable multiple MULTI_PLUGINS on page
+
+Apr 4
+tags plugin for ckgedit conftributed by: https://github.com/isf-val
+Gives GUI tool for Dokuwiki tag plugin

@@ -478,6 +478,7 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
 		   ckgeditCKInstance = CKEDITOR.replace('wiki__text',
 		       { 
                   toolbar: '$toolbar' ,    
+                  height: 300,
                   filebrowserImageBrowseUrl :  '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',
                   filebrowserBrowseUrl: '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',                                
                }

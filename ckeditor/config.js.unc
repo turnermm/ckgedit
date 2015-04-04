@@ -94,7 +94,7 @@ config.colors = new Array(
      // config.scayt_autoStartup = true;      
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
       config.extraSpecialChars  = ['↔'];
-      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist'; //,devtools';
+      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags'; //,devtools';
       config.contentsLangDirection = '';
       if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
      
@@ -111,7 +111,7 @@ config.colors = new Array(
 	[
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },        
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes']] },           
+		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar', 'Tags',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes']] },           
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors',      items : [ 'TextColor','BGColor', font_assist ] },		
