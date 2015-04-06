@@ -1,4 +1,4 @@
-rev 15-Apr_06-10_59
+rev 15-Apr_06-10_52
 
 
 Initial Development distribution
@@ -642,14 +642,18 @@ Fixed bug which failed to recognize complex tables
 21 Feb
 Corrects failure of Complex Tables setting to persist between sessions.
 
+Restore mssing useheadings code to link.js
+
 12 Mar
 Removed liststye from ckeditor context menu
-
-13 Mar
-Refactored MULTI_PLUGIN macros to enable multiple MULTI_PLUGINS on page
 
 22 Mar
 Placed MULTI_PLUGIN macros in css block to keep them on separate lines in editor
 
-6 Apr
-Fixed CKEditor's email link by reversing  subject and body parameters
+Gpl license header in de/lang.php
+
+24 Mar
+Refactored MULTI_PLUGIN macros to enable multiple MULTI_PLUGINS on page
+
+6 Apr 
+Fixed CKEditor's email link by reversing subject and body parameter

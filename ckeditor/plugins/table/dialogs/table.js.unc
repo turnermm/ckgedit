@@ -1,9 +1,9 @@
 ﻿/**
- * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.html or http://ckeditor.com/license
+ * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-(function() {
+( function() {
 	var defaultToPixel = CKEDITOR.tools.cssLength;
 
 	var commitValue = function( data ) {
@@ -62,7 +62,7 @@
 			onLoad: function() {
 				var dialog = this;
 
-				var styles; // = dialog.getContentElement( 'advanced', 'advStyles' );
+				var styles;// = dialog.getContentElement( 'advanced', 'advStyles' );
 
 			},
 
@@ -103,11 +103,7 @@
 					rowsInput && rowsInput.enable();
 					colsInput && colsInput.enable();
 				}
-
-				// Call the onChange method for the widht and height fields so
-				// they get reflected into the Advanced tab.
-				widthInput && widthInput.onChange();
-				heightInput && heightInput.onChange();
+		
 			},
 			onOk: function() {
 				var selection = editor.getSelection(),
@@ -132,8 +128,7 @@
 							var row = tbody.append( makeElement( 'tr' ) );
 							for ( var j = 0; j < cols; j++ ) {
 								var cell = row.append( makeElement( 'td' ) );
-								if ( !CKEDITOR.env.ie )
-									cell.append( makeElement( 'br' ) );
+								cell.appendBogus();
 							}
 						}
 					}
@@ -275,6 +270,7 @@
 							{
 							type: 'select',
 							id: 'selHeaders',
+							requiredContent: 'th',
 							'default': '',
 							label: editor.lang.table.headers,
 							items: [
@@ -356,7 +352,7 @@
 								label: editor.lang.common.width,
 								title: editor.lang.common.cssLengthTooltip,
 								// Smarter default table width. (#9600)
-								'default': editable.getSize( 'width' ) < 500 ? '100%' : 500,
+								'default': editor.filter.check( 'table{width}' ) ? ( editable.getSize( 'width' ) < 500 ? '100%' : 500 ) : 0,
 								getValue: defaultToPixel,
 								validate: CKEDITOR.dialog.validate.cssLength( editor.lang.common.invalidCssLength.replace( '%1', editor.lang.common.width ) ),
 								onChange: function() {
@@ -396,7 +392,7 @@
 							type: 'text',
 							id: 'txtCellSpace',
 							hidden: true,
-							setup: function( selectedTable ) {								
+							setup: function( selectedTable ) {
 							},
 							commit: function( data, selectedTable ) {
 							}
@@ -416,8 +412,8 @@
 
 	CKEDITOR.dialog.add( 'table', function( editor ) {
 		return tableDialog( editor, 'table' );
-	});
+	} );
 	CKEDITOR.dialog.add( 'tableProperties', function( editor ) {
 		return tableDialog( editor, 'tableProperties' );
-	});
-})();
+	} );
+} )();

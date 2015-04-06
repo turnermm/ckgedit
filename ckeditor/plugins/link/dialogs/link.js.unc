@@ -1045,7 +1045,7 @@ var useHeading = function(wiki_id) {
 
 							// Build the e-mail parameters first.
 							var argList = [];
-							body && argList.push( 'body=' + body );
+   							body && argList.push( 'body=' + body );
 							subject && argList.push( 'subject=' + subject );
 
 							argList = argList.length ? '?' + argList.join( '&' ) : '';
