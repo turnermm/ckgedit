@@ -1045,8 +1045,9 @@ var useHeading = function(wiki_id) {
 
 							// Build the e-mail parameters first.
 							var argList = [];
-							subject && argList.push( 'subject=' + subject );
 							body && argList.push( 'body=' + body );
+							subject && argList.push( 'subject=' + subject );
+
 							argList = argList.length ? '?' + argList.join( '&' ) : '';
 
 							if ( emailProtection == 'encode' )
