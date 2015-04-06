@@ -1,4 +1,4 @@
-rev 15-Mar_24-08_45
+rev 15-Apr_06-10_52
 
 
 Initial Development distribution
@@ -655,3 +655,6 @@ Gpl license header in de/lang.php
 
 24 Mar
 Refactored MULTI_PLUGIN macros to enable multiple MULTI_PLUGINS on page
+
+6 Apr 
+Fixed CKEditor's email link by reversing subject and body parameter
