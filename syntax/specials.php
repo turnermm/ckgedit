@@ -57,8 +57,11 @@ class syntax_plugin_ckgedit_specials extends DokuWiki_Syntax_Plugin {
           $this->Lexer->addSpecialPattern('~~MULTI_PLUGIN_CLOSE~~',$mode,'plugin_ckgedit_specials');
           $this->Lexer->addSpecialPattern('~~COMPLEX_TABLES~~',$mode,'plugin_ckgedit_specials');
           $this->Lexer->addSpecialPattern('~~NO_STYLING~~',$mode,'plugin_ckgedit_specials');          
+          $this->Lexer->addEntryPattern('~~START_HTML_BLOCK~~(?=.*?~~CLOSE_HTML_BLOCK~~)',$mode,'plugin_ckgedit_specials');   
+ 
+           
     }
-
+     function postConnect() { $this->Lexer->addExitPattern('~~CLOSE_HTML_BLOCK~~','plugin_ckgedit_specials'); }
 
     /**
      * Handle the match
@@ -67,9 +70,9 @@ class syntax_plugin_ckgedit_specials extends DokuWiki_Syntax_Plugin {
 
         $class = "";  
         $xhtml = "";
-                                        
+        switch($state) {       
+            case DOKU_LEXER_SPECIAL:        
         if(preg_match('/OPEN/', $match)) {
-          
            return array($state, "<span class='multi_p_open'></span>" );
         }       
         elseif(preg_match('/CLOSE/', $match)) {
@@ -78,7 +81,12 @@ class syntax_plugin_ckgedit_specials extends DokuWiki_Syntax_Plugin {
         elseif(preg_match('/(TABLES|STYLING)/', $match)) {                                       
               return array($state, "" );
         }       
+          case DOKU_LEXER_ENTER :  return array($state, '');                
+          case DOKU_LEXER_UNMATCHED : 
        
+              return array($state, $match);
+          case DOKU_LEXER_EXIT :       return array($state, '');                
+       }
          return array($state, "" );
        
     }
@@ -89,8 +97,17 @@ class syntax_plugin_ckgedit_specials extends DokuWiki_Syntax_Plugin {
     function render($mode, &$renderer, $data) {
         if($mode == 'xhtml'){
             list($state, $xhtml) = $data;
+            switch ($state) {
+                case DOKU_LEXER_SPECIAL:        
             $renderer->doc .=  DOKU_LF . $xhtml . DOKU_LF;
             return true;
+                case DOKU_LEXER_ENTER :  $renderer->doc .= ""; break;                                                        
+                case DOKU_LEXER_UNMATCHED : 
+                $this->write_debug($xhtml);
+                $renderer->doc .= $xhtml; break;
+                case DOKU_LEXER_EXIT :       $renderer->doc .= ""; break;                    
+        }
+           return true;
         }
         return false;
     }

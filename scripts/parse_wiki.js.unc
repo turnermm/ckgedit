@@ -1001,8 +1001,8 @@ function parse_wikitext(id) {
 
           if(this.in_endnotes && tag == 'a') return; 
           if(this.code_type && tag == 'span') tag = 'blank'; 
-          results += markup[tag];
 
+          results += markup[tag];          // Set tag
           if(tag == 'td' || tag == 'th' || (this.last_col_pipes && this.td_align == 'center')) {
               if(this.is_rowspan) {          
                 results +=  markup['row_span'] + ' | ';
@@ -1303,6 +1303,14 @@ function parse_wikitext(id) {
 
     chars: function( text ) {
 	text = text.replace(/\t/g,"    ");
+   
+    if(text.match(/~~START_HTML_BLOCK~~/)) {          
+         text = text.replace(/~~START_HTML_BLOCK~~\n*/, "~~START_HTML_BLOCK~~\n<code>\n");
+    }
+    if(text.match(/~~CLOSE_HTML_BLOCK~~/)) {      
+       text = text.replace(/~~CLOSE_HTML_BLOCK~~\n*/gm, "\n</code>\n\n~~CLOSE_HTML_BLOCK~~\n\n");
+    }   
+    
     if(this.interwiki) {
        text = text.replace(String.frasl,"\/");  
     }

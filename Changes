@@ -1,4 +1,4 @@
-rev 15-Apr_06-10_52
+rev 15-Apr_15-11_49
 
 
 Initial Development distribution
@@ -657,3 +657,8 @@ Refactored MULTI_PLUGIN macros to enable multiple MULTI_PLUGINS on page
 
 6 Apr 
 Fixed CKEditor's email link by reversing subject and body parameter
+
+*******New Branch: html_block
+15 Apr
+Save html blocks with ~~START_HTML_BLOCK~~/CLOSE_HTML_BLOCK
+

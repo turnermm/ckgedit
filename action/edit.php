@@ -372,6 +372,20 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        }
 
         $this->xhtml = preg_replace_callback(
+        '/~~START_HTML_BLOCK~~(.*?)CLOSE_HTML_BLOCK/ms',
+        create_function(
+            '$matches',
+            '$matches[1] = str_replace("&amp;","&",$matches[1]);
+             $search=array("&lt;","&gt;","&#34;");
+             $replace=array("<", ">" , "\"");
+             $matches[1] = str_replace($search,$replace,$matches[1]);
+             $matches[1] = preg_replace("/<\/?code.*?>/", "",$matches[1]);
+             $matches[1] = str_replace("<p>", "",$matches[1]);
+             $matches[1] = str_replace("</p>", "",$matches[1]);
+              return "~~START_HTML_BLOCK~~" . $matches[1] . "CLOSE_HTML_BLOCK"; '
+        ),$this->xhtml);
+        
+        $this->xhtml = preg_replace_callback(
             '/(<pre)(.*?)(>)(.*?)(<\/pre>)/ms',
             create_function(
                 '$matches',                          
@@ -1102,7 +1116,7 @@ $text = preg_replace_callback(
   function write_debug($what) {
      return;
      $handle = fopen("ckgedit_php.txt", "a");
-     if(is_array($what)) $what = print_r($what,true);
+    // if(is_array($what)) $what = print_r($what,true);
      fwrite($handle,"$what\n");
      fclose($handle);
   }

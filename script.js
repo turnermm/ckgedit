@@ -40,6 +40,14 @@ var HTMLParser_Elements = new Array();
 	HTMLParser = this.HTMLParser = function( html, handler ) {
 		var index, chars, match, stack = [], last = html;      
 
+         if(html.match(/~~START_HTML_BLOCK~~/gm) ){
+             html = html.replace(/~~START_HTML_BLOCK~~([^]+)~~CLOSE_HTML_BLOCK~~/gm, function(match,text) {
+             text = text.replace(/</gm,"&lt;");
+             text = text.replace(/<\//gm,"&gt;");
+             return  "~~START_HTML_BLOCK~~\n\n" +   text  + "\n\n~~CLOSE_HTML_BLOCK~~\n\n";
+         }); 
+        }
+        
 		stack.last = function(){
 			return this[ this.length - 1 ];
 		};
