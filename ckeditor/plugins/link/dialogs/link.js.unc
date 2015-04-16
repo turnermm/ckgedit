@@ -611,13 +611,6 @@ var useHeading = function(wiki_id) {
 										this.getElement().show();
 								}
 							},
-							{
-								type : 'button',
-								id : 'browse0',							
-								filebrowser : 'info:url',
-								label : commonLang.browseServer
-							},
-
 						]
 
 					},
