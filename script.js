@@ -44,6 +44,8 @@ var HTMLParser_Elements = new Array();
              html = html.replace(/~~START_HTML_BLOCK~~([^]+)~~CLOSE_HTML_BLOCK~~/gm, function(match,text) {
              text = text.replace(/</gm,"&lt;");
              text = text.replace(/<\//gm,"&gt;");
+             text = text.replace(/&lt;\/?p>/g,"");
+             text = text.replace(/&lt;div class="table">/,"");
              return  "~~START_HTML_BLOCK~~\n\n" +   text  + "\n\n~~CLOSE_HTML_BLOCK~~\n\n";
          }); 
         }
