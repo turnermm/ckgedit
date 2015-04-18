@@ -370,19 +370,21 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
               ); 
 			  
        }
-
         $this->xhtml = preg_replace_callback(
-        '/~~START_HTML_BLOCK~~(.*?)CLOSE_HTML_BLOCK/ms',
+    '/~~START_HTML_BLOCK~~[\n\s]*(.*?)CLOSE_HTML_BLOCK/ms',
         create_function(
             '$matches',
             '$matches[1] = str_replace("&amp;","&",$matches[1]);
-             $search=array("&lt;","&gt;","&#34;");
-             $replace=array("<", ">" , "\"");
-             $matches[1] = str_replace($search,$replace,$matches[1]);
+         $matches[1] =  html_entity_decode($matches[1],ENT_QUOTES, "UTF-8");
              $matches[1] = preg_replace("/<\/?code.*?>/", "",$matches[1]);
-             $matches[1] = str_replace("<p>", "",$matches[1]);
-             $matches[1] = str_replace("</p>", "",$matches[1]);
-              return "~~START_HTML_BLOCK~~" . $matches[1] . "CLOSE_HTML_BLOCK"; '
+         $matches[1] = preg_replace("/^\s*<\/p>/","",$matches[1]);
+         $tmp = explode("\n", $matches[1]);
+         for($n=0; $n<7; $n++) {
+             if( (preg_match("/<p>\s*<\/p>/",$tmp[$n])) || (preg_match("/^\s*$/",$tmp[$n]))) {
+                unset($tmp[$n]);// = "";
+             }
+          }
+         return "~~START_HTML_BLOCK~~" . implode("\n",$tmp) . "CLOSE_HTML_BLOCK"; '
         ),$this->xhtml);
         
         $this->xhtml = preg_replace_callback(

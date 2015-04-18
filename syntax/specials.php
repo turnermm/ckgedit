@@ -83,10 +83,6 @@ class syntax_plugin_ckgedit_specials extends DokuWiki_Syntax_Plugin {
         }       
           case DOKU_LEXER_ENTER :  return array($state, '');                
           case DOKU_LEXER_UNMATCHED : 
-              $match = str_replace('<p>',"",$match);          
-              $match = str_replace('</p>',"",$match);          
-              $match = str_replace('</code>',"",$match);          
-              $match = str_replace('<code>',"",$match);   
               $match = str_replace('<div class="table">',"",$match);   
               return array($state, $match);
           case DOKU_LEXER_EXIT :       return array($state, '');                

@@ -40,11 +40,11 @@ var HTMLParser_Elements = new Array();
 	HTMLParser = this.HTMLParser = function( html, handler ) {
 		var index, chars, match, stack = [], last = html;      
 
-         if(html.match(/~~START_HTML_BLOCK~~/gm) ){
-             html = html.replace(/~~START_HTML_BLOCK~~([^]+)~~CLOSE_HTML_BLOCK~~/gm, function(match,text) {
+         if(html.match(/~~START_HTML_BLOCK~~/gm) ){            //adopted [\s\S] from Goyvaerts, Reg. Exp. Cookbook (O'Reilly)
+             html = html.replace(/~~START_HTML_BLOCK~~([\s\S]+)~~CLOSE_HTML_BLOCK~~/gm, function(match,text) { 
+             text = text.replace(/&lt;\/?p>/g,"");
              text = text.replace(/</gm,"&lt;");
              text = text.replace(/<\//gm,"&gt;");
-             text = text.replace(/&lt;\/?p>/g,"");
              text = text.replace(/&lt;div class="table">/,"");
              return  "~~START_HTML_BLOCK~~\n\n" +   text  + "\n\n~~CLOSE_HTML_BLOCK~~\n\n";
          }); 
