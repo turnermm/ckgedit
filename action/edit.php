@@ -304,6 +304,14 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
           $text = preg_replace('/<\/(code|file)>(\s*)(?=[^\w])(\s*)/m',"</$1>\n_ckgedit_NPBBR_\n$2",$text );
 
           $text = preg_replace_callback(
+             '/~~START_HTML_BLOCK~~.*?CLOSE_HTML_BLOCK/ms',
+                 create_function(
+                '$matches',
+                '$matches[0] = str_replace("_ckgedit_NPBBR_","",$matches[0]);
+                 return $matches[0];'
+        ),$text);    
+        
+          $text = preg_replace_callback(
             '/(\|\s*)(<code>|<file>)(.*?)(<\/code>|<\/file>)\n_ckgedit_NPBBR_(?=.*?\|)/ms',
             create_function(
                 '$matches',         
@@ -380,8 +388,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
          $matches[1] = preg_replace("/^\s*<\/p>/","",$matches[1]);
          $tmp = explode("\n", $matches[1]);
          for($n=0; $n<7; $n++) {
-             if( (preg_match("/<p>\s*<\/p>/",$tmp[$n])) || (preg_match("/^\s*$/",$tmp[$n]))) {
-                unset($tmp[$n]);// = "";
+             if( (preg_match("/(<p>\s*)*<\/p>/",$tmp[$n])) || (preg_match("/^\s*$/",$tmp[$n]))) {
+                unset($tmp[$n]);
              }
           }
          return "~~START_HTML_BLOCK~~" . implode("\n",$tmp) . "CLOSE_HTML_BLOCK"; '
