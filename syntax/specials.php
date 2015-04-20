@@ -84,6 +84,7 @@ class syntax_plugin_ckgedit_specials extends DokuWiki_Syntax_Plugin {
           case DOKU_LEXER_ENTER :  return array($state, '');                
           case DOKU_LEXER_UNMATCHED : 
               $match = str_replace('<div class="table">',"",$match);   
+              $match = preg_replace('/<\/?code>/ms',"",$match);  
               return array($state, $match);
           case DOKU_LEXER_EXIT :       return array($state, '');                
        }
@@ -103,7 +104,6 @@ class syntax_plugin_ckgedit_specials extends DokuWiki_Syntax_Plugin {
             return true;
                 case DOKU_LEXER_ENTER :  $renderer->doc .= ""; break;                                                        
                 case DOKU_LEXER_UNMATCHED : 
-                $this->write_debug($xhtml);
                 $renderer->doc .= $xhtml; break;
                 case DOKU_LEXER_EXIT :       $renderer->doc .= ""; break;                    
         }
