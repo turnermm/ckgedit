@@ -662,3 +662,6 @@ Fixed CKEditor's email link by reversing subject and body parameter
 15 Apr
 Save html blocks with ~~START_HTML_BLOCK~~/CLOSE_HTML_BLOCK
 
+20 April
+Fixed bug in script.js that removed line-spacing in HTML_BLOCK
+
