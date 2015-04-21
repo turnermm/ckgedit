@@ -1,4 +1,4 @@
-rev 15-Apr_15-11_49
+rev 15-Apr_21-09_38
 
 
 Initial Development distribution
@@ -665,3 +665,5 @@ Save html blocks with ~~START_HTML_BLOCK~~/CLOSE_HTML_BLOCK
 20 April
 Fixed bug in script.js that removed line-spacing in HTML_BLOCK
 
+21 April
+Remove divs from html_blocks in script.js
