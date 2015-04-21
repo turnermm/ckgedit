@@ -388,7 +388,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
          $matches[1] = preg_replace("/^\s*<\/p>/","",$matches[1]);
          $tmp = explode("\n", $matches[1]);
          for($n=0; $n<7; $n++) {
-             if( (preg_match("/(<p>\s*)*<\/p>/",$tmp[$n])) || (preg_match("/^\s*$/",$tmp[$n]))) {
+               if( (preg_match("/(<p>\s*)*(&nbsp;|\s+)<\/p>/",$tmp[$n])) || (preg_match("/^\s+$/",$tmp[$n]))) {
                 unset($tmp[$n]);
              }
           }

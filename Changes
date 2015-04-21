@@ -1,4 +1,4 @@
-rev 15-Apr_21-09_38
+rev 15-Apr_21-10_47
 
 
 Initial Development distribution
@@ -667,3 +667,4 @@ Fixed bug in script.js that removed line-spacing in HTML_BLOCK
 
 21 April
 Remove divs from html_blocks in script.js
+Fixed bug in edit.php that deleted non-empty <p>'s in top 6 lines
