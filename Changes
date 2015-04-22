@@ -1,4 +1,4 @@
-rev 15-Apr_06-10_52
+rev 15-Apr_22-13_30
 
 
 Initial Development distribution
@@ -649,11 +649,13 @@ Removed liststye from ckeditor context menu
 
 22 Mar
 Placed MULTI_PLUGIN macros in css block to keep them on separate lines in editor
-
 Gpl license header in de/lang.php
 
 24 Mar
 Refactored MULTI_PLUGIN macros to enable multiple MULTI_PLUGINS on page
 
 6 Apr 
-Fixed CKEditor's email link by reversing subject and body parameter
+Fixed CKEditor's email link by reversing  subject and body parameters
+
+22 Apr
+Update CKEdit en language strings
