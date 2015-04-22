@@ -104,3 +104,5 @@ none : 'none',
 CKEDITOR.lang['en']['signature'] = {
 ToolTip: 'Insert signature'
 };
+CKEDITOR.lang.en["format"]["panelTitle"]  = "Section Headers";
+CKEDITOR.lang.en["format"]["label"] = "Headlines";
