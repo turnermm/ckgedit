@@ -79,3 +79,4 @@ CKEDITOR.lang.en["signature"]={ToolTip:"Insert signature"};
 //alert(CKEDITOR.lang.en['format']["panelTitle"]);
 CKEDITOR.lang.en["format"]["panelTitle"]  = "Section Headers";
 CKEDITOR.lang.en["format"]["label"] = "Headlines";
+CKEDITOR.lang.en["stylescombo"]["panelTitle"]="Formatting Code Styles";

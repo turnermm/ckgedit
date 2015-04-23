@@ -29,6 +29,11 @@ CKEDITOR.stylesSet.add( 'default', [
 		element: 'pre',
 		attributes: { 'class': 'file' }
 	},
+   	{
+		name: 'Remove Block',
+		element: 'p',
+		attributes: { 'class': 'normal' }
+	},
  
 ]);
 

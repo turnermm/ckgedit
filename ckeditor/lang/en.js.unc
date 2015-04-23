@@ -106,3 +106,4 @@ ToolTip: 'Insert signature'
 };
 CKEDITOR.lang.en["format"]["panelTitle"]  = "Section Headers";
 CKEDITOR.lang.en["format"]["label"] = "Headlines";
+CKEDITOR.lang.en["stylescombo"]["panelTitle"]="Formatting Code Styles";

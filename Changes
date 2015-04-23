@@ -1,7 +1,4 @@
-rev 15-Apr_22-13_30
-
-
-Initial Development distribution
+rev 15-Apr_23-09_35
 
 28 Feb 2013
 Added support for interwiki links
@@ -669,3 +666,6 @@ Fixed bug in edit.php that deleted non-empty <p>'s in top 6 lines
 
 22 Apr
 Update CKEdit en language strings
+
+23
+Update CKEDit en lang strings; added "Remove Block" option to Code menu
