@@ -4,12 +4,9 @@
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
  * @author Robert Bogenschneider <bogi@uea.org>
+ * @author Robert Bogenschneider <robog@gmx.de>
  */
 $lang['groups']                = 'Grupo, kiu rajtas malebligi la blokad-kalkulilon (malaktuala)';
-$lang['middot']                = 'Komo-disigita listo de grupoj kiuj uzas &amp;middot; por &amp;nbsp;';
-$lang['big_files']             = 'Ĉu sekure modifi tro grandajn dosierojn?';
-$lang['big_file_sz']           = 'Limo de dosiergrandeco (bitokoj)';
-$lang['big_file_tm']           = 'Prilaborado de tro grandaj dosieroj ĉesas post tiom da sekundoj:';
 $lang['fck_preview']           = 'FCK Antaŭrigarda grupo';
 $lang['guest_toolbar']         = 'Montri la ilaron al gastoj';
 $lang['guest_media']           = 'Gastoj rajtas ligi al aŭdvidaj dosieroj';
@@ -34,3 +31,8 @@ $lang['duplicate_notes']       = 'Diru jes al tio, se uzantoj kreas plurajn pied
 $lang['winstyle']              = 'Uzi rektan padon al la aŭdvida dosierujo anstataŭ fckeditor/userfiles. Tio necesigas kopii fckeditor/userfiles/.htaccess.security al data/media kaj renomi ĝin .htaccess';
 $lang['other_lang']            = 'La standarda lingvo de la CKEditoro estas la lingvo instalita en via foliumilo. Vi povas tamen elekti alian lingvon ĉi tie; temas pri interfaca lingvo sendependa de DokuWiki.';
 $lang['dw_priority']           = 'Uzi la DokuWiki-editoron standarde';
+$lang['preload_ckeditorjs']    = 'Antaŭŝargi la javaskripton de ckeditor por rapidigi la ekstarton de la redaktilo';
+$lang['nofont_styling']        = 'Montri tipar-stilojn en la redaktilo en kromaĵ-formato. Vd. la ckgedit-paĝon ĉe dokuwiki.org pri detaloj.';
+$lang['font_options']          = 'Forigi tipar-opciojn.';
+$lang['color_options']         = 'Forigi kolor-opciojn.';
+$lang['alt_toolbar']           = 'Funkcioj forigendaj el la CKEditor-ilaro';
