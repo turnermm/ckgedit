@@ -510,13 +510,17 @@ function reset_user_rewrite_check() {
 
       global $ACT;
        global $conf;
+	   global $JSINFO;
 	  
        if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] =='_false_' ) return;
        if($ACT == 'edit') {
           $this->user_rewrite = $conf['userewrite'];
 	     $conf['userewrite']  = 0; 
        }
-       
+       if($conf['htmlok']) { 
+         $JSINFO['htmlok'] = 1;
+    }	  
+    else $JSINFO['htmlok'] = 0;
     }	  
 
       

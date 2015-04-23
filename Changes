@@ -655,7 +655,17 @@ Gpl license header in de/lang.php
 Refactored MULTI_PLUGIN macros to enable multiple MULTI_PLUGINS on page
 
 6 Apr 
-Fixed CKEditor's email link by reversing  subject and body parameters
+Fixed CKEditor's email link by reversing subject and body parameter
+
+15 Apr
+Save html blocks with ~~START_HTML_BLOCK~~/CLOSE_HTML_BLOCK
+
+20 April
+Fixed bug in script.js that removed line-spacing in HTML_BLOCK
+
+21 April
+Remove divs from html_blocks in script.js
+Fixed bug in edit.php that deleted non-empty <p>'s in top 6 lines
 
 22 Apr
 Update CKEdit en language strings

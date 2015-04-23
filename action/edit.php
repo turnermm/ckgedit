@@ -304,6 +304,14 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
           $text = preg_replace('/<\/(code|file)>(\s*)(?=[^\w])(\s*)/m',"</$1>\n_ckgedit_NPBBR_\n$2",$text );
 
           $text = preg_replace_callback(
+             '/~~START_HTML_BLOCK~~.*?CLOSE_HTML_BLOCK/ms',
+                 create_function(
+                '$matches',
+                '$matches[0] = str_replace("_ckgedit_NPBBR_","",$matches[0]);
+                 return $matches[0];'
+        ),$text);    
+        
+          $text = preg_replace_callback(
             '/(\|\s*)(<code>|<file>)(.*?)(<\/code>|<\/file>)\n_ckgedit_NPBBR_(?=.*?\|)/ms',
             create_function(
                 '$matches',         
@@ -370,7 +378,23 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
               ); 
 			  
        }
-
+        $this->xhtml = preg_replace_callback(
+    '/~~START_HTML_BLOCK~~[\n\s]*(.*?)CLOSE_HTML_BLOCK/ms',
+        create_function(
+            '$matches',
+            '$matches[1] = str_replace("&amp;","&",$matches[1]);
+         $matches[1] =  html_entity_decode($matches[1],ENT_QUOTES, "UTF-8");
+             $matches[1] = preg_replace("/<\/?code.*?>/", "",$matches[1]);
+         $matches[1] = preg_replace("/^\s*<\/p>/","",$matches[1]);
+         $tmp = explode("\n", $matches[1]);
+         for($n=0; $n<7; $n++) {
+               if( (preg_match("/(<p>\s*)*(&nbsp;|\s+)<\/p>/",$tmp[$n])) || (preg_match("/^\s+$/",$tmp[$n]))) {
+                unset($tmp[$n]);
+             }
+          }
+         return "~~START_HTML_BLOCK~~" . implode("\n",$tmp) . "CLOSE_HTML_BLOCK"; '
+        ),$this->xhtml);
+        
         $this->xhtml = preg_replace_callback(
             '/(<pre)(.*?)(>)(.*?)(<\/pre>)/ms',
             create_function(
@@ -1102,7 +1126,7 @@ $text = preg_replace_callback(
   function write_debug($what) {
      return;
      $handle = fopen("ckgedit_php.txt", "a");
-     if(is_array($what)) $what = print_r($what,true);
+    // if(is_array($what)) $what = print_r($what,true);
      fwrite($handle,"$what\n");
      fclose($handle);
   }
