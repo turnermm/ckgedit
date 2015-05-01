@@ -254,8 +254,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             '/(<nowiki>)(.*?)(<\/nowiki>)/ms',          
             create_function(
                 '$matches',         
-                 '$needles =  array("[","]", "/",  ".", "*", "_","\'","<",">","%", "{", "}", "\\\");
-                  $replacements = array("&#91;","&#93;","&#47;", "&#46;", "&#42;", "&#95;", "&#39;", "&#60;","&#62;","&#37;", "&#123;","&#125;", "&#92;"); 
+                 '$needles =  array("[","]", "/",  ".", "*", "_","\'","<",">","%", "{", "}", "\\\","(");
+                  $replacements = array("&#91;","&#93;","&#47;", "&#46;", "&#42;", "&#95;", "&#39;", "&#60;","&#62;","&#37;", "&#123;","&#125;", "&#92;","&#40;"); 
                   $matches[2] = str_replace($needles, $replacements, $matches[2]);
                   return  $matches[1] . $matches[2] . $matches[3];'            
             ),
