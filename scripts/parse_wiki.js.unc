@@ -1443,10 +1443,14 @@ function parse_wikitext(id) {
             }
             else text = '[[' + this.bottom_url + '|' +text +']]';           
          }   
-        if(HTMLParserBottomNotes[HTMLParserTopNotes[index]]) {
+        if(HTMLParserBottomNotes[HTMLParserTopNotes[index]]) {      
+           text = text.replace('(','L_PARgr');           
+           text = text.replace(')','R_PARgr');           
            HTMLParserBottomNotes[HTMLParserTopNotes[index]] += ' ' + text;
      }
         else  {
+              text = text.replace('(','L_PARgr');           
+              text = text.replace(')','R_PARgr');           
               HTMLParserBottomNotes[HTMLParserTopNotes[index]] = text;
         }      
      }
@@ -1596,15 +1600,16 @@ function parse_wikitext(id) {
          results = results.replace(/\/\/&lt;\/\/\s*/g,'&lt;');
     }
    if(HTMLParserTopNotes.length) {
-        results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");
+        results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");      
         results = results.replace(/\(\(+(\d+)\)\)+/,"(($1))");   
         for(var i in HTMLParserBottomNotes) {  // re-insert DW's bottom notes at text level
-            var matches =  i.match(/_(\d+)/);    
+            var matches =  i.match(/_(\d+)/);                
             var pattern = new RegExp('(\<sup\>)*[\(]+' + matches[1] +  '[\)]+(<\/sup>)*');          
+            HTMLParserBottomNotes[i] = HTMLParserBottomNotes[i].replace(/(\d+)_FN_PAREN_C_/,"");
             results = results.replace(pattern,'((' + HTMLParserBottomNotes[i].replace(/_FN_PAREN_C_/g, ") ") +'))');                       
          }
        results = results.replace(/<sup><\/sup>/g, "");
-       results = results.replace(/((<sup>\(\(.*\)\)\)?<\/sup>))/mg, function(fn) {           
+       results = results.replace(/((<sup>\(\(\d+\)\)\)?<\/sup>))/mg, function(fn) {           
            if(!fn.match(/p>\(\(\d+/)) {
              return "";
              }          
@@ -1618,8 +1623,9 @@ function parse_wikitext(id) {
     // remove any empty footnote markup left after section re-edits
     results = results.replace(/(<sup>)*\s*\[\[\s*\]\]\s*(<\/sup>)*\n*/g,""); 
     // remove piled up sups with ((notes))
-    results = results.replace(/<sup>(.*?)(\(\(.*\)\))\s*<\/sup>/mg,"$1$2"); 
-    
+  
+    results = results.replace(/<sup>\s*\(\(\d+\)\)\s*<\/sup>/mg,""); 
+
     if(HTMLParser_MULTI_LINE_PLUGIN) {
         results = results.replace(/<\s+/g, '<');
         results = results.replace(/&lt;\s+/g, '<');

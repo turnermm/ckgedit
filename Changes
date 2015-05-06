@@ -1,4 +1,4 @@
-rev 15-May_01-08_48
+rev 15-May_06-13_13
 
 28 Feb 2013
 Added support for interwiki links
@@ -672,3 +672,6 @@ Update CKEDit en lang strings; added "Remove Block" option to Code menu
 
 1 May
 Replace parens with entities inside nowiki blocks (prevents false footnotes)
+
+6 May
+Fixed two bugs in footnotes: numbering past 10, parentheses inside notes corrupting regex

@@ -138,7 +138,20 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
            );
 
          }
- 
+
+       if(strpos($TEXT,'L_PARgr') !== false) {        
+            $TEXT = preg_replace_callback(
+                 '|\(\((.*?)\)\)|ms',
+                 create_function(
+                     '$matches',
+                       'return  "((" . trim($matches[1]) . "))"; '
+                 ),
+                 $TEXT
+             );         
+            $TEXT = str_replace('L_PARgr', '(',$TEXT);
+            $TEXT = str_replace('R_PARgr', ')',$TEXT);
+       } 
+       
         $this->replace_entities();
 
 /* 11 Dec 2013 see comment below        
