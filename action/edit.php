@@ -332,13 +332,16 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        }  
        
 	   if($this->getConf('duplicate_notes')) {
-			$text = preg_replace_callback('/\(\(/ms',
+			$text = preg_replace_callback('/\(\((.*?)\)\)/ms',
 				  create_function(
 				   '$matches',
 				   'static $count = 0;
 				   $count++;
 				   $ins = "FNoteINSert" . $count;
-				   return "(($ins";'
+                   $needles =  array("[","]", "/",  ".", "*", "_","\'","<",">","%", "{", "}", "\\\","(");
+                   $replacements = array("&#91;","&#93;","&#47;", "&#46;", "&#42;", "&#95;", "&#39;", "&#60;","&#62;","&#37;", "&#123;","&#125;", "&#92;","&#40;"); 
+                   $matches[1] = str_replace($needles, $replacements, $matches[1]);                    
+              	   return "(($ins" . $matches[1] . "))" ;'
 				 ), $text
 			);			 
 		}
