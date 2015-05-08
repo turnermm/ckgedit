@@ -1,4 +1,4 @@
-rev 15-May_06-20_00
+rev 15-May_08-08_05
 
 28 Feb 2013
 Added support for interwiki links
@@ -677,3 +677,6 @@ Replace parens with entities inside nowiki blocks (prevents false footnotes)
 Fixed two bugs in footnotes: numbering past 10, parentheses inside notes corrupting regex
 
 Convert characters in footnotes requiring escaping to html entities (edit.php)
+
+7 May
+Added alternate savedir functionality and utf8 path encoding to getheaders.php
