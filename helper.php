@@ -49,7 +49,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   function registerOnLoad($js){
   global $ID;
   global $lang;
-  
+  global $skip_styling;
   $preview_button = $lang['btn_preview'];
 
   $ckgedit_conf_direction = $this->getConf('direction');
@@ -408,11 +408,15 @@ function remove_styling() {
 var opts = "";
 var color_opts = parseInt( "$color_opts");
 var font_opts =  parseInt("$font_opts");
+var skip_styling=parseInt("$skip_styling");
 if(color_opts) {
-  opts ='TextColor,BGColor, FontAssist';
+  opts ='TextColor,BGColor,FontAssist';
+}
+else if(!skip_styling) {
+     opts = 'FontAssist';
 }
 if(font_opts) {
-  if(color_opts) opts+=',';
+  if(color_opts || !skip_styling) opts+=',';
   opts +='Font,FontSize';
 }
 if("$toolbar_opts") {
