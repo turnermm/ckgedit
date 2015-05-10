@@ -1029,7 +1029,7 @@ $text = preg_replace_callback(
         $data = array($mode,& $Renderer->doc);
         trigger_event('RENDERER_CONTENT_POSTPROCESS',$data);
         $xhtml = $Renderer->doc;
-        if(!$skip_styling) { 
+        if(!$skip_styling) {  // create font styles from font plugin markup for html display
         $xhtml = preg_replace_callback(
             '|&amp;lt;font\s+(.*?)/([\w ,\-]+);;([\(\)),\w,\s\#]+);;([\(\)),\w,\s\#]+)&gt;(.*?)&amp;lt;/font&gt;|ms',
              function($matches) {

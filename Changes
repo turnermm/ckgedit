@@ -1,4 +1,4 @@
-rev 15-May_09-14_07
+rev 15-May_10-08_05
 
 28 Feb 2013
 Added support for interwiki links
@@ -683,3 +683,6 @@ Added alternate savedir functionality and utf8 path encoding to getheaders.php
 
 9 May
 Remove fontAssist plugin from main editing window; for use only in Edit fonts window
+
+10 May
+Fixed carry-over of font style settings from previous settings when current not set
