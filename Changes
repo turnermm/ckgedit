@@ -693,3 +693,6 @@ Removed bgcolor and border from cell properties dialog
 31 May
 Fixes to utf8 and safe-encoding in file browser
 
+Updated php/SafeFN.class.php to current version using static modifiers for static methods
+
+
