@@ -401,13 +401,8 @@ function CreateFolder( $resourceType, $currentFolder )
 function Dwfck_sanitize($sFileName, $media=false) {    
   global $Dwfck_conf_values;
           
-        if($Dwfck_conf_values['fnencode'] == 'safe') {
-            if(!$media) {     
-              return dwiki_encodeFN($sFileName); 
-            }
-           return cleanID($sFileName,false,$media);
-        }
-        $sFileName = cleanID(dwiki_decodeFN($sFileName),false,$media);
+        $sFileName = dwiki_decodeFN($sFileName);        
+        $sFileName = cleanID($sFileName,false,$media);
         return dwiki_encodeFN($sFileName); 
 }
 
@@ -557,7 +552,7 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
   $safe = false;
   global $Dwfck_conf_values;
   if($Dwfck_conf_values['fnencode'] == 'safe') {
-      if(preg_match('/%[a-z]+[0-9]/',$currentFolder) || preg_match('/%[0-9][a-z]/',$currentFolderp)) {
+      if(preg_match('/%[a-z]+[0-9]/',$currentFolder) || preg_match('/%[0-9][a-z]/',$currentFolder)) {
           $safe = true;
       }
   }

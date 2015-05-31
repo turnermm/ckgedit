@@ -1,4 +1,4 @@
-rev 15-May_24-20_02
+rev 15-May_31-10_31
 
 28 Feb 2013
 Added support for interwiki links
@@ -689,3 +689,7 @@ Fixed carry-over of font style settings from previous settings when current not 
 
 24 May
 Removed bgcolor and border from cell properties dialog
+
+31 May
+Fixes to utf8 and safe-encoding in file browser
+

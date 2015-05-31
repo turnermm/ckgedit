@@ -33,11 +33,11 @@
 		<script type="text/javascript">
 window.onbeforeunload = function() { };
 var CurrentDWikiUser = opener.oDokuWiki_FCKEditorInstance.dwiki_user; // use this variable to pass into frame (frmupload.html)
-//alert('user='+CurrentDWikiUser);
+
 var CurrentDWikiClient = opener.oDokuWiki_FCKEditorInstance.dwiki_client; // use this variable to pass into frame (frmupload.html)
 var isLocalDwikiBrowser = opener.oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser ? true : false;
 var CreateDwikiFolder = true; //opener.FCK.dwiki_create_folder; // use this variable to pass into frame (frmupload.html)
-var DwikiFNencode = false; //opener.FCK.dwiki_fnencode;
+var DwikiFNencode = opener.oDokuWiki_FCKEditorInstance.dwiki_fnencode;
 var isDwikiUrlExtern = opener.oDokuWiki_FCKEditorInstance.isUrlExtern ? true: false;
 var DwikiImageUploadAllowedExtensions = opener.oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions;
 var isDwikiMediaFile = opener.oDokuWiki_FCKEditorInstance.isDwikiMediaFile;

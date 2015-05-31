@@ -275,7 +275,7 @@ function auth_loadACL($acl_file){
 
 function checkacl_write_debug($data) {
     
-
+  return; 
   if (!$handle = fopen('acl.txt', 'a')) {
     return;
     }
