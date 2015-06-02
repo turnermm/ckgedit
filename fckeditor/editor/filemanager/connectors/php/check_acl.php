@@ -148,30 +148,30 @@ function auth_isCaseSensitive() {
   return true;
 }
 
-function auth_nameencode($name, $skip_group = false) {
-    global $cache_authname;
-    $cache =& $cache_authname;
-    $name  = (string) $name;
+function auth_nameencode($name,$skip_group=false){
+  global $cache_authname;
+  $cache =& $cache_authname;
+  $name  = (string) $name;
 
-    // never encode wildcard FS#1955
-    if($name == '%USER%') return $name;
+  // never encode wildcard FS#1955
+  if($name == '%USER%') return $name;
     if($name == '%GROUP%') return $name;
 
-    if(!isset($cache[$name][$skip_group])) {
-        if($skip_group && $name{0} == '@') {
+  if (!isset($cache[$name][$skip_group])) {
+    if($skip_group && $name{0} =='@'){
             $cache[$name][$skip_group] = '@'.preg_replace_callback(
                 '/([\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f])/',
                 'auth_nameencode_callback', substr($name, 1)
             );
-        } else {
+    }else{
             $cache[$name][$skip_group] = preg_replace_callback(
                 '/([\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f])/',
                 'auth_nameencode_callback', $name
             );
-        }
     }
+  }
 
-    return $cache[$name][$skip_group];
+  return $cache[$name][$skip_group];
 }
 
 /**
@@ -292,7 +292,7 @@ function auth_loadACL($acl_file){
 
 function checkacl_write_debug($data) {
     
-  return; 
+
   if (!$handle = fopen('acl.txt', 'a')) {
     return;
     }
