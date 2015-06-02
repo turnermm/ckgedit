@@ -10,10 +10,11 @@
  *  The transition from converted substrings to plain characters is
  *  marked with a '.'
  *
- *  @author   Christopher Smith
+ * @author   Christopher Smith <chris@jalakai.co.uk>
  *  @date     2010-04-02
  */
 class SafeFN {
+
     // 'safe' characters are a superset of $plain, $pre_indicator and $post_indicator
     private static $plain = '-./[_0123456789abcdefghijklmnopqrstuvwxyz'; // these characters aren't converted
     private static $pre_indicator = '%';
@@ -36,14 +37,14 @@ class SafeFN {
      *    - reduce codepoint value for non-printable ASCII characters (0x00 - 0x1f).  Space becomes our zero.
      *    - convert reduced value to base36 (0-9a-z)
      *    - append $pre_indicator characater followed by base36 string to output, set converted flag
-     *      continue to next character)
+     *    (continue to next character)
      *
      * @param    string    $filename     a utf8 string, should only include printable characters - not 0x00-0x1f
      * @return   string    an encoded representation of $filename using only 'safe' ASCII characters
      *
      * @author   Christopher Smith <chris@jalakai.co.uk>
      */
-    public function encode($filename) {
+    public static function encode($filename) {
         return self::unicode_to_safe(utf8_to_unicode($filename));
     }
 
@@ -72,15 +73,15 @@ class SafeFN {
      *
      * @author   Christopher Smith <chris@jalakai.co.uk>
      */
-    public function decode($filename) {
+    public static function decode($filename) {
         return unicode_to_utf8(self::safe_to_unicode(strtolower($filename)));
     }
 
-    public function validate_printable_utf8($printable_utf8) {
+    public static function validate_printable_utf8($printable_utf8) {
         return !preg_match('#[\x01-\x1f]#',$printable_utf8);
     }
 
-    public function validate_safe($safe) {
+    public static function validate_safe($safe) {
         return !preg_match('#[^'.self::$plain.self::$post_indicator.self::$pre_indicator.']#',$safe);
     }
 
@@ -92,7 +93,7 @@ class SafeFN {
      *
      * @author   Christopher Smith <chris@jalakai.co.uk>
      */
-    private function unicode_to_safe($unicode) {
+    private static function unicode_to_safe($unicode) {
 
         $safe = '';
         $converted = false;
@@ -125,21 +126,22 @@ class SafeFN {
      *
      * @author   Christopher Smith <chris@jalakai.co.uk>
      */
-    private function safe_to_unicode($safe) {
+    private static function safe_to_unicode($safe) {
 
         $unicode = array();
         $split = preg_split('#(?=['.self::$post_indicator.self::$pre_indicator.'])#',$safe,-1,PREG_SPLIT_NO_EMPTY);
 
         $converted = false;
         foreach ($split as $sub) {
+            $len = strlen($sub);
             if ($sub[0] != self::$pre_indicator) {
                 // plain (unconverted) characters, optionally starting with a post_indicator
                 // set initial value to skip any post_indicator
-                for ($i=($converted?1:0); $i < strlen($sub); $i++) {
+                for ($i=($converted?1:0); $i < $len; $i++) {
                     $unicode[] = ord($sub[$i]);
                 }
                 $converted = false;
-            } else if (strlen($sub)==1) {
+            } else if ($len==1) {
                 // a pre_indicator character in the real data
                 $unicode[] = ord($sub);
                 $converted = true;

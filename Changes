@@ -692,3 +692,4 @@ Removed bgcolor and border from cell properties dialog
 
 Jun 1
 Update fckeditor->php/check_acl.php
+More updates to check_acl, add static modifiers to SafeFN.class
