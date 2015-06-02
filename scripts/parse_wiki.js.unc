@@ -844,8 +844,8 @@ function parse_wikitext(id) {
                        
                       this.attr = src;
                       if(this.attr && this.attr.match && this.attr.match(/%[a-fA-F0-9]{2}/)) {                                         
-                           this.attr =     decodeURIComponent(safe_convert(this.attr));               
-                       //  this.attr = decodeURIComponent ? decodeURIComponent(this.attr) : unescape(this.attr);                    
+                           this.attr =     decodeURIComponent(safe_convert(this.attr)); 
+                           this.attr =     decodeURIComponent(safe_convert(this.attr));                            
                       }
 
 

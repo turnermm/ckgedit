@@ -697,4 +697,5 @@ Updated php/SafeFN.class.php to current version using static modifiers for stati
 
 02 Jun
 Updated php/check_acl.php auth_nameencode to current, fixed PHP Notice in auth_isCaseSensitive
+added additional uridecode to new uploaded images
 
