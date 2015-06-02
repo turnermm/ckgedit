@@ -1,4 +1,4 @@
-rev 15-May_31-10_31
+rev 15-Jun_02-06_08
 
 28 Feb 2013
 Added support for interwiki links
@@ -695,4 +695,6 @@ Fixes to utf8 and safe-encoding in file browser
 
 Updated php/SafeFN.class.php to current version using static modifiers for static methods
 
+02 Jun
+Updated php/check_acl.php auth_nameencode to current, fixed PHP Notice in auth_isCaseSensitive
 

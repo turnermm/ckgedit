@@ -140,6 +140,7 @@ function auth_aclcheck($id,$user,$groups, $_auth=1){
 
 function auth_isCaseSensitive() {
   global $Dwfck_conf_values;
+  if(!isset($Dwfck_conf_values['plugin'])) return false;
   $ckgedit = $Dwfck_conf_values['plugin']['ckgedit'];
   if(isset($ckgedit['auth_ci']) && $ckgedit['auth_ci']) {
      return false;
@@ -147,26 +148,42 @@ function auth_isCaseSensitive() {
   return true;
 }
 
-function auth_nameencode($name,$skip_group=false){
-  global $cache_authname;
-  $cache =& $cache_authname;
-  $name  = (string) $name;
+function auth_nameencode($name, $skip_group = false) {
+    global $cache_authname;
+    $cache =& $cache_authname;
+    $name  = (string) $name;
 
-  // never encode wildcard FS#1955
-  if($name == '%USER%') return $name;
+    // never encode wildcard FS#1955
+    if($name == '%USER%') return $name;
+    if($name == '%GROUP%') return $name;
 
-  if (!isset($cache[$name][$skip_group])) {
-    if($skip_group && $name{0} =='@'){
-      $cache[$name][$skip_group] = '@'.preg_replace('/([\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f])/e',
-                                                    "'%'.dechex(ord(substr('\\1',-1)))",substr($name,1));
-    }else{
-      $cache[$name][$skip_group] = preg_replace('/([\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f])/e',
-                                                "'%'.dechex(ord(substr('\\1',-1)))",$name);
+    if(!isset($cache[$name][$skip_group])) {
+        if($skip_group && $name{0} == '@') {
+            $cache[$name][$skip_group] = '@'.preg_replace_callback(
+                '/([\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f])/',
+                'auth_nameencode_callback', substr($name, 1)
+            );
+        } else {
+            $cache[$name][$skip_group] = preg_replace_callback(
+                '/([\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f])/',
+                'auth_nameencode_callback', $name
+            );
+        }
     }
-  }
 
-  return $cache[$name][$skip_group];
+    return $cache[$name][$skip_group];
 }
+
+/**
+ * callback encodes the matches
+ *
+ * @param array $matches first complete match, next matching subpatterms
+ * @return string
+ */
+function auth_nameencode_callback($matches) {
+    return '%'.dechex(ord(substr($matches[1],-1)));
+}
+
 
 function getNS($id){
   $pos = strrpos((string)$id,':');
