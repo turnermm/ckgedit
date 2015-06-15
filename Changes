@@ -1,4 +1,4 @@
-rev 15-Jun_02-06_08
+rev 15-Jun_15-13_09
 
 28 Feb 2013
 Added support for interwiki links
@@ -699,3 +699,5 @@ Updated php/SafeFN.class.php to current version using static modifiers for stati
 Updated php/check_acl.php auth_nameencode to current, fixed PHP Notice in auth_isCaseSensitive
 added additional uridecode to new uploaded images
 
+15 June
+in commands.php=>fileupload: fixed renaming of safencoded files on duplicate uploads.

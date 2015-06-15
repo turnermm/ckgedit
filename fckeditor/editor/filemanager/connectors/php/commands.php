@@ -670,9 +670,12 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
 				if ( is_file( $sFilePath ) )
 				{
 					$iCounter++ ;
-       			    $sFileName = RemoveExtension($sOriginalFileName) . '_' . $iCounter  . ".$sExtension" ;
-                    $sFileName = Dwfck_sanitize($sFileName, $image_file);
-
+                    
+                     if($Dwfck_conf_values['fnencode'] == 'safe') { 
+       			       $sFileName = RemoveExtension(dwiki_decodeFN($sOriginalFileName)) . '_' . $iCounter  . ".$sExtension" ;
+                    }
+                    else  $sFileName = RemoveExtension($sOriginalFileName) . '_' . $iCounter  . ".$sExtension" ;
+                    $sFileName = Dwfck_sanitize($sFileName, $image_file);                    
 					$sErrorNumber = '201' ;
 				}
 				else
