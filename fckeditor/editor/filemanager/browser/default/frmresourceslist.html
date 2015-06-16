@@ -197,7 +197,7 @@ function showImage(id) {
        height = 120;  
     }
 
-    var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( oImg.fileUrl ) + '\');return false;">' ;
+    var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( oImg.src ) + '\');return false;">' ;
     var element = sLink + '<img border = "0" src = "' + oImg.src + '" width = "' + width + '" height="' + height + '"></a>';
     return element;
    // document.getElementById(id).innerHTML = element;
@@ -300,8 +300,10 @@ var evt = (evt) ? evt : ((window.event) ? event : null);
 
 function OpenFile( fileUrl )
 {
+    if(DwikiFNencode != 'safe') {
     fileUrl = dwikiUTF8_decodeFN(fileUrl,DwikiFNencode);  
     fileUrl =  decodeURI( fileUrl );
+    }
 	funcNum = GetUrlParam('CKEditorFuncNum') ;
   try {
     
@@ -312,7 +314,7 @@ function OpenFile( fileUrl )
         fileUrl = window.location.protocol +'//' + window.location.host + '/' + decodeURI( fileUrl ).replace( '#', '%23' ) ;
     }
     if(isDwikiImage) {
-     fileUrl=encodeURI(encodeURI(fileUrl));    
+      if(DwikiFNencode == 'url')  fileUrl=encodeURI(encodeURI(fileUrl));    
     }
     window.top.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl);
     if(isInternalLink) {  

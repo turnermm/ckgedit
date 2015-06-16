@@ -1,4 +1,4 @@
-rev 15-Jun_01-14_38
+rev 15-Jun_16-08_59
 
 28 Feb 2013
 Added support for interwiki links
@@ -690,6 +690,17 @@ Fixed carry-over of font style settings from previous settings when current not 
 24 May
 Removed bgcolor and border from cell properties dialog
 
-Jun 1
+01 Jun
 Update fckeditor->php/check_acl.php
 More updates to check_acl, add static modifiers to SafeFN.class
+
+02 Jun
+Updated php/check_acl.php auth_nameencode to current, fixed PHP Notice in auth_isCaseSensitive
+added additional uridecode to new uploaded images
+
+15 June
+in commands.php=>fileupload: fixed renaming of safencoded files on duplicate uploads.
+
+16 Jun
+merged with acl_check 
+
