@@ -1,4 +1,4 @@
-rev 15-Jun_15-13_09
+rev 15-Jun_16-08_59
 
 28 Feb 2013
 Added support for interwiki links
@@ -701,3 +701,6 @@ added additional uridecode to new uploaded images
 
 15 June
 in commands.php=>fileupload: fixed renaming of safencoded files on duplicate uploads.
+
+16 Jun
+merged with acl_check 

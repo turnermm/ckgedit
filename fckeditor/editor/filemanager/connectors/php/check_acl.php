@@ -39,8 +39,8 @@ require_once DOKU_INC.'inc/utf8.php';
  * @return int             permission level
  */
 function auth_aclcheck($id,$user,$groups, $_auth=1){
- 
-  global $AUTH_ACL; 
+  //checkacl_write_debug("$id,$user");
+  global $AUTH_ACL;
   $AUTH_ACL = auth_loadACL($AUTH_ACL);
   if($_auth == 255) {
         return 255; 
@@ -48,94 +48,102 @@ function auth_aclcheck($id,$user,$groups, $_auth=1){
   elseif(isset($_SESSION['dwfck_acl']) && $_SESSION['dwfck_acl'] == 255) {
       return 255;
   }
-  //make sure groups is an array
-  if(!is_array($groups)) $groups = array();
+    //make sure groups is an array
+    if(!is_array($groups)) $groups = array();
 
-  //if user is superuser or in superusergroup return 255 (acl_admin)
- // if(auth_isadmin($user,$groups)) { return AUTH_ADMIN; }
-  $ci = '';
-  if(!auth_isCaseSensitive()) $ci = 'ui';
- 
-  $user = auth_nameencode($user);
-
-  //prepend groups with @ and nameencode
-  $cnt = count($groups);
-  for($i=0; $i<$cnt; $i++){
-    $groups[$i] = '@'.auth_nameencode($groups[$i]);
-  }
-
-  $ns    = getNS($id);
-  $perm  = -1;
-
-  if($user || count($groups)){
-    //add ALL group
-    $groups[] = '@ALL';
-    //add User
-    if($user) $groups[] = $user;
-    //build regexp
-    $regexp   = join('|',$groups);
-  }else{
-    $regexp = '@ALL';
-  }
-
-  //check exact match first
-  $matches = preg_grep('/^'.preg_quote($id,'/').'\s+('.$regexp.')\s+/'.$ci,$AUTH_ACL);  
-  if(count($matches)){
-    foreach($matches as $match){
-      $match = preg_replace('/#.*$/','',$match); //ignore comments
-      $acl   = preg_split('/\s+/',$match);
-      if($acl[2] > AUTH_DELETE) $acl[2] = AUTH_DELETE; //no admins in the ACL!
-      if($acl[2] > $perm){
-        $perm = $acl[2];
-      }
+    if(!auth_isCaseSensitive()) {
+        $user   = utf8_strtolower($user);
+        $groups = array_map('utf8_strtolower', $groups);
     }
-    if($perm > -1){
-      //we had a match - return it
-      return $perm;
+    $user   = auth_cleanUser($user);
+    $groups = array_map('auth_cleanGroup', (array) $groups);
+    $user   = auth_nameencode($user);
+
+    //prepend groups with @ and nameencode
+    $cnt = count($groups);
+    for($i = 0; $i < $cnt; $i++) {
+        $groups[$i] = '@'.auth_nameencode($groups[$i]);
     }
-  }
 
-  //still here? do the namespace checks
-  if($ns){
-    $path = $ns.':\*';
-  }else{
-    $path = '\*'; //root document
-  }
+    $ns   = getNS($id);
+    $perm = -1;
 
-  do{
-    $matches = preg_grep('/^'.$path.'\s+('.$regexp.')\s+/'.$ci,$AUTH_ACL);         
-    if(count($matches)){
-      foreach($matches as $match){
-        
-        $match = preg_replace('/#.*$/','',$match); //ignore comments
-        $acl   = preg_split('/\s+/',$match);
-        if($acl[2] > AUTH_DELETE) $acl[2] = AUTH_DELETE; //no admins in the ACL!
-        if($acl[2] > $perm){
-          $perm = $acl[2];
-        //   checkacl_write_debug("$match;;$perm");
+    if($user || count($groups)) {
+        //add ALL group
+        $groups[] = '@ALL';
+        //add User
+        if($user) $groups[] = $user;
+    } else {
+        $groups[] = '@ALL';
+    }
+
+    //check exact match first
+    $matches = preg_grep('/^'.preg_quote($id, '/').'[ \t]+([^ \t]+)[ \t]+/', $AUTH_ACL);
+    if(count($matches)) {
+        foreach($matches as $match) {
+            $match = preg_replace('/#.*$/', '', $match); //ignore comments
+            $acl   = preg_split('/[ \t]+/', $match);
+            if(!auth_isCaseSensitive() && $acl[1] !== '@ALL') {
+                $acl[1] = utf8_strtolower($acl[1]);
+            }
+            if(!in_array($acl[1], $groups)) {
+                continue;
+            }
+            if($acl[2] > AUTH_DELETE) $acl[2] = AUTH_DELETE; //no admins in the ACL!
+            if($acl[2] > $perm) {
+                $perm = $acl[2];
+            }
         }
-      }
-      //we had a match - return it
-      return $perm;
+        if($perm > -1) {
+            //we had a match - return it
+            return (int) $perm;
+        }
     }
 
-    //get next higher namespace
-    $ns   = getNS($ns);
-
-    if($path != '\*'){
-      $path = $ns.':\*';
-      if($path == ':\*') $path = '\*';
-    }else{
-      //we did this already
-      //looks like there is something wrong with the ACL
-      //break here
-   //   msg('No ACL setup yet! Denying access to everyone.');
-      return AUTH_NONE;
+    //still here? do the namespace checks
+    if($ns) {
+        $path = $ns.':*';
+    } else {
+        $path = '*'; //root document
     }
-  }while(1); //this should never loop endless
 
-  //still here? return no permissions
-  return AUTH_NONE;
+    do {
+        $matches = preg_grep('/^'.preg_quote($path, '/').'[ \t]+([^ \t]+)[ \t]+/', $AUTH_ACL);
+        if(count($matches)) {
+            foreach($matches as $match) {
+                $match = preg_replace('/#.*$/', '', $match); //ignore comments
+                $acl   = preg_split('/[ \t]+/', $match);
+                if(!auth_isCaseSensitive() && $acl[1] !== '@ALL') {
+                    $acl[1] = utf8_strtolower($acl[1]);
+                }
+                if(!in_array($acl[1], $groups)) {
+                    continue;
+                }
+                if($acl[2] > AUTH_DELETE) $acl[2] = AUTH_DELETE; //no admins in the ACL!
+                if($acl[2] > $perm) {
+                    $perm = $acl[2];
+                }
+            }
+            //we had a match - return it
+            if($perm != -1) {
+                return (int) $perm;
+            }
+        }
+        //get next higher namespace
+        $ns = getNS($ns);
+
+        if($path != '*') {
+            $path = $ns.':*';
+            if($path == ':*') $path = '*';
+        } else {
+            //we did this already
+            //looks like there is something wrong with the ACL
+            //break here
+            
+            return AUTH_NONE;
+        }
+    } while(1); //this should never loop endless
+    return AUTH_NONE;
 }
 
 function auth_isCaseSensitive() {
@@ -292,7 +300,7 @@ function auth_loadACL($acl_file){
 
 function checkacl_write_debug($data) {
     
-
+  return;
   if (!$handle = fopen('acl.txt', 'a')) {
     return;
     }
@@ -311,3 +319,12 @@ function checkacl_write_debug($data) {
 
  }
 
+
+function auth_cleanUser($user) {
+        return $user;
+}
+  
+function auth_cleanGroup($group) {
+        return $group;
+    }  
+    
