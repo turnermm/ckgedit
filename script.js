@@ -256,6 +256,10 @@ function dwedit_draft_delete(cname) {
 
 }
 
+  function setEdHeight(h) {  
+        h = parseInt(h);        
+        document.cookie = 'ckgEdht=' + h +';expires="";path=' +JSINFO['doku_base'];
+   }
 
   function GetE(e) {
        return  document.getElementById(e);

@@ -1094,7 +1094,7 @@ function parse_wikitext(id) {
      }
 	 if(tag == 'span' && this.in_font && !ckgedit_xcl_styles) {
 	       tag = 'font';
-          //<font 18pt/garamond;;color;;background_color>  */
+          //<font 18pt/garamond;;color;;background_color>  
           var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">\n\n";        
           var font_start = results.lastIndexOf('__STYLE__');            
           results = results.splice(font_start,9,font_str);

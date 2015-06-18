@@ -499,12 +499,16 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 	        $toolbar = "DokuwikiGuest";
 	   }
         else $toolbar = 'Dokuwiki';
+       
+$height = isset($_COOKIE['ckgEdht']) && $_COOKIE['ckgEdht'] ? $_COOKIE['ckgEdht']: 250;
+
 $doku_url=  rtrim(DOKU_URL,'/');        
 $ckeditor_replace =<<<CKEDITOR_REPLACE
 
 		   ckgeditCKInstance = CKEDITOR.replace('wiki__text',
 		       { 
                   toolbar: '$toolbar' ,    
+                  height: $height,
                   filebrowserImageBrowseUrl :  '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',
                   filebrowserBrowseUrl: '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',                                
                }
@@ -696,7 +700,9 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
 
      <label class="nowrap" for="complex_tables" >     
         <input type="checkbox" name="complex_tables" value="complex_tables"  id = "complex_tables" 
-                     /><span id='complex_tables_label'> <?php echo $this->getLang('complex_tables');?> (<a href="https://www.dokuwiki.org/plugin:fckglite#table_handling" target='_blank'><?php echo $this->getLang('whats_this')?></a>)</span></label> 
+                     /><span id='complex_tables_label'> <?php echo $this->getLang('complex_tables');?></span></label> 
+      &nbsp;&nbsp;<label class="nowrap" for="editor_height">Editor height</label> 
+        <input type="text" size= "4" name="editor_height" value="<?php echo $height?>"  id = "editor_height"  onchange="setEdHeight(this.value);" />      
 
       <input style="display:none;" class="button" id="edbtn__save" type="submit" name="do[save]" 
                       value="<?php echo $lang['btn_save']?>" 

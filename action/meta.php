@@ -399,7 +399,7 @@ function check_userfiles() {
        global $ID; 
        global $JSINFO;
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
-
+       $JSINFO['doku_base'] = DOKU_BASE ;
 	   $this->check_userfiles(); 
 	   
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
