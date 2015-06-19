@@ -1,4 +1,4 @@
-rev 15-Jun_18-15_33
+rev 15-Jun_18-19_17
 
 28 Feb 2013
 Added support for interwiki links
@@ -704,3 +704,5 @@ in commands.php=>fileupload: fixed renaming of safencoded files on duplicate upl
 16 Jun
 merged with acl_check 
 
+18 Jun
+Added input and cookie to change height of editor on re-load
