@@ -575,7 +575,8 @@ $DW_EDIT_hide = $this->dw_edit_displayed();
 
 $is_ckgeditChrome = false;
  if(stripos($_SERVER['HTTP_USER_AGENT'],'Chrome') !== false) {
-      $is_ckgeditChrome =true;
+      preg_match("/Chrome\/(\d+)/", $_SERVER['HTTP_USER_AGENT'],$cmatch);
+      if((int)$cmatch[1] <26)  $is_ckgeditChrome =true;    
 } 
 
 ?>
@@ -616,7 +617,8 @@ global $INFO;
 
   $disabled = 'Disabled';
   $inline = $this->test ? 'inline' : 'none';
-  $chrome_dwedit_link =  '<a href="'.wl($INFO['id'],array('do'=>'show')).'" ' . 'onclick="draft_delete();setDWEditCookie(2);"class="action edit" rel="nofollow" title="DW Edit"><span>DW Edit</span></a>';  $backup_btn =$this->getLang('dw_btn_backup') ? $this->getLang('dw_btn_backup') : $this->getLang('dw_btn_refresh');
+  $chrome_dwedit_link =  '<a href="'.wl($INFO['id'],array('do'=>'show')).'" ' . 'onclick="draft_delete();setDWEditCookie(2);"class="action edit" rel="nofollow" title="DW Edit"><span>DW Edit</span></a>';
+  $backup_btn =$this->getLang('dw_btn_backup') ? $this->getLang('dw_btn_backup') : $this->getLang('dw_btn_refresh');
   $backup_title = $this->getLang('title_dw_backup') ? $this->getLang('title_dw_backup') : $this->getLang('title_dw_refresh');   
   $using_scayt = ($this->getConf('scayt')) == 'on';
   
@@ -754,12 +756,11 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
 <?php
    
    
-   $pos = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE');
-   if($pos === false) {
-     echo "var isIE = false;";
+   if(preg_match("/MISIE|Trident/",$_SERVER['HTTP_USER_AGENT'])) {
+      echo "var isIE = true;";
    }
    else {
-     echo "var isIE = true;";
+     echo "var isIE = false;";
    }
 
    echo "var doku_base = '" . DOKU_BASE ."'"; 
