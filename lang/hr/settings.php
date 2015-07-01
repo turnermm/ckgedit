@@ -24,6 +24,7 @@ $lang['no_symlinks']           = 'Onemogući automatsko kreiranje simboličkih v
 $lang['direction']             = 'Postavi smjer pisanja u CK uređivaču: <b>nocheck</b>: koristiti će se podrazumijevani smjer pisanja; <b>dokuwiki</b>: prema postavki jezika u Dokuwiki-u; <b>ltr</b>: S lijeva na desno; <b>rtl</b>: S desna na lijevo.';
 $lang['scayt_auto']            = 'Automatski omogući SCAYT provjeru pravopisa. Inicijalno je "on" odnosno uključeno. Odaberite "off" da ga isključite';
 $lang['scayt_lang']            = 'Postavite SCAYT jezik';
+$lang['smiley_hack']           = 'Resetirati URL adrese za smješke u CK uređivaču pri micanju na novi server. To se izvodi za svaku stranicu pri svakom njenom učitavanju i snimanju. Normalno ova opcija treba biti isključena.';
 $lang['complex_tables']        = 'Koristi algoritam za kompleksne tabele. Suprotno standardnoj obradi tabela, ovo treba dati bolje rezultate kada se koriste kompleksni oblici spojenih redova i kolona. Međutim zahtjeva više vremena za obradu.';
 $lang['duplicate_notes']       = 'Postavi na "true" ako korisnici kreiraju više fusnota s istim tekstom; obavezno kako bi se izbjegla oštećenja fusnota. ';
 $lang['winstyle']              = 'Koristi direktne staze do medijskih datoteka umjesto kroz fckeditor/userfiles. Ovo zahtjeva da fckeditor/userfiles/.htaccess.security bude kopiran u data/media i preimenovan u .htaccess';
