@@ -284,7 +284,7 @@ function check_userfiles() {
 	  if($bad_create) {
 	       if($show_msg)  {
 			   msg("There was an error when trying to create symbolic links in $userfiles. "
-					. "See ckgedit/auto_install.pdf  or  the <a href='http://www.mturner.org/ckgeditLite/doku.php?id=docs:auto_install'>ckgeditLite web site</a>" , 2);					
+					. "See ckgedit/auto_install.pdf  or  the <a href='http://www.mturner.org/fckgLite/doku.php?do=search&id=htaccess+|+media'>fckgLite web site</a>" , 2);					
 				}
       }
 	  else {	        
