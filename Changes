@@ -710,3 +710,6 @@ Added input and cookie to change height of editor on re-load
 20 Jun
 Added identification of IE Trident in edit.php
 Use standard DW Edit Button for Chrome>=26
+
+09 Jul
+New Branch 4.5.1
