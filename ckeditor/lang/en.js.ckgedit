@@ -1,0 +1,104 @@
+CKEDITOR.lang['en']["indent"] = {
+        "indent": "Nested List",
+        "outdent": "Decrease Nesting"
+ };
+CKEDITOR.lang['en'] ["stylescombo"]["label"]= "Code";
+
+CKEDITOR.lang['en']['fbrowser'] = {
+FileBrowserError_101:	'Folder already exists.', 
+FileBrowserError_102:	'Invalid folder name', 
+FileBrowserError_103:   'You have no permissions to create the folder.',
+FileBrowserError_110:   'Unknown error creating folder',
+FileBrowserError_201:   'A file with the same name is already available. The uploaded file has been renamed to: ',
+FileBrowserError_202:   'Invalid file',
+FileBrowserError_203:   'You do not have permission to upload files to this folder. If you think this is incorrect please notify your administrator.',
+FileBrowserError_204:   'Unable to delete the selected file', 
+FileBrowserError_205:  'Unable to rename the selected file; check your directory/write permisssions', 
+FileBrowserError_206: ' already exists; you must either delete or rename it. ',
+FileBrowserError_default: 'Error on your request. Error number: ',
+FileBrowserError_Ajax: 'Your browser does not support AJAX.',
+FileBrowserError_XML:  'The server didn\'t reply with a proper XML data. Please check your configuration.' ,
+FileBrowserError_Folder_Submit: 'Please type the folder name.',
+FileBrowserError_File_Submit:  'Please select a file from your computer',
+FileBrowserError_Upload: 'Error on upload. Error number: ',
+FileBrowserError_Connector: 'The connector is disabled. Check editor/filemanager/connectors/php/config.php', 
+FileBrowserError_Command: 'Unsupported command: ',
+FileBrowserError_Type:  'Invalid type specified: ',
+FolderMoveWarning:  'You can only move files to a folder one level below the current directory',	
+FileBrowserError_301: "The uploaded file exceeds the upload_max_filesize directive in php.ini.",
+FileBrowserError_302: "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.",
+FileBrowserError_303: "The uploaded file was only partially uploaded.",           
+FileBrowserError_304: "No file was uploaded.",
+FileBrowserError_306:  "Missing a temporary folder.",        
+FileBrowserError_307:  "Failed to write file to disk.",
+FileBrowserError_308: "PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help.",
+DlgFileBrowserUpMsg: "Upload a new file in this folder",
+DlgFileBrowserRead  : "read-only",
+DlgFileBrowserWrite : "uploadable",
+DlgFileBrowserNewFolder: "Create Folder",
+DlgFileBrowserResourceType: "Resource Type",
+DlgLnkUpload		: "Upload",
+DlgFileBrowserMove: "Move",
+InternalLink: "internal link",
+InternalMedia: "internal media",
+MediaFileLink: "link to media file",
+SMBLabel: "Samba Share",
+GetHeadingsLabel: 'Get Headings'	,
+QStringLabel: 'Query String (For example: value_1=1&value_2=2) ',	
+ResetQS: 'Reset Query String',
+NotSetOption: 'Not Set',
+AdvancedInfo: "To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.",
+AdvancedTabPrompt: 'Use the advanced tab to create page anchors and query strings',
+SMBExample: "Enter your share as: \\\\Server\\directory\\file", 
+DlgFileBrowserWaitingMsg: 'Loading files, please wait.',
+};
+CKEDITOR.lang['en']['footnote'] = {
+FootNoteInfo: '<div style="padding: 18px;font-size:125%;line-height:125%;">'+
+           '<ul style="list-style-type:disc;"><li>To create a footnote enter the footnote text into the editing box and click OK</li>'+
+           '<li>To edit a footnote enter the footnote id into the id box and click the Load button. <br /> The footnote will '+
+           'appear in the editing box, where you can then edit it.<br /> When you are finished editing, click OK to save.</li>'+        
+           '<li> A footnote id has this form: <b>fckgL_&lt;n&gt;</b>, where n is the number of the note.</li></ul></div>',
+ToolTip: 'Insert a footnote',  
+Settings: 'Settings', 
+Header: 'This dialog window lets you create and edit footnotes.',
+Label_1 :'Footnote Text (required)',
+Label_2: 'Footnote Id: ',
+LoadButtonLabel : 'Load Note In Editor',
+Title : 'Footnote Dialog',
+Validate: 'The footnote text field cannot be empty.',
+
+};
+CKEDITOR.lang['en']['fontassist'] = {
+Title: 'Font Plugin Editor',
+ToolTip: 'Check and Revise Font Styling',
+MainHeader: 'View and optionally alter text styled with the font plugin .',
+SelectColor : ' Select Color',
+SelectedTextColor : 'Selected Text Color',	
+SelectedBGColor : 'Selected Background Color',	
+BGColors : 'Background Colors',	
+InfoText :  '<div style="max-width:400px; font-size: 12pt; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; height: 350px; overflow:auto;">' +                         
+ 'This tool works with the font  plugin and is used to update the font plugin\'s syntax and/or view its enclosed text. ' +
+'Clicking anywhere on the plugin syntax or its text will enable you to check the appearance of the font, its colors, and its size.'+
+'<br /><br />You can also update the plugin syntax in place.  To do this you must select both the font syntax itself and the enclosed text:' +
+'<p style="text-indent: 50px; font-size: 12pt;">  &lt;font. . . &gt;text&lt;/font&gt;</p>' +
+'Then whatever changes you  make with this tool can be inserted into the editor window, by clicking OK, and will replace the current font syntax. ' +
+'<br /><br />The font syntax will appear in the textbox below the display window and is updated with each change. '+ 
+'Clicking on the text will select the text for copying.</div>',
+Main: 'Main',
+Text : 'Text',
+IfChecked : ' If checked, uncheck to activate OK button',
+Fonts : 'Fonts',
+FontSizes :  'Font Sizes (px)',
+ResetFont : 'Reset font',
+ResetAll : 'Reset all',
+TextColors : 'Text Colors',
+Accept :'Accept',	
+Reset : 'Reset',		
+none : 'none',
+};
+CKEDITOR.lang['en']['signature'] = {
+ToolTip: 'Insert signature'
+};
+CKEDITOR.lang.en["format"]["panelTitle"]  = "Section Headers";
+CKEDITOR.lang.en["format"]["label"] = "Headlines";
+CKEDITOR.lang.en["stylescombo"]["panelTitle"]="Formatting Code Styles";
