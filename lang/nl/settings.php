@@ -4,6 +4,7 @@
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
  * @author Mijndert <mijndert@mijndertstuij.nl>
+ * @author Peter van Diest <peter.van.diest@xs4all.nl>
  */
 $lang['groups']                = 'Groep met rechten om lock timer uit te schakelen (afgeschaft)';
 $lang['fck_preview']           = 'FCK Voorbeeld Groep';
@@ -27,7 +28,11 @@ $lang['scayt_lang']            = 'Activeer de SCAYT verstek taalkode.';
 $lang['smiley_hack']           = 'Reset de URL voor FCKeditor\'s smilies bij verhuis naar nieuwe server. Dit wordt pagina per pagina uitgevoerd bij het openen en bewaren van de pagina.  Deze optie zou normaal uit moeten staan.';
 $lang['complex_tables']        = 'Gebruik het complex tables algorithm, in tegenstelling tot het standaard ontleding algoritme. Dit zou een beter resultaat geven wanneer complexe rowspans en colspans gemengd worden.';
 $lang['duplicate_notes']       = 'Zet deze optie op true (aanvinken) wanneer gebruikers meerdere voetnotas maken met dezelfde voettekst; deze optie is noodzakelijk om te voorkomen dat de voetnotas corrupt geraken.';
+$lang['winstyle']              = 'Gebruik een direct pad naar de mediamap in plaats van fckeditor/userfiles. Hiervoor moet fckeditor/userfiles/.htaccess.security worden gekopieerd naar data/media en worden hernoemd naar ".htaccess"';
+$lang['other_lang']            = 'De standaardtaal voor de CKGEditor is de taal zoals ingesteld voor de browser. Je kunt echter een andere taal kiezen, onafhankelijk van de taal van het Dokuwiki-interface.';
 $lang['dw_priority']           = 'Maak DokuWiki editor de standaard editor';
+$lang['preload_ckeditorjs']    = 'Laad het javascript van de CKGeditor van tevoren om in het vervolg het laden van de editor te versnellen.';
+$lang['nofont_styling']        = 'Toon lettertypestijlen in de editor als plugin markup. Voor details, zie de ckgedit-pluginpagina van Dokuwiki.org.';
 $lang['font_options']          = 'Lettertype opties verwijderen';
 $lang['color_options']         = 'Kleur opties verwijderen';
 $lang['alt_toolbar']           = 'Functies om de CKEditor tool te verwijderen';
