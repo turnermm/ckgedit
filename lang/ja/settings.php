@@ -4,12 +4,9 @@
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
  * @author Nobuyuki Fukuyori <self@spumoni.org>
+ * @author Hideaki SAWADA <chuno@live.jp>
  */
 $lang['groups']                = 'ロックの期限を無効化できるグループ（廃止予定）';
-$lang['middot']                = '&amp;nbsp; に &amp;middot; を使うグループのカンマで区切ったリスト';
-$lang['big_files']             = '巨大なファイルを安全に編集する';
-$lang['big_file_sz']           = '巨大なファイルのサイズ（bytes）';
-$lang['big_file_tm']           = '巨大なファイルを処理する際のタイムアウト（秒）';
 $lang['fck_preview']           = 'FCK プレビューグループ';
 $lang['guest_toolbar']         = 'ゲストに対してツールバーを表示';
 $lang['guest_media']           = 'ゲストはメディアファイルにリンク可能';
@@ -35,3 +32,7 @@ $lang['winstyle']              = 'fckeditor/userfiles の代わりにメディ�
 $lang['other_lang']            = 'CKEditorのデフォルト言語。デフォルトではブラウザの言語が使われますが、ここで他の言語を選択できます。この設定はDokuwikiのインターフェイスの言語とは独立しています。';
 $lang['dw_priority']           = 'Dokuwikiのエディタを標準に設定';
 $lang['preload_ckeditorjs']    = 'CKEditorを事前に読み込み、編集を始める時の遅延時間を減らします。';
+$lang['nofont_styling']        = 'エディター内はプラグインのマークアップで指定されたフォントスタイルで表示する。詳細は、Dokuwiki.org の ckgedit プラグインページを参照してください。';
+$lang['font_options']          = 'フォントのオプションを削除する。';
+$lang['color_options']         = '配色のオプションを削除する。';
+$lang['alt_toolbar']           = 'CKEditor のツールバーから削除する機能';
