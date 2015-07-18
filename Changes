@@ -1,4 +1,4 @@
-rev 15-Jun_20-17_20
+rev 15-Jul_18-11_55
 
 28 Feb 2013
 Added support for interwiki links
@@ -710,3 +710,6 @@ Added input and cookie to change height of editor on re-load
 20 Jun
 Added identification of IE Trident in edit.php
 Use standard DW Edit Button for Chrome>=26
+
+18 Jul
+Removed unused ckeditor plugins
