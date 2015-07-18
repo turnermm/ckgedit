@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
+ * @author Hideaki SAWADA <chuno@live.jp>
  */
 $lang['btn_dw_edit']           = 'テキストモードに変更';
 $lang['dw_btn_fck_preview']    = 'プレビュー';
@@ -16,6 +17,8 @@ $lang['title_dw_cancel']       = '編集をキャンセル';
 $lang['btn_fck_edit']          = 'GUIモードに変更';
 $lang['confirm_delete']        = '本当にこのページを削除してもよろしいですか？';
 $lang['confirm_preview']       = '編集中の内容は保存されず失われます';
+$lang['editor_height']         = 'エディターの高さ';
+$lang['editor_height_title']   = 'エディターは、再読込時にサイズ変更する';
 $lang['dw_btn_backup']         = 'ドラフトを保存';
 $lang['title_dw_backup']       = '内容をドラフトに保存して、ロックの期限を更新';
 $lang['backup_empty']          = '以前のドラフトは存在しません。このまま戻すと編集中の内容はすべて失われますがよろしいですか？';
@@ -28,3 +31,5 @@ $lang['whats_this']            = 'ヘルプ';
 $lang['complex_tables']        = '複雑な表を有効にする';
 $lang['minor_changes']         = '小さな変更';
 $lang['discard_edits']         = '編集内容を保存する場合はOKを、破棄する場合はキャンセルをクリックしてください。';
+$lang['dw_btn_styling']        = 'フォントの編集';
+$lang['title_styling']         = 'マークアップで指定されたフォントスタイルで表示する。';

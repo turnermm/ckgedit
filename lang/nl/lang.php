@@ -4,6 +4,7 @@
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
  * @author Mijndert <mijndert@mijndertstuij.nl>
+ * @author Peter van Diest <peter.van.diest@xs4all.nl>
  */
 $lang['btn_dw_edit']           = 'DW Editor';
 $lang['dw_btn_fck_preview']    = 'CKG Voorbeeld';
@@ -17,6 +18,8 @@ $lang['title_dw_cancel']       = 'Stop Editor';
 $lang['btn_fck_edit']          = 'CKG Editor';
 $lang['confirm_delete']        = 'Wil je deze pagina schrappen? Zeker?';
 $lang['confirm_preview']       = 'Niet opgeslagen werk gaat verloren.';
+$lang['editor_height']         = 'Editorhoogte';
+$lang['editor_height_title']   = 'De afmetingen van de editor worden opnieuw bepaald bij herladen';
 $lang['dw_btn_backup']         = 'Back-up';
 $lang['title_dw_backup']       = 'Back up editor venster & hernieuw vergrendeling';
 $lang['backup_empty']          = 'De back-up buffer is blijkbaar leeg. Verder gaan?';
@@ -30,3 +33,4 @@ $lang['complex_tables']        = 'Complexe tabellen inschakelen';
 $lang['minor_changes']         = 'Kleine wijzigingen';
 $lang['discard_edits']         = 'Om je wijzigingen op te slaan klik OK; voor afkeuren klik Cancel';
 $lang['dw_btn_styling']        = 'Lettertypen aanpassen';
+$lang['title_styling']         = 'Open met de stijl van het lettertype getoond als markup';
