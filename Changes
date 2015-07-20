@@ -1,4 +1,4 @@
-rev 15-Jul_18-11_55
+rev 15-Jul_20-09_50
 
 28 Feb 2013
 Added support for interwiki links
@@ -713,3 +713,6 @@ Use standard DW Edit Button for Chrome>=26
 
 18 Jul
 Removed unused ckeditor plugins
+
+20 Jul
+Extended insertion of base64 images in FireFox  to Linux and OSX and Iceweasel

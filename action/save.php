@@ -36,13 +36,24 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
               $TEXT = trim($TEXT);
         }
 
+
+  $TEXT = preg_replace_callback(
+    '|\{\{data:(.*?);base64|ms',
+      create_function(
+        '$matches',
+         'if(!preg_match("/image/",$matches[1])) {
+          return "{{data:image/jpeg;base64";
+         }
+          return $matches[0];'
+     ),$TEXT);
+      
     if(strpos($TEXT,'data:image') !== false) {
         $TEXT = preg_replace_callback(
              '|\{\{(\s*)data:image\/(\w+;base64,\s*)(.*?)\?nolink&(\s*)\}\}|ms',
              create_function(
                 '$matches',
                 'list($ext,$base) = explode(";",$matches[2]);
-                if($ext == "jpeg") $ext = "jpg";                    
+                if($ext == "jpeg" || $ext == "tiff") $ext = "jpg";                    
                  if(function_exists("imagecreatefromstring") && !imagecreatefromstring (base64_decode($matches[3]))) {
                      msg("Clipboard paste: invalid $ext image format");
                      return "{{" . BROKEN_IMAGE .  "}}";
