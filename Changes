@@ -1,4 +1,4 @@
-rev 15-Jul_20-09_50
+rev 15-Jul_26-20_16
 
 28 Feb 2013
 Added support for interwiki links
@@ -716,3 +716,6 @@ Removed unused ckeditor plugins
 
 20 Jul
 Extended insertion of base64 images in FireFox  to Linux and OSX and Iceweasel
+
+26 Jul
+Added line-breaks after MULTI_OPEN and before MULTI_CLOSE

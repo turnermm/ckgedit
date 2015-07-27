@@ -147,7 +147,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
              ),
              $TEXT
            );
-
+        $TEXT = str_replace("~~MULTI_PLUGIN_OPEN~~","~~MULTI_PLUGIN_OPEN~~\n",$TEXT);
          }
 
        if(strpos($TEXT,'L_PARgr') !== false) {        
