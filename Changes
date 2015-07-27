@@ -1,4 +1,4 @@
-rev 15-Jul_20-09_50
+rev 15-Jul_26-20_16
 
 28 Feb 2013
 Added support for interwiki links
@@ -715,3 +715,6 @@ Use standard DW Edit Button for Chrome>=26
 New Branch 4.5.1
 20 Jul
 Extended insertion of base64 images in FireFox  to Linux and OSX and Iceweasel
+
+26 Jul
+Added line-breaks after MULTI_OPEN and before MULTI_CLOSE
