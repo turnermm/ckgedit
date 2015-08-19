@@ -1,4 +1,4 @@
-rev 15-Jul_26-20_16
+rev 15-Aug_19-08_12
 
 28 Feb 2013
 Added support for interwiki links
@@ -719,3 +719,6 @@ Extended insertion of base64 images in FireFox  to Linux and OSX and Iceweasel
 
 26 Jul
 Added line-breaks after MULTI_OPEN and before MULTI_CLOSE
+
+19 Aug
+Increased font-size of edit fonts button to 100% so that button is full size
