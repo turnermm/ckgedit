@@ -4,6 +4,7 @@
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
  * @author Leo Rudin <leo.rudin@gmx.ch>
+ * @author Padhie <develop@padhie.de>
  */
 $lang['btn_dw_edit']           = 'DW Edit';
 $lang['dw_btn_fck_preview']    = 'CKG Vorschau';
@@ -17,6 +18,8 @@ $lang['title_dw_cancel']       = 'Editor schliessen';
 $lang['btn_fck_edit']          = 'CKG Editor';
 $lang['confirm_delete']        = 'Sind Sie sicher, dass Sie diese Seite l&ouml;schen wollen?';
 $lang['confirm_preview']       = 'Jede nicht gespeicherte Bearbeitung wird verloren gehen.';
+$lang['editor_height']         = 'Editorhöhe';
+$lang['editor_height_title']   = 'Editor neuskallieren beim neuladen';
 $lang['dw_btn_backup']         = 'Backup';
 $lang['title_dw_backup']       = 'Backup-Editor';
 $lang['backup_empty']          = 'Es ist kein Backup vorhanden. Wollen Sie fortfahren?';
@@ -30,3 +33,4 @@ $lang['complex_tables']        = 'Aktiviert komplexe Tabellen';
 $lang['minor_changes']         = 'Kleine Änderungen';
 $lang['discard_edits']         = 'Um Ihre Änderungen zu speichern klicken Sie OK; um Abzubrechen bitte klicken Sie auf Cancel.';
 $lang['dw_btn_styling']        = 'Schriftart bearbeiten';
+$lang['title_styling']         = 'Öffne mit Schriftart als markup';
