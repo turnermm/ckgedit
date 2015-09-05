@@ -666,6 +666,7 @@ global $INFO;
               <input class="button" type="submit"
                    name ="do[edit]" 
                    id = "no_styling_btn"                   
+                   style = "font-size: 100%;"                   
                    value="<?php echo $this->getLang('dw_btn_styling')?>"  
                    title="<?php echo $this->getLang('title_styling')?>"  
                   />
