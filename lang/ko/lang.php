@@ -1,28 +1,35 @@
 <?php
 
-$lang['btn_dw_edit'] = "도쿠위키편집기(텍스트)";
-$lang['dw_btn_fck_preview']="위지윅 미리보기";
-$lang['dw_btn_lang']="언어";
-$lang['title_dw_delete'] = "페이지삭제";
-$lang['title_dw_edit'] = "저장 후 도쿠위키편집기로 복귀";
-$lang['dw_btn_revert'] = "되돌리기";
-$lang['title_dw_revert'] = "이전의 백업으로 되돌리기";
-$lang['title_dw_lang']="철자교정 언어선택";
-$lang['title_dw_cancel']='편집기종료';
-$lang['btn_fck_edit'] = "CKG편집기";
-$lang['confirm_delete'] = "정말로 이페이지를 삭제하겠습니까?";
-$lang['confirm_preview'] = "저장하지 않은 내용은 지워집니다.";
-
-$lang['dw_btn_backup'] ="초안저장";
-$lang['title_dw_backup'] ="편집화면을 백업하고 수정함";
-$lang['backup_empty'] = "저장된 초안이 없습니다. 계속할까요?";
-$lang['btn_draft'] = "초안 가져오기";
-$lang['title_draft'] = "저장된 초안을 보고 편집하기";
-$lang['btn_exit_draft'] = "초안에서 나가기";
-
-$lang['draft_msg']= "This document has a draft file. The draft button toggles between the this document and the draft. You can edit and save either of the two." ;
-$lang['whats_this'] = "이게뭘까?";
-$lang['complex_tables'] = "고급 표편집기능 활성화";
-$lang['minor_changes'] = "사소한 변경";
-$lang['discard_edits'] = "저장하려면 OK; 취소하려면 Cancel을 누르세요";
-
+/**
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * 
+ * @author Myeongjin <aranet100@gmail.com>
+ */
+$lang['btn_dw_edit']           = 'DW 편집';
+$lang['dw_btn_fck_preview']    = 'CKG 미리 보기';
+$lang['dw_btn_lang']           = '언어';
+$lang['title_dw_delete']       = '문서 삭제';
+$lang['title_dw_edit']         = '작업을 저장하고 종료한 다음 네이티브 도쿠위키 편집기로 전환';
+$lang['dw_btn_revert']         = '되돌리기';
+$lang['title_dw_revert']       = '이전 백업으로 되돌리기';
+$lang['title_dw_lang']         = '맞춤법 검사기를 위한 언어 선택';
+$lang['title_dw_cancel']       = '편집기 종료';
+$lang['btn_fck_edit']          = 'CKG 편집';
+$lang['confirm_delete']        = '정말로 이 문서를 삭제하겠습니까?';
+$lang['confirm_preview']       = '저장하지 않은 작업은 사라집니다.';
+$lang['editor_height']         = '편집기 높이';
+$lang['editor_height_title']   = '편집기를 다시 불러올 때 다시 크기 조절';
+$lang['dw_btn_backup']         = '백업';
+$lang['title_dw_backup']       = '편집기 창을 백업 및 잠금 갱신';
+$lang['backup_empty']          = '백업한 버퍼가 비어있는 것으로 나타납니다. 계속할까요?';
+$lang['btn_draft']             = '초안 얻기';
+$lang['title_draft']           = '초안을 보고 편집하기';
+$lang['btn_exit_draft']        = '초안 종료';
+$lang['title_exit_draft']      = '현재 문서로 돌아가기';
+$lang['draft_msg']             = '이 문서에 초안 파일이 있습니다. 초안 버튼은 문서와 초안 사이를 전환합니다. 둘 중 하나를 편집하고 저장할 수 있습니다.';
+$lang['whats_this']            = '이게 뭐죠?';
+$lang['complex_tables']        = '복잡한 표 활성화';
+$lang['minor_changes']         = '사소한 바뀜';
+$lang['discard_edits']         = '편집을 저장하려면 확인을, 버리려면 취소를 클릭하세요';
+$lang['dw_btn_styling']        = '글꼴 편집';
+$lang['title_styling']         = '글꼴 스타일을 마크업에 보여지도록 열기';
