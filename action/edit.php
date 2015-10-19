@@ -24,7 +24,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     /**
      * Constructor
      */
-    function action_plugin_ckgedit_edit()
+    function __construct()
     {
         $this->setupLocale();
         $this->helper = plugin_load('helper', 'ckgedit');
@@ -36,10 +36,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $version = explode('.', phpversion());
        define('PHP_VERSION_NUM', $version[0] * 10+ $version[1]);
         
-        if(PHP_VERSION_NUM < 53)  {
-           msg("ckgedit requires PHP 5.3 or later.  For a work-around, please see the  <a href='https://www.dokuwiki.org/plugin:ckgedit?&#important'>plugin page</a>", -1);
-           return ;
-        }
          if($this->helper->is_outOfScope()) return;
  
         global $FCKG_show_preview;

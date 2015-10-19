@@ -10,13 +10,6 @@ define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/');
  */
 
 class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
-    /**
-     * Constructor
-     */
-    function action_plugin_ckgedit_save(){
-    }
-
-
 
     function register(&$controller) {
   
