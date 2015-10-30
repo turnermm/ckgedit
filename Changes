@@ -1,4 +1,4 @@
-rev 15-Sep_05-17_05
+rev 15-Oct_30-14_17
 
 28 Feb 2013
 Added support for interwiki links
@@ -725,3 +725,9 @@ Added line-breaks after MULTI_OPEN and before MULTI_CLOSE
 
 19 Aug
 Increased font-size of edit fonts button to 100% so that button is full size
+
+18 Oct
+Updated tgz version on mturner.org to c.5.1
+
+30 Oct
+Fixed bug which prepended namespace to links entered manually into dialog's text box

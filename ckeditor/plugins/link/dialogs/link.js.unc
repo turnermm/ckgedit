@@ -973,7 +973,7 @@ var useHeading = function(wiki_id) {
                 case 'internal':                  
                      if(!data.url.url) {                                            
                         data.url.url=document.getElementById(fckgInternalInputId).value;
-                            if(!data.url.url.match(/[^\w\:]/)) {
+                              if(!data.url.url.match(/^:?\w+:/)) {
                                 var ns = top.getCurrentWikiNS() + ':';
                                 ns = ns.replace(/:$/,"");
                                 var regex = new RegExp(':?'+ ns+':');   
