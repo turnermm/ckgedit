@@ -520,7 +520,8 @@ var useHeading = function(wiki_id) {
 											[ 'http://\u200E', 'http://' ],                                            
 											[ 'https://\u200E', 'https://' ],
 											[ 'ftp://\u200E', 'ftp://' ],
-											[ 'news://\u200E', 'news://' ]																				
+											[ 'news://\u200E', 'news://' ],
+                                          	[ 'm-files://show', '' ]																				
 										],
 										setup : function( data )
 										{
