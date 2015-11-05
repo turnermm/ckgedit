@@ -556,8 +556,7 @@ function parse_wikitext(id) {
                     }
                     else if(attrs[i].escaped.match(/m-files/)) {                    
                        this.attr = attrs[i].escaped;            
-                      this.mfile = attrs[i].escaped;
-                 
+                       this.mfile = attrs[i].escaped;
                        local_image = false;
                     }
                     else if(attrs[i].escaped.match(/^file:/)) {  //samba share
@@ -721,7 +720,7 @@ function parse_wikitext(id) {
 				  
                 if(this.link_class == 'urlextern' && !this.mfile) {
                     this.attr = save_url;
-					this.external_mime=false;  // prevents external links to images from being converted to image links
+                    this.external_mime=false;  // prevents external links to images from being converted to image links
                 }                   
                    if(this.in_endnotes) {                              
                         if(this.link_title) {
@@ -1009,7 +1008,6 @@ function parse_wikitext(id) {
           if(this.code_type && tag == 'span') tag = 'blank'; 
           if(this.mfile && !this.attr) { 
               this.attr = this.mfile;
-              this.mfile = false;
           }
           results += markup[tag];          // Set tag
           
