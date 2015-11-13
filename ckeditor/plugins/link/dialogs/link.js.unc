@@ -522,7 +522,7 @@ var useHeading = function(wiki_id) {
 											[ 'https://\u200E', 'https://' ],
 											[ 'ftp://\u200E', 'ftp://' ],
 											[ 'news://\u200E', 'news://' ],
-                                          	[ 'm-files://\u200E', '' ]																				
+                                            m_protocol    
 										],
 										setup : function( data )
 										{
