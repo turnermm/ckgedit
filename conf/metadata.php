@@ -32,3 +32,4 @@ $meta['color_options'] = array('onoff');
 $meta['font_options'] = array('onoff');
 $meta['nofont_styling'] = array('onoff');
 $meta['alt_toolbar']  = array('multicheckbox','_choices' => array( 'HorizontalRule', 'Smiley','SpecialChar', 'Signature' ,'Footnotes',  'Font','FontSize', 'Source', 'Maximize','Underline','Strike', 'Subscript','Superscript', 'Indent','Outdent', 'Link','Unlink','FontAssist'));
+$meta['mfiles'] = array('onoff');

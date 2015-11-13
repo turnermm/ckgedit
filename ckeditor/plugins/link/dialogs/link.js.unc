@@ -24,7 +24,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
     //oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
 	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
-        
+    oDokuWiki_FCKEditorInstance.mfiles
+    var m_protocol =  oDokuWiki_FCKEditorInstance.mfiles ?	[ 'm-files://\u200E', '' ] : "";   
   
 	 var fckgSMBInputId;
      var defaultFBLang = {

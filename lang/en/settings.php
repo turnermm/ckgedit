@@ -32,4 +32,5 @@ $lang['nofont_styling']  = 'Display font styles in editor as plugin markup. See 
 $lang['font_options']  = 'Remove font options.';
 $lang['color_options']  = 'Remove Color options.';
 $lang['alt_toolbar'] = 'Functions to remove from CKEditor toolbar';
+$lang['mfiles'] = 'Enable mfile support';
 
