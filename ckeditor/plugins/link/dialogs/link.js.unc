@@ -4,12 +4,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
 var fckgInternalInputId, fckgMediaInputId;
-
+ var ck_m_files_protocol;
  window.onbeforeunload = function() { };
    
 CKEDITOR.dialog.add( 'link', function( editor )
 {
     oDokuWiki_FCKEditorInstance.Lang = editor.lang;
+    ck_m_files_protocol =  oDokuWiki_FCKEditorInstance.mfiles ?	[ 'm-files://\u200E', '' ] : "";    
     var Doku_Base = oDokuWiki_FCKEditorInstance.dwiki_doku_base;
 	var plugin = CKEDITOR.plugins.link;
     var oRegex = new Object() ;
@@ -23,8 +24,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.internal_link_rewrite_1 = new RegExp('^' + Doku_Base + '(?!_media)(.*)');    
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
     //oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
-	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
-    var m_protocol =  oDokuWiki_FCKEditorInstance.mfiles ?	[ 'm-files://\u200E', '' ] : "";   
+	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;	    
   
 	 var fckgSMBInputId;
      var defaultFBLang = {
@@ -39,8 +39,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
         AdvancedInfo: "To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.",
         AdvancedTabPrompt: 'Use the advanced tab to create page anchors and query strings',
         SMBExample: "Enter your share as: \\\\Server\\directory\\file", 
-     };
-      
+     };   
      var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
     
     var  translateItem = function (js_code) {     
@@ -521,7 +520,7 @@ var useHeading = function(wiki_id) {
 											[ 'https://\u200E', 'https://' ],
 											[ 'ftp://\u200E', 'ftp://' ],
 											[ 'news://\u200E', 'news://' ],
-                                            m_protocol    
+                                            ck_m_files_protocol    
 										],
 										setup : function( data )
 										{
