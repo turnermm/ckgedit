@@ -89,6 +89,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
  $color_opts = $this->getConf('color_options');
  $font_opts = $this->getConf('font_options');
   $toolbar_opts = $this->getConf('alt_toolbar');
+ $mfiles =   $this->getConf('mfiles');
   if(!isset($INFO['userinfo']) && !$open_upload) {
     $user_type = 'visitor';
   }
@@ -461,6 +462,7 @@ function FCKeditor_OnComplete( editorInstance )
   oDokuWiki_FCKEditorInstance.fckgUserName = "$user_name";
   oDokuWiki_FCKEditorInstance.fckgUserMail="$user_email"; 
   oDokuWiki_FCKEditorInstance.useheading = "$useheading"; 
+  oDokuWiki_FCKEditorInstance.mfiles = parseInt("$mfiles");
   
  
   var index = navigator.userAgent.indexOf('Safari'); 
