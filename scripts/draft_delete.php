@@ -5,6 +5,7 @@ require_once(DOKU_INC.'inc/io.php');
 
 $cname = $_REQUEST['draft_id'];
 $cname = urldecode($cname);
+if(!preg_match("#/data/cache/\w/[a-f0-9]{32}\.draft$#i", $cname)) return;
 $ckgedit_cname = $cname . '.fckl';
 
 
