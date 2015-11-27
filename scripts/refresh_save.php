@@ -54,7 +54,7 @@ define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/../action/');
 
      replace_entities();
 
-     file_put_contents($_REQUEST['rsave_id'], $wiki_text);
+     file_put_contents( urldecode($_REQUEST['rsave_id']), $wiki_text);
      echo 'done';
 
 

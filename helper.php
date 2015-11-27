@@ -322,7 +322,7 @@ function renewLock(bak) {
            return; 
         }
        
-        var params = "rsave_id=$meta_fn";
+        var params = "rsave_id=" + encodeURIComponent("$meta_fn");       
         params += '&wikitext='+encodeURIComponent(dwform.elements.fck_wikitext.value);      
         jQuery.post(
                 DOKU_BASE + 'lib/plugins/ckgedit/scripts/refresh_save.php',

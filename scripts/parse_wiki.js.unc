@@ -1715,9 +1715,6 @@ jQuery( "#ckgedit_draft_btn" ).click(function() {
 jQuery( "#backup_button" ).click(function() { 
    renewLock(true);
 });
-jQuery( "#backup_button" ).click(function() { 
-   renewLock(true);
-});
 jQuery( "#revert_to_prev_btn" ).click(function() { 
    revert_to_prev();
 });

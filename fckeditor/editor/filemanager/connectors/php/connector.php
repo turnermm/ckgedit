@@ -58,8 +58,8 @@ function DoResponse()
 
 		
 	// Get the main request informaiton.
-	$sCommand		= $_GET['Command'] ;
-	$sResourceType	= $_GET['Type'] ;
+	$sCommand		= urlencode($_GET['Command'] );
+	$sResourceType	= urlencode($_GET['Type']) ;
 	$sCurrentFolder	= GetCurrentFolder() ;
 
 	// Check if it is an allowed command
