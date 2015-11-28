@@ -31,7 +31,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     }
 
 
-    function register(&$controller)
+    function register(Doku_Event_Handler $controller)
     {
        $version = explode('.', phpversion());
        define('PHP_VERSION_NUM', $version[0] * 10+ $version[1]);

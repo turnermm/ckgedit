@@ -1,4 +1,4 @@
-rev 15-Oct_30-14_17
+rev 15-Nov_18-12_06
 
 28 Feb 2013
 Added support for interwiki links
@@ -731,3 +731,9 @@ Updated tgz version on mturner.org to c.5.1
 
 30 Oct
 Fixed bug which prepended namespace to links entered manually into dialog's text box
+
+13 Nov
+Support for mfiles and PHP function declarations
+
+18 Nov
+Merge mfiles (proto branch) into master

@@ -217,6 +217,7 @@ function parse_wikitext(id) {
     font_style: "inherit",
     is_mediafile: false, 
     end_nested: false,
+    mfile: false,
 
     backup: function(c1,c2) {
         var c1_inx = results.lastIndexOf(c1);     // start position of chars to delete
@@ -535,7 +536,7 @@ function parse_wikitext(id) {
                     if(media_type) media_type = media_type[1];
                     
                     if(attrs[i].escaped.match(/^https*:/)) {
-                       this.attr = attrs[i].escaped;
+                       this.attr = attrs[i].escaped;                       
                        local_image = false;
                     }
                    if(attrs[i].escaped.match(/^ftp:/)) {
@@ -551,6 +552,11 @@ function parse_wikitext(id) {
                     }
                     else if(attrs[i].escaped.match(/^mailto:/)) {                       
                        this.attr = attrs[i].escaped.replace(/mailto:/,"");
+                       local_image = false;
+                    }
+                    else if(attrs[i].escaped.match(/m-files/)) {                    
+                       this.attr = attrs[i].escaped;            
+                       this.mfile = attrs[i].escaped;
                        local_image = false;
                     }
                     else if(attrs[i].escaped.match(/^file:/)) {  //samba share
@@ -614,7 +620,7 @@ function parse_wikitext(id) {
                                         break;
                                     }
 
-                               }
+                              }
                            }
 
                         }
@@ -712,9 +718,9 @@ function parse_wikitext(id) {
 				      interwiki_class=this.link_class; 
 				  }
 				  
-                if(this.link_class == 'urlextern') {
+                if(this.link_class == 'urlextern' && !this.mfile) {
                     this.attr = save_url;
-					this.external_mime=false;  // prevents external links to images from being converted to image links
+                    this.external_mime=false;  // prevents external links to images from being converted to image links
                 }                   
                    if(this.in_endnotes) {                              
                         if(this.link_title) {
@@ -726,7 +732,6 @@ function parse_wikitext(id) {
                    }   
                    this.link_title = "";
                    this.link_class= "";
-
                  //  break;
                  }
             }
@@ -1001,8 +1006,12 @@ function parse_wikitext(id) {
 
           if(this.in_endnotes && tag == 'a') return; 
           if(this.code_type && tag == 'span') tag = 'blank'; 
-
+          if(this.mfile && !this.attr) { 
+              this.attr = this.mfile;
+          }
           results += markup[tag];          // Set tag
+          
+          
           if(tag == 'td' || tag == 'th' || (this.last_col_pipes && this.td_align == 'center')) {
               if(this.is_rowspan) {          
                 results +=  markup['row_span'] + ' | ';
@@ -1013,7 +1022,7 @@ function parse_wikitext(id) {
              }
 
           }
-          else if(tag == 'a' && this.attr) {
+          else if(tag == 'a' && this.attr) {          
               this.attr =  this.attr.replace(/%7c/,'%257c');              
               results += this.attr + '|';			  
           }
@@ -1702,9 +1711,6 @@ jQuery( "#ebtn__dwedit" ).click(function() {
 
 jQuery( "#ckgedit_draft_btn" ).click(function() { 
    ckgedit_get_draft();
-});
-jQuery( "#backup_button" ).click(function() { 
-   renewLock(true);
 });
 jQuery( "#backup_button" ).click(function() { 
    renewLock(true);
