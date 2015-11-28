@@ -6,14 +6,14 @@ define("PAGES", DOKU_INC . 'data/pages/');
 define("FCKEDITOR", DOKU_PLUGIN . 'ckgedit/fckeditor/editor/');
 define('CONNECTOR', FCKEDITOR . 'filemanager/connectors/php/');
 require_once(CONNECTOR . 'check_acl.php');
+require_once(DOKU_INC.'inc/Input.class.php');
+
 require_once(CONNECTOR . 'SafeFN.class.php');
 global $dwfck_conf;
 global $Dwfck_conf_values;
-
-if(isset($_REQUEST['dw_id']) && $_REQUEST['dw_id']) {
-  $page = ltrim($_REQUEST['dw_id'], ':');
-}
-else $page = 'ebook';
+$INPUT = new Input();
+$page = $INPUT->str('dw_id');
+$page =  ltrim($page, ':');
 
 $dwfck_conf = doku_config_values();  // needed for cleanID
 $Dwfck_conf_values = $dwfck_conf;

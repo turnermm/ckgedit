@@ -3,6 +3,7 @@ define("DOKU_INC", realpath(dirname(__FILE__).'/../../../../') . '/');
 require_once DOKU_INC . 'inc/init.php';
 require_once DOKU_INC . 'inc/template.php';
 
+   global $INPUT;
 
   $page = $INPUT->str('dw_id');  
   $page = urldecode($page);
