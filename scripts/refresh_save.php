@@ -1,10 +1,15 @@
 <?php
 define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/../action/');
+define('DOKU_INC', realpath(dirname(__FILE__)) . '/../../../../');
+require_once DOKU_INC . 'inc/init.php';
 
-     global $wiki_text;
-    // file_put_contents('save_ref.txt', print_r($_REQUEST,true));
-
-       $wiki_text = urldecode($_REQUEST['wikitext']);
+     global $wiki_text, $INPUT;
+   
+    
+       $rsave_id = urldecode($INPUT->str('rsave_id'));
+       $path = pathinfo($rsave_id);
+       if($path['extension'] != 'ckgedit') exit('1');
+       $wiki_text = urldecode($INPUT->str('wikitext'));
              
         if(!preg_match('/^\s+(\-|\*)/',$wiki_text)){     
               $wiki_text = trim($wiki_text);
@@ -53,8 +58,8 @@ define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/../action/');
         }
 
      replace_entities();
-
-     file_put_contents( urldecode($_REQUEST['rsave_id']), $wiki_text);
+     $wiki_text = preg_replace('/\s*\<\?php/i', '&lt;?php',$wiki_text) ;
+     file_put_contents($rsave_id, $wiki_text);
      echo 'done';
 
 
