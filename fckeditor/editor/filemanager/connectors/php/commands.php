@@ -578,7 +578,7 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
             $msg="";
         	$sFileUrl = CombinePaths( GetResourceTypePath( $resourceType, $sCommand ) , $currentFolder ) ;
     	    $sFileUrl = CombinePaths( $sFileUrl, $_FILES['NewFile']['name']);       
-            SendUploadResults( '203', $sFileUrl, $_FILES['NewFile']['name'],  $msg ) ;
+            SendUploadResults( '203', $sFileUrl, htmlentities($_FILES['NewFile']['name']),  $msg ) ;
             return;
 
          }
@@ -592,7 +592,7 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
 
         $upload_err = $_FILES['NewFile']['error'];
         if($upload_err ) {
-            send_ckg_UploadError($upload_err,$sFileUrl, $_FILES['NewFile']['name']);           
+            send_ckg_UploadError($upload_err,$sFileUrl, htmlentities($_FILES['NewFile']['name']));           
             exit;
         }
 		$oFile = $_FILES['NewFile'] ;
@@ -730,7 +730,7 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
 	$sFileUrl = CombinePaths( GetResourceTypePath( $resourceType, $sCommand ) , $currentFolder ) ;
 	$sFileUrl = CombinePaths( $sFileUrl, $sFileName ) ;
 
-	SendUploadResults( $sErrorNumber, $sFileUrl, $sFileName ) ;
+	SendUploadResults( $sErrorNumber, $sFileUrl, htmlentities($sFileName )) ;
 
 	exit ;
 }
