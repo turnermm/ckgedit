@@ -525,6 +525,18 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
 	if (!isset($_FILES)) {
 		global $_FILES;
 	}
+    $f_args = array(
+    'name' => array('filter' => FILTER_SANITIZE_STRING|FILTER_SANITIZE_ENCODED,
+              'flags' => FILTER_FLAG_STRIP_LOW, FILTER_FLAG_STRIP_HIGH),
+    'type' => "",
+    'tmp_name' => "",
+    'error' => "",
+    'size' => ""
+) ;
+    $keys = array_keys($_FILES);    
+    $file_data = filter_var_array($_FILES[$keys[0]], $f_args);
+   // cmd_write_debug($_FILES);
+   // cmd_write_debug($file_data);
 	$sErrorNumber = '0' ;
 	$sFileName = '' ;
      
@@ -577,8 +589,8 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
         if($AUTH < 8) {         
             $msg="";
         	$sFileUrl = CombinePaths( GetResourceTypePath( $resourceType, $sCommand ) , $currentFolder ) ;
-    	    $sFileUrl = CombinePaths( $sFileUrl, $_FILES['NewFile']['name']);       
-            SendUploadResults( '203', $sFileUrl, $_FILES['NewFile']['name'],  $msg ) ;
+    	    $sFileUrl = CombinePaths( $sFileUrl, $file_data['name']);       
+            SendUploadResults( '203', $sFileUrl, $file_data['name'],  $msg ) ;
             return;
 
          }
@@ -586,16 +598,16 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
     if(!$safe) {
         $currentFolder = encode_dir($currentFolder);
     }
-	if ( isset( $_FILES['NewFile'] ) && !is_null( $_FILES['NewFile']['tmp_name'] ) )
+	if ( isset( $file_data ) && !is_null( $file_data['tmp_name'] ) )
 	{
 		global $Config ;
 
-        $upload_err = $_FILES['NewFile']['error'];
+        $upload_err = $file_data['error'];
         if($upload_err ) {
-            send_ckg_UploadError($upload_err,$sFileUrl, $_FILES['NewFile']['name']);           
+            send_ckg_UploadError($upload_err,$sFileUrl, $file_data['name']);           
             exit;
         }
-		$oFile = $_FILES['NewFile'] ;
+		$oFile = $file_data ;
 
 
 		// Map the virtual path to the local server path.
