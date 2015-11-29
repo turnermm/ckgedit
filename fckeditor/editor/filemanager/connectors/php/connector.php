@@ -21,6 +21,7 @@
  *
  * This is the File Manager Connector for PHP.
  */
+if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../../../../../../').'/');
 
 ob_start() ;
 function getAccessNum () { 
@@ -35,6 +36,7 @@ require('./basexml.php') ;
 require('./commands.php') ;
 require('./phpcompat.php') ;
 require_once('./SafeFN.class.php');
+require_once 'input_utils.php';
 
 if ( !$Config['Enabled'] )
 	SendError( 1, 'FileBrowserError_Connector') ;
@@ -112,4 +114,14 @@ function DoResponse()
 
 	exit ;
 }
+
+function fck_write_debug($what) {
+if(is_array($what)) {
+   $what = print_r($what,true);
+}
+$dwfckFHandle = fopen("fckbrowser_dbg.txt", "a");
+fwrite($dwfckFHandle, "$what\n");
+fclose($dwfckFHandle);
+}
+
 ?>

@@ -26,8 +26,7 @@
 
 
 require_once 'check_acl.php';
-
-
+require_once 'input_utils.php';
 global $dwfck_conf;
 global $_FolderClass;
 
@@ -39,6 +38,7 @@ function GetDwfckNs()
 
  function has_permission($folder, $resourceType, $isFolder=true) {
    global $_FolderClass;
+   global $INPUT;
    global $Dwfck_conf_values;   
         $folder = str_replace('//','/',$folder);
        
@@ -75,10 +75,10 @@ function GetFolders( $resourceType, $currentFolder )
 
    global $_FolderClass; 
    global $Config;
-  
+   global $INPUT;
     $currentFolder=encode_dir($currentFolder);
-   $isInternalLink = isset($_GET['DWFCK_Browser']) && $_GET['DWFCK_Browser'] == 'local'?  true : false;
 
+   $isInternalLink = input_strval('DWFCK_Browser', 'local') ;
 	// Map the virtual path to the local server path.
 	$sServerDir = ServerMapFolder( $resourceType, $currentFolder, 'GetFolders' ) ;
 
@@ -172,8 +172,7 @@ function GetFoldersAndFiles( $resourceType, $currentFolder )
 	}
      global $Config; 
 
-
-   $isInternalLink = isset($_GET['DWFCK_Browser']) && $_GET['DWFCK_Browser'] == 'local'?  true : false;
+    $isInternalLink = input_strval('DWFCK_Browser', 'local') ; 
    global $_FolderClass;
    global $Config;
    $currentFolder=encode_dir($currentFolder);
@@ -318,6 +317,7 @@ function CreateFolder( $resourceType, $currentFolder )
 {
     global $_FolderClass;
     global $Config;
+    global $INPUT;
 	if (!isset($_GET)) {
 		global $_GET;
 	}
@@ -331,8 +331,8 @@ function CreateFolder( $resourceType, $currentFolder )
          }
     }
 
-
-	if ( isset( $_GET['NewFolderName'] ) )
+   $sNewFolderName =  input_strval('NewFolderName');   
+	if(isset($sNewFolderName))
 	{
        $sess_id = session_id();
        if(!isset($sess_id) || $sess_id != $_COOKIE['FCK_NmSp_acl']) {
@@ -349,7 +349,7 @@ function CreateFolder( $resourceType, $currentFolder )
             $dwfck_conf['sepchar'] = isset($Dwfck_conf_values['sepchar']) ? $Dwfck_conf_values['sepchar'] : '_';
         }
 
-		$sNewFolderName = $_GET['NewFolderName'] ;
+		$sNewFolderName = input_strval('NewFolderName');
         $sNewFolderName = str_replace(' ', $dwfck_conf['sepchar'], $sNewFolderName);
         $sNewFolderName=Dwfck_sanitize( $sNewFolderName ) ;
 
