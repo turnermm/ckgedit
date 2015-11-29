@@ -38,7 +38,6 @@ function GetDwfckNs()
 
  function has_permission($folder, $resourceType, $isFolder=true) {
    global $_FolderClass;
-   global $INPUT;
    global $Dwfck_conf_values;   
         $folder = str_replace('//','/',$folder);
        
@@ -75,7 +74,6 @@ function GetFolders( $resourceType, $currentFolder )
 
    global $_FolderClass; 
    global $Config;
-   global $INPUT;
     $currentFolder=encode_dir($currentFolder);
 
    $isInternalLink = input_strval('DWFCK_Browser', 'local') ;
@@ -317,7 +315,6 @@ function CreateFolder( $resourceType, $currentFolder )
 {
     global $_FolderClass;
     global $Config;
-    global $INPUT;
 	if (!isset($_GET)) {
 		global $_GET;
 	}

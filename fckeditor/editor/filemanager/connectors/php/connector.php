@@ -105,7 +105,7 @@ function DoResponse()
 			CreateFolder( $sResourceType, $sCurrentFolder ) ;
 			break ;
         case 'UnlinkFile' :
-            UnlinkFile($sResourceType, $sCurrentFolder, $sCommand, $_GET['file']);
+           UnlinkFile($sResourceType, $sCurrentFolder, $sCommand,  input_strval('file'));
             break;
 
 	}
