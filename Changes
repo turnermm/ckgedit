@@ -1,4 +1,4 @@
-rev 15-Nov_18-12_06
+rev 15-Nov_29-19_42
 
 28 Feb 2013
 Added support for interwiki links
@@ -737,3 +737,7 @@ Support for mfiles and PHP function declarations
 
 18 Nov
 Merge mfiles (proto branch) into master
+
+
+29 Nov
+Fixed XSS/injection vulneratilities found by php-grinder
