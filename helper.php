@@ -321,13 +321,15 @@ function renewLock(bak) {
         if(($editor_backup) == 0 ) {           
            return; 
         }
-       
+     
         var params = "rsave_id=" + encodeURIComponent("$meta_fn");       
         params += '&wikitext='+encodeURIComponent(dwform.elements.fck_wikitext.value);      
+        params += '&call=refresh_save';
         jQuery.post(
-                DOKU_BASE + 'lib/plugins/ckgedit/scripts/refresh_save.php',
+           //     DOKU_BASE + 'lib/plugins/ckgedit/scripts/refresh_save.php',
+               DOKU_BASE + 'lib/exe/ajax.php',
                 params,
-                function (data) {                    
+                function (data) {          
                     if(data == 'done') {
                         show_backup_msg("$meta_id");  
                     }

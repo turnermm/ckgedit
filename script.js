@@ -233,29 +233,14 @@ function show_backup_msg(msg) {
   return false;
 }
 
-  // legacy function 
-  function remove_draft(){
+  // legacy functions 
+ function remove_draft(){
  }
 
-function dwedit_draft_delete(cname) {
-        var debug = false;
-        var params = "draft_id=" +cname;
-        jQuery.ajax({
-           url: DOKU_BASE + 'lib/plugins/ckgedit/scripts/prev_delete.php',
-           async: false,
-           data: params,    
-           type: 'POST',
-           dataType: 'html',         
-           success: function(data){                 
-               if(debug) {            
-                  alert(data);
-               }
-              
-    }
-    });
-
+function dwedit_draft_delete() {
 }
-
+  // legacy functions  end
+  
   function setEdHeight(h) {  
         h = parseInt(h);        
         document.cookie = 'ckgEdht=' + h +';expires="";path=' +JSINFO['doku_base'];

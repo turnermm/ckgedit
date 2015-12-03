@@ -8,7 +8,8 @@ require_once DOKU_INC . 'inc/init.php';
     
        $rsave_id = urldecode($INPUT->str('rsave_id'));
        $path = pathinfo($rsave_id);
-       if($path['extension'] != 'ckgedit') exit('1');
+       if($path['extension'] != 'ckgedit') exit('1');  
+       if(!preg_match("#\/meta\/#", $path['dirname'])) exit(1);
        $wiki_text = urldecode($INPUT->str('wikitext'));
              
         if(!preg_match('/^\s+(\-|\*)/',$wiki_text)){     
@@ -58,7 +59,8 @@ require_once DOKU_INC . 'inc/init.php';
         }
 
      replace_entities();
-     $wiki_text = preg_replace('/\s*\<\?php/i', '&lt;?php',$wiki_text) ;
+     $wiki_text = preg_replace('/\<\?php/i', '&lt;?php',$wiki_text) ;
+     $wiki_text = preg_replace('/\?>/i', '?&gt;',$wiki_text) ;
      file_put_contents($rsave_id, $wiki_text);
      echo 'done';
 
