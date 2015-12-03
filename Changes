@@ -741,3 +741,6 @@ Merge mfiles (proto branch) into master
 
 29 Nov
 Fixed XSS/injection vulneratilities found by php-grinder
+
+03 Dec
+replaced refresh_save.php with call to AJAX_CALL_UNKNOWN handled in meta.php
