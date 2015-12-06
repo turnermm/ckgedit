@@ -35,3 +35,4 @@ $lang['nofont_styling']        = 'Prikaži stilove znakovlja u uređivaču kao o
 $lang['font_options']          = 'Ukloni opcije znakovlja.';
 $lang['color_options']         = 'Ukloni opcije boje.';
 $lang['alt_toolbar']           = 'Funkcije koje se uklanjaju iz alatne trake u CK uređivaču';
+$lang['mfiles']                = 'Omogući mfile podršku';
