@@ -9,19 +9,9 @@ require_once(DOKU_PLUGIN.'action.php');
  */
 
 class action_plugin_ckgedit_delete extends DokuWiki_Action_Plugin {
-    //store the namespaces for sorting
-    var $sortEdit = array();
-    var $helper = false;
-    var $commit = false;
-
-    /**
-     * Constructor
-     */
-    function action_plugin_ckgedit_delete(){
-    }
 
 
-    function register(&$controller) {
+    function register(Doku_Event_Handler $controller) {
         $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'ckgedit_delete_preprocess');
     }
 

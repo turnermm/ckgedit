@@ -5,6 +5,7 @@
  
 if(!defined('DOKU_INC')) die();
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+define('FCK_ACTION_SUBDIR',  DOKU_PLUGIN . 'ckgedit/action/');
 require_once(DOKU_PLUGIN.'action.php');
  
 class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
@@ -13,7 +14,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $user_rewrite = false;
   var $helper;
   var $dokuwiki_priority;
-  
+  var $wiki_text;  
   function __construct() {
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
@@ -21,7 +22,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   /*
    * Register its handlers with the dokuwiki's event controller
    */
-  function register(&$controller) {            
+  function register(Doku_Event_Handler $controller) {            
 
             if($this->helper->is_outOfScope()) return;
             $controller->register_hook( 'TPL_METAHEADER_OUTPUT', 'AFTER', $this, 'loadScript');    
@@ -31,10 +32,100 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook('TPL_CONTENT_DISPLAY', 'AFTER', $this, 'setupDWEdit');       
             $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'reset_user_rewrite_check');                 
             $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
-                         
+            $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');                          
   }
 
  
+function _ajax_call(Doku_Event $event, $param) {
+
+    if ($event->data !== 'refresh_save') {
+        return;
+    }
+       
+    $event->stopPropagation();
+    $event->preventDefault();
+     global  $INPUT;
+    
+       
+       $rsave_id = urldecode($INPUT->str('rsave_id'));
+       $path = pathinfo($rsave_id);
+       if($path['extension'] != 'ckgedit') {
+             echo "failed";
+             return;
+        }  
+      
+       $this->wiki_text = urldecode($INPUT->str('wikitext'));
+             
+        if(!preg_match('/^\s+(\-|\*)/',$this->wiki_text)){     
+              $this->wiki_text = trim($this->wiki_text);
+        }
+ 
+          /* preserve newlines in code blocks */
+          $this->wiki_text = preg_replace_callback(
+            '/(<code>|<file>)(.*?)(<\/code>|<\/file>)/ms',
+            create_function(
+                '$matches',         
+                'return  str_replace("\n", "__code_NL__",$matches[0]);'
+            ),
+            $this->wiki_text
+          );
+
+        $this->wiki_text = preg_replace('/^\s*[\r\n]$/ms',"__n__", $this->wiki_text);
+        $this->wiki_text = preg_replace('/\r/ms',"", $this->wiki_text);
+        $this->wiki_text = preg_replace('/^\s+(?=\^|\|)/ms',"", $this->wiki_text);    
+        $this->wiki_text = preg_replace('/__n__/',"\n", $this->wiki_text);
+        $this->wiki_text = str_replace("__code_NL__","\n", $this->wiki_text);
+
+ 
+       $this->wiki_text .= "\n";
+         
+
+        $pos = strpos($this->wiki_text, 'MULTI_PLUGIN_OPEN');
+        if($pos !== false) {
+           $this->wiki_text = preg_replace_callback(
+            '|MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE|ms',
+            create_function(
+                '$matches',         
+                  'return  preg_replace("/\\\\\\\\/ms","\n",$matches[0]);'
+            ),
+            $this->wiki_text
+          );
+
+           $this->wiki_text = preg_replace_callback(
+            '|MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE|ms',
+            create_function(
+                '$matches',         
+                  'return  preg_replace("/^\s+/ms","",$matches[0]);'
+            ),
+            $this->wiki_text
+          );
+
+        }
+
+     $this->replace_entities();
+     $this->wiki_text = preg_replace('/\<\?php/i', '&lt;?php',$this->wiki_text) ;
+     $this->wiki_text = preg_replace('/\?>/i', '?&gt;',$this->wiki_text) ;
+     file_put_contents($rsave_id, $this->wiki_text);
+     echo 'done';
+
+}
+
+function replace_entities() {
+    global $ents;
+    $serialized = FCK_ACTION_SUBDIR . 'ent.ser';
+    $ents = unserialize(file_get_contents($serialized));
+
+       $this->wiki_text = preg_replace_callback(
+            '|(&(\w+);)|',
+            create_function(         
+                '$matches',
+                'global $ents; return $ents[$matches[2]];'
+            ),
+            $this->wiki_text
+        );
+    
+}
+
  function  insertFormElement(&$event, $param) {	 
    global $FCKG_show_preview;  
 
@@ -112,7 +203,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
         return;
    }
   global $INFO, $ckgedit_lang;
-  $cname =  $INFO['draft'];   
+    
   $discard = $this->getLang('discard_edits');  
   $dokuwiki_priority =$this->dokuwiki_priority;
   echo "<script type='text/javascript'>\n//<![CDATA[ \n";
@@ -123,10 +214,9 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
     //<![CDATA[ 
     var ckgedit_dwedit_reject = false;
     function setDWEditCookie(which, e) { 
-       var cname = "$cname";       
+      
        var dom = document.getElementById('ckgedit_mode_type');          
-       if(which == 1) {
-           dwedit_draft_delete("$cname");
+       if(which == 1) {          
           
              if(useDW_Editor) {
                 document.cookie = 'FCKG_USE=other;expires=';             
@@ -284,7 +374,7 @@ function check_userfiles() {
 	  if($bad_create) {
 	       if($show_msg)  {
 			   msg("There was an error when trying to create symbolic links in $userfiles. "
-					. "See ckgedit/auto_install.pdf  or  the <a href='http://www.mturner.org/ckgeditLite/doku.php?id=docs:auto_install'>ckgeditLite web site</a>" , 2);					
+					. "See ckgedit/auto_install.pdf  or  the <a href='http://www.mturner.org/fckgLite/doku.php?do=search&id=htaccess+|+media'>fckgLite web site</a>" , 2);					
 				}
       }
 	  else {	        
@@ -399,7 +489,7 @@ function check_userfiles() {
        global $ID; 
        global $JSINFO;
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
-
+       $JSINFO['doku_base'] = DOKU_BASE ;
 	   $this->check_userfiles(); 
 	   
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
@@ -510,13 +600,17 @@ function reset_user_rewrite_check() {
 
       global $ACT;
        global $conf;
+	   global $JSINFO;
 	  
        if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] =='_false_' ) return;
        if($ACT == 'edit') {
           $this->user_rewrite = $conf['userewrite'];
 	     $conf['userewrite']  = 0; 
        }
-       
+       if($conf['htmlok']) { 
+         $JSINFO['htmlok'] = 1;
+    }	  
+    else $JSINFO['htmlok'] = 0;
     }	  
 
       

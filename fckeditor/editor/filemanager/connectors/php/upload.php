@@ -28,6 +28,7 @@ require('./io.php') ;
 require('./commands.php') ;
 require('./phpcompat.php') ;
 require_once('./SafeFN.class.php');
+require_once 'input_utils.php';
 
 function SendError( $number, $text )
 {
@@ -42,8 +43,8 @@ if ( !$Config['Enabled'] )
 $sCommand = 'QuickUpload' ;
 
 // The file type (from the QueryString, by default 'File').
-$sType = isset( $_GET['Type'] ) ? $_GET['Type'] : 'File' ;
-
+$sType =  input_strval('Type');
+if(!$sType) $sType = 'File' ;
 $sCurrentFolder	= "/" ;
 
 // Is enabled the upload?

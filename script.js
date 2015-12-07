@@ -40,6 +40,21 @@ var HTMLParser_Elements = new Array();
 	HTMLParser = this.HTMLParser = function( html, handler ) {
 		var index, chars, match, stack = [], last = html;      
 
+         if(html.match(/~~START_HTML_BLOCK~~/gm) ){            //adopted [\s\S] from Goyvaerts, Reg. Exp. Cookbook (O'Reilly)
+              if(!JSINFO['htmlok']) {
+                 html = html.replace(/~~START_HTML_BLOCK~~|~~CLOSE_HTML_BLOCK~~/gm,"");
+                } 
+        
+             html = html.replace(/(<p.*?>)*\s*~~START_HTML_BLOCK~~\s*(<\/p>)*([\s\S]+)~~CLOSE_HTML_BLOCK~~\s*(<\/p>)*/gm, function(match,p,p1,text,p2) {       
+             text = text.replace(/<\/?div.*?>/gm,"");
+             text = text.replace(/<code>/gm,"");             
+             text = text.replace(/<\/code>/gm,"");             
+             text = text.replace(/</gm,"&lt;");
+             text = text.replace(/<\//gm,"&gt;");
+             return  "~~START_HTML_BLOCK~~\n\n" +   text  + "\n\n~~CLOSE_HTML_BLOCK~~\n\n";
+         }); 
+        }
+        
 		stack.last = function(){
 			return this[ this.length - 1 ];
 		};
@@ -218,29 +233,18 @@ function show_backup_msg(msg) {
   return false;
 }
 
-  // legacy function 
-  function remove_draft(){
+  // legacy functions 
+ function remove_draft(){
  }
 
-function dwedit_draft_delete(cname) {
-        var debug = false;
-        var params = "draft_id=" +cname;
-        jQuery.ajax({
-           url: DOKU_BASE + 'lib/plugins/ckgedit/scripts/prev_delete.php',
-           async: false,
-           data: params,    
-           type: 'POST',
-           dataType: 'html',         
-           success: function(data){                 
-               if(debug) {            
-                  alert(data);
-               }
-              
-    }
-    });
-
+function dwedit_draft_delete() {
 }
-
+  // legacy functions  end
+  
+  function setEdHeight(h) {  
+        h = parseInt(h);        
+        document.cookie = 'ckgEdht=' + h +';expires="";path=' +JSINFO['doku_base'];
+   }
 
   function GetE(e) {
        return  document.getElementById(e);

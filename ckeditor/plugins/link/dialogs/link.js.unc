@@ -4,12 +4,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
 var fckgInternalInputId, fckgMediaInputId;
-
+ var ck_m_files_protocol;
  window.onbeforeunload = function() { };
    
 CKEDITOR.dialog.add( 'link', function( editor )
 {
     oDokuWiki_FCKEditorInstance.Lang = editor.lang;
+    ck_m_files_protocol =  oDokuWiki_FCKEditorInstance.mfiles ?	[ 'm-files://\u200E', 'm-files://' ] : "";    
     var Doku_Base = oDokuWiki_FCKEditorInstance.dwiki_doku_base;
 	var plugin = CKEDITOR.plugins.link;
     var oRegex = new Object() ;
@@ -23,8 +24,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.internal_link_rewrite_1 = new RegExp('^' + Doku_Base + '(?!_media)(.*)');    
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
     //oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
-	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
-        
+	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;	    
   
 	 var fckgSMBInputId;
      var defaultFBLang = {
@@ -39,8 +39,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
         AdvancedInfo: "To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.",
         AdvancedTabPrompt: 'Use the advanced tab to create page anchors and query strings',
         SMBExample: "Enter your share as: \\\\Server\\directory\\file", 
-     };
-      
+     };   
      var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
     
     var  translateItem = function (js_code) {     
@@ -183,7 +182,7 @@ var useHeading = function(wiki_id) {
 		emailSubjectRegex = /subject=([^;?:@&=$,\/]*)/,
 		emailBodyRegex = /body=([^;?:@&=$,\/]*)/,
 		anchorRegex = /^#(.*)$/,
-		urlRegex = /^((?:http|https|ftp|news):\/\/)?(.*)$/,
+		urlRegex = /^((?:http|https|ftp|news|m-files):\/\/)?(.*)$/,  
 		selectableTargets = /^(_(?:self|top|parent|blank))$/,
 		encodedEmailLinkRegex = /^javascript:void\(location\.href='mailto:'\+String\.fromCharCode\(([^)]+)\)(?:\+'(.*)')?\)$/,
 		functionCallProtectedEmailLinkRegex = /^javascript:([^(]+)\(([^)]+)\)$/;
@@ -279,8 +278,6 @@ var useHeading = function(wiki_id) {
 					retval.url.selected =urlMatch[1];
 				    retval.url.protocol = "";
 				    retval.url.url = "";
-					//alert(retval.url.selected);
-
                 }
 		    else if(urlMatch = href.match(oRegex.samba)) {
 			     retval.type = 'samba';				 
@@ -520,7 +517,8 @@ var useHeading = function(wiki_id) {
 											[ 'http://\u200E', 'http://' ],                                            
 											[ 'https://\u200E', 'https://' ],
 											[ 'ftp://\u200E', 'ftp://' ],
-											[ 'news://\u200E', 'news://' ]																				
+											[ 'news://\u200E', 'news://' ],
+                                            ck_m_files_protocol    
 										],
 										setup : function( data )
 										{
@@ -549,7 +547,7 @@ var useHeading = function(wiki_id) {
 											this.allowOnChange = false;
 											var	protocolCmb = this.getDialog().getContentElement( 'info', 'protocol' ),
 												url = this.getValue(),
-												urlOnChangeProtocol = /^(http|https|ftp|news):\/\/(?=.)/i,
+                                                urlOnChangeProtocol = /^(http|https|ftp|news|m-files):\/\/(?=.)/i,
 												urlOnChangeTestOther = /^((javascript:)|[#\/\.\?])/i;
 
 											var protocol = urlOnChangeProtocol.exec( url );
@@ -611,13 +609,6 @@ var useHeading = function(wiki_id) {
 										this.getElement().show();
 								}
 							},
-							{
-								type : 'button',
-								id : 'browse0',							
-								filebrowser : 'info:url',
-								label : commonLang.browseServer
-							},
-
 						]
 
 					},
@@ -980,7 +971,7 @@ var useHeading = function(wiki_id) {
                 case 'internal':                  
                      if(!data.url.url) {                                            
                         data.url.url=document.getElementById(fckgInternalInputId).value;
-                            if(!data.url.url.match(/[^\w\:]/)) {
+                              if(!data.url.url.match(/^:?\w+:/)) {
                                 var ns = top.getCurrentWikiNS() + ':';
                                 ns = ns.replace(/:$/,"");
                                 var regex = new RegExp(':?'+ ns+':');   
@@ -1045,8 +1036,9 @@ var useHeading = function(wiki_id) {
 
 							// Build the e-mail parameters first.
 							var argList = [];
+   							body && argList.push( 'body=' + body );
 							subject && argList.push( 'subject=' + subject );
-							body && argList.push( 'body=' + body );
+
 							argList = argList.length ? '?' + argList.join( '&' ) : '';
 
 							if ( emailProtection == 'encode' )

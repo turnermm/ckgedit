@@ -196,7 +196,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor ) {
 						}
 					},
 						spacer,
-					{
+					/*{
 						type: 'hbox',
 						padding: 0,
 						widths: [ '60%', '40%' ],
@@ -243,8 +243,8 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor ) {
 							}
 						} : spacer
 						]
-					},
-						spacer,
+					},*/
+					/*	spacer,
 					{
 						type: 'hbox',
 						padding: 0,
@@ -293,7 +293,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor ) {
 							}
 						} : spacer
 						]
-					}
+					}*/
 					]
 				}
 				]

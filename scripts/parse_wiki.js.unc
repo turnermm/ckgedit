@@ -217,6 +217,7 @@ function parse_wikitext(id) {
     font_style: "inherit",
     is_mediafile: false, 
     end_nested: false,
+    mfile: false,
 
     backup: function(c1,c2) {
         var c1_inx = results.lastIndexOf(c1);     // start position of chars to delete
@@ -535,7 +536,7 @@ function parse_wikitext(id) {
                     if(media_type) media_type = media_type[1];
                     
                     if(attrs[i].escaped.match(/^https*:/)) {
-                       this.attr = attrs[i].escaped;
+                       this.attr = attrs[i].escaped;                       
                        local_image = false;
                     }
                    if(attrs[i].escaped.match(/^ftp:/)) {
@@ -551,6 +552,11 @@ function parse_wikitext(id) {
                     }
                     else if(attrs[i].escaped.match(/^mailto:/)) {                       
                        this.attr = attrs[i].escaped.replace(/mailto:/,"");
+                       local_image = false;
+                    }
+                    else if(attrs[i].escaped.match(/m-files/)) {                    
+                       this.attr = attrs[i].escaped;            
+                       this.mfile = attrs[i].escaped;
                        local_image = false;
                     }
                     else if(attrs[i].escaped.match(/^file:/)) {  //samba share
@@ -614,7 +620,7 @@ function parse_wikitext(id) {
                                         break;
                                     }
 
-                               }
+                              }
                            }
 
                         }
@@ -712,9 +718,9 @@ function parse_wikitext(id) {
 				      interwiki_class=this.link_class; 
 				  }
 				  
-                if(this.link_class == 'urlextern') {
+                if(this.link_class == 'urlextern' && !this.mfile) {
                     this.attr = save_url;
-					this.external_mime=false;  // prevents external links to images from being converted to image links
+                    this.external_mime=false;  // prevents external links to images from being converted to image links
                 }                   
                    if(this.in_endnotes) {                              
                         if(this.link_title) {
@@ -726,7 +732,6 @@ function parse_wikitext(id) {
                    }   
                    this.link_title = "";
                    this.link_class= "";
-
                  //  break;
                  }
             }
@@ -844,8 +849,8 @@ function parse_wikitext(id) {
                        
                       this.attr = src;
                       if(this.attr && this.attr.match && this.attr.match(/%[a-fA-F0-9]{2}/)) {                                         
-                        this.attr = decodeURIComponent ? decodeURIComponent(this.attr) : unescape(this.attr); 
-                        this.attr = decodeURIComponent ? decodeURIComponent(this.attr) : unescape(this.attr);                    
+                           this.attr =     decodeURIComponent(safe_convert(this.attr)); 
+                           this.attr =     decodeURIComponent(safe_convert(this.attr));                            
                       }
 
 
@@ -1001,8 +1006,12 @@ function parse_wikitext(id) {
 
           if(this.in_endnotes && tag == 'a') return; 
           if(this.code_type && tag == 'span') tag = 'blank'; 
-          results += markup[tag];
-
+          if(this.mfile && !this.attr) { 
+              this.attr = this.mfile;
+          }
+          results += markup[tag];          // Set tag
+          
+          
           if(tag == 'td' || tag == 'th' || (this.last_col_pipes && this.td_align == 'center')) {
               if(this.is_rowspan) {          
                 results +=  markup['row_span'] + ' | ';
@@ -1013,7 +1022,7 @@ function parse_wikitext(id) {
              }
 
           }
-          else if(tag == 'a' && this.attr) {
+          else if(tag == 'a' && this.attr) {          
               this.attr =  this.attr.replace(/%7c/,'%257c');              
               results += this.attr + '|';			  
           }
@@ -1094,11 +1103,14 @@ function parse_wikitext(id) {
      }
 	 if(tag == 'span' && this.in_font && !ckgedit_xcl_styles) {
 	       tag = 'font';
-          //<font 18pt/garamond;;color;;background_color>  */
+          //<font 18pt/garamond;;color;;background_color>  
           var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">\n\n";        
           var font_start = results.lastIndexOf('__STYLE__');            
           results = results.splice(font_start,9,font_str);
-
+          this.font_size = 'inherit';
+          this.font_family = 'inherit';
+          this.font_color = 'inherit';
+          this.font_bgcolor = 'inherit';
 		  this.in_font=false;		
 	 }
      if(tag == 'span' && this.curid) {
@@ -1303,6 +1315,14 @@ function parse_wikitext(id) {
 
     chars: function( text ) {
 	text = text.replace(/\t/g,"    ");
+   
+    if(text.match(/~~START_HTML_BLOCK~~/)) {          
+         text = text.replace(/~~START_HTML_BLOCK~~\n*/, "~~START_HTML_BLOCK~~\n<code>\n");
+    }
+    if(text.match(/~~CLOSE_HTML_BLOCK~~/)) {      
+       text = text.replace(/~~CLOSE_HTML_BLOCK~~\n*/gm, "\n</code>\n\n~~CLOSE_HTML_BLOCK~~\n\n");
+    }   
+    
     if(this.interwiki) {
        text = text.replace(String.frasl,"\/");  
     }
@@ -1435,10 +1455,14 @@ function parse_wikitext(id) {
             }
             else text = '[[' + this.bottom_url + '|' +text +']]';           
          }   
-        if(HTMLParserBottomNotes[HTMLParserTopNotes[index]]) {
+        if(HTMLParserBottomNotes[HTMLParserTopNotes[index]]) {      
+           text = text.replace('(','L_PARgr');           
+           text = text.replace(')','R_PARgr');           
            HTMLParserBottomNotes[HTMLParserTopNotes[index]] += ' ' + text;
      }
         else  {
+              text = text.replace('(','L_PARgr');           
+              text = text.replace(')','R_PARgr');           
               HTMLParserBottomNotes[HTMLParserTopNotes[index]] = text;
         }      
      }
@@ -1588,15 +1612,16 @@ function parse_wikitext(id) {
          results = results.replace(/\/\/&lt;\/\/\s*/g,'&lt;');
     }
    if(HTMLParserTopNotes.length) {
-        results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");
+        results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");      
         results = results.replace(/\(\(+(\d+)\)\)+/,"(($1))");   
         for(var i in HTMLParserBottomNotes) {  // re-insert DW's bottom notes at text level
-            var matches =  i.match(/_(\d+)/);    
+            var matches =  i.match(/_(\d+)/);                
             var pattern = new RegExp('(\<sup\>)*[\(]+' + matches[1] +  '[\)]+(<\/sup>)*');          
+            HTMLParserBottomNotes[i] = HTMLParserBottomNotes[i].replace(/(\d+)_FN_PAREN_C_/,"");
             results = results.replace(pattern,'((' + HTMLParserBottomNotes[i].replace(/_FN_PAREN_C_/g, ") ") +'))');                       
          }
        results = results.replace(/<sup><\/sup>/g, "");
-       results = results.replace(/((<sup>\(\(.*\)\)\)?<\/sup>))/mg, function(fn) {           
+       results = results.replace(/((<sup>\(\(\d+\)\)\)?<\/sup>))/mg, function(fn) {           
            if(!fn.match(/p>\(\(\d+/)) {
              return "";
              }          
@@ -1610,8 +1635,9 @@ function parse_wikitext(id) {
     // remove any empty footnote markup left after section re-edits
     results = results.replace(/(<sup>)*\s*\[\[\s*\]\]\s*(<\/sup>)*\n*/g,""); 
     // remove piled up sups with ((notes))
-    results = results.replace(/<sup>(.*?)(\(\(.*\)\))\s*<\/sup>/mg,"$1$2"); 
-    
+  
+    results = results.replace(/<sup>\s*\(\(\d+\)\)\s*<\/sup>/mg,""); 
+
     if(HTMLParser_MULTI_LINE_PLUGIN) {
         results = results.replace(/<\s+/g, '<');
         results = results.replace(/&lt;\s+/g, '<');
@@ -1685,9 +1711,6 @@ jQuery( "#ebtn__dwedit" ).click(function() {
 
 jQuery( "#ckgedit_draft_btn" ).click(function() { 
    ckgedit_get_draft();
-});
-jQuery( "#backup_button" ).click(function() { 
-   renewLock(true);
 });
 jQuery( "#backup_button" ).click(function() { 
    renewLock(true);

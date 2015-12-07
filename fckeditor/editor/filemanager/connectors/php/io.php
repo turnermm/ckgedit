@@ -21,6 +21,8 @@
  *
  * This is the File Manager Connector for PHP.
  */
+require_once 'input_utils.php';
+ 
 function CombinePaths( $sBasePath, $sFolder )
 {
 	return RemoveFromEnd( $sBasePath, '/' ) . '/' . RemoveFromStart( $sFolder, '/' ) ;
@@ -226,10 +228,9 @@ function IsAllowedCommand( $sCommand )
 
 function GetCurrentFolder()
 {
-	if (!isset($_GET)) {
-		global $_GET;
-	}
-	$sCurrentFolder	= isset( $_GET['CurrentFolder'] ) ? $_GET['CurrentFolder'] : '/' ;
+ 
+    $sCurrentFolder = input_strval('CurrentFolder');
+    if(!$sCurrentFolder) $sCurrentFolder = '/';
 
 	// Check the current folder syntax (must begin and start with a slash).
 	if ( !preg_match( '|/$|', $sCurrentFolder ) )

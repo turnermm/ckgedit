@@ -49,7 +49,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   function registerOnLoad($js){
   global $ID;
   global $lang;
-  
+  global $skip_styling;
   $preview_button = $lang['btn_preview'];
 
   $ckgedit_conf_direction = $this->getConf('direction');
@@ -89,6 +89,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
  $color_opts = $this->getConf('color_options');
  $font_opts = $this->getConf('font_options');
   $toolbar_opts = $this->getConf('alt_toolbar');
+ $mfiles =   $this->getConf('mfiles');
   if(!isset($INFO['userinfo']) && !$open_upload) {
     $user_type = 'visitor';
   }
@@ -320,13 +321,15 @@ function renewLock(bak) {
         if(($editor_backup) == 0 ) {           
            return; 
         }
-       
-        var params = "rsave_id=$meta_fn";
+     
+        var params = "rsave_id=" + encodeURIComponent("$meta_fn");       
         params += '&wikitext='+encodeURIComponent(dwform.elements.fck_wikitext.value);      
+        params += '&call=refresh_save';
         jQuery.post(
-                DOKU_BASE + 'lib/plugins/ckgedit/scripts/refresh_save.php',
+           //     DOKU_BASE + 'lib/plugins/ckgedit/scripts/refresh_save.php',
+               DOKU_BASE + 'lib/exe/ajax.php',
                 params,
-                function (data) {                    
+                function (data) {          
                     if(data == 'done') {
                         show_backup_msg("$meta_id");  
                     }
@@ -408,11 +411,15 @@ function remove_styling() {
 var opts = "";
 var color_opts = parseInt( "$color_opts");
 var font_opts =  parseInt("$font_opts");
+var skip_styling=parseInt("$skip_styling");
 if(color_opts) {
-  opts ='TextColor,BGColor, FontAssist';
+  opts ='TextColor,BGColor,FontAssist';
+}
+else if(!skip_styling) {
+     opts = 'FontAssist';
 }
 if(font_opts) {
-  if(color_opts) opts+=',';
+  if(color_opts || !skip_styling) opts+=',';
   opts +='Font,FontSize';
 }
 if("$toolbar_opts") {
@@ -457,6 +464,7 @@ function FCKeditor_OnComplete( editorInstance )
   oDokuWiki_FCKEditorInstance.fckgUserName = "$user_name";
   oDokuWiki_FCKEditorInstance.fckgUserMail="$user_email"; 
   oDokuWiki_FCKEditorInstance.useheading = "$useheading"; 
+  oDokuWiki_FCKEditorInstance.mfiles = parseInt("$mfiles");
   
  
   var index = navigator.userAgent.indexOf('Safari'); 

@@ -32,7 +32,7 @@ class syntax_plugin_ckgedit_font extends DokuWiki_Syntax_Plugin {
     /**
      * Handle the match
      */
-    function handle($match, $state, $pos, &$handler){
+    function handle($match, $state, $pos, Doku_Handler $handler){
 
 
         switch ($state) {
@@ -60,7 +60,7 @@ class syntax_plugin_ckgedit_font extends DokuWiki_Syntax_Plugin {
     /**
      * Create output
      */
-    function render($mode, &$renderer, $data) {
+    function render($mode, Doku_Renderer $renderer, $data) {
         if($mode == 'xhtml'){
             list($state, $match) = $data;
 

@@ -12,7 +12,8 @@ $lang['title_dw_cancel']='Exit Editor';
 $lang['btn_fck_edit'] = "CKG Edit";
 $lang['confirm_delete'] = "Are you sure you want to delete this page?";
 $lang['confirm_preview'] = "Any work not saved will be lost.";
-
+$lang['editor_height'] = 'Editor Height';
+$lang['editor_height_title'] = 'Editor re-sizes on re-load';
 $lang['dw_btn_backup'] ="Back-up";
 $lang['title_dw_backup'] ="Back up editor window & Renew lock";
 $lang['backup_empty'] = "The back-up buffer appears to be empty. Do you wish to continue?";
@@ -28,3 +29,4 @@ $lang['minor_changes'] = "Minor changes";
 $lang['discard_edits'] = "To Save your edits click OK; to Discard click Cancel";
 $lang['dw_btn_styling'] = "Edit Fonts";
 $lang['title_styling'] = 'Open with font styles shown as markup';
+

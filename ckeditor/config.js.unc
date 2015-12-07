@@ -114,7 +114,7 @@ config.colors = new Array(
 		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar', 'Tags',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes']] },           
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
-    	{ name: 'colors',      items : [ 'TextColor','BGColor', font_assist ] },		
+    	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] },

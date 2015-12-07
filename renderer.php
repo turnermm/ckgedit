@@ -101,7 +101,7 @@ class renderer_plugin_ckgedit extends Doku_Renderer_xhtml
      * isolate table from bottom and top editor window margins
      * @author Myron Turner <turnermm02@shaw.ca>
      */
-    function table_close()
+    function table_close($pos = NULL)
     {
         global $conf;  
         $this->doc .= "</table>\n<span class='np_break'>&nbsp;</span>\n";

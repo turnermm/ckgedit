@@ -26,8 +26,7 @@
 
 
 require_once 'check_acl.php';
-
-
+require_once 'input_utils.php';
 global $dwfck_conf;
 global $_FolderClass;
 
@@ -75,10 +74,9 @@ function GetFolders( $resourceType, $currentFolder )
 
    global $_FolderClass; 
    global $Config;
-  
     $currentFolder=encode_dir($currentFolder);
-   $isInternalLink = isset($_GET['DWFCK_Browser']) && $_GET['DWFCK_Browser'] == 'local'?  true : false;
 
+   $isInternalLink = input_strval('DWFCK_Browser', 'local') ;
 	// Map the virtual path to the local server path.
 	$sServerDir = ServerMapFolder( $resourceType, $currentFolder, 'GetFolders' ) ;
 
@@ -172,8 +170,7 @@ function GetFoldersAndFiles( $resourceType, $currentFolder )
 	}
      global $Config; 
 
-
-   $isInternalLink = isset($_GET['DWFCK_Browser']) && $_GET['DWFCK_Browser'] == 'local'?  true : false;
+    $isInternalLink = input_strval('DWFCK_Browser', 'local') ; 
    global $_FolderClass;
    global $Config;
    $currentFolder=encode_dir($currentFolder);
@@ -331,8 +328,8 @@ function CreateFolder( $resourceType, $currentFolder )
          }
     }
 
-
-	if ( isset( $_GET['NewFolderName'] ) )
+   $sNewFolderName =  input_strval('NewFolderName');   
+	if(isset($sNewFolderName))
 	{
        $sess_id = session_id();
        if(!isset($sess_id) || $sess_id != $_COOKIE['FCK_NmSp_acl']) {
@@ -349,7 +346,7 @@ function CreateFolder( $resourceType, $currentFolder )
             $dwfck_conf['sepchar'] = isset($Dwfck_conf_values['sepchar']) ? $Dwfck_conf_values['sepchar'] : '_';
         }
 
-		$sNewFolderName = $_GET['NewFolderName'] ;
+		$sNewFolderName = input_strval('NewFolderName');
         $sNewFolderName = str_replace(' ', $dwfck_conf['sepchar'], $sNewFolderName);
         $sNewFolderName=Dwfck_sanitize( $sNewFolderName ) ;
 
@@ -401,13 +398,8 @@ function CreateFolder( $resourceType, $currentFolder )
 function Dwfck_sanitize($sFileName, $media=false) {    
   global $Dwfck_conf_values;
           
-        if($Dwfck_conf_values['fnencode'] == 'safe') {
-            if(!$media) {     
-              return dwiki_encodeFN($sFileName); 
-            }
-           return cleanID($sFileName,false,$media);
-        }
-        $sFileName = cleanID(dwiki_decodeFN($sFileName),false,$media);
+        $sFileName = dwiki_decodeFN($sFileName);        
+        $sFileName = cleanID($sFileName,false,$media);
         return dwiki_encodeFN($sFileName); 
 }
 
@@ -530,6 +522,18 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
 	if (!isset($_FILES)) {
 		global $_FILES;
 	}
+    $f_args = array(
+    'name' => array('filter' => FILTER_SANITIZE_STRING|FILTER_SANITIZE_ENCODED,
+              'flags' => FILTER_FLAG_STRIP_LOW, FILTER_FLAG_STRIP_HIGH),
+    'type' => "",
+    'tmp_name' => "",
+    'error' => "",
+    'size' => ""
+) ;
+    $keys = array_keys($_FILES);    
+    $file_data = filter_var_array($_FILES[$keys[0]], $f_args);
+   // cmd_write_debug($_FILES);
+   // cmd_write_debug($file_data);
 	$sErrorNumber = '0' ;
 	$sFileName = '' ;
      
@@ -557,7 +561,7 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
   $safe = false;
   global $Dwfck_conf_values;
   if($Dwfck_conf_values['fnencode'] == 'safe') {
-      if(preg_match('/%[a-z]+[0-9]/',$currentFolder) || preg_match('/%[0-9][a-z]/',$currentFolderp)) {
+      if(preg_match('/%[a-z]+[0-9]/',$currentFolder) || preg_match('/%[0-9][a-z]/',$currentFolder)) {
           $safe = true;
       }
   }
@@ -582,8 +586,8 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
         if($AUTH < 8) {         
             $msg="";
         	$sFileUrl = CombinePaths( GetResourceTypePath( $resourceType, $sCommand ) , $currentFolder ) ;
-    	    $sFileUrl = CombinePaths( $sFileUrl, $_FILES['NewFile']['name']);       
-            SendUploadResults( '203', $sFileUrl, $_FILES['NewFile']['name'],  $msg ) ;
+    	    $sFileUrl = CombinePaths( $sFileUrl, $file_data['name']);       
+            SendUploadResults( '203', $sFileUrl, $file_data['name'],  $msg ) ;
             return;
 
          }
@@ -591,16 +595,16 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
     if(!$safe) {
         $currentFolder = encode_dir($currentFolder);
     }
-	if ( isset( $_FILES['NewFile'] ) && !is_null( $_FILES['NewFile']['tmp_name'] ) )
+	if ( isset( $file_data ) && !is_null( $file_data['tmp_name'] ) )
 	{
 		global $Config ;
 
-        $upload_err = $_FILES['NewFile']['error'];
+        $upload_err = $file_data['error'];
         if($upload_err ) {
-            send_ckg_UploadError($upload_err,$sFileUrl, $_FILES['NewFile']['name']);           
+            send_ckg_UploadError($upload_err,$sFileUrl, $file_data['name']);           
             exit;
         }
-		$oFile = $_FILES['NewFile'] ;
+		$oFile = $file_data ;
 
 
 		// Map the virtual path to the local server path.
@@ -675,9 +679,12 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
 				if ( is_file( $sFilePath ) )
 				{
 					$iCounter++ ;
-       			    $sFileName = RemoveExtension($sOriginalFileName) . '_' . $iCounter  . ".$sExtension" ;
-                    $sFileName = Dwfck_sanitize($sFileName, $image_file);
-
+                    
+                     if($Dwfck_conf_values['fnencode'] == 'safe') { 
+       			       $sFileName = RemoveExtension(dwiki_decodeFN($sOriginalFileName)) . '_' . $iCounter  . ".$sExtension" ;
+                    }
+                    else  $sFileName = RemoveExtension($sOriginalFileName) . '_' . $iCounter  . ".$sExtension" ;
+                    $sFileName = Dwfck_sanitize($sFileName, $image_file);                    
 					$sErrorNumber = '201' ;
 				}
 				else
