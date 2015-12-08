@@ -52,7 +52,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
                         children: []
                       }
         ele[ele.length] = curHBox;
-        for (var i=0; i<existingTags.length-1; i++) {
+        for (var i=0; i<existingTags.length; i++) {
           curHBox.children[curHBox.children.length] =
             {
               type: 'checkbox',
@@ -114,7 +114,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
             var codeE = "}}";
             var selected = "";
             var dialog = this;
-            for (var i = 0; i<existingTags.length-1; i++) {
+            for (var i = 0; i<existingTags.length; i++) {
               selected += dialog.getValueOf('tab-basic',existingTags[i].id) ? existingTags[i].id+' ' : '';
             }
             selected += dialog.getValueOf('tab-basic','user_def_box') ? dialog.getValueOf('tab-basic','user_def_text')+' ' : '';
