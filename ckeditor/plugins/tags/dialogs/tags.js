@@ -118,9 +118,11 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
               selected += dialog.getValueOf('tab-basic',existingTags[i].id) ? existingTags[i].id+' ' : '';
             }
             selected += dialog.getValueOf('tab-basic','user_def_box') ? dialog.getValueOf('tab-basic','user_def_text')+' ' : '';
+            selected = selected.replace(/\s+$/,"");          
             editor.setData(editor.getData().replace(/\{\{tag&gt;.*?\}\}/g,'')+(selected=='' ? '' : codeB+selected+codeE));
           }
       };
     return d;
   }
 );
+
