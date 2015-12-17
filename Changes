@@ -752,3 +752,6 @@ replaced refresh_save.php with call to AJAX_CALL_UNKNOWN handled in meta.php
 
 09 Dec
 Merged tags branch with master
+
+17 Dec
+Added support for MSWord Paste
