@@ -90,14 +90,16 @@ config.colors = new Array(
 	// Define changes to default configuration here.
 	// For the complete reference:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
-      top.ckgedit_language_chk(config);  //resets language if $conf['other_lang'] != 'default'
+      top.ckgedit_language_chk(config);  //resets language if $conf['other_lang'] != 'default' and resets auto scayt to true of false
      // config.scayt_autoStartup = true;      
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
       config.extraSpecialChars  = ['↔'];
       config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags'; //,devtools';
       config.contentsLangDirection = '';
       if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
-     
+      config.pasteFromWordRemoveFontStyles = false;   // preserve font style when "paste from word"
+      config.pasteFromWordRemoveStyles = false;       // preserve style (color) when "paste from word"
+      config.allowedContent=true;                     // preserve highlight when "paste from word"     
      config.removeButtons = top. remove_styling(); 
      var font_assist = 'FontAssist';
      //config.removeButtons = 'TextColor,BGColor, FontAssist,Font,FontSize';

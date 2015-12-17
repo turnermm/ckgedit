@@ -447,6 +447,7 @@ function parse_wikitext(id) {
                       this.font_weight = matches[1];
                    }
                    matches = attrs[i].value.match(/.*?color:\s*(.*)/);                     
+                   var bgcolor_found =  false;
                    if(matches) {                
                       matches[1]=matches[1].replace(/;/,"");
                      if(matches[0].match(/background/)) {                     
@@ -455,6 +456,13 @@ function parse_wikitext(id) {
                      else  {                     
                        this.font_color = matches[1];
                        }
+                   }
+                   if(!bgcolor_found) {  //catch MS Word which uses background:color-name instead of background-color:color-name
+                       matches = attrs[i].value.match(/background:\s*(\w+)/); 
+                       if(matches  &&  matches[0].match(/background/)) { 
+                          this.font_bgcolor = matches[1];
+                       }
+                       
                    }
                }      
              
