@@ -4,6 +4,7 @@
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
  * @author Michael <michael@krmr.org>
+ * @author David McAllister <info@bionichead.com>
  */
 $lang['btn_dw_edit']           = 'DW Edit';
 $lang['dw_btn_fck_preview']    = 'CKG Vorschau';
@@ -17,6 +18,8 @@ $lang['title_dw_cancel']       = 'Editor schliessen';
 $lang['btn_fck_edit']          = 'CKG Editor';
 $lang['confirm_delete']        = 'Sind Sie sicher, dass Sie diese Seite l&ouml;schen wollen?';
 $lang['confirm_preview']       = 'Jede nicht gespeicherte Bearbeitung wird verloren gehen.';
+$lang['editor_height']         = 'Die Höhe des Editors';
+$lang['editor_height_title']   = 'Bei neuer Ladung die Größe des Editors verändern';
 $lang['dw_btn_backup']         = 'Backup';
 $lang['title_dw_backup']       = 'Backup-Editor';
 $lang['backup_empty']          = 'Es ist kein Backup vorhanden. Wollen Sie fortfahren?';
