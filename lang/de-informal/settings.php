@@ -5,6 +5,7 @@
  * 
  * @author Michael <michael@krmr.org>
  * @author Juergen-aus-Koeln <H-J-Schuemmer@Web.de>
+ * @author David McAllister <info@bionichead.com>
  */
 $lang['groups']                = 'Gruppe die den Timer für die Sperre deaktivieren darf (veraltet)';
 $lang['fck_preview']           = 'Gruppe für FCK Vorschau';
@@ -36,3 +37,4 @@ $lang['nofont_styling']        = 'Schriftstile im Editor als Plugin markup anzei
 $lang['font_options']          = 'Schriftoptionen entfernen';
 $lang['color_options']         = 'Farboptionen entfernen';
 $lang['alt_toolbar']           = 'Funktionen, die aus der CKEditor-Toolbar entfernt werden sollen';
+$lang['mfiles']                = 'Unterstützung von mfile Dateien aktivieren';

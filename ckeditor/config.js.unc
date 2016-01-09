@@ -106,14 +106,17 @@ config.colors = new Array(
      if(config.removeButtons.match(/FontAssist/)) font_assist = "";
 
      config.ToolBarItemsAlt = {  
-     'Signature':'Signature' ,'Footnotes':'Footnotes', 'Tags': top.hasTags(),
+     'Signature':'Signature' ,'Footnotes':'Footnotes', 'Tags':""
      };
+   	if(top.hasTags()){
+		config.ToolBarItemsAlt['Tags']='Tags';
+	}
      
     config.toolbar_Dokuwiki =
 	[
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },        
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar', config.ToolBarItemsAlt['Tags'],  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes']] },           
+		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes'],config.ToolBarItemsAlt['Tags'] ]},           
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
