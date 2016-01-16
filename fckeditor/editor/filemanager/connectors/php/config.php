@@ -50,6 +50,11 @@ $Config['Enabled'] = true ;
 
 $Config['osDarwin'] = DWFCK_is_OS('DARWIN') ? true : false;
 
+$animal = 'userfiles';
+if(isset( $_COOKIE['FCK_animal'] )) {
+   $animal = $_COOKIE['FCK_animal'];
+}
+
   
 /** 
   For filebrowser installation documents relating to this file, see the following:
@@ -106,6 +111,15 @@ if(!isset($Config['UserFilesAbsolutePath']) || !isset($Config['UserFilesPath']))
          }     
          else $Config['UserFilesAbsolutePath'] = str_replace('/media', '/pages/', $Config['UserFilesAbsolutePath']);
          $Config['UserFilesAbsolutePath'] = rtrim($Config['UserFilesAbsolutePath'],'/') . '/';
+
+         if(isset($_COOKIE['FCK_farmlocal'])) {
+            $Config['UserFilesAbsolutePath'] = $_COOKIE['FCK_farmlocal'] . '/';           
+            if(preg_match('#(\/\w+\/' . $animal . ')#',$path,$matches)) {
+                $Config['UserFilesPath'] = $matches[1] . '/data/pages/';
+            }
+            else $Config['UserFilesPath'] = '../' . $animal . '/data/pages/';
+            
+         }
      }  
     }
     if($DWFCK_con_dbg && $isWindows) {
@@ -175,9 +189,10 @@ else {
   
 
 function setupBasePathsNix() {
-  global $Config;
+  global $Config,$animal; 
     $dir = dirname(__FILE__) ;
-    $dir = preg_replace('/editor\/filemanager\/connectors\/.*/', 'userfiles/',$dir);
+    
+    $dir = preg_replace('/editor\/filemanager\/connectors\/.*/', "$animal/",$dir);
     $Config['UserFilesAbsolutePath'] = $dir;
     $document_root = $_SERVER['DOCUMENT_ROOT'];
     $relative_dir = str_replace($document_root, "", $dir);
@@ -185,9 +200,10 @@ function setupBasePathsNix() {
 }
 
 function setupBasePathsWin() {
-  global $Config;
+  global $Config, $Dwfck_conf_values;
   global $isWindows;
   global $useNixStyle;
+  global $animal;
  
     $data_media = $isWindows ? 'data\\media\\' : 'data/media/';
     if($useNixStyle) {
@@ -207,7 +223,7 @@ function setupBasePathsWin() {
      
     $base_url = getBaseURL_fck();
     if($useNixStyle) {
-       $Config['UserFilesPath'] =  $base_url . 'lib/plugins/ckgedit/fckeditor/userfiles/';
+       $Config['UserFilesPath'] =  $base_url . 'lib/plugins/ckgedit/fckeditor/' . $animal  .'/';
      }  
     else $Config['UserFilesPath'] =  $base_url . 'data/media/';
 

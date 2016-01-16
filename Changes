@@ -1,4 +1,4 @@
-rev 15-Dec_09-08_52
+rev 16-Jan_16-14_25
 
 28 Feb 2013
 Added support for interwiki links
@@ -755,3 +755,6 @@ Merged tags branch with master
 
 17 Dec
 Added support for MSWord Paste
+
+01 Jan 2016
+Upgraded farms version, created farms branch

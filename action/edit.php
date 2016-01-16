@@ -851,7 +851,13 @@ var HTMLParser_DEBUG = "";
   echo "var parse_url = '$parse_url';";
 //  $safe_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js';       
 ?>
+   <?php
+       global $conf;
 
+       if(isset($conf['animal'])) {
+         echo "var config_animal='" . $conf['animal'] . "';";
+       }
+   ?>
 LoadScript(parse_url);
 try {
   if(!window.HTMLParserInstalled){

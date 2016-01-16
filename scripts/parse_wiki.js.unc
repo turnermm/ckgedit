@@ -584,6 +584,13 @@ function parse_wikitext(id) {
                             matches[1] = matches[1].replace(/^\//,"");
                             this.attr = matches[1];
                          }
+                         
+                         if(config_animal) {                       
+                                  var regex = new RegExp(config_animal + '\/file\/(.*)');
+                                  matches =  attrs[i].escaped.match(regex);                         
+                                  if(matches && matches[1])  this.attr = matches[1];
+                                  if(this.attr) this.attr = this.attr.replace(/\//g,':');                                  
+                            }                         
                          local_image = false;                        
 
                           this.attr = decodeURIComponent ? decodeURIComponent(this.attr) : unescape(this.attr);                
@@ -831,7 +838,10 @@ function parse_wikitext(id) {
                      else {   
                           // first insertion from media mananger   
                             matches = attrs[i].escaped.match(/^.*?\/userfiles\/image\/(.*)/); 
-                     
+                            if(!matches &&   config_animal) {
+                                  var regex = new RegExp(config_animal + '\/image\/(.*)$');
+                                  matches =  attrs[i].escaped.match(regex);                                  
+                            }
                             if(!matches) {  // windows style
                                 var regex =  doku_base + 'data/media/';
                                 regex = regex.replace(/([\/\\])/g, "\\$1");
