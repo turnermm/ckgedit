@@ -755,3 +755,6 @@ Merged tags branch with master
 
 17 Dec
 Added support for MSWord Paste
+
+18 Jan 2016
+Disabled textboxes for internal links and internal media in link dialog.  Changing text in textboxes  has no effect.
