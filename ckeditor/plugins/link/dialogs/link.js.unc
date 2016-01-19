@@ -333,7 +333,7 @@ var useHeading = function(wiki_id) {
     update_ckgeditInternalLink = insertInternalLinkText;
 
       var  insertMediaLinkText = function (text)
-       {
+       {   
            if(!text) return;
            text = text.replace(/^[\/\:]/,"");
            text =  text.replace(/\//g,':');             
@@ -939,7 +939,7 @@ var useHeading = function(wiki_id) {
 
 			this.commitContent( data );
              var other_media = false;
-			 
+		//	 alert(data.type);
 			// Compose the URL.			
 		   var other_mime_file = "";
 			switch ( data.type || 'url' )

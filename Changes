@@ -758,3 +758,7 @@ Added support for MSWord Paste
 
 01 Jan 2016
 Upgraded farms version, created farms branch
+
+16 Jan
+fixed insertion of media links from filebrowser.
+

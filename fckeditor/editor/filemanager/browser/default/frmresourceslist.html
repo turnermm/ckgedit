@@ -325,10 +325,16 @@ function OpenFile( fileUrl )
        if(url = fileUrl.match(/userfiles\/(file|image)\/(.*?)$/)) {
             fileUrl = url[2];           
        }
-       else {
-           url = fileUrl.match(/data\/media\/(.*?)$/);  // needs tobe updated for non-standard and Windows save dirs
+       else if(url = fileUrl.match(/data\/media\/(.*?)$/)) {  // needs tobe updated for non-standard and Windows save dirs
            fileUrl = url[1];
        }      
+      else {
+                   var cookie = ckgEedit_getCookie('FCK_animal') ;
+                   if(cookie) {
+                        var match = fileUrl.match(cookie+'\/file/(.*)');
+                        if(match)  fileUrl = match[1];
+                   }
+      }
        window.top.opener.update_ckgeditMediaLink(fileUrl);    
     parent.opener.oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser=false;
     }
