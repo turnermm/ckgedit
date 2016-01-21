@@ -436,6 +436,7 @@ function GetFoldersAndFilesCallBack( fckXml )
         if(isImage) {
             sFileUrl = encodeURI(sFileUrl);         
             sFileUrl = encodeURI(sFileUrl);         
+            if(!sFileUrl.match(/^\//))  sFileUrl = '/'+sFileUrl;           
        }
 		oHtml.Append( oListManager.GetFileRowHtml( sFileName, sFileUrl, sFileSize, isImage) ) ;
 	}

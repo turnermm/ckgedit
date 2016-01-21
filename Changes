@@ -1,4 +1,4 @@
-rev 16-Jan_16-14_25
+rev 16-Jan_21-19_15
 
 28 Feb 2013
 Added support for interwiki links
@@ -762,3 +762,5 @@ Upgraded farms version, created farms branch
 16 Jan
 fixed insertion of media links from filebrowser.
 
+19 Jan
+Fixed url for filebrowser image display in frmresourceslist.html, where directory additional path was prepended to correct path
