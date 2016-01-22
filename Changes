@@ -1,4 +1,4 @@
-rev 15-Dec_09-08_52
+rev 16-Jan_22-09_34
 
 28 Feb 2013
 Added support for interwiki links
@@ -758,3 +758,6 @@ Added support for MSWord Paste
 
 18 Jan 2016
 Disabled textboxes for internal links and internal media in link dialog.  Changing text in textboxes  has no effect.
+
+22 Jan
+Added trademark entity to ent.ser
