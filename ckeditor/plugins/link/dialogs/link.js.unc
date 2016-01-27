@@ -325,6 +325,8 @@ var useHeading = function(wiki_id) {
        {
            if(!text) return;
            document.getElementById(fckgInternalInputId).disabled = true;
+           document.getElementById(fckgInternalInputId).style.fontWeight="bold" ;
+           document.getElementById(fckgInternalInputId).style.backgroundColor="#DDDDDD" ;           
            text = text.replace(/^[\/\:]/,"");
            text =  text.replace(/\//g,':');             
            text = ':' + text; 
