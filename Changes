@@ -761,3 +761,7 @@ Disabled textboxes for internal links and internal media in link dialog.  Changi
 
 22 Jan
 Added trademark entity to ent.ser
+
+26 Jan
+Internal link textbox disabled only if file has been selected. Enables manual insertion of new links from dialog.
+
