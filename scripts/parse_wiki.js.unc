@@ -232,10 +232,11 @@ function parse_wikitext(id) {
         return false;
     },
     is_iwiki: function(class_name, title) {
-			        var iw_type = class_name.match(/iw_(\w+)/);
+			        var iw_type = class_name.match(/iw_(\w+)/);                 
 					 var iw_title = title.split(/\//);
                      var interwiki_label = iw_title[iw_title.length-1];
-                    interwiki_label = interwiki_label.replace(String.frasl,"\/");                      
+                    interwiki_label = interwiki_label.replace(String.frasl,"\/");    
+                    iw_type[1] = iw_type[1].replace(/_(\w{2})/, "." +"$1" );
                     this.attr = iw_type[1] + '>' +  interwiki_label;
 				    this.interwiki=true;
 	},

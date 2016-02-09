@@ -1,4 +1,4 @@
-rev 16-Jan_27-08_56
+rev 16-Feb_09-08_12
 
 28 Feb 2013
 Added support for interwiki links
@@ -767,3 +767,6 @@ Internal link textbox disabled only if file has been selected. Enables manual in
 
 27 Jan
 Added bold and background color to selected link textbox
+
+09 Feb
+Fix for interwiki link shortcuts with .xx parts
