@@ -1,10 +1,10 @@
-/*
+﻿/*
     Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
-var fckgInternalInputId, fckgMediaInputId;
+var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData;
  var ck_m_files_protocol, ckg_dialog;
  window.onbeforeunload = function() { };
    
@@ -24,7 +24,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.internal_link_rewrite_2 = /doku.php\/(.*)/;
     oRegex.internal_link_rewrite_1 = new RegExp('^' + Doku_Base + '(?!_media)(.*)');    
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
-    //oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
+    oRegex.interwiki = /^(.*?)oIWIKIo(.*?)cIWIKIc/;    
 	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;	    
     ckg_dialog = CKEDITOR.dialog;
 	 var fckgSMBInputId;
@@ -177,6 +177,11 @@ var useHeading = function(wiki_id) {
          else if(typeValue == 'media') {
             oDokuWiki_FCKEditorInstance.isDwikiMediaFile = true;
          } 
+         /*
+         else if(typeValue=='iinterwiki') {
+              var  iw_select = ckg_dialog.getContentElement("info", 'iwiki_shortcut');
+              iw_select.enable();       
+         }*/
 		if ( typeValue == 'url' )
 		{
             oDokuWiki_FCKEditorInstance.isUrlExtern = true;            
@@ -223,7 +228,7 @@ var useHeading = function(wiki_id) {
 	var popupRegex =
 		/\s*window.open\(\s*this\.href\s*,\s*(?:'([^']*)'|null)\s*,\s*'([^']*)'\s*\)\s*;\s*return\s*false;*\s*/;
 	var popupFeaturesRegex = /(?:^|,)([^=]+)=(\d+|yes|no)/gi;
-
+    
 	var parseLink = function( editor, element )
 	{  
 		var href = ( element  && ( element.data( 'cke-saved-href' ) || element.getAttribute( 'href' ) ) ) || '',
@@ -327,7 +332,28 @@ var useHeading = function(wiki_id) {
 				retval.url.protocol = '';
 			    retval.url.selected = urlMatch[0];
 			}
-			
+			else if(urlMatch = href.match(oRegex.interwiki)) {
+              	retval.url = {};
+                ckg_iwikiClass = element.getAttribute( 'class' );  // save for interwiki  
+                var  iw_select = ckg_dialog.getContentElement("info", 'iwiki_shortcut');    
+                 var tmp = iw_select.getInputElement().$.id;
+                 var select =document.getElementById(tmp);      
+                 //alert(select + " " + select);
+                        select.selectedIndex = "2";         
+       //         iw_select.disable();
+          
+             var sel = iw_select.getInputElement( );
+      //       alert('sel=' + sel);
+           //  sel.setValue(iw_select.items[2])
+         
+            // fckg_display_obj(sel);
+                retval.type = 'interwiki';
+                alert(href);
+                retval.url.selected =href;
+             //  alert(ckg_iwikiClass);
+
+            }
+            
 			// urlRegex matches empty strings, so need to check for href as well.
 			else if (  href && ( urlMatch = href.match( urlRegex ) ) )
 			{ 
@@ -335,29 +361,6 @@ var useHeading = function(wiki_id) {
 				retval.url = {};
 				retval.url.protocol = urlMatch[1];
 				retval.url.url = urlMatch[2];
-            
-             //   retval.url.url  = "xyz.com";
-                ckg_iwikiClass = element.getAttribute( 'class' );  // save for interwiki       
-            
-          //  alert(ckg_dialog);
-              var  iw_select = ckg_dialog.getContentElement("info", 'iwiki_shortcut');
-         //  alert(iw_select.getValue());
-        //   iw_select.setValue('man')
-         //  iw_select.disable();
-           //iw_select.style.backgroundColor="#eeeeee";
-            // var sel = iw_select.getInputElement( );
-           //  sel.setValue(iw_select.items[2])
-           //  alert(sel.selectedIndex) ;
-            // fckg_display_obj(sel);
-             
-             
-             //iw_select.disable();
-             //alert( iw_select); //="2";
-             
-                retval.type = 'interwiki';
-                retval.url.selected =href;
-              alert(ckg_iwikiClass);
-                               
 			}
 			else
 				retval.type = 'url';
@@ -549,11 +552,12 @@ var useHeading = function(wiki_id) {
 						setup : function( data )
 						{                      
 							if ( data.type )
-								this.setValue( data.type );
+								this.setValue( data.type );                          
 						},
 						commit : function( data )
 						{
 							data.type = this.getValue();     
+
 						}
 					},
 
@@ -738,12 +742,6 @@ var useHeading = function(wiki_id) {
                                             [ 'Not Set', 'Not-Set' ],                                            
                                         ]  ,  
                                        
-                                        /*
-                                			[ 'https://en.wikipedia.org/wiki/{NAME}\u200E', 'wp' ],                                            
-											[ 'http://man.cx/', 'man' ],
-											[ 'https://en.wikipedia.org/wiki/{NAME}\u200E', 'doku' ],
-											[ 'https://en.wikipedia.org/wiki/{NAME}\u200E', 'phpfn' ],   
-										],*/
 										setup : function( data )
 										{
 											if ( data.url )
@@ -762,12 +760,12 @@ var useHeading = function(wiki_id) {
                                 html: 'Get interwiki',
                              } ,
                               
-                           {
+                        /*   {
                             type : 'button',                   
                             id: 'giwikiopt',     								
                             onClick: getIwikiOptions,
                             label : "Get iwiki opts"//translateItem('GetHeadingsLabel'), //'Get Headings'	
-                          },                                        
+                          },  */                                      
                              
 						]
 					},
@@ -1069,10 +1067,15 @@ var useHeading = function(wiki_id) {
 		   var other_mime_file = "";
 			switch ( data.type || 'url' )
 			{
-                case 'interwiki':
-                      alert(data.url.iwiki_shortcut);
-                     data.adv.advCSSClasses =    ckg_iwikiClass;
-                    //alert(ckg_iwikiClass);                    
+                case 'i_nterwiki':
+                 //     alert(data.url.iwiki_shortcut);
+                  //    alert(ckgeditIwikiData);
+                      alert(ckgeditIwikiData[data.url.iwiki_shortcut])
+                      if( ckg_iwikiClass) {
+                      data.adv.advCSSClasses =    ckg_iwikiClass;
+                      }
+                      else data.adv.advCSSClasses = 'interwiki';
+                                  
                       break;                
                 case 'media':
                     if(document.getElementById(fckgMediaInputId).value) {
@@ -1125,6 +1128,17 @@ var useHeading = function(wiki_id) {
                      data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;   
                      if(data.hash) { data.url.url += '#' +data.hash;  }
                      if(data.qstring) { data.url.url += '&' +data.qstring;  }
+                case 'interwiki':    
+                    
+                      if( ckg_iwikiClass) {
+                       data.adv.advCSSClasses =    ckg_iwikiClass;
+                       data.url.url = "http://dokuwiki.org/syntax";
+                       alert(data.url.url);
+                    //  break;
+                      }
+                      else data.adv.advCSSClasses = 'interwiki';
+                     // alert(ckgeditIwikiData[data.url.iwiki_shortcut])
+                     // data.url
 				case 'url':               
 					var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
 						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';                       
@@ -1202,7 +1216,7 @@ var useHeading = function(wiki_id) {
 					break;
 			}
 
-
+alert('advanced next');
 			// Advanced attributes.
 			if ( data.adv )
 			{
@@ -1236,7 +1250,7 @@ var useHeading = function(wiki_id) {
 				advAttr( 'advRel', 'rel' );
 			}
 
-
+alert('selection');
 			var selection = editor.getSelection();
             var hasSelectedText = selection.getSelectedText() ? selection.getSelectedText() : false;
 			// Browser need the "href" fro copy/paste link to work. (#6641)
@@ -1244,16 +1258,24 @@ var useHeading = function(wiki_id) {
 
 			if ( !this._.selectedElement )
 			{
+               
 				// Create element if current selection is collapsed.
+              
 				var ranges = selection.getRanges( true );
+                alert('selection 2');
 				if ( ranges.length == 1 && ranges[0].collapsed )
 				{
+                     alert('selection 3');
 					// Short mailto link text view (#5736).
+                  
 					var text = new CKEDITOR.dom.text( data.type == 'email' ?
 							data.email.address : attributes[ 'data-cke-saved-href' ], editor.document );
+                   
 					ranges[0].insertNode( text );
+                    alert('selection 4');
 					ranges[0].selectNodeContents( text );
 					selection.selectRanges( ranges );
+                   
 				}
 
    
@@ -1271,13 +1293,16 @@ var useHeading = function(wiki_id) {
                     editor.insertElement( el );
                 }				
                 else {  // Apply style.   
+                  alert('selection 3');
                     var style = new CKEDITOR.style( { element : 'a', attributes : attributes } );
                     style.type = CKEDITOR.STYLE_INLINE;		// need to override... dunno why.
                     style.apply( editor.document );
+                      alert('selection 3a');
                 }
 			}
 			else
 			{
+              
 				// We're only editing an existing link, so just overwrite the attributes.
 				var element = this._.selectedElement,
 					href = element.data( 'cke-saved-href' ),
@@ -1310,30 +1335,25 @@ var useHeading = function(wiki_id) {
 		},
 		onLoad : function()
 		{
-	       var data = getIwikiOptions();
-           alert(data);
+	       ckgeditIwikiData = getIwikiOptions();         
            var select_id = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;     
            var select =document.getElementById(select_id);
            this.stack = select.options;
      
         this.stack.length = 0;
-        this.stack[0] = (new Option("Not Set Yet","",false,false));
+        this.stack[0] = (new Option("Not Set","not-set",false,false));
         var count = 1;
-        for(var i in data) {
-            this.stack[count] =  new Option(data[i],i,false,false);
-           // alert(this.stack[count] );
-            count++;
-            
+        for(var i in ckgeditIwikiData) {
+            this.stack[count] =  new Option(ckgeditIwikiData[i],i,false,false);          
+            count++;            
         }
-    //    this.stack[1] = (new Option("https://en.wikipedia.org/wiki/{NAME}\u200E","wp",false,false));
-      //  this.stack[2] = (new Option("http://man.cx/\u200E","man",false,false));
+    //    this.stack[1] = (new Option("https://en.wikipedia.org/wiki/{NAME}\u200E","wp",false,false)); 
         
             oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
             fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
             fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;
-        //    var el = this.getContentElement('info', 'iwiki_shortcut').getInputElement().$.id;
-         //   el.hide();
+        //    var el = this.getContentElement('info', 'iwiki_shortcut').getInputElement().$.id;        
            //this.getContentElement("info", 'iwiki_shortcut'). disable();  //restricts attempts to enter filenames into text box
            this.getContentElement('info', 'media').disable();
 		   this.hidePage( 'advanced' );		//Hide Advanded tab.
