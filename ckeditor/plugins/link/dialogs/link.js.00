@@ -277,7 +277,7 @@ var useHeading = function(wiki_id) {
 
 		if ( !retval.type )
 		{
-            var class_name =  element ? element.getAttribute( 'class' )  : ""; 
+            var class_name =  element.getAttribute( 'class' ); 
 			if ( ( anchorMatch = href.match( anchorRegex ) ) )
 			{
 				retval.type = 'anchor';
