@@ -65,9 +65,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
             dataType: "json",
             success: function(data, textStatus, jqXHR)
               {
-                 
-             //     alert(data['amazon.de']);                    
-                //   alert(textStatus);
                   retv = data;
               },
             error: function(jqXHR, textStatus, errorThrown )
@@ -1077,7 +1074,7 @@ var useHeading = function(wiki_id) {
                 case 'i_nterwiki':
                  //     alert(data.url.iwiki_shortcut);
                   //    alert(ckgeditIwikiData);
-                      alert(ckgeditIwikiData[data.url.iwiki_shortcut])
+                      // alert(ckgeditIwikiData[data.url.iwiki_shortcut])
                       if( ckg_iwikiClass) {
                       data.adv.advCSSClasses =    ckg_iwikiClass;
                       }
@@ -1145,14 +1142,14 @@ var useHeading = function(wiki_id) {
                   //    alert(ckgeditIwikiData[data.url.iwiki_shortcut]);
                     var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
                     data.url.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
-                    alert(iwiki_pattern);
-                    alert('s1='+data.url.selection);
+                  //  alert(iwiki_pattern);
+                  //  alert('s1='+data.url.selection);
                     if(iwiki_pattern.match(/\{.*?\}/) ){  
-                       alert('s2='+data.url.selection);
+                      // alert('s2='+data.url.selection);
                        data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
                     }                           
                    else data.url.url = iwiki_pattern + data.url.selection;                   
-                   alert(data.url.url);
+                   //alert(data.url.url);
                     data.adv.advTitle = data.url.url;
                   //  data.url.protocol = 'https://';
                   	attributes[ 'data-cke-saved-href' ] =  data.url.url;
@@ -1279,17 +1276,15 @@ var useHeading = function(wiki_id) {
 				// Create element if current selection is collapsed.
               
 				var ranges = selection.getRanges( true );
-                alert('selection 2');
 				if ( ranges.length == 1 && ranges[0].collapsed )
 				{
-                     alert('selection 3');
+                    
 					// Short mailto link text view (#5736).
                   
 					var text = new CKEDITOR.dom.text( data.type == 'email' ?
 							data.email.address : attributes[ 'data-cke-saved-href' ], editor.document );
                    
 					ranges[0].insertNode( text );
-                    alert('selection 4');
 					ranges[0].selectNodeContents( text );
 					selection.selectRanges( ranges );
                    
@@ -1310,11 +1305,9 @@ var useHeading = function(wiki_id) {
                     editor.insertElement( el );
                 }				
                 else {  // Apply style.   
-                  alert('selection 3');
                     var style = new CKEDITOR.style( { element : 'a', attributes : attributes } );
                     style.type = CKEDITOR.STYLE_INLINE;		// need to override... dunno why.
                     style.apply( editor.document );
-                      alert('selection 3a');
                 }
 			}
 			else
