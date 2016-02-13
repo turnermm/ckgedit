@@ -40,7 +40,15 @@ CKEDITOR.dialog.add( 'link', function( editor )
         AdvancedInfo: "To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.",
         AdvancedTabPrompt: 'Use the advanced tab to create page anchors and query strings',
         SMBExample: "Enter your share as: \\\\Server\\directory\\file", 
-        InterWikiLink: "Interwiki Link"
+        InterWikiLink: "Interwiki Link",
+        InterWikiType: "Interwiki Type",
+        InterwikiPlaceHolder: "Interwiki Place Holder",
+        InterwikiInfo: "<div style='max-width:350px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
+        "interwiki links are short-cuts which look like this: <span style='font-weight:600'>[[wp&gt;Shakespeare]]</span>, which will create a link to the English Wikipedia article on Shakespeare.  " +
+        "The <span style='font-weight:600'>wp</span> part designates a link pattern;  " + 
+        "the text following the '<span style='font-weight:900'>&gt;</span>' will be inserted into the link, replacing  a place holder, which is enclosed in curly brackets, "  +
+        "as in <span style='font-weight:600'>{NAME}</span></div>",
+        MediaFileLink: "link to media file",
      };   
      var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
     
@@ -725,7 +733,7 @@ var useHeading = function(wiki_id) {
                             {
 										type : 'text',
 										id : 'interwiki',                                       
-										label : translateItem('InterWikiLink'), //"interwiki link",
+										label : translateItem('InterwikiPlaceHolder'), //"interwiki link",
 										required: true,
                                         setup : function( data )
                                         {                                           
@@ -746,7 +754,7 @@ var useHeading = function(wiki_id) {
                            {
 										id : 'iwiki_shortcut',
 										type : 'select',
-										label : "Interwiki type",
+										label : translateItem('InterWikiType'),
 										'default' : '',                                        
 										items : 	
                                        [
@@ -763,13 +771,12 @@ var useHeading = function(wiki_id) {
 											if ( !data.url )
 												data.url = {};                                           
 											data.url.iwiki_shortcut = this.getValue();       
-                                          //  alert('v=' + data.url.iwiki_shortcut);
 										},
                              } ,                           
                             {
                                 id: 'iwikimsg',
                                 type: 'html',
-                                html: 'Get interwiki',
+                                html:  translateItem('InterwikiInfo'),
                              } ,
 						]
 					},

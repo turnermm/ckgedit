@@ -45,6 +45,14 @@ DlgLnkUpload		: "Upload",
 DlgFileBrowserMove: "Move",
 InternalLink: "internal link",
 InternalMedia: "internal media",
+InterWikiLink: "Interwiki Link",
+InterWikiType: "Interwiki Type",
+InterwikiPlaceHolder: "Interwiki Place Holder",
+InterwikiInfo: "<div style='max-width:350px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
+"interwiki links are short-cuts which look like this: <span style='font-weight:600'>[[wp&gt;Shakespeare]]</span>, which will create a link to the English Wikipedia article on Shakespeare.  " +
+"The <span style='font-weight:600'>wp</span> part designates a link pattern;  " + 
+"the text following the '<span style='font-weight:900'>&gt;</span>' will be inserted into the link, replacing  a place holder, which is enclosed in curly brackets, "  +
+"as in <span style='font-weight:600'>{NAME}</span></div>",
 MediaFileLink: "link to media file",
 SMBLabel: "Samba Share",
 GetHeadingsLabel: 'Get Headings'	,
@@ -54,7 +62,8 @@ NotSetOption: 'Not Set',
 AdvancedInfo: "To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.",
 AdvancedTabPrompt: 'Use the advanced tab to create page anchors and query strings',
 SMBExample: "Enter your share as: \\\\Server\\directory\\file", 
- InterWikiLink: "Interwiki Link",
+MediaFileLink: "link to media file",
+InterWikiLink: "Interwiki Link",
 DlgFileBrowserWaitingMsg: 'Loading files, please wait.',
 };
 CKEDITOR.lang['en']['footnote'] = {
