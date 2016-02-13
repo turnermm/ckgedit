@@ -47,7 +47,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
         "interwiki links are short-cuts which look like this: <span style='font-weight:600'>[[wp&gt;Shakespeare]]</span>, which will create a link to the English Wikipedia article on Shakespeare.  " +
         "The <span style='font-weight:600'>wp</span> part designates a link pattern;  " + 
         "the text following the '<span style='font-weight:900'>&gt;</span>' will be inserted into the link, replacing  a place holder, which is enclosed in curly brackets, "  +
-        "as in <span style='font-weight:600'>{NAME}</span></div>",
+        "as in <span style='font-weight:600'>{NAME}</span>. When there is no place holder, the text will be appended to the end of the link.</div>",
         MediaFileLink: "link to media file",
      };   
      var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
