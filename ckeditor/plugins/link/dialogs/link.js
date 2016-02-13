@@ -1071,16 +1071,6 @@ var useHeading = function(wiki_id) {
 		   var other_mime_file = "";
 			switch ( data.type || 'url' )
 			{
-                case 'i_nterwiki':
-                 //     alert(data.url.iwiki_shortcut);
-                  //    alert(ckgeditIwikiData);
-                      // alert(ckgeditIwikiData[data.url.iwiki_shortcut])
-                      if( ckg_iwikiClass) {
-                      data.adv.advCSSClasses =    ckg_iwikiClass;
-                      }
-                      else data.adv.advCSSClasses = 'interwiki';
-                                  
-                      break;                
                 case 'media':
                     if(document.getElementById(fckgMediaInputId).value) {
                         data.url.url =  document.getElementById(fckgMediaInputId).value;
@@ -1132,26 +1122,24 @@ var useHeading = function(wiki_id) {
                      data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;   
                      if(data.hash) { data.url.url += '#' +data.hash;  }
                      if(data.qstring) { data.url.url += '&' +data.qstring;  }
+                 	var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
+						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
+					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;              
+                     break;
                 case 'interwiki':    
-                    
                       if( ckg_iwikiClass) {
                        data.adv.advCSSClasses =    ckg_iwikiClass;
                       }
+                     else data.adv.advCSSClasses = 'interwiki ' + 'iw_' + data.url.iwiki_shortcut;
                       
-                      else data.adv.advCSSClasses = 'interwiki ' + 'iw_' + data.url.iwiki_shortcut;
-                  //    alert(ckgeditIwikiData[data.url.iwiki_shortcut]);
                     var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
                     data.url.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
-                  //  alert(iwiki_pattern);
-                  //  alert('s1='+data.url.selection);
+                 
                     if(iwiki_pattern.match(/\{.*?\}/) ){  
-                      // alert('s2='+data.url.selection);
                        data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
                     }                           
                    else data.url.url = iwiki_pattern + data.url.selection;                   
-                   //alert(data.url.url);
                     data.adv.advTitle = data.url.url;
-                  //  data.url.protocol = 'https://';
                   	attributes[ 'data-cke-saved-href' ] =  data.url.url;
                   break;
 				case 'url':               
