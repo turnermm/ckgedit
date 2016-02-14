@@ -1140,13 +1140,14 @@ var useHeading = function(wiki_id) {
                      else data.adv.advCSSClasses = 'interwiki ' + 'iw_' + data.url.iwiki_shortcut;
                       
                     var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
-                    data.url.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
+                    data.adv.advTitle = data.url.selection;                 
+                    data.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
                  
                     if(iwiki_pattern.match(/\{.*?\}/) ){  
                        data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
                     }                           
                    else data.url.url = iwiki_pattern + data.url.selection;                   
-                    data.adv.advTitle = data.url.url;
+                   
                   	attributes[ 'data-cke-saved-href' ] =  data.url.url;
                   break;
 				case 'url':               
