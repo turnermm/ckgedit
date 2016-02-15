@@ -2,9 +2,10 @@
     Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
+
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
-var fckgInternalInputId, fckgMediaInputId;
- var ck_m_files_protocol;
+var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex;
+ var ck_m_files_protocol, ckg_dialog;
  window.onbeforeunload = function() { };
    
 CKEDITOR.dialog.add( 'link', function( editor )
@@ -23,9 +24,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.internal_link_rewrite_2 = /doku.php\/(.*)/;
     oRegex.internal_link_rewrite_1 = new RegExp('^' + Doku_Base + '(?!_media)(.*)');    
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
-    //oRegex.samba_unsaved =/^\\\\\w+(\\[\w+\.$])+/;
+    oRegex.interwiki = /^(.*?)oIWIKIo(.*?)cIWIKIc/;    
 	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;	    
-  
+    ckg_dialog = CKEDITOR.dialog;
 	 var fckgSMBInputId;
      var defaultFBLang = {
         InternalLink: "internal link",
@@ -39,6 +40,15 @@ CKEDITOR.dialog.add( 'link', function( editor )
         AdvancedInfo: "To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.",
         AdvancedTabPrompt: 'Use the advanced tab to create page anchors and query strings',
         SMBExample: "Enter your share as: \\\\Server\\directory\\file", 
+        InterWikiLink: "Interwiki Link",
+        InterWikiType: "Interwiki Type",
+        InterwikiPlaceHolder: "Interwiki Replacement Text",
+        InterwikiInfo: "<div style='max-width:350px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
+        "interwiki links are short-cuts which look like this: <span style='font-weight:600'>[[wp&gt;Shakespeare]]</span>, which will create a link to the English Wikipedia article on Shakespeare.  " +
+        "The <span style='font-weight:600'>wp</span> part designates a link pattern;  " + 
+        "the text following the '<span style='font-weight:900'>&gt;</span>' will be inserted into the link, replacing  a place holder, which is enclosed in curly brackets, "  +
+        "as in <span style='font-weight:600'>{NAME}</span>. When there is no place holder, the replacement text will be appended to the end of the link.</div>",
+        MediaFileLink: "link to media file",
      };   
      var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
     
@@ -49,6 +59,33 @@ CKEDITOR.dialog.add( 'link', function( editor )
       return defaultFBLang[js_code];
     }   ; 
     
+    var getIwikiOptions = function() {
+        var retv;
+         jQuery.ajax(
+          DOKU_BASE + 'lib/exe/ajax.php',
+          {
+            data:
+              {
+                call: 'iwiki_list'
+              },
+            type: "POST",
+            async: false,
+            dataType: "json",
+            success: function(data, textStatus, jqXHR)
+              {
+                  retv = data;
+              },
+            error: function(jqXHR, textStatus, errorThrown )
+              {
+                alert(textStatus);
+                alert(errorThrown);
+              }
+          }
+        ); 
+        return retv;
+  
+		
+    };
     var getInternalHeaders = function() {     
     
 	  var dialog = this.getDialog();	
@@ -123,6 +160,7 @@ var useHeading = function(wiki_id) {
 
   
   var getSMBInput = function ()   {  return fckgSMBInputId; };
+  var ckg_iwikiClass;
 	// Handles the event when the "Type" selection box is changed.
 	var linkTypeChanged = function()
 	{
@@ -131,7 +169,7 @@ var useHeading = function(wiki_id) {
       oDokuWiki_FCKEditorInstance.isUrlExtern = false;       
       oDokuWiki_FCKEditorInstance.isDwikiMediaFile = false;
 		var dialog = this.getDialog(),
-			partIds = [ 'urlOptions', 'anchorOptions', 'emailOptions','internalOptions','mediaOptions','sambaOptions' ],
+			partIds = [ 'urlOptions', 'anchorOptions', 'emailOptions','internalOptions','mediaOptions','sambaOptions','interwikiOptions' ],
 			typeValue = this.getValue(),
 			uploadTab = dialog.definition.getContents( 'upload' ),
 			uploadInitiallyHidden = uploadTab && uploadTab.hidden;
@@ -144,6 +182,7 @@ var useHeading = function(wiki_id) {
          else if(typeValue == 'media') {
             oDokuWiki_FCKEditorInstance.isDwikiMediaFile = true;
          } 
+
 		if ( typeValue == 'url' )
 		{
             oDokuWiki_FCKEditorInstance.isUrlExtern = true;            
@@ -190,7 +229,7 @@ var useHeading = function(wiki_id) {
 	var popupRegex =
 		/\s*window.open\(\s*this\.href\s*,\s*(?:'([^']*)'|null)\s*,\s*'([^']*)'\s*\)\s*;\s*return\s*false;*\s*/;
 	var popupFeaturesRegex = /(?:^|,)([^=]+)=(\d+|yes|no)/gi;
-
+    
 	var parseLink = function( editor, element )
 	{  
 		var href = ( element  && ( element.data( 'cke-saved-href' ) || element.getAttribute( 'href' ) ) ) || '',
@@ -243,6 +282,7 @@ var useHeading = function(wiki_id) {
 
 		if ( !retval.type )
 		{
+            var class_name =  element ? element.getAttribute( 'class' )  : ""; 
 			if ( ( anchorMatch = href.match( anchorRegex ) ) )
 			{
 				retval.type = 'anchor';
@@ -294,7 +334,39 @@ var useHeading = function(wiki_id) {
 				retval.url.protocol = '';
 			    retval.url.selected = urlMatch[0];
 			}
-			
+			else if( urlMatch = href.match(oRegex.interwiki) || class_name.match(/interwiki/) ) {
+                var str = ""; 
+                if(urlMatch && urlMatch[2]) {              
+                   str =  decodeURIComponent(urlMatch[2]);       
+                }
+           
+              	retval.url = {};
+                ckg_iwikiClass = element.getAttribute( 'class' );  // save for interwiki  
+                var  iw_select = ckg_dialog.getContentElement("info", 'iwiki_shortcut');    
+                 var tmp = iw_select.getInputElement().$.id;
+                 var select =document.getElementById(tmp);      
+                 var match = ckg_iwikiClass.match(/iw_([^\s]+)/);                 
+                 var index = match[1].replace(/_/,'.');
+                 if(!str) {                   
+                    var iwpattern =  ckgeditIwikiData[index];
+                    iwpattern = iwpattern.replace(/\{\w+\}$/,"");
+                    var regex = new RegExp(iwpattern + '\(.*\)');                   
+                    match =  href.match(regex);
+                    str = match[1];                   
+                 }
+                 index = ckgeditIwikiIndex[index];
+                 if(index) {
+                   select.selectedIndex = index;     
+                 }
+                 else select.selectedIndex = '0';                   
+                iw_select.disable();                   
+                retval.type = 'interwiki';              
+                retval.url.selected =str;         
+                retval.url.url = str;
+             
+
+            }
+            
 			// urlRegex matches empty strings, so need to check for href as well.
 			else if (  href && ( urlMatch = href.match( urlRegex ) ) )
 			{ 
@@ -486,17 +558,19 @@ var useHeading = function(wiki_id) {
                             [ translateItem('InternalLink'), 'internal' ],
                             [translateItem('InternalMedia'), 'media' ],
 							[ linkLang.toEmail, 'email' ],
-							[ 'Samba share', 'samba' ]												
+							[ 'Samba share', 'samba' ]	,
+                           [translateItem('InterWikiLink'), 'interwiki' ]	                            
 						],
 						onChange : linkTypeChanged,
 						setup : function( data )
 						{                      
 							if ( data.type )
-								this.setValue( data.type );
+								this.setValue( data.type );                          
 						},
 						commit : function( data )
 						{
 							data.type = this.getValue();     
+
 						}
 					},
 
@@ -630,8 +704,7 @@ var useHeading = function(wiki_id) {
 							},
                             {
 										type : 'text',
-										id : 'internal',
-                                       
+										id : 'internal',                                       
 										label : translateItem('InternalLink'), //"internal link",
 										required: true,
                                         setup : function( data )
@@ -651,6 +724,63 @@ var useHeading = function(wiki_id) {
                              }                            
 						]
 					},
+
+                   {
+						type : 'vbox',					
+                        id : 'interwikiOptions',
+						children :
+						[
+                            {
+										type : 'text',
+										id : 'interwiki',                                       
+										label : translateItem('InterwikiPlaceHolder'), //"interwiki link",
+										required: true,
+                                        setup : function( data )
+                                        {                                           
+                                           if(data) {    										   
+                                            if (data.url &&  data.url.selected ) {                                         
+                                                   var id = data.url.selected.replace(/^\:/,"");
+                                                   this.setValue(id );
+                                            }
+                                           }
+                                        },  
+										commit : function( data )
+										{
+											if ( !data.url )
+												data.url = {};                                           
+											data.url.selection = this.getValue();                                                  
+										},                                        
+                            },
+                           {
+										id : 'iwiki_shortcut',
+										type : 'select',
+										label : translateItem('InterWikiType'),
+										'default' : '',                                        
+										items : 	
+                                       [
+                                            [ 'Not Set', 'Not-Set' ],                                            
+                                        ]  ,  
+                                       
+										setup : function( data )
+										{
+											if ( data.url )
+												this.setValue( data.url.iwiki_shortcut || '' );
+										},
+										commit : function( data )
+										{
+											if ( !data.url )
+												data.url = {};                                           
+											data.url.iwiki_shortcut = this.getValue();       
+										},
+                             } ,                           
+                            {
+                                id: 'iwikimsg',
+                                type: 'html',
+                                html:  translateItem('InterwikiInfo'),
+                             } ,
+						]
+					},
+                    
                     {
 						type : 'vbox',					
                         id : 'mediaOptions',                        
@@ -928,11 +1058,12 @@ var useHeading = function(wiki_id) {
 			else
 				element = null;
                 
-			this.setupContent( parseLink.apply( this, [ editor, element ] ) );
+			this.setupContent( parseLink.apply( this, [ editor, element ] ) );        
 		},
 
 		onOk : function()
 		{
+            
             var ImagesAllowed = new RegExp( oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions);
 			var attributes = {},
 				removeAttributes = [],
@@ -998,10 +1129,32 @@ var useHeading = function(wiki_id) {
                      data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;   
                      if(data.hash) { data.url.url += '#' +data.hash;  }
                      if(data.qstring) { data.url.url += '&' +data.qstring;  }
+                 	var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
+						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
+					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;              
+                     break;
+                case 'interwiki':    
+                      if( ckg_iwikiClass) {
+                       data.adv.advCSSClasses =    ckg_iwikiClass;
+                      }
+                     else data.adv.advCSSClasses = 'interwiki ' + 'iw_' + data.url.iwiki_shortcut;
+                      
+                    var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
+                    data.adv.advTitle = data.url.selection;                 
+                    data.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
+                 
+                    if(iwiki_pattern.match(/\{.*?\}/) ){  
+                       data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
+                    }                           
+                   else data.url.url = iwiki_pattern + data.url.selection;                   
+                   
+                  	attributes[ 'data-cke-saved-href' ] =  data.url.url;
+                  break;
 				case 'url':               
 					var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
-						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
-					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;                 
+						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';                       
+					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;    
+
 					break;
 				case 'anchor':
 					var name = ( data.anchor && data.anchor.name ),
@@ -1108,7 +1261,6 @@ var useHeading = function(wiki_id) {
 				advAttr( 'advRel', 'rel' );
 			}
 
-
 			var selection = editor.getSelection();
             var hasSelectedText = selection.getSelectedText() ? selection.getSelectedText() : false;
 			// Browser need the "href" fro copy/paste link to work. (#6641)
@@ -1116,16 +1268,22 @@ var useHeading = function(wiki_id) {
 
 			if ( !this._.selectedElement )
 			{
+               
 				// Create element if current selection is collapsed.
+              
 				var ranges = selection.getRanges( true );
 				if ( ranges.length == 1 && ranges[0].collapsed )
 				{
+                    
 					// Short mailto link text view (#5736).
+                  
 					var text = new CKEDITOR.dom.text( data.type == 'email' ?
 							data.email.address : attributes[ 'data-cke-saved-href' ], editor.document );
+                   
 					ranges[0].insertNode( text );
 					ranges[0].selectNodeContents( text );
 					selection.selectRanges( ranges );
+                   
 				}
 
    
@@ -1150,6 +1308,7 @@ var useHeading = function(wiki_id) {
 			}
 			else
 			{
+              
 				// We're only editing an existing link, so just overwrite the attributes.
 				var element = this._.selectedElement,
 					href = element.data( 'cke-saved-href' ),
@@ -1182,16 +1341,32 @@ var useHeading = function(wiki_id) {
 		},
 		onLoad : function()
 		{
-	
+	       ckgeditIwikiData = getIwikiOptions();         
+           var select_id = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;     
+           var select =document.getElementById(select_id);
+           this.stack = select.options;
+     
+        this.stack.length = 0;
+        this.stack[0] = (new Option("Not Set","not-set",false,false));
+        ckgeditIwikiIndex = new Array();
+        var count = 1;
+        for(var i in ckgeditIwikiData) {
+            this.stack[count] =  new Option(ckgeditIwikiData[i],i,false,false); 
+            ckgeditIwikiIndex[i] = count;
+            count++;            
+        }
+         
+        
             oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
             fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
             fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;
-           //this.getContentElement("info", "internal").disable();  //restricts attempts to enter filenames into text box
+            var el = this.getContentElement('info', 'iwiki_shortcut').getInputElement().$.id;        
+           //this.getContentElement("info", 'iwiki_shortcut'). disable();  //restricts attempts to enter filenames into text box
            this.getContentElement('info', 'media').disable();
 		   this.hidePage( 'advanced' );		//Hide Advanded tab.
 	       this.showPage('info');				
-           
+           ckg_dialog = this;
            var tab = this._.tabs[ 'advanced' ] && this._.tabs[ 'advanced' ][ 0 ];               
            var dialog = this;                  
            var notSet = translateItem('NotSetOption');           

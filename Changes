@@ -1,4 +1,4 @@
-rev 16-Feb_09-08_12
+rev 16-Feb_15-11_47
 
 28 Feb 2013
 Added support for interwiki links
@@ -770,3 +770,7 @@ Added bold and background color to selected link textbox
 
 09 Feb
 Fix for interwiki link shortcuts with .xx parts
+
+15 Feb
+Finishing touches on interwiki modules
+
