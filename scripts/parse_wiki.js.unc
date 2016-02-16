@@ -1753,6 +1753,12 @@ jQuery( "#ebut_cancel" ).mouseup(function() {
    draft_delete();
 });
 jQuery( "#save_button" ).mousedown(function() { 
-  parse_wikitext('edbtn__save');
+ if(!window.dwfckTextChanged) {
+  ckgedit_dwedit_reject = true;
+  parse_wikitext('ebut_cancel'); 
+ }
+   else {
+    parse_wikitext('edbtn__save');
+   } 
 });
 });
