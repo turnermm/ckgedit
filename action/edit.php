@@ -21,6 +21,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     var $page_from_template;
     var $draft_found = false;
     var $draft_text;
+    var $draft_started;
     /**
      * Constructor
      */
@@ -157,7 +158,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     * function _preprocess
 	* @author  Myron Turner <turnermm02@shaw.ca>
     */
-    function _preprocess()
+    function _preprocess($draft_text = "")
     {
         global $ID;
         global $REV;
@@ -178,7 +179,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
                 $SUM = $lang['created'];
             }
         }
-        
+            if(!$draft_text) {
             if($INFO['exists']){
                 if($RANGE){
                     list($PRE,$text,$SUF) = rawWikiSlices($RANGE,$ID,$REV);
@@ -191,7 +192,9 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
                 //Check for text from template event handler
                  if(!$text && $this->page_from_template) $text = $this->page_from_template;
             }
-
+            }
+            else $text = $draft_text;
+         
      $text = preg_replace_callback(
     '/(~~NOCACHE~~|~~NOTOC~~|\{\{rss>http:\/\/.*?\}\})/ms',
      create_function(
@@ -413,19 +416,33 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             $this->xhtml
           );
        
+      if($this->draft_started) return $this->xhtml;
        $cname = getCacheName($INFO['client'].$ID,'.draft.fckl');
-       if(file_exists($cname)) {
+     
+       $this->draft_started = false;
+        if(file_exists($cname)  && !$this->draft_started) {
+    
+           $this->draft_started = true;
+         
           $cdata =  unserialize(io_readFile($cname,false));
-          $cdata['text'] = urldecode($cdata['text']);
+          $prefix =  isset($cdata['prefix']) ? urldecode($cdata['prefix']) : "" ;
+          if($prefix) $prefix = $this-> _preprocess($prefix);
+          $text = urldecode($cdata['text']);
+          $suffix = isset($cdata['suffix']) ? urldecode($cdata['suffix']) : "" ;
+          
+          if($suffix) $suffix = $this-> _preprocess($suffix);
+       
           preg_match_all("/<\/(.*?)\>/", $cdata['text'],$matches);
           /* exclude drafts saved from preview mode */
           if (!in_array('code', $matches[1]) && !in_array('file', $matches[1]) && !in_array('nowiki', $matches[1])) {
-              $this->draft_text = $cdata['text'];
+             //$this->draft_text = $cdata['text'];
+             $this->draft_text = $prefix . $text . $suffix;
               $this->draft_found = true;
               msg($this->getLang('draft_msg')) ;
           }
           unlink($cname);
        }    
+       if($draft_started) return $this->xhtml;
         return true;
     }
 
