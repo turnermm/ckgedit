@@ -353,7 +353,7 @@ function revert_to_prev() {
             }
   }
   CKEDITOR.instances.wiki__text.setData( GetE('saved_wiki_html').innerHTML);
-   
+   window.dwfckTextChanged = true;
 }
 
 

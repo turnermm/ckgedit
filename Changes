@@ -770,3 +770,6 @@ Added bold and background color to selected link textbox
 
 09 Feb
 Fix for interwiki link shortcuts with .xx parts
+
+17 Feb
+Improved handling of draft recovery on unexpected closing

@@ -153,6 +153,7 @@ function parse_wikitext(id) {
     var HTMLParser_NOWIKI = false;
     var HTMLFormatInList = false;
     var HTMLAcroInList = false;
+    var HTML_InterWiki = false;
     var CurrentTable;
 
     var HTMLParserTopNotes = new Array();
@@ -232,12 +233,18 @@ function parse_wikitext(id) {
         return false;
     },
     is_iwiki: function(class_name, title) {
-			        var iw_type = class_name.match(/iw_(\w+)/);                 
+                    var iw_type = class_name.match(/iw_(\w+\.?\w{0,2})/);                    
 					 var iw_title = title.split(/\//);
                      var interwiki_label = iw_title[iw_title.length-1];
                     interwiki_label = interwiki_label.replace(String.frasl,"\/");    
+                    if(!interwiki_label.match(/oIWIKIo.*?cIWIKIc/)) {
+                       interwiki_label = 'oIWIKIo'  + interwiki_label + 'cIWIKIc';
+                    }
+                    interwiki_label =  interwiki_label.replace(/^.*?oIWIKIo/,'oIWIKIo');
+                    interwiki_label =  interwiki_label.replace(/cIWIKIc.*/,'cIWIKIc');
                     iw_type[1] = iw_type[1].replace(/_(\w{2})/, "." +"$1" );
                     this.attr = iw_type[1] + '>' +  interwiki_label;
+                    HTML_InterWiki=true;
 				    this.interwiki=true;
 	},
     start: function( tag, attrs, unary ) {
@@ -1548,8 +1555,15 @@ function parse_wikitext(id) {
     if(id == 'test') {
       if(!HTMLParser_test_result(results)) return;     
     }
+    
 	results = results.replace(/\{ \{ rss&gt;Feed:/mg,'{{rss&gt;http://');
     results = results.replace(/~ ~ (NOCACHE|NOTOC)~ ~/mg,'~~'+"$1"+'~~');
+    if(HTML_InterWiki) {
+             results =results.replace(/\[\[(\w+\.?\w{0,2})>(.*?)\|(.*?)\]\]/gm,function(match,id,iw_replace,link_text) {                
+                 if(iw_replace ==  'oIWIKIocIWIKIc') iw_replace = link_text;
+                  return ('[[' +id + '>' + iw_replace + ']]');                      
+             });
+    }
     results = results.replace(/>.*?oIWIKIo(.*?)cIWIKIc/mg,'>'+"$1");
     if(HTMLParser_FORMAT_SPACE) { 
         if(HTMLParser_COLSPAN) {           
@@ -1739,6 +1753,12 @@ jQuery( "#ebut_cancel" ).mouseup(function() {
    draft_delete();
 });
 jQuery( "#save_button" ).mousedown(function() { 
-  parse_wikitext('edbtn__save');
+ if(!window.dwfckTextChanged) {
+  ckgedit_dwedit_reject = true;
+  parse_wikitext('ebut_cancel'); 
+ }
+   else {
+    parse_wikitext('edbtn__save');
+   } 
 });
 });
