@@ -775,3 +775,5 @@ Fix for interwiki link shortcuts with .xx parts
 Finishing touches on interwiki modules
 Fix for some extended iw parameters
 
+17 Feb
+Improved handling of draft recovery on unexpected closing
