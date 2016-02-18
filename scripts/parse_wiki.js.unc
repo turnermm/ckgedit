@@ -1559,9 +1559,17 @@ function parse_wikitext(id) {
 	results = results.replace(/\{ \{ rss&gt;Feed:/mg,'{{rss&gt;http://');
     results = results.replace(/~ ~ (NOCACHE|NOTOC)~ ~/mg,'~~'+"$1"+'~~');
     if(HTML_InterWiki) {
-             results =results.replace(/\[\[(\w+\.?\w{0,2})>(.*?)\|(.*?)\]\]/gm,function(match,id,iw_replace,link_text) {                
-                 if(iw_replace ==  'oIWIKIocIWIKIc') iw_replace = link_text;
-                  return ('[[' +id + '>' + iw_replace + ']]');                      
+             results =results.replace(/\[\[(\w+\.?\w{0,2})>(.*?)\|(.*?)\]\]/gm,function(match,id,iw_replace,link_text) {     
+                 if(iw_replace ==  'oIWIKIocIWIKIc') iw_replace = link_text;        
+                  
+                 if((iw_replace == 'oIWIKIo'+link_text.replace(/\s/,'%20')+'cIWIKIc') || (iw_replace == link_text)) {
+                    link_text = "";
+                 }
+                 else {
+                   link_text  = "|" + link_text;
+                 }
+                 
+                  return ('[[' +id + '>' + iw_replace +  link_text + ']]');                      
              });
     }
     results = results.replace(/>.*?oIWIKIo(.*?)cIWIKIc/mg,'>'+"$1");

@@ -1,4 +1,4 @@
-rev 16-Feb_15-11_47
+rev 16-Feb_17-19_04
 
 28 Feb 2013
 Added support for interwiki links
@@ -777,3 +777,4 @@ Fix for some extended iw parameters
 
 17 Feb
 Improved handling of draft recovery on unexpected closing
+Interwiki link text preserved when different from link's replacement text
