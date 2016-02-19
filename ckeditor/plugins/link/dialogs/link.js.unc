@@ -324,6 +324,9 @@ var useHeading = function(wiki_id) {
      var  insertInternalLinkText = function (text)
        {
            if(!text) return;
+           document.getElementById(fckgInternalInputId).disabled = true;
+           document.getElementById(fckgInternalInputId).style.fontWeight="bold" ;
+           document.getElementById(fckgInternalInputId).style.backgroundColor="#DDDDDD" ;           
            text = text.replace(/^[\/\:]/,"");
            text =  text.replace(/\//g,':');             
            text = ':' + text; 
@@ -939,7 +942,7 @@ var useHeading = function(wiki_id) {
 
 			this.commitContent( data );
              var other_media = false;
-		//	 alert(data.type);
+			 
 			// Compose the URL.			
 		   var other_mime_file = "";
 			switch ( data.type || 'url' )
@@ -1184,7 +1187,8 @@ var useHeading = function(wiki_id) {
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
             fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
             fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;
-		
+           //this.getContentElement("info", "internal").disable();  //restricts attempts to enter filenames into text box
+           this.getContentElement('info', 'media').disable();
 		   this.hidePage( 'advanced' );		//Hide Advanded tab.
 	       this.showPage('info');				
            
