@@ -5,32 +5,33 @@
  * 
  * @author Leo Rudin <leo.rudin@gmx.ch>
  * @author Padhie <develop@padhie.de>
+ * @author liz <marliza@web.de>
  */
 $lang['btn_dw_edit']           = 'DW Edit';
 $lang['dw_btn_fck_preview']    = 'CKG Vorschau';
 $lang['dw_btn_lang']           = 'Sprache';
 $lang['title_dw_delete']       = 'Seite l&ouml;schen';
-$lang['title_dw_edit']         = 'Arbeit speichern, schliessen und zum DokuWiki Editor wechseln';
+$lang['title_dw_edit']         = 'Arbeit speichern, schließen und zum ursprünglichen DokuWiki Editor wechseln';
 $lang['dw_btn_revert']         = 'R&uuml;ckg&auml;ngig';
 $lang['title_dw_revert']       = 'Zur&uuml;ck zur Backup-Version';
-$lang['title_dw_lang']         = 'Sprache f&uuml;r Rechtschreibekontrolle w&auml;hlen';
-$lang['title_dw_cancel']       = 'Editor schliessen';
+$lang['title_dw_lang']         = 'Sprache f&uuml;r Rechtschreibkontrolle w&auml;hlen';
+$lang['title_dw_cancel']       = 'Editor schließen';
 $lang['btn_fck_edit']          = 'CKG Editor';
 $lang['confirm_delete']        = 'Sind Sie sicher, dass Sie diese Seite l&ouml;schen wollen?';
 $lang['confirm_preview']       = 'Jede nicht gespeicherte Bearbeitung wird verloren gehen.';
 $lang['editor_height']         = 'Editorhöhe';
-$lang['editor_height_title']   = 'Editor neuskallieren beim neuladen';
+$lang['editor_height_title']   = 'Editor neuskallieren beim Neuladen';
 $lang['dw_btn_backup']         = 'Backup';
-$lang['title_dw_backup']       = 'Backup-Editor';
+$lang['title_dw_backup']       = 'Backup-Editor-Fenster & Renew-Zugangssperre';
 $lang['backup_empty']          = 'Es ist kein Backup vorhanden. Wollen Sie fortfahren?';
 $lang['btn_draft']             = 'Entwurf &ouml;ffnen';
 $lang['title_draft']           = 'Entwurf anzeigen und bearbeiten';
-$lang['btn_exit_draft']        = 'Entwurf schliessen';
+$lang['btn_exit_draft']        = 'Entwurf schließen';
 $lang['title_exit_draft']      = 'Zurück zum aktuellen Dokument.';
 $lang['draft_msg']             = 'F&uuml;r dieses Dokument besteht eine Entwurfsversion. Der Knopf \'Entwurf\' schaltet zwischen diesem Dokument und dem Entwurf hin und her. Es k&ouml;nnen beide Dokumente bearbeitet oder gesichert werden.';
 $lang['whats_this']            = 'Was ist das?';
-$lang['complex_tables']        = 'Aktiviert komplexe Tabellen';
+$lang['complex_tables']        = 'Aktiviere komplexe Tabellen';
 $lang['minor_changes']         = 'Kleine Änderungen';
-$lang['discard_edits']         = 'Um Ihre Änderungen zu speichern klicken Sie OK; um Abzubrechen bitte klicken Sie auf Cancel.';
+$lang['discard_edits']         = 'Um Änderungen zu speichern klicke OK; um abzubrechen klicke Cancel.';
 $lang['dw_btn_styling']        = 'Schriftart bearbeiten';
 $lang['title_styling']         = 'Öffne mit Schriftart als markup';
