@@ -37,7 +37,9 @@ class action_plugin_ckgedit_iwiki extends DokuWiki_Action_Plugin {
    
       $event->stopPropagation();
       $event->preventDefault();
-      echo json_encode(getInterwiki());       
+      $a = getInterwiki();
+      ksort($a);
+      echo json_encode($a);       
     }
 
 }
