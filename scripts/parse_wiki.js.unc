@@ -233,7 +233,7 @@ function parse_wikitext(id) {
         return false;
     },
     is_iwiki: function(class_name, title) {
-                    var iw_type = class_name.match(/iw_(\w+\.?\w{0,2})/);                    
+                    var iw_type = class_name.match(/iw_(\w+\.?\w{0,12})/);                    
 					 var iw_title = title.split(/\//);
                      var interwiki_label = iw_title[iw_title.length-1];
                     interwiki_label = interwiki_label.replace(String.frasl,"\/");    
@@ -1555,14 +1555,20 @@ function parse_wikitext(id) {
     if(id == 'test') {
       if(!HTMLParser_test_result(results)) return;     
     }
-    
+   
 	results = results.replace(/\{ \{ rss&gt;Feed:/mg,'{{rss&gt;http://');
     results = results.replace(/~ ~ (NOCACHE|NOTOC)~ ~/mg,'~~'+"$1"+'~~');
     if(HTML_InterWiki) {
-             results =results.replace(/\[\[(\w+\.?\w{0,2})>(.*?)\|(.*?)\]\]/gm,function(match,id,iw_replace,link_text) {     
+             var ReplaceLinkMatch = function(tag, link) {
+                 tag_1 = tag.replace(/oIWIKIo(.*)cIWIKIc/,"$1");                  
+                 if(tag_1 == link) return true;
+                 link = link.replace(/\s/,'%20');
+                 return (link == tag_1);
+             };
+             results =results.replace(/\[\[(\w+\.?\w{0,12})>(.*?)\|(.*?)\]\]/gm,function(match,id,iw_replace,link_text) {     
                  if(iw_replace ==  'oIWIKIocIWIKIc') iw_replace = link_text;        
-                  
-                 if((iw_replace == 'oIWIKIo'+link_text.replace(/\s/,'%20')+'cIWIKIc') || (iw_replace == link_text)) {
+                
+                 if((iw_replace == 'oIWIKIo'+link_text.replace(/\s/,'%20')+'cIWIKIc') ||  (iw_replace == link_text) || ReplaceLinkMatch(iw_replace,link_text)) {
                     link_text = "";
                  }
                  else {
@@ -1572,7 +1578,9 @@ function parse_wikitext(id) {
                   return ('[[' +id + '>' + iw_replace +  link_text + ']]');                      
              });
     }
+  
     results = results.replace(/>.*?oIWIKIo(.*?)cIWIKIc/mg,'>'+"$1");
+   
     if(HTMLParser_FORMAT_SPACE) { 
         if(HTMLParser_COLSPAN) {           
              results =results.replace(/\s*([\|\^]+)((\W\W_FORMAT_SPACE_)+)/gm,function(match,pipes,format) {

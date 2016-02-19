@@ -1,4 +1,4 @@
-rev 16-Feb_18-19_19
+rev 16-Feb_19-08_57
 
 28 Feb 2013
 Added support for interwiki links
@@ -782,3 +782,5 @@ Interwiki link text preserved when different from link's replacement text
 18 Feb
 Improved regex for identifying interwiki links in edit.php
 
+19 Feb
+Same as 18 Feb: improved matching of link text and iwiki tag
