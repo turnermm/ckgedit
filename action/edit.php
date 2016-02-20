@@ -916,8 +916,7 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
         if(strpos($text,'~~NO_STYLING~~') !== false) {
             $skip_styling = true;
         }
-       
-        $text = preg_replace_callback('/(\[\[\w+\.?\w{0,2}>)(.*?)([\]\|])/ms',
+       $text = preg_replace_callback('/(\[\[\w+\.?\w{0,10}>)(.*?)([\]\|])/ms',
              create_function(
                '$matches',              
                '  //if(preg_match("/^\w+$/",$matches[2])) return $matches[0];
@@ -1070,7 +1069,7 @@ $text = preg_replace_callback(
         }
          if(strpos($xhtml,'oIWIKIo') !== false) {
             $xhtml = preg_replace_callback(
-                '/(.)oIWIKIo(.*?)cIWIKIc/ms',
+                '/<?(.*?)oIWIKIo(.*?)cIWIKIc/ms',
                  create_function(
                    '$matches',              
                    ' if(preg_match("/^\w+$/",$matches[2]) && $matches[1] == "/")  return "/". $matches[2];

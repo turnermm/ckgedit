@@ -1,4 +1,4 @@
-rev 16-Jan_21-16_04
+rev 16-Feb_20-09_32
 
 28 Feb 2013
 Added support for interwiki links
@@ -762,11 +762,40 @@ Upgraded farms version, created farms branch
 16 Jan
 fixed insertion of media links from filebrowser.
 
+18 Jan 2016
+Disabled textboxes for internal links and internal media in link dialog.  Changing text in textboxes  has no effect.
+
 19 Jan
 Fixed url for filebrowser image display in frmresourceslist.html, where directory additional path was prepended to correct path
 
 21 Jan
 Added add_v_animal.sh
 
+
+22 Jan
+Added trademark entity to ent.ser
+
+26 Jan
+Internal link textbox disabled only if file has been selected. Enables manual insertion of new links from dialog.
+
+27 Jan
+Added bold and background color to selected link textbox
+
+09 Feb
+Fix for interwiki link shortcuts with .xx parts
+
+15 Feb
+Finishing touches on interwiki modules
+Fix for some extended iw parameters
+
+17 Feb
+Improved handling of draft recovery on unexpected closing
+Interwiki link text preserved when different from link's replacement text
+
+18 Feb
+Improved regex for identifying interwiki links in edit.php
+
 19 Feb
 Synched with current updates to master
+Added onChange handler to editor window so that non-key-based changes are saved.
+
