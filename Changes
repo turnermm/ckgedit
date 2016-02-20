@@ -773,3 +773,6 @@ Fix for interwiki link shortcuts with .xx parts
 
 17 Feb
 Improved handling of draft recovery on unexpected closing
+
+19 Feb
+Added onChange handler to editor window so that non-key-based changes are saved
