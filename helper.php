@@ -453,7 +453,7 @@ function FCKeditor_OnComplete( editorInstance )
 
   oDokuWiki_FCKEditorInstance = editorInstance;
   editorInstance.on( 'key', handlekeypress, editorInstance );
- alert(editorInstance == CKEDITOR.instances.wiki__text);
+
   CKEDITOR.instances.wiki__text.on('change', function(event) {
         window.dwfckTextChanged = true;
   });
