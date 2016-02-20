@@ -784,3 +784,4 @@ Improved regex for identifying interwiki links in edit.php
 
 19 Feb
 Same as 18 Feb: improved matching of link text and iwiki tag
+Added onChange handler to editor window so that non-key-based changes are saved.
