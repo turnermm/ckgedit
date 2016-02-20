@@ -1,4 +1,4 @@
-rev 16-Feb_19-19_02
+rev 16-Feb_19-20_37
 
 28 Feb 2013
 Added support for interwiki links
@@ -771,8 +771,18 @@ Added bold and background color to selected link textbox
 09 Feb
 Fix for interwiki link shortcuts with .xx parts
 
+15 Feb
+Finishing touches on interwiki modules
+Fix for some extended iw parameters
+
 17 Feb
 Improved handling of draft recovery on unexpected closing
+Interwiki link text preserved when different from link's replacement text
+
+18 Feb
+Improved regex for identifying interwiki links in edit.php
 
 19 Feb
-Added onChange handler to editor window so that non-key-based changes are saved
+Same as 18 Feb: improved matching of link text and iwiki tag
+Added onChange handler to editor window so that non-key-based changes are saved.
+
