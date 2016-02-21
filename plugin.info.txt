@@ -1,7 +1,7 @@
 base  ckgedit
 author  Myron Turner
 email  turnermm02@shaw.ca
-date  2016-02-19
+date  2016-02-21
 name  ckgedit
 desc  WYSIWYG plugin for Dokuwiki
 url  https://www.dokuwiki.org/plugin:ckgedit
