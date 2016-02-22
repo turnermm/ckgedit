@@ -1,4 +1,4 @@
-rev 16-Feb_21-14_01
+rev 16-Feb_21-19_23
 
 28 Feb 2013
 Added support for interwiki links
@@ -786,3 +786,5 @@ Improved regex for identifying interwiki links in edit.php
 Same as 18 Feb: improved matching of link text and iwiki tag
 Added onChange handler to editor window so that non-key-based changes are saved.
 
+21 Feb
+Update en.js  missing iwililink entries
