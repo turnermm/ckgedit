@@ -154,6 +154,7 @@ function parse_wikitext(id) {
     var HTMLFormatInList = false;
     var HTMLAcroInList = false;
     var HTML_InterWiki = false;
+    var HTMLParserFont = false;   
     var CurrentTable;
 
     var HTMLParserTopNotes = new Array();
@@ -1128,6 +1129,7 @@ function parse_wikitext(id) {
           this.font_color = 'inherit';
           this.font_bgcolor = 'inherit';
 		  this.in_font=false;		
+          HTMLParserFont  = true;
 	 }
      if(tag == 'span' && this.curid) {
              this.curid = false;			  
@@ -1650,6 +1652,19 @@ function parse_wikitext(id) {
     if(HTMLParserOpenAngleBracket) {
          results = results.replace(/\/\/&lt;\/\/\s*/g,'&lt;');
     }
+   
+    if(HTMLParserFont) {
+         results = results.replace(/(\|<font[^\>]+>)([^<]+)<\/font>([^\]]+)\]\]/gm, function(match,a,b) {            
+               b=b.replace(/\n/gm,"");      
+               match='|' + b +']]';
+             var v = jQuery("#fontdel").val();              
+             if(!v) {                     
+                 jQuery('#dw__editform').append('<input type="hidden" id="fontdel" name="fontdel" value="del" />');
+             }
+             else alert(v);
+            return match;
+     } );
+   }
    if(HTMLParserTopNotes.length) {
         results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");      
         results = results.replace(/\(\(+(\d+)\)\)+/,"(($1))");   
