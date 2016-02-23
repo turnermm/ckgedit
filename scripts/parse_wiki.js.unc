@@ -257,7 +257,7 @@ function parse_wikitext(id) {
                   this.link_formats.push(tag);
                   return; 
          }
-      if(format_chars[tag] && this.in_font) {  
+      if(format_chars[tag] && (this.in_font || this.in_header)) {  
                 results += " ";               
                  var t = 'temp_' + tag;                 
                  results += markup[t];
@@ -1093,7 +1093,7 @@ function parse_wikitext(id) {
 
     end: function( tag ) {
 
-     if(format_chars[tag] && this.in_font) {  
+     if(format_chars[tag] && (this.in_font || this.in_header)){  
                  results += " ";
                  if(tag == 'sup' || tag == 'sub' || tag == 'del' || tag == 'strike' || tag == 's') {
                      var t = 'temp_c' + tag;
@@ -1549,6 +1549,14 @@ function parse_wikitext(id) {
      
      results=results.replace(/_SMB_/g, "\\");     
      
+     results = results.replace(/(\s*={2,})\s*CKGE_TMP_(\w+)(.*?)\s*CKGE_TMP_c?\2/gm, function(m,tag) {   //remove formats from headers
+             m=m.replace(/CKGE_TMP_\w+/gm,"");     
+             var v = jQuery("#formatdel").val();              
+             if(!v) {   
+             jQuery('#dw__editform').append('<input type="hidden" id="formatdel" name="formatdel" value="del" />');
+             }
+            return m;
+     } );
          results = results.replace(/(CKGE_TMP_\w+)/gm, function(m,tag) {      
             if($FORMAT_SUBST[tag]) return $FORMAT_SUBST[tag];       
             return m;
@@ -1661,7 +1669,6 @@ function parse_wikitext(id) {
              if(!v) {                     
                  jQuery('#dw__editform').append('<input type="hidden" id="fontdel" name="fontdel" value="del" />');
              }
-             else alert(v);
             return match;
      } );
    }
