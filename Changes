@@ -1,4 +1,4 @@
-rev 16-Feb_23-09_33
+rev 16-Feb_24-10_05
 
 28 Feb 2013
 Added support for interwiki links
@@ -790,7 +790,10 @@ Added onChange handler to editor window so that non-key-based changes are saved.
 Update en.js  missing iwililink entries
 
 22 Feb
-Remove font styles from urls
+Remove font styles (colors) from urls
 
 23 Feb
 Remove formatting from headers 
+
+24 Feb
+Handle font sizes and font-families in links

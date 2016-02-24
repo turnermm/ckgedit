@@ -1522,6 +1522,7 @@ function parse_wikitext(id) {
          if(text.replace) {
              text = text.replace(/^\s+/g,"");
              text = text.replace(/^\n$/g,"");
+              text = text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
              if(!text) return;
          }
          if(heading) { 
@@ -1662,6 +1663,16 @@ function parse_wikitext(id) {
     }
    
     if(HTMLParserFont) {
+ 
+   
+        results = results.replace(/(<font[^\>]+>)([^<]+\]\])[^\>]+\/font>/gm, function(match,a,b) {              
+            b=b.replace(/\n/gm,"");      
+            b=b.replace(/\s/gm,"");              
+            var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" +' [[' +b  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
+           if(val == null)   throw new Error(LANG.plugins.ckgedit.font_err_throw);
+           if(val) return val;
+           return '[[' +b; 
+     } );         
          results = results.replace(/(\|<font[^\>]+>)([^<]+)<\/font>([^\]]+)\]\]/gm, function(match,a,b) {            
                b=b.replace(/\n/gm,"");      
                match='|' + b +']]';
