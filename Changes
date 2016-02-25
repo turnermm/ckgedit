@@ -1,4 +1,4 @@
-rev 16-Feb_24-10_05
+16-Feb_25-13_09
 
 28 Feb 2013
 Added support for interwiki links
@@ -797,3 +797,9 @@ Remove formatting from headers
 
 24 Feb
 Handle font sizes and font-families in links
+
+25 Feb
+Safeguards against link and header corruption
+made link color more evident in ckeditor/content.css
+
+
