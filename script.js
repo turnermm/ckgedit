@@ -54,6 +54,11 @@ var HTMLParser_Elements = new Array();
              return  "~~START_HTML_BLOCK~~\n\n" +   text  + "\n\n~~CLOSE_HTML_BLOCK~~\n\n";
          }); 
         }
+        /* remove dwfck note superscripts from inside links */
+        html = html.replace(/(<sup\s+class=\"dwfcknote fckgL\d+\"\>fckgL\d+\s*\<\/sup\>)\<\/a\>/gm, function(match,sup,a) {
+             return( '</a>' +sup);   
+         }
+       );
         
 		stack.last = function(){
 			return this[ this.length - 1 ];

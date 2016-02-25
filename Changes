@@ -786,5 +786,20 @@ Improved regex for identifying interwiki links in edit.php
 Same as 18 Feb: improved matching of link text and iwiki tag
 Added onChange handler to editor window so that non-key-based changes are saved.
 
+21 Feb
+Update en.js  missing iwililink entries
+
+22 Feb
+Remove font styles (colors) from urls
+
+23 Feb
+Remove formatting from headers 
+
 24 Feb
+Handle font sizes and font-families in links
+
+25 Feb
 Safeguards against link and header corruption
+made link color more evident in ckeditor/content.css
+
+

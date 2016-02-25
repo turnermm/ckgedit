@@ -29,4 +29,7 @@ $lang['minor_changes'] = "Minor changes";
 $lang['discard_edits'] = "To Save your edits click OK; to Discard click Cancel";
 $lang['dw_btn_styling'] = "Edit Fonts";
 $lang['title_styling'] = 'Open with font styles shown as markup';
+$lang['js']['font_err_1'] = 'Font styling cannot be included in links. Click OK to accept the following correction:';
+$lang['js']['font_err_2'] = 'To revise, enter the full Dokuwiki link markup below, including brackets.  To return to Editor click Cancel.';
+$lang['js']['font_err_throw'] = 'Font Formatting Error';
 
