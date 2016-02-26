@@ -953,8 +953,8 @@ window.onbeforeunload = function() { };
 										[ editor.lang.common.notSet, '' ],
 										[ editor.lang.common.alignLeft, 'medialeft' ],
 										[ editor.lang.common.alignRight, 'mediaright' ],
-                                        [ "Center" , 'mediacenter'],
-                                        [ "Baseline" , 'baseline'],
+                                        [editor.lang.common.alignCenter , 'mediacenter'],
+                                        [ editor.lang.common.alignBaseLine||"Baseline" , 'baseline'],
 									],
                                     									onChange: function() {
 										updatePreview( this.getDialog() );
