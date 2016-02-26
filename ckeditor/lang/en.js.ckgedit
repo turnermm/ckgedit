@@ -108,6 +108,11 @@ none : 'none',
 CKEDITOR.lang['en']['signature'] = {
 ToolTip: 'Insert signature'
 };
+/* For these below, the 'en' is replaced by your language code.  For instance:
+     CKEDITOR.lang.de  //German
+     CKEDITOR.lang.fr  //French
+*/
 CKEDITOR.lang.en["format"]["panelTitle"]  = "Section Headers";
 CKEDITOR.lang.en["format"]["label"] = "Headlines";
 CKEDITOR.lang.en["stylescombo"]["panelTitle"]="Formatting Code Styles";
+CKEDITOR.lang.en.common["alignBaseLine"] = "Baseline";
