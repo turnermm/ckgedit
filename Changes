@@ -1,4 +1,4 @@
-rev 16-Feb_26-08_04
+rev -16-Feb_26-07_26
 
 28 Feb 2013
 Added support for interwiki links
@@ -803,5 +803,6 @@ Safeguards against link and header corruption
 made link color more evident in ckeditor/content.css
 
 26 Feb
-Added ckgedit French tranlsations for CKEditor (by blacklord049/github)
+Added ckgedit French translations for CKEditor (by blacklord049/github)
+Fixed missing translate call for Samba item in link drop-down
 
