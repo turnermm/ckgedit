@@ -783,13 +783,13 @@ window.onbeforeunload = function() { };
 									{
                                         id: 'cmbLinkType',
                                         type: 'select',                                      
-                                        label: "Link Type",
+                                        label: editor.lang.common.linkType||"Link Type",
                                         'default': 'detail',
                                         items: [                                           
-                                            [ "Detail", 'detail'],
-                                            [ "Direct", 'direct' ],
-                                            [ "No Link" , 'nolink'],
-                                            [ "Link only" , 'linkonly'],
+                                            [ editor.lang.common.linkDetail  || "Detail", 'detail'],
+                                            [ editor.lang.common.linkDirect ||"Direct", 'direct' ],
+                                            [ editor.lang.common.linkNoLink || "No Link" , 'nolink'],
+                                            [ editor.lang.common.linkOnly || "Link only" , 'linkonly'],
                                         ],
 							    },
                                 {
