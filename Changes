@@ -1,4 +1,4 @@
-rev 16-Mar_01-14_06
+rev 16-Mar_03-09_22
 
 28 Feb 2013
 Added support for interwiki links
@@ -808,3 +808,6 @@ Fixed missing translate call for Samba item in link drop-down
 
 1 Mar
 Added translation options to link dialog; French lang additions
+
+3 Mar
+English language correction in ckeditor/lang
