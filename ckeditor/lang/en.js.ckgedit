@@ -121,11 +121,11 @@ CKEDITOR.lang['en']["indent"] = {
         "indent": "Nested List",
         "outdent": "Decrease Nesting"
  };
-CKEDITOR.lang.en.["common"]["noLink"] = "Pas de lien";
-CKEDITOR.lang.en.["common"]["linkType"] = "Link type";
-CKEDITOR.lang.en.["common"]["linkDetail"] = "Detail";
-CKEDITOR.lang.en.["common"]["linkDirect"] = "Direct";
-CKEDITOR.lang.en.["common"]["linkNoLink"] = "No Link";
-CKEDITOR.lang.en.["common"]["linkOnly"] = "Link only";
+CKEDITOR.lang.en["common"]["noLink"] = "Pas de lien";
+CKEDITOR.lang.en["common"]["linkType"] = "Link type";
+CKEDITOR.lang.en["common"]["linkDetail"] = "Detail";
+CKEDITOR.lang.en["common"]["linkDirect"] = "Direct";
+CKEDITOR.lang.en["common"]["linkNoLink"] = "No Link";
+CKEDITOR.lang.en["common"]["linkOnly"] = "Link only";
  
 
