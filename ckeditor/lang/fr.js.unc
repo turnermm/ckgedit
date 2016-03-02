@@ -23,7 +23,7 @@ CKEDITOR.lang['fr'] = {
         "button": "Bouton",
         "select": "Liste déroulante",
         "imageButton": "Bouton image",
-        "notSet": "<non défini>",
+        "notSet": "Non défini",
         "id": "Id",
         "name": "Nom",
         "langDir": "Sens d'écriture",
@@ -780,7 +780,11 @@ CKEDITOR.lang['fr']["indent"] = {
         "outdent": "Decrease Nesting"
  };
 CKEDITOR.lang['fr'] ["stylescombo"]["label"]= "Code";
-CKEDITOR.lang['fr']["indent"] = {
-        "indent": "Nested List",
-        "outdent": "Decrease Nesting"
- };
+CKEDITOR.lang.fr["common"]["noLink"] = "Pas de lien";
+CKEDITOR.lang.fr["common"]["linkType"] = "Type de lien";
+CKEDITOR.lang.fr["common"]["linkDetail"] = "Page de détail";
+CKEDITOR.lang.fr["common"]["linkDirect"] = "Image et lien";
+CKEDITOR.lang.fr["common"]["linkNoLink"] = "Pas de lien";
+CKEDITOR.lang.fr["common"]["linkOnly"] = "Lien; sans image";
+CKEDITOR.lang.fr["common"]["notSet"]= "Non défini";
+ 
