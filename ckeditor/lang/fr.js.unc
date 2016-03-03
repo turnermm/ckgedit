@@ -6,6 +6,12 @@ CKEDITOR.lang['fr'] = {
     "editor": "Éditeur de Texte Enrichi",
     "editorPanel": "Tableau de bord de l'éditeur de texte enrichi",
     "common": {
+	    "noLink" : "Pas de lien",
+		"linkType" : "Type de lien",
+		"linkDetail" : "Page de détail",
+		"linkDirect" : "Image et lien",
+		"linkNoLink" : "Pas de lien",
+		"linkOnly" : "Lien, sans image",
         "editorHelp": "Appuyez sur ALT-0 pour l'aide",
         "browseServer": "Parcourir le serveur",
         "url": "URL",
@@ -661,7 +667,11 @@ CKEDITOR.lang['fr'] = {
         "progress": "Vérification de l'orthographe en cours...",
         "title": "Vérifier l'orthographe",
         "toolbar": "Vérifier l'orthographe"
-    }
+    },
+	"tags": {
+		"dlgTitle": "Mots-clés / Tags",
+		"customTags" : "Personnalisé - Liste de mots séparés par des espaces. Les espaces dans les mots doivent être remplacés par des tirets bas _."
+	}
 };
 
 CKEDITOR.lang['fr']['fbrowser'] = {
@@ -775,16 +785,3 @@ CKEDITOR.lang['fr']['signature'] = {
 CKEDITOR.lang.fr["format"]["panelTitle"]  = "En-têtes de section";
 CKEDITOR.lang.fr["format"]["label"] = "Titres";
 CKEDITOR.lang.fr["stylescombo"]["panelTitle"]="Styles de formatage de code";
-CKEDITOR.lang['fr']["indent"] = {
-        "indent": "Nested List",
-        "outdent": "Decrease Nesting"
- };
-CKEDITOR.lang['fr'] ["stylescombo"]["label"]= "Code";
-CKEDITOR.lang.fr["common"]["noLink"] = "Pas de lien";
-CKEDITOR.lang.fr["common"]["linkType"] = "Type de lien";
-CKEDITOR.lang.fr["common"]["linkDetail"] = "Page de détail";
-CKEDITOR.lang.fr["common"]["linkDirect"] = "Image et lien";
-CKEDITOR.lang.fr["common"]["linkNoLink"] = "Pas de lien";
-CKEDITOR.lang.fr["common"]["linkOnly"] = "Lien; sans image";
-CKEDITOR.lang.fr["common"]["notSet"]= "Non défini";
- 
