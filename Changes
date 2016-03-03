@@ -1,4 +1,4 @@
-rev 16-Mar_03-09_22
+rev_16-Mar_03-10_34
 
 28 Feb 2013
 Added support for interwiki links
@@ -811,3 +811,4 @@ Added translation options to link dialog; French lang additions
 
 3 Mar
 English language correction in ckeditor/lang
+Update to ceditor fr lang
