@@ -811,4 +811,8 @@ Added translation options to link dialog; French lang additions
 
 3 Mar
 English language correction in ckeditor/lang
-Update to ceditor fr lang
+Update to ckeditor fr lang
+
+3 Mar
+Synched Fr and Eng language files and image.js, image.js.unc with master
+
