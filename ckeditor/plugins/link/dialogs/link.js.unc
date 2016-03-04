@@ -558,7 +558,7 @@ var useHeading = function(wiki_id) {
                             [ translateItem('InternalLink'), 'internal' ],
                             [translateItem('InternalMedia'), 'media' ],
 							[ linkLang.toEmail, 'email' ],
-							[ 'Samba share', 'samba' ]	,
+						   [  translateItem('SMBLabel'), 'samba' ]	,
                            [translateItem('InterWikiLink'), 'interwiki' ]	                            
 						],
 						onChange : linkTypeChanged,

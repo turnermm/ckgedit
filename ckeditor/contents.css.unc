@@ -290,6 +290,7 @@ a.interwiki {
     background-repeat: no-repeat;
     background-position: 0 center;
     padding: 0 0 0 20px;
+    color: #1c86ff !important;
 }
 
 a.windows {
@@ -548,6 +549,20 @@ span.multi_p_open
     display: block;
 }
 
+a.urlextern,
+a.windows,
+a.mail,
+a.mediafile,
+a.interwiki,
+a.urlextern:visited,
+a.windows:visited,
+a.mail:visited,
+a.mediafile:visited,
+a.interwiki:visited
+ {
+    color: #1c86ff !important;
+    text-decoration:none;
+}
 
 
 

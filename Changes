@@ -799,3 +799,33 @@ Improved regex for identifying interwiki links in edit.php
 Synched with current updates to master
 Added onChange handler to editor window so that non-key-based changes are saved.
 
+21 Feb
+Update en.js  missing iwililink entries
+
+22 Feb
+Remove font styles (colors) from urls
+
+23 Feb
+Remove formatting from headers 
+
+24 Feb
+Handle font sizes and font-families in links
+
+25 Feb
+Safeguards against link and header corruption
+made link color more evident in ckeditor/content.css
+
+26 Feb
+Added ckgedit French translations for CKEditor (by blacklord049/github)
+Fixed missing translate call for Samba item in link drop-down
+
+1 Mar
+Added translation options to link dialog; French lang additions
+
+3 Mar
+English language correction in ckeditor/lang
+Update to ckeditor fr lang
+
+3 Mar
+Synched Fr and Eng language files and image.js, image.js.unc with master
+
