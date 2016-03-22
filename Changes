@@ -1,4 +1,4 @@
-rev_16-Mar_04-12_06
+rev_16-Mar_22-14_47
 
 28 Feb 2013
 Added support for interwiki links
@@ -819,4 +819,6 @@ Synched Fr and Eng language files and image.js, image.js.unc with master
 4 Mar
 Updated farms--fastforward issue
 
+22 Mar 
+Fixed undefined index ckg_savedir on line 98 of config.php
 
