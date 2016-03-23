@@ -488,8 +488,11 @@ function check_userfiles() {
        global $ACT;
        global $ID; 
        global $JSINFO;
+       global  $INPUT;
+       
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
        $JSINFO['doku_base'] = DOKU_BASE ;
+       $JSINFO['cg_rev'] = $INPUT->str('rev');
 	   $this->check_userfiles(); 
 	   
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
