@@ -1,4 +1,4 @@
-rev_16-Mar_22-14_47
+rev_16-Mar_23-12_19
 
 28 Feb 2013
 Added support for interwiki links
@@ -822,3 +822,5 @@ Updated farms--fastforward issue
 22 Mar 
 Fixed undefined index ckg_savedir on line 98 of config.php
 
+23 Mar
+Fixed save on unchanged revision loaded into editor
