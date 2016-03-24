@@ -72,8 +72,7 @@ function ProtectPath(path)
 
 oListManager.GetFolderRowHtml = function( folderName, folderPath, folder_class, isImage )
 {
-	// Build the link to view the folder.
-   // folderPath = decodeURI(folderPath);
+	
     folderPath = dwikiUTF8_decodeFN(folderPath,DwikiFNencode);
 	var sLink = '<a href="#" onclick="OpenFolder(\'' + ProtectPath( folderPath ) + '\');return false;">' ;
     icon = 'images/Folder.gif';
@@ -403,6 +402,8 @@ function GetFoldersAndFilesCallBack( fckXml )
 		var oNode = oNodes[j] ;
         var sFileName = dwikiUTF8_decodeFN(oNode.attributes.getNamedItem('name').value,DwikiFNencode);
     	var sFileSize = oNode.attributes.getNamedItem('size').value ;
+        var sFileTiime = oNode.attributes.getNamedItem('time').value;
+        alert(sFileTiime);
         if(isInternalLink) {
             if(!sFileName.match(/\.txt$/)) continue;
             sFileName = sFileName.replace(/\.txt$/,"");    
