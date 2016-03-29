@@ -522,9 +522,11 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
 		       { 
                   toolbar: '$toolbar' ,    
                   height: $height,
-                  filebrowserImageBrowseUrl :  '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',
-                  filebrowserBrowseUrl: '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',                                
-               }
+                 filebrowserWindowWidth: '1175',
+                 filebrowserWindowHeight: '650',
+                 filebrowserImageBrowseUrl :  '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',
+                 filebrowserBrowseUrl: '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',                                
+               } 
 		   );
            FCKeditor_OnComplete(ckgeditCKInstance);
            
