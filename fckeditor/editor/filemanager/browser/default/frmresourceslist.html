@@ -403,7 +403,7 @@ function GetFoldersAndFilesCallBack( fckXml )
         var sFileName = dwikiUTF8_decodeFN(oNode.attributes.getNamedItem('name').value,DwikiFNencode);
     	var sFileSize = oNode.attributes.getNamedItem('size').value ;
         var sFileTiime = oNode.attributes.getNamedItem('time').value;
-        alert(sFileTiime);
+      //  alert(sFileTiime);
         if(isInternalLink) {
             if(!sFileName.match(/\.txt$/)) continue;
             sFileName = sFileName.replace(/\.txt$/,"");    
