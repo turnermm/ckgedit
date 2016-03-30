@@ -235,38 +235,39 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
       div#wrapper{
           margin:auto; 
           background-color:#ffffff;         
-         height: 560px;
-         width: 975px;
+          height: 555px;
+          width: 950px;
       }
     div.left_sidebar  {
     float:left;    
-    height: 555px; width: 200px;    
+    height: 555px; width: 185px;    
     }
 
    div.right_page {  
       float:right;  padding:0px; 
-      width: 770px; height:555px;
+      width: 760px; height:555px;
     }
     .resourceslist {
-       width:770px;
-       height:400px;
+ 
+      border-left: 0px;
     }
     div#bottom_matter {
         height:95px;
-        width: 100%;
+        width: 760px;
         background-color: #dddddd;
-     
+        border-top: 1px solid black;
     }
-    .createfolder {
-        height: 90px
-        width: 180px;
+    .createfolder { 
         float: left;
+        border:none;
+     
     }
     
     .frmupload{
-        height:50%;      
-        width:100%;
         float:right;
+        padding-left:1px;
+        padding-right:4px;
+        border:none;
     }
     div#worker {
        height:0px; width:0px;
@@ -276,15 +277,15 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 	</head>
     <div id='wrapper'>
           <div class="left_sidebar">
-               <iframe src="frmresourcetype.html"style="height:50px;width: 200px;"></iframe>
-              <iframe name="frmFolders" src="frmfolders.html" scrolling="auto" style="height:500px; width:200px;"></iframe>
+               <iframe src="frmresourcetype.html" height="50" width="185"></iframe>
+              <iframe name="frmFolders" src="frmfolders.html" scrolling="auto"  width="185" height="505" ></iframe>
         </div>
         <div class="right_page">
             <iframe nameame name="frmActualFolder" src="frmactualfolder.html"  style="height:50px;width:770px;"></iframe>
-            <iframe name="frmResourcesList" class="resourceslist" src="frmresourceslist.html" scrolling="auto"></iframe>
+            <iframe name="frmResourcesList" class="resourceslist" src="frmresourceslist.html"   width="760"   height="400"  scrolling="auto"></iframe>
          <div id="bottom_matter">   
-                      <iframe name="frmCreateFolder" style ="height:90px; width: 190px;float:left;" src="frmcreatefolder.html"></iframe>                                            
-                      <iframe name="frmUpload" src="frmupload.html" style="float:right; height:90px; width:555px;padding-left:1px;padding-right:4px;"></iframe>
+                      <iframe name="frmCreateFolder"  class="createfolder"   height="60  width="140" src="frmcreatefolder.html"></iframe>                                            
+                      <iframe name="frmUpload" src="frmupload.html"  class="frmupload" width="400" height="60" ></iframe>
         </div>
         </div> 
 	  <iframe name="frmUploadWorker" src="javascript:void(0)" style="height:0px;width:0px">
