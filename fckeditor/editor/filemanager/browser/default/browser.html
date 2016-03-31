@@ -75,10 +75,31 @@ var isDwikiImage = opener.oDokuWiki_FCKEditorInstance.isDwikiImage;
 	}
 })() ;
 
-window.onload = function() {  
+window.__onload = function() {  
   setupLanguage();
 }
 
+window.onload = function()
+{
+   window.top.IsLoadedCreateFolder = true ;
+   setupLanguage();
+
+   if(CurrentDWikiUser == 'visitor' || isLocalDwikiBrowser || !CurrentDWikiUser) {
+     document.getElementById("btn__create_folder").disabled = true;    
+     document.getElementById("create_folder").innerHTML = "";
+   }
+// alert(CreateDwikiFolder);
+   if(CreateDwikiFolder == 'n') {
+        document.getElementById('create_folder').style.display = 'none';  
+   }
+  else {
+       document.getElementById('folder_hint_icons').style.display = 'none';  
+       
+  }
+ if(navigator.userAgent.match(/macintosh/i)) {
+       document.getElementById('is_mac').innerHTML = 'Cmd';
+ }
+}
 function GetUrlParam( paramName )
 {
 	var oRegex = new RegExp( '[\?&]' + paramName + '=([^&]+)', 'i' ) ;
@@ -232,15 +253,18 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 
 		</script>
     <style type='text/css'>
+    body {
+     background-color: #ddd;
+    }
       div#wrapper{
           margin:auto; 
-          background-color:#ffffff;         
+          background-color:#ddd;         
           height: 555px;
           width: 950px;
       }
     div.left_sidebar  {
     float:left;    
-    height: 555px; width: 185px;    
+    height: 505px; width: 185px;    
     }
 
    div.right_page {  
@@ -252,15 +276,17 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
       border-left: 0px;
     }
     div#bottom_matter {
-        height:95px;
-        width: 760px;
-        background-color: #dddddd;
-        border-top: 1px solid black;
+        height:75px;
+        width: 760px;      
+        background-color: #dddddd; 
+       	border: inset #f1f1e3;
+       
     }
     .createfolder { 
         float: left;
         border:none;
-     
+        height:60px; 
+        width:140px; 
     }
     
     .frmupload{
@@ -278,17 +304,46 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
     <div id='wrapper'>
           <div class="left_sidebar">
                <iframe src="frmresourcetype.html" height="50" width="185"></iframe>
-              <iframe name="frmFolders" src="frmfolders.html" scrolling="auto"  width="185" height="505" ></iframe>
+              <iframe name="frmFolders" src="frmfolders.html" scrolling="auto"  width="185" height="490" ></iframe>
         </div>
         <div class="right_page">
             <iframe nameame name="frmActualFolder" src="frmactualfolder.html"  style="height:50px;width:770px;"></iframe>
             <iframe name="frmResourcesList" class="resourceslist" src="frmresourceslist.html"   width="760"   height="400"  scrolling="auto"></iframe>
-         <div id="bottom_matter">   
-                      <iframe name="frmCreateFolder"  class="createfolder"   height="60  width="140" src="frmcreatefolder.html"></iframe>                                            
-                      <iframe name="frmUpload" src="frmupload.html"  class="frmupload" width="400" height="60" ></iframe>
+             <div id="bottom_matter">   
+                <div id="create_folder"  class="createfolder">
+                    <table  class="fullHeight" cellSpacing="0" cellPadding="0" width="100%" border="0">
+                        <tr>
+                            <td>
+                                <button id = "btn__create_folder" type="button" style="WIDTH: 100%" onclick="window.frames['frmCreateFolder'].CreateFolder();">
+                                    <table cellSpacing="0" cellPadding="0" border="0">
+                                        <tr id="create_folder_img">
+                                            <td><img height="15" alt="" src="images/Folder.gif" width="15"></td>
+                                            <td>&nbsp;</td>
+                                            <td nowrap><span fckLang="DlgFileBrowserNewFolder">Create Folder</span></td>
+                                        </tr>
+                                    </table>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                 </div>
+                <div id="folder_hint_icons">
+                <table cellspace='2'>
+                <tr><td>
+                Move: <span id='is_mac'>Ctrl</span>+<img alt="trash" src="images/trash.png"><br />
+                </td></tr>
+                <tr><td>
+                <img height="16" alt="" src="images/FolderOpenedRO.gif" width="15"> <span fckLang="DlgFileBrowserRead">read-only</span><br>
+                <img height="16" alt="" src="images/FolderOpened.gif" width="16"> <span fckLang="DlgFileBrowserWrite">uploadable</span>
+                </td></tr>
+                </table>
+                </div>
+                 <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe>                                                     
+                  <iframe name="frmUpload" src="frmupload.html"  class="frmupload" width="0" height="0" ></iframe>
         </div>
         </div> 
-	  <iframe name="frmUploadWorker" src="javascript:void(0)" style="height:0px;width:0px">
+	    <iframe name="frmUploadWorker" src="javascript:void(0)" style="height:0px;width:0px">
+         
     </div>
 
 </html>
