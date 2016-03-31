@@ -75,9 +75,6 @@ var isDwikiImage = opener.oDokuWiki_FCKEditorInstance.isDwikiImage;
 	}
 })() ;
 
-window.__onload = function() {  
-  setupLanguage();
-}
 
 window.onload = function()
 {
@@ -88,14 +85,11 @@ window.onload = function()
      document.getElementById("btn__create_folder").disabled = true;    
      document.getElementById("create_folder").innerHTML = "";
    }
-// alert(CreateDwikiFolder);
+
    if(CreateDwikiFolder == 'n') {
         document.getElementById('create_folder').style.display = 'none';  
    }
-  else {
-       document.getElementById('folder_hint_icons').style.display = 'none';  
-       
-  }
+  
  if(navigator.userAgent.match(/macintosh/i)) {
        document.getElementById('is_mac').innerHTML = 'Cmd';
  }
@@ -272,7 +266,6 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
       width: 760px; height:555px;
     }
     .resourceslist {
- 
       border-left: 0px;
     }
     div#bottom_matter {
@@ -289,12 +282,15 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
         width:140px; 
     }
     
-    .frmupload{
+    div.frmupload{
         float:right;
         padding-left:1px;
         padding-right:4px;
-        border:none;
+        height:60px;
+        width: 600px;
+      
     }
+    
     div#worker {
        height:0px; width:0px;
     }
@@ -327,19 +323,13 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
                         </tr>
                     </table>
                  </div>
-                <div id="folder_hint_icons">
-                <table cellspace='2'>
-                <tr><td>
-                Move: <span id='is_mac'>Ctrl</span>+<img alt="trash" src="images/trash.png"><br />
-                </td></tr>
-                <tr><td>
-                <img height="16" alt="" src="images/FolderOpenedRO.gif" width="15"> <span fckLang="DlgFileBrowserRead">read-only</span><br>
-                <img height="16" alt="" src="images/FolderOpened.gif" width="16"> <span fckLang="DlgFileBrowserWrite">uploadable</span>
-                </td></tr>
-                </table>
+                <div   class="frmupload">
+                          <iframe name="frmUpload" src="frmupload.html"  frameborder="0" width="600" height="60" ></iframe>
                 </div>
+                <div style="display:none">
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe>                                                     
-                  <iframe name="frmUpload" src="frmupload.html"  class="frmupload" width="0" height="0" ></iframe>
+                  <iframe name="frmUpload" src="frmupload.html"   width="0" height="0" ></iframe>
+                </div>    
         </div>
         </div> 
 	    <iframe name="frmUploadWorker" src="javascript:void(0)" style="height:0px;width:0px">
