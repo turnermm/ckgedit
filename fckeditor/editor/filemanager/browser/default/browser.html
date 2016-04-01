@@ -245,6 +245,17 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 		window.frames['frmUpload'].OnUploadCompleted( errorNumber, fileName ) ;
 }
 
+function fbsz_inc(val) {  
+    var d = new Date();
+    if(val == 'del') {
+        document.cookie ="fbsz=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";        
+        return;
+    }
+   d.setTime(d.getTime() + 365*24*60*60*1000);   
+   var expires = "expires="+d.toUTCString(); 
+   document.cookie =  "fbsz=" + val + "; " + expires + "; path=/";   
+}
+
 		</script>
     <style type='text/css'>
     body {
@@ -272,7 +283,7 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
        	border: 2px inset #f1f1e3;
     }
     div#bottom_matter {
-        height:75px;
+        height:76px;
         width: 758px;      
         background-color: #dddddd; 
        	border: inset #f1f1e3;
@@ -336,6 +347,7 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
                 <div style="display:none">
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
                 </div>    
+                <form id= adjustfbsz">Adjust browser window size (requires page re-load):  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp; Unset<input type="radio" name="adjfbsz" onchange="fbsz_inc('del');"></form>
         </div>
         </div> 
 	    <iframe name="frmUploadWorker" src="javascript:void(0)" style="height:0px;width:0px">
