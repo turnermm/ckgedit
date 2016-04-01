@@ -268,9 +268,12 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
     .resourceslist {
       border-left: 0px;
     }
+    .frameborder {    
+       	border: 2px inset #f1f1e3;
+    }
     div#bottom_matter {
         height:75px;
-        width: 760px;      
+        width: 758px;      
         background-color: #dddddd; 
        	border: inset #f1f1e3;
        
@@ -287,7 +290,7 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
         padding-left:1px;
         padding-right:4px;
         height:60px;
-        width: 600px;
+        width: 598px;
       
     }
     
@@ -303,8 +306,12 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
               <iframe name="frmFolders" src="frmfolders.html" scrolling="auto"  width="180" height="490" ></iframe>
         </div>
         <div class="right_page">
-            <iframe  name="frmActualFolder" src="frmactualfolder.html"  style="height:50px;width:760px;"></iframe>
-            <iframe name="frmResourcesList" class="resourceslist" src="frmresourceslist.html"   width="760"   height="400"  scrolling="auto"></iframe>
+           <div class="frameborder">
+            <iframe  name="frmActualFolder" src="frmactualfolder.html" frameborder="0" width=750"  height="50"></iframe>
+            </div>
+             <div class="frameborder">
+            <iframe name="frmResourcesList" class="resourceslist" src="frmresourceslist.html"  frameborder="0"  width="758"   height="400"  scrolling="auto"></iframe>
+            </div>
              <div id="bottom_matter">   
                 <div id="create_folder"  class="createfolder">
                     <table  class="fullHeight" cellSpacing="0" cellPadding="0" width="100%" border="0">
@@ -324,7 +331,7 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
                     </table>
                  </div>
                 <div   class="frmupload">
-                          <iframe name="frmUpload" src="frmupload.html"  frameborder="0" width="600" height="60" ></iframe>
+                          <iframe name="frmUpload" src="frmupload.html"  frameborder="0" width="598" height="60" ></iframe>
                 </div>
                 <div style="display:none">
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
