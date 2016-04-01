@@ -248,12 +248,14 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 function fbsz_inc(val) {  
     var d = new Date();
     if(val == 'del') {
-        document.cookie ="fbsz=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";        
+        document.cookie ="fbsz=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";    
+        alert("The file browser window will be reset to its default size after your page is reloaded into the editor.")        
         return;
     }
    d.setTime(d.getTime() + 365*24*60*60*1000);   
    var expires = "expires="+d.toUTCString(); 
    document.cookie =  "fbsz=" + val + "; " + expires + "; path=/";   
+   alert("The file browser window will be increased in size by "+  val + "% after your page is reloaded into the editor.")
 }
 
 		</script>
@@ -347,7 +349,7 @@ function fbsz_inc(val) {
                 <div style="display:none">
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
                 </div>    
-                <form id= adjustfbsz">Adjust browser window size (requires page re-load):  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp; Unset<input type="radio" name="adjfbsz" onchange="fbsz_inc('del');"></form>
+                <form id= adjustfbsz">Adjust browser window size:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp; Reset<input type="radio" name="adjfbsz" onchange="fbsz_inc('del');"></form>
         </div>
         </div> 
 	    <iframe name="frmUploadWorker" src="javascript:void(0)" style="height:0px;width:0px">
