@@ -345,12 +345,10 @@ function OpenFile( fileUrl )
 	window.top.close() ;
 	window.top.opener.focus() ;
 }
-function test_Resource() {
-oListManager.Clear();
-   //alert(oConnector.ResourceType);
-   oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
-   
-  // alert(oConnector.CurrentFolder);
+function sorFiletList(type) {
+     oListManager.Clear();
+    oConnector.SortType = type;
+    oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
 }
 function LoadResources( resourceType, folderPath )
 {
@@ -410,6 +408,21 @@ function GetFoldersAndFilesCallBack( fckXml )
 
 	// Add the Files.
 	oNodes = fckXml.SelectNodes( 'Connector/Files/File' ) ;
+    if(oConnector.SortType == 'mtime') {
+        oNodes.sort(function(a, b) {
+            var a_tm = Number(a.attributes.getNamedItem('time').value);
+            var b_tm = Number(b.attributes.getNamedItem('time').value);
+            return a_tm - b_tm;
+         });
+     }
+     else if(oConnector.SortType == 'fsize') {
+        oNodes.sort(function(a, b) {         
+            var a_tm = parseInt(a.attributes.getNamedItem('size').value);
+            var b_tm = parseInt(b.attributes.getNamedItem('size').value);
+         
+            return a_tm - b_tm;
+         });
+     }
 	for ( var j = 0 ; j < oNodes.length ; j++ )
 	{
 		var oNode = oNodes[j] ;

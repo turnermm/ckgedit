@@ -258,10 +258,7 @@ function fbsz_inc(val) {
 }
 
 function fb_sort(type) {
-
-window.frames['frmResourcesList'].test_Resource();
-
-//alert(type);
+window.frames['frmResourcesList'].sorFiletList(type);
 }
 		</script>
     <style type='text/css'>
@@ -355,7 +352,7 @@ window.frames['frmResourcesList'].test_Resource();
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
                 </div>                    
                 <form id= adjustfbsz">Adjust browser window size:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp; Reset<input type="radio" name="adjfbsz" onchange="fbsz_inc('del');"> </form>  
-                <form>Sort by:  Name<input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;Upload time<input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');"> </form>
+                <form>Sort by:  Name<input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;Upload time<input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;File Size<input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');"> </form>
               </div>
                
         </div> 
