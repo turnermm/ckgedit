@@ -246,9 +246,10 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 
 function fbsz_inc(val) {  
     var d = new Date();
-    if(val == 'del') {
+    if(val == 'reset') {
         document.cookie ="fbsz=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";    
-        alert("The file browser window will be reset to its default size after your page is reloaded into the editor.")        
+        alert(translateItem('DlgFileBrowserResizeMsg', "The file browser window will be reset to its default size after your page is reloaded into the editor."));        
+       // alert("The file browser window will be reset to its default size after your page is reloaded into the editor.")        
         return;
     }
    d.setTime(d.getTime() + 365*24*60*60*1000);   
@@ -351,8 +352,8 @@ window.frames['frmResourcesList'].sorFiletList(type);
                 <div style="display:none">
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
                 </div>                    
-                <form id= adjustfbsz">Adjust browser window size:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp; Reset<input type="radio" name="adjfbsz" onchange="fbsz_inc('del');"> </form>  
-                <form>Sort by:  Name<input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;Upload time<input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;File Size<input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');"> </form>
+                <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
+                <form><span fckLang="DlgFileBrowserSortBy">Sort by</span>:  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;<span fckLang="DlgFileBrowserSortDate">Upload time</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');"> </form>
               </div>
                
         </div> 
