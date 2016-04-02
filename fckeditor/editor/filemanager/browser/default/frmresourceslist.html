@@ -205,7 +205,7 @@ function showImage(id) {
 }
 
 var foldersDone = { };
-oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage )
+oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fileTime )
 {
     var c_type = "file";
     if(isImage) {
@@ -215,7 +215,14 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage )
         }
         else c_type = 'img';
     }
-
+  
+   fileTime =  new Date(Number(fileTime)*1000);
+   var options = {
+   year: "numeric", month: "short",
+    day: "numeric", hour: "2-digit", minute: "2-digit"
+   };
+  fileTime ="&nbsp;&nbsp;&nbsp;&nbsp;" +  fileTime.toLocaleTimeString("en-us", options);
+  // fileTime = fileTime;
 	// Build the link to view the folder.
 	var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
 
@@ -260,7 +267,7 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage )
 			 '<\/td>' + imgTD +
 			'<\/td>' + '<td align="right" class="' + c_type + '"nowrap>&nbsp;' + fileSizeSpan +
 				fileSize +
-				' KB' +
+				' KB'  +   fileTime +             
 		'<\/td><\/tr>' ;
 }
 
@@ -338,7 +345,13 @@ function OpenFile( fileUrl )
 	window.top.close() ;
 	window.top.opener.focus() ;
 }
-
+function test_Resource() {
+oListManager.Clear();
+   //alert(oConnector.ResourceType);
+   oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
+   
+  // alert(oConnector.CurrentFolder);
+}
 function LoadResources( resourceType, folderPath )
 {
     //alert(resourceType + "\n" + folderPath);
@@ -402,8 +415,8 @@ function GetFoldersAndFilesCallBack( fckXml )
 		var oNode = oNodes[j] ;
         var sFileName = dwikiUTF8_decodeFN(oNode.attributes.getNamedItem('name').value,DwikiFNencode);
     	var sFileSize = oNode.attributes.getNamedItem('size').value ;
-        var sFileTiime = oNode.attributes.getNamedItem('time').value;
-      //  alert(sFileTiime);
+        var sFileTime = oNode.attributes.getNamedItem('time').value;
+      
         if(isInternalLink) {
             if(!sFileName.match(/\.txt$/)) continue;
             sFileName = sFileName.replace(/\.txt$/,"");    
@@ -432,7 +445,7 @@ function GetFoldersAndFilesCallBack( fckXml )
             sFileUrl = encodeURI(sFileUrl);         
             sFileUrl = encodeURI(sFileUrl);         
        }
-		oHtml.Append( oListManager.GetFileRowHtml( sFileName, sFileUrl, sFileSize, isImage) ) ;
+		oHtml.Append( oListManager.GetFileRowHtml( sFileName, sFileUrl, sFileSize, isImage, sFileTime) ) ;
 	}
 
 	oHtml.Append( '<\/table>' ) ;

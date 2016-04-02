@@ -1,5 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
-   "http://www.w3.org/TR/html4/frameset.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!--
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
  * Copyright (C) 2003-2009 Frederico Caldeira Knabben
@@ -258,6 +257,12 @@ function fbsz_inc(val) {
    alert("The file browser window will be increased in size by "+  val + "% after your page is reloaded into the editor.")
 }
 
+function fb_sort(type) {
+
+window.frames['frmResourcesList'].test_Resource();
+
+//alert(type);
+}
 		</script>
     <style type='text/css'>
     body {
@@ -276,7 +281,7 @@ function fbsz_inc(val) {
 
    div.right_page {  
       float:right;  padding:0px; 
-      width: 760px; height:555px;
+      width: 760px; height:580px;
     }
     .resourceslist {
       border-left: 0px;
@@ -285,7 +290,7 @@ function fbsz_inc(val) {
        	border: 2px inset #f1f1e3;
     }
     div#bottom_matter {
-        height:76px;
+        height:100px;
         width: 758px;      
         background-color: #dddddd; 
        	border: inset #f1f1e3;
@@ -348,9 +353,11 @@ function fbsz_inc(val) {
                 </div>
                 <div style="display:none">
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
-                </div>    
-                <form id= adjustfbsz">Adjust browser window size:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp; Reset<input type="radio" name="adjfbsz" onchange="fbsz_inc('del');"></form>
-        </div>
+                </div>                    
+                <form id= adjustfbsz">Adjust browser window size:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp; Reset<input type="radio" name="adjfbsz" onchange="fbsz_inc('del');"> </form>  
+                <form>Sort by:  Name<input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;Upload time<input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');"> </form>
+              </div>
+               
         </div> 
 	    <iframe name="frmUploadWorker" src="javascript:void(0)" style="height:0px;width:0px">
          
