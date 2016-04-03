@@ -261,6 +261,11 @@ function fbsz_inc(val) {
 function fb_sort(type) {
 window.frames['frmResourcesList'].sorFiletList(type);
 }
+function  OnSearchSubmit(f) {
+alert(f); return;
+alert(f.fsearch.value)
+   
+}
 		</script>
     <style type='text/css'>
     body {
@@ -269,7 +274,7 @@ window.frames['frmResourcesList'].sorFiletList(type);
       div#wrapper{
           margin:auto; 
           background-color:#ddd;         
-          height: 555px;
+          height: 563px;
           width: 960px;
       }
     div.left_sidebar  {
@@ -288,7 +293,7 @@ window.frames['frmResourcesList'].sorFiletList(type);
        	border: 2px inset #f1f1e3;
     }
     div#bottom_matter {
-        height:100px;
+        height:108px;
         width: 758px;      
         background-color: #dddddd; 
        	border: inset #f1f1e3;
@@ -309,7 +314,11 @@ window.frames['frmResourcesList'].sorFiletList(type);
         width: 598px;
       
     }
-    
+    .ckg_td1 {
+       padding-right:8px;       
+       text-align: right;
+       width:300px;
+    }
     div#worker {
        height:0px; width:0px;
     }
@@ -351,9 +360,11 @@ window.frames['frmResourcesList'].sorFiletList(type);
                 </div>
                 <div style="display:none">
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
-                </div>                    
+                </div> <table "><tr><td colspan="2">                   
                 <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
-                <form><span fckLang="DlgFileBrowserSortBy">Sort by</span>:  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;<span fckLang="DlgFileBrowserSortDate">Upload time</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');"> </form>
+                </td></tr>
+                <tr><td ><form><span fckLang="DlgFileBrowserSortBy">Sort by</span>:  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;<span fckLang="DlgFileBrowserSortDate">Upload time</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');"> </form>
+                </td><td class="ckg_td1"><form action="" target="frmUploadWorker" method="post"  onsubmit="return OnSearchSubmit(this);">&nbsp;&nbsp; <input type="text" name="fsearch" id="fsearch"> <input type="submit" fckLang="DlgFileBrowserSearch" value="Search"></form></td></tr></table>
               </div>
                
         </div> 
