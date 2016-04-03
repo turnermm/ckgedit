@@ -1,4 +1,4 @@
-rev_16-Mar_23-12_31
+rev_16-Apr_03-11_32
 
 28 Feb 2013
 Added support for interwiki links
@@ -824,3 +824,6 @@ Fixed undefined index ckg_savedir on line 98 of config.php
 
 23 Mar
 Fixed save on unchanged revision loaded into editor
+
+3 April
+Updated file browser:removed frames for consistency with HTML 5

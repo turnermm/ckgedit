@@ -60,6 +60,15 @@ AdvancedInfo: "To create anchors from Dokuwiki headers, click on the Get Heading
 AdvancedTabPrompt: 'Use the advanced tab to create page anchors and query strings',
 SMBExample: "Enter your share as: \\\\Server\\directory\\file", 
 DlgFileBrowserWaitingMsg: 'Loading files, please wait.',
+DlgFileBrowserAdjustSize: 'Adjust browser size',
+DlgFileBrowserReset: 'Reset',
+DlgFileBrowserSortBy: 'Sort by',
+DlgFileBrowserSortDate: 'Upload date',
+DlgFileBrowserSortSize: 'File size',
+DlgFileBrowserSortName: 'Name',
+DlgFileBrowserResizeMsg: "The file browser window will be reset to the default size after your page is reloaded into the editor.",
+DlgFileBrowserSearch: "Find file(s)",
+DlgFileBrowserSearchInfo: "Enter all or part of a file name",
 };
 CKEDITOR.lang['en']['footnote'] = {
 FootNoteInfo: '<div style="padding: 18px;font-size:125%;line-height:125%;">'+
