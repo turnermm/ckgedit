@@ -219,16 +219,11 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
         }
         else c_type = 'img';
     }
-  if(!isInternet_Explorer) {
+ 
+
    fileTime =  new Date(Number(fileTime)*1000);
-   var options = {
-   year: "numeric", month: "short",
-    day: "numeric", hour: "2-digit", minute: "2-digit"
-   };
-  fileTime ="&nbsp;&nbsp;&nbsp;&nbsp;" +  fileTime.toLocaleTimeString("en-us", options);
-  }
-  else fileTime = "&nbsp;";
-  // fileTime = fileTime;
+   fileTime ="&nbsp;&nbsp;&nbsp;&nbsp;" + fileTime.toDateString().replace(/^\w+\s*/,"")  + "&nbsp;" + fileTime.toLocaleTimeString();
+
 	// Build the link to view the folder.
 	var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
 
