@@ -71,6 +71,8 @@ DlgFileBrowserSortDate: 'Upload date',
 DlgFileBrowserSortSize: 'File size',
 DlgFileBrowserSortName: 'Name',
 DlgFileBrowserResizeMsg: "The file browser window will be reset to the default size after your page is reloaded into the editor.",
+DlgFileBrowserSearch: "Find file(s)",
+DlgFileBrowserSearchInfo: "Enter all or part of a file name",
 };
 CKEDITOR.lang['en']['footnote'] = {
 FootNoteInfo: '<div style="padding: 18px;font-size:125%;line-height:125%;">'+
