@@ -266,6 +266,11 @@ function fb_sort(type) {
 function  fb_search(f) {
    window.frames['frmResourcesList'].findFiles(f.fsearch.value);
 }
+
+function onSubmitFn() {
+  
+  return false;
+}
 		</script>
     <style type='text/css'>
     body {
@@ -363,7 +368,7 @@ function  fb_search(f) {
                 </div> <table "><tr><td colspan="2">                   
                 <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
                 </td></tr>
-                <tr><td ><form><div  id="adustfbbuttons"><span fckLang="DlgFileBrowserSortBy">Sort by</span>:  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;<span fckLang="DlgFileBrowserSortDate">Upload time</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');"></div> 
+                <tr><td ><form  onsubmit="return onSubmitFn();"><div  id="adustfbbuttons"><span fckLang="DlgFileBrowserSortBy">Sort by</span>:  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;<span fckLang="DlgFileBrowserSortDate">Upload time</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');"></div> 
                 </td><td class="ckg_td1"><input type="button" name="srtbrfiles" onclick="fb_search(this.form)" fckLang="DlgFileBrowserSearch" value="Find files(s):"> <input type="text" name="fsearch" id="fsearch"></form></td></tr></table>
               </div>
                
