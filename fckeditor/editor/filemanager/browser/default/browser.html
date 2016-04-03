@@ -32,7 +32,6 @@
 		<script type="text/javascript">
 window.onbeforeunload = function() { };
 var CurrentDWikiUser = opener.oDokuWiki_FCKEditorInstance.dwiki_user; // use this variable to pass into frame (frmupload.html)
-
 var CurrentDWikiClient = opener.oDokuWiki_FCKEditorInstance.dwiki_client; // use this variable to pass into frame (frmupload.html)
 var isLocalDwikiBrowser = opener.oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser ? true : false;
 var CreateDwikiFolder = true; //opener.FCK.dwiki_create_folder; // use this variable to pass into frame (frmupload.html)
@@ -92,6 +91,9 @@ window.onload = function()
  if(navigator.userAgent.match(/macintosh/i)) {
        document.getElementById('is_mac').innerHTML = 'Cmd';
  }
+  if(navigator.userAgent.indexOf('MSIE') != -1 ||  navigator.userAgent.indexOf('Trident') != -1) {
+      document.getElementById('adustfbbuttons').style.display='none';
+  }
 }
 function GetUrlParam( paramName )
 {
@@ -259,12 +261,10 @@ function fbsz_inc(val) {
 }
 
 function fb_sort(type) {
-window.frames['frmResourcesList'].sorFiletList(type);
+    window.frames['frmResourcesList'].sortFileList(type);
 }
-function  OnSearchSubmit(f) {
-alert(f); return;
-alert(f.fsearch.value)
-   
+function  fb_search(f) {
+   window.frames['frmResourcesList'].findFiles(f.fsearch.value);
 }
 		</script>
     <style type='text/css'>
@@ -363,8 +363,8 @@ alert(f.fsearch.value)
                 </div> <table "><tr><td colspan="2">                   
                 <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
                 </td></tr>
-                <tr><td ><form><span fckLang="DlgFileBrowserSortBy">Sort by</span>:  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;<span fckLang="DlgFileBrowserSortDate">Upload time</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');"> </form>
-                </td><td class="ckg_td1"><form action="" target="frmUploadWorker" method="post"  onsubmit="return OnSearchSubmit(this);">&nbsp;&nbsp; <input type="text" name="fsearch" id="fsearch"> <input type="submit" fckLang="DlgFileBrowserSearch" value="Search"></form></td></tr></table>
+                <tr><td ><form><div  id="adustfbbuttons"><span fckLang="DlgFileBrowserSortBy">Sort by</span>:  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;<span fckLang="DlgFileBrowserSortDate">Upload time</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');"></div> 
+                </td><td class="ckg_td1"><input type="button" name="srtbrfiles" onclick="fb_search(this.form)" fckLang="DlgFileBrowserSearch" value="Find files(s):"> <input type="text" name="fsearch" id="fsearch"></form></td></tr></table>
               </div>
                
         </div> 

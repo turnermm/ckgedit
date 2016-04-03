@@ -40,7 +40,11 @@ var isDwikiUrlExtern = parent.isDwikiUrlExtern;
 var isDwikiMediaFile = parent.isDwikiMediaFile;
 var FCKImageSaveDir = false;
 var isDwikiImage = parent.isDwikiImage;
-
+var isInternet_Explorer = false;
+ if(navigator.userAgent.indexOf('MSIE') != -1 ||  navigator.userAgent.indexOf('Trident') != -1) {
+  isInternet_Explorer = true;
+ }
+ 
 function getFCKSaveDir() {
    //alert(dwikiUTF8_decodeFN(document.cookie,DwikiFNencode)); 
    var allcookies = document.cookie;
@@ -215,13 +219,15 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
         }
         else c_type = 'img';
     }
-  
+  if(!isInternet_Explorer) {
    fileTime =  new Date(Number(fileTime)*1000);
    var options = {
    year: "numeric", month: "short",
     day: "numeric", hour: "2-digit", minute: "2-digit"
    };
   fileTime ="&nbsp;&nbsp;&nbsp;&nbsp;" +  fileTime.toLocaleTimeString("en-us", options);
+  }
+  else fileTime = "&nbsp;";
   // fileTime = fileTime;
 	// Build the link to view the folder.
 	var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
@@ -345,10 +351,15 @@ function OpenFile( fileUrl )
 	window.top.close() ;
 	window.top.opener.focus() ;
 }
-function sorFiletList(type) {
+function sortFileList(type) {
      oListManager.Clear();
     oConnector.SortType = type;
     oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
+}
+
+function findFiles(search){
+   oConnector.Search = new RegExp(search);
+   sortFileList('search');
 }
 function LoadResources( resourceType, folderPath )
 {
@@ -427,6 +438,7 @@ function GetFoldersAndFilesCallBack( fckXml )
 	{
 		var oNode = oNodes[j] ;
         var sFileName = dwikiUTF8_decodeFN(oNode.attributes.getNamedItem('name').value,DwikiFNencode);
+        if(oConnector.SortType == 'search' && !sFileName.match(oConnector.Search)) continue;
     	var sFileSize = oNode.attributes.getNamedItem('size').value ;
         var sFileTime = oNode.attributes.getNamedItem('time').value;
       
@@ -465,7 +477,7 @@ function GetFoldersAndFilesCallBack( fckXml )
     var big = '<center><div id="big_imagewin"><div id="bigwin_display"></div>' +
               '<div id="big_iwin_close"><button onclick="close_bigImgwin();"  class="bigwin_close_but">close</button>&nbsp;&nbsp;&nbsp;</div></div></center>';
 	document.body.innerHTML = big + oHtml.ToString() ;
-  
+    oConnector.Search = new RegExp("");
    
 }
 
