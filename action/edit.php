@@ -517,7 +517,7 @@ $height = isset($_COOKIE['ckgEdht']) && $_COOKIE['ckgEdht'] ? $_COOKIE['ckgEdht'
 
 $fbsz_increment = isset($_COOKIE['fbsz']) && $_COOKIE['fbsz'] ? $_COOKIE['fbsz'] : false;
 $fbrowser_width = 1070;
-$fbrowser_height = 647;
+$fbrowser_height = 660;
 if($fbsz_increment) {
     $fbrowser_width  = $fbrowser_width + ($fbrowser_width*($fbsz_increment/100));
     $fbrowser_height  =$fbrowser_height + ($fbrowser_height*($fbsz_increment/100));
