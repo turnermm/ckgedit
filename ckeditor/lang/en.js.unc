@@ -67,12 +67,13 @@ DlgFileBrowserWaitingMsg: 'Loading files, please wait.',
 DlgFileBrowserAdjustSize: 'Adjust browser size',
 DlgFileBrowserReset: 'Reset',
 DlgFileBrowserSortBy: 'Sort by',
-DlgFileBrowserSortDate: 'Upload date',
+DlgFileBrowserSortDate: 'Date',
 DlgFileBrowserSortSize: 'File size',
 DlgFileBrowserSortName: 'Name',
 DlgFileBrowserResizeMsg: "The file browser window will be reset to the default size after your page is reloaded into the editor.",
 DlgFileBrowserSearch: "Find file(s)",
 DlgFileBrowserSearchInfo: "Enter all or part of a file name",
+DlgFileBrowserSortOrder: 'Reverse order',
 };
 CKEDITOR.lang['en']['footnote'] = {
 FootNoteInfo: '<div style="padding: 18px;font-size:125%;line-height:125%;">'+

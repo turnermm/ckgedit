@@ -356,6 +356,12 @@ function findFiles(search){
    oConnector.Search = new RegExp(search);
    sortFileList('search');
 }
+
+function reverseListOrder(bool){
+   oConnector.reverseOrder = bool;
+   //alert(bool);
+}
+
 function LoadResources( resourceType, folderPath )
 {
     //alert(resourceType + "\n" + folderPath);
@@ -418,6 +424,9 @@ function GetFoldersAndFilesCallBack( fckXml )
         oNodes.sort(function(a, b) {
             var a_tm = Number(a.attributes.getNamedItem('time').value);
             var b_tm = Number(b.attributes.getNamedItem('time').value);
+            if(oConnector.reverseOrder) {
+               return b_tm - a_tm;
+            }
             return a_tm - b_tm;
          });
      }
@@ -425,7 +434,9 @@ function GetFoldersAndFilesCallBack( fckXml )
         oNodes.sort(function(a, b) {         
             var a_tm = parseInt(a.attributes.getNamedItem('size').value);
             var b_tm = parseInt(b.attributes.getNamedItem('size').value);
-         
+            if(oConnector.reverseOrder) {
+               return b_tm - a_tm;
+            }
             return a_tm - b_tm;
          });
      }
