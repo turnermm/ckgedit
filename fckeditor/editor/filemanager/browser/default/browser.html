@@ -331,7 +331,7 @@ function onSubmitFn() {
     }
     div#help {
         width: 460px;
-        height: 250px;
+        height: 285px;
         border-left: inset 4px #f1f1e3; 
         border-top: inset 4px #f1f1e3; 
         border-right: outset 4px #f1f1e3; 
@@ -341,20 +341,38 @@ function onSubmitFn() {
        left:400px;
        padding: 6px;
        visibility:hidden;       
-       background-color: #fff; 
+       background-color: #eee; 
+       overflow:auto;
     }
-
+     input.closebut {
+       float: right;    
+     }
+     div.closebut {
+        width: 420px;
+     }
     </style>
 
 	</head>
     <body>
     <div id="help">
-         <p>
-         If the zoom level of your browser is greater than the default setting, when the file browser opens, its display may exceed the size of
-         the enclosing window, forcing scrollbars.  To eliminate the scrollbars, you can enlarge the window from 5% to 20%.   
-         The  new size takes effect after you have closed and re-opened  the editor.  The resizing uses a cookie with a year's duration.  
-         </p>
-    </div>
+       <ol>
+         <li>
+         If you increase the zoom level of your browser,  ckgedit's file browser may exceed the size of its
+         enclosing window, forcing scrollbars.  To eliminate the scrollbars, you can enlarge the window up to 20%.   
+         The  new size takes effect after you have closed and re-opened  the editor. Resizing uses a cookie with a year's duration.          
+         </li>
+         <li>
+          The file listings can be sorted by Name, Date, and File Size.  By default they sort in ascending order, but Date and File Size can
+          be sorted in descending order by checking the Reverse Order option.  The sort functions are not supported by Internet Explorer but do work in Win 10 Edge.
+         </li>
+         <li>
+         The search function will search for whole or part of a file name.
+         </li>
+         </ol>
+          <div class='closebut'><form><input type="button" onclick="document.getElementById('help').style.visibility='hidden';"  class='closebut'" value="Close"></form></div>
+    
+          
+    </div >
     <div id='wrapper'>
           <div class="left_sidebar">
                <iframe src="frmresourcetype.html" height="50" width="180"></iframe>
@@ -394,7 +412,7 @@ function onSubmitFn() {
                 <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
                 </td></tr>
                 <tr><td ><form  onsubmit="return onSubmitFn();"><div  id="adustfbbuttons"><span fckLang="DlgFileBrowserSortBy">Sort by</span>:&nbsp;&nbsp;  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortDate">Date</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortOrder">Reverse Order</span><input type="checkbox" name="srtbrorder" id="srtbrorder" onchange="fb_sz_date_order(this);"></div> 
-                </td><td class="ckg_td1"><input type="button" name="srtbrfiles" onclick="fb_search(this.form)" fckLang="DlgFileBrowserSearch" value="Find files(s):"> <input type="text" name="fsearch" id="fsearch"></form></td></tr></table>
+                </td><td class="ckg_td1"><input type="button" name="srtbrfiles" onclick="fb_search(this.form)" fckLang="DlgFileBrowserSearch" value="Find files(s):"> <input type="text" name="fsearch" id="fsearch">&nbsp;&nbsp;<input type="button" name="srtbrfiles" onclick="document.getElementById('help').style.visibility='visible';" fckLang="DlgFileBrowserButtonHelp" value="Help"> </form></td></tr></table>             
               </div>
                
         </div> 
