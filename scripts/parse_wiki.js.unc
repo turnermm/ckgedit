@@ -734,8 +734,8 @@ function parse_wikitext(id) {
 				  else if(this.link_class.match(/interwiki/)) {
 				      interwiki_class=this.link_class; 
 				  }
-				  
-                if(this.link_class == 'urlextern' && !this.mfile) {
+			  
+                if(this.link_class == 'urlextern' && !this.mfile &&  save_url) {
                     this.attr = save_url;
                     this.external_mime=false;  // prevents external links to images from being converted to image links
                 }                   
