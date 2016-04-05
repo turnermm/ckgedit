@@ -359,7 +359,9 @@ function findFiles(search){
 
 function reverseListOrder(bool){
    oConnector.reverseOrder = bool;
-   //alert(bool);
+   if(oConnector.SortType && (oConnector.SortType == 'mtime' || oConnector.SortType=='fsize')) {
+       oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
+   }  
 }
 
 function LoadResources( resourceType, folderPath )
