@@ -332,10 +332,10 @@ function onSubmitFn() {
     div#help {
         width: 460px;
         height: 285px;
-        border-left: inset 4px #f1f1e3; 
-        border-top: inset 4px #f1f1e3; 
-        border-right: outset 4px #f1f1e3; 
-        border-bottom: outset 4px #f1f1e3; 
+        border-left: inset 2px #f1f1e3; 
+        border-top: inset 2px #f1f1e3; 
+        border-right: outset 2px #f1f1e3; 
+        border-bottom: outset 2px #f1f1e3; 
         position:absolute;
         top:20px;
        left:400px;
@@ -357,16 +357,19 @@ function onSubmitFn() {
     <div id="help">
        <ol>
          <li>
-         If you increase the zoom level of your browser,  ckgedit's file browser may exceed the size of its
-         enclosing window, forcing scrollbars.  To eliminate the scrollbars, you can enlarge the window up to 20%.   
-         The  new size takes effect after you have closed and re-opened  the editor. Resizing uses a cookie with a year's duration.          
+         <span  fckLang="DlgFileBrowserInfo_1" >
+          If you increase the zoom level of your browser,  ckgedit's file browser may exceed the size of its   enclosing window, forcing scrollbars.  To eliminate the scrollbars, 
+          you can enlarge the window up to 20%.  The  new size takes effect after you have closed and re-opened  the editor. Resizing uses a cookie with a year's duration.  
+         </span>
          </li>
          <li>
+           <span  fckLang="DlgFileBrowserInfo_2">
           The file listings can be sorted by Name, Date, and File Size.  By default they sort in ascending order, but Date and File Size can
-          be sorted in descending order by checking the Reverse Order option.  The sort functions are not supported by Internet Explorer but do work in Win 10 Edge.
+          be sorted in descending order by checking the Reverse Order option.  The sort functions are not supported in Internet Explorer but do work in Win 10 Edge.
+          </span>
          </li>
          <li>
-         The search function will search for whole or part of a file name.
+         <span  fckLang="DlgFileBrowserInfo_3">The search function will search for whole or part of a file name.</span>
          </li>
          </ol>
           <div class='closebut'><form><input type="button" onclick="document.getElementById('help').style.visibility='hidden';"  class='closebut'" value="Close"></form></div>

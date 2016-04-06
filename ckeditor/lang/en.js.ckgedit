@@ -63,12 +63,18 @@ DlgFileBrowserWaitingMsg: 'Loading files, please wait.',
 DlgFileBrowserAdjustSize: 'Adjust browser size',
 DlgFileBrowserReset: 'Reset',
 DlgFileBrowserSortBy: 'Sort by',
-DlgFileBrowserSortDate: 'Upload date',
+DlgFileBrowserSortDate: 'Date',
 DlgFileBrowserSortSize: 'File size',
 DlgFileBrowserSortName: 'Name',
 DlgFileBrowserResizeMsg: "The file browser window will be reset to the default size after your page is reloaded into the editor.",
 DlgFileBrowserSearch: "Find file(s)",
-DlgFileBrowserSearchInfo: "Enter all or part of a file name",
+DlgFileBrowserSortOrder: 'Reverse order',
+DlgFileBrowserInfo_1: "If you increase the zoom level of your browser,  Ckgedit's file browser may exceed the size of its  enclosing window, forcing scrollbars. " +
+      " To eliminate the scrollbars, you can enlarge the window up to 20%.  The  new size takes effect after you have closed and re-opened  the editor.  " +
+      "Resizing uses a cookie with a year's duration. ",
+DlgFileBrowserInfo_2: "The file listings can be sorted by Name, Date, and File Size.  By default they sort in ascending order, but Date and File Size can " +
+          "be sorted in descending order by checking the Reverse Order option.  The sort functions are not supported by Internet Explorer but do work in Win 10 Edge.",
+DlgFileBrowserInfo_3: "The search functions will search using whole or part of a file name.",
 };
 CKEDITOR.lang['en']['footnote'] = {
 FootNoteInfo: '<div style="padding: 18px;font-size:125%;line-height:125%;">'+
