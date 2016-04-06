@@ -250,7 +250,7 @@ function GetFoldersAndFiles( $resourceType, $currentFolder )
 				else
 				{
 					$iFileSize = @filesize( $sServerDir . $sFile ) ;
-
+                    $cTime= filectime( $sServerDir . $sFile );
 					if ( !$iFileSize ) {
 						$iFileSize = 0 ;
 					}
@@ -263,7 +263,8 @@ function GetFoldersAndFiles( $resourceType, $currentFolder )
                     if($isInternalLink) {
                         if(!preg_match('/\.txt$/', $sFile)) continue;
                         if(has_permission(dwiki_encodeFN($currentFolder)  .$sFile,  $resourceType, false)) {                   
-       				   	   $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" />' ;
+       				   	 //  $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" />' ;
+                              $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" time="' . $cTime .'" />' ;
                         }
                     }
                     else { 
@@ -276,7 +277,8 @@ function GetFoldersAndFiles( $resourceType, $currentFolder )
                             }
 
 
-                          $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" />' ;
+                      //    $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" />' ;
+                      $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" time="' . $cTime .'" />' ;
                     }
                     
 				}

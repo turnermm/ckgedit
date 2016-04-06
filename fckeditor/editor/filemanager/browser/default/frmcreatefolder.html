@@ -70,90 +70,17 @@ function CreateFolderCallBack( fckXml )
 {
 	if ( oConnector.CheckError( fckXml ) == 0 )
 		window.parent.frames['frmResourcesList'].Refresh() ;
-
-	/*
-	// Get the current folder path.
-	var oNode = fckXml.SelectSingleNode( 'Connector/Error' ) ;
-	var iErrorNumber = parseInt( oNode.attributes.getNamedItem('number').value ) ;
-
-	switch ( iErrorNumber )
-	{
-		case 0 :
-			window.parent.frames['frmResourcesList'].Refresh() ;
-			break ;
-		case 101 :
-			alert( 'Folder already exists' ) ;
-			break ;
-		case 102 :
-			alert( 'Invalid folder name' ) ;
-			break ;
-		case 103 :
-			alert( 'You have no permissions to create the folder' ) ;
-			break ;
-		case 110 :
-			alert( 'Unknown error creating folder' ) ;
-			break ;
-		default :
-			alert( 'Error creating folder. Error number: ' + iErrorNumber ) ;
-			break ;
-	}
-	*/
+	
 }
 
 window.onload = function()
 {
    window.top.IsLoadedCreateFolder = true ;
    setupLanguage();
-
-   if(CurrentDWikiUser == 'visitor' || isLocalDwikiBrowser || !CurrentDWikiUser) {
-     document.getElementById("btn__create_folder").disabled = true;    
-     document.getElementById("create_folder").innerHTML = "";
-   }
-// alert(CreateDwikiFolder);
-   if(CreateDwikiFolder == 'n') {
-        document.getElementById('create_folder').style.display = 'none';  
-   }
-  else {
-       document.getElementById('folder_hint_icons').style.display = 'none';  
-       
-  }
- if(navigator.userAgent.match(/macintosh/i)) {
-       document.getElementById('is_mac').innerHTML = 'Cmd';
- }
 }
 		</script>
-	</head>
-	<body>
-
-
-     <div id="create_folder">
-		<table  class="fullHeight" cellSpacing="0" cellPadding="0" width="100%" border="0">
-			<tr>
-				<td>
-					<button id = "btn__create_folder" type="button" style="WIDTH: 100%" onclick="CreateFolder();">
-						<table cellSpacing="0" cellPadding="0" border="0">
-							<tr id="create_folder_img">
-								<td><img height="15" alt="" src="images/Folder.gif" width="15"></td>
-								<td>&nbsp;</td>
-								<td nowrap><span fckLang="DlgFileBrowserNewFolder">Create Folder</span></td>
-							</tr>
-						</table>
-					</button>
-				</td>
-			</tr>
-		</table>
-     </div>
-<div id="folder_hint_icons">
-<table cellspace='2'>
-<tr><td>
-Move: <span id='is_mac'>Ctrl</span>+<img alt="trash" src="images/trash.png"><br />
-</td></tr>
-<tr><td>
-<img height="16" alt="" src="images/FolderOpenedRO.gif" width="15"> <span fckLang="DlgFileBrowserRead">read-only</span><br>
-<img height="16" alt="" src="images/FolderOpened.gif" width="16"> <span fckLang="DlgFileBrowserWrite">uploadable</span>
-</td></tr>
-</table>
-</div>
-
+    </head>
+<body>
+ 
 	</body>
 </html>

@@ -1,4 +1,4 @@
-rev_16-Apr_05-19_57
+rev_16-Apr_06-03_41
 
 28 Feb 2013
 Added support for interwiki links
@@ -827,3 +827,7 @@ Fixed save on unchanged revision loaded into editor
 
 4 April
 Fixed corrupted ftp links in parse_wiki.js
+
+6 April
+merged fb_search branch into master
+
