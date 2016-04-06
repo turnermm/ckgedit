@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
@@ -727,10 +727,27 @@ CKEDITOR.lang['fr']['fbrowser'] = {
 	NotSetOption: 'Non défini',
 	AdvancedInfo: "Pour créer des signets depuis les en-têtes Dokuwiki, cliquez sur le bouton Récupérer les en-têtes, sélectionnez l'en-tête, cliquez sur OK.  Vous pouvez revenir en arrière, sélectionner une nouvelle page et récupérer de nouveaux en-têtes.",
 	AdvancedTabPrompt: 'Utilisez l\'onglet Avancé pour créer des signets ou un lien paramétré.',
-	SMBExample: "Saisissez le nom de partage, tel que : \\\\Serveur\\dossier\\fichier.ext", 
+	SMBExample: "Saisissez le nom de partage, tel que : \\\\Serveur\\dossier\\fichier.ext",
+	DlgFileBrowserWaitingMsg: 'Chargement des fichiers, patientez SVP.',
+	DlgFileBrowserAdjustSize: 'Ajuster la taille de la fenêtre ',
+	DlgFileBrowserReset: 'Réinitialiser',
+	DlgFileBrowserSortBy: 'Trier par ',
+	DlgFileBrowserSortDate: 'Date',
+	DlgFileBrowserSortSize: 'Taille',
+	DlgFileBrowserSortName: 'Nom',
+	DlgFileBrowserButtonHelp: 'Aide',
+	DlgFileBrowserResizeMsg: "La taille de la fenêtre du gestionnaire de médias sera réinitialisée à sa taille par défaut lorsque vous rechargerez l'éditeur de pages.",
+	DlgFileBrowserSearch: "Chercher un fichier",
+	DlgFileBrowserSearchInfo: "Saisissez une partie ou l'entièreté d'un nom",
+	DlgFileBrowserSortOrder: 'Ordre inverse',
+	DlgFileBrowserInfo_1: "Si vous augmentez la taille du zoom sur votre navigateur, l'éditeur peut dépasser de son conteneur, ce qui entrainera l'apparition d'ascenseurs." +
+		  " Pour les éliminer, vous pouvez élargir la fenêtre jusqu'à 20 %.  La nouvelle taille prendra effet quand vous aurez rechargé complètement l'éditeur de pages.  " +
+		  "Le redimensionnement est sauvegardé dans un cookie avec une durée de vie d'un an. ",
+	DlgFileBrowserInfo_2: "L'affichage peut être trié par Nom, Date et Taille de fichier. Par défaut, ils apparaissent par ordre alphabétique, mais avec les options Taille et Date " +
+			  "il est possible de trier dans l'ordre inverse en cochant la case prévue. Les fonctions de tri ne fonctionne pas dans IE mais bien dans Edge ou Firefox.",
+	DlgFileBrowserInfo_3: "La recherche va maintenant porter sur le nom partiel ou complet des fichiers.",	
 	MediaFileLink: "Lien vers le fichier",
 	InterWikiLink: "Lien interwiki",
-	DlgFileBrowserWaitingMsg: 'Chargement des fichiers, patientez.',
 };
 
 CKEDITOR.lang['fr']['footnote'] = {
