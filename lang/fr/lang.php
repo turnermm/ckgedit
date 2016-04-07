@@ -32,6 +32,6 @@ $lang['draft_msg']             = 'Ce document a un brouillon. Le bouton Obtenir/
 $lang['whats_this']            = 'Qu\'est-ce ?';
 $lang['complex_tables']        = 'Autoriser les tableaux complexes';
 $lang['minor_changes']         = 'Changements mineurs';
-$lang['discard_edits']         = 'Pour sauver vos modifcations, cliquer sur OK; Pour annuler, cliquer Annuler';
+$lang['discard_edits']         = 'Pour sauver vos modifcations, cliquez sur OK, sinon cliquez sur Annuler.';
 $lang['dw_btn_styling']        = 'Éditer la police d\'écriture';
 $lang['title_styling']         = 'Ouvrir avec les styles de police présentés comme balisage';
