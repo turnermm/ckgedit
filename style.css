@@ -2,3 +2,4 @@
 .backup_msg_close { font-size:9pt; }
 .backup_msg {  background-color: __background_alt__; text-align:middle; height: 14pt;}
 .editButtons { margin-top: 5px; }
+.editButtons input { margin-bottom: 5px; }
