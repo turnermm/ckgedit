@@ -6,6 +6,7 @@
  * @author Leo Rudin <leo.rudin@gmx.ch>
  * @author Padhie <develop@padhie.de>
  * @author liz <marliza@web.de>
+ * @author Martin Sachers <martin.sachers@etron.at>
  */
 $lang['btn_dw_edit']           = 'DW Edit';
 $lang['dw_btn_fck_preview']    = 'CKG Vorschau';
@@ -35,3 +36,4 @@ $lang['minor_changes']         = 'Kleine Änderungen';
 $lang['discard_edits']         = 'Um Änderungen zu speichern klicke OK; um abzubrechen klicke Cancel.';
 $lang['dw_btn_styling']        = 'Schriftart bearbeiten';
 $lang['title_styling']         = 'Öffne mit Schriftart als markup';
+$lang['js']['font_err_throw']  = 'Zeichenformatierungs-Fehler';
