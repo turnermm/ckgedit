@@ -1,4 +1,4 @@
-rev_16-Apr_06-03_41
+rev_16-Apr_12-13_54
 
 28 Feb 2013
 Added support for interwiki links
@@ -831,3 +831,5 @@ Fixed corrupted ftp links in parse_wiki.js
 6 April
 merged fb_search branch into master
 
+12 April
+Enable user-defined CKEditor plugins to be added to toolbar via DW configuration Manager

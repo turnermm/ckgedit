@@ -94,7 +94,7 @@ config.colors = new Array(
      // config.scayt_autoStartup = true;      
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
       config.extraSpecialChars  = ['↔'];
-      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags'; //,devtools';
+      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags,timestamp'; //,devtools';
       config.contentsLangDirection = '';
       if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
       config.pasteFromWordRemoveFontStyles = false;   // preserve font style when "paste from word"
@@ -111,6 +111,12 @@ config.colors = new Array(
    	if(top.hasTags()){
 		config.ToolBarItemsAlt['Tags']='Tags';
 	}
+ 
+     var xtra = top.extra_plugins();
+     config.ToolBarItemsExtra = "";
+     if(xtra) {
+         config.ToolBarItemsExtra = xtra.split(','); 
+     }
      
     config.toolbar_Dokuwiki =
 	[
@@ -124,6 +130,7 @@ config.colors = new Array(
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'tools', items : ['Source', 'Maximize','-','About'] },
+         {name: 'extras', items: config.ToolBarItemsExtra }
        
 	];
     
