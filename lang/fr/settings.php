@@ -37,3 +37,4 @@ $lang['font_options']          = 'Retire les options de police d\'écriture';
 $lang['color_options']         = 'Retire les options de colorations';
 $lang['alt_toolbar']           = 'Fonctions à retirer de la barre d\'outils CKEditor';
 $lang['mfiles']                = 'Activer la gestion des \'mfiles\'';
+$lang['extra_plugins']  	     = 'Liste des extensions (séparées par des virgules) à ajouter dans la barre d\'outils de CKEditor. Voir la page à propos des plugins CKGEdit pour plus de détails.';
