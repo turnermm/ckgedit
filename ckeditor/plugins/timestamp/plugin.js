@@ -13,7 +13,8 @@ CKEDITOR.plugins.add( 'timestamp', {
 
 	// Register the icons. They must match command names.
 	icons: 'timestamp',
-   lang: 'en,de',
+    	lang: 'en,de,fr',
+    	
 	// The plugin initialization logic goes inside this method.
 	init: function( editor ) {
         

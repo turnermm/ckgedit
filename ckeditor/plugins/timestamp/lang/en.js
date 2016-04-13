@@ -1,3 +1,3 @@
 CKEDITOR.plugins.setLang("timestamp","en",{
-    	title: 'Insert  a timestamp'
+    	title: 'Insert a timestamp'
 });
