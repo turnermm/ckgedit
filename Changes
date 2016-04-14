@@ -1,4 +1,4 @@
-rev_16-Apr_12-13_54
+rev_16-Apr_14-07_29
 
 28 Feb 2013
 Added support for interwiki links
@@ -833,3 +833,6 @@ merged fb_search branch into master
 
 12 April
 Enable user-defined CKEditor plugins to be added to toolbar via DW configuration Manager
+
+14 Apr
+Updated Setting description for extra_plugins option, links to config page at DW

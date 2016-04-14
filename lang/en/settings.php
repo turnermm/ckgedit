@@ -33,5 +33,5 @@ $lang['font_options']  = 'Remove font options.';
 $lang['color_options']  = 'Remove Color options.';
 $lang['alt_toolbar'] = 'Functions to remove from CKEditor toolbar';
 $lang['mfiles'] = 'Enable mfile support';
-$lang['extra_plugins']  = 'Comma separated list of additional Ckeditor plugins to be added to toolbar.  See ckgedit plugin page for details.';
+$lang['extra_plugins']  = "Comma separated list of additional Ckeditor plugins to be added to toolbar.  See ckgedit plugin's <a href='https://www.dokuwiki.org/plugin:ckgedit:configuration#extra_plugins'>config page</a>  for details";
 
