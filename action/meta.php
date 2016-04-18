@@ -205,7 +205,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
   global $INFO, $ckgedit_lang;
     
   $discard = $this->getLang('discard_edits');  
-  $dokuwiki_priority =$this->dokuwiki_priority;
+  $dokuwiki_priority = ($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0;
   echo "<script type='text/javascript'>\n//<![CDATA[ \n";
   echo "var useDW_Editor =$dokuwiki_priority;";
   echo "\n //]]> </script>\n";
@@ -473,7 +473,8 @@ function check_userfiles() {
            if ($this->getConf('winstyle')) {
               setcookie('FCKConnector','WIN', $expire, DOKU_BASE);                                
            }
-           if ($this->dokuwiki_priority) {
+          
+           if ($this->dokuwiki_priority && $this->in_dwpriority_group() ) {
                if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] == 'other') {                              
                    $expire = time() -60*60*24*30;
                    setcookie('FCKG_USE','_false_', $expire, '/');           
@@ -616,7 +617,17 @@ function reset_user_rewrite_check() {
     else $JSINFO['htmlok'] = 0;
     }	  
 
-      
+   
+
+function in_dwpriority_group() {      
+        global $USERINFO;
+        if(!isset($USERINFO)) return false; 
+        $user_groups = $USERINFO['grps'];        
+        if(in_array("expert", $user_groups) || in_array("admin", $user_groups)) {
+           return true;
+        }
+      return false;
+}
 
 function restore_conf() {
     global $conf;
