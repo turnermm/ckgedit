@@ -1,4 +1,4 @@
-rev_16-Apr_14-07_29
+rev_16-Apr_17-20_37
 
 28 Feb 2013
 Added support for interwiki links
@@ -836,3 +836,7 @@ Enable user-defined CKEditor plugins to be added to toolbar via DW configuration
 
 14 Apr
 Updated Setting description for extra_plugins option, links to config page at DW
+
+17 Apr
+Corrected for array assignment in meta.php when $USERINFO is not set
+

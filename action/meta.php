@@ -435,7 +435,7 @@ function check_userfiles() {
               $_SESSION['dwfck_openfb'] = 'n';
            }
 
-           $_SESSION['dwfck_grps'] = $USERINFO['grps'];
+           $_SESSION['dwfck_grps'] = isset($USERINFO['grps']) ? $USERINFO['grps'] : array();     
            $_SESSION['dwfck_client'] = $INFO['client'];   
            $_SESSION['dwfck_sepchar'] = $conf['sepchar'] ;   
            $_SESSION['dwfck_conf'] = array('sepchar'=> $conf['sepchar'],
