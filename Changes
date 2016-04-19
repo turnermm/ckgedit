@@ -1,4 +1,4 @@
-rev_16-Apr_18-09_31
+rev_16-Apr_19-08_10
 
 28 Feb 2013
 Added support for interwiki links
@@ -843,3 +843,5 @@ Corrected for array assignment in meta.php when $USERINFO is not set
 18 Apr
 new branch: dwpriority_group
 
+19 Apr
+Added dw_users option to set group for dw_priority; when not set, all users get dw_priority

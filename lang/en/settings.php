@@ -26,7 +26,7 @@ $lang['complex_tables'] ="Use the complex tables algorithm.  As opposed to the s
 $lang['duplicate_notes'] = "Set this to true if users create multiple footnotes with the same footnote texts; required to prevent notes from being corrupted.";
 $lang['winstyle'] = 'Use direct path to media directory instead of fckeditor/userfiles. This requires that fckeditor/userfiles/.htaccess.security be copied  to data/media and renamed .htaccess';
 $lang['other_lang'] = 'Your default language for the CKEditor is the language set for your browser.   You can, however, choose another language here; it is independent of the Dokuwiki interface language.';
-$lang['dw_priority'] = "Make Dokuwiki editor the default editor"; 
+$lang['dw_priority'] = "<b>dw_priority</b>: Make Dokuwiki editor the default editor"; 
 $lang['preload_ckeditorjs'] = "Preload the ckeditor's javascript to speed up subsequent loading of editor";
 $lang['nofont_styling']  = 'Display font styles in editor as plugin markup. See the ckgedit plugin page at Dokuwiki.org for details.';
 $lang['font_options']  = 'Remove font options.';
@@ -34,4 +34,5 @@ $lang['color_options']  = 'Remove Color options.';
 $lang['alt_toolbar'] = 'Functions to remove from CKEditor toolbar';
 $lang['mfiles'] = 'Enable mfile support';
 $lang['extra_plugins']  = "Comma separated list of additional Ckeditor plugins to be added to toolbar.  See ckgedit plugin's <a href='https://www.dokuwiki.org/plugin:ckgedit:configuration#extra_plugins'>config page</a>  for details";
+$lang['dw_users'] = "Group name of users whose editor defaults to Dokuwiki editor when <b>dw_priority</b> is slected.  If  not defined, then all users get the native Dokuwiki editor when <b>dw_priority</b> is selected.";
 

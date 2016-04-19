@@ -15,9 +15,12 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $helper;
   var $dokuwiki_priority;
   var $wiki_text;  
+  var $dw_priority_group;
+  
   function __construct() {
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
+      $this->dw_priority_group = $this->getConf('dw_users');
   }
   /*
    * Register its handlers with the dokuwiki's event controller
@@ -622,8 +625,9 @@ function reset_user_rewrite_check() {
 function in_dwpriority_group() {      
         global $USERINFO;
         if(!isset($USERINFO)) return false; 
-        $user_groups = $USERINFO['grps'];        
-        if(in_array("expert", $user_groups) || in_array("admin", $user_groups)) {
+         if(empty($this->dw_priority_group)) return true;
+        $user_groups = $USERINFO['grps'];   
+        if(in_array($this->dw_priority_group, $user_groups) || in_array("admin", $user_groups)) {          
            return true;
         }
       return false;
