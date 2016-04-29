@@ -6,6 +6,7 @@
  * @author Ianka Kryukov <IanisKr@mail.ru>
  * @author serg <sergey_art82@inbox.ru>
  * @author Artem Trutko <trutko@facebook.com>
+ * @author Evgeniy Bekhterev <jbe@mail.ru>
  */
 $lang['btn_dw_edit']           = 'Переключить в DokuWiki Редактор';
 $lang['dw_btn_fck_preview']    = 'CKG предпросмотр';
@@ -35,3 +36,5 @@ $lang['minor_changes']         = 'Небольшое изменение';
 $lang['discard_edits']         = 'Для сохранения изменений нажмите ОК; для отмены нажмите Отмена';
 $lang['dw_btn_styling']        = 'Редактировать Шрифты';
 $lang['title_styling']         = 'Открыть с помощью стилей шрифта, как показано в разметки';
+$lang['js']['font_err_1']      = 'Стили шрифтов нельзя включить в ссылки. Нажмите OK чтобы принять следующие корректировки: ';
+$lang['js']['font_err_throw']  = 'Ошибка форматирования шрифта';

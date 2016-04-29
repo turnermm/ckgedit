@@ -515,6 +515,14 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        
 $height = isset($_COOKIE['ckgEdht']) && $_COOKIE['ckgEdht'] ? $_COOKIE['ckgEdht']: 250;
 
+$fbsz_increment = isset($_COOKIE['fbsz']) && $_COOKIE['fbsz'] ? $_COOKIE['fbsz'] : false;
+$fbrowser_width = 1070;
+$fbrowser_height = 660;
+if($fbsz_increment) {
+    $fbrowser_width  = $fbrowser_width + ($fbrowser_width*($fbsz_increment/100));
+    $fbrowser_height  =$fbrowser_height + ($fbrowser_height*($fbsz_increment/100));
+}
+
 $doku_url=  rtrim(DOKU_URL,'/');        
 $ckeditor_replace =<<<CKEDITOR_REPLACE
 
@@ -522,6 +530,8 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
 		       { 
                   toolbar: '$toolbar' ,    
                   height: $height,
+                 filebrowserWindowWidth: "$fbrowser_width",
+                 filebrowserWindowHeight:  "$fbrowser_height", 
                   filebrowserImageBrowseUrl :  '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',
                   filebrowserBrowseUrl: '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',                                
                }

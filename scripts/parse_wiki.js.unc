@@ -742,7 +742,7 @@ function parse_wikitext(id) {
 				      interwiki_class=this.link_class; 
 				  }
 				  
-                if(this.link_class == 'urlextern' && !this.mfile) {
+                if(this.link_class == 'urlextern' && !this.mfile &&  save_url) {
                     this.attr = save_url;
                     this.external_mime=false;  // prevents external links to images from being converted to image links
                 }                   
@@ -1812,7 +1812,7 @@ jQuery( "#ebut_cancel" ).mouseup(function() {
    draft_delete();
 });
 jQuery( "#save_button" ).mousedown(function() { 
- if(!window.dwfckTextChanged) {
+ if(!window.dwfckTextChanged && !JSINFO['cg_rev']) {
   ckgedit_dwedit_reject = true;
   parse_wikitext('ebut_cancel'); 
  }

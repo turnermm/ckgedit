@@ -446,7 +446,7 @@ function check_userfiles() {
               $_SESSION['dwfck_openfb'] = 'n';
            }
 
-           $_SESSION['dwfck_grps'] = $USERINFO['grps'];
+           $_SESSION['dwfck_grps'] = isset($USERINFO['grps']) ? $USERINFO['grps'] : array();     
            $_SESSION['dwfck_client'] = $INFO['client'];   
            $_SESSION['dwfck_sepchar'] = $conf['sepchar'] ;   
            $_SESSION['dwfck_conf'] = array('sepchar'=> $conf['sepchar'],
@@ -499,8 +499,11 @@ function check_userfiles() {
        global $ACT;
        global $ID; 
        global $JSINFO;
+       global  $INPUT;
+       
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
        $JSINFO['doku_base'] = DOKU_BASE ;
+       $JSINFO['cg_rev'] = $INPUT->str('rev');
 	   $this->check_userfiles(); 
 	   
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 

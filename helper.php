@@ -92,6 +92,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
  $font_opts = $this->getConf('font_options');
   $toolbar_opts = $this->getConf('alt_toolbar');
  $mfiles =   $this->getConf('mfiles');
+ $extra_plugins = $this->getConf('extra_plugins');
   if(!isset($INFO['userinfo']) && !$open_upload) {
     $user_type = 'visitor';
   }
@@ -434,6 +435,10 @@ return opts;
 }
 function hasTags() {
    return "$tags";
+}
+
+function  extra_plugins() {  
+    return "$extra_plugins";
 }
 
 function ckgedit_language_chk(config) { 

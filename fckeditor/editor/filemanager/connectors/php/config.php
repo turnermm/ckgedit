@@ -100,7 +100,7 @@ if(!isset($Config['UserFilesAbsolutePath']) || !isset($Config['UserFilesPath']))
      else $Config['UserFilesPath'] = str_replace('/media', '/pages', $Config['UserFilesPath']);     
      //$Config['UserFilesPath'] = str_replace('/media', '/pages', $Config['UserFilesPath']);
      if($isWindows) {
-          if($Dwfck_conf_values['ckg_savedir']) {     
+          if(isset($Dwfck_conf_values['ckg_savedir'])) {     
              $Config['UserFilesAbsolutePath'] = $Dwfck_conf_values['ckg_savedir'] . '/pages/';
          }   
          else $Config['UserFilesAbsolutePath'] = str_replace('\\media', '\\pages', $Config['UserFilesAbsolutePath']);

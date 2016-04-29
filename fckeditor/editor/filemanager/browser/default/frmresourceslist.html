@@ -40,6 +40,10 @@ var isDwikiUrlExtern = parent.isDwikiUrlExtern;
 var isDwikiMediaFile = parent.isDwikiMediaFile;
 var FCKImageSaveDir = false;
 var isDwikiImage = parent.isDwikiImage;
+var isInternet_Explorer = false;
+ if(navigator.userAgent.indexOf('MSIE') != -1 ||  navigator.userAgent.indexOf('Trident') != -1) {
+  isInternet_Explorer = true;
+ }
 
 function getFCKSaveDir() {
    //alert(dwikiUTF8_decodeFN(document.cookie,DwikiFNencode)); 
@@ -72,8 +76,7 @@ function ProtectPath(path)
 
 oListManager.GetFolderRowHtml = function( folderName, folderPath, folder_class, isImage )
 {
-	// Build the link to view the folder.
-   // folderPath = decodeURI(folderPath);
+	
     folderPath = dwikiUTF8_decodeFN(folderPath,DwikiFNencode);
 	var sLink = '<a href="#" onclick="OpenFolder(\'' + ProtectPath( folderPath ) + '\');return false;">' ;
     icon = 'images/Folder.gif';
@@ -206,7 +209,7 @@ function showImage(id) {
 }
 
 var foldersDone = { };
-oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage )
+oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fileTime )
 {
     var c_type = "file";
     if(isImage) {
@@ -216,6 +219,10 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage )
         }
         else c_type = 'img';
     }
+
+
+   fileTime =  new Date(Number(fileTime)*1000);
+   fileTime ="&nbsp;&nbsp;&nbsp;&nbsp;" + fileTime.toDateString().replace(/^\w+\s*/,"")  + "&nbsp;" + fileTime.toLocaleTimeString();
 
 	// Build the link to view the folder.
 	var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
@@ -261,7 +268,7 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage )
 			 '<\/td>' + imgTD +
 			'<\/td>' + '<td align="right" class="' + c_type + '"nowrap>&nbsp;' + fileSizeSpan +
 				fileSize +
-				' KB' +
+				' KB'  +   fileTime +             
 		'<\/td><\/tr>' ;
 }
 
@@ -345,6 +352,23 @@ function OpenFile( fileUrl )
 	window.top.close() ;
 	window.top.opener.focus() ;
 }
+function sortFileList(type) {
+     oListManager.Clear();
+    oConnector.SortType = type;
+    oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
+}
+
+function findFiles(search){
+   oConnector.Search = new RegExp(search);
+   sortFileList('search');
+}
+
+function reverseListOrder(bool){
+   oConnector.reverseOrder = bool;
+   if(oConnector.SortType && (oConnector.SortType == 'mtime' || oConnector.SortType=='fsize')) {
+       oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
+   }  
+}
 
 function LoadResources( resourceType, folderPath )
 {
@@ -404,11 +428,34 @@ function GetFoldersAndFilesCallBack( fckXml )
 
 	// Add the Files.
 	oNodes = fckXml.SelectNodes( 'Connector/Files/File' ) ;
+    if(oConnector.SortType == 'mtime') {
+        oNodes.sort(function(a, b) {
+            var a_tm = Number(a.attributes.getNamedItem('time').value);
+            var b_tm = Number(b.attributes.getNamedItem('time').value);
+            if(oConnector.reverseOrder) {
+               return b_tm - a_tm;
+            }
+            return a_tm - b_tm;
+         });
+     }
+     else if(oConnector.SortType == 'fsize') {
+        oNodes.sort(function(a, b) {         
+            var a_tm = parseInt(a.attributes.getNamedItem('size').value);
+            var b_tm = parseInt(b.attributes.getNamedItem('size').value);
+            if(oConnector.reverseOrder) {
+               return b_tm - a_tm;
+            }
+            return a_tm - b_tm;
+         });
+     }
 	for ( var j = 0 ; j < oNodes.length ; j++ )
 	{
 		var oNode = oNodes[j] ;
         var sFileName = dwikiUTF8_decodeFN(oNode.attributes.getNamedItem('name').value,DwikiFNencode);
+        if(oConnector.SortType == 'search' && !sFileName.match(oConnector.Search)) continue;
     	var sFileSize = oNode.attributes.getNamedItem('size').value ;
+        var sFileTime = oNode.attributes.getNamedItem('time').value;
+      
         if(isInternalLink) {
             if(!sFileName.match(/\.txt$/)) continue;
             sFileName = sFileName.replace(/\.txt$/,"");    
@@ -438,14 +485,14 @@ function GetFoldersAndFilesCallBack( fckXml )
             sFileUrl = encodeURI(sFileUrl);         
             if(!sFileUrl.match(/^\//))  sFileUrl = '/'+sFileUrl;           
        }
-		oHtml.Append( oListManager.GetFileRowHtml( sFileName, sFileUrl, sFileSize, isImage) ) ;
+		oHtml.Append( oListManager.GetFileRowHtml( sFileName, sFileUrl, sFileSize, isImage, sFileTime) ) ;
 	}
 
 	oHtml.Append( '<\/table>' ) ;
     var big = '<center><div id="big_imagewin"><div id="bigwin_display"></div>' +
               '<div id="big_iwin_close"><button onclick="close_bigImgwin();"  class="bigwin_close_but">close</button>&nbsp;&nbsp;&nbsp;</div></div></center>';
 	document.body.innerHTML = big + oHtml.ToString() ;
-  
+    oConnector.Search = new RegExp("");
    
 }
 

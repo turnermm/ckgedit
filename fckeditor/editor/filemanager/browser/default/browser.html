@@ -1,5 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
-   "http://www.w3.org/TR/html4/frameset.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!--
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
  * Copyright (C) 2003-2009 Frederico Caldeira Knabben
@@ -33,7 +32,6 @@
 		<script type="text/javascript">
 window.onbeforeunload = function() { };
 var CurrentDWikiUser = opener.oDokuWiki_FCKEditorInstance.dwiki_user; // use this variable to pass into frame (frmupload.html)
-
 var CurrentDWikiClient = opener.oDokuWiki_FCKEditorInstance.dwiki_client; // use this variable to pass into frame (frmupload.html)
 var isLocalDwikiBrowser = opener.oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser ? true : false;
 var CreateDwikiFolder = true; //opener.FCK.dwiki_create_folder; // use this variable to pass into frame (frmupload.html)
@@ -75,10 +73,28 @@ var isDwikiImage = opener.oDokuWiki_FCKEditorInstance.isDwikiImage;
 	}
 })() ;
 
-window.onload = function() {  
+
+window.onload = function()
+{
+   window.top.IsLoadedCreateFolder = true ;
   setupLanguage();
+
+   if(CurrentDWikiUser == 'visitor' || isLocalDwikiBrowser || !CurrentDWikiUser) {
+     document.getElementById("btn__create_folder").disabled = true;    
+     document.getElementById("create_folder").innerHTML = "";
+   }
+
+   if(CreateDwikiFolder == 'n') {
+        document.getElementById('create_folder').style.display = 'none';  
 }
 
+ if(navigator.userAgent.match(/macintosh/i)) {
+       document.getElementById('is_mac').innerHTML = 'Cmd';
+ }
+  if(navigator.userAgent.indexOf('MSIE') != -1 ||  navigator.userAgent.indexOf('Trident') != -1) {
+      document.getElementById('adustfbbuttons').style.display='none';
+  }
+}
 function GetUrlParam( paramName )
 {
 	var oRegex = new RegExp( '[\?&]' + paramName + '=([^&]+)', 'i' ) ;
@@ -230,21 +246,105 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 		window.frames['frmUpload'].OnUploadCompleted( errorNumber, fileName ) ;
 }
 
+function fbsz_inc(val) {  
+    var d = new Date();
+    if(val == 'reset') {
+        document.cookie ="fbsz=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";    
+        alert(translateItem('DlgFileBrowserResizeMsg', "The file browser window will be reset to its default size after your page is reloaded into the editor."));        
+       // alert("The file browser window will be reset to its default size after your page is reloaded into the editor.")        
+        return;
+    }
+   d.setTime(d.getTime() + 365*24*60*60*1000);   
+   var expires = "expires="+d.toUTCString(); 
+   document.cookie =  "fbsz=" + val + "; " + expires + "; path=/";   
+   alert("The file browser window will be increased in size by "+  val + "% after your page is reloaded into the editor.")
+}
+
+function fb_sort(type) {
+    window.frames['frmResourcesList'].sortFileList(type);
+}
+function  fb_search(f) {
+   window.frames['frmResourcesList'].findFiles(f.fsearch.value);
+}
+function fb_sz_date_order(el) {  
+   window.frames['frmResourcesList'].reverseListOrder(el.checked);
+}
+
+function onSubmitFn() {
+  alert("use the button to submit");
+  return false;
+}
 		</script>
 	</head>
-	<frameset cols="150,*" class="Frame" framespacing="3" bordercolor="#f1f1e3" frameborder="1">
-		<frameset rows="50,*" framespacing="0">
-			<frame src="frmresourcetype.html" scrolling="no" frameborder="0">
-			<frame name="frmFolders" src="frmfolders.html" scrolling="auto" frameborder="1">
-		</frameset>
-		<frameset rows="50,*,70" framespacing="0">
-			<frame name="frmActualFolder" src="frmactualfolder.html" scrolling="no" frameborder="0">
-			<frame name="frmResourcesList" src="frmresourceslist.html" scrolling="auto" frameborder="1">
-			<frameset cols="150,*,0" framespacing="0" frameborder="0">
-				<frame name="frmCreateFolder" src="frmcreatefolder.html" scrolling="no" frameborder="0">
-				<frame name="frmUpload" src="frmupload.html" scrolling="no" frameborder="0">
-				<frame name="frmUploadWorker" src="javascript:void(0)" scrolling="no" frameborder="0">
-			</frameset>
-		</frameset>
-	</frameset>
+    <body>
+    <div id="help">
+       <h3><span fckLang="DlgFileBrowserButtonHelp"></span></h3>
+       <ol>
+         <li>
+         <span  fckLang="DlgFileBrowserInfo_1" >
+          If you increase the zoom level of your browser,  ckgedit's file browser may exceed the size of its   enclosing window, forcing scrollbars.  To eliminate the scrollbars, 
+          you can enlarge the window up to 20%.  The  new size takes effect after you have closed and re-opened  the editor. Resizing uses a cookie with a year's duration.  
+         </span>
+         </li>
+         <li>
+           <span  fckLang="DlgFileBrowserInfo_2">
+          The file listings can be sorted by Name, Date, and File Size.  By default they sort in ascending order, but Date and File Size can
+          be sorted in descending order by checking the Reverse Order option.  The sort functions are not supported in Internet Explorer but do work in Win 10 Edge.
+          </span>
+         </li>
+         <li>
+         <span  fckLang="DlgFileBrowserInfo_3">The search function will search for whole or part of a file name.</span>
+         </li>
+         </ol>
+          <div class='closebut'><form><input type="button" onclick="document.getElementById('help').style.visibility='hidden';"  class='closebut'" value="Close"></form></div>
+    
+          
+    </div >
+    <div id='wrapper'>
+          <div class="left_sidebar">
+               <iframe src="frmresourcetype.html" height="50" width="180"></iframe>
+              <iframe name="frmFolders" src="frmfolders.html" scrolling="auto"  width="180" height="490" ></iframe>
+        </div>
+        <div class="right_page">
+           <div class="frameborder">
+            <iframe  name="frmActualFolder" src="frmactualfolder.html" frameborder="0" width=750"  height="50"></iframe>
+            </div>
+             <div class="frameborder">
+            <iframe name="frmResourcesList" class="resourceslist" src="frmresourceslist.html"  frameborder="0"  width="758"   height="400"  scrolling="auto"></iframe>
+            </div>
+             <div id="bottom_matter">   
+                <div id="create_folder"  class="createfolder">
+                    <table  class="fullHeight" cellSpacing="0" cellPadding="0" width="100%" border="0">
+                        <tr>
+                            <td>
+                                <button id = "btn__create_folder" type="button" style="WIDTH: 100%" onclick="window.frames['frmCreateFolder'].CreateFolder();">
+                                    <table cellSpacing="0" cellPadding="0" border="0">
+                                        <tr id="create_folder_img">
+                                            <td><img height="15" alt="" src="images/Folder.gif" width="15"></td>
+                                            <td>&nbsp;</td>
+                                            <td nowrap><span fckLang="DlgFileBrowserNewFolder">Create Folder</span></td>
+                                        </tr>
+                                    </table>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                 </div>
+                <div   class="frmupload">
+                          <iframe name="frmUpload" src="frmupload.html"  frameborder="0" width="598" height="60" ></iframe>
+                </div>
+                <div style="display:none">
+                 <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
+                </div> <table "><tr><td colspan="2">                   
+                <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
+                </td></tr>
+                <tr><td ><form  onsubmit="return onSubmitFn();"><div  id="adustfbbuttons"><span fckLang="DlgFileBrowserSortBy">Sort by</span>:&nbsp;&nbsp;  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortDate">Date</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortOrder">Reverse Order</span><input type="checkbox" name="srtbrorder" id="srtbrorder" onchange="fb_sz_date_order(this);"></div> 
+                </td><td class="ckg_td1"><input type="button" name="srtbrfiles" onclick="fb_search(this.form)" fckLang="DlgFileBrowserSearch" value="Find files(s):"> <input type="text" name="fsearch" id="fsearch">&nbsp;&nbsp;<input type="button" name="srtbrfiles" onclick="document.getElementById('help').style.visibility='visible';" fckLang="DlgFileBrowserButtonHelp" value="Help"> </form></td></tr></table>             
+              </div>
+               
+        </div> 
+	    <iframe name="frmUploadWorker" src="javascript:void(0)" style="height:0px;width:0px">
+         
+    </div>
+</body>
 </html>
