@@ -16,11 +16,15 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $dokuwiki_priority;
   var $wiki_text;  
   var $dw_priority_group;
-  
+  var $dw_priority_metafn;
   function __construct() {
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
       $this->dw_priority_group = $this->getConf('dw_users');
+      $this->dw_priority_metafn=metaFN(':ckgedit:dw_priority', '.ser');
+      if(!file_exists($this->dw_priority_metafn)) {
+          io_saveFile($this->dw_priority_metafn, serialize(array()));
+      }
   }
   /*
    * Register its handlers with the dokuwiki's event controller
@@ -36,10 +40,42 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'reset_user_rewrite_check');                 
             $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
             $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');                          
+        //    $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
   }
 
+  function handle_profile_form(Doku_Event $event, $param) {
+          global $INFO;
+         $client = $INFO['client'];
+
+            $pos = $event->data->findElementByAttribute('type', 'reset');
+            $_form = '<form name="ckgeditform" action="#"><div class="no">';
+            $_form.= '<fieldset ><legend>Select Default Editor</legend>';
+            
+            $_form.= '<label><span><b>DW Editor</b></span> ';
+            $_form.= '<input type="hidden" name="cked_client"  value="' .  $client .'"/>';
+            $_form .='<input type="radio" value = "Y" name="cked_selector"></label>&nbsp;'; 
+            $_form .='<label><span><b>CK Editor</b></span> ';
+            $_form .='<input type="radio"  value = "N" name="cked_selector"></label>';            
+            $_form.= '<br /><br /><input type="button" value="Save" class="button" onclick="ckgedit_seteditor_priority(this.form.cked_selector.value,this.form.cked_client.value);" />&nbsp;';
+            $_form.= '<input type="reset" value="Reset" class="button" />';
+            $_form.= '</fieldset></div></form>';
+            $event->data->insertElement($pos+3, $_form);
+  }
  
 function _ajax_call(Doku_Event $event, $param) {
+     if ($event->data == 'cked_selector') {
+         $event->stopPropagation();
+         $event->preventDefault();
+        global $INPUT, $USERINFO,$INFO;
+        if(!isset($USERINFO)) return;
+
+        $ar = unserialize(file_get_contents($this->dw_priority_metafn));
+        $dwp = $INPUT->str('dw_val');
+        $client = $INPUT->str('dwp_client');
+         $ar[$client] = $dwp;
+         file_put_contents($this->dw_priority_metafn,serialize($ar));        
+         return;
+    }
 
     if ($event->data !== 'refresh_save') {
         return;
