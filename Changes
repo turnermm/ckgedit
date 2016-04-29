@@ -1,4 +1,4 @@
-rev_16-Mar_04-19_07
+rev_16-Apr_28-21_04
 
 28 Feb 2013
 Added support for interwiki links
@@ -831,3 +831,6 @@ Synched Fr and Eng language files and image.js, image.js.unc with master
 
 4 Mar
 Synched farms with 4.5.7
+
+27 Apr
+Updated to ckedtior 4.5.7 and new filebrowser
