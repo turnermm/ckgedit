@@ -269,7 +269,6 @@ var dokuBase = location.host + DOKU_BASE;
         var params = "dw_val=" +  m;   params += '&call=cked_selector';    params += "&dwp_client=" + client;
         jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,
                 function (data) {  
-                   alert(data);                
                     if(data == 'done') { 
                      //  alert(m + " found"); 
                     }

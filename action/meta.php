@@ -40,7 +40,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'reset_user_rewrite_check');                 
             $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
             $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');                          
-        //    $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
+            $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
   }
 
   function handle_profile_form(Doku_Event $event, $param) {
@@ -52,11 +52,13 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $_form.= '<fieldset ><legend>Select Default Editor</legend>';
             
             $_form.= '<label><span><b>DW Editor</b></span> ';
-            $_form.= '<input type="hidden" name="cked_client"  value="' .  $client .'"/>';
+          //  $_form.= '<input type="hidden" name="cked_client"  value="' .  $client .'"/>';
             $_form .='<input type="radio" value = "Y" name="cked_selector"></label>&nbsp;'; 
             $_form .='<label><span><b>CK Editor</b></span> ';
             $_form .='<input type="radio"  value = "N" name="cked_selector"></label>';            
-            $_form.= '<br /><br /><input type="button" value="Save" class="button" onclick="ckgedit_seteditor_priority(this.form.cked_selector.value,this.form.cked_client.value);" />&nbsp;';
+            $_form.= '<br /><label><span><b>User Name: </b></span> ';
+            $_form.= '<input type="textbox" name="cked_client" disabled value="' .  $client .'"/></label>';
+            $_form.= '<br /><br /><input type="button" value="Save" class="button" ' . "onclick='ckgedit_seteditor_priority(this.form.cked_selector.value,this.form.cked_client.value);' />&nbsp;";
             $_form.= '<input type="reset" value="Reset" class="button" />';
             $_form.= '</fieldset></div></form>';
             $event->data->insertElement($pos+3, $_form);
@@ -657,12 +659,23 @@ function reset_user_rewrite_check() {
     }	  
 
    
-
+/**
+  checked for additional dw priority possibilities only if the dw priority option is set to true
+*/
 function in_dwpriority_group() {      
-        global $USERINFO;
+        global $USERINFO,$INFO;
         if(!isset($USERINFO)) return false; 
-         if(empty($this->dw_priority_group)) return true;
+         if(empty($this->dw_priority_group)) return true;  // all users get dw_priority if no dw_pririty group has been set in config
+         
+         $ar = unserialize(file_get_contents($this->dw_priority_metafn));  // check user profile settings
+      //   msg('dwpg2='. $this->dw_priority_group . " in profile: " . $ar[$INFO['client']]);
+         if(isset($ar[$INFO['client']])) {
+             if($ar[$INFO['client']] =='Y') return true;    // Y = dw_priority selected    
+             if($ar[$INFO['client']] =='N') return false;
+         }
         $user_groups = $USERINFO['grps'];   
+      //  msg(print_r($user_groups,1) . "  CLIENT=" . $INFO['client']  . " in profile: " . $ar[$INFO['client']]);  
+      
         if(in_array($this->dw_priority_group, $user_groups) || in_array("admin", $user_groups)) {          
            return true;
         }
