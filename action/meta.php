@@ -47,15 +47,25 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
          if(!$this->getConf('dw_priority')) { return;	}
           global $INFO;
          $client = $INFO['client'];
+            $ar = unserialize(file_get_contents($this->dw_priority_metafn));
+            $which = $ar[$client];
+            $dwed = ""; $cked = "";
+            if($which == 'N') {
+                $cked = "checked";                
+            }
+            else if($which ==  'Y') {
+                $dwed = "checked";
+            }
 
             $pos = $event->data->findElementByAttribute('type', 'reset');
             $_form = '<br /><form name="ckgeditform" action="#"><div class="no">';
             $_form.= '<fieldset ><legend>' . $this->getLang('uprofile_title') .'</legend>';
             
             $_form.= '<label><span><b>DW Editor</b></span> ';
-            $_form .='<input type="radio" value = "Y" name="cked_selector"></label>&nbsp;'; 
+            $_form .='<input type="radio" value = "Y" name="cked_selector" ' . $dwed .'></label>&nbsp;'; 
             $_form .='<label><span><b>CK Editor</b></span> ';
-            $_form .='<input type="radio"  value = "N" name="cked_selector"></label>';            
+            $_form .='<input type="radio"  value = "N" name="cked_selector" ' . $cked . '></label>'; 
+            
             $_form.= '<br /><label><span><b>User Name: </b></span> ';
             $_form.= '<input type="textbox" name="cked_client" disabled value="' .  $client .'"/></label>';
             $_form.= '<br /><br /><input type="button" value="Save" class="button" ' . "onclick='ckgedit_seteditor_priority(this.form.cked_selector.value,this.form.cked_client.value);' />&nbsp;";
@@ -672,17 +682,22 @@ function in_dwpriority_group() {
          if(empty($this->dw_priority_group)) return true;  // all users get dw_priority if no dw_pririty group has been set in config
          
          $ar = unserialize(file_get_contents($this->dw_priority_metafn));  // check user profile settings
-      //   msg('dwpg2='. $this->dw_priority_group . " in profile: " . $ar[$INFO['client']]);
+         $expire = time() -60*60*24*30;
          if(isset($ar[$INFO['client']])) {
              if($ar[$INFO['client']] =='Y') return true;    // Y = dw_priority selected    
-             if($ar[$INFO['client']] =='N') return false;  // N = CKEditor selected
+             if($ar[$INFO['client']] =='N') {   
+                 setcookie('FCKG_USE','_false_', $expire, '/');    
+                 return false;  // N = CKEditor selected
+             }
          }
         $user_groups = $USERINFO['grps'];   
-      //  msg(print_r($user_groups,1) . "  CLIENT=" . $INFO['client']  . " in profile: " . $ar[$INFO['client']]);  
       
         if(in_array($this->dw_priority_group, $user_groups) || in_array("admin", $user_groups)) {          
            return true;
         }
+        
+         setcookie('FCKG_USE','_false_', $expire, '/');    
+ 
       return false;
 }
 

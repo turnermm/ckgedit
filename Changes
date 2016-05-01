@@ -1,4 +1,4 @@
-rev_16-May_01-08_26
+rev_16-May_01-17_18
 
 28 Feb 2013
 Added support for interwiki links
@@ -845,3 +845,6 @@ new branch: dwpriority_group
 
 19 Apr
 Added dw_users option to set group for dw_priority; when not set, all users get dw_priority
+
+1 May 
+Added User profile panel with fixes to cookies that alternate between ckeditor and dw editor
