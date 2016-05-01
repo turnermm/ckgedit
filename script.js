@@ -265,14 +265,19 @@ var dokuBase = location.host + DOKU_BASE;
  }
  
  function ckgedit_seteditor_priority(m,client) {    
-
+       var which = {'Y': 'Dokuwiki', 'N': 'CKEditor'};
         var params = "dw_val=" +  m;   params += '&call=cked_selector';    params += "&dwp_client=" + client;
         jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,
                 function (data) {  
                     if(data == 'done') { 
-                     //  alert(m + " found"); 
+                        if(!m)
+                             alert(LANG.plugins.ckgedit.dwp_not_sel); 
+                          else 
+                             alert(LANG.plugins.ckgedit.dwp_updated + which[m]); 
                     }
-                      else  alert("error saving: " + m); 
+                      else  {
+                          alert(LANG.plugins.ckgedit.dwp_save_err + data); 
+                      }   
                     },
                 'html'
             );     

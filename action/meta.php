@@ -44,15 +44,15 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   }
 
   function handle_profile_form(Doku_Event $event, $param) {
+         if(!$this->getConf('dw_priority')) { return;	}
           global $INFO;
          $client = $INFO['client'];
 
             $pos = $event->data->findElementByAttribute('type', 'reset');
-            $_form = '<form name="ckgeditform" action="#"><div class="no">';
-            $_form.= '<fieldset ><legend>Select Default Editor</legend>';
+            $_form = '<br /><form name="ckgeditform" action="#"><div class="no">';
+            $_form.= '<fieldset ><legend>' . $this->getLang('uprofile_title') .'</legend>';
             
             $_form.= '<label><span><b>DW Editor</b></span> ';
-          //  $_form.= '<input type="hidden" name="cked_client"  value="' .  $client .'"/>';
             $_form .='<input type="radio" value = "Y" name="cked_selector"></label>&nbsp;'; 
             $_form .='<label><span><b>CK Editor</b></span> ';
             $_form .='<input type="radio"  value = "N" name="cked_selector"></label>';            
@@ -75,7 +75,11 @@ function _ajax_call(Doku_Event $event, $param) {
         $dwp = $INPUT->str('dw_val');
         $client = $INPUT->str('dwp_client');
          $ar[$client] = $dwp;
-         file_put_contents($this->dw_priority_metafn,serialize($ar));        
+         $retv = file_put_contents($this->dw_priority_metafn,serialize($ar));  
+         if($retv === false) {
+             echo $this->dw_priority_metafn;            
+         }
+         else echo "done";
          return;
     }
 
@@ -671,7 +675,7 @@ function in_dwpriority_group() {
       //   msg('dwpg2='. $this->dw_priority_group . " in profile: " . $ar[$INFO['client']]);
          if(isset($ar[$INFO['client']])) {
              if($ar[$INFO['client']] =='Y') return true;    // Y = dw_priority selected    
-             if($ar[$INFO['client']] =='N') return false;
+             if($ar[$INFO['client']] =='N') return false;  // N = CKEditor selected
          }
         $user_groups = $USERINFO['grps'];   
       //  msg(print_r($user_groups,1) . "  CLIENT=" . $INFO['client']  . " in profile: " . $ar[$INFO['client']]);  
