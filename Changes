@@ -1,4 +1,4 @@
-rev_16-May_01-17_18
+rev_16-May_02-08_03
 
 28 Feb 2013
 Added support for interwiki links
@@ -848,3 +848,6 @@ Added dw_users option to set group for dw_priority; when not set, all users get 
 
 1 May 
 Added User profile panel with fixes to cookies that alternate between ckeditor and dw editor
+
+2 May
+try getting client from $_SERVER['REMOTE_USER'] instead of $INFO

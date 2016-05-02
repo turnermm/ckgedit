@@ -46,7 +46,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   function handle_profile_form(Doku_Event $event, $param) {
          if(!$this->getConf('dw_priority')) { return;	}
           global $INFO;
-         $client = $INFO['client'];
+            $client =   $_SERVER['REMOTE_USER']; //$INFO['client'];
             $ar = unserialize(file_get_contents($this->dw_priority_metafn));
             $which = $ar[$client];
             $dwed = ""; $cked = "";
@@ -680,12 +680,12 @@ function in_dwpriority_group() {
         global $USERINFO,$INFO;
         if(!isset($USERINFO)) return false; 
          if(empty($this->dw_priority_group)) return true;  // all users get dw_priority if no dw_pririty group has been set in config
-         
+         $client =   $_SERVER['REMOTE_USER']; 
          $ar = unserialize(file_get_contents($this->dw_priority_metafn));  // check user profile settings
          $expire = time() -60*60*24*30;
-         if(isset($ar[$INFO['client']])) {
-             if($ar[$INFO['client']] =='Y') return true;    // Y = dw_priority selected    
-             if($ar[$INFO['client']] =='N') {   
+         if(isset($ar[$client])) {
+             if($ar[$client] =='Y') return true;    // Y = dw_priority selected    
+             if($ar[$client] =='N') {   
                  setcookie('FCKG_USE','_false_', $expire, '/');    
                  return false;  // N = CKEditor selected
              }
