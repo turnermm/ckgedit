@@ -94,14 +94,16 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                create_function(
                      '$matches',         
                      '$matches[1] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[1]);
+                     $matches[2] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[2]);
                       $matches[3] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[3]);
                       return $matches[1].$matches[2].$matches[3];'            
                 ),
                 $TEXT
              );
         
-        $TEXT = preg_replace('/URLENC_PERCENT/', '%',$TEXT); 
+        
         $TEXT = rawurldecode($TEXT);
+        $TEXT = preg_replace('/URLENC_PERCENT/', '%',$TEXT); 
         $TEXT = preg_replace('/NOWIKI_(.)_/', '$1',$TEXT);
         
           /* preserve newlines in code blocks */

@@ -1,4 +1,4 @@
-rev_16-Apr_17-20_37
+rev_16-May_02-16_02
 
 28 Feb 2013
 Added support for interwiki links
@@ -839,4 +839,7 @@ Updated Setting description for extra_plugins option, links to config page at DW
 
 17 Apr
 Corrected for array assignment in meta.php when $USERINFO is not set
+
+2 May
+Fixed URL encodings in save.php
 
