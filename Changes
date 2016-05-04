@@ -1,4 +1,4 @@
-rev_16-May_02-16_02
+rev_16-May_04-08_10
 
 28 Feb 2013
 Added support for interwiki links
@@ -843,3 +843,6 @@ Corrected for array assignment in meta.php when $USERINFO is not set
 2 May
 Fixed URL encodings in save.php
 
+4 May
+Updated settings descripton for removing items from toolbar, i.e, that a list can be included in the
+textbox beneath the checkboxes.

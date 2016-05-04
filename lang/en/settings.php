@@ -31,7 +31,11 @@ $lang['preload_ckeditorjs'] = "Preload the ckeditor's javascript to speed up sub
 $lang['nofont_styling']  = 'Display font styles in editor as plugin markup. See the ckgedit plugin page at Dokuwiki.org for details.';
 $lang['font_options']  = 'Remove font options.';
 $lang['color_options']  = 'Remove Color options.';
-$lang['alt_toolbar'] = 'Functions to remove from CKEditor toolbar';
+$lang['alt_toolbar'] = 'Functions to remove from CKEditor toolbar.<br /><br /> Any other functions can be removed by including them as a comma separated list in the text box:<br /><br />' . 
+         'Bold, Italic, Underline, Strike, Subscript, Superscript, RemoveFormat, Find, Replace, SelectAll, Scayt, '  .     
+         'Image, Table, Tags, Link, Unlink, Format, Styles,TextColor, BGColor, NumberedList, BulletedList, ' .
+         'Cut, Copy, Paste, PasteText, PasteFromWord, Undo, Redo, Source, Maximize, About.';
+ 
 $lang['mfiles'] = 'Enable mfile support';
 $lang['extra_plugins']  = "Comma separated list of additional Ckeditor plugins to be added to toolbar.  See ckgedit plugin's <a href='https://www.dokuwiki.org/plugin:ckgedit:configuration#extra_plugins'>config page</a>  for details";
 
