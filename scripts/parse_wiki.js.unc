@@ -156,7 +156,9 @@ function parse_wikitext(id) {
     var HTML_InterWiki = false;
     var HTMLParserFont = false;   
     var CurrentTable;
-
+    if (typeof config_animal === 'undefined') {
+      var config_animal = null;
+    }
     var HTMLParserTopNotes = new Array();
     var HTMLParserBottomNotes = new Array();
     var HTMLParserOpenAngleBracket = false;
