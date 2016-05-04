@@ -32,4 +32,7 @@ $lang['title_styling'] = 'Open with font styles shown as markup';
 $lang['js']['font_err_1'] = 'Font styling cannot be included in links. Click OK to accept the following correction:';
 $lang['js']['font_err_2'] = 'To revise, enter the full Dokuwiki link markup below, including brackets.  To return to Editor click Cancel.';
 $lang['js']['font_err_throw'] = 'Font Formatting Error';
-
+$lang['js']['dwp_save_err'] = 'Unable to save changes to:  ';
+$lang['js']['dwp_updated'] = 'Editor priority updated to: ';
+$lang['js']['dwp_not_sel'] = 'Editor priority not selected: it will be determined by dw_users group config setting';
+$lang['uprofile_title'] = "Select Your Default Editor";

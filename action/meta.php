@@ -15,9 +15,16 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $helper;
   var $dokuwiki_priority;
   var $wiki_text;  
+  var $dw_priority_group;
+  var $dw_priority_metafn;
   function __construct() {
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
+      $this->dw_priority_group = $this->getConf('dw_users');
+      $this->dw_priority_metafn=metaFN(':ckgedit:dw_priority', '.ser');
+      if(!file_exists($this->dw_priority_metafn)) {
+          io_saveFile($this->dw_priority_metafn, serialize(array()));
+      }
   }
   /*
    * Register its handlers with the dokuwiki's event controller
@@ -33,10 +40,58 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'reset_user_rewrite_check');                 
             $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
             $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');                          
+            $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
   }
 
+  function handle_profile_form(Doku_Event $event, $param) {
+         if(!$this->getConf('dw_priority')) { return;	}
+          global $INFO;
+            $client =   $_SERVER['REMOTE_USER']; //$INFO['client'];
+            $ar = unserialize(file_get_contents($this->dw_priority_metafn));
+            $which = $ar[$client];
+            $dwed = ""; $cked = "";
+            if($which == 'N') {
+                $cked = "checked";                
+            }
+            else if($which ==  'Y') {
+                $dwed = "checked";
+            }
+
+            $pos = $event->data->findElementByAttribute('type', 'reset');
+            $_form = '<br /><form name="ckgeditform" action="#"><div class="no">';
+            $_form.= '<fieldset ><legend>' . $this->getLang('uprofile_title') .'</legend>';
+            
+            $_form.= '<label><span><b>DW Editor</b></span> ';
+            $_form .='<input type="radio" value = "Y" name="cked_selector" ' . $dwed .'></label>&nbsp;'; 
+            $_form .='<label><span><b>CK Editor</b></span> ';
+            $_form .='<input type="radio"  value = "N" name="cked_selector" ' . $cked . '></label>'; 
+            
+            $_form.= '<br /><label><span><b>User Name: </b></span> ';
+            $_form.= '<input type="textbox" name="cked_client" disabled value="' .  $client .'"/></label>';
+            $_form.= '<br /><br /><input type="button" value="Save" class="button" ' . "onclick='ckgedit_seteditor_priority(this.form.cked_selector.value,this.form.cked_client.value);' />&nbsp;";
+            $_form.= '<input type="reset" value="Reset" class="button" />';
+            $_form.= '</fieldset></div></form>';
+            $event->data->insertElement($pos+3, $_form);
+  }
  
 function _ajax_call(Doku_Event $event, $param) {
+     if ($event->data == 'cked_selector') {
+         $event->stopPropagation();
+         $event->preventDefault();
+        global $INPUT, $USERINFO,$INFO;
+        if(!isset($USERINFO)) return;
+
+        $ar = unserialize(file_get_contents($this->dw_priority_metafn));
+        $dwp = $INPUT->str('dw_val');
+        $client = $INPUT->str('dwp_client');
+         $ar[$client] = $dwp;
+         $retv = file_put_contents($this->dw_priority_metafn,serialize($ar));  
+         if($retv === false) {
+             echo $this->dw_priority_metafn;            
+         }
+         else echo "done";
+         return;
+    }
 
     if ($event->data !== 'refresh_save') {
         return;
@@ -205,7 +260,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
   global $INFO, $ckgedit_lang;
     
   $discard = $this->getLang('discard_edits');  
-  $dokuwiki_priority =$this->dokuwiki_priority;
+  $dokuwiki_priority = ($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0;
   echo "<script type='text/javascript'>\n//<![CDATA[ \n";
   echo "var useDW_Editor =$dokuwiki_priority;";
   echo "\n //]]> </script>\n";
@@ -473,7 +528,8 @@ function check_userfiles() {
            if ($this->getConf('winstyle')) {
               setcookie('FCKConnector','WIN', $expire, DOKU_BASE);                                
            }
-           if ($this->dokuwiki_priority) {
+          
+           if ($this->dokuwiki_priority && $this->in_dwpriority_group() ) {
                if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] == 'other') {                              
                    $expire = time() -60*60*24*30;
                    setcookie('FCKG_USE','_false_', $expire, '/');           
@@ -616,7 +672,34 @@ function reset_user_rewrite_check() {
     else $JSINFO['htmlok'] = 0;
     }	  
 
+   
+/**
+  checked for additional dw priority possibilities only if the dw priority option is set to true
+*/
+function in_dwpriority_group() {      
+        global $USERINFO,$INFO;
+        if(!isset($USERINFO)) return false; 
+         if(empty($this->dw_priority_group)) return true;  // all users get dw_priority if no dw_pririty group has been set in config
+         $client =   $_SERVER['REMOTE_USER']; 
+         $ar = unserialize(file_get_contents($this->dw_priority_metafn));  // check user profile settings
+         $expire = time() -60*60*24*30;
+         if(isset($ar[$client])) {
+             if($ar[$client] =='Y') return true;    // Y = dw_priority selected    
+             if($ar[$client] =='N') {   
+                 setcookie('FCKG_USE','_false_', $expire, '/');    
+                 return false;  // N = CKEditor selected
+             }
+         }
+        $user_groups = $USERINFO['grps'];   
       
+        if(in_array($this->dw_priority_group, $user_groups) || in_array("admin", $user_groups)) {          
+           return true;
+        }
+        
+         setcookie('FCKG_USE','_false_', $expire, '/');    
+ 
+      return false;
+}
 
 function restore_conf() {
     global $conf;

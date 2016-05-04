@@ -840,9 +840,22 @@ Updated Setting description for extra_plugins option, links to config page at DW
 17 Apr
 Corrected for array assignment in meta.php when $USERINFO is not set
 
+18 Apr
+new branch: dwpriority_group
+
+19 Apr
+Added dw_users option to set group for dw_priority; when not set, all users get dw_priority
+
+1 May 
+Added User profile panel with fixes to cookies that alternate between ckeditor and dw editor
+
 2 May
+try getting client from $_SERVER['REMOTE_USER'] instead of $INFO
 Fixed URL encodings in save.php
 
 4 May
 Updated settings descripton for removing items from toolbar, i.e, that a list can be included in the
 textbox beneath the checkboxes.
+
+Merged dwpriority_group into master
+
