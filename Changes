@@ -1,4 +1,4 @@
-rev_16-May_03-19_10
+rev_16-May_05-07_16
 
 28 Feb 2013
 Added support for interwiki links
@@ -837,3 +837,7 @@ Updated to ckedtior 4.5.7 and new filebrowser
 
 3 May
 Synched with master
+
+5 May
+removed dw_priority option which fails to switch back to ckeditor
+in farms
