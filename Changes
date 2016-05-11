@@ -1,4 +1,4 @@
-rev_16-May_04-08_10
+rev_16-May_10-19_45
 
 28 Feb 2013
 Added support for interwiki links
@@ -859,3 +859,5 @@ textbox beneath the checkboxes.
 
 Merged dwpriority_group into master
 
+10 May
+Fix to github issue ckgedit #186 (extra thiespace added after format characters).

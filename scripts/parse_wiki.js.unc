@@ -1603,7 +1603,7 @@ function parse_wikitext(id) {
         var regex = new RegExp(HTMLParser_FORMAT_SPACE + '([\\-]{2,})', "g");
         results = results.replace(regex," $1");
 		
-        var regex = new RegExp("(\\w|\\d)(\\*\\*|\\/\\/|\\'\\'|__|<\/del>)" + HTMLParser_FORMAT_SPACE + '(\\w|\\d)',"g");
+        var regex = new RegExp("(&amp;|\\W|\\w|\\d)(\\*\\*|\\/\\/|\\'\\'|__|<\/del>)+" + HTMLParser_FORMAT_SPACE + '(\\w|\\d)',"g");
         results = results.replace(regex,"$1$2$3");
 		
         var regex = new RegExp(HTMLParser_FORMAT_SPACE + '@@_SP_@@',"g");
