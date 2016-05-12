@@ -101,14 +101,14 @@ function parse_wikitext(id) {
          'h1': "\n====== ", 'h2': "\n===== ", 'h3': "\n==== ", 'h4': "\n=== ", 'h5': "\n== ",
          'td': "|", 'th': "^", 'tr':" ", 'table': "\n\n", 'ol':"  - ", 'ul': "  * ", 'li': "",
          'code': "\'\'",'pre': "\n<", 'hr': "\n\n----\n\n", 'sub': '<sub>',         
-         'font': "\n",
+         'font': "",
          'sup': '<sup>', 'div':"\n\n", 'span': "\n", 'dl': "\n", 'dd': "\n", 'dt': "\n"
      };
     var markup_end = { 'del': '</del>', 's': '</del>', 'strike': '</del>', 'p': " ", 'br':" ", 'a': ']]','img': '\}\}',
           'h1': " ======\n", 'h2': " =====\n", 'h3': " ====\n", 'h4': " ===\n", 'h5': " ==\n", 
           'td': " ", 'th': " ", 'tr':"|\n", 'ol':" ", 'ul': " ", 'li': "\n",
            'pre': "\n</",'sub': '</sub>', 'sup': '</sup> ', 'div':"\n\n", 'p': "\n\n",
-           'font': "\n\n</font> ", 'span': " ",
+           'font': "</font>", 'span': " ",
      }; 
    
     markup['temp_u'] = "CKGE_TMP_u";
@@ -209,6 +209,7 @@ function parse_wikitext(id) {
     prev_li: new Array(),  
     link_only: false,
 	in_font: false,
+    using_fonts: false,
 	interwiki: false,
     bottom_url: false,
     font_family: "inherit",
@@ -440,6 +441,7 @@ function parse_wikitext(id) {
                if(attrs[i].name == 'style') {
                    if(!this.in_font) results += "__STYLE__";
              	   this.in_font=true;    		   	   
+                   this.using_fonts = true;                   
                    matches = attrs[i].value.match(/font-family:\s*([\w\-\s,]+);?/);
                    if(matches){
                      this.font_family = matches[1];
@@ -1121,7 +1123,7 @@ function parse_wikitext(id) {
 	 if(tag == 'span' && this.in_font && !ckgedit_xcl_styles) {
 	       tag = 'font';
           //<font 18pt/garamond;;color;;background_color>  
-          var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">\n\n";        
+          var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">";        
           var font_start = results.lastIndexOf('__STYLE__');            
           results = results.splice(font_start,9,font_str);
           this.font_size = 'inherit';
@@ -1388,7 +1390,7 @@ function parse_wikitext(id) {
         else if(this.last_tag=='a') {
             text=text.replace(/^\s{2,}/," ");
         }	
-        else text = text.replace(/^\s+/, '');  
+       else if(!this.using_fonts) text = text.replace(/^\s+/, '');  
 
         if(text.match(/nowiki&gt;/)) {  
 	       HTMLParser_NOWIKI=true;   
