@@ -1063,11 +1063,16 @@ $text = preg_replace_callback(
         $xhtml = preg_replace_callback(
             '|&amp;lt;font\s+(.*?)/([\w ,\-]+);;([\(\)),\w,\s\#]+);;([\(\)),\w,\s\#]+)&gt;(.*?)&amp;lt;/font&gt;|ms',
              function($matches) {
-               return '<span style = "color:' . $matches[3] .'">' .
-               '<span style = "font-size:' . $matches[1] .'">' .
-               '<span style = "font-family:' . $matches[2] .'">' .
-               '<span style = "background-color:' . $matches[4] .'">' .
-                $matches[5] . '</span></span></span></span>';
+               $count = 0; $str='';
+              if($matches[3] && $matches[3] != 'inherit') { $str .= '<span style = "color:' . $matches[3] .'">'; $count++;} 
+              if($matches[1] && $matches[1] != 'inherit') { $str .= '<span style = "font-size:' . $matches[1] .'">'; $count++; } 
+              if($matches[2] && $matches[2] != 'inherit') { $str .= '<span style = "font-family:' . $matches[1] .'">'; $count++; } 
+              if($matches[4] && $matches[4] != 'inherit') { $str .= '<span style = "background-color:' . $matches[4] .'">'; $count++; }  
+              $str .= $matches[5];              
+              for($i =0; $i<$count; $i++) {
+                  $str .= '</span>';
+              }
+               return $str;            
              }, $xhtml
         );
         }
