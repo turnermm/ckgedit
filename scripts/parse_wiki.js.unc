@@ -441,7 +441,7 @@ function parse_wikitext(id) {
             if(tag == 'span' && !ckgedit_xcl_styles) {
                if(attrs[i].name == 'style') {
                    if(!this.in_font) results += "__STYLE__";
-             	   this.in_font=true;    		   	   
+             	   this.in_font=true;    
                    this.using_fonts = true;                   
                    matches = attrs[i].value.match(/font-family:\s*([\w\-\s,]+);?/);
                    if(matches){
@@ -1030,8 +1030,8 @@ function parse_wikitext(id) {
               this.attr = this.mfile;
           }
           results += markup[tag];          // Set tag
-          
-          
+   
+         
           if(tag == 'td' || tag == 'th' || (this.last_col_pipes && this.td_align == 'center')) {
               if(this.is_rowspan) {          
                 results +=  markup['row_span'] + ' | ';
@@ -1127,7 +1127,7 @@ function parse_wikitext(id) {
           var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">";        
           var inherits = font_str.match(/(inherit)/g);
           if(inherits && inherits.length < 3) HTMLParserFontInfix = true;          
-          var font_start = results.lastIndexOf('__STYLE__');            
+          var font_start = results.lastIndexOf('__STYLE__');       
           results = results.splice(font_start,9,font_str);
           this.font_size = 'inherit';
           this.font_family = 'inherit';
@@ -1135,6 +1135,7 @@ function parse_wikitext(id) {
           this.font_bgcolor = 'inherit';
 		  this.in_font=false;		
           HTMLParserFont  = true;
+          results = results.replace(/__STYLE__/g,"");
 	 }
      if(tag == 'span' && this.curid) {
              this.curid = false;			  
@@ -1422,7 +1423,7 @@ function parse_wikitext(id) {
     }
     
      }
-    
+
 
     if(this.attr && this.attr == 'dwfcknote') {
          if(text.match(/fckgL\d+/)) {
@@ -1437,7 +1438,7 @@ function parse_wikitext(id) {
           return;       
     }
 	
-	
+
 	
     if(this.downloadable_code &&  (this.export_code || this.code_snippet)) {
           this.downloadable_file = text;          
@@ -1511,7 +1512,7 @@ function parse_wikitext(id) {
             results = results.replace(regex,"$1$2$3");     
         }
    } catch(ex){}
-   
+
   if(!HTMLParserOpenAngleBracket) {
        if(text.match(/&lt;/)) {
          HTMLParserOpenAngleBracket = true;
