@@ -155,6 +155,7 @@ function parse_wikitext(id) {
     var HTMLAcroInList = false;
     var HTML_InterWiki = false;
     var HTMLParserFont = false;   
+    var HTMLParserFontInfix = false;   
     var CurrentTable;
 
     var HTMLParserTopNotes = new Array();
@@ -1124,6 +1125,8 @@ function parse_wikitext(id) {
 	       tag = 'font';
           //<font 18pt/garamond;;color;;background_color>  
           var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">";        
+          var inherits = font_str.match(/(inherit)/g);
+          if(inherits && inherits.length < 3) HTMLParserFontInfix = true;          
           var font_start = results.lastIndexOf('__STYLE__');            
           results = results.splice(font_start,9,font_str);
           this.font_size = 'inherit';
@@ -1665,8 +1668,15 @@ function parse_wikitext(id) {
     }
    
     if(HTMLParserFont) {
- 
-   
+         var  regex = /\>\s+(\*\*|__|\/\/|'')\s+_\s+\1\s+<\/font>/gm;
+         results = results.replace(regex, function(m) {             
+             m= m.replace(/\s+/g,"");           
+             return m;
+        });
+        
+       if(HTMLParserFontInfix) {
+           results = results.replace(/<\/font>\s{1}/gm,"</font>");
+       }        
         results = results.replace(/(<font[^\>]+>)([^<]+\]\])[^\>]+\/font>/gm, function(match,a,b) {              
             b=b.replace(/\n/gm,"");      
             b=b.replace(/\s/gm,"");              

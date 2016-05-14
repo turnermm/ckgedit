@@ -1,4 +1,4 @@
-rev_16-May_12-06_47
+rev_16-May_14-07_56
 
 28 Feb 2013
 Added support for interwiki links
@@ -865,3 +865,6 @@ Fix to github issue ckgedit #186 (extra thiespace added after format characters)
 12 May
 Refactored spans for marking up fonts (in edit.php)
 Removed whte-space from font infixes in parse_wiki
+
+14 May
+Adjusted white space insertions in infixes
