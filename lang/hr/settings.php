@@ -36,3 +36,5 @@ $lang['font_options']          = 'Ukloni opcije znakovlja.';
 $lang['color_options']         = 'Ukloni opcije boje.';
 $lang['alt_toolbar']           = 'Funkcije koje se uklanjaju iz alatne trake u CK uređivaču';
 $lang['mfiles']                = 'Omogući mfile podršku';
+$lang['extra_plugins']         = 'Zarezom odvojena lista dodatnih Ckeditor dodataka koji će biti dodani na alatnu traku. Pogledajte ckgedit <a href=\'https://www.dokuwiki.org/plugin:ckgedit:configuration#extra_plugins\'>uputu o podešavanju</a> za detalje';
+$lang['dw_users']              = 'Ime grupe korisnika čiji je podrazumijevani Dokuwiki uređivač kada je odabran <b>dw_priority</b>. Ako nije definiran, tada će svima ugrađeni Dokuwiki uređivač biti podrazumijevani ako je odabran <b>dw_priority</b>.';
