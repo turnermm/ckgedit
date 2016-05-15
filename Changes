@@ -1,4 +1,4 @@
-rev_16-May_14-19_31
+rev_16-May_15-14_32
 
 28 Feb 2013
 Added support for interwiki links
@@ -869,3 +869,5 @@ Removed whte-space from font infixes in parse_wiki
 14 May
 Adjusted white space insertions in infixes
 Fixed Font error reporting for links
+
+15 Merge with font_whitespace
