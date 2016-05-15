@@ -1129,6 +1129,7 @@ function parse_wikitext(id) {
           if(inherits && inherits.length < 3) HTMLParserFontInfix = true;          
           var font_start = results.lastIndexOf('__STYLE__');       
           results = results.splice(font_start,9,font_str);
+   //     results = results.replace(/__STYLE__/m, font_str);
           this.font_size = 'inherit';
           this.font_family = 'inherit';
           this.font_color = 'inherit';
@@ -1686,9 +1687,9 @@ function parse_wikitext(id) {
            if(val) return val;
            return '[[' +b; 
      } );         
-         results = results.replace(/(\|<font[^\>]+>)([^<]+)<\/font>([^\]]+)\]\]/gm, function(match,a,b) {            
-               b=b.replace(/\n/gm,"");      
-               match='|' + b +']]';     
+       
+        results = results.replace(/\[\[(.*?)\|(<font[^\>]+>)(.*?)(<\/font>)\s*(\]\])\s*/gm,function(match,a,b,c) {
+             match='[[' + a +'|' + c +']]';      
              var v = jQuery("#fontdel").val();              
              if(!v) {                     
                  jQuery('#dw__editform').append('<input type="hidden" id="fontdel" name="fontdel" value="del" />');
