@@ -1,4 +1,4 @@
-rev_16-May_15-14_32
+rev_16-May_16-15_56
 
 28 Feb 2013
 Added support for interwiki links
@@ -871,3 +871,4 @@ Adjusted white space insertions in infixes
 Fixed Font error reporting for links
 
 15 Merge with font_whitespace
+Additional fixes for Font error reporting

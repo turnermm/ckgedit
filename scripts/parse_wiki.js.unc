@@ -1678,24 +1678,26 @@ function parse_wikitext(id) {
         
        if(HTMLParserFontInfix) {
            results = results.replace(/<\/font>\s{1}/gm,"</font>");
-       }        
-        results = results.replace(/(<font[^\>]+>)([^<]+\]\])[^\>]+\/font>/gm, function(match,a,b) {              
+       }     
+        results = results.replace(/(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>(\]\])?/gm, function(match,a,b) { 
             b=b.replace(/\n/gm,"");      
-            b=b.replace(/\s/gm,"");              
-            var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" +' [[' +b  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
+            b=b.replace(/\s/gm,"");       
+            b=b.replace(/[\[\]]/g,""); 
+            b = '[[' + b + ']]';              
+            var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" + b  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
            if(val == null)   throw new Error(LANG.plugins.ckgedit.font_err_throw);
            if(val) return val;
-           return '[[' +b; 
+           return b; 
      } );         
        
         results = results.replace(/\[\[(.*?)\|(<font[^\>]+>)(.*?)(<\/font>)\s*(\]\])\s*/gm,function(match,a,b,c) {
              match='[[' + a +'|' + c +']]';      
-             var v = jQuery("#fontdel").val();              
+             var v = jQuery("#fontdel").val();          
              if(!v) {                     
                  jQuery('#dw__editform').append('<input type="hidden" id="fontdel" name="fontdel" value="del" />');
-             }
+            }
             return match;
-     } );
+    } );
    }
    if(HTMLParserTopNotes.length) {
         results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");      
