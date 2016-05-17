@@ -268,6 +268,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
     <script type="text/javascript">
     //<![CDATA[ 
     var ckgedit_dwedit_reject = false;
+    var ckgedit_to_dwedit = false;
     function setDWEditCookie(which, e) { 
       
         var dom = document.getElementById('ckgedit_mode_type');                

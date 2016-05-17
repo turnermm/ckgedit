@@ -1683,9 +1683,15 @@ function parse_wikitext(id) {
             b=b.replace(/\n/gm,"");      
             b=b.replace(/\s/gm,"");       
             b=b.replace(/[\[\]]/g,""); 
-            b = '[[' + b + ']]';              
+            b = '[[' + b + ']]'; 
             var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" + b  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
-           if(val == null)   throw new Error(LANG.plugins.ckgedit.font_err_throw);
+           if(val == null) {
+                 if(ckgedit_to_dwedit)   {
+                    ckgedit_to_dwedit = false;                   
+                    return b;   
+                }    
+                 else throw new Error(LANG.plugins.ckgedit.font_err_throw);
+             } 
            if(val) return val;
            return b; 
      } );         
@@ -1794,6 +1800,7 @@ jQuery( "#ebtn__delete" ).mouseup(function() {
 });
 
 jQuery( "#ebtn__dwedit" ).click(function() { 
+   ckgedit_to_dwedit = true;
    setDWEditCookie(2, this);parse_wikitext('edbtn__save');this.form.submit();
 });
 

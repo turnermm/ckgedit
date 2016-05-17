@@ -1,4 +1,4 @@
-rev_16-May_17-07_21
+rev_16-May_17-13_36
 
 28 Feb 2013
 Added support for interwiki links
@@ -876,3 +876,4 @@ Fixed headers already sent error when sending cookie from dwpriority check
 
 17 May
 Fixed bug in regex testing for font markup in links
+Fixed bug that emitted _false_ on switch to dwedit with font markup in links
