@@ -1,4 +1,4 @@
-rev_16-May_16-23_02
+rev_16-May_17-07_21
 
 28 Feb 2013
 Added support for interwiki links
@@ -873,3 +873,6 @@ Fixed Font error reporting for links
 15 Merge with font_whitespace
 Additional fixes for Font error reporting
 Fixed headers already sent error when sending cookie from dwpriority check
+
+17 May
+Fixed bug in regex testing for font markup in links

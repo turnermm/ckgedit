@@ -1679,7 +1679,7 @@ function parse_wikitext(id) {
        if(HTMLParserFontInfix) {
            results = results.replace(/<\/font>\s{1}/gm,"</font>");
        }     
-        results = results.replace(/(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>(\]\])?/gm, function(match,a,b) { 
+        results = results.replace(/(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>(\]\])/gm, function(match,a,b) { 
             b=b.replace(/\n/gm,"");      
             b=b.replace(/\s/gm,"");       
             b=b.replace(/[\[\]]/g,""); 
