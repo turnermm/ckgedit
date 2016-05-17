@@ -14,6 +14,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $user_rewrite = false;
   var $helper;
   var $dokuwiki_priority;
+  var $profile_dwpriority;
   var $wiki_text;  
   var $dw_priority_group;
   var $dw_priority_metafn;
@@ -259,10 +260,9 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
    }
   global $INFO, $ckgedit_lang;
     
-  $discard = $this->getLang('discard_edits');  
-  $dokuwiki_priority = ($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0;
+  $discard = $this->getLang('discard_edits');   
   echo "<script type='text/javascript'>\n//<![CDATA[ \n";
-  echo "var useDW_Editor =$dokuwiki_priority;";
+  echo "var useDW_Editor =   $this->profile_dwpriority;"; 
   echo "\n //]]> </script>\n";
   echo <<<SCRIPT
     <script type="text/javascript">
@@ -270,15 +270,15 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
     var ckgedit_dwedit_reject = false;
     function setDWEditCookie(which, e) { 
       
-       var dom = document.getElementById('ckgedit_mode_type');          
-       if(which == 1) {          
+        var dom = document.getElementById('ckgedit_mode_type');                
           
-             if(useDW_Editor) {
+         if(useDW_Editor) {
                 document.cookie = 'FCKG_USE=other;expires=';             
               }  
-           else {
+             else {
                 document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;'
            }
+        if(which == 1) {             
            if(e && e.form) {
                     if(e.form['mode']) {
                        e.form['mode'].value = 'fck';
@@ -550,7 +550,7 @@ function check_userfiles() {
        $JSINFO['doku_base'] = DOKU_BASE ;
        $JSINFO['cg_rev'] = $INPUT->str('rev');
 	   $this->check_userfiles(); 
-	   
+	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
        /* set cookie to pass namespace to FCKeditor's media dialog */
       // $expire = time()+60*60*24*30;
@@ -679,7 +679,7 @@ function reset_user_rewrite_check() {
 function in_dwpriority_group() {      
         global $USERINFO,$INFO;
         if(!isset($USERINFO)) return false; 
-         if(empty($this->dw_priority_group)) return true;  // all users get dw_priority if no dw_pririty group has been set in config
+         if(empty($this->dw_priority_group)) return true;  // all users get dw_priority if no dw_priority group has been set in config
          $client =   $_SERVER['REMOTE_USER']; 
          $ar = unserialize(file_get_contents($this->dw_priority_metafn));  // check user profile settings
          $expire = time() -60*60*24*30;
