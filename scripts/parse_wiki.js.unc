@@ -986,7 +986,7 @@ function parse_wikitext(id) {
                   results += '  ';
               }
               }
-             
+
              if(this.prev_list_level > 0 && markup['li'] == markup['ol']) {
                 this.prev_list_level = -1;
              }
@@ -1201,7 +1201,7 @@ function parse_wikitext(id) {
         this.end_nested = false;
         return;    // prevent newline from being inserted between end of nested list and return to previous nested level 
     }
-    
+ 
     if(tag == 'ol' || tag == 'ul') {  
             this.list_level--;    
             if(!this.list_level) this.format_in_list = false;
@@ -1284,7 +1284,7 @@ function parse_wikitext(id) {
      }       
       if(this.in_endnotes  && current_tag == 'sup') {return}
        results += tag;
-      
+
       if(format_chars[current_tag]) {               
             if(this.list_level) {
                   this.format_in_list = true; 
@@ -1401,8 +1401,7 @@ function parse_wikitext(id) {
 	       HTMLParser_NOWIKI=true;   
 	   }
 
-
-        if(this.format_in_list ) {  
+        if(this.format_in_list ||  (HTMLParserFont && this.list_started ) )  {  
            text = text.replace(/^[\n\s]+$/g, '');       
           if(text.match(/\n{2,}\s{1,}/)) {                 
                 text = text.replace(/\n{2,}/, "\n");         
@@ -1679,7 +1678,7 @@ function parse_wikitext(id) {
        if(HTMLParserFontInfix) {
            results = results.replace(/<\/font>\s{1}/gm,"</font>");
        }     
-        results = results.replace(/(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>(\]\])/gm, function(match,a,b) { 
+        results = results.replace(/(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>\s*(\]\])/gm, function(match,a,b) { 
             b=b.replace(/\n/gm,"");      
             b=b.replace(/\s/gm,"");       
             b=b.replace(/[\[\]]/g,""); 
