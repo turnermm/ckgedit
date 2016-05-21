@@ -5,7 +5,7 @@ function parse_wikitext(id) {
           return true;
    }    
    var useComplexTables = getComplexTables();   
-   
+  
   /**
      table debugging code;
   */
@@ -131,7 +131,7 @@ function parse_wikitext(id) {
     markup['temp_cs'] = "CKGE_TMP_cdel";     
 
   var $FORMAT_SUBST = {'CKGE_TMP_b' :'**', 'CKGE_TMP_strong' :'**', 'CKGE_TMP_em' : '\/\/', 'CKGE_TMP_u' : '__', 'CKGE_TMP_sup' : '<sup>','CKGE_TMP_sub' :'<sub>',
-  'CKGE_TMP_csub' : '</sub>','CKGE_TMP_csup' : '</sup>','CKGE_TMP_del' : '<del>','CKGE_TMP_strike' : '<del>','CKGE_TMP_code' : "\'\'"};
+  'CKGE_TMP_cdel':'</del>','CKGE_TMP_csub' : '</sub>','CKGE_TMP_csup' : '</sup>','CKGE_TMP_del' : '<del>','CKGE_TMP_strike' : '<del>','CKGE_TMP_code' : "\'\'"};
      
     markup['blank'] = "";
     markup['fn_start'] = '((';
@@ -1564,7 +1564,7 @@ function parse_wikitext(id) {
              }
             return m;
      } );
-         results = results.replace(/(CKGE_TMP_\w+)/gm, function(m,tag) {      
+      results = results.replace(/\s?(CKGE_TMP_\w+)\s?/gm, function(m,tag) {      
             if($FORMAT_SUBST[tag]) return $FORMAT_SUBST[tag];       
             return m;
      } );

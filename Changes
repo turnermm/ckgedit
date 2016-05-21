@@ -1,4 +1,4 @@
-rev_16-May_18-13_20
+rev_16-May_21-08_19
 
 28 Feb 2013
 Added support for interwiki links
@@ -880,3 +880,6 @@ Fixed bug that emitted _false_ on switch to dwedit with font markup in links
 
 18 May
 Removed space/new-line insertions in lists when font markup is place.
+
+21 May
+Removed space between end punctuation and closing font tag when DW markup is inclued inside font.
