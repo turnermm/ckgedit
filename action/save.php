@@ -26,9 +26,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
              msg('Font Markup removed from headers(s): not supported by Dokuwiki',1);           
          }         
      
-        global $TEXT;
+        global $TEXT, $conf;
         if (!$TEXT) return;
-
+        $deaccent = $conf['deaccent'] == 0 ? false : true;
         $TEXT = $_REQUEST['fck_wikitext'];
         
         if(!preg_match('/^\s+(\-|\*)/',$TEXT)) {    
@@ -90,17 +90,18 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
         }     
       $TEXT = str_replace('%%', "FCKGPERCENTESC",  $TEXT);
      
-          $TEXT = preg_replace_callback('/^(.*?)(\[\[.*?\]\])*(.*?)$/ms', 
-               create_function(
-                     '$matches',         
-                     '$matches[1] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[1]);
-                     $matches[2] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[2]);
-                      $matches[3] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[3]);
-                      return $matches[1].$matches[2].$matches[3];'            
-                ),
-                $TEXT
-             );
-        
+        if($deaccent) {
+              $TEXT = preg_replace_callback('/^(.*?)(\[\[.*?\]\])*(.*?)$/ms', 
+                   create_function(
+                         '$matches',         
+                         '$matches[1] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[1]);
+                         $matches[2] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[2]);
+                          $matches[3] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[3]);
+                          return $matches[1].$matches[2].$matches[3];'            
+                    ),
+                    $TEXT
+                 );
+        }
         
         $TEXT = rawurldecode($TEXT);
         $TEXT = preg_replace('/URLENC_PERCENT/', '%',$TEXT); 

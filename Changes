@@ -1,4 +1,4 @@
-rev_16-May_22-16_42
+rev_16-May_23-15_56
 
 28 Feb 2013
 Added support for interwiki links
@@ -886,3 +886,6 @@ Removed space between end punctuation and closing font tag when DW markup is inc
 
 22 May
 Restored table.js to ckgedit version, from the CKEDitor 4.5.7 version
+
+23 May
+Fix in save.php for $conf[deaccent]==0 (off)
