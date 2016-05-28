@@ -1129,7 +1129,7 @@ function parse_wikitext(id) {
           if(inherits && inherits.length < 3) HTMLParserFontInfix = true;          
           var font_start = results.lastIndexOf('__STYLE__');       
           results = results.splice(font_start,9,font_str);
-   //     results = results.replace(/__STYLE__/m, font_str);
+          results = results.replace(/_FORMAT_SPACE_<font/m, "<font");         
           this.font_size = 'inherit';
           this.font_family = 'inherit';
           this.font_color = 'inherit';

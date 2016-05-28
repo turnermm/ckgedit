@@ -1,4 +1,4 @@
-rev_16-May_23-15_56
+rev_16-May_27-22_42
 
 28 Feb 2013
 Added support for interwiki links
@@ -889,3 +889,6 @@ Restored table.js to ckgedit version, from the CKEDitor 4.5.7 version
 
 23 May
 Fix in save.php for $conf[deaccent]==0 (off)
+
+26 May
+Delete  space insertion between preceding character and following font tag where space should be closed
