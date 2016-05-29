@@ -1,4 +1,4 @@
-rev_16-May_27-22_42
+rev_16-May_29-09_57
 
 28 Feb 2013
 Added support for interwiki links
@@ -892,3 +892,6 @@ Fix in save.php for $conf[deaccent]==0 (off)
 
 26 May
 Delete  space insertion between preceding character and following font tag where space should be closed
+
+29 May
+Complex tables changed to default: now hides complex tables checkbox.

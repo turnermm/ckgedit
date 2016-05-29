@@ -723,9 +723,9 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
  </div>
 
 
-     <label class="nowrap" for="complex_tables" >     
+     <label class="nowrap" for="complex_tables" id="complex_tables_label">     
         <input type="checkbox" name="complex_tables" value="complex_tables"  id = "complex_tables" 
-                     /><span id='complex_tables_label'> <?php echo $this->getLang('complex_tables');?></span></label> 
+                     /><span id='complex_tables_label_text'> <?php echo $this->getLang('complex_tables');?></span></label> 
       &nbsp;&nbsp;<label class="nowrap" for="editor_height"><?php echo $this->getLang('editor_height');?></label> 
         <input type="text" size= "4" name="editor_height" title = "<?php echo $this->getLang('editor_height_title'); ?>" value="<?php echo $height?>"  id = "editor_height"  onchange="setEdHeight(this.value);" />  px    
 
@@ -775,6 +775,8 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
     <?php } ?>  
     <?php  if($this->getConf('complex_tables')) { ?>
          document.getElementById('complex_tables').disabled = true;
+         document.getElementById('complex_tables_label').style = "display:none";
+         document.getElementById('complex_tables_label_text').style = "display:none";
     <?php } ?>  
 
 <?php
