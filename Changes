@@ -1,4 +1,4 @@
-rev_16-May_05-07_16
+rev_16-Jun_05-09_20
 
 28 Feb 2013
 Added support for interwiki links
@@ -841,3 +841,6 @@ Synched with master
 5 May
 removed dw_priority option which fails to switch back to ckeditor
 in farms
+
+5 June
+replaced above option with message that it doesn't work; otherwise causes Chrome error.
