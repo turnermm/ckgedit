@@ -222,12 +222,12 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
          $useComplexTables=false;
       }
       
-      if(strpos($text, '%%') !== false) {  
-
+      if(strpos($text, '%%') !== false || strpos($text, '\\\\') !== false ) {  
         $text = preg_replace_callback(
             "/<(nowiki|code|file)>(.*?)<\/(nowiki|code|file)/ms",
             function ($matches) {
                 $matches[0] = str_replace('%%', 'DBLPERCENT',$matches[0]);
+                $matches[0] =  str_replace('\\ ', 'DBLBACKSPLASH',$matches[0]);
                 return $matches[0];
             },
            $text

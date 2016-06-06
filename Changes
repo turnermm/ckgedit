@@ -1,4 +1,4 @@
-rev_16-May_29-09_57
+rev_16-Jun_06-08_38
 
 28 Feb 2013
 Added support for interwiki links
@@ -895,3 +895,6 @@ Delete  space insertion between preceding character and following font tag where
 
 29 May
 Complex tables changed to default: now hides complex tables checkbox.
+
+6 June
+Fixed bug which converted  double backslash to single in code blocks
