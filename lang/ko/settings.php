@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Myeongjin <aranet100@gmail.com>
  */
 $lang['groups']                = '잠금 타이머를 비활성화하도록 허용한 그룹 (사용되지 않음)';
@@ -36,3 +36,5 @@ $lang['font_options']          = '글꼴 옵션을 제거합니다.';
 $lang['color_options']         = '색 옵션을 제거합니다.';
 $lang['alt_toolbar']           = 'CKEditor 도구 모음에서 제거할 기능';
 $lang['mfiles']                = 'mfile 지원 활성화';
+$lang['extra_plugins']         = '도구 모음에 추가할 추가적인 Ckeditor 플러그인의 쉼표로 구분된 목록. 자세한 사항은 ckgedit 플러그인의 <a href=\'https://www.dokuwiki.org/plugin:ckgedit:configuration#extra_plugins\'>설정 문서</a>를 보세요';
+$lang['dw_users']              = '<b>dw_priority</b>가 선택되어 있을 때 편집기 기본값을 도쿠위키 편집기로 사용할 사용자의 그룹 이름. 정의하지 않으면, 모든 사용자가 <b>dw_priority</b>가 선택되어 있을 때 네이티브 도쿠위키 편집기를 사용합니다';
