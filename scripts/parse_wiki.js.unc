@@ -1107,6 +1107,11 @@ function parse_wikitext(id) {
                  return; 
          }
     if(this.in_endnotes && tag == 'a') return;
+     if(this.in_link && format_chars[current_tag] && this.link_formats.length) {            
+           return;
+     }       
+    else if(tag == 'a'  && ! this.link_formats.length) this.in_link = false;        
+ 
     if(this.link_only){     
        this.link_only=false;
        return;
@@ -1279,9 +1284,7 @@ function parse_wikitext(id) {
   
      }
 
-     if(this.in_link && format_chars[current_tag] && this.link_formats.length) {            
-           return;
-     }       
+
       if(this.in_endnotes  && current_tag == 'sup') {return}
        results += tag;
 

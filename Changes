@@ -1,4 +1,4 @@
-rev_16-Jun_06-09_11
+rev_16-Jun_26-11_46
 
 28 Feb 2013
 Added support for interwiki links
@@ -898,3 +898,6 @@ Complex tables changed to default: now hides complex tables checkbox.
 
 6 June
 Fixed bug which converted  double backslash to single in code blocks
+
+26 June
+Fixed bug which removed formats when link preceded format in lists
