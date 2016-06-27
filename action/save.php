@@ -104,7 +104,6 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
         }
         
         $TEXT = rawurldecode($TEXT);
-        $TEXT = preg_replace('/NOWIKI_%_NOWIKI_%_/', '%%',$TEXT);
         $TEXT = preg_replace('/URLENC_PERCENT/', '%',$TEXT); 
         $TEXT = preg_replace('/NOWIKI_(.)_/', '$1',$TEXT);
         
@@ -168,13 +167,6 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
        
         $this->replace_entities();
 
-      $TEXT = preg_replace_callback(        
-          '|<nowiki>(.*?)(?!</nowiki>)|ms',
-           function ($matches) {
-              return '%%<nowiki>%%' .$matches[1];
-          },
-          $TEXT
-         );
 /* 11 Dec 2013 see comment below        
 Remove discarded font syntax    
 */
