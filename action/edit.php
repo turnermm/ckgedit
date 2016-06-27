@@ -223,6 +223,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
       }
       
       if(strpos($text, '%%') !== false || strpos($text, '\\\\') !== false ) {  
+      $text = preg_replace('/%%\s*<nowiki>\s*%%/ms', 'PERCNWPERC',$text);
+      $text = preg_replace('/%%\s*<(code|file)>\s*%%/ms', 'PERC' . "$1" . 'PERC',$text);
         $text = preg_replace_callback(
             "/<(nowiki|code|file)>(.*?)<\/(nowiki|code|file)/ms",
             function ($matches) {
@@ -352,6 +354,10 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $text = preg_replace($email_regex,"<$1>",$text);
 
        $text = preg_replace('/{{(.*)\.swf(\s*)}}/ms',"__SWF__$1.swf$2__FWS__",$text);
+       $text = preg_replace('/PERCNWPERC/ms', '%%&lt;nowiki&gt;%%',$text);
+       //$text = preg_replace('/%%\s*<(code|file)>\s*%%/ms', 'PERC' . "$1" . 'PERC',$text);
+       $text = preg_replace('/PERCcodePERC/ms','%%&lt;code&gt;%%', $text);
+       $text = preg_replace('/PERCfilePERC/ms','%%&lt;file&gt;%%', $text);
        $this->xhtml = $this->_render_xhtml($text);
 
        $this->xhtml = str_replace("__IWIKI_FSLASH__", "&frasl;", $this->xhtml);

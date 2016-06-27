@@ -1,4 +1,4 @@
-rev_16-Jun_26-11_46
+rev_16-Jun_27-12_12
 
 28 Feb 2013
 Added support for interwiki links
@@ -901,3 +901,6 @@ Fixed bug which converted  double backslash to single in code blocks
 
 26 June
 Fixed bug which removed formats when link preceded format in lists
+
+27 June
+Fix for singleton nowiki and double percent markup
