@@ -1,4 +1,4 @@
-rev_16-Jun_27-15_32
+rev_16-Jun_28-08_58
 
 28 Feb 2013
 Added support for interwiki links
@@ -904,3 +904,6 @@ Fixed bug which removed formats when link preceded format in lists
 
 27 June
 Fix for singleton nowiki/code/file escaped with double percent markup
+
+28 June
+Added support for skipentity plugin to preprocessor

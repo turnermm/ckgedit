@@ -250,6 +250,18 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 
        if($pos !== false) {
 
+/* skipentity support */
+        $text = preg_replace_callback(
+            '/``(.*?)``/ms',
+            function($matches) {          
+                $needles =  array('[',']', '/',  '.', '*', '_','\'','<','>','%', '{', '}', '\\' , '(' );                          
+                $replacements = array('&#91;','&#93;','&#47;', '&#46;', '&#42;', '&#95;', '&#39;', '&#60;','&#62;','&#37;', '&#123;','&#125;', '&#92;','&#40;');                       
+                $matches[1] = str_replace($needles, $replacements, $matches[1]); 
+               return '&grave;&grave;' .$matches[1] .'&grave;&grave;' ;
+            },
+            $text
+        );
+      
 
            $text = preg_replace_callback(
             '/(<nowiki>)(.*?)(<\/nowiki>)/ms',          
