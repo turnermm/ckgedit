@@ -1,4 +1,4 @@
-rev_16-Jun_05-09_20
+rev_16-Jul_08-07_11
 
 28 Feb 2013
 Added support for interwiki links
@@ -844,3 +844,6 @@ in farms
 
 5 June
 replaced above option with message that it doesn't work; otherwise causes Chrome error.
+
+8 Jul
+removed config_animal=null if unefined (should always be defined and corrupts image syntax
