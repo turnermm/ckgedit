@@ -846,4 +846,5 @@ in farms
 replaced above option with message that it doesn't work; otherwise causes Chrome error.
 
 8 Jul
-removed config_animal=null if unefined (should always be defined and corrupts image syntax
+removed config_animal=null if undefined (should always be defined and corrupts image syntax)
+
