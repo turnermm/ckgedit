@@ -1,4 +1,4 @@
-rev_16-Jun_28-08_58
+rev_16-Jul_12-07_45
 
 28 Feb 2013
 Added support for interwiki links
@@ -907,3 +907,6 @@ Fix for singleton nowiki/code/file escaped with double percent markup
 
 28 June
 Added support for skipentity plugin to preprocessor
+
+12 Jul
+re-size filebrowser inner windows vs just external popup size
