@@ -40,6 +40,7 @@ var isDwikiUrlExtern = opener.oDokuWiki_FCKEditorInstance.isUrlExtern ? true: fa
 var DwikiImageUploadAllowedExtensions = opener.oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions;
 var isDwikiMediaFile = opener.oDokuWiki_FCKEditorInstance.isDwikiMediaFile;
 var isDwikiImage = opener.oDokuWiki_FCKEditorInstance.isDwikiImage;
+var fbsz_increment =opener.oDokuWiki_FCKEditorInstance.fbsz_increment;
 // Automatically detect the correct document.domain (#1919).
 (function()
 {
@@ -94,6 +95,25 @@ window.onload = function()
   if(navigator.userAgent.indexOf('MSIE') != -1 ||  navigator.userAgent.indexOf('Trident') != -1) {
       document.getElementById('adustfbbuttons').style.display='none';
   }
+  if(fbsz_increment > 0) {
+      var isIE = navigator.userAgent.indexOf('MSIE') >= 0 ? true : false;     
+      var fbl = document.getElementById("frmResourcesList");
+      var frmfolders = document.getElementById("frmFolders");
+      fbl['height']  = 400 + (400*(fbsz_increment/100));
+      frmfolders['height'] = 490 + (490*(fbsz_increment/100));
+      if(!isIE) {
+          var fbaf = document.getElementById("frmActualFolder");
+          var width = 750 + (750*(fbsz_increment/100));      
+          fbl['width']  = width;          
+          fbaf['width']  = width;
+          frmfolders['width'] = 180 + (180*(fbsz_increment/100));      
+          var fbmatter = document.getElementById("bottom_matter");
+          fbmatter.style.width = width;  
+       }
+      var whichsz = document.getElementById("adjfbsz" + fbsz_increment);
+      whichsz.checked=true;
+
+  }   
 }
 function GetUrlParam( paramName )
 {
@@ -303,14 +323,14 @@ function onSubmitFn() {
     <div id='wrapper'>
           <div class="left_sidebar">
                <iframe src="frmresourcetype.html" height="50" width="180"></iframe>
-              <iframe name="frmFolders" src="frmfolders.html" scrolling="auto"  width="180" height="490" ></iframe>
+              <iframe name="frmFolders" id="frmFolders" src="frmfolders.html" scrolling="auto"  width="180" height="490" ></iframe>
         </div>
         <div class="right_page">
            <div class="frameborder">
-            <iframe  name="frmActualFolder" src="frmactualfolder.html" frameborder="0" width=750"  height="50"></iframe>
+            <iframe  name="frmActualFolder"  id="frmActualFolder" src="frmactualfolder.html" frameborder="0" width=750"  height="50"></iframe>
             </div>
              <div class="frameborder">
-            <iframe name="frmResourcesList" class="resourceslist" src="frmresourceslist.html"  frameborder="0"  width="758"   height="400"  scrolling="auto"></iframe>
+            <iframe name="frmResourcesList" class="resourceslist" src="frmresourceslist.html"  frameborder="0" id="frmResourcesList"  width="758"   height="400"  scrolling="auto"></iframe>
             </div>
              <div id="bottom_matter">   
                 <div id="create_folder"  class="createfolder">
@@ -335,8 +355,8 @@ function onSubmitFn() {
                 </div>
                 <div style="display:none">
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
-                </div> <table "><tr><td colspan="2">                   
-                <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>:  5%<input type="radio" name="adjfbsz" onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" onchange="fbsz_inc(20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
+                </div> <table><tr><td colspan="2">                   
+                <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>: 5%<input type="radio" name="adjfbsz" id = "adjfbsz5"onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz"  id = "adjfbsz10" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" id = "adjfbsz15" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" id = "adjfbsz20" onchange="fbsz_inc(20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
                 </td></tr>
                 <tr><td ><form  onsubmit="return onSubmitFn();"><div  id="adustfbbuttons"><span fckLang="DlgFileBrowserSortBy">Sort by</span>:&nbsp;&nbsp;  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortDate">Date</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortOrder">Reverse Order</span><input type="checkbox" name="srtbrorder" id="srtbrorder" onchange="fb_sz_date_order(this);"></div> 
                 </td><td class="ckg_td1"><input type="button" name="srtbrfiles" onclick="fb_search(this.form)" fckLang="DlgFileBrowserSearch" value="Find files(s):"> <input type="text" name="fsearch" id="fsearch">&nbsp;&nbsp;<input type="button" name="srtbrfiles" onclick="document.getElementById('help').style.visibility='visible';" fckLang="DlgFileBrowserButtonHelp" value="Help"> </form></td></tr></table>             

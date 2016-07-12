@@ -100,7 +100,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
    $user_type = 'user';
   }
   $save_dir = DOKU_URL . ltrim($conf['savedir'],'/.\/');
-
+  $fbsz_increment = isset($_COOKIE['fbsz']) && $_COOKIE['fbsz'] ? $_COOKIE['fbsz'] : '0';
   // if no ACL is used always return upload rights
   if($conf['useacl']) {
      $client = $_SERVER['REMOTE_USER']; 
@@ -479,7 +479,7 @@ function FCKeditor_OnComplete( editorInstance )
   oDokuWiki_FCKEditorInstance.fckgUserMail="$user_email"; 
   oDokuWiki_FCKEditorInstance.useheading = "$useheading"; 
   oDokuWiki_FCKEditorInstance.mfiles = parseInt("$mfiles");
-  
+  oDokuWiki_FCKEditorInstance.fbsz_increment=parseInt("$fbsz_increment");
  
   var index = navigator.userAgent.indexOf('Safari'); 
   if(index == -1  || (navigator.userAgent.indexOf('Chrome'))) {
