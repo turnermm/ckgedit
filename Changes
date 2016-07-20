@@ -1,4 +1,4 @@
-rev_16-Jul_19-19_32
+rev_16-Jul_19-19_46
 
 28 Feb 2013
 Added support for interwiki links
@@ -913,4 +913,5 @@ re-size filebrowser inner windows vs just external popup size
 
 19 Jul
 Synced renderer.php:table_open with updated (declaration for) Doku_Renderer_xhtml::table_open
+Fixed bug in table_open call to parent.
 

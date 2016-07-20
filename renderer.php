@@ -112,7 +112,7 @@ class renderer_plugin_ckgedit extends Doku_Renderer_xhtml
    
     function table_open($maxcols = null, $numrows = null, $pos = null, $classes = NULL){
         $this->doc .= "\n<span class='np_break'>&nbsp;</span>\n";
-        parent::table_open($maxcols = null, $numrows = null, $pos = null,$classes);
+        parent::table_open($maxcols, $numrows, $pos,$classes);
     }
     /* 
      * Dokuwiki displays __underlines__ as follows
