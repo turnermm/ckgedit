@@ -1,4 +1,4 @@
-rev_16-Jul_12-07_45
+rev_16-Jul_19-19_32
 
 28 Feb 2013
 Added support for interwiki links
@@ -910,3 +910,7 @@ Added support for skipentity plugin to preprocessor
 
 12 Jul
 re-size filebrowser inner windows vs just external popup size
+
+19 Jul
+Synced renderer.php:table_open with updated (declaration for) Doku_Renderer_xhtml::table_open
+
