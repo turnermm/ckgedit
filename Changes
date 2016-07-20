@@ -1,4 +1,4 @@
-rev_16-Jul_19-19_50
+rev_16-Jul_19-20_14
 
 28 Feb 2013
 Added support for interwiki links
@@ -851,3 +851,4 @@ removed config_animal=null if undefined (should always be defined and corrupts i
 19 Jul
 Synced renderer.php:table_open with updated (declaration for) Doku_Renderer_xhtml::table_open; 
 fixed bug in table_open call to parent.
+changed renderer.php constructor to __construct
