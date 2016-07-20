@@ -1,4 +1,4 @@
-rev_16-Jul_08-07_11
+rev_16-Jul_19-19_50
 
 28 Feb 2013
 Added support for interwiki links
@@ -848,3 +848,6 @@ replaced above option with message that it doesn't work; otherwise causes Chrome
 8 Jul
 removed config_animal=null if undefined (should always be defined and corrupts image syntax)
 
+19 Jul
+Synced renderer.php:table_open with updated (declaration for) Doku_Renderer_xhtml::table_open; 
+fixed bug in table_open call to parent.
