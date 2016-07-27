@@ -36,3 +36,7 @@ $lang['title_styling']         = '글꼴 스타일을 마크업으로 보여지�
 $lang['js']['font_err_1']      = '글꼴 스타일은 링크 안에 포함할 수 없습니다. 다음 수정을 받아들이려면 확인을 클릭하세요:';
 $lang['js']['font_err_2']      = '개정하려면, 괄호를 포함하여 아래에 전체 도쿠위키 링크 문법을 입력하세요. 편집기로 돌아가려면 취소를 클릭하세요.';
 $lang['js']['font_err_throw']  = '글꼴 서식 오류';
+$lang['js']['dwp_save_err']    = '바뀜을 저장할 수 없습니다:';
+$lang['js']['dwp_updated']     = '편집기 우선 순위 업데이트:';
+$lang['js']['dwp_not_sel']     = '편집기 우선 순위를 선택하지 않음: dw_users 그룹 환경 설정에 의해 결정될 것입니다';
+$lang['uprofile_title']        = '기본 편집기 선택';
