@@ -7,13 +7,13 @@
  */
 $lang['groups']                = '잠금 타이머를 비활성화하도록 허용하는 그룹 (사용되지 않음)';
 $lang['fck_preview']           = 'FCK 미리 보기 그룹';
-$lang['guest_toolbar']         = '손님에게 도구 모음을 보여주기';
+$lang['guest_toolbar']         = '손님에게 도구 모음을 표시';
 $lang['guest_media']           = '손님이 미디어 파일로 링크할 수 있음';
 $lang['open_upload']           = '손님이 올릴 수 있음';
 $lang['default_fb']            = '기본 파일 찾아보기 접근. none이면, acl이 적용되지 않습니다.';
 $lang['openfb']                = '파일 찾아보기를 엽니다. 사용자가 권한이 있는지 없는지에 따라 사용자에게 전체 디렉터리 구조에 접근할 수 있도록 줍니다. ACL은 여전히 올리기에 적용됩니다.';
 $lang['dw_edit_display']       = '"DW 편집" 버튼으로 접근할 수 있는 사용자를 제어합니다. 선택: "all"은 모든 사용자; "admin"은 admin 및 manager만; "none"은 아무도 없음. 기본값은 "all"입니다.';
-$lang['smiley_as_text']        = 'CKeditor에서 이모티콘을 텍스트로 보여주기 (여전히 브라우저에서는 그림으로 보여집니다)';
+$lang['smiley_as_text']        = 'CKeditor에서 이모티콘을 텍스트로 표시 (여전히 브라우저에서는 그림으로 표시됩니다)';
 $lang['editor_bak']            = 'meta/&lt;namespace&gt;.ckgedit에 백업을 저장';
 $lang['create_folder']         = '파일 브라우저에서 폴더 만들기 버튼 활성화 (y/n)';
 $lang['dwedit_ns']             = 'ckgedit가 네이티브 도쿠위키 편집기로 자동으로 전환할 이름공간 및/또는 문서의 쉼표로 구분된 목록; 부분적인 일치를 허용합니다.';
@@ -31,7 +31,7 @@ $lang['winstyle']              = 'fckeditor/userfiles 대신 미디어 디렉터
 $lang['other_lang']            = 'CKEditor의 기본 언어로 브라우저의 언어로 설정됩니다. 하지만, 여기에서 다른 언어를 선택할 수 있습니다; 이것은 도쿠위키의 인터페이스 언어와는 독립적입니다.';
 $lang['dw_priority']           = '<b>dw_priority</b>: 도쿠위키 편집기를 기본 편집기로 사용';
 $lang['preload_ckeditorjs']    = 'CKEditor의 자바스크립트를 미리 읽어 편집기를 불러올 때의 지연 시간을 줄이기';
-$lang['nofont_styling']        = '편집기에서 글꼴 스타일을 플러그인 마크업으로 보여줍니다. 자세한 내용은 Dokuwiki.org에서 ckgedit 플러그인 문서를 보세요.';
+$lang['nofont_styling']        = '편집기에서 글꼴 스타일을 플러그인 마크업으로 표시합니다. 자세한 내용은 Dokuwiki.org에서 ckgedit 플러그인 문서를 보세요.';
 $lang['font_options']          = '글꼴 옵션을 제거합니다.';
 $lang['color_options']         = '색 옵션을 제거합니다.';
 $lang['alt_toolbar']           = 'CKEditor 도구 모음에서 제거할 기능<br /><br />텍스트 상자에 쉼표로 구분된 목록으로 다른 기능들을 포함하여 제거할 수 있습니다:<br /><br />Bold, Italic, Underline, Strike, Subscript, Superscript, RemoveFormat, Find, Replace, SelectAll, Scayt, Image, Table, Tags, Link, Unlink, Format, Styles,TextColor, BGColor, NumberedList, BulletedList, Cut, Copy, Paste, PasteText, PasteFromWord, Undo, Redo, Source, Maximize, About.';
