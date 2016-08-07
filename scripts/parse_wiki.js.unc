@@ -1764,7 +1764,7 @@ function parse_wikitext(id) {
            results += "~~COMPLEX_TABLES~~\n"; 
         }
     }
-    else results = results.replace(/~~COMPLEX_TABLES~~/gm,"")
+    if(!useComplexTables) {    results = results.replace(/~~COMPLEX_TABLES~~/gm,""); }
     results=results.replace(/_CKG_ASTERISK_/gm,'*');      
     results = results.replace(/_ESC_BKSLASH_/g,'\\');
     if(id == 'test') {
