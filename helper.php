@@ -261,7 +261,7 @@ var oldBeforeunload;
                 DOKU_BASE + 'lib/exe/ajax.php',
                 params,
                 function (data) {
-                    data = data.replace(/auto/,"")  + ' by ckgeditLite';
+                    data = data.replace(/auto/,"")  + ' by ckgedit';
                     locktimer.response = data; 
                     locktimer.refreshed(data);
                 },

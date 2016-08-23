@@ -1,4 +1,4 @@
-rev_16-Aug_07-11_53
+rev_16-Aug_22-19_41
 
 28 Feb 2013
 Added support for interwiki links
@@ -918,3 +918,6 @@ Changed renderer constructor to __construct
 
 7 Aug
 Fixed bug in parse_wiki which removed ~~COMPLEX_TABLES~~ macro when not intended
+
+22 Aug
+Fixed backup_area tex-align css and corrected ckgeditLite to ckgedit in backup message (helper.php)
