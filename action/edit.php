@@ -199,7 +199,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     '/(~~NOCACHE~~|~~NOTOC~~|\{\{rss>http:\/\/.*?\}\})/ms',
      create_function(
                '$matches',
-               '$matches[0] = str_replace("{{rss>http://", "{ { rss>Feed:",  $matches[0]);
+               '$matches[0] = str_replace("{{rss>http://www.", "{ { rss>FEED",  $matches[0]);
+               $matches[0] = str_replace("{{rss>http://", "{ { rss>Feed:",  $matches[0]);
                $matches[0] = str_replace("~", "~ ",  $matches[0]);
                return $matches[0];'
                ),$text);
@@ -382,6 +383,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $this->xhtml = str_replace('CHEVRONescC', '>>',$this->xhtml);
        $this->xhtml = str_replace('CHEVRONescO', '<<',$this->xhtml);
        $this->xhtml = preg_replace('/_QUOT_/ms','>',$this->xhtml);  // dw quotes     
+       $this->xhtml = str_replace("rss&gt;FEED", "rss>Feed:www.",$this->xhtml); 
 
        if($pos !== false) {
        $this->xhtml = preg_replace_callback(
@@ -1185,7 +1187,7 @@ $text = preg_replace_callback(
     }
 
   function write_debug($what) {
-     return;
+   //  return;
      $handle = fopen("ckgedit_php.txt", "a");
     // if(is_array($what)) $what = print_r($what,true);
      fwrite($handle,"$what\n");

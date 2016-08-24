@@ -1,4 +1,4 @@
-rev_16-Aug_23-13_51
+rev_16-Aug_24-07_05
 
 28 Feb 2013
 Added support for interwiki links
@@ -924,3 +924,6 @@ Fixed backup_area tex-align css and corrected ckgeditLite to ckgedit in backup m
 
 23 Aug
 Fix for javascript issue in Safari which prevented dw priority from update using update profile form
+
+24 Aug
+Fixed rss syntax which uses http://www.whatever instead of http://whatever
