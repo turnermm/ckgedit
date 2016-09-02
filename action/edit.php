@@ -541,7 +541,7 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
 		       {
                   toolbar: '$toolbar',
                   height: $height,
-                  filebrowserBrowseUrl: "$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text"
+                  filebrowserImageBrowseUrl: "$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text"
                }
 		   );
            FCKeditor_OnComplete(ckgeditCKInstance);
