@@ -22,7 +22,7 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
         //used by dokuwiki editor
         var opts, alignleft, alignright, edid, s;
         //used by CKEditor
-        var link, align;
+        var link, align, width;
 
         // set syntax options
         dw_mediamanager.$popup.dialog(\'close\');
@@ -49,6 +49,7 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
                 }
 
                 s = parseInt(dw_mediamanager.size, 10);
+                width = s*200;
                 if (s && s >= 1 && s < 4) {
                     opts += (opts.length)?\'&\':\'?\';
                     opts += dw_mediamanager.size + "00";
@@ -101,6 +102,10 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
                     }
                     if (link != null) {
                         dialog.getContentElement("info", "cmbLinkType").setValue(link);
+                    }
+                    if (width != null) {
+                        dialog.getContentElement("info", "txtWidth").setValue(width);
+                        dialog.dontResetSize = true;
                     }
                 }
             });
