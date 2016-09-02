@@ -537,22 +537,20 @@ $height = isset($_COOKIE['ckgEdht']) && $_COOKIE['ckgEdht'] ? $_COOKIE['ckgEdht'
 
 $doku_url=  rtrim(DOKU_URL,'/');        
 $ckeditor_replace =<<<CKEDITOR_REPLACE
-    
-		   ckgeditCKInstance = CKEDITOR.replace('wiki__text',
-		       { 
-                  toolbar: '$toolbar',    
-                  height: $height,
-                  filebrowserBrowseUrl: 'http://fls.superiorplastic.net/dokuwiki/lib/exe/mediamanager.php?ns=global&edid=wiki__text'
-               } 
-		   );
-           FCKeditor_OnComplete(ckgeditCKInstance);
-           
-               
-CKEDITOR_REPLACE;
 
-		 echo  $this->helper->registerOnLoad($ckeditor_replace);
+        ckgeditCKInstance = CKEDITOR.replace('wiki__text',
+        {
+            toolbar: '$toolbar',
+            height: $height,
+            filebrowserBrowseUrl: "$doku_url/lib/exe/mediamanager.php?ns=%3A&edid=wiki__text"
+        });
+        FCKeditor_OnComplete(ckgeditCKInstance);
 
-         global $skip_styling;
+        CKEDITOR_REPLACE;
+
+        echo  $this->helper->registerOnLoad($ckeditor_replace);
+
+        global $skip_styling;
             
 ?>
 
