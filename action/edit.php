@@ -497,7 +497,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     * function _print
     * @author  Myron Turner
     */ 
-    function _print()
+        function _print()
     {
         global $INFO;
         global $lang;
@@ -521,7 +521,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             print p_locale_xhtml('read');
             $ro='readonly="readonly"';
         }
-
         if(!$DATE) $DATE = $INFO['lastmod'];
         $guest_toolbar = $this->getConf('guest_toolbar');
         $guest_media  = $this->getConf('guest_media');
@@ -534,23 +533,23 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         else $toolbar = 'Dokuwiki';
        
 $height = isset($_COOKIE['ckgEdht']) && $_COOKIE['ckgEdht'] ? $_COOKIE['ckgEdht']: 250;
-
-$doku_url=  rtrim(DOKU_URL,'/');        
+$doku_url = rtrim(DOKU_URL,'/');
+$ns = getNS($_COOKIE['FCK_NmSp']);
 $ckeditor_replace =<<<CKEDITOR_REPLACE
 
-        ckgeditCKInstance = CKEDITOR.replace('wiki__text',
-        {
-            toolbar: '$toolbar',
-            height: $height,
-            filebrowserBrowseUrl: "$doku_url/lib/exe/mediamanager.php?ns=%3A&edid=wiki__text"
-        });
-        FCKeditor_OnComplete(ckgeditCKInstance);
+		   ckgeditCKInstance = CKEDITOR.replace('wiki__text',
+		       {
+                  toolbar: '$toolbar',
+                  height: $height,
+                  filebrowserBrowseUrl: "$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text"
+               }
+		   );
+           FCKeditor_OnComplete(ckgeditCKInstance);
 
-        CKEDITOR_REPLACE;
 
-        echo  $this->helper->registerOnLoad($ckeditor_replace);
-
-        global $skip_styling;
+CKEDITOR_REPLACE;
+		 echo  $this->helper->registerOnLoad($ckeditor_replace);
+         global $skip_styling;
             
 ?>
 
@@ -575,7 +574,7 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
 
     <textarea name="wikitext" id="wiki__text" <?php echo $ro?> cols="80" rows="10" class="edit" tabindex="1"><?php echo "\n".$this->xhtml?></textarea>
     
-<?php 
+<?php
 
 $temp=array();
 trigger_event('HTML_EDITFORM_INJECTION', $temp);
