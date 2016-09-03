@@ -508,6 +508,7 @@ function parse_wikitext(id) {
 
             if(tag == 'a') {
            
+  //             if(!confirm(attrs[i].name + '="' + attrs[i].escaped + '"')) exit;
                if(attrs[i].name == 'title') {
                   this.link_title = attrs[i].escaped;        
 				  if(interwiki_class) {
@@ -660,6 +661,7 @@ function parse_wikitext(id) {
                     }
 
                    if(!this.attr && this.link_title) {			
+                   
                        if(matches = this.link_class.match(/media(.*)/)) {
                             this.link_title=decodeURIComponent(safe_convert(this.link_title));					   	
                             this.attr=this.link_title;						
@@ -688,6 +690,10 @@ function parse_wikitext(id) {
                       this.attr = decodeURIComponent ? decodeURIComponent(this.attr) : unescape(this.attr); 
                       this.external_mime = true;
 
+                   }
+                   else if(this.attr.match(/%[a-fA-F0-9]{2}/)) {              
+                       this.attr = decodeURIComponent(this.attr);
+                       this.attr = decodeURIComponent(this.attr);              
                    }
 
                    // alert('title: ' + this.link_title + '  class: ' + this.link_class + ' export: ' +this.export_code);

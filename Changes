@@ -1,4 +1,4 @@
-rev_16-Aug_24-07_05
+rev_16-Sep_02-17_59
 
 28 Feb 2013
 Added support for interwiki links
@@ -927,3 +927,6 @@ Fix for javascript issue in Safari which prevented dw priority from update using
 
 24 Aug
 Fixed rss syntax which uses http://www.whatever instead of http://whatever
+
+2 Sept
+Fixes in frmresourceslilst.html for no-Ascii names
