@@ -1,4 +1,4 @@
-rev_16-Sep_02-17_59
+rev_16-Sep_04-13_47
 
 28 Feb 2013
 Added support for interwiki links
@@ -930,3 +930,6 @@ Fixed rss syntax which uses http://www.whatever instead of http://whatever
 
 2 Sept
 Fixes in frmresourceslilst.html for no-Ascii names
+
+4 Sept
+Copy userfiles/.htacess.security to data/media/.htacess for winstyle

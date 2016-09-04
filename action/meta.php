@@ -347,7 +347,19 @@ function check_userfiles() {
          $data_media = DOKU_INC.'data/media/';
      }
      
-     if($this->getConf('winstyle')) return;    
+     if($this->getConf('winstyle'))  {    
+         $htaccess = $data_media . '.htaccess';
+          if(!file_exists($htaccess)) {               
+               $security = $userfiles . '.htaccess.security';
+               if(file_exists($security)) {                   
+                   if(!copy($security, $htaccess)) {
+                       msg('For winstyle setup: cannot copy to ' . $htaccess);
+                   }
+                   else msg('For winstyle setup, copied security-enabled .htaccess to data/media' ."\n" .'See ckgedit/fckeditor/userfiles/.htacess.security');
+               }
+          } 
+         return;    
+     }
      if(!is_readable($userfiles) && !is_writable($userfiles)){
               msg("ckgedit cannot access $userfiles. Please check the permissions.");
 		      return;
