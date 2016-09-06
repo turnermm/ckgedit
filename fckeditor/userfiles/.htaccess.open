@@ -1,0 +1,10 @@
+#unix  -- do not change or move
+<IfModule mod_authz_host>
+    Require all granted
+</IfModule>
+<IfModule !mod_authz_host>
+    Order allow,deny
+    Allow from all
+</IfModule>
+
+Options -Indexes

@@ -533,15 +533,41 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         else $toolbar = 'Dokuwiki';
        
 $height = isset($_COOKIE['ckgEdht']) && $_COOKIE['ckgEdht'] ? $_COOKIE['ckgEdht']: 250;
+$fbsz_increment = isset($_COOKIE['fbsz']) && $_COOKIE['fbsz'] ? $_COOKIE['fbsz'] : false;
+$fbrowser_width = 1070;
+$fbrowser_height = 660;
+if($fbsz_increment) {
+    $fbrowser_width = $fbrowser_width + ($fbrowser_width*($fbsz_increment/100));
+    $fbrowser_height = $fbrowser_height + ($fbrowser_height*($fbsz_increment/100));
+}
 $doku_url = rtrim(DOKU_URL,'/');
 $ns = getNS($_COOKIE['FCK_NmSp']);
+
+//get user file browser if allowed
+if ($this->getConf('allow_ckg_filebrowser') == 'all') {
+    $fb = $this->getUserFb();
+} else {
+    //use only allowed file browser
+    $fb = $this->getConf('allow_ckg_filebrowser');
+}
+
+//setup options
+if ($fb == 'dokuwiki') {
+    $fbOptions = "filebrowserImageBrowseUrl: \"$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text\"";
+} else {
+    $fbOptions = "filebrowserImageBrowseUrl :  \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\",
+                 filebrowserBrowseUrl: \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\"";
+}
+
 $ckeditor_replace =<<<CKEDITOR_REPLACE
 
 		   ckgeditCKInstance = CKEDITOR.replace('wiki__text',
 		       {
                   toolbar: '$toolbar',
                   height: $height,
-                  filebrowserImageBrowseUrl: "$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text"
+                   filebrowserWindowWidth: $fbrowser_width,
+                   filebrowserWindowHeight:  $fbrowser_height,
+                  $fbOptions
                }
 		   );
            FCKeditor_OnComplete(ckgeditCKInstance);
@@ -640,6 +666,16 @@ $is_ckgeditChrome = false;
                  value="<?php echo $this->getLang('btn_dw_edit')?>"  
                  title="<?php echo $this->getLang('title_dw_edit')?>"
                   />
+             <?php endif; ?>
+
+             <?php if($this->getConf('allow_ckg_filebrowser') == 'all'): ?>
+            <input class="button" id="ebtn__fbswitch"
+                   style="font-size: 100%;"
+                   type="submit"
+                   name="do[save]"
+                   value="<?php echo $this->get_switch_fb_value() ?>"
+                   title="<?php echo $this->get_switch_fb_title() ?>"
+                   />
              <?php endif; ?>
 <?php
 global $INFO;
@@ -1179,6 +1215,32 @@ $text = preg_replace_callback(
      fwrite($handle,"$what\n");
      fclose($handle);
   }
+
+    function get_switch_fb_value() {
+        if ($this->getUserFb() == 'dokuwiki') {
+            $fbText = "CKG Filebrowser";
+        } else {
+            $fbText = "DW Filebrowser";
+        }
+        return $fbText;
+    }
+
+    function get_switch_fb_title() {
+        if ($this->getUserFb() == 'dokuwiki') {
+            $fbText = "CKG Filebrowser";
+        } else {
+            $fbText = "DW Filebrowser";
+        }
+        return "Save and close the editor and switch to the $fbText";
+    }
+
+    function getUserFb() {
+        //get user file browser
+        if (!isset($_COOKIE['ckgFbOpt'])) {
+            $_COOKIE['ckgFbOpt'] = $this->getConf('default_ckg_filebrowser');
+        }
+        return $_COOKIE['ckgFbOpt'];
+    }
 
 } //end of action class
 
