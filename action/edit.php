@@ -1218,20 +1218,20 @@ $text = preg_replace_callback(
 
     function get_switch_fb_value() {
         if ($this->getUserFb() == 'dokuwiki') {
-            $fbText = "CKG Filebrowser";
+            $fbText = $this->getLang('btn_val_ckg_fb');
         } else {
-            $fbText = "DW Filebrowser";
+            $fbText = $this->getLang('btn_val_dw_fb');
         }
         return $fbText;
     }
 
     function get_switch_fb_title() {
         if ($this->getUserFb() == 'dokuwiki') {
-            $fbText = "CKG Filebrowser";
+            $fbText = $this->getLang('btn_title_ckg_fb');
         } else {
-            $fbText = "DW Filebrowser";
+            $fbText = $this->getLang('btn_title_dw_fb');
         }
-        return "Save and close the editor and switch to the $fbText";
+        return $fbText;
     }
 
     function getUserFb() {

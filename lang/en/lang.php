@@ -36,3 +36,7 @@ $lang['js']['dwp_save_err'] = 'Unable to save changes to:  ';
 $lang['js']['dwp_updated'] = 'Editor priority updated to: ';
 $lang['js']['dwp_not_sel'] = 'Editor priority not selected: it will be determined by dw_users group config setting';
 $lang['uprofile_title'] = "Select Your Default Editor";
+$lang['btn_val_dw_fb'] = "DW Filebrowser";
+$lang['btn_val_ckg_fb'] = "CKG Filebrowser";
+$lang['btn_title_dw_fb'] = "Save and close the editor and switch to the DW Filebrowser";
+$lang['btn_title_ckg_fb'] = "Save and close the editor and switch to the CKG Filebrowser";
