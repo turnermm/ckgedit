@@ -68,7 +68,7 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
             }
         }
         var funcNum = (location.search.split(\'CKEditorFuncNum=\')[1]||\'\').split(\'&\')[0];
-            var fileUrl = DOKU_BASE + \'/lib/exe/fetch.php/\' + alignleft + id;
+            var fileUrl = DOKU_BASE + \'/lib/exe/fetch.php?media=\' + alignleft + id;
             opener.CKEDITOR.tools.callFunction( funcNum, fileUrl, function() {
                 var dialog = this.getDialog();
                 if ( dialog.getName() == "image" ) {

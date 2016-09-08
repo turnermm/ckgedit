@@ -165,8 +165,8 @@ if(isset($Dwfck_conf_values)) {
     $Config['ChmodOnFolderCreate'] = $Dwfck_conf_values['dmode']  ;
 }
 else {
-   $Config['ChmodOnUpload'] =  0755 ;
-   $Config['ChmodOnFolderCreate'] = 0755 ;
+    $Config['ChmodOnUpload'] =  0755 ;
+    $Config['ChmodOnFolderCreate'] = 0755 ;
 }
 
 // See comments above.
@@ -175,9 +175,9 @@ else {
 
 
 function setupBasePathsNix() {
-  global $Config;
+    global $Config;
     $dir = dirname(__FILE__) ;
-    $dir = preg_replace('/editor\/filemanager\/connectors\/.*/', 'userfiles/',$dir);
+    $dir = preg_replace('/editor\/filemanager\/connectors\/.*/', 'userfiles/', $dir);
     $Config['UserFilesAbsolutePath'] = $dir;
     $document_root = $_SERVER['DOCUMENT_ROOT'];
     $relative_dir = str_replace($document_root, "", $dir);
@@ -185,18 +185,18 @@ function setupBasePathsNix() {
 }
 
 function setupBasePathsWin() {
-  global $Config;
-  global $isWindows;
-  global $useNixStyle;
+    global $Config;
+    global $isWindows;
+    global $useNixStyle;
 
     $data_media = $isWindows ? 'data\\media\\' : 'data/media/';
     if($useNixStyle) {
-    $regex = $isWindows ? '\editor\filemanager\connectors' : 'lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors';
-	$data_media = '\\userfiles\\';
+        $regex = $isWindows ? '\editor\filemanager\connectors' : 'lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors';
+        $data_media = '\\userfiles\\';
     }
     else {
-       $regex = $isWindows ? 'lib\plugins\ckgedit\fckeditor\editor\filemanager\connectors' : 'lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors';
-     }
+        $regex = $isWindows ? 'lib\plugins\ckgedit\fckeditor\editor\filemanager\connectors' : 'lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors';
+    }
     $dir = dirname(__FILE__) ;
 
     $regex = preg_quote($regex, '/');
@@ -207,63 +207,60 @@ function setupBasePathsWin() {
 
     $base_url = getBaseURL_fck();
     if($useNixStyle) {
-       $Config['UserFilesPath'] =  $base_url . 'lib/plugins/ckgedit/fckeditor/userfiles/';
-     }
-    else $Config['UserFilesPath'] =  $base_url . 'data/media/';
-
+        $Config['UserFilesPath'] = $base_url . 'lib/plugins/ckgedit/fckeditor/userfiles/';
+    }
+    else $Config['UserFilesPath'] = $base_url . 'data/media/';
 }
 
 /**
 *   find hierarchically highest level parent namespace which allows acl CREATE
 */
 function get_start_dir() {
-global $Config ;
-global $AUTH;
-global $AUTH_INI;
-global $sep;
-global $dwfck_client;
- if(!$dwfck_client || $AUTH_INI == 255) return "";
+    global $Config ;
+    global $AUTH;
+    global $AUTH_INI;
+    global $sep;
+    global $dwfck_client;
 
-  if(isset($_REQUEST['DWFCK_usergrps'])) {
-      $usergrps = get_conf_array($_REQUEST['DWFCK_usergrps']);
-  }
-  else $usergrps = array();
+    if(!$dwfck_client || $AUTH_INI == 255) return "";
 
-   $elems = explode(':', $_COOKIE['FCK_NmSp']);
-   array_pop($elems);
-   $ns = "";
-   $prev_auth = -1;
-   while(count($elems) > 0) {
-      $ns_tmp = implode(':',$elems);
-      $test = $ns_tmp . ':*';
-      $AUTH = auth_aclcheck($test,$dwfck_client,$usergrps);
-      if($AUTH < 4) {
-          if(!$ns) {
-             $ns = $ns_tmp;
-             break;
-          }
-           $AUTH = $prev_auth;
-           break;
-      }
-      $prev_auth = $AUTH;
-      $ns = $ns_tmp;
-      array_pop($elems);
+    if(isset($_REQUEST['DWFCK_usergrps'])) {
+        $usergrps = get_conf_array($_REQUEST['DWFCK_usergrps']);
+    }
+    else $usergrps = array();
 
-   }
-
+    $elems = explode(':', $_COOKIE['FCK_NmSp']);
+    array_pop($elems);
+    $ns = "";
+    $prev_auth = -1;
+    while(count($elems) > 0) {
+        $ns_tmp = implode(':',$elems);
+        $test = $ns_tmp . ':*';
+        $AUTH = auth_aclcheck($test,$dwfck_client,$usergrps);
+        if($AUTH < 4) {
+            if(!$ns) {
+                $ns = $ns_tmp;
+                break;
+            }
+            $AUTH = $prev_auth;
+            break;
+        }
+        $prev_auth = $AUTH;
+        $ns = $ns_tmp;
+        array_pop($elems);
+    }
 
     if($ns) {
-       if(strpos($ns, ':')) {
-          return str_replace(':', '/', $ns);
-       }
-      $AUTH = auth_aclcheck(':*', $dwfck_client,$usergrps);
+        if(strpos($ns, ':')) {
+            return str_replace(':', '/', $ns);
+        }
+        $AUTH = auth_aclcheck(':*', $dwfck_client,$usergrps);
 
-      if($AUTH >= 8)  return "";
-      return $ns;
+        if($AUTH >= 8)  return "";
+        return $ns;
     }
     $AUTH = auth_aclcheck(':*', $dwfck_client,$usergrps);
     return "";
-
 }
 
 function setUpMediaPaths() {

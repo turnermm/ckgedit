@@ -313,7 +313,7 @@ SCRIPT;
 
   }
 
-/*function check_userfiles() {	  
+function check_userfiles() {
  
     if($this->getConf('no_symlinks')) {	
 	   return;
@@ -441,7 +441,7 @@ SCRIPT;
 	  }
 	  			io_saveFile($meta,$version);
                 chmod($meta, 0666);
-}*/
+}
             
   
   function set_session() {	
@@ -550,7 +550,7 @@ SCRIPT;
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
        $JSINFO['doku_base'] = DOKU_BASE ;
        $JSINFO['cg_rev'] = $INPUT->str('rev');
-	   //$this->check_userfiles(); 
+	   $this->check_userfiles();
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
        /* set cookie to pass namespace to FCKeditor's media dialog */

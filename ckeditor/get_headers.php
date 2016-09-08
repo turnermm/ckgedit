@@ -3,6 +3,8 @@ define("DOKU_INC", realpath(dirname(__FILE__).'/../../../../') . '/');
 
 define ("DOKU_PLUGIN", DOKU_INC . 'lib/plugins/');
 define("PAGES", DOKU_INC . 'data/pages/');
+define("FCKEDITOR", DOKU_PLUGIN . 'ckgedit/fckeditor/editor/');
+define('CONNECTOR', FCKEDITOR . 'filemanager/connectors/php/');
 require_once(CONNECTOR . 'check_acl.php');
 require_once(DOKU_INC.'inc/Input.class.php');
 
