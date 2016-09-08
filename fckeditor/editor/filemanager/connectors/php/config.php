@@ -161,12 +161,12 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 // Set to 0 to disable this feature.
 // Note: not needed on Windows-based servers.
 if(isset($Dwfck_conf_values)) {
-    $Config['ChmodOnUpload'] =  $Dwfck_conf_values['fmode'] ;
-    $Config['ChmodOnFolderCreate'] = $Dwfck_conf_values['dmode']  ;
+    $Config['ChmodOnUpload'] = $Dwfck_conf_values['fmode'];
+    $Config['ChmodOnFolderCreate'] = $Dwfck_conf_values['dmode'];
 }
 else {
-    $Config['ChmodOnUpload'] =  0755 ;
-    $Config['ChmodOnFolderCreate'] = 0755 ;
+    $Config['ChmodOnUpload'] = 0755;
+    $Config['ChmodOnFolderCreate'] = 0755;
 }
 
 // See comments above.
