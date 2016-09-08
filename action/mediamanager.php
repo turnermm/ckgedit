@@ -43,7 +43,7 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
                 }
 
                 s = parseInt(dw_mediamanager.size, 10);
-                width = s*200;
+                width = s*100;
 
                 if (dw_mediamanager.align !== \'1\') {
                     alignleft = dw_mediamanager.align === \'2\' ? \'\' : \' \';
