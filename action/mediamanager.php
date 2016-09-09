@@ -48,6 +48,7 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
                             return;
                         });
                     } else if ((location.search.split("ckg_media=")[1]||"").split("&")[0] == "img") {
+                        jQuery("#media__linkbtn4").css("display", "none");
                         ckg_nonimage_overlay();
                     }
                 });
