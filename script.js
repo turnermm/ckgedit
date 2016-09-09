@@ -291,3 +291,56 @@ var dokuBase = location.host + DOKU_BASE;
                 'html'
             );     
  }
+
+function ckg_edit_mediaman_insert(edid, id, opts, dw_align) {
+    var link, width, s, align;
+
+    //parse option string
+    var options = opts.substring(1).split('&');
+
+    //get width and link options
+    for (var i in options) {
+        var opt = options[i];
+        if (parseInt(opt) !== NaN) {
+            width = opt;
+        } else {
+            link = opt;
+        }
+    }
+
+    console.log(dw_align);
+    //get alignment option
+    switch (dw_align) {
+    case '2':
+        align = 'medialeft';
+        break;
+    case '3':
+        align = 'mediacenter';
+        break;
+    case '4':
+        align = 'mediaright';
+        break;
+    default:
+        align = '';
+        break;
+    }
+
+    var funcNum = (location.search.split('CKEditorFuncNum=')[1]||'').split('&')[0];
+        var fileUrl = DOKU_BASE + '/lib/exe/fetch.php?media=' + id;
+        CKEDITOR.tools.callFunction(CKEDITOR.instances.wiki__text._.filebrowserFn, fileUrl, function() {
+            var dialog = this.getDialog();
+            if ( dialog.getName() == "image" ) {
+                if (align != null) {
+                    dialog.getContentElement("info", "cmbAlign").setValue(align);
+                }
+                if (link != null) {
+                    dialog.getContentElement("info", "cmbLinkType").setValue(link);
+                }
+                if (width != null) {
+                    dialog.getContentElement("info", "txtWidth").setValue(width);
+                    dialog.dontResetSize = true;
+                }
+            }
+        });
+    return false;
+}
