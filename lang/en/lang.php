@@ -35,6 +35,7 @@ $lang['js']['font_err_throw'] = 'Font Formatting Error';
 $lang['js']['dwp_save_err'] = 'Unable to save changes to:  ';
 $lang['js']['dwp_updated'] = 'Editor priority updated to: ';
 $lang['js']['dwp_not_sel'] = 'Editor priority not selected: it will be determined by dw_users group config setting';
+$lang['js']['mediamgr_notice'] = 'Use the link dialog to insert';
 $lang['uprofile_title'] = "Select Your Default Editor";
 $lang['btn_val_dw_fb'] = "DW Filebrowser";
 $lang['btn_val_ckg_fb'] = "CKG Filebrowser";
