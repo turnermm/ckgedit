@@ -19,6 +19,7 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
     function mediaman_started($event) {
         echo '<script type="text/javascript">
         if (opener.CKEDITOR !== undefined) {
+<<<<<<< HEAD
             window.onload = function () {
                 jQuery( document ).ready(function() {
                     if ((location.search.split("ckg_media=")[1]||"").split("&")[0] == "link") {
@@ -34,5 +35,17 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
                 });
             };
         }</script>';
+=======
+        window.onload = function () {
+         jQuery( document ).ready(function() {
+               jQuery( ".odd, .even" ).each( function( index, element ){
+                     if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
+                     jQuery( this ).html(LANG.plugins.ckgedit.mediamgr_notice+": <b>" + this.title  +"</b>");
+                     }
+              });
+        });
+    };
+    }</script>';
+>>>>>>> origin/master
     }
 }
