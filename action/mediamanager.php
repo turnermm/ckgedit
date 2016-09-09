@@ -20,6 +20,13 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
         echo '<script type="text/javascript">
         if (opener.CKEDITOR !== undefined) {
         window.onload = function () {
+         jQuery( document ).ready(function() {
+               jQuery( ".odd, .even" ).each( function( index, element ){
+                     if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
+                     jQuery( this ).html("Use the link dialog to insert: <b>" + this.title  +"</b>");
+                     }
+              });
+        });
         dw_mediamanager.insert = function (id) {
         //used by CKEditor
         var link, align, width, alignleft, s;
