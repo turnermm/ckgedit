@@ -36,9 +36,18 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
             window.onload = function () {
                 jQuery( document ).ready(function() {
                     if ((location.search.split("ckg_media=")[1]||"").split("&")[0] == "link") {
-                        dw_mediamanager.forbid("link", [1,2,3]);
+                        jQuery(".select").on("click", function(event) {
+                            var $link, id;
+
+                            event.preventDefault();
+
+                            $link = jQuery(this);
+                            id = $link.attr("id").substr(2);
+
+                            dw_mediamanager.insert(id);
+                            return;
+                        });
                     } else if ((location.search.split("ckg_media=")[1]||"").split("&")[0] == "img") {
-                        dw_mediamanager.forbid("link", [4]);
                         ckg_nonimage_overlay();
                     }
                 });
