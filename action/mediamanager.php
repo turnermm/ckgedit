@@ -27,7 +27,7 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
                         dw_mediamanager.forbid("link", [4]);
                         jQuery( ".odd, .even" ).each( function( index, element ){
                             if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
-                                jQuery( this ).html("Use the link dialog to insert: <b>" + this.title  +"</b>");
+                                jQuery( this ).html(LANG.plugins.ckgedit.mediamgr_notice+": <b>" + this.title  +"</b>");
                             }
                         });
                     }
