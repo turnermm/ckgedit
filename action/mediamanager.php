@@ -14,6 +14,14 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
     function register(Doku_Event_Handler $controller)
     {
         $controller->register_hook('MEDIAMANAGER_STARTED', 'AFTER', $this, 'mediaman_started');
+        $controller->register_hook('MEDIA_UPLOAD_FINISH', 'BEFORE', $this, 'upload_finish');              
+    }
+
+    function upload_finish($event) {      
+        if(!preg_match("#^image/#",$event->data[3] )) {
+            msg("Upload images ony in when using image dialog:" .$event->data[3] );
+           $event->preventDefault() ;    
+        }    
     }
     
     function mediaman_started($event) {
