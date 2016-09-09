@@ -546,7 +546,6 @@ var useHeading = function(wiki_id) {
     linkOpt = {};
     var fbUrl = CKEDITOR.instances.wiki__text.config.filebrowserBrowseUrl;
     if (fbUrl.indexOf('fckeditor') === -1) {
-        console.log('linkwiz');
         linkOpt = {
             type : 'button',
 			id : 'browse1',
@@ -554,7 +553,6 @@ var useHeading = function(wiki_id) {
             onClick: openInternalLinkBrowser
         };
     } else {
-        console.log('fck');
         linkOpt = {
             type : 'button',
 			id : 'browse1',
