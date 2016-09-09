@@ -1808,13 +1808,6 @@ jQuery( "#ebtn__dwedit" ).click(function() {
    this.form.submit();
 });
 
-function getCookie(name)
-  {
-    var re = new RegExp(name + "=([^;]+)");
-    var value = re.exec(document.cookie);
-    return (value != null) ? unescape(value[1]) : null;
-  }
-
 jQuery("#ebtn__fbswitch").click(function(){
     if(getCookie('ckgFbOpt') == 'dokuwiki') {
         document.cookie = 'ckgFbOpt=ckgedit;';

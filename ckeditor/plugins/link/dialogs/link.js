@@ -5,7 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
 var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex;
- var ck_m_files_protocol, ckg_dialog;
+ var ck_m_files_protocol, ckg_dialog, linkOpt;
  window.onbeforeunload = function() { };
 
 CKEDITOR.dialog.add( 'link', function( editor )
@@ -57,7 +57,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
             return fck_Lang[js_code];
       }
       return defaultFBLang[js_code];
-    }   ;
+    };
 
     var getIwikiOptions = function() {
         var retv;
@@ -542,6 +542,27 @@ var useHeading = function(wiki_id) {
 	var commonLang = editor.lang.common,
 		linkLang = editor.lang.link;
 
+    //get link browser
+    linkOpt = {};
+    var fbUrl = CKEDITOR.instances.wiki__text.config.filebrowserBrowseUrl;
+    if (fbUrl.indexOf('fckeditor') === -1) {
+        console.log('linkwiz');
+        linkOpt = {
+            type : 'button',
+			id : 'browse1',
+			label : commonLang.browseServer,
+            onClick: openInternalLinkBrowser
+        };
+    } else {
+        console.log('fck');
+        linkOpt = {
+            type : 'button',
+			id : 'browse1',
+			label : commonLang.browseServer,
+            filebrowser: 'info:url'
+        };
+    }
+
 	return {
 		title : linkLang.title,
 		minWidth :  375, //350,
@@ -701,12 +722,7 @@ var useHeading = function(wiki_id) {
                         id : 'internalOptions',
 						children :
 						[
-							{
-								type : 'button',
-								id : 'browse1',
-								onClick: openInternalLinkBrowser,
-								label : commonLang.browseServer
-							},
+							linkOpt,
                             {
 								type : 'text',
 								id : 'internal',
