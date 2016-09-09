@@ -794,7 +794,7 @@ var useHeading = function(wiki_id) {
 							{
 								type : 'button',
 								id : 'browse2',
-								filebrowser : 'info:url',
+								filebrowser : 'info:media',
 								label : commonLang.browseServer
 							},
                             {

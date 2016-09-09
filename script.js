@@ -324,22 +324,31 @@ function ckg_edit_mediaman_insert(edid, id, opts, dw_align) {
         break;
     }
 
-    var funcNum = (location.search.split('CKEditorFuncNum=')[1]||'').split('&')[0];
-        var fileUrl = DOKU_BASE + '/lib/exe/fetch.php?media=' + id;
-        CKEDITOR.tools.callFunction(CKEDITOR.instances.wiki__text._.filebrowserFn, fileUrl, function() {
-            var dialog = this.getDialog();
-            if ( dialog.getName() == "image" ) {
-                if (align != null) {
-                    dialog.getContentElement("info", "cmbAlign").setValue(align);
-                }
-                if (link != null) {
-                    dialog.getContentElement("info", "cmbLinkType").setValue(link);
-                }
-                if (width != null) {
-                    dialog.getContentElement("info", "txtWidth").setValue(width);
-                    dialog.dontResetSize = true;
-                }
+    var funcNum = CKEDITOR.instances.wiki__text._.filebrowserFn;
+    var fileUrl = DOKU_BASE + '/lib/exe/fetch.php?media=' + id;
+    CKEDITOR.tools.callFunction(funcNum, fileUrl, function() {
+        var dialog = this.getDialog();
+        if ( dialog.getName() == "image" ) {
+            if (align != null) {
+                dialog.getContentElement("info", "cmbAlign").setValue(align);
             }
-        });
-    return false;
+            if (link != null) {
+                dialog.getContentElement("info", "cmbLinkType").setValue(link);
+            }
+            if (width != null) {
+                dialog.getContentElement("info", "txtWidth").setValue(width);
+                dialog.dontResetSize = true;
+            }
+        }
+    });
+}
+
+function ckg_edit_mediaman_insertlink(edid, id, opts, dw_align) {
+    var funcNum = CKEDITOR.instances.wiki__text._.filebrowserFn;
+    CKEDITOR.tools.callFunction(funcNum, id, function() {
+        var dialog = this.getDialog();
+        if (dialog.getName() == "link") {
+            dialog.getContentElement('info', 'media').setValue(id);
+        }
+    });
 }

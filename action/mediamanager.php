@@ -19,15 +19,20 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
     function mediaman_started($event) {
         echo '<script type="text/javascript">
         if (opener.CKEDITOR !== undefined) {
-        window.onload = function () {
-         jQuery( document ).ready(function() {
-               jQuery( ".odd, .even" ).each( function( index, element ){
-                     if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
-                     jQuery( this ).html("Use the link dialog to insert: <b>" + this.title  +"</b>");
-                     }
-              });
-        });
-    };
-    }</script>';
+            window.onload = function () {
+                jQuery( document ).ready(function() {
+                    if ((location.search.split("ckg_media=")[1]||"").split("&")[0] == "link") {
+                        dw_mediamanager.forbid("link", [1,2,3]);
+                    } else if ((location.search.split("ckg_media=")[1]||"").split("&")[0] == "img") {
+                        dw_mediamanager.forbid("link", [4]);
+                        jQuery( ".odd, .even" ).each( function( index, element ){
+                            if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
+                                jQuery( this ).html("Use the link dialog to insert: <b>" + this.title  +"</b>");
+                            }
+                        });
+                    }
+                });
+            };
+        }</script>';
     }
 }
