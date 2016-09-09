@@ -308,7 +308,6 @@ function ckg_edit_mediaman_insert(edid, id, opts, dw_align) {
         }
     }
 
-    console.log(dw_align);
     //get alignment option
     switch (dw_align) {
     case '2':
