@@ -33,14 +33,23 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
                         dw_mediamanager.forbid("link", [1,2,3]);
                     } else if ((location.search.split("ckg_media=")[1]||"").split("&")[0] == "img") {
                         dw_mediamanager.forbid("link", [4]);
-                        jQuery( ".odd, .even" ).each( function( index, element ){
-                            if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
-                                jQuery( this ).html(LANG.plugins.ckgedit.mediamgr_notice+": <b>" + this.title  +"</b>");
-                            }
-                        });
+                        ckg_nonimage_overlay();
                     }
                 });
+
+                jQuery(document).ajaxComplete(function() {
+                    ckg_nonimage_overlay();
+                });
             };
-        }</script>';
+        }
+
+        function ckg_nonimage_overlay() {
+            jQuery( ".odd, .even" ).each( function( index, element ){
+                if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
+                    jQuery( this ).html(LANG.plugins.ckgedit.mediamgr_notice+": <b>" + this.title  +"</b>");
+                }
+            });
+        }
+        </script>';
     }
 }
