@@ -18,13 +18,19 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
     }
 
     function upload_finish($event) {
-        if(!preg_match("#^image/#",$event->data[3])) {
+        if(!preg_match("#^image/#",$event->data[3]) && $_COOKIE['ckgFbType'] == 'image') {
             msg("Upload images ony in when using image dialog:" .$event->data[3] );
            $event->preventDefault() ;
         }    
     }
     
     function mediaman_started($event) {
+        if ($_GET["onselect"] == "ckg_edit_mediaman_insert") {
+            setcookie('ckgFbType', 'image');
+        } else {
+            setcookie('ckgFbType', 'link');
+        }
+
         echo '<script type="text/javascript">
         if (opener.CKEDITOR !== undefined) {
             window.onload = function () {
