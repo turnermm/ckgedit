@@ -50,6 +50,10 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
         }
 
         function ckg_nonimage_overlay() {
+            if ((location.search.split("ckg_media=")[1]||"").split("&")[0] !== "img") {
+                return;
+            }
+
             jQuery( ".odd, .even" ).each( function( index, element ){
                 if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
                     jQuery( this ).html(LANG.plugins.ckgedit.mediamgr_notice+": <b>" + this.title  +"</b>");
