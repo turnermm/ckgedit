@@ -1,31 +1,31 @@
-﻿/*
+/*
     Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
 var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex;
- var ck_m_files_protocol, ckg_dialog;
+ var ck_m_files_protocol, ckg_dialog, linkOpt;
  window.onbeforeunload = function() { };
-   
+
 CKEDITOR.dialog.add( 'link', function( editor )
 {
     oDokuWiki_FCKEditorInstance.Lang = editor.lang;
-    ck_m_files_protocol =  oDokuWiki_FCKEditorInstance.mfiles ?	[ 'm-files://\u200E', 'm-files://' ] : "";    
+    ck_m_files_protocol =  oDokuWiki_FCKEditorInstance.mfiles ?	[ 'm-files://\u200E', 'm-files://' ] : "";
     var Doku_Base = oDokuWiki_FCKEditorInstance.dwiki_doku_base;
 	var plugin = CKEDITOR.plugins.link;
     var oRegex = new Object() ;
     oRegex.doku_base = new RegExp('^' + Doku_Base.replace(/\//g,'\\/'),'g');
     oRegex.media_internal = /lib\/exe\/fetch\.php\/(.*)/;
     oRegex.media_rewrite_1 = /^_media\/(.*)/;
-    oRegex.media_rewrite_1Doku_Base = new RegExp('^' + Doku_Base + '_media\/(.*)');    
+    oRegex.media_rewrite_1Doku_Base = new RegExp('^' + Doku_Base + '_media\/(.*)');
     oRegex.media_rewrite_2=/exe\/fetch.php\?media=(.*)/;
     oRegex.internal_link = /doku.php\?id=(.*)/;
     oRegex.internal_link_rewrite_2 = /doku.php\/(.*)/;
-    oRegex.internal_link_rewrite_1 = new RegExp('^' + Doku_Base + '(?!_media)(.*)');    
+    oRegex.internal_link_rewrite_1 = new RegExp('^' + Doku_Base + '(?!_media)(.*)');
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
-    oRegex.interwiki = /^(.*?)oIWIKIo(.*?)cIWIKIc/;    
-	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;	    
+    oRegex.interwiki = /^(.*?)oIWIKIo(.*?)cIWIKIc/;
+	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;
     ckg_dialog = CKEDITOR.dialog;
 	 var fckgSMBInputId;
      var defaultFBLang = {
@@ -34,31 +34,31 @@ CKEDITOR.dialog.add( 'link', function( editor )
         MediaFileLink: "link to media file",
         SMBLabel: "Samba Share",
         GetHeadingsLabel: 'Get Headings'	,
-        QStringLabel: 'Query String (For example: value_1=1&value_2=2) ',	
+        QStringLabel: 'Query String (For example: value_1=1&value_2=2) ',
         ResetQS: 'Reset Query String',
         NotSetOption: 'Not Set',
         AdvancedInfo: "To create anchors from Dokuwiki headers, click on the Get Headings button, select the header, click OK. You can go back, select a new page and get new headers.",
         AdvancedTabPrompt: 'Use the advanced tab to create page anchors and query strings',
-        SMBExample: "Enter your share as: \\\\Server\\directory\\file", 
+        SMBExample: "Enter your share as: \\\\Server\\directory\\file",
         InterWikiLink: "Interwiki Link",
         InterWikiType: "Interwiki Type",
         InterwikiPlaceHolder: "Interwiki Replacement Text",
         InterwikiInfo: "<div style='max-width:350px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
         "interwiki links are short-cuts which look like this: <span style='font-weight:600'>[[wp&gt;Shakespeare]]</span>, which will create a link to the English Wikipedia article on Shakespeare.  " +
-        "The <span style='font-weight:600'>wp</span> part designates a link pattern;  " + 
+        "The <span style='font-weight:600'>wp</span> part designates a link pattern;  " +
         "the text following the '<span style='font-weight:900'>&gt;</span>' will be inserted into the link, replacing  a place holder, which is enclosed in curly brackets, "  +
         "as in <span style='font-weight:600'>{NAME}</span>. When there is no place holder, the replacement text will be appended to the end of the link.</div>",
         MediaFileLink: "link to media file",
-     };   
+     };
      var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
-    
-    var  translateItem = function (js_code) {     
+
+    var  translateItem = function (js_code) {
       if(fck_Lang[js_code] && fck_Lang[js_code] != "") {
             return fck_Lang[js_code];
-      }  
+      }
       return defaultFBLang[js_code];
-    }   ; 
-    
+    };
+
     var getIwikiOptions = function() {
         var retv;
          jQuery.ajax(
@@ -81,22 +81,22 @@ CKEDITOR.dialog.add( 'link', function( editor )
                 alert(errorThrown);
               }
           }
-        ); 
+        );
         return retv;
-  
-		
+
+
     };
-    var getInternalHeaders = function() {     
-    
-	  var dialog = this.getDialog();	
-      var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;          
+    var getInternalHeaders = function() {
+
+	  var dialog = this.getDialog();
+      var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;
       var select =document.getElementById(select_id);
-      var wiki_id = dialog.getContentElement('info', 'internal').getInputElement().$.id;  
-      wiki_id = document.getElementById(wiki_id).value;        
+      var wiki_id = dialog.getContentElement('info', 'internal').getInputElement().$.id;
+      wiki_id = document.getElementById(wiki_id).value;
       if(!wiki_id) return;
-      
+
       var anchorOption = {
-        push: function(title, value) { 
+        push: function(title, value) {
            this.stack[this.Index] = (new Option(title,value,false,false));
            this.Index++;
         },
@@ -106,35 +106,41 @@ CKEDITOR.dialog.add( 'link', function( editor )
         ini: function(title) {
           this.stack = select.options;
           this.stack.length = 0;
-          this.Index = 0;    
-          this.push(title,'');     
+          this.Index = 0;
+          this.push(title,'');
         }
     };
-    
+
         var params="dw_id=" +wiki_id;
         editor.config.jquery.post(
                 editor.config.ckedit_path + "get_headers.php",
                 params,
-                function (data,status) { 
-                    if(status=="success") {                       
-                         var str = decodeURIComponent(data);                              
+                function (data,status) {
+                    if(status=="success") {
+                         var str = decodeURIComponent(data);
                          if(str.match(/^\s*__EMPTY__\s*$/)) {
                                 anchorOption.ini('No Headers Found');
                                 anchorOption.selection = "";
                                 return;
                          }
-                           anchorOption.ini('Headings Menu');                        
+                           anchorOption.ini('Headings Menu');
                            var pairs = str.split('@@');
                             for (var i in pairs) {
                                   var elems = pairs[i].split(/;;/);
                                   anchorOption.push(elems[0],elems[1]);
-                             }                          
+                             }
                         }
-                    },                
+                    },
                 'html'
             );
-	};	  
-    
+	};
+
+    var openInternalLinkBrowser = function() {
+        doku_linkwiz.init(jQuery('#dw__editform'), editor);
+        doku_linkwiz.val = 'global';
+        doku_linkwiz.toggle();
+    }
+
 var useHeading = function(wiki_id) {
         var retv = wiki_id;
         var debug = 0;
@@ -142,14 +148,14 @@ var useHeading = function(wiki_id) {
          editor.config.jquery.ajax({
            url: editor.config.ckedit_path + "useheading.php",
            async: false,
-           data: params,    
+           data: params,
            type: 'POST',
-           dataType: 'html',         
-           success: function(data){                 
-               if(debug) {            
+           dataType: 'html',
+           success: function(data){
+               if(debug) {
                   alert(data);
-               }              
-               retv = decodeURIComponent(data);  
+               }
+               retv = decodeURIComponent(data);
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
             retv = wiki_id;
@@ -158,15 +164,15 @@ var useHeading = function(wiki_id) {
     return retv;
 };
 
-  
+
   var getSMBInput = function ()   {  return fckgSMBInputId; };
   var ckg_iwikiClass;
 	// Handles the event when the "Type" selection box is changed.
 	var linkTypeChanged = function()
 	{
-    
+
       oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser = false;
-      oDokuWiki_FCKEditorInstance.isUrlExtern = false;       
+      oDokuWiki_FCKEditorInstance.isUrlExtern = false;
       oDokuWiki_FCKEditorInstance.isDwikiMediaFile = false;
 		var dialog = this.getDialog(),
 			partIds = [ 'urlOptions', 'anchorOptions', 'emailOptions','internalOptions','mediaOptions','sambaOptions','interwikiOptions' ],
@@ -174,18 +180,18 @@ var useHeading = function(wiki_id) {
 			uploadTab = dialog.definition.getContents( 'upload' ),
 			uploadInitiallyHidden = uploadTab && uploadTab.hidden;
 
-         dialog.hidePage( 'advanced' );		//Hide Advanded tab.   
+         dialog.hidePage( 'advanced' );		//Hide Advanded tab.
          if(typeValue == 'internal') {
             oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser = true;
            dialog.showPage('advanced');
          }
          else if(typeValue == 'media') {
             oDokuWiki_FCKEditorInstance.isDwikiMediaFile = true;
-         } 
+         }
 
 		if ( typeValue == 'url' )
 		{
-            oDokuWiki_FCKEditorInstance.isUrlExtern = true;            
+            oDokuWiki_FCKEditorInstance.isUrlExtern = true;
 
 			if ( !uploadInitiallyHidden )
 				dialog.showPage( 'upload' );
@@ -197,14 +203,14 @@ var useHeading = function(wiki_id) {
 				dialog.hidePage( 'upload' );
 		}
 
- 
+
 		for ( var i = 0 ; i < partIds.length ; i++ )
 		{
-			var element = dialog.getContentElement( 'info', partIds[i] );          
+			var element = dialog.getContentElement( 'info', partIds[i] );
 			if ( !element )
 				continue;
 
-			element = element.getElement().getParent().getParent();         
+			element = element.getElement().getParent().getParent();
 			if ( partIds[i] == typeValue + 'Options' )
 				element.show();
 			else
@@ -221,7 +227,7 @@ var useHeading = function(wiki_id) {
 		emailSubjectRegex = /subject=([^;?:@&=$,\/]*)/,
 		emailBodyRegex = /body=([^;?:@&=$,\/]*)/,
 		anchorRegex = /^#(.*)$/,
-		urlRegex = /^((?:http|https|ftp|news|m-files):\/\/)?(.*)$/,  
+		urlRegex = /^((?:http|https|ftp|news|m-files):\/\/)?(.*)$/,
 		selectableTargets = /^(_(?:self|top|parent|blank))$/,
 		encodedEmailLinkRegex = /^javascript:void\(location\.href='mailto:'\+String\.fromCharCode\(([^)]+)\)(?:\+'(.*)')?\)$/,
 		functionCallProtectedEmailLinkRegex = /^javascript:([^(]+)\(([^)]+)\)$/;
@@ -229,9 +235,9 @@ var useHeading = function(wiki_id) {
 	var popupRegex =
 		/\s*window.open\(\s*this\.href\s*,\s*(?:'([^']*)'|null)\s*,\s*'([^']*)'\s*\)\s*;\s*return\s*false;*\s*/;
 	var popupFeaturesRegex = /(?:^|,)([^=]+)=(\d+|yes|no)/gi;
-    
+
 	var parseLink = function( editor, element )
-	{  
+	{
 		var href = ( element  && ( element.data( 'cke-saved-href' ) || element.getAttribute( 'href' ) ) ) || '',
 		 	javascriptMatch,
 			emailMatch,
@@ -282,7 +288,7 @@ var useHeading = function(wiki_id) {
 
 		if ( !retval.type )
 		{
-            var class_name =  element ? element.getAttribute( 'class' )  : ""; 
+            var class_name =  element ? element.getAttribute( 'class' )  : "";
 			if ( ( anchorMatch = href.match( anchorRegex ) ) )
 			{
 				retval.type = 'anchor';
@@ -301,7 +307,7 @@ var useHeading = function(wiki_id) {
 				subjectMatch && ( email.subject = decodeURIComponent( subjectMatch[ 1 ] ) );
 				bodyMatch && ( email.body = decodeURIComponent( bodyMatch[ 1 ] ) );
 			}
-           else if((urlMatch = href.match(oRegex.media_internal)) || (urlMatch = href.match(oRegex.media_rewrite_1)) 
+           else if((urlMatch = href.match(oRegex.media_internal)) || (urlMatch = href.match(oRegex.media_rewrite_1))
               || (urlMatch = href.match(oRegex.media_rewrite_2)) || (urlMatch = href.match(oRegex.media_rewrite_1Doku_Base))) {
                     retval.type = 'media';
                   	retval.url = {};
@@ -309,9 +315,9 @@ var useHeading = function(wiki_id) {
 					retval.url.url = "";
 					retval.url.selected =urlMatch[1];
               }
-            else if( (urlMatch = href.match( internalLinkRegex )) || ( urlMatch = href.match(oRegex.internal_link_rewrite_2)) 
+            else if( (urlMatch = href.match( internalLinkRegex )) || ( urlMatch = href.match(oRegex.internal_link_rewrite_2))
                         || (urlMatch = href.match( oRegex.internal_link_rewrite_1 ))
-                     ) 
+                     )
             {
                     retval.type = 'internal';
                     retval.url = {};
@@ -320,7 +326,7 @@ var useHeading = function(wiki_id) {
 				    retval.url.url = "";
                 }
 		    else if(urlMatch = href.match(oRegex.samba)) {
-			     retval.type = 'samba';				 
+			     retval.type = 'samba';
 				 retval.url = {};
 				 retval.url.url = "";
 				 retval.url.protocol = '';
@@ -335,41 +341,41 @@ var useHeading = function(wiki_id) {
 			    retval.url.selected = urlMatch[0];
 			}
 			else if( urlMatch = href.match(oRegex.interwiki) || class_name.match(/interwiki/) ) {
-                var str = ""; 
-                if(urlMatch && urlMatch[2]) {              
-                   str =  decodeURIComponent(urlMatch[2]);       
+                var str = "";
+                if(urlMatch && urlMatch[2]) {
+                   str =  decodeURIComponent(urlMatch[2]);
                 }
-           
+
               	retval.url = {};
-                ckg_iwikiClass = element.getAttribute( 'class' );  // save for interwiki  
-                var  iw_select = ckg_dialog.getContentElement("info", 'iwiki_shortcut');    
+                ckg_iwikiClass = element.getAttribute( 'class' );  // save for interwiki
+                var  iw_select = ckg_dialog.getContentElement("info", 'iwiki_shortcut');
                  var tmp = iw_select.getInputElement().$.id;
-                 var select =document.getElementById(tmp);      
-                 var match = ckg_iwikiClass.match(/iw_([^\s]+)/);                 
+                 var select =document.getElementById(tmp);
+                 var match = ckg_iwikiClass.match(/iw_([^\s]+)/);
                  var index = match[1].replace(/_/,'.');
-                 if(!str) {                   
+                 if(!str) {
                     var iwpattern =  ckgeditIwikiData[index];
                     iwpattern = iwpattern.replace(/\{\w+\}$/,"");
-                    var regex = new RegExp(iwpattern + '\(.*\)');                   
+                    var regex = new RegExp(iwpattern + '\(.*\)');
                     match =  href.match(regex);
-                    str = match[1];                   
+                    str = match[1];
                  }
                  index = ckgeditIwikiIndex[index];
                  if(index) {
-                   select.selectedIndex = index;     
+                   select.selectedIndex = index;
                  }
-                 else select.selectedIndex = '0';                   
-                iw_select.disable();                   
-                retval.type = 'interwiki';              
-                retval.url.selected =str;         
+                 else select.selectedIndex = '0';
+                iw_select.disable();
+                retval.type = 'interwiki';
+                retval.url.selected =str;
                 retval.url.url = str;
-             
+
 
             }
-            
+
 			// urlRegex matches empty strings, so need to check for href as well.
 			else if (  href && ( urlMatch = href.match( urlRegex ) ) )
-			{ 
+			{
                 retval.type = 'url';
 				retval.url = {};
 				retval.url.protocol = urlMatch[1];
@@ -387,46 +393,46 @@ var useHeading = function(wiki_id) {
 			retval.adv = {};
 			var me = this;
 		}
-        
+
 		// Record down the selected element in the dialog.
 		this._.selectedElement = element;
 		return retval;
         };
-        
+
      var  insertInternalLinkText = function (text)
        {
            if(!text) return;
            document.getElementById(fckgInternalInputId).disabled = true;
            document.getElementById(fckgInternalInputId).style.fontWeight="bold" ;
-           document.getElementById(fckgInternalInputId).style.backgroundColor="#DDDDDD" ;           
+           document.getElementById(fckgInternalInputId).style.backgroundColor="#DDDDDD" ;
            text = text.replace(/^[\/\:]/,"");
-           text =  text.replace(/\//g,':');             
-           text = ':' + text; 
-           document.getElementById(fckgInternalInputId).value = text; 
+           text =  text.replace(/\//g,':');
+           text = ':' + text;
+           document.getElementById(fckgInternalInputId).value = text;
         };
-        
+
     update_ckgeditInternalLink = insertInternalLinkText;
 
       var  insertMediaLinkText = function (text)
        {
            if(!text) return;
            text = text.replace(/^[\/\:]/,"");
-           text =  text.replace(/\//g,':');             
-           text = ':' + text; 
-           document.getElementById(fckgMediaInputId).value = text; 
+           text =  text.replace(/\//g,':');
+           text = ':' + text;
+           document.getElementById(fckgMediaInputId).value = text;
         };
-   
-     update_ckgeditMediaLink  =  insertMediaLinkText;   
-     
+
+     update_ckgeditMediaLink  =  insertMediaLinkText;
+
      var fckg_display_obj = function(obj) {
 
-      
+
         for(i in obj) {
          msg = i + "=" + obj[i];
          if(!confirm(msg))break;
        }
      };
-     
+
 	var setupParams = function( page, data )
 	{
 		if ( data[page] )
@@ -442,7 +448,7 @@ var useHeading = function(wiki_id) {
 	{
 		return setupParams.call( this, 'adv', data );
 	};
-    
+
 	var commitParams = function( page, data )
 	{
 		if ( !data[page] )
@@ -532,10 +538,29 @@ var useHeading = function(wiki_id) {
 		var className = ele.getAttribute( 'class' );
 		return className ? className.replace( /\s*(?:cke_anchor_empty|cke_anchor)(?:\s*$)?/g, '' ) : '';
 	}
- 
+
 	var commonLang = editor.lang.common,
 		linkLang = editor.lang.link;
-     
+
+    //get link browser
+    linkOpt = {};
+    var fbUrl = CKEDITOR.instances.wiki__text.config.filebrowserBrowseUrl;
+    if (fbUrl.indexOf('fckeditor') === -1) {
+        linkOpt = {
+            type : 'button',
+			id : 'browse1',
+			label : commonLang.browseServer,
+            onClick: openInternalLinkBrowser
+        };
+    } else {
+        linkOpt = {
+            type : 'button',
+			id : 'browse1',
+			label : commonLang.browseServer,
+            filebrowser: 'info:url'
+        };
+    }
+
 	return {
 		title : linkLang.title,
 		minWidth :  375, //350,
@@ -554,29 +579,29 @@ var useHeading = function(wiki_id) {
 						'default' : 'url',
 						items :
 						[
-							[ linkLang.toUrl, 'url' ],							
+							[ linkLang.toUrl, 'url' ],
                             [ translateItem('InternalLink'), 'internal' ],
                             [translateItem('InternalMedia'), 'media' ],
 							[ linkLang.toEmail, 'email' ],
 						   [  translateItem('SMBLabel'), 'samba' ]	,
-                           [translateItem('InterWikiLink'), 'interwiki' ]	                            
+                           [translateItem('InterWikiLink'), 'interwiki' ]
 						],
 						onChange : linkTypeChanged,
 						setup : function( data )
-						{                      
+						{
 							if ( data.type )
-								this.setValue( data.type );                          
+								this.setValue( data.type );
 						},
 						commit : function( data )
 						{
-							data.type = this.getValue();     
+							data.type = this.getValue();
 
 						}
 					},
 
 					{
 						type : 'vbox',
-						id : 'urlOptions',                      
+						id : 'urlOptions',
 						children :
 						[
 							{
@@ -591,11 +616,11 @@ var useHeading = function(wiki_id) {
 										'default' : 'http://',
 										items :
 										[
-											[ 'http://\u200E', 'http://' ],                                            
+											[ 'http://\u200E', 'http://' ],
 											[ 'https://\u200E', 'https://' ],
 											[ 'ftp://\u200E', 'ftp://' ],
 											[ 'news://\u200E', 'news://' ],
-                                            ck_m_files_protocol    
+                                            ck_m_files_protocol
 										],
 										setup : function( data )
 										{
@@ -607,7 +632,7 @@ var useHeading = function(wiki_id) {
 											if ( !data.url )
 												data.url = {};
 
-											data.url.protocol = this.getValue();                                           
+											data.url.protocol = this.getValue();
 										}
 									},
 									{
@@ -658,7 +683,7 @@ var useHeading = function(wiki_id) {
 											return func.apply( this );
 										},
 										setup : function( data )
-										{                                       
+										{
 											this.allowOnChange = false;
 											if ( data.url )
 												this.setValue( data.url.url );
@@ -689,78 +714,72 @@ var useHeading = function(wiki_id) {
 						]
 
 					},
-					                    
+
 					{
-						type : 'vbox',					
+						type : 'vbox',
                         id : 'internalOptions',
 						children :
 						[
-							{
-								type : 'button',
-								id : 'browse1',
-								hidden : 'true',
-								filebrowser : 'info:url',
-								label : commonLang.browseServer
-							},
+							linkOpt,
                             {
-										type : 'text',
-										id : 'internal',                                       
-										label : translateItem('InternalLink'), //"internal link",
-										required: true,
-                                        setup : function( data )
-                                        {                                           
-                                           if(data) {    										   
-                                            if (data.url &&  data.url.selected ) {                                        
-                                                   var id = data.url.selected.replace(/^\:/,"");
-                                                   this.setValue(':'+ id );
-                                            }
-                                           }
-                                        },       
+								type : 'text',
+								id : 'internal',
+								label : translateItem('InternalLink'), //"internal link",
+								required: true,
+                                setup : function( data )
+                                {
+                                   if(data) {
+                                    if (data.url &&  data.url.selected ) {
+                                           var id = data.url.selected.replace(/^\:/,"");
+                                           this.setValue(':'+ id );
+                                    }
+                                   }
+                                },
                             },
                             {
                                 id: 'anchorsmsg',
                                 type: 'html',
                                 html: translateItem('AdvancedTabPrompt'), //'Use the advanced tab to create page anchors and query strings',
-                             }                            
+                             }
 						]
 					},
 
                    {
-						type : 'vbox',					
+						type : 'vbox',
                         id : 'interwikiOptions',
 						children :
 						[
                             {
 										type : 'text',
-										id : 'interwiki',                                       
+										id : 'interwiki',
 										label : translateItem('InterwikiPlaceHolder'), //"interwiki link",
 										required: true,
                                         setup : function( data )
-                                        {                                           
-                                           if(data) {    										   
-                                            if (data.url &&  data.url.selected ) {                                         
+                                        {
+                                           if(data) {
+                                            if (data.url &&  data.url.selected ) {
                                                    var id = data.url.selected.replace(/^\:/,"");
                                                    this.setValue(id );
                                             }
                                            }
-                                        },  
+                                        },
 										commit : function( data )
 										{
 											if ( !data.url )
-												data.url = {};                                           
-											data.url.selection = this.getValue();                                                  
-										},                                        
+												data.url = {};
+											data.url.selection = this.getValue();
+										},
                             },
                            {
 										id : 'iwiki_shortcut',
 										type : 'select',
 										label : translateItem('InterWikiType'),
-										'default' : '',                                        
-										items : 	
+										'default' : '',
+										items :
                                        [
-                                            [ 'Not Set', 'Not-Set' ],                                            
-                                        ]  ,  
-                                       
+                                            [ 'Not Set', 'Not-Set' ],
+                                        ]  ,
+
 										setup : function( data )
 										{
 											if ( data.url )
@@ -769,10 +788,10 @@ var useHeading = function(wiki_id) {
 										commit : function( data )
 										{
 											if ( !data.url )
-												data.url = {};                                           
-											data.url.iwiki_shortcut = this.getValue();       
+												data.url = {};
+											data.url.iwiki_shortcut = this.getValue();
 										},
-                             } ,                           
+                             } ,
                             {
                                 id: 'iwikimsg',
                                 type: 'html',
@@ -780,16 +799,16 @@ var useHeading = function(wiki_id) {
                              } ,
 						]
 					},
-                    
+
                     {
-						type : 'vbox',					
-                        id : 'mediaOptions',                        
+						type : 'vbox',
+                        id : 'mediaOptions',
 						children :
 						[
 							{
 								type : 'button',
-								id : 'browse2',							
-								filebrowser : 'info:url',
+								id : 'browse2',
+								filebrowser : 'info:media',
 								label : commonLang.browseServer
 							},
                             {
@@ -797,42 +816,42 @@ var useHeading = function(wiki_id) {
 										id : 'media',
                                         //width: '24em',
 										label :  translateItem('MediaFileLink'), //"link to media file",
-										required: true,                                       
+										required: true,
                                         setup : function( data )
-                                        {                                           
-                                           if(data) {                                            
+                                        {
+                                           if(data) {
                                             if (data.url &&  data.url.selected ) {
                                                    var id = data.url.selected.replace(/^\:/,"");
                                                    this.setValue(':'+ id );
                                             }
                                            }
-                                        },       
-                            },              
+                                        },
+                            },
 						]
 					},
 					{
-						type : 'vbox',					
-                        id : 'sambaOptions',   						
+						type : 'vbox',
+                        id : 'sambaOptions',
 						children :
 						[
 						    {
 										type: 'html',
 										id: 'smb_msg',
-										html: translateItem('SMBExample'),	//"Enter your share as: \\\\Server\\directory\\file", 
+										html: translateItem('SMBExample'),	//"Enter your share as: \\\\Server\\directory\\file",
 							},
                             {
 										type : 'text',
 										id : 'samba',
                                         width: '50',
-										label :  translateItem('SMBLabel'), //"Samba Share",												
-										required: true,                                       
+										label :  translateItem('SMBLabel'), //"Samba Share",
+										required: true,
                                         setup : function( data )
-                                        {                                           
-                                            if (data.url && data.url.selected) {                                                 
+                                        {
+                                            if (data.url && data.url.selected) {
                                                    this.setValue(data.url.selected);
                                             }
-                                        },       
-                            },              
+                                        },
+                            },
 						]
 					},
 
@@ -948,10 +967,10 @@ var useHeading = function(wiki_id) {
 			{
 				id : 'advanced',
 				label : linkLang.advanced,
-				title : linkLang.advanced,						
+				title : linkLang.advanced,
 				elements :
 				[
-				    {  
+				    {
 					    id : 'msg',
 						type: 'html',
 						html: "<p style='max-width:350px; white-space: pre-wrap;'>" +
@@ -959,57 +978,57 @@ var useHeading = function(wiki_id) {
 					},
 					{
 						id : 'internalAnchor',
-						type : 'select',					
+						type : 'select',
 						'default' : '',
 						items :
 						[
-							['Not Set' , '' ],				
-						],					
+							['Not Set' , '' ],
+						],
 						setup : function( data )
-						{                      
+						{
 							if ( data.hash )
 								this.setValue( data.hash );
 						},
 						commit : function( data )
 						{
-							data.hash = this.getValue();                                 
+							data.hash = this.getValue();
 						}
 					},
                    {
-                    type : 'button',                   
-                    id : 'getheaders',									
+                    type : 'button',
+                    id : 'getheaders',
                     onClick:  getInternalHeaders,
-                    label : translateItem('GetHeadingsLabel'), //'Get Headings'	
+                    label : translateItem('GetHeadingsLabel'), //'Get Headings'
                   },
                    {
                     type: 'html',
                     html: "<br />",
                    },
                    {
-                    type : 'text',                   
-                    id : 'queryString',		
-                    label : translateItem('QStringLabel'), //'Query String (For example: value_1=1&value_2=2) ',	
+                    type : 'text',
+                    id : 'queryString',
+                    label : translateItem('QStringLabel'), //'Query String (For example: value_1=1&value_2=2) ',
                     setup : function( data )
-                    {                      
+                    {
                         if ( data.qstring )
                             this.setValue( data.qstring );
                     },
                     commit : function( data )
                     {
-                        data.qstring = this.getValue();                    
-                    }                    
+                        data.qstring = this.getValue();
+                    }
                   },
                    {
-                    type : 'button',                   
-                    id : 'clearquerystring',									
+                    type : 'button',
+                    id : 'clearquerystring',
                     onClick:  function() {
                         var dialog = this.getDialog();
                         var qs_id = dialog.getContentElement('advanced', 'queryString').getInputElement().$.id;
-                        var qs = document.getElementById(qs_id);                       
+                        var qs = document.getElementById(qs_id);
                         qs.value = "";
                     },
-                    label : translateItem('ResetQS'), //'Reset Query String'	
-                  },                
+                    label : translateItem('ResetQS'), //'Reset Query String'
+                  },
 					{
 						type : 'vbox',
 						padding : 1,
@@ -1057,13 +1076,13 @@ var useHeading = function(wiki_id) {
 				selection.selectElement( element );
 			else
 				element = null;
-                
-			this.setupContent( parseLink.apply( this, [ editor, element ] ) );        
+
+			this.setupContent( parseLink.apply( this, [ editor, element ] ) );
 		},
 
 		onOk : function()
 		{
-            
+
             var ImagesAllowed = new RegExp( oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions);
 			var attributes = {},
 				removeAttributes = [],
@@ -1073,8 +1092,8 @@ var useHeading = function(wiki_id) {
 
 			this.commitContent( data );
              var other_media = false;
-			 
-			// Compose the URL.			
+
+			// Compose the URL.
 		   var other_mime_file = "";
 			switch ( data.type || 'url' )
 			{
@@ -1083,16 +1102,16 @@ var useHeading = function(wiki_id) {
                         data.url.url =  document.getElementById(fckgMediaInputId).value;
                     }
                     data.adv.advTitle = data.url.url;
-                    
-                    var mf = data.url.url.match(/(\.(\w+))$/);           
+
+                    var mf = data.url.url.match(/(\.(\w+))$/);
                      other_mime_file = data.url.url.replace(/^:/,"");
-                    data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;                         
-                    
-                    if( mf[1].match(ImagesAllowed)) {                        
+                    data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;
+
+                    if( mf[1].match(ImagesAllowed)) {
                         data.adv['advContentType'] = 'linkonly';
                    }
-                   else { 
-                        data.adv['advContentType'] = "other_mime";            
+                   else {
+                        data.adv['advContentType'] = "other_mime";
                        data.url.url=top.dokuBase + 'lib/exe/fetch.php?media=' +  other_mime_file;
                          other_media = true;
                    }
@@ -1100,79 +1119,79 @@ var useHeading = function(wiki_id) {
                     if(mf) data.adv[ 'advCSSClasses'] += " mf_" + mf[2];
          			var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
 						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
-					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;                 
+					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
                 break;
-                case 'internal':                  
-                     if(!data.url.url) {                                            
+                case 'internal':
+                     if(!data.url.url) {
                         data.url.url=document.getElementById(fckgInternalInputId).value;
                               if(!data.url.url.match(/^:?\w+:/)) {
                                 var ns = top.getCurrentWikiNS() + ':';
                                 ns = ns.replace(/:$/,"");
-                                var regex = new RegExp(':?'+ ns+':');   
-                                if(!data.url.url.match(regex)) {           
+                                var regex = new RegExp(':?'+ ns+':');
+                                if(!data.url.url.match(regex)) {
                                      data.url.url = ns +':' + data.url.url;
-                                     data.url.url = data.url.url.replace(/\:{2,}/g,':');                               
+                                     data.url.url = data.url.url.replace(/\:{2,}/g,':');
                                 }
                             }
-                        }                          
+                        }
 
                      data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
                      data.url.url = data.url.url.replace(/^\:/,"");
-                     data.url.url =  ':' + data.url.url.replace(/\//g,':');      
+                     data.url.url =  ':' + data.url.url.replace(/\//g,':');
                      data.adv.advCSSClasses = "wikilink1";
                      if(oDokuWiki_FCKEditorInstance.useheading == 'y') {
                          data.adv.advTitle = useHeading(data.url.url)
                     }
                      else {
                      data.adv.advTitle = data.url.url;
-                     }   
-                     data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;   
+                     }
+                     data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;
                      if(data.hash) { data.url.url += '#' +data.hash;  }
                      if(data.qstring) { data.url.url += '&' +data.qstring;  }
                  	var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
 						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
-					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;              
+					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
                      break;
-                case 'interwiki':    
+                case 'interwiki':
                       if( ckg_iwikiClass) {
                        data.adv.advCSSClasses =    ckg_iwikiClass;
                       }
                      else data.adv.advCSSClasses = 'interwiki ' + 'iw_' + data.url.iwiki_shortcut;
-                      
+
                     var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
-                    data.adv.advTitle = data.url.selection;                 
+                    data.adv.advTitle = data.url.selection;
                     data.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
-                 
-                    if(iwiki_pattern.match(/\{.*?\}/) ){  
+
+                    if(iwiki_pattern.match(/\{.*?\}/) ){
                        data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
-                    }                           
-                   else data.url.url = iwiki_pattern + data.url.selection;                   
-                   
+                    }
+                   else data.url.url = iwiki_pattern + data.url.selection;
+
                   	attributes[ 'data-cke-saved-href' ] =  data.url.url;
                   break;
-				case 'url':               
+				case 'url':
 					var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
-						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';                       
-					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;    
+						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
+					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
 
 					break;
 				case 'anchor':
 					var name = ( data.anchor && data.anchor.name ),
 						id = ( data.anchor && data.anchor.id );
 					attributes[ 'data-cke-saved-href' ] = '#' + ( name || id || '' );
-					break;                
-                 case 'samba':				
-				   if(!data.url.url) {                                            
+					break;
+                 case 'samba':
+				   if(!data.url.url) {
 				      data.url.url=document.getElementById(getSMBInput()).value;
 				   }
-					if(!data.url.url) { 
+					if(!data.url.url) {
 						  alert("Missing Samba Url");
 						  return false;
 					}
 					data.url.protocol = "";
 				    var protocol = "";    // ( data.url && data.url.protocol != undefined ) ? data.url.protocol : '',
 					url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
-					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;  	
+					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
 					data.adv.advCSSClasses = "windows";
 					data.adv.advTitle = data.url.url;
 				break;
@@ -1223,7 +1242,7 @@ var useHeading = function(wiki_id) {
 					}
 
 					attributes[ 'data-cke-saved-href' ] = linkHref.join( '' );
-                   
+
 					break;
 			}
 
@@ -1268,39 +1287,39 @@ var useHeading = function(wiki_id) {
 
 			if ( !this._.selectedElement )
 			{
-               
+
 				// Create element if current selection is collapsed.
-              
+
 				var ranges = selection.getRanges( true );
 				if ( ranges.length == 1 && ranges[0].collapsed )
 				{
-                    
+
 					// Short mailto link text view (#5736).
-                  
+
 					var text = new CKEDITOR.dom.text( data.type == 'email' ?
 							data.email.address : attributes[ 'data-cke-saved-href' ], editor.document );
-                   
+
 					ranges[0].insertNode( text );
 					ranges[0].selectNodeContents( text );
 					selection.selectRanges( ranges );
-                   
+
 				}
 
-   
+
              if(navigator.userAgent.match(/(Trident|MSIE)/)) {
                     var el = editor.document.createElement( 'a' );
                     el.setAttribute( 'href',  attributes['href']);
                     if(!hasSelectedText &&  (data.type == 'media' || data.type == 'internal')) {
-                        el.setHtml(data.adv.advTitle);                  
+                        el.setHtml(data.adv.advTitle);
                     }
-                    else el.setHtml(selection.getSelectedText());                  
+                    else el.setHtml(selection.getSelectedText());
                     for(attr in attributes) {
                          if(attr.match(/href/i))continue;
                          el.setAttribute( attr,  attributes[attr]);
                     }
                     editor.insertElement( el );
-                }				
-                else {  // Apply style.   
+                }
+                else {  // Apply style.
                     var style = new CKEDITOR.style( { element : 'a', attributes : attributes } );
                     style.type = CKEDITOR.STYLE_INLINE;		// need to override... dunno why.
                     style.apply( editor.document );
@@ -1308,15 +1327,15 @@ var useHeading = function(wiki_id) {
 			}
 			else
 			{
-              
+
 				// We're only editing an existing link, so just overwrite the attributes.
 				var element = this._.selectedElement,
 					href = element.data( 'cke-saved-href' ),
 					textView = element.getHtml();
                  if(other_media) {
-                     attributes['type'] = 'other_mime';   
-                     attributes['title'] = ':' + other_mime_file;   
-                 }    
+                     attributes['type'] = 'other_mime';
+                     attributes['title'] = ':' + other_mime_file;
+                 }
 				element.setAttributes( attributes );
 				element.removeAttributes( removeAttributes );
 
@@ -1334,15 +1353,15 @@ var useHeading = function(wiki_id) {
 				selection.selectElement( element );
 				delete this._.selectedElement;
 			}
-           
-            if(text && data.adv.advTitle) {            
-                  text.setText(data.adv.advTitle);                                
+
+            if(text && data.adv.advTitle) {
+                  text.setText(data.adv.advTitle);
             }
 		},
 		onLoad : function()
 		{
-	       ckgeditIwikiData = getIwikiOptions();         
-           var select_id = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;     
+	       ckgeditIwikiData = getIwikiOptions();
+           var select_id = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;
            var select =document.getElementById(select_id);
            this.stack = select.options;
           this.stack.length = 0;
@@ -1350,34 +1369,34 @@ var useHeading = function(wiki_id) {
          ckgeditIwikiIndex = new Array();
          var count = 1;
          for(var i in ckgeditIwikiData) {
-            this.stack[count] =  new Option(i + ' >> ' + ckgeditIwikiData[i],i,false,false); 
+            this.stack[count] =  new Option(i + ' >> ' + ckgeditIwikiData[i],i,false,false);
             ckgeditIwikiIndex[i] = count;
-            count++;            
+            count++;
          }
-                    
-            oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
+
+            oDokuWiki_FCKEditorInstance.isDwikiImage = false;
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
             fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
             fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;
-            var el = this.getContentElement('info', 'iwiki_shortcut').getInputElement().$.id;        
+            var el = this.getContentElement('info', 'iwiki_shortcut').getInputElement().$.id;
            //this.getContentElement("info", 'iwiki_shortcut'). disable();  //restricts attempts to enter filenames into text box
            this.getContentElement('info', 'media').disable();
 		   this.hidePage( 'advanced' );		//Hide Advanded tab.
-	       this.showPage('info');				
+	       this.showPage('info');
            ckg_dialog = this;
-           var tab = this._.tabs[ 'advanced' ] && this._.tabs[ 'advanced' ][ 0 ];               
-           var dialog = this;                  
-           var notSet = translateItem('NotSetOption');           
-           tab.on('focus', function(evt) {      
-               var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;          
-               var select =document.getElementById(select_id); 
+           var tab = this._.tabs[ 'advanced' ] && this._.tabs[ 'advanced' ][ 0 ];
+           var dialog = this;
+           var notSet = translateItem('NotSetOption');
+           tab.on('focus', function(evt) {
+               var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;
+               var select =document.getElementById(select_id);
                select.selectedIndex = -1;
-               select.options.length = 0;                   
-               select.options[0] =  new Option(notSet,"",false,false);               
-           });             
-   
+               select.options.length = 0;
+               select.options[0] =  new Option(notSet,"",false,false);
+           });
+
 		},
-	
+
 
 		// Inital focus on 'url' field if link is of type URL.
 		onFocus : function()
@@ -1392,31 +1411,295 @@ var useHeading = function(wiki_id) {
 		}
 	};
 });
-    
-   
 
 /**
- * The e-mail address anti-spam protection option. The protection will be
- * applied when creating or modifying e-mail links through the editor interface.<br>
- * Two methods of protection can be choosed:
- * <ol>	<li>The e-mail parts (name, domain and any other query string) are
- *			assembled into a function call pattern. Such function must be
- *			provided by the developer in the pages that will use the contents.
- *		<li>Only the e-mail address is obfuscated into a special string that
- *			has no meaning for humans or spam bots, but which is properly
- *			rendered and accepted by the browser.</li></ol>
- * Both approaches require JavaScript to be enabled.
- * @name CKEDITOR.config.emailProtection
- * @since 3.1
- * @type String
- * @default '' (empty string = disabled)
- * @example
- * // href="mailto:tester@ckeditor.com?subject=subject&body=body"
- * config.emailProtection = '';
- * @example
- * // href="<a href=\"javascript:void(location.href=\'mailto:\'+String.fromCharCode(116,101,115,116,101,114,64,99,107,101,100,105,116,111,114,46,99,111,109)+\'?subject=subject&body=body\')\">e-mail</a>"
- * config.emailProtection = 'encode';
- * @example
- * // href="javascript:mt('tester','ckeditor.com','subject','body')"
- * config.emailProtection = 'mt(NAME,DOMAIN,SUBJECT,BODY)';
+ * The Link Wizard
+ *
+ * @author Andreas Gohr <gohr@cosmocode.de>
+ * @author Pierre Spring <pierre.spring@caillou.ch>
  */
+var doku_linkwiz = {
+    $wiz: null,
+    $entry: null,
+    result: null,
+    timer: null,
+    textArea: null,
+    selected: null,
+    $ck: null,
+
+    /**
+     * Initialize the doku_linkwizard by creating the needed HTML
+     * and attaching the eventhandlers
+     */
+    init: function($editor, ck){
+        // position relative to the text area
+        var pos = $editor.position();
+        $ck = ck;
+
+        // create HTML Structure
+        if(doku_linkwiz.$wiz)
+            return;
+        doku_linkwiz.$wiz = jQuery(document.createElement('div'))
+               .dialog({
+                   autoOpen: false,
+                   draggable: true,
+                   title: LANG.linkwiz,
+                   resizable: false
+               })
+               .html(
+                    '<div>'+LANG.linkto+' <input type="text" class="edit" id="link__wiz_entry" autocomplete="off" /></div>'+
+                    '<div id="link__wiz_result"></div>'
+                    )
+               .parent()
+               .attr('id','link__wiz')
+               .css({
+                    'position':    'absolute',
+                    'top':         (pos.top+20)+'px',
+                    'left':        (pos.left+80)+'px',
+                    'z-index':      '20000'
+                   })
+               .hide()
+               .appendTo('.dokuwiki:first');
+
+        doku_linkwiz.textArea = $editor[0];
+        doku_linkwiz.result = jQuery('#link__wiz_result')[0];
+
+        // scrollview correction on arrow up/down gets easier
+        jQuery(doku_linkwiz.result).css('position', 'relative');
+
+        doku_linkwiz.$entry = jQuery('#link__wiz_entry');
+        if(JSINFO.namespace){
+            doku_linkwiz.$entry.val(JSINFO.namespace+':');
+        }
+
+        // attach event handlers
+        jQuery('#link__wiz .ui-dialog-titlebar-close').click(doku_linkwiz.hide);
+        doku_linkwiz.$entry.keyup(doku_linkwiz.onEntry);
+        jQuery(doku_linkwiz.result).delegate('a', 'click', doku_linkwiz.onResultClick);
+    },
+
+    /**
+     * handle all keyup events in the entry field
+     */
+    onEntry: function(e){
+        if(e.keyCode == 37 || e.keyCode == 39){ //left/right
+            return true; //ignore
+        }
+        if(e.keyCode == 27){ //Escape
+            doku_linkwiz.hide();
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        if(e.keyCode == 38){ //Up
+            doku_linkwiz.select(doku_linkwiz.selected -1);
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        if(e.keyCode == 40){ //Down
+            doku_linkwiz.select(doku_linkwiz.selected +1);
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        if(e.keyCode == 13){ //Enter
+            if(doku_linkwiz.selected > -1){
+                var $obj = doku_linkwiz.$getResult(doku_linkwiz.selected);
+                if($obj.length > 0){
+                    doku_linkwiz.resultClick($obj.find('a')[0]);
+                }
+            }else if(doku_linkwiz.$entry.val()){
+                doku_linkwiz.insertLink(doku_linkwiz.$entry.val());
+            }
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        doku_linkwiz.autocomplete();
+    },
+
+    /**
+     * Get one of the results by index
+     *
+     * @param   num int result div to return
+     * @returns DOMObject or null
+     */
+    getResult: function(num){
+        DEPRECATED('use doku_linkwiz.$getResult()[0] instead');
+        return doku_linkwiz.$getResult()[0] || null;
+    },
+
+    /**
+     * Get one of the results by index
+     *
+     * @param   num int result div to return
+     * @returns jQuery object
+     */
+    $getResult: function(num) {
+        return jQuery(doku_linkwiz.result).find('div').eq(num);
+    },
+
+    /**
+     * Select the given result
+     */
+    select: function(num){
+        if(num < 0){
+            doku_linkwiz.deselect();
+            return;
+        }
+
+        var $obj = doku_linkwiz.$getResult(num);
+        if ($obj.length === 0) {
+            return;
+        }
+
+        doku_linkwiz.deselect();
+        $obj.addClass('selected');
+
+        // make sure the item is viewable in the scroll view
+
+        //getting child position within the parent
+        var childPos = $obj.position().top;
+        //getting difference between the childs top and parents viewable area
+        var yDiff = childPos + $obj.outerHeight() - jQuery(doku_linkwiz.result).innerHeight();
+
+        if (childPos < 0) {
+            //if childPos is above viewable area (that's why it goes negative)
+            jQuery(doku_linkwiz.result)[0].scrollTop += childPos;
+        } else if(yDiff > 0) {
+            // if difference between childs top and parents viewable area is
+            // greater than the height of a childDiv
+            jQuery(doku_linkwiz.result)[0].scrollTop += yDiff;
+        }
+
+        doku_linkwiz.selected = num;
+    },
+
+    /**
+     * deselect a result if any is selected
+     */
+    deselect: function(){
+        if(doku_linkwiz.selected > -1){
+            doku_linkwiz.$getResult(doku_linkwiz.selected).removeClass('selected');
+        }
+        doku_linkwiz.selected = -1;
+    },
+
+    /**
+     * Handle clicks in the result set an dispatch them to
+     * resultClick()
+     */
+    onResultClick: function(e){
+        if(!jQuery(this).is('a')) {
+            return;
+        }
+        e.stopPropagation();
+        e.preventDefault();
+        doku_linkwiz.resultClick(this);
+        return false;
+    },
+
+    /**
+     * Handles the "click" on a given result anchor
+     */
+    resultClick: function(a){
+        doku_linkwiz.$entry.val(a.title);
+        if(a.title == '' || a.title.substr(a.title.length-1) == ':'){
+            doku_linkwiz.autocomplete_exec();
+        }else{
+            if (jQuery(a.nextSibling).is('span')) {
+                doku_linkwiz.insertLink(a.nextSibling.innerHTML);
+            }else{
+                doku_linkwiz.insertLink('');
+            }
+        }
+    },
+
+    /**
+     * Insert the id currently in the entry box to the textarea,
+     * replacing the current selection or at the cursor position.
+     * When no selection is available the given title will be used
+     * as link title instead
+     */
+    insertLink: function(title){
+        var link = doku_linkwiz.$entry.val(),
+            sel, stxt;
+        if(!link) {
+            return;
+        }
+
+        //insert link into field
+        var dialog = CKEDITOR.dialog.getCurrent();
+        dialog.getContentElement("info", "internal").setValue(link);
+
+        doku_linkwiz.hide();
+
+        // reset the entry to the parent namespace
+        doku_linkwiz.$entry.val(doku_linkwiz.$entry.val().replace(/[^:]*$/, ''));
+    },
+
+    /**
+     * Start the page/namespace lookup timer
+     *
+     * Calls autocomplete_exec when the timer runs out
+     */
+    autocomplete: function(){
+        if(doku_linkwiz.timer !== null){
+            window.clearTimeout(doku_linkwiz.timer);
+            doku_linkwiz.timer = null;
+        }
+
+        doku_linkwiz.timer = window.setTimeout(doku_linkwiz.autocomplete_exec,350);
+    },
+
+    /**
+     * Executes the AJAX call for the page/namespace lookup
+     */
+    autocomplete_exec: function(){
+        var $res = jQuery(doku_linkwiz.result);
+        doku_linkwiz.deselect();
+        $res.html('<img src="'+DOKU_BASE+'lib/images/throbber.gif" alt="" width="16" height="16" />')
+            .load(
+            DOKU_BASE + 'lib/exe/ajax.php',
+            {
+                call: 'linkwiz',
+                q: doku_linkwiz.$entry.val()
+            }
+        );
+    },
+
+    /**
+     * Show the link wizard
+     */
+    show: function(){
+        doku_linkwiz.$wiz.show();
+        doku_linkwiz.$entry.focus();
+        doku_linkwiz.autocomplete();
+
+        // Move the cursor to the end of the input
+        var temp = doku_linkwiz.$entry.val();
+        doku_linkwiz.$entry.val('');
+        doku_linkwiz.$entry.val(temp);
+    },
+
+    /**
+     * Hide the link wizard
+     */
+    hide: function(){
+        doku_linkwiz.$wiz.hide();
+        doku_linkwiz.textArea.focus();
+    },
+
+    /**
+     * Toggle the link wizard
+     */
+    toggle: function(){
+        if(doku_linkwiz.$wiz.css('display') == 'none'){
+            doku_linkwiz.show();
+        }else{
+            doku_linkwiz.hide();
+        }
+    }
+};

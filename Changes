@@ -1,4 +1,4 @@
-rev_16-Sep_10-11_23
+rev_16-Sep_10-16_38
 
 28 Feb 2013
 Added support for interwiki links
@@ -936,3 +936,7 @@ Copy userfiles/.htacess.security to data/media/.htacess for winstyle
 
 10 Sept
 Improved markup detection in headers
+
+10 Sept
+Synced copy of master with stevenmg's version enabling DW's filebrowser and linkwiz
+
