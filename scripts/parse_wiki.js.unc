@@ -1565,7 +1565,7 @@ function parse_wikitext(id) {
      
      results=results.replace(/_SMB_/g, "\\");     
      
-     results = results.replace(/(\s*={2,})\s*CKGE_TMP_(\w+)(.*?)\s*CKGE_TMP_c?\2/gm, function(m,tag) {   //remove formats from headers
+     results = results.replace(/(\s*={2,}).*?CKGE_TMP_(\w+)(.*?).*?CKGE_TMP_c?\2.*?\1/gm, function(m,tag) {   //remove formats from headers     
              m=m.replace(/CKGE_TMP_\w+/gm,"");     
              var v = jQuery("#formatdel").val();              
              if(!v) {   
