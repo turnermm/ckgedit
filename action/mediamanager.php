@@ -19,7 +19,7 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
 
     function upload_finish($event) {
         if(!preg_match("#^image/#",$event->data[3]) && $_COOKIE['ckgFbType'] == 'image') {
-            msg("Upload images ony in when using image dialog:" .$event->data[3] );
+            msg($this->getLang('mediamgr_imgonly')  .$event->data[3] );
            $event->preventDefault() ;
         }    
     }
