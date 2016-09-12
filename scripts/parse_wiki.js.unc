@@ -1818,7 +1818,19 @@ jQuery( "#ebtn__delete" ).mouseup(function() {
 
 jQuery( "#ebtn__dwedit" ).click(function() { 
    ckgedit_to_dwedit = true;
-   setDWEditCookie(2, this);parse_wikitext('edbtn__save');this.form.submit();
+   setDWEditCookie(2, this);
+   parse_wikitext('edbtn__save');
+   this.form.submit();
+});
+
+jQuery("#ebtn__fbswitch").click(function(){
+    if(getCookie('ckgFbOpt') == 'dokuwiki') {
+        document.cookie = 'ckgFbOpt=ckgedit;';
+    } else {
+        document.cookie = 'ckgFbOpt=dokuwiki;';
+    }
+    parse_wikitext('edbtn__save');
+   this.form.submit();
 });
 
 jQuery( "#ckgedit_draft_btn" ).click(function() { 

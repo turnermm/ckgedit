@@ -939,3 +939,6 @@ Improved markup detection in headers
 
 11 Sept
 Capture and delete font markup in headers
+
+12 Sept
+added jQuery("#ebtn__fbswitch").click function to parse_wiki.js to ease later upgrade
