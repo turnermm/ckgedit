@@ -1712,6 +1712,15 @@ function parse_wikitext(id) {
             }
             return match;
     } );
+    
+      results = results.replace(/(\s*={2,})\s*(<font[^\>]+>)(.*?)(<\/font>)\s*\1/gm,function(match,a,b,c) {  
+             match= a + " " + c + " " +a;      
+             var v = jQuery("#formatdel").val();              
+             if(!v) {   
+             jQuery('#dw__editform').append('<input type="hidden" id="formatdel" name="formatdel" value="del" />');
+             }
+            return match;
+    } );    
    }
    if(HTMLParserTopNotes.length) {
         results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");      
