@@ -1,4 +1,4 @@
-rev_16-Sep_11-21_07
+rev_16-Sep_12-18_44
 
 28 Feb 2013
 Added support for interwiki links
@@ -942,3 +942,5 @@ Capture and delete font markup in headers
 
 12 Sept
 added jQuery("#ebtn__fbswitch").click function to parse_wiki.js to ease later upgrade
+improved font removal from headers
+remove link markup from hearders
