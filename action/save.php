@@ -23,7 +23,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
              msg($this->getLang("fontdel"),1);           
          }
          if (isset($_REQUEST["formatdel"]) ) {
-             msg('Font Markup removed from headers(s): not supported by Dokuwiki',1);           
+             msg($this->getLang("formatdel"),1);           
          }         
      
         global $TEXT, $conf;

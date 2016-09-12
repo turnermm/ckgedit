@@ -1577,7 +1577,18 @@ function parse_wikitext(id) {
             if($FORMAT_SUBST[tag]) return $FORMAT_SUBST[tag];       
             return m;
      } );
-     
+ 
+results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm, function(m,h_markup,whatever,bracket_1,inner,bracket_2, end_str) { 
+            end_str = end_str.replace(/\[\[(.*?)\|(.*?)\]\]/g,"$2");
+            end_str = end_str.replace(/\{\{(.*?)\|(.*?)\}\}/g,"$2");            
+             m=  h_markup + " " + whatever + " " + inner.replace(/.*?\|(.*?)/ ,"$1") + " " + end_str + " " + h_markup;
+             var v = jQuery("#formatdel").val();              
+             if(!v) {   
+             jQuery('#dw__editform').append('<input type="hidden" id="formatdel" name="formatdel" value="del" />');
+             }
+            return m;
+     } );
+          
     if(id == 'test') {
       if(!HTMLParser_test_result(results)) return;     
     }
@@ -1714,8 +1725,8 @@ function parse_wikitext(id) {
     } );
     
       results = results.replace(/(\s*={2,})\s*(.*?)(<font[^\>]+>)(.*?)(<\/font>)(.*?)\s*\1/gm,function(match) {      
-             match = match.replace(/<\/font>/g,"");
-             match = match.replace(/<font.*?>/g,"");
+             match = match.replace(/<\/font>/g," ");
+             match = match.replace(/<font.*?>/g," ");
              var v = jQuery("#formatdel").val();              
              if(!v) {   
              jQuery('#dw__editform').append('<input type="hidden" id="formatdel" name="formatdel" value="del" />');
