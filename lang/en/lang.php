@@ -42,3 +42,5 @@ $lang['btn_val_dw_fb'] = "DW Filebrowser";
 $lang['btn_val_ckg_fb'] = "CKG Filebrowser";
 $lang['btn_title_dw_fb'] = "Save and close the editor and switch to the DW Filebrowser";
 $lang['btn_title_ckg_fb'] = "Save and close the editor and switch to the CKG Filebrowser";
+$lang['formatdel'] = 'Markup removed from headers(s): not supported by Dokuwiki';
+$lang["fontdel"] ='Font Markup removed from link(s): not supported by Dokuwiki';

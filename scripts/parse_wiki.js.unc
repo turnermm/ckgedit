@@ -1713,8 +1713,9 @@ function parse_wikitext(id) {
             return match;
     } );
     
-      results = results.replace(/(\s*={2,})\s*(<font[^\>]+>)(.*?)(<\/font>)\s*\1/gm,function(match,a,b,c) {  
-             match= a + " " + c + " " +a;      
+      results = results.replace(/(\s*={2,})\s*(.*?)(<font[^\>]+>)(.*?)(<\/font>)(.*?)\s*\1/gm,function(match) {      
+             match = match.replace(/<\/font>/g,"");
+             match = match.replace(/<font.*?>/g,"");
              var v = jQuery("#formatdel").val();              
              if(!v) {   
              jQuery('#dw__editform').append('<input type="hidden" id="formatdel" name="formatdel" value="del" />');
