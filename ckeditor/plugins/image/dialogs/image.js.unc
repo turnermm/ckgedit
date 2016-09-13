@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
@@ -6,7 +6,7 @@ var ckgeditLinkTypeId,ckgeditAlignInputId;
 var ckgeditDwikiSaveDir= oDokuWiki_FCKEditorInstance.save_dir;
 var ckgeditImageReselectObj = { 'align': "", 'link':""};
 window.onbeforeunload = function() { };
-   
+
 (function() {
 	var imageDialog = function( editor, dialogType ) {
 			// Load image preview.
@@ -64,7 +64,7 @@ window.onbeforeunload = function() { };
 			// Custom commit dialog logic, where we're intended to give inline style
 			// field (txtdlgGenStyle) higher priority to avoid overwriting styles contribute
 			// by other fields.
-			function commitContent() {           
+			function commitContent() {
 				var args = arguments;
 				var inlineStyleField = this.getContentElement( 'advanced', 'txtdlgGenStyle' );
 				inlineStyleField && inlineStyleField.commit.apply( inlineStyleField, args );
@@ -85,50 +85,50 @@ window.onbeforeunload = function() { };
 					return;
 
 				incommit = 1;
-                 
+
 				var dialog = this.getDialog(),
 					element = dialog.imageElement;
-                 ckgeditAlignInputId =dialog.getContentElement('info',  'cmbAlign').getInputElement().$.id;  
-                 ckgeditLinkTypeId =dialog.getContentElement('info',  'cmbLinkType').getInputElement().$.id;         
-                 
-                 if(ckgeditImageReselectObj['align']) {                     
+                 ckgeditAlignInputId =dialog.getContentElement('info',  'cmbAlign').getInputElement().$.id;
+                 ckgeditLinkTypeId =dialog.getContentElement('info',  'cmbLinkType').getInputElement().$.id;
+
+                 if(ckgeditImageReselectObj['align']) {
                     var align_value = 0;
                      switch (ckgeditImageReselectObj['align']) {
                          case 'medialeft':
                             align_value = 1;
                             break;
                          case 'mediaright':
-                            align_value = 2;                         
+                            align_value = 2;
                             break;
                         case 'mediacenter':
-                            align_value = 3;                        
+                            align_value = 3;
                             break;
-                        case 'baseline':             
-                            align_value = 4;                        
-                            break ;                    
+                        case 'baseline':
+                            align_value = 4;
+                            break ;
                      }
-                     var align_sel = document.getElementById(ckgeditAlignInputId); 
-                     align_sel.options[align_value].selected = true;                         
-                     ckgeditImageReselectObj['align'] = "";                    
+                     var align_sel = document.getElementById(ckgeditAlignInputId);
+                     align_sel.options[align_value].selected = true;
+                     ckgeditImageReselectObj['align'] = "";
                  }
-                 if(ckgeditImageReselectObj['link']) {                   
+                 if(ckgeditImageReselectObj['link']) {
                      var link_value = 0;
                      switch(ckgeditImageReselectObj['link']) {
                         case 'detail':
                             link_value = 0;
-                            break;                        
+                            break;
                         case 'direct':
                             link_value = 1;
-                            break;                                                
+                            break;
                         case 'nolink':
                             link_value = 2;
-                            break;                                                
+                            break;
                         case 'linkonly':
                             link_value = 3;
-                            break;                                                
-                     }                
-                     var link_sel = document.getElementById(ckgeditLinkTypeId); 
-                     link_sel.options[link_value].selected = true;                                              
+                            break;
+                     }
+                     var link_sel = document.getElementById(ckgeditLinkTypeId);
+                     link_sel.options[link_value].selected = true;
                      ckgeditImageReselectObj['link'] = "";
                  }
                  oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser=false;
@@ -142,7 +142,7 @@ window.onbeforeunload = function() { };
 					var length = targetFields.length,
 						field;
 					for ( var i = 0; i < length; i++ ) {
-						field = dialog.getContentElement.apply( dialog, targetFields[ i ].split( ':' ) );                        
+						field = dialog.getContentElement.apply( dialog, targetFields[ i ].split( ':' ) );
 						// May cause recursion.
 						field && field.setup( IMAGE, element );
 					}
@@ -295,10 +295,10 @@ window.onbeforeunload = function() { };
 			return {
 				title: editor.lang.image[ dialogType == 'image' ? 'title' : 'titleButton' ],
 				minWidth: 420,
-				minHeight: 360,              
+				minHeight: 360,
 				onShow: function() {
 					this.imageElement = false;
-					this.linkElement = false;                   
+					this.linkElement = false;
 					// Default: create a new element.
 					this.imageEditMode = false;
 					this.linkEditMode = false;
@@ -313,14 +313,14 @@ window.onbeforeunload = function() { };
 						sel = editor.getSelection(),
 						element = sel && sel.getSelectedElement(),
 						link = element && editor.elementPath( element ).contains( 'a', 1 );
-                    var linkType;    
+                    var linkType;
                     if(element && element['$']) {
                          var className = element['$'].getAttribute('class');
                          ckgeditImageReselectObj['align'] = className;
-                         linkType = element['$'].getAttribute('type');                     
-                         } 
-                    
-				//Hide loader.
+                         linkType = element['$'].getAttribute('type');
+                         }
+
+				    //Hide loader.
 					CKEDITOR.document.getById( imagePreviewLoaderId ).setStyle( 'display', 'none' );
 					// Create the preview before setup the dialog contents.
 					previewPreloader = new CKEDITOR.dom.element( 'img', editor.document );
@@ -357,8 +357,8 @@ window.onbeforeunload = function() { };
                              ckgeditImageReselectObj['link'] = linkType;
                          }
                         else ckgeditImageReselectObj['link'] = 'nolink';
-                    }   
-                       
+                    }
+
                    if(link) {
                        if(link['$']['outerHTML'].match(/detail/)) {
                              ckgeditImageReselectObj['link'] = 'detail';
@@ -366,7 +366,7 @@ window.onbeforeunload = function() { };
                          else {
                               ckgeditImageReselectObj['link'] = 'direct';
                          }
-                    }   
+                    }
 					if ( element && element.getName() == 'img' && !element.data( 'cke-realelement' ) || element && element.getName() == 'input' && element.getAttribute( 'type' ) == 'image' ) {
 						this.imageEditMode = element.getName();
 						this.imageElement = element;
@@ -420,7 +420,7 @@ window.onbeforeunload = function() { };
 							delete this.cleanImageElement;
 						}
 					} else // Create a new image.
-					{                   
+					{
 						// Image dialog -> create IMG element.
 						if ( dialogType == 'image' )
 							this.imageElement = editor.document.createElement( 'img' );
@@ -430,32 +430,32 @@ window.onbeforeunload = function() { };
 						}
 						this.imageElement.setAttribute( 'alt', '' );
 					}
-   
 
-                     var link_sel = document.getElementById(ckgeditLinkTypeId);                          
+
+                     var link_sel = document.getElementById(ckgeditLinkTypeId);
                      var linktype = 'detail';
                      if(link_sel.selectedIndex > 0) {
-                         var linktype =  link_sel.options[link_sel.selectedIndex].value;                     
+                         var linktype =  link_sel.options[link_sel.selectedIndex].value;
                      }
                      this.imageElement.setAttribute( 'type', linktype );
 					// Create a new link.
 					if ( !this.linkEditMode )
 						this.linkElement = editor.document.createElement( 'a' );
 
-					// Set attributes.                    
+					// Set attributes.
 					this.commitContent( IMAGE, this.imageElement );
-                    
-                                         var align_sel = document.getElementById(ckgeditAlignInputId);     
+
+                                         var align_sel = document.getElementById(ckgeditAlignInputId);
                      if(align_sel.selectedIndex > 0) {
                          var img_alignment =  align_sel.options[align_sel.selectedIndex].value;
                          this.imageElement.setAttribute( 'class', img_alignment );
                      }
                      else this.imageElement.setAttribute( 'class', 'media' );
-                     
+
 					// Remove empty style attribute.
 					if ( !this.imageElement.getAttribute( 'style' ) )
 						this.imageElement.removeAttribute( 'style' );
-                        
+
 					// Insert a new Image.
 					if ( !this.imageEditMode ) {
 						if ( this.addLink ) {
@@ -782,10 +782,10 @@ window.onbeforeunload = function() { };
 								children: [
 									{
                                         id: 'cmbLinkType',
-                                        type: 'select',                                      
+                                        type: 'select',
                                         label: editor.lang.common.linkType||"Link Type",
                                         'default': 'detail',
-                                        items: [                                           
+                                        items: [
                                             [ editor.lang.common.linkDetail  || "Detail", 'detail'],
                                             [ editor.lang.common.linkDirect ||"Direct", 'direct' ],
                                             [ editor.lang.common.linkNoLink || "No Link" , 'nolink'],
@@ -960,24 +960,24 @@ window.onbeforeunload = function() { };
 										updatePreview( this.getDialog() );
 										commitInternally.call( this, 'advanced:txtdlgGenStyle' );
 									},
-									setup: function( type, element ) {                                    
+									setup: function( type, element ) {
 									},
 									commit: function( type, element, internalCommit ) {
-										var value = this.getValue();                                       
+										var value = this.getValue();
 										if ( type == IMAGE || type == PREVIEW ) {
-											if ( value ) {                                                                                          
-                                                value =  value.replace(/media/,"");                                               
+											if ( value ) {
+                                                value =  value.replace(/media/,"");
                                                 switch(value) {
                                                     case 'center':
-                                                       element.removeStyle( 'float' );                                                     
-                                                       element.setAttribute( 'class', 'mediacenter');  
+                                                       element.removeStyle( 'float' );
+                                                       element.setAttribute( 'class', 'mediacenter');
                                                        break;
-                                                    case 'baseline':                                                    
-                                                       value = 'left';                                                    
+                                                    case 'baseline':
+                                                       value = 'left';
                                                     default:
-                                                      element.setStyle( 'float', value );                                                    
+                                                      element.setStyle( 'float', value );
                                                    }
-												
+
                                                 }
 											else
 												element.removeStyle( 'float' );
@@ -1009,7 +1009,7 @@ window.onbeforeunload = function() { };
 								type: 'html',
 								id: 'htmlPreview',
 								style: 'width:95%;',
-								html: '<style type = "text/css">.mediacenter { display: block; margin-left: auto; margin-right: auto;}</style><div>' + CKEDITOR.tools.htmlEncode( editor.lang.common.preview ) + '<br>' +                                                                         
+								html: '<style type = "text/css">.mediacenter { display: block; margin-left: auto; margin-right: auto;}</style><div>' + CKEDITOR.tools.htmlEncode( editor.lang.common.preview ) + '<br>' +
 								     	'<div id="' + imagePreviewLoaderId + '" class="ImagePreviewLoader" style="display:none"><div class="loading">&nbsp;</div></div>' +
 									'<div class="ImagePreviewBox"><table><tr><td>' +
 										'<a href="javascript:void(0)" target="_blank" onclick="return false;" id="' + previewLinkId + '">' +
@@ -1044,8 +1044,8 @@ window.onbeforeunload = function() { };
 								if ( !href )
 									href = element.getAttribute( 'href' );
                                 var matches = href.match(/media\s*=(.*)/);
-                                if(matches) {                              
-                                    href = ckgeditDwikiSaveDir + '/'+  matches[1].replace(':','/'); 
+                                if(matches) {
+                                    href = ckgeditDwikiSaveDir + '/'+  matches[1].replace(':','/');
                                     element.setAttribute( 'href' );
                                 }
 								this.setValue( href );
@@ -1138,7 +1138,7 @@ window.onbeforeunload = function() { };
 							type: 'text',
 							id: 'linkId',
                             disabled: true,
-							label: editor.lang.common.id, 
+							label: editor.lang.common.id,
 							setup: function( type, element ) {
 								if ( type == IMAGE )
 									this.setValue( element.getAttribute( 'id' ) );
@@ -1151,7 +1151,7 @@ window.onbeforeunload = function() { };
 							}
 						},
 							{
-							id: 'cmbLangDir',                            
+							id: 'cmbLangDir',
 							type: 'select',
                             disabled: true,
 							style: 'width : 100px;',

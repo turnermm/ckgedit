@@ -251,7 +251,6 @@ global $dwfck_client;
 
    }
 
-      
     if($ns) {      
        if(strpos($ns, ':')) {   
           return str_replace(':', '/', $ns);
@@ -263,7 +262,6 @@ global $dwfck_client;
     }
     $AUTH = auth_aclcheck(':*', $dwfck_client,$usergrps);      
     return "";
- 
 }
 
 function setUpMediaPaths() {
