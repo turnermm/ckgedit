@@ -1836,10 +1836,10 @@ jQuery( "#ebtn__dwedit" ).click(function() {
 });
 
 jQuery("#ebtn__fbswitch").click(function(){
-    if(getCookie('ckgFbOpt') == 'dokuwiki') {
-        document.cookie = 'ckgFbOpt=ckgedit;';
+    if(document.cookie.split('ckgFbOpt=')[1].split(';')[0] == 'dokuwiki') {
+        document.cookie = 'ckgFbOpt=ckgedit';
     } else {
-        document.cookie = 'ckgFbOpt=dokuwiki;';
+        document.cookie = 'ckgFbOpt=dokuwiki';
     }
     parse_wikitext('edbtn__save');
    this.form.submit();
