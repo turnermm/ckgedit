@@ -691,7 +691,7 @@ function parse_wikitext(id) {
                       this.external_mime = true;
 
                    }
-                   else if(this.attr.match(/%[a-fA-F0-9]{2}/)) {              
+                   else if(this.attr && this.attr.match(/%[a-fA-F0-9]{2}/)) {              
                        this.attr = decodeURIComponent(this.attr);
                        this.attr = decodeURIComponent(this.attr);              
                    }
