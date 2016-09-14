@@ -1,4 +1,4 @@
-rev_16-Sep_13-17_56
+rev_16-Sep_14-08_24
 
 28 Feb 2013
 Added support for interwiki links
@@ -947,3 +947,6 @@ remove link markup from headers
 
 13 Sept
 Rixed type ref error in parse_wiki
+
+14 Sept
+Added onfocus handler for ckeditor, which serves in place of unresponsive mousedown
