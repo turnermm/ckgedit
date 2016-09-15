@@ -1156,6 +1156,7 @@ function parse_wikitext(id) {
           this.font_bgcolor = 'inherit';
 		  this.in_font=false;		
           HTMLParserFont  = true;
+          this.xclude_font = false;
           results = results.replace(/__STYLE__/g,"");
 	 }
      if(tag == 'span' && this.curid) {
