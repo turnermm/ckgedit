@@ -571,7 +571,14 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
                   height: $height,
                    filebrowserWindowWidth: $fbrowser_width,
                    filebrowserWindowHeight:  $fbrowser_height,
-                  $fbOptions
+                  $fbOptions,
+                    on : {  'instanceReady' : function( evt ) {
+                         evt.editor.document.on( 'mousedown', function()
+                         {
+                               parent. handlekeypress(evt);
+                         } );
+                       }
+                     },
                } 
 		   );
            FCKeditor_OnComplete(ckgeditCKInstance);
