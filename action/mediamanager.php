@@ -27,12 +27,12 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
     function mediaman_started($event) {
         if ($_GET["onselect"] == "ckg_edit_mediaman_insert") {
             setcookie('ckgFbType', 'image');
-        } else {
+        } else if ($_GET["onselect"] == "ckg_edit_mediaman_insertlink") {
             setcookie('ckgFbType', 'link');
         }
 
         echo '<script type="text/javascript">
-        if (opener.CKEDITOR !== undefined) {
+        if (opener != null && opener.CKEDITOR !== undefined) {
             window.onload = function () {
                 jQuery( document ).ready(function() {
                     if ((location.search.split("ckg_media=")[1]||"").split("&")[0] == "link") {
