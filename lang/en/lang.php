@@ -36,6 +36,8 @@ $lang['js']['dwp_save_err'] = 'Unable to save changes to:  ';
 $lang['js']['dwp_updated'] = 'Editor priority updated to: ';
 $lang['js']['dwp_not_sel'] = 'Editor priority not selected: it will be determined by dw_users group config setting';
 $lang['js']['mediamgr_notice'] = 'Use the link dialog to insert';
+$lang['js']['font_conflict'] = "The parser found one or more link-font conflicts.  By clicking OK, you can return to the editor and remove the font styles.  For more information see: https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links";
+//https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links
 $lang['mediamgr_imgonly'] = 'Upload only images when using image dialog: ';
 $lang['uprofile_title'] = "Select Your Default Editor";
 $lang['btn_val_dw_fb'] = "DW Filebrowser";

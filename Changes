@@ -1,4 +1,4 @@
-rev_16-Sep_14-08_24
+rev_16-Sep_16-21_29
 
 28 Feb 2013
 Added support for interwiki links
@@ -950,3 +950,6 @@ Rixed type ref error in parse_wiki
 
 14 Sept
 Added onfocus handler for ckeditor, which serves in place of unresponsive mousedown
+
+16 Sept
+Found fix for mouse down, passed into editor on initialization in edit.php

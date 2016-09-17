@@ -552,6 +552,14 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
                   height: $height,
                  filebrowserWindowWidth: "$fbrowser_width",
                  filebrowserWindowHeight:  "$fbrowser_height", 
+                 on :
+                   {
+                      'instanceReady' : function( evt )
+                      {
+                         evt.editor.document.on( 'mousedown', function()
+                         {   handlekeypress (evt);  } );
+                      }
+                   },  
                  filebrowserImageBrowseUrl :  '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',
                  filebrowserBrowseUrl: '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',                                
                } 
