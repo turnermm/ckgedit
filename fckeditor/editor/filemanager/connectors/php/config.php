@@ -262,6 +262,7 @@ global $dwfck_client;
     }
     $AUTH = auth_aclcheck(':*', $dwfck_client,$usergrps);      
     return "";
+ 
 }
 
 function setUpMediaPaths() {

@@ -36,6 +36,7 @@ $lang['js']['dwp_save_err'] = 'Unable to save changes to:  ';
 $lang['js']['dwp_updated'] = 'Editor priority updated to: ';
 $lang['js']['dwp_not_sel'] = 'Editor priority not selected: it will be determined by dw_users group config setting';
 $lang['js']['mediamgr_notice'] = 'Use the link dialog to insert';
+$lang['js']['font_conflict'] = "The parser found one or more link-font conflicts.  By clicking OK, you can return to the editor and remove the font styles.  Return to the Editor? \n\n(For more information see: https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links)";
 $lang['mediamgr_imgonly'] = 'Upload only images when using image dialog: ';
 $lang['uprofile_title'] = "Select Your Default Editor";
 $lang['btn_val_dw_fb'] = "DW Filebrowser";
@@ -43,5 +44,4 @@ $lang['btn_val_ckg_fb'] = "CKG Filebrowser";
 $lang['btn_title_dw_fb'] = "Save and close the editor and switch to the DW Filebrowser";
 $lang['btn_title_ckg_fb'] = "Save and close the editor and switch to the CKG Filebrowser";
 $lang['formatdel'] = 'Markup removed from headers(s): not supported by Dokuwiki';
-$lang["fontdel"] ='Font Markup removed from link(s): not supported by Dokuwiki';
-
+$lang["fontdel"] ='Font Markup in link(s): not supported by Dokuwiki';

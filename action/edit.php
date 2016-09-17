@@ -579,6 +579,14 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
                          } );
                        }
                      },
+                     on : {  'instanceReady' : function( evt ) {
+                         evt.editor.document.on( 'focus', function()
+                         {
+                               parent. handlekeypress(evt);
+                         } );
+                       }
+                     },
+
                } 
 		   );
            FCKeditor_OnComplete(ckgeditCKInstance);
