@@ -1,4 +1,4 @@
-rev_16-Sep_16-21_29
+rev_16-Sep_17-21_10
 
 28 Feb 2013
 Added support for interwiki links
@@ -953,3 +953,6 @@ Added onfocus handler for ckeditor, which serves in place of unresponsive moused
 
 16 Sept
 Found fix for mouse down, passed into editor on initialization in edit.php
+
+17 Sept
+Merged Stev G's headers plugin; added back ckeditor/config.js.unc and compressed config.js.
