@@ -463,10 +463,6 @@ function FCKeditor_OnComplete( editorInstance )
         window.dwfckTextChanged = true;
   });
 
-  editorInstance.on("focus", function(e) {
-          window.dwfckTextChanged = true;
-    });
-    
   oDokuWiki_FCKEditorInstance.dwiki_user = "$user_type";   
   oDokuWiki_FCKEditorInstance.dwiki_client = "$client";    
   oDokuWiki_FCKEditorInstance.dwiki_usergroups = "$user_groups";  
