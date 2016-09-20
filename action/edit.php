@@ -371,13 +371,20 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        //$text = preg_replace('/%%\s*<(code|file)>\s*%%/ms', 'PERC' . "$1" . 'PERC',$text);
        $text = preg_replace('/PERCcodePERC/ms','%%&lt;code&gt;%%', $text);
        $text = preg_replace('/PERCfilePERC/ms','%%&lt;file&gt;%%', $text);
+       $divalign = false;
+       if($this->helper->has_plugin('divalign2_center')) {
+           $divalign = true;
+           $text = preg_replace_callback('/\n[;#]{3}/',
+                              function ($matches) {  return str_replace('#','CGEHASH',$matches[0]);   },   $text
+            );
+       }
        $this->xhtml = $this->_render_xhtml($text);
 
        $this->xhtml = str_replace("__IWIKI_FSLASH__", "&frasl;", $this->xhtml);
 	   if($this->getConf('duplicate_notes')) {
 			$this->xhtml = preg_replace("/FNoteINSert\d+/ms", "",$this->xhtml);
 	   }
-	  
+      if($divalign)  $this->xhtml = str_replace("CGEHASH", "#", $this->xhtml);
        $this->xhtml = str_replace("__GESHI_QUOT__", '&#34;', $this->xhtml);        
        $this->xhtml = str_replace("__GESHI_OPEN__", "&#60; ", $this->xhtml); 
        $this->xhtml = str_replace('CHEVRONescC', '>>',$this->xhtml);
