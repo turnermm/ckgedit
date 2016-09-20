@@ -46,6 +46,14 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
       return false;
   }
   
+  function has_plugin($plugin) {    
+   static $plugins_list;
+      if(!$plugins_list) {         
+           $plugins_list = plugin_list('syntax');               
+      }
+      return in_array($plugin, $plugins_list);
+  }
+  
   function registerOnLoad($js){
   global $ID;
   global $lang;
