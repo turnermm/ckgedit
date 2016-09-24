@@ -1,4 +1,4 @@
-rev_16-Sep_20-07_32
+rev_16-Sep_24-14_38
 
 28 Feb 2013
 Added support for interwiki links
@@ -959,3 +959,6 @@ Merged Stev G's headers plugin; added back ckeditor/config.js.unc and compressed
 
 20 Sept
 Support for divalign2;  new function in helper.php for syntax plugin detection
+
+24 Sept
+adds missing initial forward slash when in frmresourselist.html browser listings; occurs in Centos 7 Apache 2.4
