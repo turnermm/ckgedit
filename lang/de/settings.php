@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Leo Rudin <leo.rudin@gmx.ch>
  * @author Juergen-aus-Koeln <H-J-Schuemmer@Web.de>
  * @author liz <marliza@web.de>
