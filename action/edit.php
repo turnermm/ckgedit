@@ -81,7 +81,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 	* @author  Myron Turner <turnermm02@shaw.ca>     
     *               
     */
-    function pagefromtemplate(&$event) {
+    function pagefromtemplate(Doku_Event $event) {
       if($event->data['tpl']) { 
          $this->page_from_template = $event->data['tpl']; 
       }
@@ -97,7 +97,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
      * @access public
      * @return void
      */
-    function ckgedit_edit_meta(&$event)
+    function ckgedit_edit_meta(Doku_Event $event)
     {
         global $ACT;
         // we only change the edit behaviour
@@ -133,7 +133,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
      * @access public
      * @return void
      */
-    function ckgedit_edit(&$event)
+    function ckgedit_edit(Doku_Event $event)
     {
   
         global $INFO;
