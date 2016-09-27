@@ -173,7 +173,7 @@ var oldBeforeunload;
 
   var ckgedit_onload = function() { $js };
   
-      jQuery(window).bind('load',{},ckgedit_onload);
+  jQuery(window).on('load',ckgedit_onload);
   
  function ckgeditEditorTextChanged() {
    window.textChanged = false;   

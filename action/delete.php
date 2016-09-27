@@ -15,7 +15,7 @@ class action_plugin_ckgedit_delete extends DokuWiki_Action_Plugin {
         $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'ckgedit_delete_preprocess');
     }
 
-    function ckgedit_delete_preprocess(&$event){
+    function ckgedit_delete_preprocess(Doku_Event $event){
         global $ACT;
         if (! is_array($ACT) || !(isset($ACT['delete']))) return;
         global $TEXT;
