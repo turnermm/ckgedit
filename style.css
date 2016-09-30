@@ -1,5 +1,5 @@
-.backup_msg_area { color: __text_alt__; font-size:9pt; text-align:middle; }
+.backup_msg_area { color: __text_alt__; font-size:9pt; text-align:center; }
 .backup_msg_close { font-size:9pt; }
-.backup_msg {  background-color: __background_alt__; text-align:middle; height: 14pt;}
+.backup_msg {  background-color: __background_alt__; text-align:center; height: 14pt;}
 .editButtons { margin-top: 5px; }
 .editButtons input { margin-bottom: 5px; }

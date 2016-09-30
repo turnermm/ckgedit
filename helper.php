@@ -46,6 +46,14 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
       return false;
   }
   
+  function has_plugin($plugin) {    
+   static $plugins_list;
+      if(!$plugins_list) {         
+           $plugins_list = plugin_list('syntax');               
+      }
+      return in_array($plugin, $plugins_list);
+  }
+  
   function registerOnLoad($js){
   global $ID;
   global $lang;
@@ -100,7 +108,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
    $user_type = 'user';
   }
   $save_dir = DOKU_URL . ltrim($conf['savedir'],'/.\/');
-
+  $fbsz_increment = isset($_COOKIE['fbsz']) && $_COOKIE['fbsz'] ? $_COOKIE['fbsz'] : '0';
   // if no ACL is used always return upload rights
   if($conf['useacl']) {
      $client = $_SERVER['REMOTE_USER']; 
@@ -165,7 +173,7 @@ var oldBeforeunload;
 
   var ckgedit_onload = function() { $js };
   
-      jQuery(window).bind('load',{},ckgedit_onload);
+  jQuery(window).on('load',ckgedit_onload);
   
  function ckgeditEditorTextChanged() {
    window.textChanged = false;   
@@ -261,7 +269,7 @@ var oldBeforeunload;
                 DOKU_BASE + 'lib/exe/ajax.php',
                 params,
                 function (data) {
-                    data = data.replace(/auto/,"")  + ' by ckgeditLite';
+                    data = data.replace(/auto/,"")  + ' by ckgedit';
                     locktimer.response = data; 
                     locktimer.refreshed(data);
                 },
@@ -463,6 +471,10 @@ function FCKeditor_OnComplete( editorInstance )
         window.dwfckTextChanged = true;
   });
 
+  editorInstance.on("focus", function(e) {
+          window.dwfckTextChanged = true;
+    });
+    
   oDokuWiki_FCKEditorInstance.dwiki_user = "$user_type";   
   oDokuWiki_FCKEditorInstance.dwiki_client = "$client";    
   oDokuWiki_FCKEditorInstance.dwiki_usergroups = "$user_groups";  
@@ -479,7 +491,7 @@ function FCKeditor_OnComplete( editorInstance )
   oDokuWiki_FCKEditorInstance.fckgUserMail="$user_email"; 
   oDokuWiki_FCKEditorInstance.useheading = "$useheading"; 
   oDokuWiki_FCKEditorInstance.mfiles = parseInt("$mfiles");
-  
+  oDokuWiki_FCKEditorInstance.fbsz_increment=parseInt("$fbsz_increment");
  
   var index = navigator.userAgent.indexOf('Safari'); 
   if(index == -1  || (navigator.userAgent.indexOf('Chrome'))) {

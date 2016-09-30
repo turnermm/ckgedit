@@ -5,7 +5,7 @@ function parse_wikitext(id) {
           return true;
    }    
    var useComplexTables = getComplexTables();   
-   
+  
   /**
      table debugging code;
   */
@@ -101,14 +101,14 @@ function parse_wikitext(id) {
          'h1': "\n====== ", 'h2': "\n===== ", 'h3': "\n==== ", 'h4': "\n=== ", 'h5': "\n== ",
          'td': "|", 'th': "^", 'tr':" ", 'table': "\n\n", 'ol':"  - ", 'ul': "  * ", 'li': "",
          'code': "\'\'",'pre': "\n<", 'hr': "\n\n----\n\n", 'sub': '<sub>',         
-         'font': "\n",
+         'font': "",
          'sup': '<sup>', 'div':"\n\n", 'span': "\n", 'dl': "\n", 'dd': "\n", 'dt': "\n"
      };
     var markup_end = { 'del': '</del>', 's': '</del>', 'strike': '</del>', 'p': " ", 'br':" ", 'a': ']]','img': '\}\}',
           'h1': " ======\n", 'h2': " =====\n", 'h3': " ====\n", 'h4': " ===\n", 'h5': " ==\n", 
           'td': " ", 'th': " ", 'tr':"|\n", 'ol':" ", 'ul': " ", 'li': "\n",
            'pre': "\n</",'sub': '</sub>', 'sup': '</sup> ', 'div':"\n\n", 'p': "\n\n",
-           'font': "\n\n</font> ", 'span': " ",
+           'font': "</font>", 'span': " ",
      }; 
    
     markup['temp_u'] = "CKGE_TMP_u";
@@ -131,7 +131,7 @@ function parse_wikitext(id) {
     markup['temp_cs'] = "CKGE_TMP_cdel";     
 
   var $FORMAT_SUBST = {'CKGE_TMP_b' :'**', 'CKGE_TMP_strong' :'**', 'CKGE_TMP_em' : '\/\/', 'CKGE_TMP_u' : '__', 'CKGE_TMP_sup' : '<sup>','CKGE_TMP_sub' :'<sub>',
-  'CKGE_TMP_csub' : '</sub>','CKGE_TMP_csup' : '</sup>','CKGE_TMP_del' : '<del>','CKGE_TMP_strike' : '<del>','CKGE_TMP_code' : "\'\'"};
+  'CKGE_TMP_cdel':'</del>','CKGE_TMP_csub' : '</sub>','CKGE_TMP_csup' : '</sup>','CKGE_TMP_del' : '<del>','CKGE_TMP_strike' : '<del>','CKGE_TMP_code' : "\'\'"};
      
     markup['blank'] = "";
     markup['fn_start'] = '((';
@@ -155,10 +155,9 @@ function parse_wikitext(id) {
     var HTMLAcroInList = false;
     var HTML_InterWiki = false;
     var HTMLParserFont = false;   
+    var HTMLParserFontInfix = false;   
     var CurrentTable;
-  //  if (typeof config_animal === 'undefined') {
-      //var config_animal = null;
- //   }
+
     var HTMLParserTopNotes = new Array();
     var HTMLParserBottomNotes = new Array();
     var HTMLParserOpenAngleBracket = false;
@@ -211,6 +210,7 @@ function parse_wikitext(id) {
     prev_li: new Array(),  
     link_only: false,
 	in_font: false,
+    using_fonts: false,
 	interwiki: false,
     bottom_url: false,
     font_family: "inherit",
@@ -441,7 +441,8 @@ function parse_wikitext(id) {
             if(tag == 'span' && !ckgedit_xcl_styles) {
                if(attrs[i].name == 'style') {
                    if(!this.in_font) results += "__STYLE__";
-             	   this.in_font=true;    		   	   
+             	   this.in_font=true;    
+                   this.using_fonts = true;                   
                    matches = attrs[i].value.match(/font-family:\s*([\w\-\s,]+);?/);
                    if(matches){
                      this.font_family = matches[1];
@@ -507,6 +508,7 @@ function parse_wikitext(id) {
 
             if(tag == 'a') {
            
+  //             if(!confirm(attrs[i].name + '="' + attrs[i].escaped + '"')) exit;
                if(attrs[i].name == 'title') {
                   this.link_title = attrs[i].escaped;        
 				  if(interwiki_class) {
@@ -666,6 +668,7 @@ function parse_wikitext(id) {
                     }
 
                    if(!this.attr && this.link_title) {			
+                   
                        if(matches = this.link_class.match(/media(.*)/)) {
                             this.link_title=decodeURIComponent(safe_convert(this.link_title));					   	
                             this.attr=this.link_title;						
@@ -694,6 +697,10 @@ function parse_wikitext(id) {
                       this.attr = decodeURIComponent ? decodeURIComponent(this.attr) : unescape(this.attr); 
                       this.external_mime = true;
 
+                   }
+                   else if(this.attr && this.attr.match(/%[a-fA-F0-9]{2}/)) {              
+                       this.attr = decodeURIComponent(this.attr);
+                       this.attr = decodeURIComponent(this.attr);              
                    }
 
                    // alert('title: ' + this.link_title + '  class: ' + this.link_class + ' export: ' +this.export_code);
@@ -743,7 +750,7 @@ function parse_wikitext(id) {
 				  else if(this.link_class.match(/interwiki/)) {
 				      interwiki_class=this.link_class; 
 				  }
-				  
+			  
                 if(this.link_class == 'urlextern' && !this.mfile &&  save_url) {
                     this.attr = save_url;
                     this.external_mime=false;  // prevents external links to images from being converted to image links
@@ -995,7 +1002,7 @@ function parse_wikitext(id) {
                   results += '  ';
               }
               }
-             
+
              if(this.prev_list_level > 0 && markup['li'] == markup['ol']) {
                 this.prev_list_level = -1;
              }
@@ -1039,8 +1046,8 @@ function parse_wikitext(id) {
               this.attr = this.mfile;
           }
           results += markup[tag];          // Set tag
-          
-          
+   
+         
           if(tag == 'td' || tag == 'th' || (this.last_col_pipes && this.td_align == 'center')) {
               if(this.is_rowspan) {          
                 results +=  markup['row_span'] + ' | ';
@@ -1116,6 +1123,11 @@ function parse_wikitext(id) {
                  return; 
          }
     if(this.in_endnotes && tag == 'a') return;
+     if(this.in_link && format_chars[current_tag] && this.link_formats.length) {            
+           return;
+     }       
+    else if(tag == 'a'  && ! this.link_formats.length) this.in_link = false;        
+ 
     if(this.link_only){     
        this.link_only=false;
        return;
@@ -1133,15 +1145,19 @@ function parse_wikitext(id) {
 	 if(tag == 'span' && this.in_font && !ckgedit_xcl_styles) {
 	       tag = 'font';
           //<font 18pt/garamond;;color;;background_color>  
-          var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">\n\n";        
-          var font_start = results.lastIndexOf('__STYLE__');            
+          var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">";        
+          var inherits = font_str.match(/(inherit)/g);
+          if(inherits && inherits.length < 3) HTMLParserFontInfix = true;          
+          var font_start = results.lastIndexOf('__STYLE__');       
           results = results.splice(font_start,9,font_str);
+          results = results.replace(/_FORMAT_SPACE_<font/m, "<font");         
           this.font_size = 'inherit';
           this.font_family = 'inherit';
           this.font_color = 'inherit';
           this.font_bgcolor = 'inherit';
 		  this.in_font=false;		
           HTMLParserFont  = true;
+          results = results.replace(/__STYLE__/g,"");
 	 }
      if(tag == 'span' && this.curid) {
              this.curid = false;			  
@@ -1206,7 +1222,7 @@ function parse_wikitext(id) {
         this.end_nested = false;
         return;    // prevent newline from being inserted between end of nested list and return to previous nested level 
     }
-    
+ 
     if(tag == 'ol' || tag == 'ul') {  
             this.list_level--;    
             if(!this.list_level) this.format_in_list = false;
@@ -1284,12 +1300,10 @@ function parse_wikitext(id) {
   
      }
 
-     if(this.in_link && format_chars[current_tag] && this.link_formats.length) {            
-           return;
-     }       
+
       if(this.in_endnotes  && current_tag == 'sup') {return}
        results += tag;
-      
+
       if(format_chars[current_tag]) {               
             if(this.list_level) {
                   this.format_in_list = true; 
@@ -1400,14 +1414,13 @@ function parse_wikitext(id) {
         else if(this.last_tag=='a') {
             text=text.replace(/^\s{2,}/," ");
         }	
-        else text = text.replace(/^\s+/, '');  
+       else if(!this.using_fonts) text = text.replace(/^\s+/, '');  
 
         if(text.match(/nowiki&gt;/)) {  
 	       HTMLParser_NOWIKI=true;   
 	   }
 
-
-        if(this.format_in_list ) {  
+        if(this.format_in_list ||  (HTMLParserFont && this.list_started ) )  {  
            text = text.replace(/^[\n\s]+$/g, '');       
           if(text.match(/\n{2,}\s{1,}/)) {                 
                 text = text.replace(/\n{2,}/, "\n");         
@@ -1429,7 +1442,7 @@ function parse_wikitext(id) {
     }
     
      }
-    
+
 
     if(this.attr && this.attr == 'dwfcknote') {
          if(text.match(/fckgL\d+/)) {
@@ -1444,7 +1457,7 @@ function parse_wikitext(id) {
           return;       
     }
 	
-	
+
 	
     if(this.downloadable_code &&  (this.export_code || this.code_snippet)) {
           this.downloadable_file = text;          
@@ -1518,7 +1531,7 @@ function parse_wikitext(id) {
             results = results.replace(regex,"$1$2$3");     
         }
    } catch(ex){}
-   
+
   if(!HTMLParserOpenAngleBracket) {
        if(text.match(/&lt;/)) {
          HTMLParserOpenAngleBracket = true;
@@ -1562,7 +1575,7 @@ function parse_wikitext(id) {
      
      results=results.replace(/_SMB_/g, "\\");     
      
-     results = results.replace(/(\s*={2,})\s*CKGE_TMP_(\w+)(.*?)\s*CKGE_TMP_c?\2/gm, function(m,tag) {   //remove formats from headers
+     results = results.replace(/(\s*={2,}).*?CKGE_TMP_(\w+)(.*?).*?CKGE_TMP_c?\2.*?\1/gm, function(m,tag) {   //remove formats from headers     
              m=m.replace(/CKGE_TMP_\w+/gm,"");     
              var v = jQuery("#formatdel").val();              
              if(!v) {   
@@ -1570,11 +1583,22 @@ function parse_wikitext(id) {
              }
             return m;
      } );
-         results = results.replace(/(CKGE_TMP_\w+)/gm, function(m,tag) {      
+      results = results.replace(/\s?(CKGE_TMP_\w+)\s?/gm, function(m,tag) {      
             if($FORMAT_SUBST[tag]) return $FORMAT_SUBST[tag];       
             return m;
      } );
-     
+ 
+results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm, function(m,h_markup,whatever,bracket_1,inner,bracket_2, end_str) { 
+            end_str = end_str.replace(/\[\[(.*?)\|(.*?)\]\]/g,"$2");
+            end_str = end_str.replace(/\{\{(.*?)\|(.*?)\}\}/g,"$2");            
+             m=  h_markup + " " + whatever + " " + inner.replace(/.*?\|(.*?)/ ,"$1") + " " + end_str + " " + h_markup;
+             var v = jQuery("#formatdel").val();              
+             if(!v) {   
+             jQuery('#dw__editform').append('<input type="hidden" id="formatdel" name="formatdel" value="del" />');
+             }
+            return m;
+     } );
+          
     if(id == 'test') {
       if(!HTMLParser_test_result(results)) return;     
     }
@@ -1615,7 +1639,7 @@ function parse_wikitext(id) {
         var regex = new RegExp(HTMLParser_FORMAT_SPACE + '([\\-]{2,})', "g");
         results = results.replace(regex," $1");
 		
-        var regex = new RegExp("(\\w|\\d)(\\*\\*|\\/\\/|\\'\\'|__|<\/del>)" + HTMLParser_FORMAT_SPACE + '(\\w|\\d)',"g");
+        var regex = new RegExp("(&amp;|\\W|\\w|\\d)(\\*\\*|\\/\\/|\\'\\'|__|<\/del>)+" + HTMLParser_FORMAT_SPACE + '(\\w|\\d)',"g");
         results = results.replace(regex,"$1$2$3");
 		
         var regex = new RegExp(HTMLParser_FORMAT_SPACE + '@@_SP_@@',"g");
@@ -1675,25 +1699,50 @@ function parse_wikitext(id) {
     }
    
     if(HTMLParserFont) {
- 
-   
-        results = results.replace(/(<font[^\>]+>)([^<]+\]\])[^\>]+\/font>/gm, function(match,a,b) {              
+         var  regex = /\>\s+(\*\*|__|\/\/|'')\s+_\s+\1\s+<\/font>/gm;
+         results = results.replace(regex, function(m) {             
+             m= m.replace(/\s+/g,"");           
+             return m;
+        });
+        
+       if(HTMLParserFontInfix) {
+           results = results.replace(/<\/font>\s{1}/gm,"</font>");
+       }     
+        results = results.replace(/(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>\s*(\]\])/gm, function(match,a,b) { 
             b=b.replace(/\n/gm,"");      
-            b=b.replace(/\s/gm,"");              
-            var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" +' [[' +b  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
-           if(val == null)   throw new Error(LANG.plugins.ckgedit.font_err_throw);
+            b=b.replace(/\s/gm,"");       
+            b=b.replace(/[\[\]]/g,""); 
+            b = '[[' + b + ']]'; 
+            var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" + b  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
+           if(val == null) {
+                 if(ckgedit_to_dwedit)   {
+                    ckgedit_to_dwedit = false;                   
+                    return b;   
+                }    
+                 else throw new Error(LANG.plugins.ckgedit.font_err_throw);
+             } 
            if(val) return val;
-           return '[[' +b; 
+           return b; 
      } );         
-         results = results.replace(/(\|<font[^\>]+>)([^<]+)<\/font>([^\]]+)\]\]/gm, function(match,a,b) {            
-               b=b.replace(/\n/gm,"");      
-               match='|' + b +']]';     
-             var v = jQuery("#fontdel").val();              
+       
+        results = results.replace(/\[\[(.*?)\|(<font[^\>]+>)(.*?)(<\/font>)\s*(\]\])\s*/gm,function(match,a,b,c) {
+             match='[[' + a +'|' + c +']]';      
+             var v = jQuery("#fontdel").val();          
              if(!v) {                     
                  jQuery('#dw__editform').append('<input type="hidden" id="fontdel" name="fontdel" value="del" />');
+            }
+            return match;
+    } );
+    
+      results = results.replace(/(\s*={2,})\s*(.*?)(<font[^\>]+>)(.*?)(<\/font>)(.*?)\s*\1/gm,function(match) {      
+             match = match.replace(/<\/font>/g," ");
+             match = match.replace(/<font.*?>/g," ");
+             var v = jQuery("#formatdel").val();              
+             if(!v) {   
+             jQuery('#dw__editform').append('<input type="hidden" id="formatdel" name="formatdel" value="del" />');
              }
             return match;
-     } );
+    } );    
    }
    if(HTMLParserTopNotes.length) {
         results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");      
@@ -1752,7 +1801,7 @@ function parse_wikitext(id) {
            results += "~~COMPLEX_TABLES~~\n"; 
         }
     }
-    else results = results.replace(/~~COMPLEX_TABLES~~/gm,"")
+    if(!useComplexTables) {    results = results.replace(/~~COMPLEX_TABLES~~/gm,""); }
     results=results.replace(/_CKG_ASTERISK_/gm,'*');      
     results = results.replace(/_ESC_BKSLASH_/g,'\\');
     if(id == 'test') {
@@ -1761,7 +1810,7 @@ function parse_wikitext(id) {
       }
       return; 
     }
-
+  results=results.replace(/divalNLine/gm,"\n")
     var dwform = GetE('dw__editform');
     dwform.elements.fck_wikitext.value = results;
 
@@ -1790,7 +1839,20 @@ jQuery( "#ebtn__delete" ).mouseup(function() {
 });
 
 jQuery( "#ebtn__dwedit" ).click(function() { 
-   setDWEditCookie(2, this);parse_wikitext('edbtn__save');this.form.submit();
+   ckgedit_to_dwedit = true;
+   setDWEditCookie(2, this);
+   parse_wikitext('edbtn__save');
+   this.form.submit();
+});
+
+jQuery("#ebtn__fbswitch").click(function(){
+    if(getCookie('ckgFbOpt') == 'dokuwiki') {
+        document.cookie = 'ckgFbOpt=ckgedit;';
+    } else {
+        document.cookie = 'ckgFbOpt=dokuwiki;';
+    }
+    parse_wikitext('edbtn__save');
+   this.form.submit();
 });
 
 jQuery( "#ckgedit_draft_btn" ).click(function() { 
