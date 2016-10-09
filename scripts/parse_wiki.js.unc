@@ -1036,8 +1036,12 @@ function parse_wikitext(id) {
                return;
           }
           else if(this.in_font) {
+             if(tag == 'a')  {        
+             results = results.replace(/__STYLE__/,'[[' + this.attr + '|');
+             this.in_font = false;
+             }
+             return;                              
               /* <font 18pt:bold,italic/garamond;;color;;background_color>  */
-               return;            
        }
 
           if(this.in_endnotes && tag == 'a') return; 
@@ -1047,7 +1051,6 @@ function parse_wikitext(id) {
           }
           results += markup[tag];          // Set tag
    
-         
           if(tag == 'td' || tag == 'th' || (this.last_col_pipes && this.td_align == 'center')) {
               if(this.is_rowspan) {          
                 results +=  markup['row_span'] + ' | ';
@@ -1144,6 +1147,7 @@ function parse_wikitext(id) {
      }
 	 if(tag == 'span' && this.in_font && !ckgedit_xcl_styles) {
 	       tag = 'font';
+          // alert('infont='+results); alert()
           //<font 18pt/garamond;;color;;background_color>  
           var font_str = '<font ' + this.font_size + '/' + this.font_family + ';;' + this.font_color + ';;' + this.font_bgcolor +">";        
           var inherits = font_str.match(/(inherit)/g);
@@ -1709,20 +1713,21 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
            results = results.replace(/<\/font>\s{1}/gm,"</font>");
        }     
         results = results.replace(/(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>\s*(\]\])/gm, function(match,a,b) { 
+      
             b=b.replace(/\n/gm,"");      
             b=b.replace(/\s/gm,"");       
             b=b.replace(/[\[\]]/g,""); 
-            b = '[[' + b + ']]'; 
+            
             var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" + b  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
            if(val == null) {
                  if(ckgedit_to_dwedit)   {
                     ckgedit_to_dwedit = false;                   
-                    return b;   
+                    return b +']]';   
                 }    
                  else throw new Error(LANG.plugins.ckgedit.font_err_throw);
              } 
-           if(val) return val;
-           return b; 
+           if(val) return val + ']]';
+           return b +']]'; 
      } );         
        
         results = results.replace(/\[\[(.*?)\|(<font[^\>]+>)(.*?)(<\/font>)\s*(\]\])\s*/gm,function(match,a,b,c) {

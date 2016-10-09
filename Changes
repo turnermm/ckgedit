@@ -1,4 +1,4 @@
-rev_16-Sep_27-15_34
+rev_16-Oct_08-20_28
 
 28 Feb 2013
 Added support for interwiki links
@@ -962,3 +962,6 @@ Support for divalign2;  new function in helper.php for syntax plugin detection
 
 24 Sept
 adds missing initial forward slash when in frmresourselist.html browser listings; occurs in Centos 7 Apache 2.4
+
+8 Oct
+improved detection of link/font conflicts
