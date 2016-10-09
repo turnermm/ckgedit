@@ -1,4 +1,4 @@
-rev_16-Oct_09-13_11
+rev_16-Oct_09-13_59
 
 28 Feb 2013
 Added support for interwiki links
@@ -965,3 +965,6 @@ adds missing initial forward slash when in frmresourselist.html browser listings
 
 8 Oct
 improved detection of link/font conflicts
+
+9 Oct
+merge master with font_links with further improved font =/link checking
