@@ -27,9 +27,6 @@ function parse_wikitext(id) {
          regex = new RegExp('\\>\\{\\{(.*?)\\.\\w+\\<\\/font\\>\\b', 'gm');
         if(results.match(regex)) return true;
         
-         regex = new RegExp('\\>(.*?)\\<\\/font\\>\\b', 'gm');
-        if(results.match(regex)) return true;
-        
         return false;
 
   }
