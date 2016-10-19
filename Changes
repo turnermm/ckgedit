@@ -1,4 +1,4 @@
-rev_16-Oct_10-17_37
+rev_16-Oct_19-08_47
 28 Feb 2013
 Added support for interwiki links
 
@@ -854,3 +854,6 @@ changed renderer.php constructor to __construct
 
 27 Jul
 Korean language update
+
+19 Oct
+Additional syncing with master

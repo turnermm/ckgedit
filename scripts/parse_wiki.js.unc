@@ -6,6 +6,30 @@ function parse_wikitext(id) {
    }    
    var useComplexTables = getComplexTables();   
   
+ 
+  function fontConflict() {
+   
+     var  regex = /\>\s+(\*\*|__|\/\/|'')\s+_\s+\1\s+<\/font>/gm;    
+     results = results.replace(regex, function(m) {             
+             m= m.replace(/\s+/g,"");                    
+             return m;
+        });
+
+         regex = new RegExp("\\>(.*?)(\\]\\]\\<\\/font\\>)|(\\<\\/font\\>\\]\\])","gm");
+         if(results.match(regex)) return true;
+          
+         regex = new RegExp("(\\{\\{(.*?)\\.\\w{2,4})\\|\\<font");
+         if(results.match(regex)) return true;
+
+        regex = new RegExp("\\{\\{(.*?)\\.\\w{2,4}\\|[:\\w\\-\\.\\s]+\\<\\/font");
+         if(results.match(regex)) return true;
+         
+         regex = new RegExp('\\>\\{\\{(.*?)\\.\\w+\\<\\/font\\>\\b', 'gm');
+        if(results.match(regex)) return true;
+        
+        return false;
+
+  }
   /**
      table debugging code;
   */
@@ -1036,8 +1060,12 @@ function parse_wikitext(id) {
                return;
           }
           else if(this.in_font) {
-              /* <font 18pt:bold,italic/garamond;;color;;background_color>  */
+             if(tag == 'a')  {        
+             results = results.replace(/__STYLE__/,'[[' + this.attr + '|');
+             this.in_font = false;
+             }
                return;            
+              /* <font 18pt:bold,italic/garamond;;color;;background_color>  */
        }
 
           if(this.in_endnotes && tag == 'a') return; 
@@ -1047,7 +1075,6 @@ function parse_wikitext(id) {
           }
           results += markup[tag];          // Set tag
    
-         
           if(tag == 'td' || tag == 'th' || (this.last_col_pipes && this.td_align == 'center')) {
               if(this.is_rowspan) {          
                 results +=  markup['row_span'] + ' | ';
@@ -1698,31 +1725,64 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
          results = results.replace(/\/\/&lt;\/\/\s*/g,'&lt;');
     }
    
-    if(HTMLParserFont) {
-         var  regex = /\>\s+(\*\*|__|\/\/|'')\s+_\s+\1\s+<\/font>/gm;
-         results = results.replace(regex, function(m) {             
-             m= m.replace(/\s+/g,"");           
-             return m;
-        });
+    if(HTMLParserFont)   // HTMLParserFont start
+    {
         
-       if(HTMLParserFontInfix) {
-           results = results.replace(/<\/font>\s{1}/gm,"</font>");
+    String.prototype.font_link_reconcile = function(v){	
+   
+       if(v == 1) {
+           regex = /\[\[(.*?)(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>\s*(\]\])/gm;
        }     
-        results = results.replace(/(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>\s*(\]\])/gm, function(match,a,b) { 
-            b=b.replace(/\n/gm,"");      
-            b=b.replace(/\s/gm,"");       
-            b=b.replace(/[\[\]]/g,""); 
-            b = '[[' + b + ']]'; 
-            var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" + b  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
+      else regex = /(<font[^\>\{]+>)\{\{(:?.*?)\|(:?.*?)<\/font>/gm;
+     
+      
+        return(
+            this.replace(             
+                 regex,
+                function(m,a,b,c) {   
+                    a=a.replace(/\n/gm,"");      
+                    a=a.replace(/\s/gm,"");       
+                    a=a.replace(/[\[\]\{\}]/g,"");         
+                    a=a.replace(/\|/g,"");         
+                    c=c.replace(/\n/gm,"");      
+                    c=c.replace(/\s/gm,"");       
+                    c=c.replace(/[\[\]\}\{]/g,""); 
+                    if(v==1) 
+                       c = '[[' + a + '|'+c + ']]'; 
+                     else   c = '{{' + b + '|'+c + '}}';                     
+                     
+                    var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" + c  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
            if(val == null) {
                  if(ckgedit_to_dwedit)   {
                     ckgedit_to_dwedit = false;                   
-                    return b;   
+                            return c;   
                 }    
                  else throw new Error(LANG.plugins.ckgedit.font_err_throw);
              } 
            if(val) return val;
-           return b; 
+                    return c; 
+                }
+            )
+        );
+    }
+       if(HTMLParserFontInfix) {
+           results = results.replace(/<\/font>\s{1}/gm,"</font>");
+       }     
+        
+           if(fontConflict())  {           
+               if(confirm(LANG.plugins.ckgedit.font_conflict)) return;
+                 var v = jQuery("#fontdel").val();          
+                 if(!v) {                     
+                     jQuery('#dw__editform').append('<input type="hidden" id="fontdel" name="fontdel" value="del" />');
+                }               
+        }
+       results = results.font_link_reconcile(1);
+       results = results.font_link_reconcile(2);
+
+         var  regex = /\>\s+(\*\*|__|\/\/|'')\s+_\s+\1\s+<\/font>/gm;
+         results = results.replace(regex, function(m) {             
+             m= m.replace(/\s+/g,"");           
+             return m;
      } );         
        
         results = results.replace(/\[\[(.*?)\|(<font[^\>]+>)(.*?)(<\/font>)\s*(\]\])\s*/gm,function(match,a,b,c) {
@@ -1743,7 +1803,9 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
              }
             return match;
     } );    
-   }
+
+   }  // HTMLParserFont end
+   
    if(HTMLParserTopNotes.length) {
         results = results.replace(/<sup>\(\(\){2,}\s*<\/sup>/g,"");      
         results = results.replace(/\(\(+(\d+)\)\)+/,"(($1))");   

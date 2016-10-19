@@ -97,9 +97,11 @@ oListManager.GetFolderRowHtml = function( folderName, folderPath, folder_class, 
 
 var imageDirectoryRegex = new RegExp ('^(.*?ckgedit\\/fckeditor\\/userfiles\\/image\\/)(.*)');
 function reviseImgSrc(url) {
- var imgUrl = decodeURI(decodeURI(url));
+ 
+ var imgUrl =decodeURI(dwikiUTF8_decodeFN(url,DwikiFNencode));
  var matches = imgUrl.match(imageDirectoryRegex); 
  if(matches && matches.length > 1) {
+   if(!matches[1].match(/^\//)) matches[1] = '/'+matches[1];   
     return  matches[1]+ encodeURI(dwikiUTF8_encodeFN(matches[2],DwikiFNencode));
  }
  else { 
@@ -112,9 +114,12 @@ function reviseImgSrc(url) {
 }
 
 function oListImage(fileUrl,width,height) {
+    fileUrl = encodeURI(dwikiUTF8_encodeFN(fileUrl,DwikiFNencode));
+    this.src = ProtectPath( fileUrl );
+ 
+    this.src = reviseImgSrc(this.src);
+   
 
-    src = ProtectPath( fileUrl );
-    this.src = reviseImgSrc(src);
     this.fileUrl = fileUrl;
     this.width = width;
     this.height = height;
@@ -476,14 +481,8 @@ function GetFoldersAndFilesCallBack( fckXml )
            sFileUrl = FCKImageSaveDir + sFileUrl;
         }
 
-
-        sFileUrl = dwikiUTF8_decodeFN(sFileUrl,DwikiFNencode);
-        sFileUrl = decodeURI(sFileUrl);
-        sFileUrl = decodeURI(sFileUrl);         
         if(isImage) {
-            sFileUrl = encodeURI(sFileUrl);         
-            sFileUrl = encodeURI(sFileUrl);         
-            if(!sFileUrl.match(/^\//))  sFileUrl = '/'+sFileUrl;           
+               sFileUrl = dwikiUTF8_encodeFN(sFileUrl,DwikiFNencode);
        }
 		oHtml.Append( oListManager.GetFileRowHtml( sFileName, sFileUrl, sFileSize, isImage, sFileTime) ) ;
 	}
