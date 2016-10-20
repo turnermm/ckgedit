@@ -1,4 +1,4 @@
-rev_16-Oct_19-08_47
+rev_16-Oct_19-21_23
 28 Feb 2013
 Added support for interwiki links
 
@@ -857,3 +857,5 @@ Korean language update
 
 19 Oct
 Additional syncing with master
+Fix for directory recognition in frmresourceslist.html to prepend forward slash if missing
+

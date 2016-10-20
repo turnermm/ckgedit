@@ -96,10 +96,14 @@ oListManager.GetFolderRowHtml = function( folderName, folderPath, folder_class, 
 
 
 var imageDirectoryRegex = new RegExp ('^(.*?ckgedit\\/fckeditor\\/userfiles\\/image\\/)(.*)');
+var imageDirectoryRegexFarms = new RegExp ('^(.*?ckgedit\\/fckeditor\\/.*?\\/image\\/)(.*)');
 function reviseImgSrc(url) {
  
  var imgUrl =decodeURI(dwikiUTF8_decodeFN(url,DwikiFNencode));
+ 
  var matches = imgUrl.match(imageDirectoryRegex); 
+ if(!matches)  matches = imgUrl.match(imageDirectoryRegexFarms);
+ alert(matches);
  if(matches && matches.length > 1) {
    if(!matches[1].match(/^\//)) matches[1] = '/'+matches[1];   
     return  matches[1]+ encodeURI(dwikiUTF8_encodeFN(matches[2],DwikiFNencode));
