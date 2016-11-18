@@ -1,4 +1,4 @@
-rev_16-Oct_12-13_03
+rev_16-Nov_18-12_04
 
 28 Feb 2013
 Added support for interwiki links
@@ -971,3 +971,6 @@ merge master with font_links with further improved font =/link checking
 
 12 Oct
 removed faulty regex from parse_wiki::fontConflict()
+
+18 Nov
+Fixed faulty HTML in user profile update 

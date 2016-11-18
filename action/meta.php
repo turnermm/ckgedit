@@ -59,7 +59,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             }
 
             $pos = $event->data->findElementByAttribute('type', 'reset');
-            $_form = '</form><br /><form name="ckgeditform" action="#"><div class="no">';
+            $_form = '</div></form><br /><form name="ckgeditform" action="#"><div class="no">';
             $_form.= '<fieldset ><legend>' . $this->getLang('uprofile_title') .'</legend>';
             
             $_form.= '<label><span><b>DW Editor</b></span> ';
@@ -72,7 +72,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $_form.= '<br /><br /><input type="button" value="Save" class="button" ' . "onclick='ckgedit_seteditor_priority(this.form.cked_selector.value,this.form.cked_client.value,this.form.cked_selector);' />&nbsp;";
             $_form.= '<input type="reset" value="Reset" class="button" />';
            $_form.= '</fieldset>';           
-            $event->data->insertElement($pos+3, $_form);
+            $event->data->insertElement($pos+2, $_form);
   }
  
 function _ajax_call(Doku_Event $event, $param) {
