@@ -8,6 +8,7 @@
  * @author liz <marliza@web.de>
  * @author Martin Sachers <martin.sachers@etron.at>
  * @author ttthomas <tompommes@gmx.de>
+ * @author Marco Hofmann <xenadmin@meinekleinefarm.net>
  */
 $lang['btn_dw_edit']           = 'DW Edit';
 $lang['dw_btn_fck_preview']    = 'CKG Vorschau';
@@ -39,6 +40,7 @@ $lang['dw_btn_styling']        = 'Schriftart bearbeiten';
 $lang['title_styling']         = 'Öffne mit Schriftart als markup';
 $lang['js']['font_err_throw']  = 'Zeichenformatierungs-Fehler';
 $lang['js']['dwp_save_err']    = 'Speichern nicht m&ouml;glich f&uuml;r:';
+$lang['js']['dwp_updated']     = 'Editor Priorität aktualisiert auf:';
 $lang['js']['mediamgr_notice'] = 'Verwenden Sie den Link Dialog um Links einzufügen';
 $lang['uprofile_title']        = 'W&auml;hlen Sie ihren Standard Editor';
 $lang['btn_val_dw_fb']         = 'DW Dateibrowser';
