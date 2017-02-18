@@ -1,4 +1,4 @@
-rev_16-Nov_18-12_04
+rev_17-Feb_17-18_35
 
 28 Feb 2013
 Added support for interwiki links
@@ -974,3 +974,7 @@ removed faulty regex from parse_wiki::fontConflict()
 
 18 Nov
 Fixed faulty HTML in user profile update 
+
+----------2017--------
+17 Feb 2017
+Fixed spacing between closing link brackets and format markups
