@@ -1,4 +1,4 @@
-rev_17-Feb_18-22_41
+rev_17-Feb_19-23_44
 
 28 Feb 2013
 Added support for interwiki links
@@ -985,3 +985,7 @@ single-space.
 
 18 Feb
 Fix for external urls with 'id=' that are mistaken for internal links
+
+19 Feb
+Fix for correct recognition of external urls with 'id-' and internal links in link dialog window
+  
