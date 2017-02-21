@@ -1,4 +1,4 @@
-rev_16-Oct_19-21_23
+rev_17-Feb_21-11_09
 28 Feb 2013
 Added support for interwiki links
 
@@ -830,9 +830,37 @@ Synched Fr and Eng language files and image.js, image.js.unc with master
 
 4 Mar
 Synched farms with 4.5.7
+Updated farms--fastforward issue
+
+22 Mar 
+Fixed undefined index ckg_savedir on line 98 of config.php
+
+23 Mar
+Fixed save on unchanged revision loaded into editor
+4 April
+Fixed corrupted ftp links in parse_wiki.js
+
+6 April
+merged fb_search branch into master
+
+12 April
+Enable user-defined CKEditor plugins to be added to toolbar via DW configuration Manager
+
+14 Apr
+Updated Setting description for extra_plugins option, links to config page at DW
+
+17 Apr
+Corrected for array assignment in meta.php when $USERINFO is not set
+
+18 Apr
+new branch: dwpriority_group
+
+19 Apr
+Added dw_users option to set group for dw_priority; when not set, all users get dw_priority
 
 27 Apr
 Updated to ckedtior 4.5.7 and new filebrowser
+
 
 3 May
 Synched with master

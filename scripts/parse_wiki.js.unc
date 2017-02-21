@@ -1416,7 +1416,7 @@ function parse_wikitext(id) {
      }
      );     
       //adjust spacing on multi-formatted strings
-    results=results.replace(/([\/\*_])_FORMAT_SPACE_([\/\*_]{2})_FORMAT_SPACE_$/,"$1$2");
+    results=results.replace(/([\/\*_])_FORMAT_SPACE_([\/\*_]{2})_FORMAT_SPACE_$/,"$1$2@@_SP_@@");   
     if(text.match(/^&\w+;/)) {
 	    results=results.replace(/_FORMAT_SPACE_\s*$/,"");   // remove unwanted space after character entity
     }	
@@ -1666,6 +1666,8 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
         var regex = new RegExp(HTMLParser_FORMAT_SPACE + '([\\-]{2,})', "g");
         results = results.replace(regex," $1");
 		
+        results = results.replace(/\]\](\*\*|\/\/|\'\'|__|<\/del>)_FORMAT_SPACE_/,"]]$1@@_SP_@@");
+
         var regex = new RegExp("(&amp;|\\W|\\w|\\d)(\\*\\*|\\/\\/|\\'\\'|__|<\/del>)+" + HTMLParser_FORMAT_SPACE + '(\\w|\\d)',"g");
         results = results.replace(regex,"$1$2$3");
 		

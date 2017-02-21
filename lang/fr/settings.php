@@ -39,4 +39,4 @@ $lang['color_options']         = 'Retire les options de colorations';
 $lang['alt_toolbar']           = 'Fonctions à retirer de la barre d\'outils CKEditor';
 $lang['mfiles']                = 'Activer la gestion des \'mfiles\'';
 $lang['extra_plugins']         = 'Liste des extensions (séparées par des virgules) à ajouter dans la barre d\'outils de CKEditor. Voir la page à propos des plugins CKGEdit pour plus de détails.';
-$lang['dw_users']              = "Nom du groupe d'utilisateurs pour lesquels l'éditeur par défaut est celui de DokuWiki quand <b>dw_priority</b> est sélectionné. Si non défini, tous les utilisateurs utiliseront l'éditeur natif lorsque <b>dw_priority</b> est coché.";
+$lang['dw_users']              = 'Nom du groupe d\'utilisateurs pour lesquels l\'éditeur par défaut est celui de DokuWiki quand <b>dw_priority</b> est sélectionné. Si non défini, tous les utilisateurs utiliseront l\'éditeur natif lorsque <b>dw_priority</b> est coché.';

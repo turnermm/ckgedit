@@ -5,7 +5,8 @@
  * 
  * @author TJ619 <rockandrollfever0@gmail.com>
  * @author Laurent Marquet <laurent.marquet@laposte.net>
- * @author Vincent Lecomte <vincent.p.lecomte@gmail.com>
+ * @author Blacklord049
+ * @author Nicolas Friedli <nicolas@theologique.ch>
  */
 $lang['btn_dw_edit']           = 'Éditeur DW';
 $lang['dw_btn_fck_preview']    = 'Prévisualisation CKG';
@@ -41,4 +42,13 @@ $lang['js']['font_err_throw']  = 'Erreur du formatage du texte';
 $lang['js']['dwp_save_err']    = 'Impossible de sauvegarder les changements de : ';
 $lang['js']['dwp_updated']     = 'Priorité d\'éditeur mise à jour vers : ';
 $lang['js']['dwp_not_sel']     = 'Priorité d\'éditeur non sélectionnée : cela sera déterminé par le paramètre "dw_users"';
-$lang['uprofile_title']        = "Sélectionnez votre éditeur par défaut";
+$lang['js']['mediamgr_notice'] = 'Ouvrir la boîte de dialogue des liens pour une insertion';
+$lang['js']['font_conflict']   = 'Le parseur a trouvé un ou plusieurs conflits. En cliquand sur OK, vous retournez à l\'éditeur pour y supprimer les styles de caratère. Pour plus d\'informations (en anglais): https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links';
+$lang['mediamgr_imgonly']      = 'Envoyer des images en utilisant la boîte de dialogue spécifique:';
+$lang['uprofile_title']        = 'Sélectionnez votre éditeur par défaut';
+$lang['btn_val_dw_fb']         = 'Gestionnaire de fichiers DW';
+$lang['btn_val_ckg_fb']        = 'Gestionnaire de fichiers CKG';
+$lang['btn_title_dw_fb']       = 'Sauver, fermer l\'éditeur et passer au gestionnaire de fichiers DW';
+$lang['btn_title_ckg_fb']      = 'Sauver, fermer l\'éditeur et passer au gestionnaire de fichiers CKG';
+$lang['formatdel']             = 'Balisage supprimé des entêtes: indisponible dans DokuWiki';
+$lang['fontdel']               = 'Polices différentes supprimées des liens: indisponible dans DokuWiki';

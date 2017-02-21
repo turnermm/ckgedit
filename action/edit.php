@@ -397,6 +397,15 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $this->xhtml = preg_replace('/_QUOT_/ms','>',$this->xhtml);  // dw quotes     
        $this->xhtml = str_replace("rss&gt;FEED", "rss>Feed:www.",$this->xhtml); 
 
+       $this->xhtml = preg_replace_callback(
+         "/^(>+)(.*?)$/ms",
+         function($matches) {
+             $matches[2] = str_ireplace('<br/>',"",$matches[2]);
+                return $matches[1] . $matches[2] . "<br />";
+         },
+        $this->xhtml
+       );
+      
        if($pos !== false) {
        $this->xhtml = preg_replace_callback(
                 '/(TPRE_CODE|TPRE_FILE)(.*?)(TPRE_CLOSE)/ms',
@@ -1215,7 +1224,7 @@ $text = preg_replace_callback(
     }
 
   function write_debug($what) {
-   //  return;
+     return;
      $handle = fopen("ckgedit_php.txt", "a");
     // if(is_array($what)) $what = print_r($what,true);
      fwrite($handle,"$what\n");
