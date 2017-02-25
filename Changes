@@ -1,4 +1,4 @@
-rev_17-Feb_18-16_23
+rev_17-Feb_19-23_44
 
 28 Feb 2013
 Added support for interwiki links
@@ -982,3 +982,10 @@ Fixed spacing between closing link brackets and format markups
 18 Feb
 Accommodate Dokuwiki blockquotes both from Ckeditor and from DW editor.  In Ckeditor enter DW Quoting markup and
 single-space.
+
+18 Feb
+Fix for external urls with 'id=' that are mistaken for internal links
+
+19 Feb
+Fix for correct recognition of external urls with 'id-' and internal links in link dialog window
+  
