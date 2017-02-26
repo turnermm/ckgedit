@@ -127,7 +127,7 @@ config.colors = new Array(
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
-		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
+		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent','JustifyLeft','JustifyCenter','JustifyRight'] },
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'tools', items : ['Source', 'Maximize','-','About'] },
