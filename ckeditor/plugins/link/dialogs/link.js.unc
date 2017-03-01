@@ -225,10 +225,8 @@ var useHeading = function(wiki_id) {
 		selectableTargets = /^(_(?:self|top|parent|blank))$/,
 		encodedEmailLinkRegex = /^javascript:void\(location\.href='mailto:'\+String\.fromCharCode\(([^)]+)\)(?:\+'(.*)')?\)$/,
 		functionCallProtectedEmailLinkRegex = /^javascript:([^(]+)\(([^)]+)\)$/;
-        var intlink = Doku_Base.replace('/','\/')+' doku.php\?id=(.*)$';       
-      //   var internalLinkRegex = /doku.php\?id=(.*)$/;
-      var internalLinkRegex = '/' +  intlink + '/';
-  //    alert(internalLinkRegex);
+        var intlink = Doku_Base.replace('/','\/')+'doku.php\?id=(.*)$';     
+        var internalLinkRegex = '/' +  intlink + '/';
 	var popupRegex =
 		/\s*window.open\(\s*this\.href\s*,\s*(?:'([^']*)'|null)\s*,\s*'([^']*)'\s*\)\s*;\s*return\s*false;*\s*/;
 	var popupFeaturesRegex = /(?:^|,)([^=]+)=(\d+|yes|no)/gi;
