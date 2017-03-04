@@ -641,7 +641,14 @@ function parse_wikitext(id) {
                         local_image = false;
 
                         matches = attrs[i].escaped.match(/doku.php\?id=(.*)/); 
-
+                       if(matches && save_url) {                
+                             var rx = DOKU_BASE + 'doku.php';                            
+                             if(!attrs[i].escaped.match(rx)) { 
+                                this.link_class == 'urlextern';
+                                this.attr = save_url;
+                                matches = null;                               
+                            }
+                         }
                         if(!matches) {
                             matches = attrs[i].escaped.match(/doku.php\/(.*)/); 
                         }
