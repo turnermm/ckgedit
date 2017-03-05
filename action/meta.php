@@ -295,8 +295,9 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
         else {            
             document.cookie = 'FCKG_USE=_false_;expires=';             
             dom.value = 'dwiki';        
-
-            if(window.dwfckTextChanged  && !window.confirm("$discard")) {            
+           if(JSINFO['chrome_version'] >= 56 && window.dwfckTextChanged) {
+           }
+            else if(window.dwfckTextChanged  && !window.confirm("$discard")) {            
                var dom = GetE('dwsave_select');                
                ckgedit_dwedit_reject=true;
                window.dwfckTextChanged = false;
@@ -558,10 +559,16 @@ function check_userfiles() {
        global $ID; 
        global $JSINFO;
        global  $INPUT;
+       global $updateVersion;
        
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
        $JSINFO['doku_base'] = DOKU_BASE ;
        $JSINFO['cg_rev'] = $INPUT->str('rev');
+       $JSINFO['dw_version']  = (float)$updateVersion;
+       if(preg_match("/Chrome\/(\d+)/", $_SERVER['HTTP_USER_AGENT'],$cmatch)) {
+           $JSINFO['chrome_version']  = (float) $cmatch[1];
+       }
+       else $JSINFO['chrome_version'] = 0;
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
