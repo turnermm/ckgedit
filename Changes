@@ -1,4 +1,4 @@
-rev_17-Mar_04-10_13
+rev_17-Mar_06-13_35
 28 Feb 2013
 Added support for interwiki links
 
@@ -887,3 +887,5 @@ Korean language update
 Additional syncing with master
 Fix for directory recognition in frmresourceslist.html to prepend forward slash if missing
 
+3 Mar 2017
+removed backslashes from ends of blockquotes
