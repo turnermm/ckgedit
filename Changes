@@ -1,4 +1,4 @@
-rev_17-Mar_04-15_59
+rev_17-Mar_06-13_30
 
 28 Feb 2013
 Added support for interwiki links
@@ -988,4 +988,8 @@ Fix for external urls with 'id=' that are mistaken for internal links
 
 19 Feb
 Fix for correct recognition of external urls with 'id-' and internal links in link dialog window
+
+Mar 3
+Rmoved dbouble backslashes from ends of blockquote lines
+
   

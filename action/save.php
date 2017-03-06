@@ -200,6 +200,23 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
        $TEXT = preg_replace('/[\t\x20]+$/ms',"",$TEXT);
        $TEXT = preg_replace('/\n{4,}/ms',"\n\n",$TEXT);
        $TEXT = preg_replace('/\n{3,}/ms',"\n\n",$TEXT);
+                  
+      /*first pass for blockquotes*/                         
+      $TEXT  = preg_replace_callback(
+      "#^>+(.*?)\\\\#ms",
+      function($matches) {             
+        return str_replace('\\',"",$matches[0]);
+      },
+      $TEXT 
+      );
+         /*second pass for blockquotes*/          
+       $TEXT  = preg_replace_callback(
+        "#^>+(.*?)\\\\#ms",
+        function($matches) {      
+            return str_replace('\\',"",$matches[0]);
+        },
+        $TEXT 
+    );
 
 
          return;
