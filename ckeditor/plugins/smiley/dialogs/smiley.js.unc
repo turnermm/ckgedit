@@ -113,11 +113,26 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 				return;
 		}
 	} );
-
+    var setBigSmileys = function (dwimages,which) {
+        html.push('<tr>');
+       for(i=0; i< dwimages.length; i++) {
+        var descr = dwimages[i][0];
+		html.push( '<td colspan="4" class="cke_dark_background cke_centered" style="vertical-align: middle;" role="presentation">' +
+			'<a href="javascript:void(0)" role="option"', ' aria-posinset="' + ( i + 1 ) + '"', ' aria-setsize="' + size + '"', ' aria-labelledby="' + smileyLabelId + '"', ' class="cke_smile cke_hand" tabindex="-1" onkeydown="CKEDITOR.tools.callFunction( ', onKeydown, ', event, this );">', '<img class="cke_hand doku" title="', descr, '"' +
+					' cke_src="', CKEDITOR.tools.htmlEncode( config.dokuSmileyPath + dwimages[ i ][1] ), '" alt="', descr, '"', ' src="', 
+                    CKEDITOR.tools.htmlEncode( config.dokuSmileyPath + dwimages[ i ][1] ), '"',
+		// IE BUG: Below is a workaround to an IE image loading bug to ensure the image sizes are correct.
+		( CKEDITOR.env.ie ? ' onload="this.setAttribute(\'width\', 2); this.removeAttribute(\'width\');" ' : '' ), '>' +
+				'<span id="' + smileyLabelId + '" class="cke_voice_label">' + descr + '</span>' +
+			'</a>', '</td>' );
+            if( i % 2 === 0  && i > 0 && which == 2)  html.push('</tr><tr>');
+       }      
+     html.push('</tr>');
+    }
 	// Build the HTML for the smiley images table.
 	var labelId = CKEDITOR.tools.getNextId() + '_smiley_emtions_label';
 	var html = [
-		'<div>' +
+		'<div style="background-color: #dedede">' +
 		'<span id="' + labelId + '" class="cke_voice_label">' + lang.options + '</span>',
 		'<table role="listbox" aria-labelledby="' + labelId + '" style="width:100%;height:100%;border-collapse:separate;" cellspacing="2" cellpadding="2"',
 		CKEDITOR.env.ie && CKEDITOR.env.quirks ? ' style="position:absolute;"' : '',
@@ -133,7 +148,7 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 	for ( i = 0; i < size; i++ ) {
 		if ( i % columns === 0 )
 			html.push( '<tr role="presentation">' );
-          
+          if(!dwimages[i][1]) continue;
 		var smileyLabelId = 'cke_smile_label_' + i + '_' + CKEDITOR.tools.getNextNumber();
       var descr = dwimages[i][0];
        
@@ -155,20 +170,13 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 			html.push( '<td></td>' );
 		html.push( '</tr>' );
 	}
-       html.push('<tr>');
+     
        dwimages = config.dokuFixmeSmiley;
-       for(i=0; i< dwimages.length; i++) {
-        var descr = dwimages[i][0];
-		html.push( '<td colspan="4" class="cke_dark_background cke_centered" style="vertical-align: middle;" role="presentation">' +
-			'<a href="javascript:void(0)" role="option"', ' aria-posinset="' + ( i + 1 ) + '"', ' aria-setsize="' + size + '"', ' aria-labelledby="' + smileyLabelId + '"', ' class="cke_smile cke_hand" tabindex="-1" onkeydown="CKEDITOR.tools.callFunction( ', onKeydown, ', event, this );">', '<img class="cke_hand doku" title="', descr, '"' +
-					' cke_src="', CKEDITOR.tools.htmlEncode( config.dokuSmileyPath + dwimages[ i ][1] ), '" alt="', descr, '"', ' src="', 
-                    CKEDITOR.tools.htmlEncode( config.dokuSmileyPath + dwimages[ i ][1] ), '"',
-		// IE BUG: Below is a workaround to an IE image loading bug to ensure the image sizes are correct.
-		( CKEDITOR.env.ie ? ' onload="this.setAttribute(\'width\', 2); this.removeAttribute(\'width\');" ' : '' ), '>' +
-				'<span id="' + smileyLabelId + '" class="cke_voice_label">' + descr + '</span>' +
-			'</a>', '</td>' );
+       setBigSmileys(config.dokuFixmeSmiley,1);
+       if(config.dokuLargeSmiley) {
+          setBigSmileys(config.dokuLargeSmiley,2);
        }      
-    html.push('</tr>');
+    
    	var size = images.length;
 	for ( i = 0; i < size; i++ ) {
 		if ( i % columns === 0 )
@@ -216,8 +224,8 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 
 	return {
 		title: editor.lang.smiley.title,
-		minWidth: 270,
-		minHeight: 120,
+		minWidth: 325,
+		minHeight: 180,
 		contents: [
 			{
 			id: 'tab1',

@@ -908,12 +908,12 @@ function parse_wikitext(id) {
                                    from_clipboard = true;
                                }
                            }
+
+                     }                 
                           if(src && src.match(/lib\/images\/smileys/)) {
                                 // src = 'http://' + window.location.host + src;
                                 this.is_smiley = true;
                           }
-                     }                 
-                       
                       this.attr = src;
                       if(this.attr && this.attr.match && this.attr.match(/%[a-fA-F0-9]{2}/)) {                                         
                            this.attr =     decodeURIComponent(safe_convert(this.attr)); 

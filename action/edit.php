@@ -987,42 +987,6 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
                 return $matches[1] . "oIWIKIo" . $matches[2] ."cIWIKIc" . $matches[3] ;' 
           ), $text); 
 
-       global $Smilies;
-       $smiley_as_text = @$this->getConf('smiley_as_text');
-       if($smiley_as_text) {
-
-           $Smilies = array('8-)'=>'aSMILEY_1', '8-O'=>'aSMILEY_2',  ':-('=>'aSMILEY_3',  ':-)'=>'aSMILEY_4',
-             '=)' => 'aSMILEY_5',  ':-/' => 'aSMILEY_6', ':-\\' => 'aSMILEY_7', ':-?' => 'aSMILEY_8',
-             ':-D'=>'aSMILEY_9',  ':-P'=>'bSMILEY_10',  ':-O'=>'bSMILEY_11',  ':-X'=>'bSMILEY_12',
-             ':-|'=>'bSMILEY_13',  ';-)'=>'bSMILEY_14',  '^_^'=>'bSMILEY_15',  ':?:'=>'bSMILEY_16', 
-             ':!:'=>'bSMILEY_17',  'LOL'=>'bSMILEY_18',  'FIXME'=>'bSMILEY_19',  'DELETEME'=>'bSMILEY_20');
-
-          $s_values = array_values($Smilies);
-          $s_values_regex = implode('|', $s_values);
-            $s_keys = array_keys($Smilies);
-            $s_keys = array_map  ( create_function(
-               '$k',     
-               'return "(" . preg_quote($k,"/") . ")";'
-           ) ,
-            $s_keys );
-
-
-
-           $s_keys_regex = implode('|', $s_keys);
-             global $haveDokuSmilies;
-             $haveDokuSmilies = false;
-             $text = preg_replace_callback(
-                '/(' . $s_keys_regex . ')/ms', 
-                 create_function(
-                '$matches',
-                'global $Smilies;   
-                 global $haveDokuSmilies;
-                 $haveDokuSmilies = true;
-                 return $Smilies[$matches[1]];'
-                 ), $text
-             );
-
-       }
 
         // try default renderer first:
         $file = DOKU_INC."inc/parser/$mode.php";
@@ -1092,7 +1056,9 @@ $text = preg_replace_callback(
         if(is_null($instructions)) return '';
               
         $Renderer->notoc();
+        if(!$this->getConf('smiley_as_text')) {
         $Renderer->smileys = getSmileys();
+        }
         $Renderer->entities = getEntities();
         $Renderer->acronyms = array();
         $Renderer->interwiki = getInterwiki();
@@ -1191,22 +1157,6 @@ $text = preg_replace_callback(
         $xhtml = str_replace('ckgeditFONTClose', 'font&amp;gt;',$xhtml);
         $xhtml = str_replace('DBLBACKSPLASH', '\\ ',$xhtml);
         //DBLBACKSPLASH
-       if($smiley_as_text) {
-           if($haveDokuSmilies) {
-                 $s_values = array_values($Smilies);
-                 $s_values_regex = (implode('|', $s_values));
-
-                 $xhtml = preg_replace_callback(
-                     '/(' . $s_values_regex . ')/ms', 
-                     create_function(
-                     '$matches',
-                    'global $Smilies;     
-                     return array_search($matches[1],$Smilies); '
-                     ), $xhtml
-                 );
-            }
-          }
-
        $ua = strtolower ($_SERVER['HTTP_USER_AGENT']); 
 	  if(strpos($ua,'chrome') !== false) {
        $xhtml = preg_replace_callback(
