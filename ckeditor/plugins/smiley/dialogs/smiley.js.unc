@@ -224,8 +224,8 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 
 	return {
 		title: editor.lang.smiley.title,
-		minWidth: 270,
-		minHeight: 120,
+		minWidth: 325,
+		minHeight: 180,
 		contents: [
 			{
 			id: 'tab1',
