@@ -196,7 +196,12 @@ function do_smileys() {
                            config.dokuFixmeSmiley.push( a);
                            continue;
                         }
-                         config.dokuSmileyConfImages[i] = a;
+                        else if(a[0].match(/^([A-Z])+$/) && (!a[0].match(/^LOL$/))) {
+                             config.dokuLargeSmiley.push(a);       
+                             config.dokuSmileyConfImages[i]  =" ";                          
+                             continue;                            
+                        }
+                        else config.dokuSmileyConfImages[i] = a;
                   }      
                 }
              },
@@ -205,6 +210,7 @@ function do_smileys() {
 }
 config.removePlugins = 'liststyle';
 config.dokuFixmeSmiley = new Array();
+config.dokuLargeSmiley = new Array();
 config.dokuSmileyConfImages;
 try {
    do_smileys();
