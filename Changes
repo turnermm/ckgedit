@@ -1,4 +1,4 @@
-rev_17-Mar_17-19_53
+rev_17-Mar_23-10_05
 
 28 Feb 2013
 Added support for interwiki links
@@ -991,5 +991,9 @@ Fix for correct recognition of external urls with 'id-' and internal links in li
 
 Mar 3
 Rmoved dbouble backslashes from ends of blockquote lines
+
+Mar 23
+Added localization strings for symlink checks
+
 
   
