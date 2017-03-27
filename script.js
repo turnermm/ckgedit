@@ -291,3 +291,9 @@ var dokuBase = location.host + DOKU_BASE;
                 'html'
             );     
  }
+ 
+ jQuery(document).ready(function() {
+     if(JSINFO['hide_captcha_error'] =='hide') {
+         jQuery("div.error").hide();
+     }   
+ });    

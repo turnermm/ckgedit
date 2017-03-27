@@ -22,6 +22,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     var $draft_found = false;
     var $draft_text;
     var $draft_started;
+    var $captcha;
     /**
      * Constructor
      */
@@ -29,6 +30,12 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     {
         $this->setupLocale();
         $this->helper = plugin_load('helper', 'ckgedit');
+        if(!plugin_isdisabled('captcha')) {
+            $this->captcha = plugin_load('helper', 'captcha');
+            If(!$this->captcha) $this->captcha = false; 
+        }
+        else  $this->captcha  = false;
+
     }
 
 
@@ -639,9 +646,9 @@ if(isset($INFO['userinfo'])&& isset($INFO['userinfo']['grps'])) {
    }
   if($INFO['client'] == 'guest') $guest_user = true; 
 }
-
+$CAPTCHA_HIDE = "";
 if(($guest_user || $guest_group) && $guest_perm <= 2) $DW_EDIT_disabled = 'disabled';
-
+if($guest_perm < 4 && $this->captcha && $this->captcha->isEnabled())  $CAPTCHA_HIDE = 'display: none;'; 
 
 $DW_EDIT_hide = $this->dw_edit_displayed(); 
 
@@ -669,7 +676,7 @@ $is_ckgeditChrome = false;
                    <?php echo $DW_EDIT_disabled; ?>
                    name="do[delete]" value="<?php echo $lang['btn_delete']?>"
                    title="<?php echo $this->getLang('title_dw_delete') ?>"
-                   style = "font-size: 100%;"
+                   style = "font-size: 100%; <?php echo $CAPTCHA_HIDE;?>"
             />
 
             
@@ -677,7 +684,7 @@ $is_ckgeditChrome = false;
              <input class="button"  id = "ebtn__dwedit"
                  <?php echo $DW_EDIT_disabled; ?>                 
                  <?php echo $DW_EDIT_hide; ?>
-                 style = "font-size: 100%;"            
+                 style = "font-size: 100%;<?php echo $CAPTCHA_HIDE;?>"            
                  type="submit" 
                  name="do[save]" 
                  value="<?php echo $this->getLang('btn_dw_edit')?>"  
@@ -738,7 +745,7 @@ global $INFO;
               <input class="button" type="submit"
                    name ="do[edit]" 
                    id = "no_styling_btn"                   
-                   style = "font-size: 100%;"                   
+                   style = "font-size: 100%;<?php echo $CAPTCHA_HIDE;?>"                   
                    value="<?php echo $this->getLang('dw_btn_styling')?>"  
                    title="<?php echo $this->getLang('title_styling')?>"  
                   />
@@ -803,6 +810,7 @@ if($is_ckgeditChrome) echo $chrome_dwedit_link;
                 <label class="nowrap" for="minoredit"><input type="checkbox" id="minoredit" name="minor" value="1" tabindex="3" /> <span><?php echo $this->getLang('minor_changes') ?></span></label>
             </div>
         <?php }?>
+        <?php if($this->captcha && $this->captcha->isEnabled()) echo $this->captcha->getHTML(); ?>
     </div>
    </form>
 
@@ -900,7 +908,7 @@ var ckgedit_xcl_fonts =parseInt  ("<?php echo $this->getConf('font_options') ;?>
 var ckgedit_xcl_colors =parseInt("<?php echo $this->getConf('color_options') ;?>");
 var ckgedit_xcl_styles = (ckgedit_xcl_fonts + ckgedit_xcl_colors ==2) ? true : false;
 var HTMLParser_DEBUG = "";
-
+var ckgedit_hasCaptcha = "<?php echo $this->captcha?1:0?>";
 
 <?php if($this->debug) { ?>
    function HTMLParser_debug() {        
