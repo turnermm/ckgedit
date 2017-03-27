@@ -890,23 +890,52 @@ Restored table.js to ckgedit version, from the CKEDitor 4.5.7 version
 23 May
 Fix in save.php for $conf[deaccent]==0 (off)
 
+
+24 May
+Captcha support added
+Added captcha is Enabled when checking for hidden buttons:
+ hide Delete and Font Edit buttons when captcha->isEnabled() &&  auth < 4, i.e. no create permision
+
 26 May
 Delete  space insertion between preceding character and following font tag where space should be closed
+
+27 May
+Set [captcha][forusers] = 0 if auth >= WRITE
 
 29 May
 Complex tables changed to default: now hides complex tables checkbox.
 
-6 June
+1 Jun
+Hide captcha error when switching to DW Edit if no changes made. Some syntax updates.
+Fix to hide captcha error.
+
+2 Jun
+Updated script-cmpr.js
+Changed plugin-captcha check to plugin_isdisabled()
+added check for captcha before appending captcha_err hide 
+
+4 Jun
+Added entry for $lang[captcha_auth] in en/settings.php
+
+6 Jun
 Fixed bug which converted  double backslash to single in code blocks
 
-26 June
+9 Jun
+Provide for skipentity in edit.php prepocessor
+
+24 Jun
 Fixed bug which removed formats when link preceded format in lists
+
+26 Jun
+Slight refactoring of above
+Moved end notes check back to original position at l.1109
+
+27 Jun
+Updated DW Korean lang files
 
 27 June
 Fix for singleton nowiki/code/file escaped with double percent markup
 
-28 June
-Added support for skipentity plugin to preprocessor
 
 12 Jul
 re-size filebrowser inner windows vs just external popup size
