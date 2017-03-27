@@ -1,4 +1,4 @@
-rev_17-Mar_23-10_05
+rev_17-Mar_27-07_27
 
 28 Feb 2013
 Added support for interwiki links
@@ -1024,5 +1024,7 @@ Rmoved dbouble backslashes from ends of blockquote lines
 Mar 23
 Added localization strings for symlink checks
 
+Mar 27
+Synched with captcha branch
 
   
