@@ -648,7 +648,8 @@ if(isset($INFO['userinfo'])&& isset($INFO['userinfo']['grps'])) {
 }
 $CAPTCHA_HIDE = "";
 if(($guest_user || $guest_group) && $guest_perm <= 2) $DW_EDIT_disabled = 'disabled';
-if($guest_perm < 4 && $this->captcha && $this->captcha->isEnabled())  $CAPTCHA_HIDE = 'display: none;'; 
+global $USERINFO;
+if(($guest_user || $guest_group ||!$USERINFO) && $guest_perm < 4 && $this->captcha && $this->captcha->isEnabled())  $CAPTCHA_HIDE = 'display: none;'; 
 
 $DW_EDIT_hide = $this->dw_edit_displayed(); 
 

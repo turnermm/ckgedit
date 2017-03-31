@@ -1,4 +1,4 @@
-rev_17-Mar_27-07_27
+rev_17-Mar_31-09_45
 
 28 Feb 2013
 Added support for interwiki links
@@ -1048,3 +1048,6 @@ Synched with captcha branch
 
 30 Mar 2017
 removed backslashes from ends of blockquotes
+
+31 Mar
+fix for guest use of specialized buttons when captcha is on
