@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author TJ619 <rockandrollfever0@gmail.com>
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @author Blacklord049
@@ -36,8 +36,8 @@ $lang['minor_changes']         = 'Changements mineurs';
 $lang['discard_edits']         = 'Pour sauver vos modifcations, cliquez sur OK, sinon cliquez sur Annuler.';
 $lang['dw_btn_styling']        = 'Éditer la police d\'écriture';
 $lang['title_styling']         = 'Ouvrir avec les styles de police présentés comme balisage';
-$lang['js']['font_err_1'] 	   = 'Les styles de police ne peuvent pas être inclus dans des liens. Cliquez sur OK pour accepter la correction suivante : ';
-$lang['js']['font_err_2'] 	   = 'Pour modifiez, saisissez ci-dessous la syntaxe complète de lien DokuWiki, en incluant les crochets. Pour retourner à l\'éditeur cliquez sur Annuler.';
+$lang['js']['font_err_1']      = 'Les styles de police ne peuvent pas être inclus dans des liens. Cliquez sur OK pour accepter la correction suivante : ';
+$lang['js']['font_err_2']      = 'Pour modifiez, saisissez ci-dessous la syntaxe complète de lien DokuWiki, en incluant les crochets. Pour retourner à l\'éditeur cliquez sur Annuler.';
 $lang['js']['font_err_throw']  = 'Erreur du formatage du texte';
 $lang['js']['dwp_save_err']    = 'Impossible de sauvegarder les changements de : ';
 $lang['js']['dwp_updated']     = 'Priorité d\'éditeur mise à jour vers : ';
