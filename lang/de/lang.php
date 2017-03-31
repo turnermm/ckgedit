@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Leo Rudin <leo.rudin@gmx.ch>
  * @author Padhie <develop@padhie.de>
  * @author liz <marliza@web.de>
@@ -20,7 +20,7 @@ $lang['title_dw_revert']       = 'Zur&uuml;ck zur Backup-Version';
 $lang['title_dw_lang']         = 'Sprache f&uuml;r Rechtschreibkontrolle w&auml;hlen';
 $lang['title_dw_cancel']       = 'Editor schließen';
 $lang['btn_fck_edit']          = 'CKG Editor';
-$lang['confirm_delete']        = 'Sind Sie sicher, dass Sie diese Seite l&ouml;schen wollen?';
+$lang['confirm_delete']        = 'Sind Sie sicher, dass Sie diese Seite löschen wollen?';
 $lang['confirm_preview']       = 'Jede nicht gespeicherte Bearbeitung wird verloren gehen.';
 $lang['editor_height']         = 'Editorhöhe';
 $lang['editor_height_title']   = 'Editor neuskalieren beim Neuladen';

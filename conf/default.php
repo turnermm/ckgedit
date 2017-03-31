@@ -32,3 +32,4 @@ $conf['nofont_styling'] = 0;
 $conf['alt_toolbar'] = '';
 $conf['mfiles'] = 0;
 $conf['extra_plugins'] ="";
+$conf['captcha_auth'] = 'CREATE';
