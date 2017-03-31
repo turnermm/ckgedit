@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Michael <michael@krmr.org>
  * @author Juergen-aus-Koeln <H-J-Schuemmer@Web.de>
  * @author David McAllister <info@bionichead.com>

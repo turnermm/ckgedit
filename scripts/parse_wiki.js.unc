@@ -908,12 +908,12 @@ function parse_wikitext(id) {
                                    from_clipboard = true;
                                }
                            }
+
+                     }                 
                           if(src && src.match(/lib\/images\/smileys/)) {
                                 // src = 'http://' + window.location.host + src;
                                 this.is_smiley = true;
                           }
-                     }                 
-                       
                       this.attr = src;
                       if(this.attr && this.attr.match && this.attr.match(/%[a-fA-F0-9]{2}/)) {                                         
                            this.attr =     decodeURIComponent(safe_convert(this.attr)); 
@@ -1071,7 +1071,7 @@ function parse_wikitext(id) {
              results = results.replace(/__STYLE__/,'[[' + this.attr + '|');
              this.in_font = false;
              }
-               return;            
+             return;                              
               /* <font 18pt:bold,italic/garamond;;color;;background_color>  */
        }
 
@@ -1736,12 +1736,12 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
    
     if(HTMLParserFont)   // HTMLParserFont start
     {
-        
+    
     String.prototype.font_link_reconcile = function(v){	
    
        if(v == 1) {
            regex = /\[\[(.*?)(<font[^\>]+>)([^<]+(\]\])?)[^\>]+\/font>\s*(\]\])/gm;
-       }     
+      }  
       else regex = /(<font[^\>\{]+>)\{\{(:?.*?)\|(:?.*?)<\/font>/gm;
      
       
@@ -1792,7 +1792,7 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
          results = results.replace(regex, function(m) {             
              m= m.replace(/\s+/g,"");           
              return m;
-     } );         
+        });
        
         results = results.replace(/\[\[(.*?)\|(<font[^\>]+>)(.*?)(<\/font>)\s*(\]\])\s*/gm,function(match,a,b,c) {
              match='[[' + a +'|' + c +']]';      

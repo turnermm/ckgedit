@@ -1,4 +1,5 @@
-rev_17-Mar_07-04_04
+rev_17-Mar_27-07_27
+
 28 Feb 2013
 Added support for interwiki links
 
@@ -795,7 +796,7 @@ Interwiki link text preserved when different from link's replacement text
 Improved regex for identifying interwiki links in edit.php
 
 19 Feb
-Synched with current updates to master
+Same as 18 Feb: improved matching of link text and iwiki tag
 Added onChange handler to editor window so that non-key-based changes are saved.
 
 21 Feb
@@ -858,34 +859,192 @@ new branch: dwpriority_group
 19 Apr
 Added dw_users option to set group for dw_priority; when not set, all users get dw_priority
 
-27 Apr
-Updated to ckedtior 4.5.7 and new filebrowser
+1 May 
+Added User profile panel with fixes to cookies that alternate between ckeditor and dw editor
 
+2 May
+try getting client from $_SERVER['REMOTE_USER'] instead of $INFO
+Fixed URL encodings in save.php
 
-3 May
-Synched with master
+4 May
+Updated settings descripton for removing items from toolbar, i.e, that a list can be included in the
+textbox beneath the checkboxes.
+
+Merged dwpriority_group into master
 
 5 May
 removed dw_priority option which fails to switch back to ckeditor
 in farms
 
+10 May
+Fix to github issue ckgedit #186 (extra thiespace added after format characters).
+
+12 May
+Refactored spans for marking up fonts (in edit.php)
+Removed whte-space from font infixes in parse_wiki
+
+14 May
+Adjusted white space insertions in infixes
+Fixed Font error reporting for links
+
+15 Merge with font_whitespace
+Additional fixes for Font error reporting
+Fixed headers already sent error when sending cookie from dwpriority check
+
+17 May
+Fixed bug in regex testing for font markup in links
+Fixed bug that emitted _false_ on switch to dwedit with font markup in links
+
+18 May
+Removed space/new-line insertions in lists when font markup is place.
+
+21 May
+Removed space between end punctuation and closing font tag when DW markup is inclued inside font.
+
+22 May
+Restored table.js to ckgedit version, from the CKEDitor 4.5.7 version
+
+23 May
+Fix in save.php for $conf[deaccent]==0 (off)
+
+
+24 May
+Captcha support added
+Added captcha is Enabled when checking for hidden buttons:
+ hide Delete and Font Edit buttons when captcha->isEnabled() &&  auth < 4, i.e. no create permision
+
+26 May
+Delete  space insertion between preceding character and following font tag where space should be closed
+
+27 May
+Set [captcha][forusers] = 0 if auth >= WRITE
+
+29 May
+Complex tables changed to default: now hides complex tables checkbox.
+
+1 Jun
+Hide captcha error when switching to DW Edit if no changes made. Some syntax updates.
+Fix to hide captcha error.
+
+2 Jun
+Updated script-cmpr.js
+Changed plugin-captcha check to plugin_isdisabled()
+added check for captcha before appending captcha_err hide 
+
+4 Jun
+Added entry for $lang[captcha_auth] in en/settings.php
+
 5 June
 replaced above option with message that it doesn't work; otherwise causes Chrome error.
+
+6 Jun
+Fixed bug which converted  double backslash to single in code blocks
+
+9 Jun
+Provide for skipentity in edit.php prepocessor
+
+24 Jun
+Fixed bug which removed formats when link preceded format in lists
+
+26 Jun
+Slight refactoring of above
+Moved end notes check back to original position at l.1109
+
+27 Jun
+Updated DW Korean lang files
+
+27 June
+Fix for singleton nowiki/code/file escaped with double percent markup
 
 8 Jul
 removed config_animal=null if undefined (should always be defined and corrupts image syntax)
 
 19 Jul
-Synced renderer.php:table_open with updated (declaration for) Doku_Renderer_xhtml::table_open; 
-fixed bug in table_open call to parent.
-changed renderer.php constructor to __construct
+Synced renderer.php:table_open with updated (declaration for) Doku_Renderer_xhtml::table_open
+Fixed bug in table_open call to parent.
+Changed renderer constructor to __construct
 
-27 Jul
-Korean language update
+7 Aug
+Fixed bug in parse_wiki which removed ~~COMPLEX_TABLES~~ macro when not intended
 
-19 Oct
-Additional syncing with master
-Fix for directory recognition in frmresourceslist.html to prepend forward slash if missing
+22 Aug
+Fixed backup_area tex-align css and corrected ckgeditLite to ckgedit in backup message (helper.php)
 
-3 Mar 2017
+23 Aug
+Fix for javascript issue in Safari which prevented dw priority from update using update profile form
+
+24 Aug
+Fixed rss syntax which uses http://www.whatever instead of http://whatever
+
+2 Sept
+Fixes in frmresourceslilst.html for no-Ascii names
+
+4 Sept
+Copy userfiles/.htacess.security to data/media/.htacess for winstyle
+
+10 Sept
+Improved markup detection in headers
+
+11 Sept
+Capture and delete font markup in headers
+
+12 Sept
+added jQuery("#ebtn__fbswitch").click function to parse_wiki.js to ease later upgrade
+improved font removal from headers
+remove link markup from headers
+
+13 Sept
+Rixed type ref error in parse_wiki
+
+14 Sept
+Added onfocus handler for ckeditor, which serves in place of unresponsive mousedown
+
+16 Sept
+Found fix for mouse down, passed into editor on initialization in edit.php
+
+17 Sept
+Merged Stev G's headers plugin; added back ckeditor/config.js.unc and compressed config.js.
+
+20 Sept
+Support for divalign2;  new function in helper.php for syntax plugin detection
+
+24 Sept
+adds missing initial forward slash when in frmresourselist.html browser listings; occurs in Centos 7 Apache 2.4
+
+8 Oct
+improved detection of link/font conflicts
+
+9 Oct
+merge master with font_links with further improved font =/link checking
+
+12 Oct
+removed faulty regex from parse_wiki::fontConflict()
+
+18 Nov
+Fixed faulty HTML in user profile update 
+
+----------2017--------
+17 Feb 2017
+Fixed spacing between closing link brackets and format markups
+
+18 Feb
+Accommodate Dokuwiki blockquotes both from Ckeditor and from DW editor.  In Ckeditor enter DW Quoting markup and
+single-space.
+
+18 Feb
+Fix for external urls with 'id=' that are mistaken for internal links
+
+19 Feb
+Fix for correct recognition of external urls with 'id-' and internal links in link dialog window
+
+Mar 3
+Rmoved dbouble backslashes from ends of blockquote lines
+
+Mar 23
+Added localization strings for symlink checks
+
+Mar 27
+Synched with captcha branch
+
+30 Mar 2017
 removed backslashes from ends of blockquotes

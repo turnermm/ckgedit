@@ -18,6 +18,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $wiki_text;  
   var $dw_priority_group;
   var $dw_priority_metafn;
+  var $captcha = false;
   function __construct() {
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
@@ -26,6 +27,10 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
       if(!file_exists($this->dw_priority_metafn)) {
           io_saveFile($this->dw_priority_metafn, serialize(array()));
       }
+       
+       if(!plugin_isdisabled('captcha')) {    
+           $this->captcha = true; 
+        }
   }
   /*
    * Register its handlers with the dokuwiki's event controller
@@ -295,8 +300,9 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
         else {            
             document.cookie = 'FCKG_USE=_false_;expires=';             
             dom.value = 'dwiki';        
-
-            if(window.dwfckTextChanged  && !window.confirm("$discard")) {            
+           if(JSINFO['chrome_version'] >= 56 && window.dwfckTextChanged) {
+           }
+            else if(window.dwfckTextChanged  && !window.confirm("$discard")) {            
                var dom = GetE('dwsave_select');                
                ckgedit_dwedit_reject=true;
                window.dwfckTextChanged = false;
@@ -364,15 +370,15 @@ function check_userfiles() {
                $security = $userfiles . '.htaccess.security';
                if(file_exists($security)) {                   
                    if(!copy($security, $htaccess)) {
-                       msg('For winstyle setup: cannot copy to ' . $htaccess);
+                       msg($this->getLang("ws_cantcopy") . $htaccess);  
                    }
-                   else msg('For winstyle setup, copied security-enabled .htaccess to data/media' ."\n" .'See ckgedit/fckeditor/userfiles/.htacess.security');
+                   else msg($this->getLang("ws_copiedhtaccess"));    
                }
           } 
          return;    
      }
      if(!is_readable($userfiles) && !is_writable($userfiles)){
-              msg("ckgedit cannot access $userfiles. Please check the permissions.");
+              msg($this->getLang("userfiles_perm" ) . ' ' . $userfiles) ;
 		      return;
      }		   
 	$version = io_readFile(DOKU_PLUGIN . 'ckgedit/version');
@@ -434,7 +440,7 @@ function check_userfiles() {
                        }					 
 					 if(!@symlink($data_media,$path) ) {
 					     $bad_create = true;
-						  if($show_msg)  msg("unable to create $name link:  $path",-1);			  
+						  if($show_msg)   msg($this->getLang("sym_not created_1") . " $name link:  $path",-1);		
 				   }
 				   else {
 				     $successes[] = $name; 
@@ -444,7 +450,7 @@ function check_userfiles() {
       }
 	  else {
 	     if($show_msg)  {
-			msg("Cannot create symlinks for filebrowser.  Cannot access:  $userfiles   ",-1);
+	        msg($this->getLang("sym_not created_2") ." $userfiles",-1);
 		 }
 	  }
 	   
@@ -452,14 +458,13 @@ function check_userfiles() {
 	   
 	  if($bad_create) {
 	       if($show_msg)  {
-			   msg("There was an error when trying to create symbolic links in $userfiles. "
-					. "See ckgedit/auto_install.pdf  or  the <a href='http://www.mturner.org/fckgLite/doku.php?do=search&id=htaccess+|+media'>fckgLite web site</a>" , 2);					
+		       msg($this->getLang("sym_not created_3") . " $userfiles"); 
 				}
       }
 	  else {	        
 	       if(count($successes)) {
 				$links_created = implode(', ',$successes);
-				msg('The following links were created in the userfiles directory: ' . $links_created,2);
+				 msg($this->getLang("syms_created") . " $links_created",2);   
 			 }
 	  }
 	  			io_saveFile($meta,$version);
@@ -569,10 +574,28 @@ function check_userfiles() {
        global $ID; 
        global $JSINFO;
        global  $INPUT;
+       global $updateVersion;
+       global $conf;
        
+       $acl_defines = array('EDIT'=> 2,'CREATE'=> 4,'UPLOAD'=> 8,'DELETE'=> 16,'ADMIN'=> 255);
+       $_auth =  $this->getConf('captcha_auth');
+       $auth_captcha = (int)$acl_defines[$_auth];     
+       $auth = auth_quickaclcheck($ID);  
+
+       if($auth >= $auth_captcha && $this->captcha) {         
+           $conf['plugin']['captcha']['forusers']=0;
+       }
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
        $JSINFO['doku_base'] = DOKU_BASE ;
        $JSINFO['cg_rev'] = $INPUT->str('rev');
+       $JSINFO['dw_version']  = (float)$updateVersion;
+       if(preg_match("/Chrome\/(\d+)/", $_SERVER['HTTP_USER_AGENT'],$cmatch)) {
+           $JSINFO['chrome_version']  = (float) $cmatch[1];
+       }
+       else $JSINFO['chrome_version'] = 0;
+       $JSINFO['hide_captcha_error'] = $INPUT->str('ckged_captcha_err','none');
+       
+
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
