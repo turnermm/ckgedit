@@ -1,4 +1,4 @@
-rev_17-Mar_27-07_27
+rev_17-Mar_31-05_30
 
 28 Feb 2013
 Added support for interwiki links
@@ -1026,5 +1026,8 @@ Added localization strings for symlink checks
 
 Mar 27
 Synched with captcha branch
+
+Mar 31
+fix for guest use of specialized buttons when captcha is on
 
   
