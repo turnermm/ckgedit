@@ -1,4 +1,4 @@
-rev_17-Mar_31-05_30
+rev_17-Apr_05-13_12
 
 28 Feb 2013
 Added support for interwiki links
@@ -1030,4 +1030,5 @@ Synched with captcha branch
 Mar 31
 fix for guest use of specialized buttons when captcha is on
 
-  
+Apr 5
+Added hover top availability to images  

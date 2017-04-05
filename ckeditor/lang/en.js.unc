@@ -7,7 +7,7 @@ CKEDITOR.lang['en']={"editor":"Rich Text Editor","editorPanel":"Rich Text Editor
         "outdent": "Decrease Nesting"
  };
 CKEDITOR.lang['en'] ["stylescombo"]["label"]= "Code";
-
+CKEDITOR.lang.en.image['alt'] = "HoverTip";
 CKEDITOR.lang['en']['fbrowser'] = {
 FileBrowserError_101:	'Folder already exists.', 
 FileBrowserError_102:	'Invalid folder name', 
