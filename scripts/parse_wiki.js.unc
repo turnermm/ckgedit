@@ -1129,8 +1129,10 @@ function parse_wikitext(id) {
                if(img_align == 'center' || img_align == 'left') {          
                   this.attr += '  '; 
                }
-           
-               results += this.attr + '}}';
+                if(alt) {
+                  results += this.attr + '|' + alt +'}}';
+                }
+               else results += this.attr + '}}';
                this.attr = 'src';
           }
           else if(tag == 'pre' || tag == 'pre_td') {               
