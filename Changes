@@ -1,4 +1,4 @@
-rev_17-Apr_05-13_12
+rev_17-Apr_20-08_46
 
 28 Feb 2013
 Added support for interwiki links
@@ -1032,3 +1032,6 @@ fix for guest use of specialized buttons when captcha is on
 
 Apr 5
 Added hover top availability to images  
+
+Apr 20
+New setting htmlok gives option of allowing HTML_BLOCKs without setting DW's htmlok to true.
