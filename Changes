@@ -1,4 +1,4 @@
-rev_17-Apr_20-08_46
+rev_17-Apr_20-13_25
 
 28 Feb 2013
 Added support for interwiki links
@@ -1035,3 +1035,5 @@ Added hover top availability to images
 
 Apr 20
 New setting htmlok gives option of allowing HTML_BLOCKs without setting DW's htmlok to true.
+
+Changed option to hmtlblock_ok and set default to false.

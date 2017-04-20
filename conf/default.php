@@ -33,5 +33,5 @@ $conf['alt_toolbar'] = '';
 $conf['mfiles'] = 0;
 $conf['extra_plugins'] ="";
 $conf['captcha_auth'] = 'CREATE';
-$conf['htmlok'] = 1;
+$conf['htmblock_ok'] = 0;
 
