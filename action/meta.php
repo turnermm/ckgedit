@@ -583,7 +583,13 @@ function check_userfiles() {
        }
        else $JSINFO['chrome_version'] = 0;
        $JSINFO['hide_captcha_error'] = $INPUT->str('ckged_captcha_err','none');
-       
+       $dbl_click_auth  =  $this->getConf('dw_edit_display');
+       if($dbl_click_auth == 'none' || empty($_SERVER['REMOTE_USER'])) {
+           $JSINFO['dbl_click_auth']  = "";
+       }
+       else if($dbl_click_auth == 'all' ||$auth == 255 ) {
+           $JSINFO['dbl_click_auth']  = "1";
+       }
 
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 

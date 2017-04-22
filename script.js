@@ -302,7 +302,7 @@ var dokuBase = location.host + DOKU_BASE;
 jQuery(document).ready(function(){
 
     $dokuWiki = jQuery('.dokuwiki');
-
+    if(!JSINFO['dbl_click_auth']) return;
     /**
      * If one or more edit section buttons exist?
      * This makes sure this feature is enabled only on the edit page and for users with page edit rights.
