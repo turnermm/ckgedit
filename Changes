@@ -1037,3 +1037,6 @@ Apr 20
 New setting htmlok gives option of allowing HTML_BLOCKs without setting DW's htmlok to true.
 
 Changed option to hmtlblock_ok and set default to false.
+
+Apr 22
+Added double-click funnction to open dw editor when in ckgedit mode
