@@ -1,4 +1,4 @@
-rev_17-Apr_22-17_30
+rev_17-Apr_23-19_50
 
 28 Feb 2013
 Added support for interwiki links
@@ -1041,4 +1041,7 @@ Changed option to hmtlblock_ok and set default to false.
 Apr 22
 Added double-click funnction to open dw editor when in ckgedit mode
 Added checks for user authorization for switching to dw edit from ckeditor
+
+Apr 23
+Implemented reminders of new double-click feature for Admins.
 
