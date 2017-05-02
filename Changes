@@ -1,4 +1,4 @@
-rev_17-Apr_23-19_50
+rev_17-May_02-08_55
 
 28 Feb 2013
 Added support for interwiki links
@@ -1045,3 +1045,5 @@ Added checks for user authorization for switching to dw edit from ckeditor
 Apr 23
 Implemented reminders of new double-click feature for Admins.
 
+May 2
+Fixed typo bug in meta.php htmblock_ok -> htmlblock_ok for getting config option
