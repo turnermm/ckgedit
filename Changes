@@ -1,4 +1,4 @@
-rev_17-May_02-08_55
+rev_17-May_04-05_44
 
 28 Feb 2013
 Added support for interwiki links
@@ -1047,3 +1047,6 @@ Implemented reminders of new double-click feature for Admins.
 
 May 2
 Fixed typo bug in meta.php htmblock_ok -> htmlblock_ok for getting config option
+
+May 5
+Added Geshi plugin
