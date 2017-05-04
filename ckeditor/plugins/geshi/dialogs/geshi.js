@@ -19,7 +19,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
     var file = fname ? fname: 'temp.' + type;
     
     return  '<dl class="file">' 
-    +'<dt><a href="' + getHref() + '?do=export_code&id' + id+ '&codeblock=0" title="Download Snippet" class="mediafile mf_' + type +'">' +file +'</a></dt> <dd><pre class="file ' + type+ '">';
+    +'<dt><a href="' + getHref() + '?do=export_code&id=' + id+ '&codeblock=0" title="Download Snippet" class="mediafile mf_' + type +'">' +file +'</a></dt> <dd><pre class="file ' + type+ '">';
  }
  var downloadable_footer = function() {   
     return "</pre> </dd></dl>";
