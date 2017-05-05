@@ -12,14 +12,35 @@
 CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
     var radio;
     var  getHref = function() {
-        return window.location.pathname;
+       var data = window.location.pathname;
+       var qs = window.location.search;
+       var href, id;
+       var matches = data.match(/\/(.*?)\/(doku.php)?\/?(.*)/);
+     
+       if(qs_match = qs.match(/id=([\w:_\.]+)\b/)) { //none
+           id = qs_match[1];
+           href = matches[0];           
   }
+       else if(!matches[2])
+       {
+           id = matches[3];
+           href = matches[1] + '/doku.php';
+       }
+       else {
+          id = matches[3];  
+          href = matches[2] + '/doku.php';
+       }  
+       if(!href) href='doku.php';
+       if(!id) id = 'start';
+        return {'href':href, 'id':id};
+  }
+ 
     var downloadable_header = function(type,fname) {   
     var id = 'start';  
     var file = fname ? fname: 'temp.' + type;
-    
+    var href_vals = getHref();   
     return  '<dl class="file">' 
-    +'<dt><a href="' + getHref() + '?do=export_code&id=' + id+ '&codeblock=0" title="Download Snippet" class="mediafile mf_' + type +'">' +file +'</a></dt> <dd><pre class="file ' + type+ '">';
+    +'<dt><a href="' + href_vals.href + '?do=export_code&id=' + href_vals.id+ '&codeblock=0" title="Download Snippet" class="mediafile mf_' + type +'">' +file +'</a></dt> <dd><pre class="file ' + type+ '">';
  }
  var downloadable_footer = function() {   
     return "</pre> </dd></dl>";
