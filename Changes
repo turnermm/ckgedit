@@ -1053,3 +1053,4 @@ Added Geshi plugin
 
 May 6
 Tweaked geshi icon
+Fixed JS type error for mis-labled fr and de lang files

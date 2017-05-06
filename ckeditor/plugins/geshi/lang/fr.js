@@ -1,3 +1,3 @@
-CKEDITOR.plugins.setLang("timestamp","fr",{
-    	title: 'Insérer un Timestamp'
+CKEDITOR.plugins.setLang("geshi","fr",{
+    	title: 'Extrait ou bloc Geshi'
 });

@@ -1,3 +1,3 @@
-CKEDITOR.plugins.setLang("timestamp","de",{
-    	title: 'Einen Zeitstempel einfügen'
+CKEDITOR.plugins.setLang("geshi","de",{
+    	title: 'Geshi Snippet oder Block'
 });
