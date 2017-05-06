@@ -1,4 +1,4 @@
-rev_17-May_06-00_01
+rev_17-May_06-09_01
 
 28 Feb 2013
 Added support for interwiki links
@@ -1054,3 +1054,4 @@ Added Geshi plugin
 May 6
 Tweaked geshi icon
 Fixed JS type error for mis-labled fr and de lang files
+Geshi German languag file contributed by github user
