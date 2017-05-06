@@ -1,4 +1,4 @@
-rev_17-May_05-16_27
+rev_17-May_06-00_01
 
 28 Feb 2013
 Added support for interwiki links
@@ -1050,3 +1050,6 @@ Fixed typo bug in meta.php htmblock_ok -> htmlblock_ok for getting config option
 
 May 5
 Added Geshi plugin
+
+May 6
+Tweaked geshi icon
