@@ -19,7 +19,9 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $dw_priority_group;
   var $dw_priority_metafn;
   var $captcha = false;
+  var $geshi_dir;
   function __construct() {
+      
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
       $this->dw_priority_group = $this->getConf('dw_users');
@@ -27,9 +29,12 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
       if(!file_exists($this->dw_priority_metafn)) {
           io_saveFile($this->dw_priority_metafn, serialize(array()));
       }
-       
+      
        if(!plugin_isdisabled('captcha')) {    
            $this->captcha = true; 
+        }
+        if( class_exists('GeSHi')) {         
+            if(defined('GESHI_LANG_ROOT') )  $geshi_dir =GESHI_LANG_ROOT;
         }
   }
   /*
@@ -80,7 +85,8 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $event->data->insertElement($pos+2, $_form);
   }
  
-function _ajax_call(Doku_Event $event, $param) {
+function _ajax_call(Doku_Event $event, $param) {  
+
      if ($event->data == 'cked_selector') {
          $event->stopPropagation();
          $event->preventDefault();
@@ -98,7 +104,29 @@ function _ajax_call(Doku_Event $event, $param) {
          else echo "done";
          return;
     }
-
+    
+   if ($event->data == 'geshi_sel') {
+     //   echo "ENotfound\n"; return;
+      $gdir = '/var/www/html/devel/vendor/easybook/geshi/geshi/';
+       if( class_exists('GeSHi')) {         
+            if(defined('GESHI_LANG_ROOT') )  $geshi_dir =GESHI_LANG_ROOT;
+      }
+     else {
+         echo "ENotfound\n";
+         return ;
+     }  
+    $gfiles = scandir ($geshi_dir);
+    $selects = array();
+    foreach($gfiles as $gfile){
+        if(is_dir($gfile)) continue;
+       $gfile =  preg_replace("/\.php\n?$/","",$gfile);
+        $selects[] = $gfile;
+    }
+    $selects = implode ( ';;', $selects );
+    echo $selects;
+    return;
+    }    
+    
     if ($event->data !== 'refresh_save') {
         return;
     }
