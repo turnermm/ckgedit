@@ -10,7 +10,7 @@
 
 // Our dialog definition.
 CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
-    var radio;
+    var radio, ckg_geshi_langopts = new Array();
     var  getHref = function() {
        var data = window.location.pathname;
        var qs = window.location.search;
@@ -33,7 +33,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
        if(!href) href='doku.php';
        if(!id) id = 'start';
         return {'href':href, 'id':id};
-  }
+  };
  
     var downloadable_header = function(type,fname) {   
     var id = 'start';  
@@ -41,11 +41,46 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
     var href_vals = getHref();   
     return  '<dl class="file">' 
     +'<dt><a href="' + href_vals.href + '?do=export_code&id=' + href_vals.id+ '&codeblock=0" title="Download Snippet" class="mediafile mf_' + type +'">' +file +'</a></dt> <dd><pre class="file ' + type+ '">';
- }
+ };
+ 
  var downloadable_footer = function() {   
     return "</pre> </dd></dl>";
   } 
 
+  var SelectOptions = function() {
+         var retv;
+         
+         editor.config.jquery.ajax(
+          DOKU_BASE + 'lib/exe/ajax.php',         
+          {
+            data:
+              {
+                call: 'geshi_sel'
+              },
+            type: "POST",
+            async: false,
+            dataType: "html",
+            success: function(data, textStatus, jqXHR)
+              {
+                  retv = data;
+                //  alert(retv);
+              },
+            error: function(jqXHR, textStatus, errorThrown )
+              {
+                alert(textStatus);
+                alert(errorThrown);
+              }
+          }
+        );
+        return retv;
+    };
+    ckg_geshi_langopts = SelectOptions().split(';;');
+    var tmp;
+    for(var i=0; i<ckg_geshi_langopts.length; i++) {
+        tmp = ckg_geshi_langopts[i] ;
+        ckg_geshi_langopts[i] = new Array(tmp);        
+    }
+    ckg_geshi_langopts.unshift(['Not Set']);
 	return {
 
 		// Basic properties of the dialog window: title, minimum size.
@@ -76,13 +111,25 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                         type: 'hbox',
                         widths: [ '33%', '33%','33%'],
                         children: [
+                        {
+    type: 'select',
+    id: 'ckg_geshi_lang',
+                                             label: editor.lang.geshi.lang,
+    items:  ckg_geshi_langopts,  
+    'default':ckg_geshi_langopts[0],
+    onChange: function( api ) {
+        // this = CKEDITOR.ui.dialog.select
+                                                ///alert( 'Current value: ' + this.getValue() );
+    }
+},
 
                                         {                                           
                                             type: 'text',
                                             id: 'language',
+                                            style: 'display: none',
                                             label: editor.lang.geshi.lang || 'Programming Language',
                                             width: '175px',
-                                            validate: CKEDITOR.dialog.validate.notEmpty(editor.lang.geshi.lang_empty)
+                                         //   validate: CKEDITOR.dialog.validate.notEmpty(editor.lang.geshi.lang_empty)
                                         },
                                         {
                                             type: 'text',
@@ -122,13 +169,15 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 		onOk: function() {
 			// The context of this function is the dialog object itself.
 			// http://docs.ckeditor.com/#!/api/CKEDITOR.dialog
+           
 			var dialog = this, retval;      
 	         var text = dialog.getValueOf( 'tab-basic', 'geshi' );
              var which = dialog.getValueOf( 'tab-basic', 'which' );
+             var plang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
              if(which == 'block') {
-                 retval = '<pre class="code java">' + text + '</pre>';
+                 retval = '<pre class="code' + plang+ '">' + text + '</pre>';
              }
-             else retval = downloadable_header(dialog.getValueOf( 'tab-basic', 'language' ),dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
+             else retval = downloadable_header(plang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
              editor.insertHtml(retval);
 
 		}
