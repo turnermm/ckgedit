@@ -11,10 +11,12 @@
 // Our dialog definition.
 CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
     var radio, ckg_geshi_langopts = new Array();
+    var href, id,geshi_dialog, t_display,s_display;
+   // t_display='display:inline',s_display='display:block';
+    
     var  getHref = function() {
        var data = window.location.pathname;
-       var qs = window.location.search;
-       var href, id;
+       var qs = window.location.search;      
        var matches = data.match(/\/(.*?)\/(doku.php)?\/?(.*)/);
      
        if(qs_match = qs.match(/id=([\w:_\.]+)\b/)) { //none
@@ -43,13 +45,12 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
     +'<dt><a href="' + href_vals.href + '?do=export_code&id=' + href_vals.id+ '&codeblock=0" title="Download Snippet" class="mediafile mf_' + type +'">' +file +'</a></dt> <dd><pre class="file ' + type+ '">';
  };
  
- var downloadable_footer = function() {   
+    var downloadable_footer = function() {   
     return "</pre> </dd></dl>";
   } 
-
+/*
   var SelectOptions = function() {
-         var retv;
-         
+         var retv;                  
          editor.config.jquery.ajax(
           DOKU_BASE + 'lib/exe/ajax.php',         
           {
@@ -57,13 +58,12 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
               {
                 call: 'geshi_sel'
               },
-            type: "POST",
+            type: "GET",
             async: false,
             dataType: "html",
             success: function(data, textStatus, jqXHR)
               {
                   retv = data;
-                //  alert(retv);
               },
             error: function(jqXHR, textStatus, errorThrown )
               {
@@ -74,15 +74,25 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
         );
         return retv;
     };
-    ckg_geshi_langopts = SelectOptions().split(';;');
-    var tmp;
-    for(var i=0; i<ckg_geshi_langopts.length; i++) {
-        tmp = ckg_geshi_langopts[i] ;
-        ckg_geshi_langopts[i] = new Array(tmp);        
+    */
+     ckg_geshi_langopts = editor.config.geshi_opts;
+     if(!ckg_geshi_langopts.match(/ENotfound/)) {
+        ckg_geshi_langopts = ckg_geshi_langopts.split(';;');
+        var tmp;
+        for(var i=0; i<ckg_geshi_langopts.length; i++) {
+            tmp = ckg_geshi_langopts[i] ;
+            ckg_geshi_langopts[i] = new Array(tmp);        
     }
-    ckg_geshi_langopts.unshift(['Not Set']);
-	return {
-
+      ckg_geshi_langopts.unshift(['Not Set']);
+        s_display = 'display:block';
+        t_display = 'display:none';
+    }
+    else {
+        t_display = 'display:inline';
+        s_display = 'display:none';
+        ckg_geshi_langopts = [];
+    }
+	return { 
 		// Basic properties of the dialog window: title, minimum size.
 		title: 'Abbreviation Properties',
 		minWidth: 600,
@@ -111,25 +121,28 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                         type: 'hbox',
                         widths: [ '33%', '33%','33%'],
                         children: [
-                        {
-    type: 'select',
-    id: 'ckg_geshi_lang',
+                                        {
+                                            type: 'select',
+                                             id: 'ckg_geshi_lang',
                                              label: editor.lang.geshi.lang,
-    items:  ckg_geshi_langopts,  
-    'default':ckg_geshi_langopts[0],
-    onChange: function( api ) {
-        // this = CKEDITOR.ui.dialog.select
-                                                ///alert( 'Current value: ' + this.getValue() );
-    }
-},
+                                              items:  ckg_geshi_langopts,  
+                                              'default':ckg_geshi_langopts[0], 
+                                              style:  s_display,              
+                                              onChange: function( api ) {
+                                                  geshi_dialog.getContentElement(  'tab-basic', 'language' ).setValue(this.getValue());                           
+                                             }
+                                         },
 
                                         {                                           
                                             type: 'text',
                                             id: 'language',
-                                            style: 'display: none',
+                                            style: t_display,
                                             label: editor.lang.geshi.lang || 'Programming Language',
                                             width: '175px',
-                                         //   validate: CKEDITOR.dialog.validate.notEmpty(editor.lang.geshi.lang_empty)
+                                            onLoad: function() {
+                                                //this.style = "display:block";
+                                            },
+                                            validate: CKEDITOR.dialog.validate.notEmpty(editor.lang.geshi.lang_empty)
                                         },
                                         {
                                             type: 'text',
@@ -145,7 +158,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                             items: [ [ editor.lang.geshi.codeblock, 'block' ], [ editor.lang.geshi.snippet, 'snippet' ] ],
                                             default: 'block',
                                             style: 'color: green',
-                                              onClick: function() {                                              
+                                              onClick: function() {    
                                                  radio = this.getValue();
                                             }
                                         },                    
@@ -160,9 +173,12 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
        onShow : function()
        {
             var dialog = this;         
+            geshi_dialog = dialog;
              selection = editor.getSelection();             
              var text = selection.getSelectedText();                    
-            dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( text );   
+            dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( text );  
+         //   dialog.getContentElement(  'tab-basic', 'language' ).style='display:block'; 
+          //  alert( 'Current value: ' + dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' ) );
        },
        
 		// This method is invoked once a user clicks the OK button, confirming the dialog.
@@ -172,12 +188,16 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
            
 			var dialog = this, retval;      
 	         var text = dialog.getValueOf( 'tab-basic', 'geshi' );
-             var which = dialog.getValueOf( 'tab-basic', 'which' );
-             var plang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
+             var which = dialog.getValueOf( 'tab-basic', 'which' );             
+             //dialog.getValueOf( 'tab-basic', 'language');
+             var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
+             if(!p_lang) p_lang = dialog.getValueOf( 'tab-basic', 'language' );
+             if(!p_lang) return;
+             alert(p_lang)
              if(which == 'block') {
-                 retval = '<pre class="code' + plang+ '">' + text + '</pre>';
+                 retval = '<pre class="code' + p_lang+ '">' + text + '</pre>';
              }
-             else retval = downloadable_header(plang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
+             else retval = downloadable_header(p_lang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
              editor.insertHtml(retval);
 
 		}
