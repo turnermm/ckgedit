@@ -125,10 +125,11 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 			var dialog = this, retval;      
 	         var text = dialog.getValueOf( 'tab-basic', 'geshi' );
              var which = dialog.getValueOf( 'tab-basic', 'which' );
+             var p_lang = dialog.getValueOf( 'tab-basic', 'language' );
              if(which == 'block') {
-                 retval = '<pre class="code java">' + text + '</pre>';
+                 retval = '<pre class="code ' + p_lang + ' ">' + text + '</pre>';
              }
-             else retval = downloadable_header(dialog.getValueOf( 'tab-basic', 'language' ),dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
+             else retval = downloadable_header(p_lang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
              editor.insertHtml(retval);
 
 		}
