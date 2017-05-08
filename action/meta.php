@@ -87,7 +87,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
  
 function _ajax_call(Doku_Event $event, $param) {  
 
-     if ($event->data == 'cked_selector') {
+     if ($event->data == 'cked_selector') {  //choose profile editor priority
          $event->stopPropagation();
          $event->preventDefault();
         global $INPUT, $USERINFO,$INFO;
@@ -105,8 +105,9 @@ function _ajax_call(Doku_Event $event, $param) {
          return;
     }
     
-   if ($event->data == 'geshi_sel') {
-     //   echo "ENotfound\n"; return;
+   if ($event->data == 'geshi_sel') {     //get geshi file names , return as ;; separated string w/o php extensions
+      $event->stopPropagation();
+       $event->preventDefault();
       $gdir = '/var/www/html/devel/vendor/easybook/geshi/geshi/';
        if( class_exists('GeSHi')) {         
             if(defined('GESHI_LANG_ROOT') )  $geshi_dir =GESHI_LANG_ROOT;
@@ -127,7 +128,7 @@ function _ajax_call(Doku_Event $event, $param) {
     return;
     }    
     
-    if ($event->data !== 'refresh_save') {
+    if ($event->data !== 'refresh_save') {  // save ckgedit backups in native dw format
         return;
     }
        
