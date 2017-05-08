@@ -48,33 +48,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
     var downloadable_footer = function() {   
     return "</pre> </dd></dl>";
   } 
-/*
-  var SelectOptions = function() {
-         var retv;                  
-         editor.config.jquery.ajax(
-          DOKU_BASE + 'lib/exe/ajax.php',         
-          {
-            data:
-              {
-                call: 'geshi_sel'
-              },
-            type: "GET",
-            async: false,
-            dataType: "html",
-            success: function(data, textStatus, jqXHR)
-              {
-                  retv = data;
-              },
-            error: function(jqXHR, textStatus, errorThrown )
-              {
-                alert(textStatus);
-                alert(errorThrown);
-              }
-          }
-        );
-        return retv;
-    };
-    */
+
      ckg_geshi_langopts = editor.config.geshi_opts;
      if(!ckg_geshi_langopts.match(/ENotfound/)) {
         ckg_geshi_langopts = ckg_geshi_langopts.split(';;');
@@ -139,9 +113,6 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                             style: t_display,
                                             label: editor.lang.geshi.lang || 'Programming Language',
                                             width: '175px',
-                                            onLoad: function() {
-                                                //this.style = "display:block";
-                                            },
                                             validate: CKEDITOR.dialog.validate.notEmpty(editor.lang.geshi.lang_empty)
                                         },
                                         {
@@ -149,7 +120,6 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                             id: 'file',
                                             label: editor.lang.geshi.file || 'File name',
                                             width: '175px',
-                                          //  validate: CKEDITOR.dialog.validate.notEmpty(editor.lang.geshi.lang_empty)
                                         },                                        
                                         {
                                             type: 'radio',
@@ -193,7 +163,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
              var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
              if(!p_lang) p_lang = dialog.getValueOf( 'tab-basic', 'language' );
              if(!p_lang) return;
-             alert(p_lang)
+           
              if(which == 'block') {
                  retval = '<pre class="code' + p_lang+ '">' + text + '</pre>';
              }
