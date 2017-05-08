@@ -165,7 +165,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
              if(!p_lang) return;
            
              if(which == 'block') {
-                 retval = '<pre class="code' + p_lang+ '">' + text + '</pre>';
+                 retval = '<pre class="code ' + p_lang+ '">' + text + '</pre>';
              }
              else retval = downloadable_header(p_lang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
              editor.insertHtml(retval);
