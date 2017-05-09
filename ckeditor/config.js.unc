@@ -231,6 +231,32 @@ var get_ckgeditor_version = function() {
             'html'
         );
 }
+
+  var SelectOptions = function() {
+         var retv;                  
+         config.jquery.ajax(
+          top.DOKU_BASE + '/lib/exe/ajax.php',         
+          {
+            data:
+              {
+                call: 'geshi_sel'
+              },
+            type: "GET",        
+            dataType: "html",
+            success: function(data, textStatus, jqXHR)
+              {
+                  config.geshi_opts = data;                  
+              },
+            error: function(jqXHR, textStatus, errorThrown )
+              {
+                alert(textStatus);
+                alert(errorThrown);
+              }
+          }
+        );
+      //  return retv;
+    };
+    SelectOptions();
 config.filebrowserWindowWidth='60%';
 config.filebrowserWindowHeight = '60%';
 //config.filebrowserWindowFeatures = 'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes,left=20';
