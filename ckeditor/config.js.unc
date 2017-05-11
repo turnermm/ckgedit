@@ -235,7 +235,7 @@ var get_ckgeditor_version = function() {
   var SelectOptions = function() {
          var retv;                  
          config.jquery.ajax(
-          top.DOKU_BASE + '/lib/exe/ajax.php',         
+          config.doku_url + 'lib/exe/ajax.php',
           {
             data:
               {
