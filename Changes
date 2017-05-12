@@ -1,4 +1,4 @@
-rev_17-May_08-11_32
+rev_17-May_12-09_14
 
 28 Feb 2013
 Added support for interwiki links
@@ -1061,3 +1061,6 @@ Put Geshi language selection in variable (code block language  had been hard-cod
 
 May 8
 Prepare for merge with master
+
+Maay 12
+Fixed ajax path error in config.js (for new Geshi plugin)
