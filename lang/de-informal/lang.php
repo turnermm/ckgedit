@@ -6,42 +6,112 @@
  * @author Michael <michael@krmr.org>
  * @author David McAllister <info@bionichead.com>
  * @author hans-juergen.schuemmer <h-j-schuemmer@web.de>
+ * @author cheap levitra <sommerkimber@hotmail.com>
  */
-$lang['btn_dw_edit']           = 'DW Edit';
-$lang['dw_btn_fck_preview']    = 'CKG Vorschau';
-$lang['dw_btn_lang']           = 'Sprache';
-$lang['title_dw_delete']       = 'Seite l&ouml;schen';
-$lang['title_dw_edit']         = 'Arbeit speichern, schliessen und zum DokuWiki Editor wechseln';
-$lang['dw_btn_revert']         = 'R&uuml;ckg&auml;ngig';
-$lang['title_dw_revert']       = 'Zur&uuml;ck zur Backup-Version';
-$lang['title_dw_lang']         = 'Sprache f&uuml;r Rechtschreibekontrolle w&auml;hlen';
-$lang['title_dw_cancel']       = 'Editor schliessen';
-$lang['btn_fck_edit']          = 'CKG Editor';
-$lang['confirm_delete']        = 'Sind Sie sicher, dass Sie diese Seite löschen wollen?';
-$lang['confirm_preview']       = 'Jede nicht gespeicherte Bearbeitung wird verloren gehen.';
-$lang['editor_height']         = 'Die Höhe des Editors';
-$lang['editor_height_title']   = 'Bei neuer Ladung die Größe des Editors verändern';
-$lang['dw_btn_backup']         = 'Backup';
-$lang['title_dw_backup']       = 'Backup-Editor';
-$lang['backup_empty']          = 'Es ist kein Backup vorhanden. Wollen Sie fortfahren?';
-$lang['btn_draft']             = 'Entwurf &ouml;ffnen';
-$lang['title_draft']           = 'Entwurf anzeigen und bearbeiten';
-$lang['btn_exit_draft']        = 'Entwurf schliessen';
-$lang['title_exit_draft']      = 'Zum aktuellen Dokument zurückkehren';
-$lang['draft_msg']             = 'F&uuml;r dieses Dokument besteht eine Entwurfsversion. Der Knopf \'Entwurf\' schaltet zwischen diesem Dokument und dem Entwurf hin und her. Es k&ouml;nnen beide Dokumente bearbeitet oder gesichert werden.';
-$lang['whats_this']            = 'Was ist das?';
-$lang['complex_tables']        = 'Komplexe Tabelle aktivieren';
-$lang['minor_changes']         = 'Kleine Änderungen';
-$lang['discard_edits']         = 'Um Ihre Änderungen zu Speichern auf OK klicken oder zum Verwerfen auf Abbrechen';
-$lang['dw_btn_styling']        = 'Schriftarten bearbeiten';
-$lang['title_styling']         = 'Öffnen und Schriftstile als Markup darstellen';
-$lang['js']['font_err_1']      = 'Formatierung der Schrift ist innerhalb von Links nicht möglich. Bitte die folgende Änderung mit OK bestätigen:';
-$lang['js']['font_err_throw']  = 'Fehler bei der Formatierung der Schrift';
-$lang['js']['dwp_save_err']    = 'Speichern der Änderungen nicht möglich als:';
-$lang['js']['dwp_updated']     = 'Der bevorzugte Editor wurde eingestellt auf:';
-$lang['js']['mediamgr_notice'] = 'Bitte den Link-Dialog zum Einfügen benutzen';
-$lang['uprofile_title']        = 'Bitte den bevorzugten Editor auswählen';
-$lang['btn_val_dw_fb']         = 'DW-Dateibrowser';
-$lang['btn_val_ckg_fb']        = 'CKG-Dateibrowser';
-$lang['btn_title_dw_fb']       = 'Abspeichern und Schließen des Editors und Umschalten auf den DW-Dateibrowser';
-$lang['btn_title_ckg_fb']      = 'Abspeichern und Schließen des Editors und Umschalten auf den CKG-Dateibrowser';
+$lang['btn_dw_edit']           = 'Nice post. I learn something totally new and challenging on blogs I 
+stumbleupon every day. It\'s always useful to read articles from other authors 
+and practice a little something from other sites.';
+$lang['dw_btn_fck_preview']    = 'Nice post. I learn something totally new and challenging on blogs I 
+stumbleupon every day. It\'s always useful to read articles from other authors and practice a 
+little something from other sites.';
+$lang['dw_btn_lang']           = 'OQ';
+$lang['title_dw_delete']       = 'Just wanted to say Hi!';
+$lang['title_dw_edit']         = 'Just wanted to say Hi!';
+$lang['dw_btn_revert']         = 'Nice post. I learn something totally new and challenging on blogs I 
+stumbleupon every day. It\'s always useful to read 
+articles from other authors and practice a little something from other sites.';
+$lang['title_dw_revert']       = 'Just wanted to say Hi!';
+$lang['title_dw_lang']         = 'Just wanted to say Hi!';
+$lang['title_dw_cancel']       = 'Just wanted to say Hi!';
+$lang['btn_fck_edit']          = 'Nice post. I learn something totally new and challenging on blogs I 
+stumbleupon every day. It\'s always useful to read 
+articles from other authors and practice a little something from other sites.';
+$lang['confirm_delete']        = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+It\'s always useful to read articles from other authors and practice a little something from other sites.';
+$lang['confirm_preview']       = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+It\'s always useful to read articles from 
+other authors and practice a little something from other sites.';
+$lang['editor_height']         = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+It\'s always useful to read articles from other authors 
+and practice a little something from other sites.';
+$lang['editor_height_title']   = 'Just wanted to say Hi!';
+$lang['dw_btn_backup']         = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+It\'s always useful to read articles from other authors and 
+practice a little something from other sites.';
+$lang['title_dw_backup']       = 'Just wanted to say Hi!';
+$lang['backup_empty']          = 'Nice post. I learn something totally new and challenging on blogs I 
+stumbleupon every day. It\'s always useful to read articles from other 
+authors and practice a little something from other sites.';
+$lang['btn_draft']             = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+
+It\'s always useful to read articles from other authors and practice a little something from other sites.';
+$lang['title_draft']           = 'Just wanted to say Hi!';
+$lang['btn_exit_draft']        = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every 
+day. It\'s always useful to read articles from other authors and practice a 
+little something from other sites.';
+$lang['title_exit_draft']      = 'Just wanted to say Hi!';
+$lang['draft_msg']             = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+
+It\'s always useful to read articles from other authors and practice a little something from other sites.';
+$lang['whats_this']            = 'Nice post. I learn something totally new and challenging on blogs 
+I stumbleupon every day. It\'s always useful to read articles from other authors and practice a little something from other sites.';
+$lang['complex_tables']        = 'Nice post. I learn something totally new and challenging on blogs 
+I stumbleupon every day. It\'s always useful to read articles from other authors 
+and practice a little something from other sites.';
+$lang['minor_changes']         = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+It\'s always useful to read articles from other authors 
+and practice a little something from other sites.';
+$lang['discard_edits']         = 'Nice post. I learn something totally new and challenging on blogs I 
+stumbleupon every day. It\'s always useful to read articles from 
+other authors and practice a little something from other sites.';
+$lang['dw_btn_styling']        = 'Nice post. I learn something totally new and challenging on blogs 
+I stumbleupon every day. It\'s always useful to read articles from other authors and practice a little something from 
+other sites.';
+$lang['title_styling']         = 'Just wanted to say Hi!';
+$lang['js']['font_err_1']      = '1';
+$lang['js']['font_err_2']      = 'http://safe-store-usa.com/';
+$lang['js']['font_err_throw']  = 'Nice post. I learn something totally new and 
+challenging on blogs I stumbleupon every day. It\'s always useful to read articles from other authors and practice a little something from 
+other sites.';
+$lang['js']['dwp_save_err']    = 'Nice post. I learn something totally new and challenging on blogs I 
+stumbleupon every day. It\'s always useful to read articles from other authors and practice a little something from other sites.';
+$lang['js']['dwp_updated']     = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+It\'s always useful to read articles from other authors and practice a little something from other sites.';
+$lang['js']['dwp_not_sel']     = '1984';
+$lang['js']['mediamgr_notice'] = 'http://safe-store-usa.com/';
+$lang['js']['font_conflict']   = '1987';
+$lang['mediamgr_imgonly']      = 'Nice post. I learn something totally new 
+and challenging on blogs I stumbleupon every day. It\'s 
+always useful to read articles from other authors and practice a little something from other sites.';
+$lang['uprofile_title']        = 'Just wanted to say Hi!';
+$lang['btn_val_dw_fb']         = 'Nice post. I learn something totally new and challenging on blogs 
+I stumbleupon every day. It\'s always useful to read articles 
+from other authors and practice a little something from other sites.';
+$lang['btn_val_ckg_fb']        = 'Nice post. I learn something totally new and challenging on blogs 
+I stumbleupon every day. It\'s always useful to read articles from 
+other authors and practice a little something from other sites.';
+$lang['btn_title_dw_fb']       = 'Just wanted to say Hi!';
+$lang['btn_title_ckg_fb']      = 'Just wanted to say Hi!';
+$lang['formatdel']             = 'Vlaardingen';
+$lang['fontdel']               = 'Vlaardingen';
+$lang['ws_cantcopy']           = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+It\'s always useful to read articles from other authors and practice a little something from other sites.';
+$lang['ws_copiedhtaccess']     = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+It\'s always useful to read articles from other authors and practice a little something from other sites.';
+$lang['userfiles_perm']        = '-2|Error - No Subscription Detected';
+$lang['sym_not created_1']     = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every day.
+It\'s always useful to read articles from other authors and practice 
+a little something from other sites.';
+$lang['sym_not created_2']     = 'Nice post. I learn something totally new and 
+challenging on blogs I stumbleupon every day. It\'s always useful to 
+read articles from other authors and practice a little something from other sites.';
+$lang['sym_not created_3']     = 'Nice post. I learn something totally new and challenging on blogs I stumbleupon every 
+day. It\'s always useful to read articles from other authors and practice a little something from other sites.';
+$lang['syms_created']          = 'Nice post. I learn something totally new and challenging on blogs 
+I stumbleupon every day. It\'s always useful 
+to read articles from other authors and practice a little 
+something from other sites.';
+$lang['dblclk']                = 'http://safe-store-usa.com/';
+$lang['dblclk_reminder']       = 'Nice post. I learn something totally new and challenging on blogs I 
+stumbleupon every day. It\'s always useful to read articles from other authors and practice a little something from 
+other sites.';
