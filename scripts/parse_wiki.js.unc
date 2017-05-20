@@ -179,6 +179,7 @@ function parse_wikitext(id) {
     var HTMLAcroInList = false;
     var HTML_InterWiki = false;
     var HTMLParserFont = false;   
+    HTMLLinkInList = false;
     var HTMLParserFontInfix = false;   
     var CurrentTable;
 
@@ -1038,7 +1039,9 @@ function parse_wikitext(id) {
                 this.prev_list_level = -1;
              }
           }
-
+          if(tag == 'a' && this.list_level) {
+             HTMLLinkInList = true;
+          }
           if(tag == 'a' &&  local_image) {
                  this.xcl_markup = true;
                  return;
@@ -1703,6 +1706,15 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
          }
     }
 
+         /* fix for links in lists, at ends of lines, which cause loss of line-feeds */
+     if(HTMLLinkInList) {
+         results = results.replace(/(\]\]|\}\})(\s+)(\*|-)/mg,
+                 function(match,link,spaces,type) {                
+                  spaces =  spaces.replace(/\n/,"");              
+                 return (link + "\n" + spaces+type);
+           });      
+    }
+    
     var line_break_final = "\\\\";   
     if(HTMLParser_LBR) {		
         results = results.replace(/(L_BR_K)+/g,line_break_final);		
