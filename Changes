@@ -1068,3 +1068,5 @@ Fixed ajax path error in config.js (for new Geshi plugin)
 May 18
 Fixed broken list when li contains links
 
+May 25
+Config option to disable double click
