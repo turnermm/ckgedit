@@ -1,9 +1,9 @@
 /**
- * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.html or http://ckeditor.com/license
+ * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
- CKEDITOR.editorConfig = function( config ) {
+CKEDITOR.editorConfig = function( config ) {
 
 config.keystrokes = [
 
@@ -82,7 +82,7 @@ config.colors = new Array(
 );
 
      
-      var ckedit_path =  window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
+    var ckedit_path =  window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
       config.doku_url = window.location.protocol+ '//' + top.dokuBase;
       config.ckedit_path = window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
       config.jquery = top.jQuery;
@@ -104,7 +104,7 @@ config.colors = new Array(
      var font_assist = 'FontAssist';
      //config.removeButtons = 'TextColor,BGColor, FontAssist,Font,FontSize';
      if(config.removeButtons.match(/FontAssist/)) font_assist = "";
-
+    config.skin = 'moono';
      config.ToolBarItemsAlt = {  
      'Signature':'Signature' ,'Footnotes':'Footnotes', 'Tags':""
      };
@@ -117,13 +117,13 @@ config.colors = new Array(
      if(xtra) {
          config.ToolBarItemsExtra = xtra.split(','); 
      }
-     
-    config.toolbar_Dokuwiki =
+    
+  config.toolbar_Dokuwiki =
 	[
 	{name: 'header_buttons', items: ['same_header', 'lower_header', 'higher_header', 'none_header']},
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },        
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes'],config.ToolBarItemsAlt['Tags'] ]},           
+		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },    
+		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes'],config.ToolBarItemsAlt['Tags'] ]},                  
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
@@ -133,9 +133,9 @@ config.colors = new Array(
 		{ name: 'tools', items : ['Source', 'Maximize','-','About'] },
          {name: 'extras', items: config.ToolBarItemsExtra }
        
-	];
-    
-        config.toolbar_DokuwikiNoGuest =
+	];    
+	
+     config.toolbar_DokuwikiNoGuest =
 	[
 		{ name: 'styles', items : [ 'Source'] },
 		{ name: 'tools', items : [ 'About' ] }
@@ -152,9 +152,9 @@ config.colors = new Array(
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'tools', items : [ 'Maximize','-','About' ] },
-	];
-	
-config.dokuSmileyPath = 'http://' + top.dokuBase + 'lib/images/smileys/';    
+	];    
+  
+ config.dokuSmileyPath = 'http://' + top.dokuBase + 'lib/images/smileys/';    
 config.dokuSmileyImages	=
                           [['8-)','icon_cool.gif'],
                       	  ['8-O','icon_eek.gif'],                      	
@@ -208,6 +208,7 @@ function do_smileys() {
             'html'
         );
 }
+
 config.removePlugins = 'liststyle';
 config.dokuFixmeSmiley = new Array();
 config.dokuLargeSmiley = new Array();
@@ -261,28 +262,7 @@ config.filebrowserWindowWidth='60%';
 config.filebrowserWindowHeight = '60%';
 //config.filebrowserWindowFeatures = 'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes,left=20';
 
-get_ckgeditor_version();   
-
-//	config.removeButtons = 'Underline,Subscript,Superscript,Anchor';
-// This is actually the default value.
-/*
-config.toolbar_Full =
-[
-    { name: 'document',    items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
-    { name: 'clipboard',   items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-    { name: 'editing',     items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
-    { name: 'forms',       items : [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
-    '/',
-    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-    { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
-    { name: 'links',       items : [ 'Link','Unlink','Anchor' ] },
-    { name: 'insert',      items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
-    '/',
-    { name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
-    { name: 'colors',      items : [ 'TextColor','BGColor' ] },
-    { name: 'tools',       items : [ 'Maximize', 'ShowBlocks','-','About' ] }
-];
-*/
+get_ckgeditor_version(); 
 
 CKEDITOR.lang['default'] = {};
 CKEDITOR.lang['default']['fbrowser'] = {
@@ -384,4 +364,4 @@ ToolTip: 'Insert signature'
 
 config.allowedContent = true;
 
-};
+};  //end config.js
