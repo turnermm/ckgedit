@@ -1,4 +1,4 @@
-rev_17-May_19-20_06
+rev_17-May_31-19_49
 
 28 Feb 2013
 Added support for interwiki links
@@ -1068,3 +1068,5 @@ Fixed ajax path error in config.js (for new Geshi plugin)
 May 18
 Fixed broken list when li contains links
 
+May 31
+Fix for code blocks disappearing from tables on reload into editor

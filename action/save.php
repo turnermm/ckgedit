@@ -210,7 +210,14 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
         $TEXT 
     );
 
-
+      /* remove extra line-feeds following in-table code blocks */ 
+      $TEXT = preg_replace_callback(
+       '#(code|file)\>\s*.*?\n?\|#ms',
+       function($matches) {         
+         return  str_replace("\\", "",$matches[0]);              
+      },
+      $TEXT     
+      );
          return;
     
     }

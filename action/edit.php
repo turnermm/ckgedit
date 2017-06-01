@@ -322,7 +322,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             -- in particular tables which require a new line and margin left 
            this may leave an empty paragraph in the xhtml, which is removed below 
          */
-          $text = preg_replace('/<\/(code|file)>(\s*)(?=[^\w])(\s*)/m',"</$1>\n_ckgedit_NPBBR_\n$2",$text );
+         //handled in save.php
+       //   $text = preg_replace('/<\/(code|file)>(\s*)(?=[^\w])(\s*)/m',"</$1>\n_ckgedit_NPBBR_\n$2",$text );  
 
           $text = preg_replace_callback(
              '/~~START_HTML_BLOCK~~.*?CLOSE_HTML_BLOCK/ms',
