@@ -1,4 +1,4 @@
-rev_17-May_31-19_49
+rev_17-Jun_01-07_05
 
 28 Feb 2013
 Added support for interwiki links
@@ -1070,3 +1070,6 @@ Fixed broken list when li contains links
 
 May 31
 Fix for code blocks disappearing from tables on reload into editor
+
+June 1
+Fix for snippets
