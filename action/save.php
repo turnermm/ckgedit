@@ -218,7 +218,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
       },
       $TEXT     
       );
-      
+      /* reformat table cell after removing extra line-feeds, above */
     $TEXT = preg_replace_callback(  
          '#\|[\s\n]+(\<file.*?\>)(.*?)(\<\/file>\s*.*?)\n?\|#ms',   
          function($matches) {  
