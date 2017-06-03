@@ -69,7 +69,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                 call: 'iwiki_list'
               },
             type: "POST",
-            async: false,
+            async: true,
             dataType: "json",
             success: function(data, textStatus, jqXHR)
               {
@@ -141,7 +141,7 @@ var useHeading = function(wiki_id) {
          var params="dw_id=" +encodeURIComponent(wiki_id);
          editor.config.jquery.ajax({
            url: editor.config.ckedit_path + "useheading.php",
-           async: false,
+           async: true,
            data: params,    
            type: 'POST',
            dataType: 'html',         

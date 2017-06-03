@@ -122,7 +122,7 @@ config.colors = new Array(
 	[
 	{name: 'header_buttons', items: ['same_header', 'lower_header', 'higher_header', 'none_header']},
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },    
+		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-'] },    
 		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes'],config.ToolBarItemsAlt['Tags'] ]},                  
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
@@ -145,7 +145,7 @@ config.colors = new Array(
     config.toolbar_DokuwikiGuest =
 	[
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },        
+		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll'] },        
 		{ name: 'insert', items : [ 'Table','HorizontalRule','Smiley','SpecialChar', 'Footnotes'] },              		
 		{ name: 'styles', items : [ 'Format', 'Styles' ] },
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
