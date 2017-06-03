@@ -1,4 +1,4 @@
-rev_17-Jun_01-15_16
+rev_17-Jun_03-08_01
 
 28 Feb 2013
 Added support for interwiki links
@@ -1078,6 +1078,9 @@ June 1
 Fix for snippets
 Synched with bintbl (May 31, June 1)
 Fixed cell where snippet together with text breaks cell
+
+June 3
+Removed class attribute from "remove block" in ckeditor/styles.js, causes type error.
 
 
 
