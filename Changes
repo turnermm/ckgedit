@@ -1,4 +1,4 @@
-rev_17-Jun_03-08_01
+rev_17-Jun_03-09_46
 
 28 Feb 2013
 Added support for interwiki links
@@ -1081,6 +1081,10 @@ Fixed cell where snippet together with text breaks cell
 
 June 3
 Removed class attribute from "remove block" in ckeditor/styles.js, causes type error.
+Moved styles.js to correct folder from root
+fixed missing value for font-family after re-load
+
+
 
 
 
