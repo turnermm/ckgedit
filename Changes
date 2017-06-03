@@ -1076,3 +1076,10 @@ Fix for snippets
 Synched with bintbl (May 31, June 1)
  Fixed cell where snippet together with text breaks cell
  
+June 2
+ Added dblclk option
+ 
+June 3
+Moved styles.js to correct folder from root
+fixed missing value for font-family after re-load
+

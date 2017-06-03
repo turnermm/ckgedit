@@ -9,8 +9,10 @@ Same type of error occurred when I removed scayt plugin folder.  If ckeditgor mi
 it must output the path if the mssing folder which then gets prepended to the filebrowser path.
 
 Removed class attribute from Styles.js->Remove Block; causes type error
+FIXED: Note:  Font-style being removed on re-load, check pre-processor
 
-Note:  Font-style being removed on re-load, check pre-processor
+Added dblcik option
+
 
 
   
