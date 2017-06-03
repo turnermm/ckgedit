@@ -37,3 +37,4 @@ $meta['mfiles'] = array('onoff');
 $meta['extra_plugins'] = array('string');
 $meta['captcha_auth'] = array('multichoice','_choices' => array('READ','EDIT','CREATE','UPLOAD','DELETE','ADMIN'));
 $meta['htmlblock_ok'] = array('onoff');
+$meta['dblclk'] = array('multichoice','_choices' => array('on','off'));

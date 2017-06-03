@@ -1094,7 +1094,7 @@ $text = preg_replace_callback(
                $count = 0; $str='';
               if($matches[3] && $matches[3] != 'inherit') { $str .= '<span style = "color:' . $matches[3] .'">'; $count++;} 
               if($matches[1] && $matches[1] != 'inherit') { $str .= '<span style = "font-size:' . $matches[1] .'">'; $count++; } 
-              if($matches[2] && $matches[2] != 'inherit') { $str .= '<span style = "font-family:' . $matches[1] .'">'; $count++; } 
+              if($matches[2] && $matches[2] != 'inherit') { $str .= '<span style = "font-family:' . $matches[2] .'">'; $count++; } 
               if($matches[4] && $matches[4] != 'inherit') { $str .= '<span style = "background-color:' . $matches[4] .'">'; $count++; }  
               $str .= $matches[5];              
               for($i =0; $i<$count; $i++) {
