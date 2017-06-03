@@ -8,4 +8,9 @@ Fixed bad filebrowser initial path by restoring tableselection plugin folder whi
 Same type of error occurred when I removed scayt plugin folder.  If ckeditgor misses an expected folder,
 it must output the path if the mssing folder which then gets prepended to the filebrowser path.
 
+Removed class attribute from Styles.js->Remove Block; causes type error
+
+Note:  Font-style being removed on re-load, check pre-processor
+
+
   
