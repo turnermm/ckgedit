@@ -1084,6 +1084,8 @@ Removed class attribute from "remove block" in ckeditor/styles.js, causes type e
 Moved styles.js to correct folder from root
 fixed missing value for font-family after re-load
 
+Jun 10
+Synched smiley url in config.js to previously defined config.doku_url
 
 
 
