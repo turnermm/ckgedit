@@ -154,7 +154,7 @@ config.colors = new Array(
 		{ name: 'tools', items : [ 'Maximize','-','About' ] },
 	];    
   
- config.dokuSmileyPath = 'http://' + top.dokuBase + 'lib/images/smileys/';    
+config.dokuSmileyPath = config.doku_url + 'lib/images/smileys/';  
 config.dokuSmileyImages	=
                           [['8-)','icon_cool.gif'],
                       	  ['8-O','icon_eek.gif'],                      	
