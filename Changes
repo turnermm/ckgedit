@@ -1,4 +1,4 @@
-rev_17-Jun_12-08_58
+rev_17-Jun_12-09_28
 
 28 Feb 2013
 Added support for interwiki links
@@ -1089,6 +1089,7 @@ Synched smiley url in config.js to previously defined config.doku_url
 
 June 12
 Updated scripts/script-cmpr.js
+Support for canonical urls
 
 
 

@@ -622,7 +622,8 @@ function check_userfiles() {
        }
        $onoff = $this->getConf('dblclk');
        if($onoff == 'off') $JSINFO['ckg_dbl_click'] = "";
-
+       $JSINFO['ckg_canonical'] =$conf['canonical'];
+        $JSINFO['doku_base'] = DOKU_BASE;
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
