@@ -1,4 +1,4 @@
-rev_17-Jun_05-09_53
+rev_17-Jun_12-09_40
 
 28 Feb 2013
 Added support for interwiki links
@@ -1083,3 +1083,5 @@ June 3
 Moved styles.js to correct folder from root
 fixed missing value for font-family after re-load
 
+June 12
+Support for canonical

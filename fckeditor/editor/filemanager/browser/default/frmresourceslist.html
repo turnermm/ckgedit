@@ -327,6 +327,9 @@ function OpenFile( fileUrl )
     }
     if(isDwikiImage) {
       if(DwikiFNencode == 'url')  fileUrl=encodeURI(encodeURI(fileUrl));    
+        if(window.top.opener.JSINFO['ckg_canonical'] ) {
+            fileUrl = window.location.protocol +'//' + window.location.host + fileUrl;
+        }
     }
     window.top.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl);
     if(isInternalLink) {  
