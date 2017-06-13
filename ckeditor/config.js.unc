@@ -82,9 +82,17 @@ config.colors = new Array(
 );
 
      
-      var ckedit_path =  window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
+     var ckedit_path;    
+     if(top.JSINFO['ckg_canonical']) {     
+          ckedit_path =  top.DOKU_BASE + 'lib/plugins/ckgedit/ckeditor/';
+          config.doku_url = top.DOKU_BASE;
+          config.ckedit_path = top.DOKU_BASE + 'lib/plugins/ckgedit/ckeditor/';
+     }
+     else {
+      ckedit_path =  window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
       config.doku_url = window.location.protocol+ '//' + top.dokuBase;
       config.ckedit_path = window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
+     }
       config.jquery = top.jQuery;
     //  config.format_code = { element : 'code', attributes : { 'class' : 'dwcode' } };
 	// Define changes to default configuration here.
