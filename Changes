@@ -1091,6 +1091,8 @@ June 12
 Updated scripts/script-cmpr.js
 Support for canonical urls
 
+June 13
+Automatic adding of extra plugins to config.extraPlugins
 
 
 

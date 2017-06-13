@@ -124,6 +124,9 @@ config.colors = new Array(
      config.ToolBarItemsExtra = "";
      if(xtra) {
          config.ToolBarItemsExtra = xtra.split(','); 
+         if(xtra) {
+           config.extraPlugins +=  ',' + xtra.toLowerCase();         
+         }                
      }
      
     config.toolbar_Dokuwiki =
