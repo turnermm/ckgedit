@@ -1,0 +1,16 @@
+CKEDITOR.plugins.setLang("wrap","fr",{
+		 title: 'Extension Wrap',
+		 column: 'colonnes',
+		 box: 'bloc simple',
+		 info: 'bloc information',
+		 tip: 'bloc astuce',
+		 important: 'bloc important',
+		 alert: 'bloc alerte',
+		 help: 'bloc aide',
+		 download: 'bloc téléchargement',
+		 todo: 'bloc à faire',
+		 clear: 'rétablir le flux après un élément flottant',
+		 em: 'particulièrement important',
+		 hi: 'important',
+		 lo: 'peu important',
+});

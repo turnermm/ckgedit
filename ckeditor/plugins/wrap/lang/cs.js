@@ -1,0 +1,16 @@
+CKEDITOR.plugins.setLang("wrap","cs",{
+		 title: 'Zásuvný modul Wrap',
+		 column: 'sloupce',
+		 box: 'jednoduchý vystředěný rámeček',
+		 info: 'informační rámeček',
+		 tip: 'rámeček s radou',
+		 important: 'důležitý rámeček',
+		 alert: 'výstražný rámeček',
+		 help: 'pomocný rámeček',
+		 download: 'rámeček s odkazem ke stažení',
+		 todo: 'rámeček úkolu',
+		 clear: 'clear floats',
+		 em: 'zvláštně zdůrazněné',
+		 hi: 'zvýrazněné',
+		 lo: 'méně důležité',
+});

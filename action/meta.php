@@ -88,7 +88,6 @@ function _ajax_call(Doku_Event $event, $param) {
           $event->preventDefault();
          global $INPUT;
          $which = $INPUT->str('lang');
-         $path = '/var/www/html/devel/lib/plugins/wrap/lang/';
          $path = DOKU_PLUGIN . 'wrap/lang/' . $which . '/lang.php';
          if(file_exists($path)) {   
                 $data = file($path, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES );

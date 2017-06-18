@@ -1,0 +1,16 @@
+CKEDITOR.plugins.setLang("wrap","da",{
+		 title: 'Wrap Plugin',
+		 column: 'række',
+		 box: 'simpel centreret boks',
+		 info: 'info boks',
+		 tip: 'tip boks',
+		 important: 'vigtig boks',
+		 alert: 'alarm boks',
+		 help: 'hjælp boks',
+		 download: 'download boks',
+		 todo: 'todo boks',
+		 clear: 'ryd flydere',
+		 em: 'specielt fremhævet',
+		 hi: 'fremhævet',
+		 lo: 'mindre vigtigt',
+});

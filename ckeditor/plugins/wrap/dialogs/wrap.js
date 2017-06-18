@@ -1,22 +1,23 @@
 CKEDITOR.dialog.add( 'wrapDialolg', function( editor ) {   
     var wr_lang  = editor.config.wrap_lang;
+    var installed_lang =editor.lang.wrap;
     var icon_path =  DOKU_BASE + 'lib/plugins/wrap/images/';  
     var toolbar_path =  icon_path + 'toolbar/';
     var icons16_path =  icon_path +  'note/16/';   
     
-    var cols = wr_lang['column'] || 'columns';
-    var box = wr_lang['box'] || 'simple centered box';
-    var info_box = wr_lang['info'] || 'info box';
-     var tip_box = wr_lang['tip'] || 'tip box';
-     var important_box = wr_lang['important'] || 'important box';     
-     var alert_box = wr_lang['alert'] || 'alert box';
-     var help_box = wr_lang['help'] || 'help box';     
-     var download_box = wr_lang['download'] || 'download box';     
-     var todo_box = wr_lang['todo'] || 'todo box';          
-     var clear_floats = wr_lang['clear'] || 'todo box';               
-     var emphasized = wr_lang['em'] || 'especially emphasised';                    
-     var highlighted = wr_lang['hi'] || 'highlighted';                         
-     var less_significant = wr_lang['lo'] || 'less significant';                              
+    var cols = installed_lang['column'] || wr_lang['column'] ||  'columns';
+    var box = installed_lang['box'] ||  wr_lang['box'] || 'simple centered box';
+    var info_box = installed_lang['info'] ||  wr_lang['info']  || 'info box';
+     var tip_box = installed_lang['tip'] ||  wr_lang['tip'] ||  'tip box';
+     var important_box = installed_lang['important'] ||  wr_lang['important']  || 'important box';     
+     var alert_box = installed_lang['alert'] ||  wr_lang['alert']  || 'alert box';
+     var help_box = installed_lang['help'] ||  wr_lang['help']  || 'help box';     
+     var download_box = installed_lang['download'] ||  wr_lang['download']  || 'download box';     
+     var todo_box = installed_lang['todo'] ||  wr_lang['todo']  || 'todo box';          
+     var clear_floats = installed_lang['clear'] ||  wr_lang['clear']  || 'clear floats';               
+     var emphasized = installed_lang['em'] ||  wr_lang['em'] ||  'especially emphasised';                    
+     var highlighted = installed_lang['hi'] ||  wr_lang['hi']  || 'highlighted';                         
+     var less_significant = installed_lang['lo'] ||  wr_lang['lo'] || 'less significant';                              
     var Columns = '<img src= "' + toolbar_path + 'column.png" title="' +cols+'">';
     var Box = '<img src= "' + toolbar_path + 'box.png" title="' +box + '">';
     var InfoBox = '<img src= "' +  icons16_path + 'info.png" title="'+info_box+'">';
