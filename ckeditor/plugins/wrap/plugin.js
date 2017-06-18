@@ -4,7 +4,7 @@ CKEDITOR.plugins.add( 'wrap', {
         //Plugin logic goes here.
 		editor.addCommand( 'wrap', new CKEDITOR.dialogCommand( 'wrapDialolg' ) );	
 		editor.ui.addButton( 'Wrap', {
-			label: editor.config.wrap_lang.title, 
+			label: "Wrap Plugin", 
 			command: 'wrap',
 			toolbar: 'insert',
 			icon: this.path + 'icons/wrap.png', 
