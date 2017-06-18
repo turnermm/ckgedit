@@ -1,4 +1,4 @@
-rev_17-Jun_13-10_25
+rev_17-Jun_18-18_44
 
 28 Feb 2013
 Added support for interwiki links
@@ -1093,6 +1093,10 @@ Support for canonical urls
 
 June 13
 Automatic adding of extra plugins to config.extraPlugins
+
+June 18
+merged wrap_2 into master
+
 
 
 
