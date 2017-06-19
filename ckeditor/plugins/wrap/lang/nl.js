@@ -1,0 +1,16 @@
+CKEDITOR.plugins.setLang("wrap","nl",{
+		 title: 'Wrap Plugin',
+		 column: 'kolommen',
+		 box: 'simpele gecentreerde blok',
+		 info: 'informatie blok',
+		 tip: 'tip blok',
+		 important: 'belangrijk blok',
+		 alert: 'waarschuwingsblok',
+		 help: 'helpblok',
+		 download: 'downloadblok',
+		 todo: 'tedoen blok',
+		 clear: 'reset drijvende blokken (clear floats)',
+		 em: 'bijzonder benadrukken',
+		 hi: 'gemarkeerd',
+		 lo: 'minder belangrijk',
+});

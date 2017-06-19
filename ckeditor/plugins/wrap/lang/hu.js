@@ -1,0 +1,16 @@
+CKEDITOR.plugins.setLang("wrap","hu",{
+		 title: 'Wrap-csatoló',
+		 column: 'oszlopok',
+		 box: 'egyszerű, középre igazított doboz',
+		 info: 'információs doboz',
+		 tip: 'tippdoboz',
+		 important: 'fontos doboz',
+		 alert: 'figyelmeztető doboz',
+		 help: 'súgódoboz',
+		 download: 'letöltéshez doboz',
+		 todo: 'teendőhöz doboz',
+		 clear: 'float tiltása',
+		 em: 'különösen hangsúlyos',
+		 hi: 'kiemelt',
+		 lo: 'kevésbé fontos',
+});

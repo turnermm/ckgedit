@@ -1,0 +1,16 @@
+CKEDITOR.plugins.setLang("wrap","eo",{
+		 title: 'Wrap-kromaĵo',
+		 column: 'kolumnoj',
+		 box: 'simpla centrita skatolo',
+		 info: 'inform-skatolo',
+		 tip: 'konsil-skatolo',
+		 important: 'grava skatolo',
+		 alert: 'avert-skatolo',
+		 help: 'help-skatolo',
+		 download: 'elŝut-skatolo',
+		 todo: 'farendaĵ-skatolo',
+		 clear: 'liberigi la randojn',
+		 em: 'aparte emfazita',
+		 hi: 'markita',
+		 lo: 'malpli grava',
+});

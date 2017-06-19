@@ -1,0 +1,16 @@
+CKEDITOR.plugins.setLang("wrap","zh",{
+		 title: 'Wrap 插件',
+		 column: '分栏',
+		 box: '简单居中方框',
+		 info: '消息框',
+		 tip: '提示框',
+		 important: '重要信息方框',
+		 alert: '警告框',
+		 help: '帮助框',
+		 download: '下载框',
+		 todo: '待办事项方框',
+		 clear: '清除浮动',
+		 em: '特别强调',
+		 hi: '高亮',
+		 lo: '不重要',
+});

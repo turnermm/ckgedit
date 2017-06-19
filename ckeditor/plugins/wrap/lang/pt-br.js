@@ -1,0 +1,16 @@
+CKEDITOR.plugins.setLang("wrap","pt-br",{
+		 title: 'Plugin Wrap',
+		 column: 'coluna',
+		 box: 'caixa centralizada simples',
+		 info: 'caixa de informação',
+		 tip: 'caixa de sugestão',
+		 important: 'caixa importante',
+		 alert: 'caixa de alerta',
+		 help: 'caixa de ajuda',
+		 download: 'caixa de download',
+		 todo: 'caixa de tarefas a fazer',
+		 clear: 'limpar',
+		 em: 'especialmente enfatizado',
+		 hi: 'enfatizado',
+		 lo: 'menos significativo',
+});

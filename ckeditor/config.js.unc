@@ -100,7 +100,7 @@ config.colors = new Array(
      // config.scayt_autoStartup = true;      
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
       config.extraSpecialChars  = ['↔'];
-      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags,timestamp,headerbuttons,geshi'; //,devtools';
+      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags,timestamp,headerbuttons,geshi,wrap'; //,devtools';
       config.contentsLangDirection = '';
       if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
       config.pasteFromWordRemoveFontStyles = false;   // preserve font style when "paste from word"
@@ -112,16 +112,22 @@ config.colors = new Array(
      if(config.removeButtons.match(/FontAssist/)) font_assist = "";
     config.skin = 'moono';
      config.ToolBarItemsAlt = {  
-     'Signature':'Signature' ,'Footnotes':'Footnotes', 'Tags':""
+     'Signature':'Signature' ,'Footnotes':'Footnotes', 'Tags':"",'Wrap':""
      };
-   	if(top.hasTags()){
+
+    if (top.JSINFO['has_tags']) {
 		config.ToolBarItemsAlt['Tags']='Tags';
 	}
- 
+    if(top.JSINFO['has_wrap']) {
+        config.ToolBarItemsAlt['Wrap']='Wrap';
+    }
      var xtra = top.extra_plugins();
      config.ToolBarItemsExtra = "";
      if(xtra) {
          config.ToolBarItemsExtra = xtra.split(','); 
+         if(xtra) {
+           config.extraPlugins +=  ',' + xtra.toLowerCase();         
+         }                
      }
     
   config.toolbar_Dokuwiki =
@@ -129,7 +135,8 @@ config.colors = new Array(
 	{name: 'header_buttons', items: ['same_header', 'lower_header', 'higher_header', 'none_header']},
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-'] },    
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes'],config.ToolBarItemsAlt['Tags'] ]},                  
+		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes'],
+           config.ToolBarItemsAlt['Tags'],config.ToolBarItemsAlt['Wrap']]},        
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
@@ -160,6 +167,22 @@ config.colors = new Array(
 		{ name: 'tools', items : [ 'Maximize','-','About' ] },
 	];    
   
+config.wrap_lang;   
+var params =  'call=wrap_lang&lang=' + CKEDITOR.lang.detect( 'en' ) ;
+var get_wrap_lang = function() {
+    config.jquery.post(           
+           config.doku_url + 'lib/exe/ajax.php',
+            params ,
+            function (data,status) { 
+                if(status == "success") {
+                 config.wrap_lang = JSON.parse(data);                 
+                }
+                else alert('lang failed');               
+            },
+            'html'
+        );
+}
+get_wrap_lang();
 config.dokuSmileyPath = config.doku_url + 'lib/images/smileys/';  
 config.dokuSmileyImages	=
                           [['8-)','icon_cool.gif'],

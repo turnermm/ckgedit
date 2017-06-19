@@ -33,9 +33,6 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
        if(!plugin_isdisabled('captcha')) {    
            $this->captcha = true; 
         }
-        if( class_exists('GeSHi')) {         
-            if(defined('GESHI_LANG_ROOT') )  $geshi_dir =GESHI_LANG_ROOT;
-        }
   }
   /*
    * Register its handlers with the dokuwiki's event controller
@@ -86,6 +83,28 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   }
  
 function _ajax_call(Doku_Event $event, $param) { 
+     if ($event->data == 'wrap_lang') {  //choose profile editor priority
+         $event->stopPropagation();
+          $event->preventDefault();
+         global $INPUT;
+         $which = $INPUT->str('lang');
+         $path = DOKU_PLUGIN . 'wrap/lang/' . $which . '/lang.php';
+         if(file_exists($path)) {   
+                $data = file($path, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES );
+                array_shift($data);
+         }
+        $result = array();
+        for($i=0; $i<count($data); $i++) {      
+              list($name, $val) = explode('=',$data[$i]);
+              $name = str_replace('$lang',"",$name);   
+              $name = trim($name,' ][\'');
+              if($name == 'picker') $name ='title';   
+             $val = trim($val,' ;\'');              
+              $result[$name] = $val;    
+        }
+         echo json_encode($result);
+         return;
+       }
 
      if ($event->data == 'cked_selector') {  //choose profile editor priority
          $event->stopPropagation();
@@ -109,7 +128,7 @@ function _ajax_call(Doku_Event $event, $param) {
    if ($event->data == 'geshi_sel') {     //get geshi file names , return as ;; separated string w/o php extensions
       $event->stopPropagation();
        $event->preventDefault();
-      $gdir = '/var/www/html/devel/vendor/easybook/geshi/geshi/';
+  
        if( class_exists('GeSHi')) {         
             if(defined('GESHI_LANG_ROOT') )  $geshi_dir =GESHI_LANG_ROOT;
       }
@@ -624,6 +643,9 @@ function check_userfiles() {
        if($onoff == 'off') $JSINFO['ckg_dbl_click'] = "";
        $JSINFO['ckg_canonical'] =$conf['canonical'];
         $JSINFO['doku_base'] = DOKU_BASE;
+       if($this->helper->has_plugin('tag'))  $JSINFO['has_tags'] = "Tag";
+       if($this->helper->has_plugin('wrap'))  $JSINFO['has_wrap'] = "Wrap";
+        
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 

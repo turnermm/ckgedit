@@ -1,0 +1,16 @@
+CKEDITOR.plugins.setLang("wrap","ko",{
+		 title: 'Wrap 플러그인',
+		 column: '단',
+		 box: '간단한 가운데 상자',
+		 info: '정보 상자',
+		 tip: '팁 상자',
+		 important: '중요 상자',
+		 alert: '경고 상자',
+		 help: '도움말 상자',
+		 download: '다운로드 상자',
+		 todo: '할 일 상자',
+		 clear: '플로트 지우기',
+		 em: '특히 강조',
+		 hi: '강조',
+		 lo: '덜 중요함',
+});
