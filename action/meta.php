@@ -645,6 +645,17 @@ function check_userfiles() {
         $JSINFO['doku_base'] = DOKU_BASE;
        if($this->helper->has_plugin('tag'))  $JSINFO['has_tags'] = "Tag";
        if($this->helper->has_plugin('wrap'))  $JSINFO['has_wrap'] = "Wrap";
+        $wrap_helper =  plugin_load('helper',wrap);
+        $syntaxDiv = $wrap_helper->getConf('syntaxDiv');
+        if(!empty($syntaxDiv)) {
+            $JSINFO['wrapDiv'] = $syntaxDiv;
+          } 
+          else $JSINFO['wrapDiv'] = "";
+        $syntaxSpan = $wrap_helper->getConf('syntaxSpan');
+        if(!empty($syntaxSpan)) {
+            $JSINFO['wrapSpan'] = $syntaxSpan; 
+        }
+        else $JSINFO['wrapSpan'] = "";
         
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 

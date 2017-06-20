@@ -13,6 +13,9 @@ FIXED: Note:  Font-style being removed on re-load, check pre-processor
 
 Added dblcik option
 
+June 20
+Updated ckeditor's wrap to use dw wrap's config options
+
 
 
   

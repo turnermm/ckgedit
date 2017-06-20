@@ -49,7 +49,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   function has_plugin($plugin) {    
    static $plugins_list;
       if(!$plugins_list) {         
-           $plugins_list = plugin_list('syntax');               
+           $plugins_list = plugin_list();               
       }
       return in_array($plugin, $plugins_list);
   }
@@ -59,9 +59,6 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   global $lang;
   global $skip_styling;
   $preview_button = $lang['btn_preview'];
-  $action_list = plugin_list('action');
-  $tags = in_array('tag',$action_list) ? 'Tags': "";
-
   $ckgedit_conf_direction = $this->getConf('direction');
    if($ckgedit_conf_direction == "dokuwiki") {
        $ckgedit_lang_direction = $lang['direction'];
@@ -439,9 +436,6 @@ if("$toolbar_opts") {
 
 return opts;
 
-}
-function hasTags() {
-   return "$tags";
 }
 
 function  extra_plugins() {  
