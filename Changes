@@ -1,4 +1,4 @@
-rev_17-Jun_18-18_44
+rev_17-Jun_19-22_37
 
 28 Feb 2013
 Added support for interwiki links
@@ -1096,6 +1096,9 @@ Automatic adding of extra plugins to config.extraPlugins
 
 June 18
 merged wrap_2 into master
+
+June 19
+Take wrap tag names from wrap config settings.
 
 
 

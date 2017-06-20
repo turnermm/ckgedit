@@ -112,6 +112,8 @@ config.colors = new Array(
      var font_assist = 'FontAssist';
      //config.removeButtons = 'TextColor,BGColor, FontAssist,Font,FontSize';
      if(config.removeButtons.match(/FontAssist/)) font_assist = "";
+     config.wrapSyntaxDiv = top.JSINFO['wrapDiv'] ;
+     config.wrapSyntaxSpan = top.JSINFO['wrapSpan'] ;
 
      config.ToolBarItemsAlt = {  
      'Signature':'Signature' ,'Footnotes':'Footnotes', 'Tags':"",'Wrap':""
@@ -123,6 +125,16 @@ config.colors = new Array(
     if(top.JSINFO['has_wrap']) {
         config.ToolBarItemsAlt['Wrap']='Wrap';
     }
+    if(top.JSINFO['wrapDiv']) {
+       config.wrapSyntaxDiv = top.JSINFO['wrapDiv'];
+    }
+    else config.wrapSyntaxDiv = "";
+    if(top.JSINFO['wrapSpan']) {
+       config.wrapSyntaxSpan = top.JSINFO['wrapSpan'];
+    }
+    else config.wrapSyntaxSpan = "";
+
+    
      var xtra = top.extra_plugins();
      config.ToolBarItemsExtra = "";
      if(xtra) {

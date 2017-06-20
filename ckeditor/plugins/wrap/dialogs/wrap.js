@@ -81,8 +81,12 @@ CKEDITOR.dialog.add( 'wrapDialolg', function( editor ) {
         
         onOk: function() {
             var dialog = this;
-            var syntaxDiv = 'WRAP';
-           var syntaxSpan = 'wrap';
+             
+           var syntaxDiv = editor.config.wrapSyntaxDiv ?  editor.config.wrapSyntaxDiv : 'WRAP';
+           var syntaxSpan = editor.config.wrapSyntaxSpan ?  editor.config.wrapSyntaxSpan : 'wrap';
+           if(syntaxDiv == 'block') syntaxDiv = 'WRAP';
+           var syntaxDiv = syntaxDiv;
+           var syntaxSpan = syntaxSpan;
             var open = "";
             var close = "";
             
