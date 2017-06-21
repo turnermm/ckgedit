@@ -1,4 +1,4 @@
-rev_17-Jun_19-22_37
+rev_17-Jun_21-09_42
 
 28 Feb 2013
 Added support for interwiki links
@@ -1100,7 +1100,8 @@ merged wrap_2 into master
 June 19
 Take wrap tag names from wrap config settings.
 
-
+Jun 21
+Fixed wrap->getConf error in meta.php where wrap not installed or is disabled.
 
 
 

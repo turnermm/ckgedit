@@ -644,8 +644,10 @@ function check_userfiles() {
        $JSINFO['ckg_canonical'] =$conf['canonical'];
         $JSINFO['doku_base'] = DOKU_BASE;
        if($this->helper->has_plugin('tag'))  $JSINFO['has_tags'] = "Tag";
-       if($this->helper->has_plugin('wrap'))  $JSINFO['has_wrap'] = "Wrap";
+       if($this->helper->has_plugin('wrap') && ! plugin_isdisabled('wrap'))  {       
+           $JSINFO['has_wrap'] = "Wrap";
         $wrap_helper =  plugin_load('helper',wrap);
+           if($wrap_helper ) {            
         $syntaxDiv = $wrap_helper->getConf('syntaxDiv');
         if(!empty($syntaxDiv)) {
             $JSINFO['wrapDiv'] = $syntaxDiv;
@@ -656,7 +658,8 @@ function check_userfiles() {
             $JSINFO['wrapSpan'] = $syntaxSpan; 
         }
         else $JSINFO['wrapSpan'] = "";
-        
+           }
+       }
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
