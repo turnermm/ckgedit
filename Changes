@@ -1,4 +1,4 @@
-rev_17-Jun_21-09_42
+rev_17-Jun_22-18_03
 
 28 Feb 2013
 Added support for interwiki links
@@ -1103,5 +1103,7 @@ Take wrap tag names from wrap config settings.
 Jun 21
 Fixed wrap->getConf error in meta.php where wrap not installed or is disabled.
 
+June 22
+Improved image copy and paste with pastebase64 plugin
 
 
