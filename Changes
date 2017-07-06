@@ -1,4 +1,4 @@
-rev_17-Jun_22-17_16
+rev_17-Jul_06-07_44
 
 28 Feb 2013
 Added support for interwiki links
@@ -1088,3 +1088,6 @@ Support for canonical
 
 June 21
 Fixed wrap->getConf error in meta.php where wrap not installed or is disabled
+
+July 6
+Updated ckedit French lang
