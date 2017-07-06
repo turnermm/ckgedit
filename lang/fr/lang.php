@@ -7,6 +7,7 @@
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @author Blacklord049
  * @author Nicolas Friedli <nicolas@theologique.ch>
+ * @author Schplurtz le Déboulonné <Schplurtz@laposte.net>
  */
 $lang['btn_dw_edit']           = 'Éditeur DW';
 $lang['dw_btn_fck_preview']    = 'Prévisualisation CKG';
@@ -52,3 +53,10 @@ $lang['btn_title_dw_fb']       = 'Sauver, fermer l\'éditeur et passer au gestio
 $lang['btn_title_ckg_fb']      = 'Sauver, fermer l\'éditeur et passer au gestionnaire de fichiers CKG';
 $lang['formatdel']             = 'Balisage supprimé des entêtes: indisponible dans DokuWiki';
 $lang['fontdel']               = 'Polices différentes supprimées des liens: indisponible dans DokuWiki';
+$lang['userfiles_perm']        = 'Veuillez vérifier les permissions; ckgedit ne peut accéder à';
+$lang['sym_not created_1']     = 'Impossible de créer';
+$lang['sym_not created_2']     = 'Ne peut créer de lien symbolique pour le gestionnaire de fichiers: Ne peut accéder à: ';
+$lang['sym_not created_3']     = 'Il y a eu une erreur en essayant de créer des liens symboliques dans';
+$lang['syms_created']          = 'liens créés dans le dossier userfiles:';
+$lang['dblclk']                = '<b>Nouvelle fonctionnalité</b> Un double clic dans le navigateur édite la section sous le curseur dans l\'éditeur DW. <b>Voir, en anglais,</b> <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>.';
+$lang['dblclk_reminder']       = '<b>Rappel</b> ';
