@@ -6,6 +6,7 @@
  * @author TJ619 <rockandrollfever0@gmail.com>
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @author Blacklord049
+ * @author Schplurtz le Déboulonné <Schplurtz@laposte.net>
  */
 $lang['groups']                = 'Groupe autorisé à désativer le verrou minuté (obsolète)';
 $lang['fck_preview']           = 'Groupe de prévisualisation FCK';
@@ -40,3 +41,4 @@ $lang['alt_toolbar']           = 'Fonctions à retirer de la barre d\'outils CKE
 $lang['mfiles']                = 'Activer la gestion des \'mfiles\'';
 $lang['extra_plugins']         = 'Liste des extensions (séparées par des virgules) à ajouter dans la barre d\'outils de CKEditor. Voir la page à propos des plugins CKGEdit pour plus de détails.';
 $lang['dw_users']              = 'Nom du groupe d\'utilisateurs pour lesquels l\'éditeur par défaut est celui de DokuWiki quand <b>dw_priority</b> est sélectionné. Si non défini, tous les utilisateurs utiliseront l\'éditeur natif lorsque <b>dw_priority</b> est coché.';
+$lang['dblclk']                = 'Réglez sur <code>off</code> pour désactiver la fonctionnalité d\'édition sur double clic dans l\'éditeur DokuWiki (voir <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>, en anglais).';
