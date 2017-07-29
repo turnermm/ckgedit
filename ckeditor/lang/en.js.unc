@@ -44,6 +44,7 @@ DlgFileBrowserNewFolder: "Create Folder",
 DlgFileBrowserResourceType: "Resource Type",
 DlgLnkUpload		: "Upload",
 DlgFileBrowserMove: "Move",
+LinkText: "Link Text (optional)",
 InternalLink: "internal link",
 InternalMedia: "internal media",
 MediaFileLink: "link to media file",
@@ -74,6 +75,7 @@ DlgFileBrowserSortName: 'Name',
 DlgFileBrowserButtonHelp: 'Help',
 DlgFileBrowserResizeMsg: "The file browser window will be reset to the default size after your page is reloaded into the editor.",
 DlgFileBrowserSearch: "Find file(s)",
+DlgFileBrowserSearchInfo: "Enter all or part of a file name",
 DlgFileBrowserSortOrder: 'Reverse order',
 DlgFileBrowserInfo_1: "If you increase the zoom level of your browser,  Ckgedit's file browser may exceed the size of its  enclosing window, forcing scrollbars. " +
       " To eliminate the scrollbars, you can enlarge the window up to 20%.  The  new size takes effect after you have closed and re-opened  the editor.  " +
@@ -136,6 +138,7 @@ ToolTip: 'Insert signature'
 CKEDITOR.lang.en["format"]["panelTitle"]  = "Section Headers";
 CKEDITOR.lang.en["format"]["label"] = "Headlines";
 CKEDITOR.lang.en["stylescombo"]["panelTitle"]="Formatting Code Styles";
+CKEDITOR.lang.en.common["alignBaseLine"] = "Baseline";
 CKEDITOR.lang['en'] ["stylescombo"]["label"]= "Code";
 CKEDITOR.lang.en.common["alignBaseLine"] = "Baseline";
 CKEDITOR.lang['en']["indent"] = {
