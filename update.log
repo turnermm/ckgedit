@@ -1,0 +1,21 @@
+June 2
+Scayt now handled internally and requires wsc. 
+  Scayt plugin has to be removed.
+jQuery deprecation removed by making two jQuery.posts async in link.js
+
+June 3
+Fixed bad filebrowser initial path by restoring tableselection plugin folder which ckeditor.js was looking for.
+Same type of error occurred when I removed scayt plugin folder.  If ckeditgor misses an expected folder,
+it must output the path if the mssing folder which then gets prepended to the filebrowser path.
+
+Removed class attribute from Styles.js->Remove Block; causes type error
+FIXED: Note:  Font-style being removed on re-load, check pre-processor
+
+Added dblcik option
+
+June 20
+Updated ckeditor's wrap to use dw wrap's config options
+
+
+
+  

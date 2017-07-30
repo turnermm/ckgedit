@@ -1,4 +1,4 @@
-rev_17-Jun_24-16_43
+rev_17-Jul_07-10_30
 
 28 Feb 2013
 Added support for interwiki links
@@ -1067,18 +1067,20 @@ Fixed ajax path error in config.js (for new Geshi plugin)
 
 May 18
 Fixed broken list when li contains links
-
 May 25
 Config option to disable double click
-
 May 31
 Fix for code blocks disappearing from tables on reload into editor
 
 June 1
 Fix for snippets
 Synched with bintbl (May 31, June 1)
-Fixed cell where snippet together with text breaks cell
 
+ Fixed cell where snippet together with text breaks cell
+ 
+June 2
+ Added dblclk option
+ 
 June 3
 Removed class attribute from "remove block" in ckeditor/styles.js, causes type error.
 Moved styles.js to correct folder from root
@@ -1088,11 +1090,12 @@ Jun 10
 Synched smiley url in config.js to previously defined config.doku_url
 
 June 12
+Support for canonical
 Updated scripts/script-cmpr.js
-Support for canonical urls
 
 June 13
 Automatic adding of extra plugins to config.extraPlugins
+
 
 June 18
 merged wrap_2 into master
@@ -1100,10 +1103,14 @@ merged wrap_2 into master
 June 19
 Take wrap tag names from wrap config settings.
 
-Jun 21
-Fixed wrap->getConf error in meta.php where wrap not installed or is disabled.
+June 21
+Fixed wrap->getConf error in meta.php where wrap not installed or is disabled
 
 June 22
 Improved image copy and paste with pastebase64 plugin
+
+July 6
+Updated ckedit French lang
+
 
 

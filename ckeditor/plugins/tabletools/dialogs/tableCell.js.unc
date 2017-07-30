@@ -110,7 +110,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor ) {
 							var alignClass = element.getAttribute( 'class' );					     
 							//var alignClass = element.getAttribute( 'class' );
 					     
-							var matches = alignClass.match(/(\w+)align/);
+							var matches =  alignClass ? alignClass.match(/(\w+)align/): "";
                             if(matches) {											
 						    	alignClass = matches[1];							
 							}

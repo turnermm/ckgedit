@@ -700,6 +700,7 @@ CKEDITOR.lang.en["fbrowser"] = {
     DlgFileBrowserResourceType: "Resource Type",
     DlgLnkUpload: "Upload",
     DlgFileBrowserMove: "Move",
+    LinkText: "Link Text (optional)",
     InternalLink: "internal link",
     InternalMedia: "internal media",
     MediaFileLink: "link to media file",
