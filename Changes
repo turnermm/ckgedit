@@ -1114,5 +1114,7 @@ Updated ckedit French lang
 
 Aug 2
 fix for link's iwiki async failure to complete before required
+fix for replacement macro in iwiki links without substitution texts
+
 
 

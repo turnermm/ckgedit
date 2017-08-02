@@ -1154,7 +1154,7 @@ var useHeading = function(wiki_id) {
                       
                     var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
                     data.adv.advTitle = data.url.selection;                 
-                    data.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
+                    if(data.url.selection) data.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
                  
                     if(iwiki_pattern.match(/\{.*?\}/) ){  
                        data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
