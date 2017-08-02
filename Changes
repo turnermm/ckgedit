@@ -1,4 +1,4 @@
-rev_17-Jul_07-10_30
+rev_17-Aug_02-10_31
 
 28 Feb 2013
 Added support for interwiki links
@@ -1112,5 +1112,7 @@ Improved image copy and paste with pastebase64 plugin
 July 6
 Updated ckedit French lang
 
+Aug 2
+fix for link's iwiki async failure to complete before required
 
 

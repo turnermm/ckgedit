@@ -75,6 +75,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
             success: function(data, textStatus, jqXHR)
               {
                   retv = data;
+                  ckgeditIwikiData =retv;
               },
             error: function(jqXHR, textStatus, errorThrown )
               {
@@ -1359,20 +1360,22 @@ var useHeading = function(wiki_id) {
 		},
 		onLoad : function()
 		{
-	       ckgeditIwikiData = getIwikiOptions();         
-           var select_id = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;     
-           var select =document.getElementById(select_id);
-           this.stack = select.options;
-          this.stack.length = 0;
-         this.stack[0] = (new Option("Not Set","not-set",false,false));
-         ckgeditIwikiIndex = new Array();
-         var count = 1;
-         for(var i in ckgeditIwikiData) {
-            this.stack[count] =  new Option(i + ' >> ' + ckgeditIwikiData[i],i,false,false); 
-            ckgeditIwikiIndex[i] = count;
-            count++;            
-         }
-                    
+            getIwikiOptions();         
+            ckg_iwi_Select_Id_x = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;     
+            setTimeout(function(select_id) {             
+               var select =document.getElementById(ckg_iwi_Select_Id_x);           
+               this.stack = select.options;
+               this.stack.length = 0;
+               this.stack[0] = (new Option("Not Set","not-set",false,false));
+               ckgeditIwikiIndex = new Array();
+               var count = 1;
+               for(var i in ckgeditIwikiData) {
+                  this.stack[count] =  new Option(i + ' >> ' + ckgeditIwikiData[i],i,false,false); 
+                  ckgeditIwikiIndex[i] = count;
+                  count++;            
+              }
+         }, 2000);
+
             oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
             ckgeditInternalText = this.getContentElement('info', 'internal_text').getInputElement().$.id;
