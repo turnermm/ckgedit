@@ -1117,8 +1117,9 @@ var useHeading = function(wiki_id) {
                 
                      internal_text  = document.getElementById(ckgeditInternalText).value ? document.getElementById(ckgeditInternalText).value : false;
                      if(!data.url.url) {                                            
-                        data.url.url=document.getElementById(fckgInternalInputId).value;
-                              if(!data.url.url.match(/^:?\w+:/)) {
+                        data.url.url=document.getElementById(fckgInternalInputId).value;         
+                        alert(data.url.url);
+                              if(!data.url.url.match(/^:\w+/)) {                                 
                                 var ns = top.getCurrentWikiNS() + ':';
                                 ns = ns.replace(/:$/,"");
                                 var regex = new RegExp(':?'+ ns+':');   
@@ -1127,8 +1128,7 @@ var useHeading = function(wiki_id) {
                                      data.url.url = data.url.url.replace(/\:{2,}/g,':');                               
                                 }
                             }
-                        }                          
-
+                        }  
                      data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
                      data.url.url = data.url.url.replace(/^\:/,"");
                      data.url.url =  ':' + data.url.url.replace(/\//g,':');      
