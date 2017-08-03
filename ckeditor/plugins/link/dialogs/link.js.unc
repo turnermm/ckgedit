@@ -1117,8 +1117,7 @@ var useHeading = function(wiki_id) {
                 
                      internal_text  = document.getElementById(ckgeditInternalText).value ? document.getElementById(ckgeditInternalText).value : false;
                      if(!data.url.url) {                                            
-                        data.url.url=document.getElementById(fckgInternalInputId).value;         
-                        alert(data.url.url);
+                        data.url.url=document.getElementById(fckgInternalInputId).value;                                 
                               if(!data.url.url.match(/^:\w+/)) {                                 
                                 var ns = top.getCurrentWikiNS() + ':';
                                 ns = ns.replace(/:$/,"");
