@@ -1,4 +1,4 @@
-rev_17-Aug_02-10_31
+rev_17-Aug_03-14_29
 
 28 Feb 2013
 Added support for interwiki links
@@ -1116,5 +1116,7 @@ Aug 2
 fix for link's iwiki async failure to complete before required
 fix for replacement macro in iwiki links without substitution texts
 
+Aug 3
+Fixed multiple urlencoding of interwiki links
 
 

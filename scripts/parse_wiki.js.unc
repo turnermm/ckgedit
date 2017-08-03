@@ -271,7 +271,7 @@ function parse_wikitext(id) {
                     interwiki_label =  interwiki_label.replace(/^.*?oIWIKIo/,'oIWIKIo');
                     interwiki_label =  interwiki_label.replace(/cIWIKIc.*/,'cIWIKIc');
                     iw_type[1] = iw_type[1].replace(/_(\w{2})/, "." +"$1" );
-                    this.attr = iw_type[1] + '>' +  interwiki_label;
+                    this.attr = iw_type[1] + '>' +  decodeURIComponent(interwiki_label);                  
                     HTML_InterWiki=true;
 				    this.interwiki=true;
 	},
