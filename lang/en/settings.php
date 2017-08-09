@@ -19,7 +19,7 @@ $lang['nix_style'] = "For Windows Servers (Vista and Later).  This setting makes
 $lang['no_symlinks']  = "Disable automatic creation of symbolic links in ckgedit/userfiles.";            
 $lang['direction'] = 'Set Language direction in CKeditor:  <b>nocheck</b>: ckgedit will make no changes to the default direction setting; ' 
                        . ' <b>dokuwiki</b>:  the current Dokuwiki language direction;  <b>ltr</b>: Left-to-right ; <b>rtl</b>: Right-to-left.';
-$lang['scayt_auto'] = 'Automatically enable the SCAYT spellchecker. Defaults to "on". To turn off SCAYT select "off"';
+$lang['scayt_auto'] = 'Automatically enable the SCAYT spellchecker. Defaults to <code>on</code>. To turn SCAYT off, select <code>off</code> (it can still  be turned on in the editor). To remove the Scayt toolbar icon as well as turning off the service, select <code>disable</code>.';
 $lang['scayt_lang']="Set SCAYT default language.";
 $lang['smiley_hack'] = "Reset URL for CKeditor's smilies when moving to new server. This is done on a page by page basis when page is loaded for editing and saved.  This option should normally be turned off.";
 $lang['complex_tables'] ="Use the complex tables algorithm.  As opposed to the standard parsing of tables, this should give better results when mixing complex arrangements of rowspans and colspans. But slightly more processing time.";
