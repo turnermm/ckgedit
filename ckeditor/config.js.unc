@@ -98,6 +98,7 @@ config.colors = new Array(
 	// Define changes to default configuration here.
 	// For the complete reference:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
+     config.scayt__disable = false;
       top.ckgedit_language_chk(config);  //resets language if $conf['other_lang'] != 'default' and resets auto scayt to true of false
      // config.scayt_autoStartup = true;      
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
@@ -116,7 +117,7 @@ config.colors = new Array(
      config.wrapSyntaxDiv = top.JSINFO['wrapDiv'] ;
      config.wrapSyntaxSpan = top.JSINFO['wrapSpan'] ;
      config.ToolBarItemsAlt = {  
-     'Signature':'Signature' ,'Footnotes':'Footnotes', 'Tags':"",'Wrap':""
+     'Signature':'Signature' ,'Footnotes':'Footnotes', 'Tags':"",'Wrap':"",'Scayt':'Scayt'
      };
 
     if (top.JSINFO['has_tags']) {
@@ -134,6 +135,9 @@ config.colors = new Array(
     }
     else config.wrapSyntaxSpan = "";
 
+    if(config.scayt__disable) {       
+               config.ToolBarItemsAlt['Scayt'] = "";
+    }
     
      var xtra = top.extra_plugins();
      config.ToolBarItemsExtra = "";
@@ -156,7 +160,7 @@ config.colors = new Array(
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-    	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] },
+    	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup',config.ToolBarItemsAlt['Scayt'] ] },
 		{ name: 'tools', items : ['Source', 'Maximize','-','About'] },
          {name: 'extras', items: config.ToolBarItemsExtra }
        
