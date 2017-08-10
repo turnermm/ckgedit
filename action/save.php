@@ -28,6 +28,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
      
         global $TEXT, $conf;
         if (!$TEXT) return;
+        $preserve_enc = $this->getConf('preserve_enc');        
         $deaccent = $conf['deaccent'] == 0 ? false : true;
         $TEXT = $_REQUEST['fck_wikitext'];
         
@@ -90,7 +91,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
         }     
       $TEXT = str_replace('%%', "FCKGPERCENTESC",  $TEXT);
      
-        if($deaccent) {
+        if($deaccent || $preserve_enc) {
               $TEXT = preg_replace_callback('/^(.*?)(\[\[.*?\]\])*(.*?)$/ms', 
                    create_function(
                          '$matches',         
