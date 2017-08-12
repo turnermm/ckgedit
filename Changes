@@ -1,4 +1,4 @@
-rev_17-Aug_04-06_53
+rev_17-Aug_12-04_59
 
 28 Feb 2013
 Added support for interwiki links
@@ -1122,3 +1122,9 @@ Fixed multiple urlencoding of interwiki links
 
 Aug 4
 Merged ilinkt branch: creates correct root ns internal links when using manual entries in link tool
+
+Aug 9
+Restores scayt toolbar item
+
+Aug 10
+  adds urlencoding protection when deaccent option is set to off
