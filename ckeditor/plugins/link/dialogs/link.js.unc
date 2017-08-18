@@ -4,7 +4,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
-var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex, ckgeditInternalText;
+var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex; // ckgeditInternalText;
  var ck_m_files_protocol, ckg_dialog;
  window.onbeforeunload = function() { };
    
@@ -1113,9 +1113,8 @@ var useHeading = function(wiki_id) {
 						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
 					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;                 
                 break;
-                case 'internal':                  
-                
-                     internal_text  = document.getElementById(ckgeditInternalText).value ? document.getElementById(ckgeditInternalText).value : false;
+                case 'internal':
+                    internal_text =  this.getValueOf( 'info', 'internal_text' );
                      if(!data.url.url) {                                            
                         data.url.url=document.getElementById(fckgInternalInputId).value;                                 
                               if(!data.url.url.match(/^:\w+/)) {                                 
@@ -1377,7 +1376,7 @@ var useHeading = function(wiki_id) {
 
             oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
-            ckgeditInternalText = this.getContentElement('info', 'internal_text').getInputElement().$.id;
+         //   ckgeditInternalText = this.getContentElement('info', 'internal_text').getInputElement().$.id;
             fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
             fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;
             var el = this.getContentElement('info', 'iwiki_shortcut').getInputElement().$.id;        
