@@ -39,3 +39,4 @@ $meta['captcha_auth'] = array('multichoice','_choices' => array('READ','EDIT','C
 $meta['htmlblock_ok'] = array('onoff');
 $meta['dblclk'] = array('multichoice','_choices' => array('on','off'));
 $meta['preserve_enc'] = array('onoff');
+$meta['gui'] =  array('multichoice','_choices' => array('moono','moono-lisa'));

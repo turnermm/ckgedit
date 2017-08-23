@@ -113,7 +113,10 @@ config.colors = new Array(
      var font_assist = 'FontAssist';
      //config.removeButtons = 'TextColor,BGColor, FontAssist,Font,FontSize';
      if(config.removeButtons.match(/FontAssist/)) font_assist = "";
-    config.skin = 'moono';
+     
+     
+    config.skin =  top.getCKEditorGUI() ? top.getCKEditorGUI() : 'moono';
+    //alert(top.getCKEditorGUI());
      config.wrapSyntaxDiv = top.JSINFO['wrapDiv'] ;
      config.wrapSyntaxSpan = top.JSINFO['wrapSpan'] ;
      config.ToolBarItemsAlt = {  

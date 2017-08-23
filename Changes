@@ -1,4 +1,4 @@
-rev_17-Aug_12-04_59
+rev_17-Aug_23-11_03
 
 28 Feb 2013
 Added support for interwiki links
@@ -1128,3 +1128,7 @@ Restores scayt toolbar item
 
 Aug 10
   adds urlencoding protection when deaccent option is set to off
+
+Aug 23
+Support for switching between CKEdiktor GUIs
+  

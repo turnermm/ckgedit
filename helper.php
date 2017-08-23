@@ -98,6 +98,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   $toolbar_opts = $this->getConf('alt_toolbar');
  $mfiles =   $this->getConf('mfiles');
  $extra_plugins = $this->getConf('extra_plugins');
+  $ckg_gui = $this->getConf('gui');
   if(!isset($INFO['userinfo']) && !$open_upload) {
     $user_type = 'visitor';
   }
@@ -456,6 +457,9 @@ function ckgedit_language_chk(config) {
    config.language = lang;
 }
 
+function getCKEditorGUI() {
+    return "$ckg_gui";
+}
 var oDokuWiki_FCKEditorInstance;
 function FCKeditor_OnComplete( editorInstance )
 {

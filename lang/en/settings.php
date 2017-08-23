@@ -45,3 +45,4 @@ $lang['htmlblock_ok'] ='When using <code>HTML_BLOCK</code>s  either this setting
         ' It doesn\'t pose the same level of security  risk as <code>htmlok</code>.  Nevertheless, it is should be used only in a trusted user environment, and not in an open wiki.';                                    
 $lang['dblclk']="Set to <code>off</code> to turn off the double click feature which enables section editing using the Dokuwiki editor (see:  <a href='https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor'>direct_access_to_dokuwiki_editor</a>)";
 $lang['preserve_enc'] ="Preserve urlencoding in urls when the dokuwiki deaccent option is active.";
+$lang['gui'] = "Select CKEditor GUI."

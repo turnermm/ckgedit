@@ -36,4 +36,5 @@ $conf['captcha_auth'] = 'CREATE';
 $conf['htmblock_ok'] = 0;
 $conf['dblclk'] ='on';
 $conf['preserve_enc'] = 0;
+$conf['gui'] = 'moono';
 
