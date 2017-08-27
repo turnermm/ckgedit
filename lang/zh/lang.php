@@ -17,3 +17,5 @@ $lang['title_dw_lang']         = '选择拼写检查的语言';
 $lang['title_dw_cancel']       = '退出编辑器';
 $lang['btn_fck_edit']          = 'CKG可视编辑';
 $lang['confirm_delete']        = '你确定要删除这个页面吗？';
+$lang['confirm_preview']       = '没有存储的改动将会丢失。';
+$lang['whats_this']            = '这是什么？';
