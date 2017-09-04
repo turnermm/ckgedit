@@ -251,6 +251,11 @@ function dwedit_draft_delete() {
         document.cookie = 'ckgEdht=' + h +';expires="";path=' +JSINFO['doku_base'];
    }
 
+  function setImgPaste(which) { 
+        document.cookie = 'ckgEdPaste=' + which +';expires="";path=' +JSINFO['doku_base'];
+        alert(LANG.plugins.ckgedit.ckg_paste_restart);
+   }
+
   function GetE(e) {
        return  document.getElementById(e);
   }
