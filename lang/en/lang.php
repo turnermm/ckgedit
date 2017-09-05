@@ -58,3 +58,6 @@ $lang['dblclk_reminder'] = "<b>Reminder</b> ";
 $lang['ckg_img_paste'] = 'Turn supplementary image paste support';
 $lang['ckg_img_paste_title'] = 'Generally turn off in Firefox, on in others';
 $lang['js']['ckg_paste_restart'] = 'You will have to restart your session for this setting to take effect.';
+$lang['on'] ='on';
+$lang['off'] ='off';
+

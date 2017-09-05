@@ -785,9 +785,8 @@ else {
         <input type="checkbox" name="complex_tables" value="complex_tables"  id = "complex_tables" 
                      /><span id='complex_tables_label_text'> <?php echo $this->getLang('complex_tables');?></span></label> 
       &nbsp;&nbsp;<label class="nowrap" for="editor_height"><?php echo $this->getLang('editor_height');?></label> 
-        <input type="text" size= "4" name="editor_height" title = "<?php echo $this->getLang('editor_height_title'); ?>" value="<?php echo $height?>"  id = "editor_height" 
-        onchange="setEdHeight(this.value);" />  px    
-    &nbsp;&nbsp;<label class="nowrap" for="ckg_img_paste" title ="<?php echo $this->getLang('ckg_img_paste_title'); ?>"> <?php echo $this->getLang('ckg_img_paste') . " ". $paste_value ;?></label> 
+        <input type="text" size= "4" name="editor_height" title = "<?php echo $this->getLang('editor_height_title'); ?>" value="<?php echo $height?>"  id = "editor_height"  onchange="setEdHeight(this.value);" />  px    
+    &nbsp;&nbsp;<label class="nowrap" for="ckg_img_paste" title ="<?php echo $this->getLang('ckg_img_paste_title'); ?>"> <?php echo $this->getLang('ckg_img_paste') . " ". $this->getLang($paste_value) ?></label> 
         &nbsp;<input type="checkbox" name="ckg_img_paste" title = "<?php echo $this->getLang('ckg_img_paste_title'); ?>"  
             id = "ckg_img_paste"  value = "<?php echo $paste_value?>" onchange="setImgPaste(this.value);" />
         
