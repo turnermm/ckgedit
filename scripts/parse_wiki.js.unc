@@ -1924,6 +1924,9 @@ jQuery( "#ebtn__delete" ).mouseup(function() {
 });
 
 jQuery( "#ebtn__dwedit" ).click(function() { 
+ if(!window.dwfckTextChanged && JSINFO['cg_rev']) {     
+       jQuery('#dw__editform').append('<input type="hidden"   id = "dwed_cancel" name="dwed_cancel" value="'+JSINFO['id'] +'"/>');
+  }
    ckgedit_to_dwedit = true;
    setDWEditCookie(2, this);
    parse_wikitext('edbtn__save');
