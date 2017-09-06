@@ -56,7 +56,7 @@ $lang["syms_created"] = 'The following links were created in the userfiles direc
 $lang['dblclk'] ="<b>New Feature:</b> double click browser window to open DW Editor for section editing at cursor. <b>See: </b><a href='https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor'>direct_access_to_dokuwiki_editor</a>. ";
 $lang['dblclk_reminder'] = "<b>Reminder</b> ";
 $lang['ckg_img_paste'] = 'Turn supplementary image paste support';
-$lang['ckg_img_paste_title'] = 'Generally turn off in Firefox, on in others';
+$lang['ckg_img_paste_title'] = 'Off to prevent double pastes, or on to enable pastes';
 $lang['js']['ckg_paste_restart'] = 'You will have to restart your session for this setting to take effect.';
 $lang['on'] ='on';
 $lang['off'] ='off';
