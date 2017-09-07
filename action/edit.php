@@ -788,7 +788,7 @@ else {
         <input type="text" size= "4" name="editor_height" title = "<?php echo $this->getLang('editor_height_title'); ?>" value="<?php echo $height?>"  id = "editor_height"  onchange="setEdHeight(this.value);" />  px    
     &nbsp;&nbsp;<label class="nowrap" for="ckg_img_paste" title ="<?php echo $this->getLang('ckg_img_paste_title'); ?>"> <?php echo $this->getLang('ckg_img_paste') . " ". $this->getLang($paste_value) ?></label> 
         &nbsp;<input type="checkbox" name="ckg_img_paste" title = "<?php echo $this->getLang('ckg_img_paste_title'); ?>"  
-            id = "ckg_img_paste"  value = "<?php echo $paste_value?>" onchange="setImgPaste(this.value);" />
+            id = "ckg_img_paste"  value = "<?php echo $paste_value?>" onchange="ckgd_setImgPaste(this.value);" />
         
       <input style="display:none;" class="button" id="edbtn__save" type="submit" name="do[save]" 
                       value="<?php echo $lang['btn_save']?>" 

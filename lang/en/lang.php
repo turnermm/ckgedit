@@ -57,7 +57,8 @@ $lang['dblclk'] ="<b>New Feature:</b> double click browser window to open DW Edi
 $lang['dblclk_reminder'] = "<b>Reminder</b> ";
 $lang['ckg_img_paste'] = 'Turn supplementary image paste support';
 $lang['ckg_img_paste_title'] = 'Off to prevent double pastes, or on to enable pastes';
-$lang['js']['ckg_paste_restart'] = 'You will have to restart your session for this setting to take effect.';
+$lang['js']['ckg_paste_restart'] = 'On reloading the editor, supplementary paste support will be turned';
 $lang['on'] ='on';
 $lang['off'] ='off';
-
+$lang['js']['on'] ='on';
+$lang['js']['off'] ='off';
