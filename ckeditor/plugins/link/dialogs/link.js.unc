@@ -60,8 +60,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
       return defaultFBLang[js_code];
     }   ; 
     
-    var getIwikiOptions = function() {
-        var retv;
          jQuery.ajax(
           DOKU_BASE + 'lib/exe/ajax.php',
           {
@@ -84,10 +82,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
               }
           }
         ); 
-        return retv;
-  
-		
-    };
+     
     var getInternalHeaders = function() {     
     
 	  var dialog = this.getDialog();	
@@ -1358,10 +1353,12 @@ var useHeading = function(wiki_id) {
 		},
 		onLoad : function()
 		{
-            getIwikiOptions();         
-            ckg_iwi_Select_Id_x = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;     
-            setTimeout(function(select_id) {             
-               var select =document.getElementById(ckg_iwi_Select_Id_x);           
+            ckg_iwi_Select_Id_x = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;      
+         
+            var setUpIwikiSel = function() { 
+                if(!ckgeditIwikiData) return;
+                myStopFunction();
+                var select =document.getElementById(ckg_iwi_Select_Id_x);           
                this.stack = select.options;
                this.stack.length = 0;
                this.stack[0] = (new Option("Not Set","not-set",false,false));
@@ -1371,9 +1368,13 @@ var useHeading = function(wiki_id) {
                   this.stack[count] =  new Option(i + ' >> ' + ckgeditIwikiData[i],i,false,false); 
                   ckgeditIwikiIndex[i] = count;
                   count++;            
-              }
-         }, 2000);
-
+              }              
+         }; 
+         
+          var myVar = setInterval(function(){ setUpIwikiSel()}, 1000);
+           var  myStopFunction = function () {
+                 clearInterval(myVar);
+          } 
             oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
          //   ckgeditInternalText = this.getContentElement('info', 'internal_text').getInputElement().$.id;

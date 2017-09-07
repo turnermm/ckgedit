@@ -1,4 +1,4 @@
-rev_17-Sep_04-14_59
+rev_17-Sep_07-08_17
 
 28 Feb 2013
 Added support for interwiki links
@@ -1131,4 +1131,7 @@ Aug 10
 
 Aug 23
 Support for switching between CKEdiktor GUIs
+  
+Sep 9
+Refactored interwiki select in link.js
   
