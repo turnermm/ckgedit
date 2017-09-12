@@ -258,7 +258,7 @@ function dwedit_draft_delete() {
       }
       else which = 'on';      
       JSINFO['ckgEdPaste'] = which;   
-       document.cookie = 'ckgEdPaste=' + which +';expires="";path=' +JSINFO['doku_base'];
+       document.cookie = 'ckgEdPaste=' + which +';expires="Thu, 18 Dec 2175 12:00:00 UTC";path=' +JSINFO['doku_base'];
       alert(LANG.plugins.ckgedit.ckg_paste_restart + ' ' + LANG.plugins.ckgedit[which]);    
    }
 

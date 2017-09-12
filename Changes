@@ -1,4 +1,4 @@
-rev_17-Sep_07-08_17
+rev_17-Sep_12-15_53
 
 28 Feb 2013
 Added support for interwiki links
@@ -1135,3 +1135,6 @@ Support for switching between CKEdiktor GUIs
 Sep 9
 Refactored interwiki select in link.js
 Smoother switching between image past modes
+
+Sept 12
+give img paste cookie equiv or never expire
