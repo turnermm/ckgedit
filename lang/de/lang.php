@@ -9,6 +9,7 @@
  * @author Martin Sachers <martin.sachers@etron.at>
  * @author ttthomas <tompommes@gmx.de>
  * @author Marco Hofmann <xenadmin@meinekleinefarm.net>
+ * @author hans-juergen.schuemmer <hans-juergen.schuemmer@schuette.de>
  */
 $lang['btn_dw_edit']           = 'DW Edit';
 $lang['dw_btn_fck_preview']    = 'CKG Vorschau';
@@ -42,6 +43,8 @@ $lang['js']['font_err_throw']  = 'Zeichenformatierungs-Fehler';
 $lang['js']['dwp_save_err']    = 'Speichern nicht m&ouml;glich f&uuml;r:';
 $lang['js']['dwp_updated']     = 'Editor Priorität aktualisiert auf:';
 $lang['js']['mediamgr_notice'] = 'Verwenden Sie den Link Dialog um Links einzufügen';
+$lang['js']['on']              = 'ein';
+$lang['js']['off']             = 'aus';
 $lang['uprofile_title']        = 'W&auml;hlen Sie ihren Standard Editor';
 $lang['btn_val_dw_fb']         = 'DW Dateibrowser';
 $lang['btn_val_ckg_fb']        = 'CKG Dateibrowser';
@@ -49,3 +52,4 @@ $lang['btn_title_dw_fb']       = 'Speichern und Editor schließen und zum DW Dat
 $lang['btn_title_ckg_fb']      = 'Speichern und Editor schließen und zum CKG Dateibrowser wechseln';
 $lang['formatdel']             = 'Markup wurde aus Header(n) entfernt: Von DokuWiki nicht unterst&uuml;tzt';
 $lang['fontdel']               = 'Markup wurde aus Link(s) entfernt: Von DokuWiki nicht unterst&uuml;tzt';
+$lang['ckg_img_paste']         = 'Zusätzliche Unterstützung beim Einfügen von Bildern aus der Zwischenablage';
