@@ -6,6 +6,7 @@
  * @author Michael <michael@krmr.org>
  * @author David McAllister <info@bionichead.com>
  * @author hans-juergen.schuemmer <h-j-schuemmer@web.de>
+ * @author hans-juergen.schuemmer <hans-juergen.schuemmer@schuette.de>
  */
 $lang['btn_dw_edit']           = 'DW Edit';
 $lang['dw_btn_fck_preview']    = 'CKG Vorschau';
@@ -40,8 +41,12 @@ $lang['js']['font_err_throw']  = 'Fehler bei der Formatierung der Schrift';
 $lang['js']['dwp_save_err']    = 'Speichern der Änderungen nicht möglich als:';
 $lang['js']['dwp_updated']     = 'Der bevorzugte Editor wurde eingestellt auf:';
 $lang['js']['mediamgr_notice'] = 'Bitte den Link-Dialog zum Einfügen benutzen';
+$lang['js']['ckg_paste_restart'] = 'Nach dem Auffrischen der Seite ist die erweiterte Unterstützung der Zwischenablage umgeschaltet auf: ';
+$lang['js']['on']              = 'ein';
+$lang['js']['off']             = 'aus';
 $lang['uprofile_title']        = 'Bitte den bevorzugten Editor auswählen';
 $lang['btn_val_dw_fb']         = 'DW-Dateibrowser';
 $lang['btn_val_ckg_fb']        = 'CKG-Dateibrowser';
 $lang['btn_title_dw_fb']       = 'Abspeichern und Schließen des Editors und Umschalten auf den DW-Dateibrowser';
 $lang['btn_title_ckg_fb']      = 'Abspeichern und Schließen des Editors und Umschalten auf den CKG-Dateibrowser';
+$lang['sym_not created_1']     = 'Erstellung nicht möglich';
