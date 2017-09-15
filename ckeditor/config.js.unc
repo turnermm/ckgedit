@@ -123,15 +123,9 @@ config.colors = new Array(
      config.wrapSyntaxDiv = top.JSINFO['wrapDiv'] ;
      config.wrapSyntaxSpan = top.JSINFO['wrapSpan'] ;
      config.ToolBarItemsAlt = {  
-     'Signature':'Signature' ,'Footnotes':'Footnotes', 'Tags':"",'Wrap':"",'Scayt':'Scayt'
+     'Signature':'Signature' ,'Footnotes':'Footnotes','Scayt':'Scayt'
      };
 
-    if (top.JSINFO['has_tags']) {
-		config.ToolBarItemsAlt['Tags']='Tags';
-	}
-    if(top.JSINFO['has_wrap']) {
-        config.ToolBarItemsAlt['Wrap']='Wrap';
-    }
     if(top.JSINFO['wrapDiv']) {
        config.wrapSyntaxDiv = top.JSINFO['wrapDiv'];
     }
@@ -146,6 +140,12 @@ config.colors = new Array(
     }
     
      var xtra = top.extra_plugins(config);
+     if (top.JSINFO['has_tags']) {
+         xtra+=',Tags';
+     }
+     if(top.JSINFO['has_wrap']) {
+         xtra+=',Wrap';
+     }
      config.ToolBarItemsExtra = "";
      if(xtra) {
          config.ToolBarItemsExtra = xtra.split(','); 
@@ -159,8 +159,7 @@ config.colors = new Array(
 	{name: 'header_buttons', items: ['same_header', 'lower_header', 'higher_header', 'none_header']},
     	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-'] },    
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes'],
-           config.ToolBarItemsAlt['Tags'],config.ToolBarItemsAlt['Wrap']]},        
+		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar',  config.ToolBarItemsAlt['Signature'] ,config.ToolBarItemsAlt['Footnotes'] ]},  
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
