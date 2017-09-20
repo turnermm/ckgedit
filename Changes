@@ -1,4 +1,4 @@
-rev_17-Sep_15-08_54
+rev_17-Sep_20-07_32
 
 28 Feb 2013
 Added support for interwiki links
@@ -1141,3 +1141,6 @@ give img paste cookie equiv or never expire
 
 Sept 15
 Refactored adding of tag and wrap plugins
+
+Sep 20
+Remove urls from linkonly images inserted after second and additional saves, resulting in multiple urls corrupting HTML output 

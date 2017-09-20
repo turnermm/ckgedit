@@ -174,6 +174,8 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
        } 
        
         $this->replace_entities();
+        /*Remove urls from linkonly images inserted after second and additional saves, resulting in multiple urls  corrupting  HTML output */
+        $TEXT = preg_replace("/\{\{http:\/\/.*?fetch.php\?media=(.*?linkonly.*?)\}\}/",'{{' . "$1$2" .'}}',$TEXT);        
         $TEXT = str_replace('< nowiki >', '%%<nowiki>%%',$TEXT);
 
 /* 11 Dec 2013 see comment below        
