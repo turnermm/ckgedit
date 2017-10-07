@@ -596,8 +596,13 @@ CKEDITOR_REPLACE;
          global $skip_styling;
             
 ?>
+<?php
+            if($this->page_from_template) {
+             $ckg_template = 'tpl';   
+            }
+            else $ckg_template ="";
 
- 
+ ?>
    <form id="dw__editform" method="post" action="<?php echo script()?>"  accept-charset="<?php echo $lang['encoding']?>">
     <div class="no">
       <input type="hidden" name="id"   value="<?php echo $ID?>" />
@@ -609,6 +614,7 @@ CKEDITOR_REPLACE;
       <input type="hidden" id="fck_preview_mode"  name="fck_preview_mode" value="nil" />
       <input type="hidden" id="fck_wikitext"    name="fck_wikitext" value="__false__" />     
        <input type="hidden" id="styling"  name="styling" value="styles" />
+       <input type="hidden" id="template"  name="template`" value="<?php echo $ckg_template?>" />
       <?php
       if(function_exists('formSecurityToken')) {
            formSecurityToken();  

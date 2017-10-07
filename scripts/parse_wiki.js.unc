@@ -1964,6 +1964,8 @@ jQuery( "#ebut_cancel" ).mouseup(function() {
    draft_delete();
 });
 jQuery( "#save_button" ).mousedown(function() { 
+//alert(this.form.template.value);
+if(this.form.template.value == 'tpl' ) window.dwfckTextChanged = true;
  if(!window.dwfckTextChanged && !JSINFO['cg_rev']) {
   ckgedit_dwedit_reject = true;
   parse_wikitext('ebut_cancel'); 
