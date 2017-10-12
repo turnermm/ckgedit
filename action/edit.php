@@ -222,6 +222,14 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         'return str_replace("/", "__IWIKI_FSLASH__" ,$matches[0]);'
     ), $text);
     
+    $text = preg_replace_callback('/~~STET_OPEN~~(.*?)~~STET_CLOSE~~/ms',
+         function ($matches) {
+             $search = array('"',"'", '*', '/', '\\',  '_',  '^',  '&',  '-');
+            $replace = array('STETQstet', 'STETqstet', 'STETSstet','STETFstet','STETBstet','STETUstet','STETCstet','STETAstet','STETHstet') ;
+            return  '~~STET_OPEN~~' . str_replace($search,$replace,$matches[1]) . '~~STET_CLOSE~~';
+         },
+     $text);
+    
       global $useComplexTables;
       if($this->getConf('complex_tables') || strrpos($text, '~~COMPLEX_TABLES~~') !== false) {     
           $useComplexTables=true;
@@ -397,6 +405,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $this->xhtml = str_replace('CHEVRONescO', '<<',$this->xhtml);
        $this->xhtml = preg_replace('/_QUOT_/ms','>',$this->xhtml);  // dw quotes     
        $this->xhtml = str_replace("rss&gt;FEED", "rss>Feed:www.",$this->xhtml); 
+      $this->xhtml = str_replace(array('STETQstet', 'STETqstet', 'STETSstet','STETFstet','STETBstet','STETUstet','STETCstet','STETAstet','STETHstet') ,  array('"',"'", '*', '/', '\\',  '_',  '^',  '&',  '-') ,$this->xhtml);
 
        $this->xhtml = preg_replace_callback(
          "/^(>+)(.*?)$/ms",
