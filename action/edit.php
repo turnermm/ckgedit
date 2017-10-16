@@ -222,6 +222,14 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         'return str_replace("/", "__IWIKI_FSLASH__" ,$matches[0]);'
     ), $text);
     
+    $text = preg_replace_callback('/~~STET_OPEN~~(.*?)~~STET_CLOSE~~/ms',
+         function ($matches) {
+             $search = array('"',"'", '*', '/', '\\',  '_',  '^',  '&',  '-');
+            $replace = array('STETQstet', 'STETqstet', 'STETSstet','STETFstet','STETBstet','STETUstet','STETCstet','STETAstet','STETHstet') ;
+            return  '~~STET_OPEN~~' . str_replace($search,$replace,$matches[1]) . '~~STET_CLOSE~~';
+         },
+     $text);
+    
       global $useComplexTables;
       if($this->getConf('complex_tables') || strrpos($text, '~~COMPLEX_TABLES~~') !== false) {     
           $useComplexTables=true;
@@ -397,6 +405,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $this->xhtml = str_replace('CHEVRONescO', '<<',$this->xhtml);
        $this->xhtml = preg_replace('/_QUOT_/ms','>',$this->xhtml);  // dw quotes     
        $this->xhtml = str_replace("rss&gt;FEED", "rss>Feed:www.",$this->xhtml); 
+      $this->xhtml = str_replace(array('STETQstet', 'STETqstet', 'STETSstet','STETFstet','STETBstet','STETUstet','STETCstet','STETAstet','STETHstet') ,  array('"',"'", '*', '/', '\\',  '_',  '^',  '&',  '-') ,$this->xhtml);
 
        $this->xhtml = preg_replace_callback(
          "/^(>+)(.*?)$/ms",
@@ -596,8 +605,13 @@ CKEDITOR_REPLACE;
          global $skip_styling;
             
 ?>
+<?php
+            if($this->page_from_template) {
+             $ckg_template = 'tpl';   
+            }
+            else $ckg_template ="";
 
- 
+ ?>
    <form id="dw__editform" method="post" action="<?php echo script()?>"  accept-charset="<?php echo $lang['encoding']?>">
     <div class="no">
       <input type="hidden" name="id"   value="<?php echo $ID?>" />
@@ -609,6 +623,7 @@ CKEDITOR_REPLACE;
       <input type="hidden" id="fck_preview_mode"  name="fck_preview_mode" value="nil" />
       <input type="hidden" id="fck_wikitext"    name="fck_wikitext" value="__false__" />     
        <input type="hidden" id="styling"  name="styling" value="styles" />
+       <input type="hidden" id="template"  name="template`" value="<?php echo $ckg_template?>" />
       <?php
       if(function_exists('formSecurityToken')) {
            formSecurityToken();  

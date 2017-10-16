@@ -55,6 +55,8 @@ class syntax_plugin_ckgedit_specials extends DokuWiki_Syntax_Plugin {
              
           $this->Lexer->addSpecialPattern('~~MULTI_PLUGIN_OPEN~~',$mode,'plugin_ckgedit_specials');
           $this->Lexer->addSpecialPattern('~~MULTI_PLUGIN_CLOSE~~',$mode,'plugin_ckgedit_specials');
+          $this->Lexer->addSpecialPattern('~~STET_OPEN~~',$mode,'plugin_ckgedit_specials');
+          $this->Lexer->addSpecialPattern('~~STET_CLOSE~~',$mode,'plugin_ckgedit_specials');
           $this->Lexer->addSpecialPattern('~~COMPLEX_TABLES~~',$mode,'plugin_ckgedit_specials');
           $this->Lexer->addSpecialPattern('~~NO_STYLING~~',$mode,'plugin_ckgedit_specials');          
           $this->Lexer->addEntryPattern('~~START_HTML_BLOCK~~(?=.*?~~CLOSE_HTML_BLOCK~~)',$mode,'plugin_ckgedit_specials');   
@@ -72,7 +74,10 @@ class syntax_plugin_ckgedit_specials extends DokuWiki_Syntax_Plugin {
         $xhtml = "";
         switch($state) {       
             case DOKU_LEXER_SPECIAL:        
-        if(preg_match('/OPEN/', $match)) {
+        if(preg_match('/STET/', $match)) {
+           return array($state, "" );
+        }           
+        elseif(preg_match('/OPEN/', $match)) {
            return array($state, "<span class='multi_p_open'></span>" );
         }       
         elseif(preg_match('/CLOSE/', $match)) {
