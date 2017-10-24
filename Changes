@@ -1,4 +1,4 @@
-rev_17-Oct_21-13_31
+rev_17-Oct_24-07_05
 
 28 Feb 2013
 Added support for interwiki links
@@ -1147,3 +1147,7 @@ Remove urls from linkonly images inserted after second and additional saves, res
 
 Oct 21
 Insure namespace template data is saved when there has been no activity in editor
+
+Oct 24
+Fixes broken table when cell has pipe in nowiki
+ 
