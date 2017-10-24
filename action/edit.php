@@ -238,6 +238,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             function ($matches) {
                 $matches[0] = str_replace('%%', 'DBLPERCENT',$matches[0]);
                 $matches[0] =  str_replace('\\ ', 'DBLBACKSPLASH',$matches[0]);
+                 $matches[0] =  str_replace('|', 'NWPIPECHARACTER',$matches[0]);                
                 return $matches[0];
             },
            $text
@@ -1175,6 +1176,7 @@ $text = preg_replace_callback(
         $xhtml = str_replace('ckgeditFONTOpen', '&amp;lt;font',$xhtml);  // protect font markup in code blocks
         $xhtml = str_replace('ckgeditFONTClose', 'font&amp;gt;',$xhtml);
         $xhtml = str_replace('DBLBACKSPLASH', '\\ ',$xhtml);
+        $xhtml = str_replace('NWPIPECHARACTER', '|',$xhtml);            
         //DBLBACKSPLASH
        $ua = strtolower ($_SERVER['HTTP_USER_AGENT']); 
 	  if(strpos($ua,'chrome') !== false) {
