@@ -230,7 +230,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
          $useComplexTables=false;
       }
       
-      if(strpos($text, '%%') !== false || strpos($text, '\\\\') !== false ) {  
+      if(strpos($text, '%%') !== false || strpos($text, '\\\\') !== false || strpos($text, '|') !== false ) {  
       $text = preg_replace('/%%\s*<nowiki>\s*%%/ms', 'PERCNWPERC',$text);
       $text = preg_replace('/%%\s*<(code|file)>\s*%%/ms', 'PERC' . "$1" . 'PERC',$text);
         $text = preg_replace_callback(
