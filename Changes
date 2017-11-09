@@ -1,4 +1,4 @@
-rev_17-Oct_26-10_52
+rev_17-Nov_09-08_05
 
 28 Feb 2013
 Added support for interwiki links
@@ -1153,3 +1153,6 @@ Fixes broken table when cell has pipe in nowiki
  
 Oct 26
 Adds back in backslashes when code/file blocks are filtered for extra final line-feeds in tables 
+
+Nov 9
+Fixed useheading setting to any positive except for navigation
