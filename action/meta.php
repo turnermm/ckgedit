@@ -83,6 +83,16 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   }
  
 function _ajax_call(Doku_Event $event, $param) { 
+      if ($event->data == 'use_heads') {  
+         $event->stopPropagation();
+          $event->preventDefault();
+          global $INPUT;
+          $page = $INPUT->str('dw_id');  
+          $page = urldecode($page);
+          $page = ltrim($page, ':');
+         $t= trim(tpl_pagetitle($page,1));
+         echo htmlentities($t) . "\n";          
+     }
      if ($event->data == 'wrap_lang') {  //choose profile editor priority
          $event->stopPropagation();
           $event->preventDefault();
@@ -666,7 +676,7 @@ function check_userfiles() {
         else {
             $JSINFO['ckgEdPaste'] = $_COOKIE['ckgEdPaste'];
         }       
-       
+        $JSINFO[ 'rel_links'] = $this->getConf('rel_links');       
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
