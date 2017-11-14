@@ -39,7 +39,8 @@ var HTMLParser_Elements = new Array();
    
 	HTMLParser = this.HTMLParser = function( html, handler ) {
 		var index, chars, match, stack = [], last = html;      
-
+          html = html.replace(/~~OPEN_HTML_BLOCK~~/gm , '~~START_HTML_BLOCK~~') ;
+          html = html.replace(/~~END_HTML_BLOCK~~/gm , '~~CLOSE_HTML_BLOCK~~') ;
          if(html.match(/~~START_HTML_BLOCK~~/gm) ){            //adopted [\s\S] from Goyvaerts, Reg. Exp. Cookbook (O'Reilly)
               if(!JSINFO['htmlok']) {
                  html = html.replace(/~~START_HTML_BLOCK~~|~~CLOSE_HTML_BLOCK~~/gm,"");
