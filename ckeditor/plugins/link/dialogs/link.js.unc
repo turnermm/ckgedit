@@ -61,28 +61,25 @@ CKEDITOR.dialog.add( 'link', function( editor )
       return defaultFBLang[js_code];
     }   ; 
     
-         jQuery.ajax(
-          DOKU_BASE + 'lib/exe/ajax.php',
-          {
-            data:
-              {
-                call: 'iwiki_list'
-              },
-            type: "POST",
+
+     jQuery.ajax({
+             method: "POST",
+             url: DOKU_BASE + 'lib/exe/ajax.php',
+             data: { call: 'iwiki_list'},                           
             async: true,
             dataType: "json",
-            success: function(data, textStatus, jqXHR)
+              })
+            .done(function(data)
               {
                   retv = data;
-                  ckgeditIwikiData =retv;
-              },
-            error: function(jqXHR, textStatus, errorThrown )
+                  ckgeditIwikiData  = retv;
+              })
+              .fail(function(jqXHR, textStatus, errorThrown )
               {
                 alert(textStatus);
                 alert(errorThrown);
-              }
-          }
-        ); 
+              });      
+    
      
     var getInternalHeaders = function() {     
     
@@ -135,25 +132,31 @@ CKEDITOR.dialog.add( 'link', function( editor )
     
 var useHeading = function(wiki_id) {
         var retv = wiki_id;
-        var debug = 0;
-         var params="dw_id=" +encodeURIComponent(wiki_id);
-         params +="&call=use_heads";
-         editor.config.jquery.ajax({
-           url: editor.config.doku_url + 'lib/exe/ajax.php',
+        
+         jQuery.ajax({
+             method: "POST",
+             url: DOKU_BASE + 'lib/exe/ajax.php',
+             data: {             
+             dw_id: encodeURIComponent(wiki_id),
+             call: call="use_heads"
+             },                           
            async: true,
-           data: params,    
-           type: 'POST',
-           dataType: 'html',         
-           success: function(data){                 
-               if(debug) {            
-                  alert(data);
-               }              
+            dataType: "html",
+              })
+            .done(function(data)
+              {
                retv = decodeURIComponent(data);  
-      },
-      error: function (XMLHttpRequest, textStatus, errorThrown) {
-            retv = wiki_id;
-        }
+              })
+              .fail(function(jqXHR, textStatus, errorThrown )
+              {
+                alert('Error: ' + textStatus +'/' + errorThrown);
+                
+              })
+             .always (function (data, textStatus, errorThrown)
+             {
+
     });
+          
     return retv;
 };
 
