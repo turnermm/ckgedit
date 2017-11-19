@@ -1,4 +1,4 @@
-rev_17-Nov_18-19_00
+rev_17-Nov_19-08_04
 
 28 Feb 2013
 Added support for interwiki links
@@ -1159,3 +1159,6 @@ Fixed useheading setting to any positive except for navigation
 
 Nov 18
 Merged farm with master
+
+Nov 19
+Added back in to frmresourceslist.html support for canonical
