@@ -4,7 +4,7 @@ function setupLanguage() {
 
      if(opener && opener.oDokuWiki_FCKEditorInstance.Lang) {
         if(opener.oDokuWiki_FCKEditorInstance.Lang['fbrowser'])
-            fck_Lang=opener.oDokuWiki_FCKEditorInstance.Lang['fbrowser'];
+            fck_Lang=opener.oDokuWiki_FCKEditorInstance.Lang['fbrowser'];               
             ckgTranslatePage(document);        
             return;  
  }

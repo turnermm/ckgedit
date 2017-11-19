@@ -44,7 +44,7 @@ var isInternet_Explorer = false;
  if(navigator.userAgent.indexOf('MSIE') != -1 ||  navigator.userAgent.indexOf('Trident') != -1) {
   isInternet_Explorer = true;
  }
- 
+
 function getFCKSaveDir() {
    //alert(dwikiUTF8_decodeFN(document.cookie,DwikiFNencode)); 
    var allcookies = document.cookie;
@@ -96,10 +96,13 @@ oListManager.GetFolderRowHtml = function( folderName, folderPath, folder_class, 
 
 
 var imageDirectoryRegex = new RegExp ('^(.*?ckgedit\\/fckeditor\\/userfiles\\/image\\/)(.*)');
+var imageDirectoryRegexFarms = new RegExp ('^(.*?ckgedit\\/fckeditor\\/.*?\\/image\\/)(.*)');
 function reviseImgSrc(url) {
- //var imgUrl = decodeURI(decodeURI(url));
+ 
  var imgUrl =decodeURI(dwikiUTF8_decodeFN(url,DwikiFNencode));
+ 
  var matches = imgUrl.match(imageDirectoryRegex); 
+ if(!matches)  matches = imgUrl.match(imageDirectoryRegexFarms); 
  if(matches && matches.length > 1) {
    if(!matches[1].match(/^\//)) matches[1] = '/'+matches[1];   
     return  matches[1]+ encodeURI(dwikiUTF8_encodeFN(matches[2],DwikiFNencode));
@@ -224,7 +227,7 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
         }
         else c_type = 'img';
     }
- 
+
 
    fileTime =  new Date(Number(fileTime)*1000);
    fileTime ="&nbsp;&nbsp;&nbsp;&nbsp;" + fileTime.toDateString().replace(/^\w+\s*/,"")  + "&nbsp;" + fileTime.toLocaleTimeString();
@@ -327,9 +330,6 @@ function OpenFile( fileUrl )
     }
     if(isDwikiImage) {
       if(DwikiFNencode == 'url')  fileUrl=encodeURI(encodeURI(fileUrl));    
-        if(window.top.opener.JSINFO['ckg_canonical'] ) {
-            fileUrl = window.location.protocol +'//' + window.location.host + fileUrl;
-        }
     }
     window.top.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl);
     if(isInternalLink) {  
@@ -340,10 +340,16 @@ function OpenFile( fileUrl )
        if(url = fileUrl.match(/userfiles\/(file|image)\/(.*?)$/)) {
             fileUrl = url[2];           
        }
-       else {
-           url = fileUrl.match(/data\/media\/(.*?)$/);  // needs tobe updated for non-standard and Windows save dirs
+       else if(url = fileUrl.match(/data\/media\/(.*?)$/)) {  // needs tobe updated for non-standard and Windows save dirs
            fileUrl = url[1];
        }      
+      else {
+                   var cookie = ckgEedit_getCookie('FCK_animal') ;
+                   if(cookie) {
+                        var match = fileUrl.match(cookie+'\/file/(.*)');
+                        if(match)  fileUrl = match[1];
+                   }
+      }
        window.top.opener.update_ckgeditMediaLink(fileUrl);    
     parent.opener.oDokuWiki_FCKEditorInstance.isLocalDwikiBrowser=false;
     }

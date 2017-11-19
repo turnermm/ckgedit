@@ -1775,14 +1775,14 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
                      else   c = '{{' + b + '|'+c + '}}';                     
                      
                     var val = prompt(LANG.plugins.ckgedit.font_err_1 + "\n" + c  + "\n" + LANG.plugins.ckgedit.font_err_2  );  
-                    if(val == null) {
-                     if(ckgedit_to_dwedit)   {
-                        ckgedit_to_dwedit = false;                   
+           if(val == null) {
+                 if(ckgedit_to_dwedit)   {
+                    ckgedit_to_dwedit = false;                   
                             return c;   
-                    }    
-                     else throw new Error(LANG.plugins.ckgedit.font_err_throw);
-                    } 
-                    if(val) return val;
+                }    
+                 else throw new Error(LANG.plugins.ckgedit.font_err_throw);
+             } 
+           if(val) return val;
                     return c; 
                 }
             )

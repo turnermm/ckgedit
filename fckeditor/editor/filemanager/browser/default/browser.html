@@ -78,7 +78,7 @@ var fbsz_increment =opener.oDokuWiki_FCKEditorInstance.fbsz_increment;
 window.onload = function()
 {
    window.top.IsLoadedCreateFolder = true ;
-   setupLanguage();
+  setupLanguage();
 
    if(CurrentDWikiUser == 'visitor' || isLocalDwikiBrowser || !CurrentDWikiUser) {
      document.getElementById("btn__create_folder").disabled = true;    
@@ -87,8 +87,8 @@ window.onload = function()
 
    if(CreateDwikiFolder == 'n') {
         document.getElementById('create_folder').style.display = 'none';  
-   }
-  
+}
+
  if(navigator.userAgent.match(/macintosh/i)) {
        document.getElementById('is_mac').innerHTML = 'Cmd';
  }

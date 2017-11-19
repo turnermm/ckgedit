@@ -23,9 +23,15 @@ require_once DOKU_INC.'inc/utf8.php';
   global $config_cascade;
   global $Dwfck_conf_values; 
   $AUTH_ACL = array();
+  
  //load ACL into a global array XXX
-  $AUTH_ACL = file(DOKU_CONF . '/acl.auth.php');
+ $auth_file = DOKU_CONF. '/acl.auth.php';
+ if(isset( $_COOKIE['FCK_animal_inc'] )) {
+   $animal_inc = $_COOKIE['FCK_animal_inc'];    
+    $auth_file = $animal_inc.'conf/acl.auth.php';
+}
  
+  $AUTH_ACL = file($auth_file);
  
 /**
  * Returns the maximum rights a user has for
@@ -39,7 +45,7 @@ require_once DOKU_INC.'inc/utf8.php';
  * @return int             permission level
  */
 function auth_aclcheck($id,$user,$groups, $_auth=1){
-  //checkacl_write_debug("$id,$user");
+ 
   global $AUTH_ACL;
   $AUTH_ACL = auth_loadACL($AUTH_ACL);
   if($_auth == 255) {
