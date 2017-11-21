@@ -188,9 +188,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                    if($this->getConf('rel_links')) 
                       $current_id = $this->abs2rel($link_id,$ID); 
                     else  $current_id = $link_id;
-                   $useheading  = $conf['useheading'];
-                   if($useheading && $useheading != 'navigation') {
-                      $tmp_linktext = trim(tpl_pagetitle($link_id,1));                       
+                   //like in _getLinkTitle in xhtml.php
+                   if(useHeading('content')) {
+                      $tmp_linktext = p_get_first_heading($link_id);
                       if(trim($linktext) == trim($tmp_linktext)) {
                           $linktext = "";
                       }
