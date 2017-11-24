@@ -557,7 +557,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         else $toolbar = 'Dokuwiki';
        
 $height = isset($_COOKIE['ckgEdht']) && $_COOKIE['ckgEdht'] ? $_COOKIE['ckgEdht']: 250;
-
+if(!is_numeric($height)) $height = 250;
 $fbsz_increment = isset($_COOKIE['fbsz']) && $_COOKIE['fbsz'] ? $_COOKIE['fbsz'] : false;
 $fbrowser_width = 1070;
 $fbrowser_height = 660;
