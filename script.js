@@ -313,6 +313,12 @@ var dokuBase = location.host + DOKU_BASE;
  
 jQuery(document).ready(function(){
 
+    jQuery( "#editor_height" ).keydown(function(event) { 
+          if ( event.which == 13 ) {
+           event.preventDefault();
+        }
+    });
+
     $dokuWiki = jQuery('.dokuwiki');
      jQuery('.editbutton_table button').click(function() {
            var f = this.form;
