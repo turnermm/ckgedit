@@ -1,4 +1,4 @@
-rev_17-Nov_19-08_04
+rev_17-Nov_24-20_55
 
 28 Feb 2013
 Added support for interwiki links
@@ -1157,8 +1157,7 @@ Adds back in backslashes when code/file blocks are filtered for extra final line
 Nov 9
 Fixed useheading setting to any positive except for navigation
 
-Nov 18
-Merged farm with master
+Nov 24
+Complete rewrite of usheading functions in link.js by third party
+Prevent hitting return on height box from ging into page delete request
 
-Nov 19
-Added back in to frmresourceslist.html support for canonical
