@@ -90,8 +90,8 @@ function _ajax_call(Doku_Event $event, $param) {
           $page = $INPUT->str('dw_id');  
           $page = urldecode($page);
           $page = ltrim($page, ':');
-         $t= trim(tpl_pagetitle($page,1));
-         echo htmlentities($t) . "\n";          
+         $t= trim(p_get_first_heading($page));
+         echo $t;
      }
      if ($event->data == 'wrap_lang') {  //choose profile editor priority
          $event->stopPropagation();
