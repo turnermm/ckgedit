@@ -145,7 +145,7 @@ var useHeading = function(wiki_id) {
               {
                 alert('Error: ' + textStatus +'/' + errorThrown);
                 
-    });
+              });
 };
 
   
@@ -1091,302 +1091,302 @@ var useHeading = function(wiki_id) {
 			};
 
 			var ok_callback = jQuery.proxy(function (data, heading) {
-           var internal_text = false;
-            var ImagesAllowed = new RegExp( oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions);
-			var attributes = {},
-				removeAttributes = [],
-                linkstyle = 'page',
-				me = this,
-                tested  = false,
-				editor = this.getParentEditor();
+			   var internal_text = false;
+				var ImagesAllowed = new RegExp( oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions);
+				var attributes = {},
+					removeAttributes = [],
+					linkstyle = 'page',
+					me = this,
+					tested  = false,
+					editor = this.getParentEditor();
 
 
-             var other_media = false;
-			 
-			// Compose the URL.			
-		   var other_mime_file = "";
-			switch ( data.type || 'url' )
-			{
-                case 'media':
-                    if(document.getElementById(fckgMediaInputId).value) {
-                        data.url.url =  document.getElementById(fckgMediaInputId).value;
-                    }
-                    data.adv.advTitle = data.url.url;
-                    
-                    var mf = data.url.url.match(/(\.(\w+))$/);           
-                     other_mime_file = data.url.url.replace(/^:/,"");
-                    data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;                         
-                    
-                    if( mf[1].match(ImagesAllowed)) {                        
-                        data.adv['advContentType'] = 'linkonly';
-                   }
-                   else { 
-                        data.adv['advContentType'] = "other_mime";            
-                       data.url.url=top.dokuBase + 'lib/exe/fetch.php?media=' +  other_mime_file;
-                         other_media = true;
-                   }
-                   data.adv[ 'advCSSClasses'] ="media mediafile";
-                    if(mf) data.adv[ 'advCSSClasses'] += " mf_" + mf[2];
-         			var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
-						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
-					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;                 
-                break;
-                case 'internal':
-                    internal_text =  this.getValueOf( 'info', 'internal_text' );
-                     ilinkstyle =this.getValueOf( 'info', 'ilinkstyle' );
-                     if(!data.url.url) {                                            
-                        data.url.url=document.getElementById(fckgInternalInputId).value;                                 
-                              if(!data.url.url.match(/^:\w+/)) {                                 
+				 var other_media = false;
+
+				// Compose the URL.
+			   var other_mime_file = "";
+				switch ( data.type || 'url' )
+				{
+					case 'media':
+						if(document.getElementById(fckgMediaInputId).value) {
+							data.url.url =  document.getElementById(fckgMediaInputId).value;
+						}
+						data.adv.advTitle = data.url.url;
+
+						var mf = data.url.url.match(/(\.(\w+))$/);
+						 other_mime_file = data.url.url.replace(/^:/,"");
+						data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;
+
+						if( mf[1].match(ImagesAllowed)) {
+							data.adv['advContentType'] = 'linkonly';
+					   }
+					   else {
+							data.adv['advContentType'] = "other_mime";
+						   data.url.url=top.dokuBase + 'lib/exe/fetch.php?media=' +  other_mime_file;
+							 other_media = true;
+					   }
+					   data.adv[ 'advCSSClasses'] ="media mediafile";
+						if(mf) data.adv[ 'advCSSClasses'] += " mf_" + mf[2];
+						var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
+							url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
+						attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
+					break;
+					case 'internal':
+						internal_text =  this.getValueOf( 'info', 'internal_text' );
+						 ilinkstyle =this.getValueOf( 'info', 'ilinkstyle' );
+                         if(!data.url.url) {
+                            data.url.url=document.getElementById(fckgInternalInputId).value;
+                            if(!data.url.url.match(/^:\w+/)) {
                                 var ns = top.getCurrentWikiNS() + ':';
                                 ns = ns.replace(/:$/,"");
-                                var regex = new RegExp(':?'+ ns+':');   
-                                if(!data.url.url.match(regex)) {           
-                                     data.url.url = ns +':' + data.url.url;
-                                     data.url.url = data.url.url.replace(/\:{2,}/g,':');                               
+                                var regex = new RegExp(':?'+ ns+':');
+                                if(!data.url.url.match(regex)) {
+                                    data.url.url = ns +':' + data.url.url;
+                                    data.url.url = data.url.url.replace(/\:{2,}/g,':');
                                 }
                             }
-                        }  
+                        }
 
-                     data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
-                     data.url.url = data.url.url.replace(/^\:/,"");
-                     data.url.url =  ':' + data.url.url.replace(/\//g,':');      
-                     data.adv.advCSSClasses = "wikilink1";
+                        data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
+                        data.url.url = data.url.url.replace(/^\:/,"");
+                        data.url.url =  ':' + data.url.url.replace(/\//g,':');
+                        data.adv.advCSSClasses = "wikilink1";
 						 if(heading && oDokuWiki_FCKEditorInstance.useheading == 'y') {
 							var tmp = heading;
-                        var test_1 = tmp.replace(/^:/,"");
-                        var test_2 = data.url.url.replace(/^:/,"");                   
-                        if(test_1 != test_2) {            
-                              data.adv.advTitle = tmp;    
-                              tested = true;
-                          }    
-                          else tested = false;                          
-                    }
-                   if(ilinkstyle == 'page' && !tested) {      
-                          var elms = data.url.url.split(':');
-                          data.adv.advTitle = elms.pop();                        
-                    }
-                    else if(!tested) {
-                     data.adv.advTitle = data.url.url;
-                     }   
-                     data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;   
-                     if(data.hash) { data.url.url += '#' +data.hash;  }
-                     if(data.qstring) { data.url.url += '&' +data.qstring;  }
-                 	var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
+							var test_1 = tmp.replace(/^:/,"");
+							var test_2 = data.url.url.replace(/^:/,"");
+							if(test_1 != test_2) {
+								  data.adv.advTitle = tmp;
+								  tested = true;
+							  }
+							  else tested = false;
+						}
+					   if(ilinkstyle == 'page' && !tested) {
+							  var elms = data.url.url.split(':');
+							  data.adv.advTitle = elms.pop();
+						}
+						else if(!tested) {
+						 data.adv.advTitle = data.url.url;
+						 }
+						 data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;
+						 if(data.hash) { data.url.url += '#' +data.hash;  }
+						 if(data.qstring) { data.url.url += '&' +data.qstring;  }
+						var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
+							url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
+						attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
+						 break;
+					case 'interwiki':
+						  if( ckg_iwikiClass) {
+						   data.adv.advCSSClasses =    ckg_iwikiClass;
+						  }
+						 else data.adv.advCSSClasses = 'interwiki ' + 'iw_' + data.url.iwiki_shortcut;
+
+						var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
+						data.adv.advTitle = data.url.selection;
+						if(data.url.selection) data.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
+
+						if(iwiki_pattern.match(/\{.*?\}/) ){
+						   data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
+						}
+					   else data.url.url = iwiki_pattern + data.url.selection;
+
+						attributes[ 'data-cke-saved-href' ] =  data.url.url;
+					  break;
+					case 'url':
+						var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
+							url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
+						attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
+
+						break;
+					case 'anchor':
+						var name = ( data.anchor && data.anchor.name ),
+							id = ( data.anchor && data.anchor.id );
+						attributes[ 'data-cke-saved-href' ] = '#' + ( name || id || '' );
+						break;
+					 case 'samba':
+					   if(!data.url.url) {
+						  data.url.url=document.getElementById(getSMBInput()).value;
+					   }
+						if(!data.url.url) {
+							  alert("Missing Samba Url");
+							  return false;
+						}
+						data.url.protocol = "";
+						var protocol = "";    // ( data.url && data.url.protocol != undefined ) ? data.url.protocol : '',
 						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
-					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;              
-                     break;
-                case 'interwiki':    
-                      if( ckg_iwikiClass) {
-                       data.adv.advCSSClasses =    ckg_iwikiClass;
-                      }
-                     else data.adv.advCSSClasses = 'interwiki ' + 'iw_' + data.url.iwiki_shortcut;
-                      
-                    var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
-                    data.adv.advTitle = data.url.selection;                 
-                    if(data.url.selection) data.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
-                 
-                    if(iwiki_pattern.match(/\{.*?\}/) ){  
-                       data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
-                    }                           
-                   else data.url.url = iwiki_pattern + data.url.selection;                   
-                   
-                  	attributes[ 'data-cke-saved-href' ] =  data.url.url;
-                  break;
-				case 'url':               
-					var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
-						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';                       
-					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;    
-
+						attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
+						data.adv.advCSSClasses = "windows";
+						data.adv.advTitle = data.url.url;
 					break;
-				case 'anchor':
-					var name = ( data.anchor && data.anchor.name ),
-						id = ( data.anchor && data.anchor.id );
-					attributes[ 'data-cke-saved-href' ] = '#' + ( name || id || '' );
-					break;                
-                 case 'samba':				
-				   if(!data.url.url) {                                            
-				      data.url.url=document.getElementById(getSMBInput()).value;
-				   }
-					if(!data.url.url) { 
-						  alert("Missing Samba Url");
-						  return false;
-					}
-					data.url.protocol = "";
-				    var protocol = "";    // ( data.url && data.url.protocol != undefined ) ? data.url.protocol : '',
-					url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
-					attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;  	
-					data.adv.advCSSClasses = "windows";
-					data.adv.advTitle = data.url.url;
-				break;
-				case 'email':
+					case 'email':
 
-					var linkHref,
-						email = data.email,
-						address = email.address;
+						var linkHref,
+							email = data.email,
+							address = email.address;
 
-					switch( emailProtection )
-					{
-						case '' :
-						case 'encode' :
+						switch( emailProtection )
 						{
-							var subject = encodeURIComponent( email.subject || '' ),
-								body = encodeURIComponent( email.body || '' );
-
-							// Build the e-mail parameters first.
-							var argList = [];
-   							body && argList.push( 'body=' + body );
-							subject && argList.push( 'subject=' + subject );
-
-							argList = argList.length ? '?' + argList.join( '&' ) : '';
-
-							if ( emailProtection == 'encode' )
+							case '' :
+							case 'encode' :
 							{
-								linkHref = [ 'javascript:void(location.href=\'mailto:\'+',
-											 protectEmailAddressAsEncodedString( address ) ];
-								// parameters are optional.
-								argList && linkHref.push( '+\'', escapeSingleQuote( argList ), '\'' );
+								var subject = encodeURIComponent( email.subject || '' ),
+									body = encodeURIComponent( email.body || '' );
 
-								linkHref.push( ')' );
+								// Build the e-mail parameters first.
+								var argList = [];
+								body && argList.push( 'body=' + body );
+								subject && argList.push( 'subject=' + subject );
+
+								argList = argList.length ? '?' + argList.join( '&' ) : '';
+
+								if ( emailProtection == 'encode' )
+								{
+									linkHref = [ 'javascript:void(location.href=\'mailto:\'+',
+												 protectEmailAddressAsEncodedString( address ) ];
+									// parameters are optional.
+									argList && linkHref.push( '+\'', escapeSingleQuote( argList ), '\'' );
+
+									linkHref.push( ')' );
+								}
+								else
+									linkHref = [ 'mailto:', address, argList ];
+
+								break;
 							}
-							else
-								linkHref = [ 'mailto:', address, argList ];
+							default :
+							{
+								// Separating name and domain.
+								var nameAndDomain = address.split( '@', 2 );
+								email.name = nameAndDomain[ 0 ];
+								email.domain = nameAndDomain[ 1 ];
 
-							break;
+								linkHref = [ 'javascript:', protectEmailLinkAsFunction( email ) ];
+							}
 						}
-						default :
-						{
-							// Separating name and domain.
-							var nameAndDomain = address.split( '@', 2 );
-							email.name = nameAndDomain[ 0 ];
-							email.domain = nameAndDomain[ 1 ];
 
-							linkHref = [ 'javascript:', protectEmailLinkAsFunction( email ) ];
-						}
+						attributes[ 'data-cke-saved-href' ] = linkHref.join( '' );
+
+						break;
+				}
+
+
+				// Advanced attributes.
+				if ( data.adv )
+				{
+					var advAttr = function( inputName, attrName )
+					{
+						var value = data.adv[ inputName ];
+						if ( value )
+							attributes[attrName] = value;
+						else
+							removeAttributes.push( attrName );
+					};
+
+					advAttr( 'advId', 'id' );
+					advAttr( 'advLangDir', 'dir' );
+					advAttr( 'advAccessKey', 'accessKey' );
+
+					if ( data.adv[ 'advName' ] )
+						attributes[ 'name' ] = attributes[ 'data-cke-saved-name' ] = data.adv[ 'advName' ];
+					else
+						removeAttributes = removeAttributes.concat( [ 'data-cke-saved-name', 'name' ] );
+
+					advAttr( 'advLangCode', 'lang' );
+					advAttr( 'advTabIndex', 'tabindex' );
+					if(!other_media) {
+						advAttr( 'advTitle', 'title' );
+					}
+					advAttr( 'advContentType', 'type' );
+					advAttr( 'advCSSClasses', 'class' );
+					advAttr( 'advCharset', 'charset' );
+					advAttr( 'advStyles', 'style' );
+					advAttr( 'advRel', 'rel' );
+				}
+
+				var selection = editor.getSelection();
+				var hasSelectedText = selection.getSelectedText() ? selection.getSelectedText() : false;
+				// Browser need the "href" fro copy/paste link to work. (#6641)
+				attributes.href = attributes[ 'data-cke-saved-href' ];
+
+				if ( !this._.selectedElement )
+				{
+
+					// Create element if current selection is collapsed.
+
+					var ranges = selection.getRanges( true );
+					if ( ranges.length == 1 && ranges[0].collapsed )
+					{
+
+						// Short mailto link text view (#5736).
+
+						var text = new CKEDITOR.dom.text( data.type == 'email' ?
+								data.email.address : attributes[ 'data-cke-saved-href' ], editor.document );
+
+						ranges[0].insertNode( text );
+						ranges[0].selectNodeContents( text );
+						selection.selectRanges( ranges );
+
 					}
 
-					attributes[ 'data-cke-saved-href' ] = linkHref.join( '' );
-                   
-					break;
-			}
 
-
-			// Advanced attributes.
-			if ( data.adv )
-			{
-				var advAttr = function( inputName, attrName )
-				{
-					var value = data.adv[ inputName ];
-					if ( value )
-						attributes[attrName] = value;
-					else
-						removeAttributes.push( attrName );
-				};
-
-				advAttr( 'advId', 'id' );
-				advAttr( 'advLangDir', 'dir' );
-				advAttr( 'advAccessKey', 'accessKey' );
-
-				if ( data.adv[ 'advName' ] )
-					attributes[ 'name' ] = attributes[ 'data-cke-saved-name' ] = data.adv[ 'advName' ];
+				 if(navigator.userAgent.match(/(Trident|MSIE)/)) {
+						var el = editor.document.createElement( 'a' );
+						el.setAttribute( 'href',  attributes['href']);
+						if(!hasSelectedText &&  (data.type == 'media' || data.type == 'internal')) {
+						   if(internal_text) {
+							el.setHtml(internal_text);
+						   }
+							else el.setHtml(data.adv.advTitle);
+						}
+						else el.setHtml(selection.getSelectedText());
+						for(attr in attributes) {
+							 if(attr.match(/href/i))continue;
+							 el.setAttribute( attr,  attributes[attr]);
+						}
+						editor.insertElement( el );
+					}
+					else {  // Apply style.
+						var style = new CKEDITOR.style( { element : 'a', attributes : attributes } );
+						style.type = CKEDITOR.STYLE_INLINE;		// need to override... dunno why.
+						style.apply( editor.document );
+					}
+				}
 				else
-					removeAttributes = removeAttributes.concat( [ 'data-cke-saved-name', 'name' ] );
-
-				advAttr( 'advLangCode', 'lang' );
-				advAttr( 'advTabIndex', 'tabindex' );
-                if(!other_media) {
-				    advAttr( 'advTitle', 'title' );
-                }
-				advAttr( 'advContentType', 'type' );
-				advAttr( 'advCSSClasses', 'class' );
-				advAttr( 'advCharset', 'charset' );
-				advAttr( 'advStyles', 'style' );
-				advAttr( 'advRel', 'rel' );
-			}
-
-			var selection = editor.getSelection();
-            var hasSelectedText = selection.getSelectedText() ? selection.getSelectedText() : false;
-			// Browser need the "href" fro copy/paste link to work. (#6641)
-			attributes.href = attributes[ 'data-cke-saved-href' ];
-
-			if ( !this._.selectedElement )
-			{
-               
-				// Create element if current selection is collapsed.
-              
-				var ranges = selection.getRanges( true );
-				if ( ranges.length == 1 && ranges[0].collapsed )
 				{
-                    
-					// Short mailto link text view (#5736).
-                  
-					var text = new CKEDITOR.dom.text( data.type == 'email' ?
-							data.email.address : attributes[ 'data-cke-saved-href' ], editor.document );
-                   
-					ranges[0].insertNode( text );
-					ranges[0].selectNodeContents( text );
-					selection.selectRanges( ranges );
-                   
+
+					// We're only editing an existing link, so just overwrite the attributes.
+					var element = this._.selectedElement,
+						href = element.data( 'cke-saved-href' ),
+						textView = element.getHtml();
+					 if(other_media) {
+						 attributes['type'] = 'other_mime';
+						 attributes['title'] = ':' + other_mime_file;
+					 }
+					element.setAttributes( attributes );
+					element.removeAttributes( removeAttributes );
+
+					if ( data.adv && data.adv.advName && CKEDITOR.plugins.link.synAnchorSelector )
+						element.addClass( element.getChildCount() ? 'cke_anchor' : 'cke_anchor_empty' );
+
+					// Update text view when user changes protocol (#4612).
+					if ( href == textView || data.type == 'email' && textView.indexOf( '@' ) != -1 )
+					{
+						// Short mailto link text view (#5736).
+						element.setHtml( data.type == 'email' ?
+							data.email.address : attributes[ 'data-cke-saved-href' ] );
+					}
+
+					selection.selectElement( element );
+					delete this._.selectedElement;
 				}
-
-   
-             if(navigator.userAgent.match(/(Trident|MSIE)/)) {
-                    var el = editor.document.createElement( 'a' );
-                    el.setAttribute( 'href',  attributes['href']);
-                    if(!hasSelectedText &&  (data.type == 'media' || data.type == 'internal')) {
-                       if(internal_text) {
-                        el.setHtml(internal_text);                  
-                       }
-                        else el.setHtml(data.adv.advTitle);                  
-                    }
-                    else el.setHtml(selection.getSelectedText());                  
-                    for(attr in attributes) {
-                         if(attr.match(/href/i))continue;
-                         el.setAttribute( attr,  attributes[attr]);
-                    }
-                    editor.insertElement( el );
-                }				
-                else {  // Apply style.   
-                    var style = new CKEDITOR.style( { element : 'a', attributes : attributes } );
-                    style.type = CKEDITOR.STYLE_INLINE;		// need to override... dunno why.
-                    style.apply( editor.document );
-                }
-			}
-			else
-			{
-              
-				// We're only editing an existing link, so just overwrite the attributes.
-				var element = this._.selectedElement,
-					href = element.data( 'cke-saved-href' ),
-					textView = element.getHtml();
-                 if(other_media) {
-                     attributes['type'] = 'other_mime';   
-                     attributes['title'] = ':' + other_mime_file;   
-                 }    
-				element.setAttributes( attributes );
-				element.removeAttributes( removeAttributes );
-
-				if ( data.adv && data.adv.advName && CKEDITOR.plugins.link.synAnchorSelector )
-					element.addClass( element.getChildCount() ? 'cke_anchor' : 'cke_anchor_empty' );
-
-				// Update text view when user changes protocol (#4612).
-				if ( href == textView || data.type == 'email' && textView.indexOf( '@' ) != -1 )
-				{
-					// Short mailto link text view (#5736).
-					element.setHtml( data.type == 'email' ?
-						data.email.address : attributes[ 'data-cke-saved-href' ] );
+			   if(internal_text) {
+				   text.setText(internal_text);
+			   }
+				else if(text && data.adv.advTitle) {
+					  text.setText(data.adv.advTitle);
 				}
-
-				selection.selectElement( element );
-				delete this._.selectedElement;
-			}
-           if(internal_text) {
-               text.setText(internal_text);
-           }
-            else if(text && data.adv.advTitle) {
-                  text.setText(data.adv.advTitle);                                
-            }
             }, this);
-              
+
             var data = {};
             this.commitContent( data );
 
