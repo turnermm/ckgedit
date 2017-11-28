@@ -1,4 +1,4 @@
-rev_17-Nov_24-20_55
+rev_17-Nov_28-07_20
 
 28 Feb 2013
 Added support for interwiki links
@@ -1158,6 +1158,11 @@ Nov 9
 Fixed useheading setting to any positive except for navigation
 
 Nov 24
-Complete rewrite of usheading functions in link.js by third party
+Complete rewrite of useheading functions in link.js by third Szymon Olewniczak
 Prevent hitting return on height box from ging into page delete request
+
+Nov 28
+Merged ckg into master on Nov 27
+Update info
+
 
