@@ -183,6 +183,8 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
            '#\[\[(.*?)\]\]#ms',
                function($matches){ 
                     global $ID, $conf;      
+                
+                   if(preg_match("/\[\[http/",$matches[0])) return $matches[0];  //not an internal link
                    $link = explode('?',$matches[1]);
                    list($link_id,$linktext) = explode('|', $link[0]);          
                    if($this->getConf('rel_links')) 

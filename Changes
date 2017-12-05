@@ -1,4 +1,4 @@
-rev_17-Nov_28-07_20
+rev_17-Dec_05-13_45
 
 28 Feb 2013
 Added support for interwiki links
@@ -1164,5 +1164,8 @@ Prevent hitting return on height box from ging into page delete request
 Nov 28
 Merged ckg into master on Nov 27
 Update info
+
+Dec 4
+fixed bug in save.php where relative links callback mistakes external for internal link
 
 
