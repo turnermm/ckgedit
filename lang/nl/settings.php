@@ -2,7 +2,8 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Coen Eisma <info@coeneisma.nl>
  * @author Mijndert <mijndert@mijndertstuij.nl>
  * @author Peter van Diest <peter.van.diest@xs4all.nl>
  */
@@ -36,3 +37,4 @@ $lang['nofont_styling']        = 'Toon lettertypestijlen in de editor als plugin
 $lang['font_options']          = 'Lettertype opties verwijderen';
 $lang['color_options']         = 'Kleur opties verwijderen';
 $lang['alt_toolbar']           = 'Functies om de CKEditor tool te verwijderen';
+$lang['mfiles']                = 'mfile-ondersteuning aanzetten';
