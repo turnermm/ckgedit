@@ -1,4 +1,4 @@
-rev_17-Dec_06-08_27
+rev_17-Dec_08-15_19
 
 28 Feb 2013
 Added support for interwiki links
@@ -1168,4 +1168,6 @@ Update info
 Dec 4
 fixed bug in save.php where relative links callback mistakes external for internal link
 
+Dec 8
+updated edit.php for missing interwiki replacement function
 
