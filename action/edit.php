@@ -1000,13 +1000,17 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
         if(strpos($text,'~~NO_STYLING~~') !== false) {
             $skip_styling = true;
         }
-       $text = preg_replace_callback('/(\[\[\w+\.?\w{0,10}>)(.*?)([\]\|])/ms',
-             create_function(
-               '$matches',              
-               '//if(preg_match("/^\w+$/",$matches[2])) return $matches[0];
-                return $matches[1] . "oIWIKIo" . $matches[2] ."cIWIKIc" . $matches[3] ;' 
-          ), $text); 
 
+     $text = preg_replace_callback('/\[\[(.*?>)(.*?)\]\]/ms',
+              function ($matches) {    
+                 list($name,$link_text) = explode('|',$matches[2]);
+                 $retv = '[[' . $matches[1] . "oIWIKIo" . $name ."cIWIKIc";
+                 if(!empty($link_text)) {
+                     $retv .= "|$link_text";
+                 }
+                 return $retv . ']]';
+              },                 
+           $text);
 
         // try default renderer first:
         $file = DOKU_INC."inc/parser/$mode.php";
