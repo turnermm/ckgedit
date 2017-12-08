@@ -1170,4 +1170,5 @@ fixed bug in save.php where relative links callback mistakes external for intern
 
 Dec 8
 updated edit.php for missing interwiki replacement function
+in save.php fix deleted backslash in code blocks
 
