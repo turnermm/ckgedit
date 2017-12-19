@@ -1,4 +1,4 @@
-rev_17-Dec_08-15_19
+rev_17-Dec_19-10_42
 
 28 Feb 2013
 Added support for interwiki links
@@ -1171,4 +1171,7 @@ fixed bug in save.php where relative links callback mistakes external for intern
 Dec 8
 updated edit.php for missing interwiki replacement function
 in save.php fix deleted backslash in code blocks
+
+Dec 19
+fixed https://github.com/turnermm/ckgedit/issues/360: html tag markup confused with inerwiki markup: >
 
