@@ -1,4 +1,4 @@
-rev_17-Dec_19-10_42
+rev_17-Dec_22-08_26
 
 28 Feb 2013
 Added support for interwiki links
@@ -1175,3 +1175,5 @@ in save.php fix deleted backslash in code blocks
 Dec 19
 fixed https://github.com/turnermm/ckgedit/issues/360: html tag markup confused with inerwiki markup: >
 
+Dec 21
+Fixes https://github.com/turnermm/ckgdoku/issues/45 (left-over interwiki internal markup removed)

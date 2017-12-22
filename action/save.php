@@ -126,6 +126,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
           );
 
         $TEXT = preg_replace('/^\s*[\r\n]$/ms',"__n__", $TEXT);
+        $TEXT = preg_replace('/oIWIKIo|cIWIKIc/ms',"", $TEXT);
         $TEXT = preg_replace('/\r/ms',"", $TEXT);
         $TEXT = preg_replace('/^\s+(?=\^|\|)/ms',"", $TEXT);    
         $TEXT = preg_replace('/__n__/',"\n", $TEXT);
