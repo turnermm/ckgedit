@@ -1,4 +1,4 @@
-rev_17-Dec_22-08_26
+rev_17-Dec_27-20_23
 
 28 Feb 2013
 Added support for interwiki links
@@ -1177,3 +1177,6 @@ fixed https://github.com/turnermm/ckgedit/issues/360: html tag markup confused w
 
 Dec 21
 Fixes https://github.com/turnermm/ckgdoku/issues/45 (left-over interwiki internal markup removed)
+
+Dec 27
+Fixed interwiki urls that start with colon and get changed to wikilinks
