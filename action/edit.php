@@ -1128,8 +1128,19 @@ $text = preg_replace_callback(
         );
         }
         
+    /**   
+     * Alternative to  the one liner at 1179:  $xhtml = str_replace(array('oiwikio','ciwikic'),array('oIWIKIo','cIWIKIc'),$xhtml);   
+     *  if it turns out that there are users using  'oiwikio','ciwikic' 
+     $xhtml = preg_replace_callback(
+        '|class=\"interwiki.*?href=\".*?:oiwikiotowerciwikic\".*?title=\".*?oiwikiotowerciwikic\"|ms',
+        function($matches) {
+           $matches[0] = str_replace(array('oiwikio','ciwikic'),array('oIWIKIo','cIWIKIc'),$matches[0]);
+          return $matches[0];
+       },$xhtml
+       );  
+     */
+     if(stripos($xhtml,'oIWIKIo') !== false) {
         $xhtml = str_replace(array('oiwikio','ciwikic'),array('oIWIKIo','cIWIKIc'),$xhtml);
-         if(strpos($xhtml,'oIWIKIo') !== false) {
             $xhtml = preg_replace_callback(
                 '/<?(.*?)oIWIKIo(.*?)cIWIKIc/ms',
                  create_function(
