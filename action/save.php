@@ -210,14 +210,15 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
          
         if($this->getConf('rel_links')) {    
           $TEXT = preg_replace_callback(
-           '#\{\{(.*?)\}\}#ms',
+           '#\{\{(\s*)(.*?)(\s*)\}\}#ms',
            function($matches) {              
                 global $ID;
-               $link = explode('?',$matches[1]);
+               $link = explode('?',$matches[2]);
                list($link_id,$linktext) = explode('|', $link[0]);          
                $rel = $this->abs2rel($link_id,$ID);
+               if(!empty($link[1])) $rel .= '?' . $link[1];
                if(!empty($linktext)) $rel = $rel.'|'.$linktext;
-               return '{{' . $rel .'}}';
+               return '{{' .$matches[1] . $rel . $matches[3]  .'}}';
            },
            $TEXT
          );               

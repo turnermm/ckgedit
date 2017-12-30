@@ -1,4 +1,4 @@
-rev_17-Dec_27-20_23
+rev_17-Dec_30-11_27
 
 28 Feb 2013
 Added support for interwiki links
@@ -1180,3 +1180,7 @@ Fixes https://github.com/turnermm/ckgdoku/issues/45 (left-over interwiki interna
 
 Dec 27
 Fixed interwiki urls that start with colon and get changed to wikilinks
+
+Dec 30
+Fixes ckgdoku/issues/47, lost image settings with relative links set
+
