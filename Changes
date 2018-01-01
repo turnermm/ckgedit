@@ -1,4 +1,4 @@
-rev_17-Dec_30-11_27
+rev_18-Jan_01-15_10
 
 28 Feb 2013
 Added support for interwiki links
@@ -1184,3 +1184,5 @@ Fixed interwiki urls that start with colon and get changed to wikilinks
 Dec 30
 Fixes ckgdoku/issues/47, lost image settings with relative links set
 
+Dec 31 
+Fixes https://github.com/turnermm/ckgedit/issues/343, page duplcation when switching to dwedit
