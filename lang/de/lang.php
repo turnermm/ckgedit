@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Sebastian Engel <mail@engel-s.de>
  * @author Joerg Maeder <member@toolcase.org>
  * @author Leo Rudin <leo.rudin@gmx.ch>
  * @author Padhie <develop@padhie.de>
@@ -49,8 +50,10 @@ $lang['js']['dwp_updated']     = 'Editor Priorität aktualisiert auf:';
 $lang['js']['dwp_not_sel']     = 'Editor-Priorität nicht ausgewählt: Es wird durch die Konfiguration der dw_users-Gruppe bestimmt';
 $lang['js']['mediamgr_notice'] = 'Verwenden Sie den Link Dialog um Links einzufügen';
 $lang['js']['font_conflict']   = 'Der Parser fand einen oder mehrere Link-Font-Konflikte. Wenn Sie auf OK klicken, können Sie zum Editor zurückkehren und die Schriftstile entfernen. Weitere Informationen finden Sie unter: https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links';
+$lang['js']['ckg_paste_restart'] = 'Beim Neuladen des Editors wird die zus&auml;tzliche Unterst&uuml;tzung für das Einfügen eingeschaltet.';
 $lang['js']['on']              = 'ein';
 $lang['js']['off']             = 'aus';
+$lang['mediamgr_imgonly']      = 'Laden Sie nur Bilder hoch, wenn Sie den Bilddialog verwenden: ';
 $lang['uprofile_title']        = 'W&auml;hlen Sie ihren Standard Editor';
 $lang['btn_val_dw_fb']         = 'DW Dateibrowser';
 $lang['btn_val_ckg_fb']        = 'CKG Dateibrowser';
@@ -58,4 +61,16 @@ $lang['btn_title_dw_fb']       = 'Speichern und Editor schließen und zum DW Dat
 $lang['btn_title_ckg_fb']      = 'Speichern und Editor schließen und zum CKG Dateibrowser wechseln';
 $lang['formatdel']             = 'Markup wurde aus Header(n) entfernt: Von DokuWiki nicht unterst&uuml;tzt';
 $lang['fontdel']               = 'Markup wurde aus Link(s) entfernt: Von DokuWiki nicht unterst&uuml;tzt';
+$lang['ws_cantcopy']           = 'Für das winstyle Setup: kann nicht kopiert werden nach';
+$lang['ws_copiedhtaccess']     = 'Für das winstyle Setup wurde das Security-aktivierte .htaccess nach data/media kopiert. Siehe ckgedit/fckeditor/userfiles/.htacess.security ';
+$lang['userfiles_perm']        = 'Bitte &uuml;berprüfen Sie die Berechtigungen; ckgedit hat keinen Zugriff';
+$lang['sym_not created_1']     = 'Kann nicht erstellt werden ';
+$lang['sym_not created_2']     = 'Kann keine Symlinks für den Dateibrowser erstellen: kein Zugriff: ';
+$lang['sym_not created_3']     = 'Es gab einen Fehler beim Versuch symbolische Links zu erstellen in';
+$lang['syms_created']          = 'Die folgenden Links wurden im Verzeichnis userfiles angelegt: ';
+$lang['dblclk']                = '<b>Neues Feature:</b> Doppelklick im Browserfenster um den DW Editor zum Bearbeiten eines Abschnitts an der Kursorposition zu &ouml;ffnen. <b>Siehe: </b><a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>. ';
+$lang['dblclk_reminder']       = '<b>Erinnerung</b>';
 $lang['ckg_img_paste']         = 'Zusätzliche Unterstützung beim Einfügen von Bildern aus der Zwischenablage';
+$lang['ckg_img_paste_title']   = 'Aus um doppeltes Einf&uuml;gen zuverhindern, oder Ein um Einfügen zu erlauben';
+$lang['on']                    = 'Ein';
+$lang['off']                   = 'Aus';
