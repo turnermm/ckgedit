@@ -262,9 +262,11 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
         $TEXT 
     );
 
-      /* remove extra line-feeds following in-table code blocks */ 
+      /* remove extra line-feeds following in-table code blocks
+         make sure cell-ending pipe not mistaken for a following link divider      
+      */ 
       $TEXT = preg_replace_callback(
-       '#(/code|/file)\>\s*.*?\n?\|#ms',
+       '#(/code|/file)\>\s*.*?(\n|\s)\|#ms',  
        function($matches) {         
          $matches[0] = preg_replace("/([\S\s\w\:])\\\\(\w)/ms","$1@#@$2",$matches[0]); //retain backslashes inside code blocks
          $matches[0] = preg_replace("/(\w+)\\\\/ms","$1@#@",$matches[0]);
