@@ -1,4 +1,4 @@
-rev_18-Jan_08-16_04
+rev_18-Jan_10-09_52
 
 28 Feb 2013
 Added support for interwiki links
@@ -1189,3 +1189,7 @@ Fixes https://github.com/turnermm/ckgedit/issues/343, page duplcation when switc
 
 Jan 8
 Fix for backslashes removed on save: https://github.com/turnermm/ckgdoku/issues/27
+
+Jan 10
+ Removed oIWIKIo inserted after '>' when that is followed by link text
+ 
