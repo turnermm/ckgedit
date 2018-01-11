@@ -268,10 +268,12 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
       $TEXT = preg_replace_callback(
        '#(/code|/file)\>.*?\n\|#ms',  
        function($matches) {         
-         $matches[0] = preg_replace("/([\S\s\w\:])\\\\(\w)/ms","$1@#@$2",$matches[0]); //retain backslashes inside code blocks
-         $matches[0] = preg_replace("/(\w+)\\\\/ms","$1@#@",$matches[0]);
-         $matches[0] = preg_replace("/\\\\(\w+)/ms","@#@$1",$matches[0]);
+                $matches[0] = preg_replace("/([\S\s\w\:])\\\\\\\\(\w)/ms","$1@#@$2",$matches[0]); //retain backslashes inside code blocks
+                $matches[0] = preg_replace("/(\w+)\\\\\\\\(\w)/ms","$1@#@",$matches[0]);
+                $matches[0] = preg_replace("/\\\\(\w+)/ms","@!@$1",$matches[0]);
+                $matches[0] = preg_replace("/(\w+)\\\\/ms","@!@$1",$matches[0]);               
          $matches[0] =  str_replace("\\", "",$matches[0]);              
+                $matches[0] =  str_replace("@!@",'\\',$matches[0]);
          return str_replace("@#@", "\\\\",$matches[0]);              
       },
       $TEXT     
