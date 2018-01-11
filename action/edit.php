@@ -1003,8 +1003,9 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
 
      $text = preg_replace_callback('/\[\[(.*?>)(.*?)\]\]/ms',
               function ($matches) {    
+                 if(strpos($matches[0],"\n") !== false) return $matches[0];
+                 if(preg_match("#<(\w+)>.*?<\/\\1>#",$matches[0])) return $matches[0];  
                  list($name,$link_text) = explode('|',$matches[2]);
-                if(preg_match("#<(\w+)>.*?<\/\\1>#",$matches[0])) return $matches[0];                 
                  $retv = '[[' . $matches[1] . "oIWIKIo" . $name ."cIWIKIc";
                  if(!empty($link_text)) {
                      $retv .= "|$link_text";

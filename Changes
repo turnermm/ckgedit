@@ -1,4 +1,4 @@
-rev_18-Jan_10-09_52
+rev_18-Jan_11-04_42
 
 28 Feb 2013
 Added support for interwiki links
@@ -1192,4 +1192,8 @@ Fix for backslashes removed on save: https://github.com/turnermm/ckgdoku/issues/
 
 Jan 10
  Removed oIWIKIo inserted after '>' when that is followed by link text
+
+Jan 11
+Update fix for turnermm/ckgdoku/issues/27
+fix typo in edit.php
  

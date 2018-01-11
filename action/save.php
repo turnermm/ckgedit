@@ -266,7 +266,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
          make sure cell-ending pipe not mistaken for a following link divider      
       */ 
       $TEXT = preg_replace_callback(
-       '#(/code|/file)\>\s*.*?(\n|\s)\|#ms',  
+       '#(/code|/file)\>.*?\n\|#ms',  
        function($matches) {         
          $matches[0] = preg_replace("/([\S\s\w\:])\\\\(\w)/ms","$1@#@$2",$matches[0]); //retain backslashes inside code blocks
          $matches[0] = preg_replace("/(\w+)\\\\/ms","$1@#@",$matches[0]);
