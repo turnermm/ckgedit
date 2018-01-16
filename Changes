@@ -1,4 +1,4 @@
-rev_18-Jan_11-11_20
+rev_18-Jan_16-10_41
 
 28 Feb 2013
 Added support for interwiki links
@@ -1197,3 +1197,7 @@ Jan 11
 Update fix for turnermm/ckgdoku/issues/27
 fix typo in edit.php
 fix faulty regex to restore valid backslashes when removing extra line-breaks from code blocks
+
+Jan 16
+fix corrupted image as link when checking for userheading and relative links
+
