@@ -181,8 +181,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
            '#\[\[(.*?)\]\]#ms',
                function($matches){ 
                     global $ID, $conf;      
+                    $qs = "";
                     if(preg_match("/\[\[http/",$matches[0])) return $matches[0];  //not an internal link
-                      if(preg_match("#\[\[.*?\|\{\{.*?\}\}\]\]#", $matches[0],$matches_1)) {  
+                      if(preg_match("#\[\[.*?\|\{\{.*?\}\}\]\]#", $matches[0],$matches_1)) {  // media file
                         if(!$this->getConf('rel_links')) { 
                             return $matches[0];
                         }
@@ -193,11 +194,17 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                    }                
                 
                    $link = explode('?',$matches[1]);
-                   list($link_id,$linktext) = explode('|', $link[0]);          
+                   if($link[1]) {                       
+                       $link_id = $link[0];
+                       list($qs,$linktext) = explode('|', $link[1]);     
+                   }
+                   else list($link_id,$linktext) = explode('|', $link[0]);     
                    if($this->getConf('rel_links')) 
                       $current_id = $this->abs2rel($link_id,$ID); 
                     else  $current_id = $link_id;
-                   //like in _getLinkTitle in xhtml.php
+                    if($qs) $current_id .= "?$qs";
+                    
+                   //as in _getLinkTitle in xhtml.php
                    if(useHeading('content')) {
                       $tmp_linktext = p_get_first_heading($link_id);
                       if(trim($linktext) == trim($tmp_linktext)) {
@@ -331,6 +338,7 @@ return;
     fclose($handle);
 
 }
+/* @auth Sergey Kotov */
 //linkPath is the link in the page
 //pagePath is absolute path of the page (ns1:ns2:....:page or :ns1:ns2:....:page)
 function abs2rel($linkPath,$pagePath){

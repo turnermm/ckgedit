@@ -1,4 +1,4 @@
-rev_18-Jan_17-10_29
+rev_18-Jan_31-10_39
 
 28 Feb 2013
 Added support for interwiki links
@@ -1201,3 +1201,5 @@ fix faulty regex to restore valid backslashes when removing extra line-breaks fr
 Jan 16
 fix corrupted image as link when checking for userheading and relative links
 
+Jan 31
+Restores query string to internal link, missing after coded for relative links
