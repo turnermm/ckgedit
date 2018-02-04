@@ -304,6 +304,20 @@ var dokuBase = location.host + DOKU_BASE;
             );     
  }
  
+ function ckged_setmedia(id) {
+             var params = 'call=cked_upload';    params += "&ckedupl_id=" + id;
+                jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
+                function (data) {  
+                    if(data == 'done') { 
+                      alert(data);
+                    }
+                      else  {
+                          alert(LANG.plugins.ckgedit.dwp_save_err + data); 
+                      }   
+                    },
+                'html'
+            );    
+ }
  jQuery(document).ready(function() {
      if(JSINFO['hide_captcha_error'] =='hide') {
          jQuery("div.error").hide();

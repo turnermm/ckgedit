@@ -56,6 +56,6 @@ if ( !IsAllowedType( $sType ) )
     SendUploadResults( 1, '', '', 'Invalid type specified' ) ;
 
 
-FileUpload( $sType, $sCurrentFolder, $sCommand )
+FileUpload( $sType, $sCurrentFolder, $sCommand );
 
 ?>
