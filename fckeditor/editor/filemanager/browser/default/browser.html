@@ -259,8 +259,8 @@ oIcons.GetIcon = function( fileName )
 function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 {
    // alert( errorNumber +"\nurl="+ fileUrl+"\nfname="+ fileName+"\nmsg="+ customMsg );
-    fileUrl = fileUrl.replace(/.*?media\//,"");
-   // alert(fileUrl);
+    fileUrl = fileUrl.replace(/.*?(media|userfiles\/image)\//,"");
+ // alert(fileUrl);
      opener.ckged_setmedia(fileUrl) ;
 	if (errorNumber == "1" || parseInt(errorNumber) > 300) 
 		window.frames['frmUpload'].OnUploadCompleted( errorNumber, customMsg ) ;
