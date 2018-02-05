@@ -77,6 +77,10 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                  @io_makeFileDir($path);
                  if(!file_exists($path)) {
                     @file_put_contents($path, base64_decode($matches[3]));
+                      global $lang;
+                     $id = $dir .  $fn;
+                     $id = str_replace("/",":",$id);
+                     addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang["created"],"", null, strlen(base64_decode($matches[3])));
                  }
                  else {
                      msg("file for this image previousely saved",2);

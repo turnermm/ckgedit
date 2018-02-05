@@ -83,6 +83,15 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   }
  
 function _ajax_call(Doku_Event $event, $param) { 
+       if ($event->data == 'cked_upload') {  
+           $event->stopPropagation();
+          $event->preventDefault();
+           global $INPUT;
+          $id = str_replace('/', ':',$INPUT->str('ckedupl_id'));  
+          addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang['created']);
+          echo 'done';
+          return;
+      }
       if ($event->data == 'use_heads') {  
          $event->stopPropagation();
           $event->preventDefault();
