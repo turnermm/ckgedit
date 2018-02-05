@@ -309,7 +309,7 @@ var dokuBase = location.host + DOKU_BASE;
                 jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
                 function (data) {  
                     if(data == 'done') { 
-                      alert(data);
+                     // alert(data + " " + id);
                     }
                       else  {
                           alert(LANG.plugins.ckgedit.dwp_save_err + data); 

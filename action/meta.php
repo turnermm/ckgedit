@@ -87,7 +87,7 @@ function _ajax_call(Doku_Event $event, $param) {
            $event->stopPropagation();
           $event->preventDefault();
            global $INPUT;
-          $id = $INPUT->str('ckedupl_id');  
+          $id = str_replace('/', ':',$INPUT->str('ckedupl_id'));  
           addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang['created']);
           echo 'done';
           return;
