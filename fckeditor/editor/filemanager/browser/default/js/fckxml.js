@@ -94,7 +94,13 @@ FCKXml.prototype.LoadUrl = function( urlToCall, asyncFunctionPointer )
 				}
 
 				oFCKXml.DOMDocument = oXml ;
-				asyncFunctionPointer( oFCKXml ) ;
+                 var id = getimgid(urlToCall);
+                if(id){           
+               // alert('here: ' + id + "\n" + urlToCall);                
+                   id = encodeURIComponent(id);
+                   asyncFunctionPointer( oFCKXml,id) ;
+               }              
+               else  asyncFunctionPointer( oFCKXml ) ;
 			}
 		}
 	}
@@ -154,5 +160,29 @@ FCKXml.prototype.SelectSingleNode = function( xpath )
 		else
 			return null ;
 	}
+}
+function getimgid(url)
+{
+      urlspl = url.split('?');
+      var id = '';
+      var str_entries = new Array();
+      if (urlspl[1].match(/Unlink/)) {
+        var matches = urlspl[1].match(/\w+=\/?\w+\.?\w{0,3}/g);
+        if (matches.length) {
+          for (var i = 0; i < matches.length; i++) {
+            var parts = matches[i].split('=');
+            var which = parts[0];
+            which = which.toLowerCase();
+            var what = parts[1];
+            str_entries[which] = what;
+          }
+        } //currentfolder,type,file,folder
+
+        if (str_entries['type'] = 'Image') {
+          id = str_entries['currentfolder'] + ':' + str_entries['file'];
+          id = id.replace('/', ':');
+        }
+      }
+      return id;
 }
 

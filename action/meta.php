@@ -87,14 +87,19 @@ function _ajax_call(Doku_Event $event, $param) {
            $event->stopPropagation();
           $event->preventDefault();
            global $INPUT;
-          $id = str_replace('/', ':',$INPUT->str('ckedupl_id'));  
+           $id = urldecode($INPUT->str('ckedupl_id'));
+           $id = str_replace('/', ':',$id);         
           $fn = mediaFN($id);
+          $delete = $INPUT->str('ckedupl_del');
            if(file_exists($fn)) {
               $size =  filesize($fn);               
            }           
-           else return;
           
-          addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang['created'],'', null, $size);
+           
+          if($delete && $delete == 'D') {           
+              addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_DELETE, $lang['deleted'],'', null, $size);            
+          }
+          else addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang['created'],'', null, $size);
           echo 'done';
           return;
       }

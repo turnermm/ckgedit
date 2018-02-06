@@ -266,7 +266,8 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 		window.frames['frmUpload'].OnUploadCompleted( errorNumber, customMsg ) ;
 	else {
 		window.frames['frmUpload'].OnUploadCompleted( errorNumber, fileName ) ;
-         opener.ckged_setmedia(fileUrl) ;
+         fileUrl = encodeURIComponent(fileUrl);        
+         opener.ckged_setmedia(fileUrl,"") ;
         }
 }
 

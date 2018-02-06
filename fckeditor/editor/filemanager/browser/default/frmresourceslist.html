@@ -513,8 +513,11 @@ function insertImages() {
 
 
 
-function UnlinkFileCallBack( fckXml )
+function UnlinkFileCallBack( fckXml, id )
 {   
+    if(id) {
+       parent.opener.ckged_setmedia(id,true);
+    }
    GetFoldersAndFilesCallBack( fckXml )
 }
 
