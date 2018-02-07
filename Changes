@@ -1,4 +1,4 @@
-rev_18-Feb_05-05_10
+rev_18-Feb_07-08_45
 
 28 Feb 2013
 Added support for interwiki links
@@ -1203,3 +1203,6 @@ fix corrupted image as link when checking for userheading and relative links
 
 Jan 31
 Restores query string to internal link, missing after coded for relative links
+
+February 7
+Adds support for  image metadata
