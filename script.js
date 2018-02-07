@@ -304,11 +304,31 @@ var dokuBase = location.host + DOKU_BASE;
             );     
  }
  
- function ckged_setmedia(id) {
-             var params = 'call=cked_upload';    params += "&ckedupl_id=" + id;
+ function ckged_get_unlink_size(id) {
+       //JSINFO['ckg_del_sz']                
+                var params = 'call=cked_deletedsize';    params += "&cked_delid=" + id;
                 jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
                 function (data) {  
-                    if(data == 'done') { 
+                    if(data) { 
+                     //  alert(data);
+                     JSINFO['ckg_del_sz'] = data;
+                      console.log(data);
+                    }
+                      else  {
+                          alert(LANG.plugins.ckgedit.dwp_save_err + data); 
+                      }   
+                    },
+                'html'
+            );    
+       
+ }
+ 
+ function ckged_setmedia(id,del) {
+             var params = 'call=cked_upload';    params += "&ckedupl_id=" + id;
+             if(del)  params += "&ckedupl_del=D&delsize="+JSINFO['ckg_del_sz'];
+                jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
+                function (data) {  
+                    if(data) { 
                       //  alert(data + " " + id);
                     }
                       else  {
