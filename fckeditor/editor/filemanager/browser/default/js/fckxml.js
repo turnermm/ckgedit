@@ -168,7 +168,8 @@ function getimgid(url)
       var str_entries = new Array();
       if (urlspl[1].match(/Unlink/)) {
         //var matches = urlspl[1].match(/\w+=\/?\w+\.?\w{0,3}/g);
-         var matches = urlspl[1].match(/\w+=\/?\w{0,}\.?\w{0,3}/g);
+      //   var matches = urlspl[1].match(/\w+=\/?\w{0,}\.?\w{0,3}/g);        
+        var matches = urlspl[1].match(/\w+=\/?[-_\w]{0,}\.?\w{0,3}/g);
         if (matches.length) {
           for (var i = 0; i < matches.length; i++) {
             var parts = matches[i].split('=');
