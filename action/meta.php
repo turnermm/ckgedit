@@ -84,12 +84,38 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
  
 function _ajax_call(Doku_Event $event, $param) { 
        if ($event->data == 'cked_upload') {  
+          global $lang;
            $event->stopPropagation();
           $event->preventDefault();
            global $INPUT;
-          $id = str_replace('/', ':',$INPUT->str('ckedupl_id'));  
-          addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang['created']);
+           $id = urldecode($INPUT->str('ckedupl_id'));
+           $id = str_replace('/', ':',$id);         
+          $fn = mediaFN($id);
+          $delete = $INPUT->str('ckedupl_del');
+           if(file_exists($fn)) {
+              $size =  filesize($fn);               
+           }           
+          
+          if($delete && $delete == 'D') {           
+              $size =  $INPUT->str('delsize');         
+              if($size)    $size = '-' . $size;
+              addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_DELETE, $lang['deleted'],'', null, $size);            
+          }
+          else addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang['created'],'', null, $size);
           echo 'done';
+          return;
+      }
+      //cked_deletedsize
+      if ($event->data == 'cked_deletedsize') {  
+          $event->stopPropagation();
+          $event->preventDefault();
+           global $INPUT;
+           $id = urldecode($INPUT->str('cked_delid'));
+           $fn = mediaFN($id);
+           if(file_exists($fn)) {
+            echo filesize ($fn);
+           }
+           else echo ("no size for $fn");
           return;
       }
       if ($event->data == 'use_heads') {  
