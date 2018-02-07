@@ -309,6 +309,11 @@ var evt = (evt) ? evt : ((window.event) ? event : null);
     else {
        if(!confirm("Delete " + f + "?")) return false;
     }
+    
+    var id = oConnector.CurrentFolder + ':' + f;
+    id = id.replace(/\//g,':');
+    id = id.replace('::',':');
+    parent.opener.ckged_get_unlink_size(id);
     oConnector.SendCommand( 'UnlinkFile', 'file=' + f, UnlinkFileCallBack ) ;
 }
 
