@@ -1206,3 +1206,4 @@ Restores query string to internal link, missing after coded for relative links
 
 February 7
 Adds support for  image metadata
+Restores initial forward slash on links to images in filebrowser

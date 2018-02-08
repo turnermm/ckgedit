@@ -347,9 +347,11 @@ function OpenFile( fileUrl )
        var url;       
        if(url = fileUrl.match(/userfiles\/(file|image)\/(.*?)$/)) {
             fileUrl = url[2];           
+           if(!fileUrl.match(/^\//)) fileUrl = '/' + fileUrl;            
        }
        else if(url = fileUrl.match(/data\/media\/(.*?)$/)) {  // needs tobe updated for non-standard and Windows save dirs
            fileUrl = url[1];
+           if(!fileUrl.match(/^\//)) fileUrl = '/' + fileUrl;
        }      
       else {
                    var cookie = ckgEedit_getCookie('FCK_animal') ;
