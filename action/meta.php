@@ -97,8 +97,32 @@ function _ajax_call(Doku_Event $event, $param) {
            }           
           
           if($delete && $delete == 'D') {           
-              $size =  $INPUT->str('delsize');         
-              if($size)    $size = '-' . $size;
+               $oldf  = $id;
+              $size_tm =  $INPUT->str('delsize');         
+              if($size_tm)   {                  
+                  list($size,$ft) = explode('||',$size_tm);
+                  $size =  '-' . $size;
+              }
+              else { $size = ""; $ft = ""; }
+             if($ft) {                
+                $newf = mediaFN($id,$ft);
+                 echo "newf:  $newf\n";
+                 echo "fn:  $fn\n";
+                 if(file_exists($oldf)){
+                    echo "old file: $oldf\n";
+                    //return;
+               }
+                else  echo "no old file: $oldf\n";                 
+                 io_makeFileDir($newf);
+                 if(copy($fn, $newf)) {
+                     echo "Copying $fn  to $newf\n";
+                    chmod($newf, $conf['fmode']);
+                    echo "deleting: $fn\n";
+                    unlink($fn);
+                }         
+                 else "echo copy failed\n";                
+             }
+              
               addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_DELETE, $lang['deleted'],'', null, $size);            
           }
           else addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang['created'],'', null, $size);
@@ -113,7 +137,7 @@ function _ajax_call(Doku_Event $event, $param) {
            $id = urldecode($INPUT->str('cked_delid'));
            $fn = mediaFN($id);
            if(file_exists($fn)) {
-            echo filesize ($fn);
+            echo filesize ($fn) . '||' .filemtime($fn) ;
            }
            else echo ("no size for $fn");
           return;

@@ -314,10 +314,8 @@ var evt = (evt) ? evt : ((window.event) ? event : null);
     id = id.replace(/\//g,':');
     id = id.replace('::',':');
     parent.opener.ckged_get_unlink_size(id);
-   // oConnector.SendCommand( 'UnlinkFile', 'file=' +id UnlinkFileCallBack );
-     parent.opener.window.setTimeout(oConnector.SendCommand( 'UnlinkFile', 'file=' + f, UnlinkFileCallBack ), 6000) ; 
-     parent.opener.window.setTimeout(LoadResources( 'Image', oConnector.CurrentFolder),8000);
-     //LoadResources( resourceType, folderPath ) ;  
+     setTimeout(oConnector.SendCommand( 'UnlinkFile', 'file=' + f, UnlinkFileCallBack ), 7000) ; 
+     setTimeout(LoadResources( 'Image', oConnector.CurrentFolder),9000);
     
 }
 
@@ -394,12 +392,15 @@ function reverseListOrder(bool){
 
 function LoadResources( resourceType, folderPath )
 {
-    //alert(resourceType + "\n" + folderPath);
+    
 	oListManager.Clear();
 	document.body.innerHTML = translateItem('DlgFileBrowserWaitingMsg', 'Loading, please wait.'); //Show waiting message
 	oConnector.ResourceType = resourceType ;
-	oConnector.CurrentFolder = folderPath ;
-	oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
+	oConnector.CurrentFolder = folderPath ? folderPath : '/';
+  //  alert(resourceType + "\n" + folderPath);
+  //   oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack );
+     parent.opener.window.setTimeout( oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ), 6000) ;  
+	//oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
 }
 
 function Refresh()
@@ -529,7 +530,8 @@ function UnlinkFileCallBack( fckXml, id )
     if(id) {
        parent.opener.ckged_setmedia(id,true);
     }
-   GetFoldersAndFilesCallBack( fckXml )
+   GetFoldersAndFilesCallBack( fckXml );
+   
 }
 
 function close_bigImgwin() {
