@@ -312,7 +312,7 @@ var dokuBase = location.host + DOKU_BASE;
                     if(data) { 
                      //  alert(data);
                      JSINFO['ckg_del_sz'] = data;
-                      console.log(data);
+                     // console.log(data);
                     }
                       else  {
                           alert(LANG.plugins.ckgedit.dwp_save_err + data); 
