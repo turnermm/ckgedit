@@ -431,6 +431,11 @@ global $Config;
   $move = false;
 
     $sServerDir = ServerMapFolder( $resourceType, $currentFolder, 'GetFoldersAndFiles' ) ;
+     if(preg_match("/(media|image)/",$sServerDir)) {
+                    echo '<Folders>' ;
+                    echo '</Folders>' ;
+         return GetFoldersAndFiles( $resourceType, $currentFolder );   
+     }
     
     if(preg_match('/^(.*?)\/(.*?)$/',$filename,$matches)) {
       $move = true;
