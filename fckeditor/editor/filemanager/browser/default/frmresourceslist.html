@@ -399,7 +399,7 @@ function LoadResources( resourceType, folderPath )
 	oConnector.CurrentFolder = folderPath ? folderPath : '/';
   //  alert(resourceType + "\n" + folderPath);
   //   oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack );
-     parent.opener.window.setTimeout( oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ), 6000) ;  
+     parent.opener.window.setTimeout( oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ), 9000) ;  
 	//oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
 }
 

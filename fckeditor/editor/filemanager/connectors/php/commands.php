@@ -437,6 +437,7 @@ global $Config;
                     echo '<Folders>' ;
                     echo '</Folders>' ;
                     $unlink_media = true;
+         return GetFoldersAndFiles( $resourceType, $currentFolder );   
      }
     
     if(preg_match('/^(.*?)\/(.*?)$/',$filename,$matches)) {
