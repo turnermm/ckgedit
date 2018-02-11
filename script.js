@@ -329,7 +329,7 @@ var dokuBase = location.host + DOKU_BASE;
                 function (data) {  
                     if(data) { 
                       // alert('set_media=' +data);
-                     // console.log(data);
+                      console.log(data);
                     }
                       else  {
                           alert(LANG.plugins.ckgedit.dwp_save_err + data); 
