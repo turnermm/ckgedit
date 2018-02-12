@@ -107,7 +107,7 @@ function _ajax_call(Doku_Event $event, $param) {
                   $size =  '-' . $size;
               }
               
-              if(!empty($ft)) {                
+              if(!empty($ft) && file_exists($fn)) {                
                 $newf = mediaFN($id,$ft);
                  echo "newf:  $newf\n";
                  echo "fn:  $fn\n";
