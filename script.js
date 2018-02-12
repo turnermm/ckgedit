@@ -311,7 +311,7 @@ var dokuBase = location.host + DOKU_BASE;
                 function (data) {  
                     if(data) { 
                      JSINFO['ckg_del_sz'] = data;
-                      console.log(data);
+                      //console.log(data);
                     }
                       else  {
                           alert(LANG.plugins.ckgedit.dwp_save_err + data); 
@@ -322,15 +322,14 @@ var dokuBase = location.host + DOKU_BASE;
        
  }
  
- function ckged_setmedia(id,del, callback) {
-	 //alert(callback);
+ function ckged_setmedia(id,del, refresh_cb) {
+	 
              var params = 'call=cked_upload';    params += "&ckedupl_id=" + id;
              if(del)  params += "&ckedupl_del=D&delsize="+JSINFO['ckg_del_sz'];
                 jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
                 function (data) {  
                     if(data) { 
-					 callback();
-                      // alert('set_media=' +data);
+					 refresh_cb();
                       console.log(data);
                     }
                       else  {

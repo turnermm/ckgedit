@@ -109,24 +109,24 @@ function _ajax_call(Doku_Event $event, $param) {
               
               if(!empty($ft) && file_exists($fn)) {                
                 $newf = mediaFN($id,$ft);
-                 echo "newf:  $newf\n";
-                 echo "fn:  $fn\n";
+                $this->ajax_debug("newf:  $newf fn:  $fn");                                
                  if(file_exists($fn)){
-                    echo "old file: $oldf; $fn\n";               
+                    $this->ajax_debug("old file: $oldf; $fn");               
                }
-                 else  echo "no old file: $fn\n";                 
+                 else  $this->ajax_debug("no old file: $fn");                 
+                 
                  io_makeFileDir($newf);
                  if(copy($fn, $newf)) {
-                     echo "Copying $fn  to $newf\n";
+                    $this->ajax_debug("Copying $fn  to $newf");
                     chmod($newf, $conf['fmode']);
-                    echo "deleting: $fn\n";
-                    if(!unlink($fn)) echo "delete failed\n";
+                   $this->ajax_debug("deleting: $fn");
+                    if(!unlink($fn)) $this->ajax_debug("delete failed");
                 }         
-                 else "echo copy failed\n";                
+                 else $this->ajax_debug("copy failed");                
              }
               if(file_exists($fn)) {
-                  copy($fn, $newf);
-                  if(!unlink($fn)) echo "could not delete $fn\n";
+                  if(!copy($fn, $newf)) $this->ajax_debug ("(2nd try) could not copy $fn to $newf");
+                  if(!unlink($fn)) $this->ajax_debug ("could not delete $fn");
               }
               addMediaLogEntry($ft, $id, DOKU_CHANGE_TYPE_DELETE, $lang['deleted'],'', null, $size);            
           }
@@ -938,7 +938,10 @@ function restore_conf() {
     }
     
 }
-
+function ajax_debug($data) {
+    return;
+    echo "$data\n";
+}
 function write_debug($data) {
   return;
   if (!$handle = fopen(DOKU_INC .'meta.txt', 'a')) {
