@@ -124,7 +124,10 @@ function _ajax_call(Doku_Event $event, $param) {
                 }         
                  else "echo copy failed\n";                
              }
-              
+              if(file_exists($fn)) {
+                  copy($fn, $newf);
+                  if(!unlink($fn)) echo "could not delete $fn\n";
+              }
               addMediaLogEntry($ft, $id, DOKU_CHANGE_TYPE_DELETE, $lang['deleted'],'', null, $size);            
           }
           else addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang['created'],'', null, $size);
