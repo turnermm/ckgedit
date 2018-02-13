@@ -531,13 +531,14 @@ function postMessageHandler( event ) {
   console.log("* Source:", event.source);
   */
   Refresh();
-  alert('done it!');
+  alert('done it! ' +  event.data);
+  alert(parent.opener.JSINFO['doku_url']);
   // check request is from legitimate source and message is expected or not
-  if ( event.origin !== 'http://blah.example.com' ) { return; }
-  if ( event.data === 'Hello' ) {
-    // give response
-    event.source.postMessage( 'world!', 'http://blah.example.com' );
-    }
+  //if ( event.origin !== 'http://blah.example.com' ) { return; }
+//  if ( event.data === 'Hello' ) {
+//    event.source.postMessage( 'world!', 'http://blah.example.com' );
+  //  }/give response
+  
 }
 if (window.addEventListener) {
   window.addEventListener("message", postMessageHandler, false);

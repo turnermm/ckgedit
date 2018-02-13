@@ -330,7 +330,7 @@ var dokuBase = location.host + DOKU_BASE;
                 function (data) {  
                     if(data) { 
                       if(refresh_cb) {
-                           refresh_cb.postMessage("Hello", "http://epicurus.bz");
+                           refresh_cb.postMessage(JSINFO['doku_url'], JSINFO['doku_url']);
                       }
                       console.log(data);
                     }

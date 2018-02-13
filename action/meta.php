@@ -728,6 +728,7 @@ function check_userfiles() {
        if($onoff == 'off') $JSINFO['ckg_dbl_click'] = "";
        $JSINFO['ckg_canonical'] =$conf['canonical'];
         $JSINFO['doku_base'] = DOKU_BASE;
+        $JSINFO['doku_url'] = DOKU_URL;
        if($this->helper->has_plugin('tag'))  $JSINFO['has_tags'] = "Tag";
        if($this->helper->has_plugin('wrap') && ! plugin_isdisabled('wrap'))  {       
            $JSINFO['has_wrap'] = "Wrap";
