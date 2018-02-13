@@ -236,18 +236,12 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
    var Unlink,sUnlink,trash,sLink;
 
 	// Build the link to view the folder.
-    if(c_type == "txt") {
-        Unlink = '<td></td>';
-        sUnlink = "";
-        trash = "";
-        sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
-    }
-    else {
-	 sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
-     trash =  'images/trash.png';    
-            Unlink = '<td width="20" class="' + c_type +'"><a href="#" onclick="UnlinkFile(event,\'' + fileName + '\');return false;">' ;
+	var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
+
+    var trash = 'images/trash.png';    
+    var sUnlink = '<td width="20" class="' + c_type +'"><a href="#" onclick="UnlinkFile(event,\'' + fileName + '\');return false;">' ;
             sUnlink += '<img src="' + trash  + '" border="0"></a><\/td>';
-    }    
+     if(c_type == 'txt') sUnlink = '<td class = '  + c_type + '><\/td>';    
     var imgTD = "";
     var fileSizeSpan="";
     if(isImage) {
@@ -272,8 +266,6 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
     if(currentFolderUploadStatus != 'd') sUnlink = '&nbsp;';
 	// Get the file icon.
 	var sIcon = oIcons.GetIcon( fileName ) ;
-    
-
    	return '<tr>' + sUnlink +
 			 '<td width="16" class="' + c_type + '">' +
 				sLink +
@@ -540,15 +532,8 @@ function postMessageHandler( event ) {
   console.log("* Source:", event.source);
   */
   Refresh();
-  //alert('done it! ' +  event.data);
- // alert(parent.opener.JSINFO['doku_url']);
-  // check request is from legitimate source and message is expected or not
-  //if ( event.origin !== 'http://blah.example.com' ) { return; }
-//  if ( event.data === 'Hello' ) {
-//    event.source.postMessage( 'world!', 'http://blah.example.com' );
-  //  }/give response
-  
 }
+  
 if (window.addEventListener) {
   window.addEventListener("message", postMessageHandler, false);
   } else {
