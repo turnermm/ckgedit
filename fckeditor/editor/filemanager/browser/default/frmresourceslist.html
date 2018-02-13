@@ -523,12 +523,31 @@ function insertImages() {
   
 }
 
-
-
+function postMessageHandler( event ) {
+/*
+  console.log("We've got a message!");
+  console.log("* Message:", event.data);
+  console.log("* Origin:", event.origin);
+  console.log("* Source:", event.source);
+  */
+  Refresh();
+  alert('done it!');
+  // check request is from legitimate source and message is expected or not
+  if ( event.origin !== 'http://blah.example.com' ) { return; }
+  if ( event.data === 'Hello' ) {
+    // give response
+    event.source.postMessage( 'world!', 'http://blah.example.com' );
+    }
+}
+if (window.addEventListener) {
+  window.addEventListener("message", postMessageHandler, false);
+  } else {
+  window.attachEvent("onmessage", postMessageHandler);
+}
 function UnlinkFileCallBack( fckXml, id )
 {   
     if(id) {
-       parent.opener.ckged_setmedia(id,true,this.Refresh);
+       parent.opener.ckged_setmedia(id,true,this);
     }
    GetFoldersAndFilesCallBack( fckXml );
    

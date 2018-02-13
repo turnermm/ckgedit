@@ -329,7 +329,9 @@ var dokuBase = location.host + DOKU_BASE;
                 jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
                 function (data) {  
                     if(data) { 
-					 refresh_cb();
+                      if(refresh_cb) {
+                           refresh_cb.postMessage("Hello", "http://epicurus.bz");
+                      }
                       console.log(data);
                     }
                       else  {
