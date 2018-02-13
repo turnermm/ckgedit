@@ -95,6 +95,7 @@ FCKXml.prototype.LoadUrl = function( urlToCall, asyncFunctionPointer )
 
 				oFCKXml.DOMDocument = oXml ;
                  var id = getimgid(urlToCall);
+
                 if(id){           
                // alert('here: ' + id + "\n" + urlToCall);                
                    id = encodeURIComponent(id);

@@ -315,7 +315,7 @@ var evt = (evt) ? evt : ((window.event) ? event : null);
     id = id.replace('::',':');
     parent.opener.ckged_get_unlink_size(id);
      setTimeout(oConnector.SendCommand( 'UnlinkFile', 'file=' + f, UnlinkFileCallBack ), 7000) ; 
-     setTimeout(LoadResources( 'Image', oConnector.CurrentFolder),9000);
+     setTimeout(LoadResources(oConnector.ResourceType, oConnector.CurrentFolder),9000);
     
 }
 
