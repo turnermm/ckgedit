@@ -94,17 +94,23 @@ function _ajax_call(Doku_Event $event, $param) {
           $delete = $INPUT->str('ckedupl_del');
            if(file_exists($fn)) {
               $size =  filesize($fn);               
+              $this->ajax_debug("$fn:  $size");               
            }           
           
           if($delete && $delete == 'D') {           
-               $size = ""; $ft = ""; 
+             //  $size = ""; $ft = ""; 
                $oldf  = $id;
               $size_tm =  $INPUT->str('delsize');         
+               $this->ajax_debug('size_tm='.$size_tm);             
               if($size_tm)   {                  
                   list($size,$ft) = explode(';',$size_tm);
                   $size=trim($size);
                   $ft=trim($ft);
                   $size =  '-' . $size;
+              }
+              else {
+                   $size =  '-' . $size;
+                   $ft=filemtime($fn) ;
               }
               
               if(!empty($ft) && file_exists($fn)) {                
@@ -142,9 +148,9 @@ function _ajax_call(Doku_Event $event, $param) {
            $id = urldecode($INPUT->str('cked_delid'));
            $fn = mediaFN($id);
            if(file_exists($fn)) {
-            echo filesize ($fn) . ';' .filemtime($fn) ;
+            $this->ajax_debug(filesize ($fn) . ';' .filemtime($fn) );
            }
-           else echo ("no size for $fn");
+           else echo ("$fn not found");
           return;
       }
       if ($event->data == 'use_heads') {  
@@ -156,6 +162,7 @@ function _ajax_call(Doku_Event $event, $param) {
           $page = ltrim($page, ':');
          $t= trim(p_get_first_heading($page));
          echo $t;
+         return;
      }
      if ($event->data == 'wrap_lang') {  //choose profile editor priority
          $event->stopPropagation();

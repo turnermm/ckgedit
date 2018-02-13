@@ -227,18 +227,27 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
         }
         else c_type = 'img';
     }
-
+    else if(fileUrl.match(/data\/pages/)) {
+        c_type = 'txt';
+    }
 
    fileTime =  new Date(Number(fileTime)*1000);
    fileTime ="&nbsp;&nbsp;&nbsp;&nbsp;" + fileTime.toDateString().replace(/^\w+\s*/,"")  + "&nbsp;" + fileTime.toLocaleTimeString();
+   var Unlink,sUnlink,trash,sLink;
 
 	// Build the link to view the folder.
-	var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
-
-    var trash = 'images/trash.png';    
-    var sUnlink = '<td width="20" class="' + c_type +'"><a href="#" onclick="UnlinkFile(event,\'' + fileName + '\');return false;">' ;
+    if(c_type == "txt") {
+        Unlink = '<td></td>';
+        sUnlink = "";
+        trash = "";
+        sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
+    }
+    else {
+	 sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
+     trash =  'images/trash.png';    
+            Unlink = '<td width="20" class="' + c_type +'"><a href="#" onclick="UnlinkFile(event,\'' + fileName + '\');return false;">' ;
             sUnlink += '<img src="' + trash  + '" border="0"></a><\/td>';
-   
+    }    
     var imgTD = "";
     var fileSizeSpan="";
     if(isImage) {
@@ -531,8 +540,8 @@ function postMessageHandler( event ) {
   console.log("* Source:", event.source);
   */
   Refresh();
-  alert('done it! ' +  event.data);
-  alert(parent.opener.JSINFO['doku_url']);
+  //alert('done it! ' +  event.data);
+ // alert(parent.opener.JSINFO['doku_url']);
   // check request is from legitimate source and message is expected or not
   //if ( event.origin !== 'http://blah.example.com' ) { return; }
 //  if ( event.data === 'Hello' ) {

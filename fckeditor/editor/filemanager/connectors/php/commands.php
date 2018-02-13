@@ -430,10 +430,15 @@ global $Config;
   global $Dwfck_conf_values;
   $move = false;
  // $unlink_media = false;
-//  file_put_contents('debug.txt',"$currentFolder, $sCommand, $filename");
+  file_put_contents('debug.txt',"$currentFolder, $sCommand, $filename");
 
     $sServerDir = ServerMapFolder( $resourceType, $currentFolder, 'GetFoldersAndFiles' ) ;
-     if(preg_match("/(media|image)/",$sServerDir)) {
+    $path = $sServerDir.$filename;
+    file_put_contents('debug.txt2',$path);
+    $parts=pathinfo($path);
+    file_put_contents('debug.txt3',print_r($parts,1));
+    return;
+     if(preg_match("/(media|image|userfiles)/",$sServerDir)) {
                     echo '<Folders>' ;
                     echo '</Folders>' ;
                 //    $unlink_media = true;

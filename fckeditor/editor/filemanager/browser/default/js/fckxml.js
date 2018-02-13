@@ -97,7 +97,6 @@ FCKXml.prototype.LoadUrl = function( urlToCall, asyncFunctionPointer )
                  var id = getimgid(urlToCall);
 
                 if(id){           
-               // alert('here: ' + id + "\n" + urlToCall);                
                    id = encodeURIComponent(id);
                    asyncFunctionPointer( oFCKXml,id) ;
                }              
