@@ -241,7 +241,7 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
     var trash = 'images/trash.png';    
     var sUnlink = '<td width="20" class="' + c_type +'"><a href="#" onclick="UnlinkFile(event,\'' + fileName + '\');return false;">' ;
             sUnlink += '<img src="' + trash  + '" border="0"></a><\/td>';
-     if(c_type == 'txt') sUnlink = '<td class = '  + c_type + '><\/td>';    
+    if(c_type == 'txt') sUnlink = ""; 
     var imgTD = "";
     var fileSizeSpan="";
     if(isImage) {
@@ -398,10 +398,8 @@ function LoadResources( resourceType, folderPath )
 	document.body.innerHTML = translateItem('DlgFileBrowserWaitingMsg', 'Loading, please wait.'); //Show waiting message
 	oConnector.ResourceType = resourceType ;
 	oConnector.CurrentFolder = folderPath ? folderPath : '/';
-  //  alert(resourceType + "\n" + folderPath);
-  //   oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack );
      parent.opener.window.setTimeout( oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ), 9000) ;  
-	//oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
+	
 }
 
 function Refresh()

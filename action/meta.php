@@ -90,15 +90,18 @@ function _ajax_call(Doku_Event $event, $param) {
            global $INPUT;
            $id = urldecode($INPUT->str('ckedupl_id'));
            $id = str_replace('/', ':',$id);         
+           $this->ajax_debug($id);
           $fn = mediaFN($id);
+          $this->ajax_debug($fn);
           $delete = $INPUT->str('ckedupl_del');
            if(file_exists($fn)) {
               $size =  filesize($fn);               
               $this->ajax_debug("$fn:  $size");               
            }           
+          else $this->ajax_debug("$fn not found");
           
           if($delete && $delete == 'D') {           
-             //  $size = ""; $ft = ""; 
+               $size = ""; $ft = ""; 
                $oldf  = $id;
               $size_tm =  $INPUT->str('delsize');         
                $this->ajax_debug('size_tm='.$size_tm);             

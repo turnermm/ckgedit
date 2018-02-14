@@ -429,7 +429,7 @@ function UnlinkFile($resourceType, $currentFolder, $sCommand, $filename ) {
 global $Config;
   global $Dwfck_conf_values;
   $move = false;
- // $unlink_media = false;
+ 
   file_put_contents('debug.txt',"$currentFolder, $sCommand, $filename");
 
     $sServerDir = ServerMapFolder( $resourceType, $currentFolder, 'GetFoldersAndFiles' ) ;
@@ -437,13 +437,13 @@ global $Config;
     file_put_contents('debug.txt2',$path);
     $parts=pathinfo($path);
     file_put_contents('debug.txt3',print_r($parts,1));
-    return;
-     if(preg_match("/(media|image|userfiles)/",$sServerDir)) {
-                    echo '<Folders>' ;
-                    echo '</Folders>' ;
+   
+   //  if(preg_match("/(media|image|userfiles)/",$sServerDir)) {
+             //       echo '<Folders>' ;
+                //    echo '</Folders>' ;
                 //    $unlink_media = true;
-         return GetFoldersAndFiles( $resourceType, $currentFolder );   
-     }
+      // return GetFoldersAndFiles( $resourceType, $currentFolder );   
+    //}
     
     if(preg_match('/^(.*?)\/(.*?)$/',$filename,$matches)) {
       $move = true;
@@ -490,7 +490,7 @@ global $Config;
        }
     }
 
-    if(file_exists($unlinkFile) && unlink($unlinkFile)) {
+    if(file_exists($unlinkFile))  {  //&& unlink($unlinkFile)) {
           return GetFoldersAndFiles( $resourceType, $currentFolder );
     }
     else {

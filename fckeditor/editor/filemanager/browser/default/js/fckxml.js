@@ -165,25 +165,33 @@ function getimgid(url)
 {
       urlspl = url.split('?');
       var id = '';
-      var str_entries = new Array();
-      if (urlspl[1].match(/Unlink/)) {
-        var matches = urlspl[1].match(/\w+=\/?[-_\w]{0,}\.?\w{0,3}/g);
-        if (matches.length) {
-          for (var i = 0; i < matches.length; i++) {
-            var parts = matches[i].split('=');
-            var which = parts[0];
-            which = which.toLowerCase();
-            var what = parts[1];
-            str_entries[which] = what;
+     var folder,file;
+     var str = urlspl[1]; 
+     if (str.match(/Unlink/)) {
+         //alert('str='+str)  ;
+         found = str.split(/&/); 
+         console.log(found);
+     //    alert('ps='+found);
+       
+         for(i=0; i<found.length; i++) {
+         
+         if(found[i].match(/Folder/)) {
+                 var ar = found[i].split(/=/);
+                  folder = ar[1];
+             }
+             
+             if(found[i].match(/file/)) {
+                   var ar = found[i].split(/=/);
+                   file = ar[1];
           }
         } 
 
-        if (str_entries['type'] = 'Image') {
-          id = str_entries['currentfolder'] + ':' + str_entries['file'];
-          id = id.replace('/', ':');
-          id = id.replace('::', ':');  // if current folder is root 
+         if(file) {
+             id = folder + file;
+             console.log(id);
         }
       }
+      
       return id;
 }
 
