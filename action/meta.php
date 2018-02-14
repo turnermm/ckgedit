@@ -105,17 +105,25 @@ function _ajax_call(Doku_Event $event, $param) {
                $oldf  = $id;
               $size_tm =  $INPUT->str('delsize');         
                $this->ajax_debug('size_tm='.$size_tm);             
-              if($size_tm)   {                  
+              if(!empty($size_tm))   {                  
                   list($size,$ft) = explode(';',$size_tm);
                   $size=trim($size);
                   $ft=trim($ft);
                   $size =  '-' . $size;
               }
-              else {
+              else if(file_exists($fn)) {
+                  if(!$size) {
+                      $size = filesize($fn);               
                    $size =  '-' . $size;
+                  }
+                  if(!$ft) {                   
                    $ft=filemtime($fn) ;
               }
-              
+              }
+              else {
+                  $this->ajax_debug("$fn not found");
+                  return;
+              }
               if(!empty($ft) && file_exists($fn)) {                
                 $newf = mediaFN($id,$ft);
                 $this->ajax_debug("newf:  $newf fn:  $fn");                                
@@ -134,8 +142,14 @@ function _ajax_call(Doku_Event $event, $param) {
                  else $this->ajax_debug("copy failed");                
              }
               if(file_exists($fn)) {
-                  if(!copy($fn, $newf)) $this->ajax_debug ("(2nd try) could not copy $fn to $newf");
-                  if(!unlink($fn)) $this->ajax_debug ("could not delete $fn");
+                  if(!copy($fn, $newf)) { 
+                     $this->ajax_debug ("(2nd try) could not copy $fn to $newf"); 
+                     return; 
+                     }
+                  if(!unlink($fn))  { 
+                     $this->ajax_debug ("could not delete $fn"); 
+                     return; 
+                  }
               }
               addMediaLogEntry($ft, $id, DOKU_CHANGE_TYPE_DELETE, $lang['deleted'],'', null, $size);            
           }
