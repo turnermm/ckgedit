@@ -304,15 +304,14 @@ var dokuBase = location.host + DOKU_BASE;
             );     
  }
  
+ /* gets both size and filetime: "size||filetime" */
  function ckged_get_unlink_size(id) {
-       //JSINFO['ckg_del_sz']                
                 var params = 'call=cked_deletedsize';    params += "&cked_delid=" + id;
                 jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
                 function (data) {  
                     if(data) { 
-                     //  alert(data);
                      JSINFO['ckg_del_sz'] = data;
-                     // console.log(data);
+                      //console.log(data);
                     }
                       else  {
                           alert(LANG.plugins.ckgedit.dwp_save_err + data); 
@@ -323,13 +322,17 @@ var dokuBase = location.host + DOKU_BASE;
        
  }
  
- function ckged_setmedia(id,del) {
+ function ckged_setmedia(id,del, refresh_cb) {
+	 
              var params = 'call=cked_upload';    params += "&ckedupl_id=" + id;
              if(del)  params += "&ckedupl_del=D&delsize="+JSINFO['ckg_del_sz'];
                 jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
                 function (data) {  
                     if(data) { 
-                      //  alert(data + " " + id);
+                      if(refresh_cb) {
+                           refresh_cb.postMessage(JSINFO['doku_url'], JSINFO['doku_url']);
+                      }
+                      console.log(data);
                     }
                       else  {
                           alert(LANG.plugins.ckgedit.dwp_save_err + data); 

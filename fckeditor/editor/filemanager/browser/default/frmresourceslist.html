@@ -227,10 +227,13 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
         }
         else c_type = 'img';
     }
-
+    else if(fileUrl.match(/data\/pages/)) {
+        c_type = 'txt';
+    }
 
    fileTime =  new Date(Number(fileTime)*1000);
    fileTime ="&nbsp;&nbsp;&nbsp;&nbsp;" + fileTime.toDateString().replace(/^\w+\s*/,"")  + "&nbsp;" + fileTime.toLocaleTimeString();
+   var Unlink,sUnlink,trash,sLink;
 
 	// Build the link to view the folder.
 	var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
@@ -238,7 +241,7 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
     var trash = 'images/trash.png';    
     var sUnlink = '<td width="20" class="' + c_type +'"><a href="#" onclick="UnlinkFile(event,\'' + fileName + '\');return false;">' ;
             sUnlink += '<img src="' + trash  + '" border="0"></a><\/td>';
-   
+    if(c_type == 'txt') sUnlink = ""; 
     var imgTD = "";
     var fileSizeSpan="";
     if(isImage) {
@@ -263,8 +266,6 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
     if(currentFolderUploadStatus != 'd') sUnlink = '&nbsp;';
 	// Get the file icon.
 	var sIcon = oIcons.GetIcon( fileName ) ;
-    
-
    	return '<tr>' + sUnlink +
 			 '<td width="16" class="' + c_type + '">' +
 				sLink +
@@ -314,7 +315,9 @@ var evt = (evt) ? evt : ((window.event) ? event : null);
     id = id.replace(/\//g,':');
     id = id.replace('::',':');
     parent.opener.ckged_get_unlink_size(id);
-    oConnector.SendCommand( 'UnlinkFile', 'file=' + f, UnlinkFileCallBack ) ;
+     setTimeout(oConnector.SendCommand( 'UnlinkFile', 'file=' + f, UnlinkFileCallBack ), 7000) ; 
+     setTimeout(LoadResources(oConnector.ResourceType, oConnector.CurrentFolder),9000);
+    
 }
 
 
@@ -390,12 +393,13 @@ function reverseListOrder(bool){
 
 function LoadResources( resourceType, folderPath )
 {
-    //alert(resourceType + "\n" + folderPath);
+    
 	oListManager.Clear();
 	document.body.innerHTML = translateItem('DlgFileBrowserWaitingMsg', 'Loading, please wait.'); //Show waiting message
 	oConnector.ResourceType = resourceType ;
-	oConnector.CurrentFolder = folderPath ;
-	oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
+	oConnector.CurrentFolder = folderPath ? folderPath : '/';
+     parent.opener.window.setTimeout( oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ), 9000) ;  
+	
 }
 
 function Refresh()
@@ -518,14 +522,28 @@ function insertImages() {
   
 }
 
-
-
+function postMessageHandler( event ) {
+/*
+  console.log("We've got a message!");
+  console.log("* Message:", event.data);
+  console.log("* Origin:", event.origin);
+  console.log("* Source:", event.source);
+  */
+  Refresh();
+}
+  
+if (window.addEventListener) {
+  window.addEventListener("message", postMessageHandler, false);
+  } else {
+  window.attachEvent("onmessage", postMessageHandler);
+}
 function UnlinkFileCallBack( fckXml, id )
 {   
     if(id) {
-       parent.opener.ckged_setmedia(id,true);
+       parent.opener.ckged_setmedia(id,true,this);
     }
-   GetFoldersAndFilesCallBack( fckXml )
+   GetFoldersAndFilesCallBack( fckXml );
+   
 }
 
 function close_bigImgwin() {
