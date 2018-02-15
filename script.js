@@ -314,7 +314,7 @@ var dokuBase = location.host + DOKU_BASE;
                       //console.log(data);
                     }
                       else  {
-                          alert(LANG.plugins.ckgedit.dwp_save_err + data); 
+                    //      alert(LANG.plugins.ckgedit.dwp_save_err + data); 
                       }   
                     },
                 'html'
@@ -335,7 +335,7 @@ var dokuBase = location.host + DOKU_BASE;
                       console.log(data);
                     }
                       else  {
-                          alert(LANG.plugins.ckgedit.dwp_save_err + data); 
+                    //      alert(LANG.plugins.ckgedit.dwp_save_err + data); 
                       }   
                     },
                 'html'
