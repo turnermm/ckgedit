@@ -484,7 +484,7 @@ global $Config;
        }
     }
 
-    if(file_exists($unlinkFile))  {  //&& unlink($unlinkFile)) {
+    if(file_exists($unlinkFile)&& unlink($unlinkFile)) {
           return GetFoldersAndFiles( $resourceType, $currentFolder );
     }
     else {
