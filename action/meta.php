@@ -105,7 +105,7 @@ function _ajax_call(Doku_Event $event, $param) {
                $oldf  = $id;
               $size_tm =  $INPUT->str('delsize');         
                $this->ajax_debug('size_tm='.$size_tm);             
-              if(!empty($size_tm))   {                  
+              if(isset($size_tm))   {                  
                   list($size,$ft) = explode(';',$size_tm);
                   $size=trim($size);
                   $ft=trim($ft);
@@ -124,7 +124,7 @@ function _ajax_call(Doku_Event $event, $param) {
                   $this->ajax_debug("$fn not found");
                   return;
               }
-              if(!empty($ft) && file_exists($fn)) {                
+              if(isset($ft) && file_exists($fn)) {                
                 $newf = mediaFN($id,$ft);
                 $this->ajax_debug("newf:  $newf fn:  $fn");                                
                  if(file_exists($fn)){
