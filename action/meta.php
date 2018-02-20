@@ -105,7 +105,7 @@ function _ajax_call(Doku_Event $event, $param) {
                $oldf  = $id;
               $size_tm =  $INPUT->str('delsize');         
                $this->ajax_debug('size_tm='.$size_tm);             
-              if(isset($size_tm))   {                  
+              if($size_tm != 'undefined' && isset($size_tm))   {                  
                   list($size,$ft) = explode(';',$size_tm);
                   $size=trim($size);
                   $ft=trim($ft);
