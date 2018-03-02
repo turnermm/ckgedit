@@ -1,7 +1,7 @@
 CKEDITOR.plugins.setLang( 'headerbuttons', 'de', {
-     same:     'gleiche Überschrift',   
-	lower:     'untergeordnete Überschrift',
-	higher:    'höhere Überschrift',
+	same:     'Überschrift des gleichen Levels',
+	lower:     'Untergeordnete Überschrift',
+	higher:    'Übergeordnete Überschrift',
 	remove: 'Überschrift entfernen',
 } );
 
