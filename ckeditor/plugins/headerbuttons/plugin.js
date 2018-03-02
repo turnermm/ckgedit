@@ -5,6 +5,7 @@
  */
 (function() {
 CKEDITOR.plugins.add( 'headerbuttons', {
+	lang: 'en,de', 
     icons: 'SH,HH,LH,P',
     hidpi: true,
     init: function( editor ) {
@@ -56,25 +57,25 @@ CKEDITOR.plugins.add( 'headerbuttons', {
         });
 
         editor.ui.addButton('same_header', {
-            label: 'Same Level Header',
+            label: editor.lang.headerbuttons.same,
             command: 'same_header',
             toolbar: 'header_buttons',
             icon: 'SH'
         });
         editor.ui.addButton('lower_header', {
-            label: 'Lower Level Header',
+            label: editor.lang.headerbuttons.lower,
             command: 'lower_header',
             toolbar: 'header_buttons',
             icon: 'LH'
         });
         editor.ui.addButton('higher_header', {
-            label: 'Higher Level Header',
+            label: editor.lang.headerbuttons.higher,
             command: 'higher_header',
             toolbar: 'header_buttons',
             icon: 'HH'
         });
         editor.ui.addButton('none_header', {
-            label: 'Remove Header',
+            label: editor.lang.headerbuttons.remove,
             command: 'none_header',
             toolbar: 'header_buttons',
             icon: 'P'
