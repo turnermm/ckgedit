@@ -109,7 +109,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                         {                                           
                                             type: 'text',
                                             id: 'language',
-                                            label:   "<html><span style = 'color:blue;text-decoration:underline;'>Or Search here</span></html>", //editor.lang.geshi.lang || 'Programming Language',                                       
+                                            label:   "<html><span style = 'color:blue;text-decoration:underline;'  onmouseover='this.style.cursor=\"pointer\";'>Or Search here</span></html>", //editor.lang.geshi.lang || 'Programming Language',                                       
                                             width: '125px',
                                              onChange: function( api ) {
                                                  var srch = this.getValue().toLowerCase();
