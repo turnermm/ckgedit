@@ -47,6 +47,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
     var downloadable_footer = function() {   
     return "</pre> </dd></dl>";
   } 
+ 
 
      ckg_geshi_langopts = editor.config.geshi_opts;
      if(!ckg_geshi_langopts.match(/ENotfound/)) {
@@ -90,7 +91,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 						// Validation checking whether the field is not empty.
 						validate: CKEDITOR.dialog.validate.notEmpty(editor.lang.geshi.code_empty)
 					},
-	                    {
+                    {
                         type: 'hbox',
                         widths: [ '33%', '33%','33%'],
                         children: [
@@ -104,25 +105,29 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                               onChange: function( api ) {
                                                 //  geshi_dialog.getContentElement(  'tab-basic', 'language' ).setValue(this.getValue());                           
                                              }
-                                         },
-
+                                         },     
                                         {                                           
                                             type: 'text',
-                                            id: 'language',
-                                            label:   "<html><span style = 'color:blue;text-decoration:underline;'  onmouseover='this.style.cursor=\"pointer\";'>Or Search here</span></html>", //editor.lang.geshi.lang || 'Programming Language',                                       
+                                            id: 'language',              
+                                            label:   "<html><span title='"+editor.lang.geshi.tooltip+"' style = 'color:blue;text-decoration:underline;'  onmouseover='this.style.cursor=\"pointer\";'>" + editor.lang.geshi.quick_srch+"</span></html>", //editor.lang.geshi.lang || 'Programming Language',                                       
                                             width: '125px',
                                              onChange: function( api ) {
                                                  var srch = this.getValue().toLowerCase();
-                                                       var regex = new RegExp('^' +srch);       
-                                                        for(var i = 1; i< ckg_geshi_langopts.length; i++) { 
-                                                                if(regex.test(ckg_geshi_langopts[i])) {
-                                                                     srch=ckg_geshi_langopts[i];
-                                                                     break;
-                                                                 }
-                                                        }
-                                                        if(srch)  geshi_dialog.getContentElement(  'tab-basic', 'ckg_geshi_lang' ).setValue(srch);                           
+                                                   function escapeRegExp(string) {
+                                                      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+                                                    }
+                                                   srch = escapeRegExp(srch);
+                                                   var regex = new RegExp('^' +srch); 
+                                                    for(var i = 1; i< ckg_geshi_langopts.length; i++) { 
+                                                            if(regex.test(ckg_geshi_langopts[i])) {
+                                                                 srch=ckg_geshi_langopts[i];
+                                                                 break;
+                                                             }
+                                                    }
+                                                    if(srch)  geshi_dialog.getContentElement(  'tab-basic', 'ckg_geshi_lang' ).setValue(srch);                           
                                              }                                         
                                         },
+
                                         {
                                             type: 'text',
                                             id: 'file',
@@ -166,13 +171,13 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
            
 			var dialog = this, retval;      
 	         var text = dialog.getValueOf( 'tab-basic', 'geshi' );
-             var which = dialog.getValueOf( 'tab-basic', 'which' );             
+             var which = dialog.getValueOf( 'tab-basic', 'which' );   
         
-             var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
+            var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
             if(p_lang.match(/Not Set/i)) {
                          p_lang = "";                       
               }
-           
+              
             if(!p_lang) {
                     if(confirm('Language not found. Try again?'))  {
                          return false;
@@ -180,13 +185,13 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                 }
                    
              if(p_lang) {
-             if(which == 'block') {
-                 retval = '<pre class="code ' + p_lang+ '">' + text + '</pre>';
-             }
-             else retval = downloadable_header(p_lang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
-             editor.insertHtml(retval);
+                 if(which == 'block') {
+                     retval = '<pre class="code ' + p_lang+ '">' + text + '</pre>';
+                 }
+                 else retval = downloadable_header(p_lang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
+                 editor.insertHtml(retval);
            }
-
+           
 		}
 	};
 });

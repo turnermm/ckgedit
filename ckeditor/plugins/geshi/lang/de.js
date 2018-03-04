@@ -1,6 +1,6 @@
 CKEDITOR.plugins.setLang("geshi","de",{
     	title: 'Geshi Snippet oder Block',
-        lang: 'Sprache',
+        lang: 'Sprache auswählen',
         which: 'Code-Schnippsel?',
         codeblock: 'Code-Schnippsel',
         snippet: 'Herunterladbarer Code-Schnippsel',
