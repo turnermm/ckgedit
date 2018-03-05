@@ -113,10 +113,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                             width: '125px',
                                              onChange: function( api ) {
                                                  var srch = this.getValue().toLowerCase();
-                                                   function escapeRegExp(string) {
-                                                      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-                                                    }
-                                                   srch = escapeRegExp(srch);
+                                                 srch = srch.escapeRegExpCkg(srch);
                                                    var regex = new RegExp('^' +srch); 
                                                     for(var i = 1; i< ckg_geshi_langopts.length; i++) { 
                                                             if(regex.test(ckg_geshi_langopts[i])) {
@@ -160,6 +157,9 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
              selection = editor.getSelection();             
              var text = selection.getSelectedText();                    
             dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( text );  
+             String.prototype.escapeRegExpCkg = function(str) {
+                   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+             };                
          //   dialog.getContentElement(  'tab-basic', 'language' ).style='display:block'; 
           //  alert( 'Current value: ' + dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' ) );
        },
