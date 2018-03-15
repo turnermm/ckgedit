@@ -130,8 +130,9 @@ window.onload = function()
     if(CurrentDWikiUser == 'visitor' || isLocalDwikiBrowser || !CurrentDWikiUser) {
        document.getElementById('btnUpload').disabled = true ;
        document.getElementById('btnUpload_div').innerHTML = "";
-
+       document.getElementById("frmUpload").style.display="none";
     }
+    
     if(CreateDwikiFolder == 'n') {
            document.getElementById('folder_hints').style.display='none';
     }

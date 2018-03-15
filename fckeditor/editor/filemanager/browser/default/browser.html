@@ -84,6 +84,7 @@ window.onload = function()
      document.getElementById("btn__create_folder").disabled = true;    
      document.getElementById("create_folder").innerHTML = "";
    }
+  else document.getElementById("create_folder").style.display='block';
 
    if(CreateDwikiFolder == 'n') {
         document.getElementById('create_folder').style.display = 'none';  
@@ -282,7 +283,7 @@ function fbsz_inc(val) {
    d.setTime(d.getTime() + 365*24*60*60*1000);   
    var expires = "expires="+d.toUTCString(); 
    document.cookie =  "fbsz=" + val + "; " + expires + "; path=/";   
-   alert("The file browser window will be increased in size by "+  val + "% after your page is reloaded into the editor.")
+   alert("The file browser window will be re-sized by "+  val + "% after your page is reloaded into the editor.")
 }
 
 function fb_sort(type) {
@@ -338,7 +339,7 @@ function onSubmitFn() {
             <iframe name="frmResourcesList" class="resourceslist" src="frmresourceslist.html"  frameborder="0" id="frmResourcesList"  width="758"   height="400"  scrolling="auto"></iframe>
             </div>
              <div id="bottom_matter">   
-                <div id="create_folder"  class="createfolder">
+                <div id="create_folder"  class="createfolder" style="display:none">
                     <table  class="fullHeight" cellSpacing="0" cellPadding="0" width="100%" border="0">
                         <tr>
                             <td>
@@ -361,7 +362,9 @@ function onSubmitFn() {
                 <div style="display:none">
                  <iframe name="frmCreateFolder"  frameborder="0"  height="0"  width="0" src="frmcreatefolder.html"></iframe> 
                 </div> <table><tr><td colspan="2">                   
-                <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>: 5%<input type="radio" name="adjfbsz" id = "adjfbsz5"onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz"  id = "adjfbsz10" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" id = "adjfbsz15" onchange="fbsz_inc(15);"> &nbsp; 20%<input type="radio" name="adjfbsz" id = "adjfbsz20" onchange="fbsz_inc(20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
+                <form id= adjustfbsz"><span fckLang="DlgFileBrowserAdjustSize">Adjust browser window size</span>: 5%<input type="radio" name="adjfbsz" id = "adjfbsz5"onchange="fbsz_inc(5);">&nbsp;10%<input type="radio" name="adjfbsz"  id = "adjfbsz10" onchange="fbsz_inc(10);"> &nbsp; 15%<input type="radio" name="adjfbsz" id = "adjfbsz15" onchange="fbsz_inc(15);">
+                 &nbsp; 20%<input type="radio" name="adjfbsz" id = "adjfbsz20" onchange="fbsz_inc(20);">&nbsp; -10%<input type="radio" name="adjfbsz" id = "adjfbsz-10" onchange="fbsz_inc(-10);">
+                &nbsp; -20%<input type="radio" name="adjfbsz" id = "adjfbsz-20" onchange="fbsz_inc(-20);">&nbsp;<span fckLang="DlgFileBrowserReset"> Reset</span><input type="radio" name="adjfbsz" onchange="fbsz_inc('reset');"></form>  
                 </td></tr>
                 <tr><td ><form  onsubmit="return onSubmitFn();"><div  id="adustfbbuttons"><span fckLang="DlgFileBrowserSortBy">Sort by</span>:&nbsp;&nbsp;  <span fckLang="DlgFileBrowserSortName">Name</span><input type="radio" name="srtbrfiles" onchange="fb_sort('name');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortDate">Date</span><input type="radio" name="srtbrfiles" onchange="fb_sort('mtime');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortSize">File Size</span><input type="radio" name="srtbrfiles" onchange="fb_sort('fsize');">&nbsp;&nbsp;<span fckLang="DlgFileBrowserSortOrder">Reverse Order</span><input type="checkbox" name="srtbrorder" id="srtbrorder" onchange="fb_sz_date_order(this);"></div> 
                 </td><td class="ckg_td1"><input type="button" name="srtbrfiles" onclick="fb_search(this.form)" fckLang="DlgFileBrowserSearch" value="Find files(s):"> <input type="text" name="fsearch" id="fsearch">&nbsp;&nbsp;<input type="button" name="srtbrfiles" onclick="document.getElementById('help').style.visibility='visible';" fckLang="DlgFileBrowserButtonHelp" value="Help"> </form></td></tr></table>             
