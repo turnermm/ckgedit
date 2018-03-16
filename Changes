@@ -1,4 +1,4 @@
-rev_18-Feb_19-22_36
+rev_18-Mar_15-20_02
 
 28 Feb 2013
 Added support for interwiki links
@@ -1207,3 +1207,6 @@ Restores query string to internal link, missing after coded for relative links
 February 7
 Adds support for  image metadata
 Restores initial forward slash on links to images in filebrowser
+
+Mar 15
+Remove create folder and browser upload buttons from filebrowser; adds negative resizing to filebrowser
