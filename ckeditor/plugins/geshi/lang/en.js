@@ -9,5 +9,5 @@ CKEDITOR.plugins.setLang("geshi","en",{
         code_empty: 'Snippet or Codeblock required.',
         file: 'Snippet File name',
         quick_srch: 'Quick search',
-        tooltip: 'Enter full or partial name,  click to search',
+        tooltip: 'Enter full or partial name,  click to search language menu',
 });
