@@ -47,6 +47,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
     var downloadable_footer = function() {   
     return "</pre> </dd></dl>";
   } 
+ 
 
      ckg_geshi_langopts = editor.config.geshi_opts;
      if(!ckg_geshi_langopts.match(/ENotfound/)) {
@@ -97,23 +98,33 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                         {
                                             type: 'select',
                                              id: 'ckg_geshi_lang',
-                                             label: editor.lang.geshi.lang,
+                                             label: "Select language", //editor.lang.geshi.lang,
                                               items:  ckg_geshi_langopts,  
                                               'default':ckg_geshi_langopts[0], 
                                               style:  s_display,              
                                               onChange: function( api ) {
-                                                  geshi_dialog.getContentElement(  'tab-basic', 'language' ).setValue(this.getValue());                           
+                                                //  geshi_dialog.getContentElement(  'tab-basic', 'language' ).setValue(this.getValue());                           
                                              }
-                                         },
-
+                                         },     
                                         {                                           
                                             type: 'text',
-                                            id: 'language',
-                                            style: t_display,
-                                            label: editor.lang.geshi.lang || 'Programming Language',
-                                            width: '175px',
-                                            validate: CKEDITOR.dialog.validate.notEmpty(editor.lang.geshi.lang_empty)
+                                            id: 'language',              
+                                            label:   "<html><span title='"+editor.lang.geshi.tooltip+"' style = 'color:blue;text-decoration:underline;'  onmouseover='this.style.cursor=\"pointer\";'>" + editor.lang.geshi.quick_srch+"</span></html>", //editor.lang.geshi.lang || 'Programming Language',                                       
+                                            width: '125px',
+                                             onChange: function( api ) {
+                                                 var srch = this.getValue().toLowerCase();
+                                                 srch = srch.escapeRegExpCkg(srch);
+                                                   var regex = new RegExp('^' +srch); 
+                                                    for(var i = 1; i< ckg_geshi_langopts.length; i++) { 
+                                                            if(regex.test(ckg_geshi_langopts[i])) {
+                                                                 srch=ckg_geshi_langopts[i];
+                                                                 break;
+                                                             }
+                                                    }
+                                                    if(srch)  geshi_dialog.getContentElement(  'tab-basic', 'ckg_geshi_lang' ).setValue(srch);                           
+                                             }                                         
                                         },
+
                                         {
                                             type: 'text',
                                             id: 'file',
@@ -146,29 +157,41 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
              selection = editor.getSelection();             
              var text = selection.getSelectedText();                    
             dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( text );  
+             String.prototype.escapeRegExpCkg = function(str) {
+                   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+             };                
          //   dialog.getContentElement(  'tab-basic', 'language' ).style='display:block'; 
           //  alert( 'Current value: ' + dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' ) );
        },
        
-		// This method is invoked once a user clicks the OK button, confirming the dialog.
+		
 		onOk: function() {
 			// The context of this function is the dialog object itself.
 			// http://docs.ckeditor.com/#!/api/CKEDITOR.dialog
            
 			var dialog = this, retval;      
 	         var text = dialog.getValueOf( 'tab-basic', 'geshi' );
-             var which = dialog.getValueOf( 'tab-basic', 'which' );             
-             //dialog.getValueOf( 'tab-basic', 'language');
-             var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
-             if(!p_lang) p_lang = dialog.getValueOf( 'tab-basic', 'language' );
-             if(!p_lang) return;
+             var which = dialog.getValueOf( 'tab-basic', 'which' );   
+        
+            var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
+            if(p_lang.match(/Not Set/i)) {
+                         p_lang = "";                       
+              }
+              
+            if(!p_lang) {
+                    if(confirm('Language not found. Try again?'))  {
+                         return false;
+                    }
+                }
+                   
+             if(p_lang) {
+                 if(which == 'block') {
+                     retval = '<pre class="code ' + p_lang+ '">' + text + '</pre>';
+                 }
+                 else retval = downloadable_header(p_lang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
+                 editor.insertHtml(retval);
+           }
            
-             if(which == 'block') {
-                 retval = '<pre class="code ' + p_lang+ '">' + text + '</pre>';
-             }
-             else retval = downloadable_header(p_lang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
-             editor.insertHtml(retval);
-
 		}
 	};
 });
