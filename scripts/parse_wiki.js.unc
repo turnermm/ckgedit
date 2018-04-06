@@ -1915,6 +1915,11 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
 }
 
 jQuery(document).ready(function() {
+  jQuery(document).on("keypress", "input#edit__summary", function(e){
+        if(e.which == 13){          
+			return parse_wikitext('edbtn__save');
+        }
+  });
 
  jQuery( "#ebut_test" ).mousedown(function() { 
   parse_wikitext('test');
