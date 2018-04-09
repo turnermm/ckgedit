@@ -1918,8 +1918,8 @@ jQuery(document).ready(function() {
    var  edit__summary = false;
   jQuery(document).on("keypress", "input#edit__summary", function(e){
         if(e.which == 13){          
-            edit__summary = true;
-			return parse_wikitext('edbtn__save');
+           edit__summary = true;
+           jQuery("#save_button" ).trigger( "mousedown" );
         }
   });
 
@@ -1930,7 +1930,7 @@ jQuery(document).ready(function() {
 jQuery( "#ebtn__delete" ).click(function() { 
    if(edit__summary) {
     edit__summary = false;
-    return;
+   return;
    }
    return confirm(JSINFO['confirm_delete']); 
 });
