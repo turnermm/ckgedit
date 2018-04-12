@@ -756,7 +756,7 @@ function check_userfiles() {
        if($this->helper->has_plugin('tag'))  $JSINFO['has_tags'] = "Tag";
        if($this->helper->has_plugin('wrap') && ! plugin_isdisabled('wrap'))  {       
            $JSINFO['has_wrap'] = "Wrap";
-        $wrap_helper =  plugin_load('helper',wrap);
+        $wrap_helper =  plugin_load('helper','wrap');
            if($wrap_helper ) {            
         $syntaxDiv = $wrap_helper->getConf('syntaxDiv');
         if(!empty($syntaxDiv)) {
