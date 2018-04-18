@@ -1915,12 +1915,23 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
 }
 
 jQuery(document).ready(function() {
+   var  edit__summary = false;
+  jQuery(document).on("keypress", "input#edit__summary", function(e){
+        if(e.which == 13){          
+           edit__summary = true;
+           jQuery("#save_button" ).trigger( "mousedown" );
+        }
+  });
 
  jQuery( "#ebut_test" ).mousedown(function() { 
   parse_wikitext('test');
 });
 
 jQuery( "#ebtn__delete" ).click(function() { 
+   if(edit__summary) {
+    edit__summary = false;
+   return;
+   }
    return confirm(JSINFO['confirm_delete']); 
 });
 
