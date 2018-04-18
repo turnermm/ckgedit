@@ -724,10 +724,6 @@ function check_userfiles() {
        global $updateVersion;
        global $conf;
        
-        $plist = plugin_list('helper');        
-        if(in_array('ckgedit', $plist)) {    
-            msg($this->getLang('ckgcke_conflict'),2); 
-        }
 
        $acl_defines = array('EDIT'=> 2,'CREATE'=> 4,'UPLOAD'=> 8,'DELETE'=> 16,'ADMIN'=> 255);
        $_auth =  $this->getConf('captcha_auth');
