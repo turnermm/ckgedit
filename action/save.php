@@ -26,10 +26,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
              msg($this->getLang("formatdel"),1);           
          }         
 
- 
-       
         global $TEXT, $conf;
-             
         if (!$TEXT) return;
         $preserve_enc = $this->getConf('preserve_enc');        
         $deaccent = $conf['deaccent'] == 0 ? false : true;

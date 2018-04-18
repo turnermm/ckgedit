@@ -103,7 +103,7 @@ config.colors = new Array(
      // config.scayt_autoStartup = true;      
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
       config.extraSpecialChars  = ['↔'];
-      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags,timestamp,headerbuttons,geshi,wrap'; //,pastebase64'; //,devtools';
+      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags,timestamp,headerbuttons,geshi,wrap'; //,pastebase64',devtools';
       config.contentsLangDirection = '';
       if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
       config.pasteFromWordRemoveFontStyles = false;   // preserve font style when "paste from word"
@@ -115,7 +115,6 @@ config.colors = new Array(
      if(config.removeButtons.match(/FontAssist/)) font_assist = "";
      config.addPaste = function () {
          config.extraPlugins +=',pastebase64';       
-      //   alert(config.extraPlugins);
      }
      
     config.skin =  top.getCKEditorGUI() ? top.getCKEditorGUI() : 'moono';

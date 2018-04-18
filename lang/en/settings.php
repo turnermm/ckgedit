@@ -16,7 +16,7 @@ $lang['dwedit_ns'] = "Comma separated list of namespaces and/or pages where ckge
 $lang['acl_del'] =  "Default (box not checked) allows users with upload permission to delete media files; if box is checked, then user needs delete permission to delete from the folder.";
 $lang['auth_ci'] = "The user login id is case insensitive, that is you can login as both USER and user";
 $lang['nix_style'] = "For Windows Servers (Vista and Later).  This setting makes it possible to access data\\media through ckgedit\\CKeditor\\userfiles, if links to media and file have been successfully created in userfiles";
-$lang['no_symlinks']  = "Disable automatic creation of symbolic links in ckgedit/userfiles.";            
+$lang['no_symlinks']  = "Disable automatic creation of symbolic links in ckgedit/userfiles.  This option should be disabled when updating.";            
 $lang['direction'] = 'Set Language direction in CKeditor:  <b>nocheck</b>: ckgedit will make no changes to the default direction setting; ' 
                        . ' <b>dokuwiki</b>:  the current Dokuwiki language direction;  <b>ltr</b>: Left-to-right ; <b>rtl</b>: Right-to-left.';
 $lang['scayt_auto'] = 'Automatically enable the SCAYT spellchecker. Defaults to <code>on</code>. To turn SCAYT off, select <code>off</code> (it can still  be turned on in the editor). To remove the Scayt toolbar icon as well as turning off the service, select <code>disable</code>.';
@@ -39,6 +39,8 @@ $lang['alt_toolbar'] = 'Functions to remove from CKEditor toolbar.<br /><br /> A
 $lang['mfiles'] = 'Enable mfile support';
 $lang['extra_plugins']  = "Comma separated list of additional Ckeditor plugins to be added to toolbar.  See ckgedit plugin's <a href='https://www.dokuwiki.org/plugin:ckgedit:configuration#extra_plugins'>config page</a>  for details";
 $lang['dw_users'] = "Group name of users whose editor defaults to Dokuwiki editor when <b>dw_priority</b> is slected.  If  not defined, then all users get the native Dokuwiki editor when <b>dw_priority</b> is selected.";
+$lang['allow_ckg_filebrowser'] = 'Select which file/media browser(s) users can use';
+$lang['default_ckg_filebrowser'] = 'Select which file/media browser is the default. This will be overridden if the selected browser is not allowed';
 $lang['captcha_auth'] ='ACL level at which the captcha is turned off when the captcha plugin\'s <code>forusers</code> option is set to true.  The default is <code>ACL_CREATE</code>, which means' 
                                         .' that any user with <code>ACL_EDIT</code> or less will get the captcha, <code>ACL_CREATE</code> or higher will not.';
 $lang['htmlblock_ok'] ='When using <code>HTML_BLOCK</code>s  either this setting or Dokuwiki\'s <code>htmlok</code> option must be enabled. ' .

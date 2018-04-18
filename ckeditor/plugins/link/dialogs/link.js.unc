@@ -4,8 +4,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
-var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex; // ckgeditInternalText;
- var ck_m_files_protocol, ckg_dialog;
+var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex;
+ var ck_m_files_protocol, ckg_dialog, linkOpt;
  window.onbeforeunload = function() { };
    
 CKEDITOR.dialog.add( 'link', function( editor )
@@ -130,6 +130,12 @@ CKEDITOR.dialog.add( 'link', function( editor )
             );
 	};	  
     
+    var openInternalLinkBrowser = function() {
+        doku_linkwiz.init(jQuery('#dw__editform'), editor);
+        doku_linkwiz.val = 'global';
+        doku_linkwiz.toggle();
+    }
+
 var useHeading = function(wiki_id) {
         return jQuery.ajax({
              method: "POST",
@@ -528,6 +534,25 @@ var useHeading = function(wiki_id) {
 	var commonLang = editor.lang.common,
 		linkLang = editor.lang.link;
      
+    //get link browser
+    linkOpt = {};
+    var fbUrl = CKEDITOR.instances.wiki__text.config.filebrowserBrowseUrl;
+    if (fbUrl.indexOf('fckeditor') === -1) {
+        linkOpt = {
+            type : 'button',
+			id : 'browse1',
+			label : commonLang.browseServer,
+            onClick: openInternalLinkBrowser
+        };
+    } else {
+        linkOpt = {
+            type : 'button',
+			id : 'browse1',
+			label : commonLang.browseServer,
+            filebrowser: 'info:url'
+        };
+    }
+
 	return {
 		title : linkLang.title,
 		minWidth :  375, //350,
@@ -687,13 +712,7 @@ var useHeading = function(wiki_id) {
                         id : 'internalOptions',
 						children :
 						[
-							{
-								type : 'button',
-								id : 'browse1',
-								hidden : 'true',
-								filebrowser : 'info:url',
-								label : commonLang.browseServer
-							},
+							linkOpt,
                             {
 										type : 'text',
 										id : 'internal',                                       
@@ -710,6 +729,7 @@ var useHeading = function(wiki_id) {
                                         },       
                             },
                             {
+                                  
 								type : 'text',
 								id : 'internal_text',
 								label : translateItem('LinkText'),
@@ -795,7 +815,7 @@ var useHeading = function(wiki_id) {
 							{
 								type : 'button',
 								id : 'browse2',							
-								filebrowser : 'info:url',
+								filebrowser : 'info:media',
 								label : commonLang.browseServer
 							},
                             {
@@ -1401,7 +1421,6 @@ var useHeading = function(wiki_id) {
 		onLoad : function()
 		{
             ckg_iwi_Select_Id_x = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;      
-         
             var setUpIwikiSel = function() { 
                 if(!ckgeditIwikiData) return;
                 myStopFunction();
@@ -1424,7 +1443,6 @@ var useHeading = function(wiki_id) {
           } 
             oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
 			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
-         //   ckgeditInternalText = this.getContentElement('info', 'internal_text').getInputElement().$.id;
             fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
             fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;
             var el = this.getContentElement('info', 'iwiki_shortcut').getInputElement().$.id;        
@@ -1461,30 +1479,294 @@ var useHeading = function(wiki_id) {
 	};
 });
     
+/**
+ * The Link Wizard
+ *
+ * @author Andreas Gohr <gohr@cosmocode.de>
+ * @author Pierre Spring <pierre.spring@caillou.ch>
+ */
+var doku_linkwiz = {
+    $wiz: null,
+    $entry: null,
+    result: null,
+    timer: null,
+    textArea: null,
+    selected: null,
+    $ck: null,
+
+    /**
+     * Initialize the doku_linkwizard by creating the needed HTML
+     * and attaching the eventhandlers
+     */
+    init: function($editor, ck){
+        // position relative to the text area
+        var pos = $editor.position();
+        $ck = ck;
+
+        // create HTML Structure
+        if(doku_linkwiz.$wiz)
+            return;
+        doku_linkwiz.$wiz = jQuery(document.createElement('div'))
+               .dialog({
+                   autoOpen: false,
+                   draggable: true,
+                   title: LANG.linkwiz,
+                   resizable: false
+               })
+               .html(
+                    '<div>'+LANG.linkto+' <input type="text" class="edit" id="link__wiz_entry" autocomplete="off" /></div>'+
+                    '<div id="link__wiz_result"></div>'
+                    )
+               .parent()
+               .attr('id','link__wiz')
+               .css({
+                    'position':    'absolute',
+                    'top':         (pos.top+20)+'px',
+                    'left':        (pos.left+80)+'px',
+                    'z-index':      '20000'
+                   })
+               .hide()
+               .appendTo('.dokuwiki:first');
+
+        doku_linkwiz.textArea = $editor[0];
+        doku_linkwiz.result = jQuery('#link__wiz_result')[0];
    
+        // scrollview correction on arrow up/down gets easier
+        jQuery(doku_linkwiz.result).css('position', 'relative');
+
+        doku_linkwiz.$entry = jQuery('#link__wiz_entry');
+        if(JSINFO.namespace){
+            doku_linkwiz.$entry.val(JSINFO.namespace+':');
+        }
+
+        // attach event handlers
+        jQuery('#link__wiz .ui-dialog-titlebar-close').click(doku_linkwiz.hide);
+        doku_linkwiz.$entry.keyup(doku_linkwiz.onEntry);
+        jQuery(doku_linkwiz.result).delegate('a', 'click', doku_linkwiz.onResultClick);
+    },
 
 /**
- * The e-mail address anti-spam protection option. The protection will be
- * applied when creating or modifying e-mail links through the editor interface.<br>
- * Two methods of protection can be choosed:
- * <ol>	<li>The e-mail parts (name, domain and any other query string) are
- *			assembled into a function call pattern. Such function must be
- *			provided by the developer in the pages that will use the contents.
- *		<li>Only the e-mail address is obfuscated into a special string that
- *			has no meaning for humans or spam bots, but which is properly
- *			rendered and accepted by the browser.</li></ol>
- * Both approaches require JavaScript to be enabled.
- * @name CKEDITOR.config.emailProtection
- * @since 3.1
- * @type String
- * @default '' (empty string = disabled)
- * @example
- * // href="mailto:tester@ckeditor.com?subject=subject&body=body"
- * config.emailProtection = '';
- * @example
- * // href="<a href=\"javascript:void(location.href=\'mailto:\'+String.fromCharCode(116,101,115,116,101,114,64,99,107,101,100,105,116,111,114,46,99,111,109)+\'?subject=subject&body=body\')\">e-mail</a>"
- * config.emailProtection = 'encode';
- * @example
- * // href="javascript:mt('tester','ckeditor.com','subject','body')"
- * config.emailProtection = 'mt(NAME,DOMAIN,SUBJECT,BODY)';
+     * handle all keyup events in the entry field
+     */
+    onEntry: function(e){
+        if(e.keyCode == 37 || e.keyCode == 39){ //left/right
+            return true; //ignore
+        }
+        if(e.keyCode == 27){ //Escape
+            doku_linkwiz.hide();
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        if(e.keyCode == 38){ //Up
+            doku_linkwiz.select(doku_linkwiz.selected -1);
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        if(e.keyCode == 40){ //Down
+            doku_linkwiz.select(doku_linkwiz.selected +1);
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        if(e.keyCode == 13){ //Enter
+            if(doku_linkwiz.selected > -1){
+                var $obj = doku_linkwiz.$getResult(doku_linkwiz.selected);
+                if($obj.length > 0){
+                    doku_linkwiz.resultClick($obj.find('a')[0]);
+                }
+            }else if(doku_linkwiz.$entry.val()){
+                doku_linkwiz.insertLink(doku_linkwiz.$entry.val());
+            }
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        doku_linkwiz.autocomplete();
+    },
+
+    /**
+     * Get one of the results by index
+     *
+     * @param   num int result div to return
+     * @returns DOMObject or null
+     */
+    getResult: function(num){
+        DEPRECATED('use doku_linkwiz.$getResult()[0] instead');
+        return doku_linkwiz.$getResult()[0] || null;
+    },
+
+    /**
+     * Get one of the results by index
+     *
+     * @param   num int result div to return
+     * @returns jQuery object
  */
+    $getResult: function(num) {
+        return jQuery(doku_linkwiz.result).find('div').eq(num);
+    },
+
+    /**
+     * Select the given result
+     */
+    select: function(num){
+        if(num < 0){
+            doku_linkwiz.deselect();
+            return;
+        }
+
+        var $obj = doku_linkwiz.$getResult(num);
+        if ($obj.length === 0) {
+            return;
+        }
+
+        doku_linkwiz.deselect();
+        $obj.addClass('selected');
+
+        // make sure the item is viewable in the scroll view
+
+        //getting child position within the parent
+        var childPos = $obj.position().top;
+        //getting difference between the childs top and parents viewable area
+        var yDiff = childPos + $obj.outerHeight() - jQuery(doku_linkwiz.result).innerHeight();
+
+        if (childPos < 0) {
+            //if childPos is above viewable area (that's why it goes negative)
+            jQuery(doku_linkwiz.result)[0].scrollTop += childPos;
+        } else if(yDiff > 0) {
+            // if difference between childs top and parents viewable area is
+            // greater than the height of a childDiv
+            jQuery(doku_linkwiz.result)[0].scrollTop += yDiff;
+        }
+
+        doku_linkwiz.selected = num;
+    },
+
+    /**
+     * deselect a result if any is selected
+     */
+    deselect: function(){
+        if(doku_linkwiz.selected > -1){
+            doku_linkwiz.$getResult(doku_linkwiz.selected).removeClass('selected');
+        }
+        doku_linkwiz.selected = -1;
+    },
+
+    /**
+     * Handle clicks in the result set an dispatch them to
+     * resultClick()
+     */
+    onResultClick: function(e){
+        if(!jQuery(this).is('a')) {
+            return;
+        }
+        e.stopPropagation();
+        e.preventDefault();
+        doku_linkwiz.resultClick(this);
+        return false;
+    },
+
+    /**
+     * Handles the "click" on a given result anchor
+     */
+    resultClick: function(a){
+        doku_linkwiz.$entry.val(a.title);
+        if(a.title == '' || a.title.substr(a.title.length-1) == ':'){
+            doku_linkwiz.autocomplete_exec();
+        }else{
+            if (jQuery(a.nextSibling).is('span')) {
+                doku_linkwiz.insertLink(a.nextSibling.innerHTML);
+            }else{
+                doku_linkwiz.insertLink('');
+            }
+        }
+    },
+
+    /**
+     * Insert the id currently in the entry box to the textarea,
+     * replacing the current selection or at the cursor position.
+     * When no selection is available the given title will be used
+     * as link title instead
+     */
+    insertLink: function(title){
+        var link = doku_linkwiz.$entry.val(),
+            sel, stxt;
+        if(!link) {
+            return;
+        }
+        link = ':' + link.replace(/^:/,"");
+        //insert link into field
+        var dialog = CKEDITOR.dialog.getCurrent();
+        dialog.getContentElement("info", "internal").setValue(link);
+
+        doku_linkwiz.hide();
+
+        // reset the entry to the parent namespace
+        doku_linkwiz.$entry.val(doku_linkwiz.$entry.val().replace(/[^:]*$/, ''));
+    },
+
+    /**
+     * Start the page/namespace lookup timer
+     *
+     * Calls autocomplete_exec when the timer runs out
+     */
+    autocomplete: function(){
+        if(doku_linkwiz.timer !== null){
+            window.clearTimeout(doku_linkwiz.timer);
+            doku_linkwiz.timer = null;
+        }
+
+        doku_linkwiz.timer = window.setTimeout(doku_linkwiz.autocomplete_exec,350);
+    },
+
+    /**
+     * Executes the AJAX call for the page/namespace lookup
+     */
+    autocomplete_exec: function(){
+        var $res = jQuery(doku_linkwiz.result);
+        doku_linkwiz.deselect();
+        $res.html('<img src="'+DOKU_BASE+'lib/images/throbber.gif" alt="" width="16" height="16" />')
+            .load(
+            DOKU_BASE + 'lib/exe/ajax.php',
+            {
+                call: 'linkwiz',
+                q: doku_linkwiz.$entry.val()
+            }
+        );
+    },
+
+    /**
+     * Show the link wizard
+     */
+    show: function(){
+        doku_linkwiz.$wiz.show();
+        doku_linkwiz.$entry.focus();
+        doku_linkwiz.autocomplete();
+
+        // Move the cursor to the end of the input
+        var temp = doku_linkwiz.$entry.val();
+        doku_linkwiz.$entry.val('');
+        doku_linkwiz.$entry.val(temp);
+    },
+
+    /**
+     * Hide the link wizard
+     */
+    hide: function(){
+        doku_linkwiz.$wiz.hide();
+        doku_linkwiz.textArea.focus();
+    },
+
+    /**
+     * Toggle the link wizard
+     */
+    toggle: function(){
+        if(doku_linkwiz.$wiz.css('display') == 'none'){
+            doku_linkwiz.show();
+        }else{
+            doku_linkwiz.hide();
+        }
+    }
+};
