@@ -171,6 +171,8 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
            
 			var dialog = this, retval;      
 	         var text = dialog.getValueOf( 'tab-basic', 'geshi' );
+			 text = text.replace(/</,'&lt;');
+			 text = text.replace(/>/,'&gt;');
              var which = dialog.getValueOf( 'tab-basic', 'which' );   
         
             var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
