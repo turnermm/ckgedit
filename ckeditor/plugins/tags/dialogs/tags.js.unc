@@ -14,7 +14,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
         var tagexists = function (name)
           {
             if (matches != null) {
-              eval('var wordmatch = /( |\>)'+name.toUpperCase()+'( |\})/g');
+              var wordmatch = new RegExp('( |\>)'+ name.toUpperCase()+'( |\})','g');
               for (var i = 0; i<matches.length; i++) {
                 if (wordmatch.test(matches[i].toUpperCase())) {
                   return true;
