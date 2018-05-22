@@ -566,7 +566,7 @@ function check_userfiles() {
 	       $show_msg = true;		   
 	   }
 	   $link_names = array('flash',  'image',  'media', 'file', 'image');
-	   if(count($winlinks)) {
+	   if(is_array($winlinks) && count($winlinks)) {
 	       $link_names = array_diff($link_names, $winlinks);
 	   }
 	   $links = array();
