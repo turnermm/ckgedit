@@ -374,7 +374,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $text = preg_replace('/PERCcodePERC/ms','%%&lt;code&gt;%%', $text);
        $text = preg_replace('/PERCfilePERC/ms','%%&lt;file&gt;%%', $text);
        $divalign = false;
-       if($this->helper->has_plugin('divalign2_center')) {
+       if($this->helper->has_plugin('divalign2')
+		   ||$this->helper->has_plugin('divalign2_center')) {
            $divalign = true;
            $text = preg_replace_callback('/\n([;#]{3})/',
                                 
