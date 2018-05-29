@@ -37,7 +37,7 @@ $lang['preload_ckeditorjs']    = 'Die Javascript-Umgebung für den Ckeditor vora
 $lang['nofont_styling']        = 'Font Styles (= Schriftschnitt) im Editor als Plugin-Markup anzeigen. Weitere Informationen auf der ckgedit-Plugin-Seite unter Dokuwiki.org.';
 $lang['font_options']          = 'Entfernt die Option zum Einstellen der Schriftart.';
 $lang['color_options']         = 'Entfernt Farb-Optionen.';
-$lang['alt_toolbar']           = 'Funktionen, die in der Werkzeugleiste nicht angezeigt werden sollen';
+$lang['alt_toolbar']           = 'Funktionen, die nicht in der Werkzeugleiste angezeigt werden sollen';
 $lang['mfiles']                = 'mfile-Unterstützung einschalten.';
 $lang['preserve_enc']          = 'Bewahre URL-Kodierung, falls die De-Akzent-Option von dokuwiki aktiv ist.';
 $lang['gui']                   = 'Wähle CKEditor GUI (grafische Benutzeroberfläche)';
