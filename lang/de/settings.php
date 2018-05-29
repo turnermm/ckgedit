@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author WhitesnakeS04 <whitesnakess04@gmail.com>
  * @author Leo Rudin <leo.rudin@gmx.ch>
  * @author Juergen-aus-Koeln <H-J-Schuemmer@Web.de>
  * @author liz <marliza@web.de>
@@ -36,5 +37,5 @@ $lang['preload_ckeditorjs']    = 'Die Javascript-Umgebung für den Ckeditor vora
 $lang['nofont_styling']        = 'Font Styles (= Schriftschnitt) im Editor als Plugin-Markup anzeigen. Weitere Informationen auf der ckgedit-Plugin-Seite unter Dokuwiki.org.';
 $lang['font_options']          = 'Entfernt die Option zum Einstellen der Schriftart.';
 $lang['color_options']         = 'Entfernt Farb-Optionen.';
-$lang['alt_toolbar']           = 'Funktionen, die in der Werkzeugleiste nicht angezeigt werden sollen';
+$lang['alt_toolbar']           = 'Funktionen, die nicht in der Werkzeugleiste angezeigt werden sollen';
 $lang['mfiles']                = 'mfile-Unterstützung einschalten.';

@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author WhitesnakeS04 <whitesnakess04@gmail.com>
  * @author Sebastian Engel <mail@engel-s.de>
  * @author Joerg Maeder <member@toolcase.org>
  * @author Leo Rudin <leo.rudin@gmx.ch>
@@ -71,6 +72,6 @@ $lang['syms_created']          = 'Die folgenden Links wurden im Verzeichnis user
 $lang['dblclk']                = '<b>Neues Feature:</b> Doppelklick im Browserfenster um den DW Editor zum Bearbeiten eines Abschnitts an der Kursorposition zu &ouml;ffnen. <b>Siehe: </b><a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>. ';
 $lang['dblclk_reminder']       = '<b>Erinnerung</b>';
 $lang['ckg_img_paste']         = 'Zusätzliche Unterstützung beim Einfügen von Bildern aus der Zwischenablage';
-$lang['ckg_img_paste_title']   = 'Aus um doppeltes Einf&uuml;gen zuverhindern, oder Ein um Einfügen zu erlauben';
+$lang['ckg_img_paste_title']   = 'Aus um doppeltes Einf&uuml;gen zu verhindern, oder Ein, um Einfügen zu erlauben';
 $lang['on']                    = 'Ein';
 $lang['off']                   = 'Aus';
