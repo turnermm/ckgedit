@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author WhitesnakeS04 <whitesnakess04@gmail.com>
  * @author Leo Rudin <leo.rudin@gmx.ch>
  * @author Juergen-aus-Koeln <H-J-Schuemmer@Web.de>
  * @author liz <marliza@web.de>
@@ -38,3 +39,6 @@ $lang['font_options']          = 'Entfernt die Option zum Einstellen der Schrift
 $lang['color_options']         = 'Entfernt Farb-Optionen.';
 $lang['alt_toolbar']           = 'Funktionen, die in der Werkzeugleiste nicht angezeigt werden sollen';
 $lang['mfiles']                = 'mfile-Unterstützung einschalten.';
+$lang['preserve_enc']          = 'Bewahre URL-Kodierung, falls die De-Akzent-Option von dokuwiki aktiv ist.';
+$lang['gui']                   = 'Wähle CKEditor GUI (grafische Benutzeroberfläche)';
+$lang['rel_links']             = 'Aktiviere Unterstützung für relative interne Verknüpfungen und Bildverknüpfungen.';
