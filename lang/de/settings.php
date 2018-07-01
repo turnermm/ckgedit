@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Gunnar Lindenblatt <gunnar.lindenblatt@gmail.com>
  * @author WhitesnakeS04 <whitesnakess04@gmail.com>
  * @author Leo Rudin <leo.rudin@gmx.ch>
  * @author Juergen-aus-Koeln <H-J-Schuemmer@Web.de>
@@ -39,6 +40,8 @@ $lang['font_options']          = 'Entfernt die Option zum Einstellen der Schrift
 $lang['color_options']         = 'Entfernt Farb-Optionen.';
 $lang['alt_toolbar']           = 'Funktionen, die nicht in der Werkzeugleiste angezeigt werden sollen';
 $lang['mfiles']                = 'mfile-Unterstützung einschalten.';
+$lang['htmlblock_ok']          = 'Bei Verwendung von <code>HTML_BLOCK</code>s muss entweder diese Option oder die DokuWiki-Option <code>htmlok</code> eingeschaltet sein. Es stellt nicht das gleiche Sicherheitsrisiko dar wie <code>htmlok</code>. Dennoch sollte es nur in einer vertrauenswürdigen Benutzerumgebung und nicht in einem offenen Wiki verwendet werden. ';
+$lang['dblclk']                = '<code>off</code> schaltet das Bearbeiten einzelner Abschnitte (Sections) per Doppelklick mit dem DokuWiki-Editor aus (siehe:  <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>) 	';
 $lang['preserve_enc']          = 'Bewahre URL-Kodierung, falls die De-Akzent-Option von dokuwiki aktiv ist.';
 $lang['gui']                   = 'Wähle CKEditor GUI (grafische Benutzeroberfläche)';
 $lang['rel_links']             = 'Aktiviere Unterstützung für relative interne Verknüpfungen und Bildverknüpfungen.';
