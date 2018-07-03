@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Davor Turkalj <turki.bsc@gmail.com>
  */
 $lang['groups']                = 'Grupa koja može onemogućiti vrijeme zaključavanja (zastarjelo)';
@@ -38,3 +38,9 @@ $lang['alt_toolbar']           = 'Funkcije koje se uklanjaju iz alatne trake u C
 $lang['mfiles']                = 'Omogući mfile podršku';
 $lang['extra_plugins']         = 'Zarezom odvojena lista dodatnih Ckeditor dodataka koji će biti dodani na alatnu traku. Pogledajte ckgedit <a href=\'https://www.dokuwiki.org/plugin:ckgedit:configuration#extra_plugins\'>uputu o podešavanju</a> za detalje';
 $lang['dw_users']              = 'Ime grupe korisnika čiji je podrazumijevani Dokuwiki uređivač kada je odabran <b>dw_priority</b>. Ako nije definiran, tada će svima ugrađeni Dokuwiki uređivač biti podrazumijevani ako je odabran <b>dw_priority</b>.';
+$lang['captcha_auth']          = 'ACL nivo na kojem je captcha isključen kada je opcija captcha dodatka <code>forusers</code> uključena. Podrazumijevana vrijednost je <code>ACL_CREATE</code>, što znači da svi korisnici sa  <code>ACL_EDIT</code> ili manje, će se prikazati captcha, za <code>ACL_CREATE</code> ili više neće.';
+$lang['htmlblock_ok']          = 'Kada se koristi <code>HTML_BLOCK</code> ili ova postavka ili Dokuwiki <code>htmlok</code> postavka mora biti omogućena. Ona ne znači isti nivo sigurnosnog rizika kao <code>htmlok</code>. Unatoč tome ona ipak bi trebal biti korištena samo u sigurnim korisničkim okolinama, a ne na otvorenom wiki-u.';
+$lang['dblclk']                = 'Postavi na <code>isključi</code> da se isključi mogućnost uređivanja odjeljka Dokuwiki urednikom dvoklikom (vidi: <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>)';
+$lang['preserve_enc']          = 'Sačuvaj kodiranje URL veza kada je Dokuwiki deaccent opcija aktivna.';
+$lang['gui']                   = 'Odaberi CKEditor GUI.';
+$lang['rel_links']             = 'Aktiviraj podršku za relativne interne i slikovne poveznice';

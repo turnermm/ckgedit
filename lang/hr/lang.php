@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Davor Turkalj <turki.bsc@gmail.com>
  */
 $lang['btn_dw_edit']           = 'DW uređivač';
@@ -39,4 +39,30 @@ $lang['js']['font_err_throw']  = 'Greška pri uređivanju fonta';
 $lang['js']['dwp_save_err']    = 'Ne mogu snimiti promjene u:';
 $lang['js']['dwp_updated']     = 'Prioritet uređivača promijenjen u:';
 $lang['js']['dwp_not_sel']     = 'Prioritet uređivača nije odabran: biti će određen pomoću dw_users grupne konfiguracijske postavke';
+$lang['js']['mediamgr_notice'] = 'Koristi odabir poveznica za ubacivanje';
+$lang['js']['font_conflict']   = 'Analizator je otkrio jedan ili više font-poveznica konflikata. Pritiskom na OK možete se vratiti na uređivanje i ukloniti stilove fontova. Za više informacija pogledajte: https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links';
+$lang['js']['ckg_paste_restart'] = 'Kod ponovnog učitavanja uređivača, dodatna podrška za lijepljenje biti će';
+$lang['js']['on']              = 'uključena';
+$lang['js']['off']             = 'isključena';
+$lang['mediamgr_imgonly']      = 'Učitaj samo slike kada se koristi urednik slika:';
 $lang['uprofile_title']        = 'Odaberite svoj podrazumijevani uređivač';
+$lang['btn_val_dw_fb']         = 'DW uređivač datoteka';
+$lang['btn_val_ckg_fb']        = 'CKG uređivač datoteka';
+$lang['btn_title_dw_fb']       = 'Snimi i zatvori uređivač i prebaci na DW uređivač datoteka';
+$lang['btn_title_ckg_fb']      = 'Snimi i zatvori uređivač i prebaci na CKG uređivač datoteka';
+$lang['formatdel']             = 'Oznake uklonjene iz zaglavlja: nisu podržane u Dokuwiki-u';
+$lang['fontdel']               = 'Oznake fontova uklonjene iz poveznica: nisu podržane u Dokuwiki-u';
+$lang['ws_cantcopy']           = 'Za Win tip postavki:ne mogu kopirati u';
+$lang['ws_copiedhtaccess']     = 'Za Win tip postavki, kopirana sigurnosno omogućena .htaaccess u data/media.
+Vidi ckgedit/fckeditor/userfiles/.htacess sigurnost';
+$lang['userfiles_perm']        = 'Molim provjerite dozvole: ckgedit ne može pristupiti';
+$lang['sym_not created_1']     = 'Ne mogu kreirati';
+$lang['sym_not created_2']     = 'Ne mogu kreirati simboličku poveznicu za urednik datoteka: ne mogu pristupiti';
+$lang['sym_not created_3']     = 'Dogodila se greška pri pokušaju kreiranja simboličke poveznice u';
+$lang['syms_created']          = 'Slijedeće poveznice su kreirane u userfiles mapi:';
+$lang['dblclk']                = '<b>Nova mogućnost:</b> dvoklik na prozor browsera za ortvaranje DW Urednika za uređivanje odjeljka ispod pokazivača. <b>Vidi: </b><a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>.';
+$lang['dblclk_reminder']       = '<b>Podsjetnik</b>';
+$lang['ckg_img_paste']         = 'Uključi dodatnu podršku za lijepljenje slika';
+$lang['ckg_img_paste_title']   = 'Isključi za prevenciju dvostrukog lijepljenja, ili uključi za omogućavanje lijepljenja';
+$lang['on']                    = 'uključi';
+$lang['off']                   = 'isključi';
