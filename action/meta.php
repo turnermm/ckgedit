@@ -191,6 +191,9 @@ function _ajax_call(Doku_Event $event, $param) {
                 $data = file($path, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES );
                 array_shift($data);
          }
+		 else {
+			 $data = array();
+		 }		 
         $result = array();
         for($i=0; $i<count($data); $i++) {      
               list($name, $val) = explode('=',$data[$i]);

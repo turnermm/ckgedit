@@ -978,7 +978,7 @@ var ckgedit_hasCaptcha = "<?php echo $this->captcha?1:0?>";
    $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';    
   echo "var script_url = '$url';";
   if($this->test) {
-      $nval = substr(md5(time), -20);
+     $nval = substr(md5(time()), -20);
      $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc?n=' . $nval;
   }
   else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
