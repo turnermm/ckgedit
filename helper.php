@@ -48,7 +48,6 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   
   function has_plugin($plugin) {    
       $plugins_list = plugin_list();               
-  //   if(in_array($plugin, $plugins_list)) {msg(print_r($plugins_list,1));}
       return in_array($plugin, $plugins_list);
   }
   

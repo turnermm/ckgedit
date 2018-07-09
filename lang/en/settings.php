@@ -16,7 +16,7 @@ $lang['dwedit_ns'] = "Comma separated list of namespaces and/or pages where ckge
 $lang['acl_del'] =  "Default (box not checked) allows users with upload permission to delete media files; if box is checked, then user needs delete permission to delete from the folder.";
 $lang['auth_ci'] = "The user login id is case insensitive, that is you can login as both USER and user";
 $lang['nix_style'] = "For Windows Servers (Vista and Later).  This setting makes it possible to access data\\media through ckgedit\\CKeditor\\userfiles, if links to media and file have been successfully created in userfiles";
-$lang['no_symlinks']  = "Disable automatic creation of symbolic links in ckgedit/userfiles.";            
+$lang['no_symlinks']  = "Disable automatic creation of symbolic links in ckgedit/userfiles.  This option should be disabled when updating.";            
 $lang['direction'] = 'Set Language direction in CKeditor:  <b>nocheck</b>: ckgedit will make no changes to the default direction setting; ' 
                        . ' <b>dokuwiki</b>:  the current Dokuwiki language direction;  <b>ltr</b>: Left-to-right ; <b>rtl</b>: Right-to-left.';
 $lang['scayt_auto'] = 'Automatically enable the SCAYT spellchecker. Defaults to <code>on</code>. To turn SCAYT off, select <code>off</code> (it can still  be turned on in the editor). To remove the Scayt toolbar icon as well as turning off the service, select <code>disable</code>.';
