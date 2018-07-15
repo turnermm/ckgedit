@@ -1,0 +1,4 @@
+This version of [[doku>plugin:ckgedit|ckgedit]] has two significant changes:
+  - It upgrades the CkEditor from 4.7 to 4.9.
+  - It integrates ckgdoku into ckgedit.
+This upgrade to the CKEditor gives up-to-date and improved javascript. If there are any problems, please report these  to  [[https://github.com/turnermm/ckgedit/issues|ckgedit's issues]] on github.  The integration of ckgdoku now provides ckgedit the option to use the native Dokuwiki file browser and linkwiz. See the ckgdoku plugin page for [[doku>plugin:ckgdoku|a description of its features ]] and [[doku>plugin:ckgdoku#configuration|configuration options]].
