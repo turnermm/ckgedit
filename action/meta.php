@@ -892,11 +892,10 @@ function reset_user_rewrite_check() {
       global $ACT;
        global $conf;
 	   global $JSINFO;
-	  
+	  $this->startup_msg();
        if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] =='_false_' ) return;
-       if($ACT == 'login') $this->chk_dbl_clk_time();
        if($ACT == 'edit') {
-          $this->user_rewrite = $conf['userewrite'];
+         $this->user_rewrite = $conf['userewrite'];
 	     $conf['userewrite']  = 0; 
        }
       
@@ -906,14 +905,14 @@ function reset_user_rewrite_check() {
     else $JSINFO['htmlok'] = 0;
     }	  
 
-function chk_dbl_clk_time() {  
+function startup_msg() {  
    global $INFO;
    if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
 	       $show_msg = true;		   
 	}
    if(!$show_msg)  return;
-  $filename =  metaFN('fckl:dblck','.meta'); 
-  $msg = $this->getLang('dblclk');
+  $filename =  metaFN('fckl:merger','.meta'); 
+  $msg =  $this->locale_xhtml('merger');
    if (file_exists($filename)) {      
            $reps = io_readFile($filename);
            if($reps <2) {
