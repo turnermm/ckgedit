@@ -725,9 +725,11 @@ function check_userfiles() {
        global $JSINFO;
        global  $INPUT;
        global $updateVersion;
-       global $conf;
-       
+       global $conf, $USERINFO;
 
+       if(isset($USERINFO)) {
+           $this->startup_msg();
+       }
        $acl_defines = array('EDIT'=> 2,'CREATE'=> 4,'UPLOAD'=> 8,'DELETE'=> 16,'ADMIN'=> 255);
        $_auth =  $this->getConf('captcha_auth');
        $auth_captcha = (int)$acl_defines[$_auth];     
@@ -891,8 +893,8 @@ function reset_user_rewrite_check() {
 
       global $ACT;
        global $conf;
-	   global $JSINFO;
-	  $this->startup_msg();
+	   global $JSINFO,$USERINFO;	  
+
        if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] =='_false_' ) return;
        if($ACT == 'edit') {
          $this->user_rewrite = $conf['userewrite'];
@@ -907,6 +909,8 @@ function reset_user_rewrite_check() {
 
 function startup_msg() {  
    global $INFO;
+    global $ACT;
+    if($ACT != 'login') return;
    if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
 	       $show_msg = true;		   
 	}
