@@ -910,13 +910,19 @@ function reset_user_rewrite_check() {
 function startup_msg() {  
    global $INFO;
     global $ACT;
-    if($ACT != 'login') return;
+  
    if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
 	       $show_msg = true;		   
 	}
    if(!$show_msg)  return;
   $filename =  metaFN('fckl:merger','.meta'); 
   $msg =  $this->locale_xhtml('merger');
+  if (!file_exists($filename)) {      
+      io_saveFile($filename,'1'); 
+       msg($msg,2);          
+       return;
+  }
+  if($ACT != 'login') return;
    if (file_exists($filename)) {      
            $reps = io_readFile($filename);
            if($reps <2) {
@@ -926,11 +932,7 @@ function startup_msg() {
               return;
            }
    }
-   else
-       {      
-       io_saveFile($filename,'1'); 
-       msg($msg,2);    
-   }
+
 }
 /**
   checked for additional dw priority possibilities only if the dw priority option is set to true
