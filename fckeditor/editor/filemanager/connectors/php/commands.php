@@ -430,14 +430,9 @@ global $Config;
   global $Dwfck_conf_values;
   $move = false;
  
-  //file_put_contents('debug.txt',"$currentFolder, $sCommand, $filename");
-
     $sServerDir = ServerMapFolder( $resourceType, $currentFolder, 'GetFoldersAndFiles' ) ;
     $path = $sServerDir.$filename;
- //   file_put_contents('debug.txt2',$path);
     $parts=pathinfo($path);
-  //  file_put_contents('debug.txt3',print_r($parts,1));
-   
     
     if(preg_match('/^(.*?)\/(.*?)$/',$filename,$matches)) {
       $move = true;
@@ -540,6 +535,7 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
     'size' => ""
 ) ;
     $keys = array_keys($_FILES);    
+    $_FILES['NewFile']['name'] = str_replace('&','_', $_FILES['NewFile']['name']);
     $file_data = filter_var_array($_FILES[$keys[0]], $f_args);
    // cmd_write_debug($_FILES);
    // cmd_write_debug($file_data);
