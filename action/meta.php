@@ -766,6 +766,7 @@ function check_userfiles() {
             $JSINFO['wrapDiv'] = $syntaxDiv;
           } 
           else $JSINFO['wrapDiv'] = "";
+          $JSINFO['template'] = $conf['template'];
         $syntaxSpan = $wrap_helper->getConf('syntaxSpan');
         if(!empty($syntaxSpan)) {
             $JSINFO['wrapSpan'] = $syntaxSpan; 
