@@ -2,7 +2,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
   {
     var existingTags = {};
     var lang = editor.lang.tags;
-
+    var tstr = "test";
     var generateTags = function ()
       {
       
@@ -147,7 +147,8 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
                 editor.setData(data.replace(/\{\{tag&gt;.*?\}\}/g,'')+selected);  
                 }  
              
-          }
+          },
+        onLoad: function() {}  
       };
     return d;
   }
