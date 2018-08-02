@@ -769,7 +769,7 @@ function check_userfiles() {
             $JSINFO['wrapDiv'] = $syntaxDiv;
           } 
           else $JSINFO['wrapDiv'] = "";
-          $JSINFO['template'] = $conf['template'];
+     
         $syntaxSpan = $wrap_helper->getConf('syntaxSpan');
         if(!empty($syntaxSpan)) {
             $JSINFO['wrapSpan'] = $syntaxSpan; 
@@ -784,6 +784,7 @@ function check_userfiles() {
             $JSINFO['ckgEdPaste'] = $_COOKIE['ckgEdPaste'];
         }       
         $JSINFO[ 'rel_links'] = $this->getConf('rel_links');       
+        $JSINFO['template'] = $conf['template'];
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 
