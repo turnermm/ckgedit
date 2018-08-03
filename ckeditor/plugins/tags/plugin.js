@@ -13,6 +13,8 @@ CKEDITOR.plugins.add("tags",
           icon: this.path + 'images/icon.png'
         }
       );
+      var tags_position = 'top';
+      editor.tags_pos = function() { return tags_position}
     }
   }
 );
