@@ -26,28 +26,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
               return false;
             }
           };
-        jQuery.ajax(
-          DOKU_BASE + 'lib/exe/ajax.php',
-          {
-            data:
-              {
-                call: 'tagapi_list'
-              },
-            type: "POST",
-            async: false,
-            dataType: "json",
-            success: function(data, textStatus, jqXHR)
-              {
-                existingTags = data.tags;
-                //alert(existingTags);
-              },
-            error: function(jqXHR, textStatus, errorThrown )
-              {
-                alert(textStatus);
-                alert(errorThrown);
-              }
-          }
-        );
+	  existingTags = editor.existing_tags();
         var curHBox = {
                         type: 'hbox',
                         children: []
