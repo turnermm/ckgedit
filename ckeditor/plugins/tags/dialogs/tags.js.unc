@@ -106,7 +106,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
             'default': tags_pos,
             onClick: function() {            
                 //alert( 'Current value: ' + this.getValue() );
-                }
+            }
         },                
             ]
           }
@@ -152,7 +152,8 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
                 }  
              
           },
-        onShow: function() {    
+        onShow: function() {  
+	
           var dialog = this;     
           var existing ="";
           var on_page;  //tags found in page tag markup
@@ -160,7 +161,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
           for (var i = 0; i<existingTags.length; i++) {           
               existing += dialog.getValueOf('tab-basic',existingTags[i].id) ? existingTags[i].id+' ' : '';
             }
-          
+     //     alert(existing  + '<');
           var content = editor.document.$.children[0].children[1].innerHTML.replace(/<[^<>]*>/g,'').replace(/&gt;/g,'>');
           var tagregexp = (/\{\{tag>(.*?)\}\}/g);
           var matches = tagregexp.exec(content);
@@ -169,6 +170,19 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
           matches[1] = matches[1].replace(/\s+/g," " );
       
          on_page = matches[1].split(/\s/);         
+         
+          jQuery("table[class*='dialog'] :checkbox[class*='cke']").each(function( index ) {	
+                    var labelText = jQuery('label[for='+  this.id  +']').text();  
+                    var tag = labelText.match(/^[\w\-\d]+$/);                  
+                   if(tag && !on_page.includes(labelText)) {                         
+                         jQuery(this).prop('checked',false) ;
+                   }
+                   else if(tag && on_page.includes(labelText) && !jQuery(this).prop('checked')){
+                        jQuery(this).prop('checked',true) ;
+                        existing += labelText + ' ';
+                   }
+           });	
+         
          for(i=0; i< on_page.length; i++) {       
                var r= new RegExp(on_page[i]);   
               if(!existing.match(r)) {
@@ -181,7 +195,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
               dialog.setValueOf('tab-basic','user_def_text',custom_insert);
            }
            
-          }
+        }
       };
     return d;
   }
