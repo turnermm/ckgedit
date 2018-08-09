@@ -138,7 +138,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
           var on_page;  //tags found in page tag markup
           var custom_insert = "";  // tags found on page that are not in existing tags
           for (var i = 0; i<existingTags.length; i++) {           
-              existing += dialog.getValueOf('tab-basic',existingTags[i].id) ? existingTags[i].id+' ' : '';
+              existing += dialog.getValueOf('tab-basic',existingTags[i].id) ? existingTags[i].id+' ' : '';   // check checkboxes for current tags
             }
      //     alert(existing  + '<');
           var content = editor.document.$.children[0].children[1].innerHTML.replace(/<[^<>]*>/g,'').replace(/&gt;/g,'>');
@@ -149,7 +149,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
           matches[1] = matches[1].replace(/\s+/g," " );
       
          on_page = matches[1].split(/\s/);         
-         
+         /* Bring checkboxes up-to-date */
           jQuery("table[class*='dialog'] :checkbox[class*='cke']").each(function( index ) {	
                     var labelText = jQuery('label[for='+  this.id  +']').text();  
                     var tag = labelText.match(/^[\w\-\d]+$/);                  
@@ -162,13 +162,14 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
                    }
            });	
          
+        /* Add as yet un-registered tags to list of custom tags   */        
          for(i=0; i< on_page.length; i++) {       
                var r= new RegExp(on_page[i]);   
               if(!existing.match(r)) {
                   custom_insert += on_page[i] + " ";
               }
          }
-           if(custom_insert) {
+           if(custom_insert) {    // add custom tags to custom tags box
               custom_insert=custom_insert.replace(/\s+$/,"");
               dialog.setValueOf('tab-basic','user_def_box',1) ;
               dialog.setValueOf('tab-basic','user_def_text',custom_insert);

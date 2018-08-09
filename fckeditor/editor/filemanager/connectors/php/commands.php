@@ -535,7 +535,7 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
     'size' => ""
 ) ;
     $keys = array_keys($_FILES);    
-    $_FILES['NewFile']['name'] = str_replace('&','_', $_FILES['NewFile']['name']);
+    $_FILES['NewFile']['name'] = cleanID(str_replace('&','_', $_FILES['NewFile']['name']));
     $file_data = filter_var_array($_FILES[$keys[0]], $f_args);
    // cmd_write_debug($_FILES);
    // cmd_write_debug($file_data);
