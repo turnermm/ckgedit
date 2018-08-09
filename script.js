@@ -397,6 +397,20 @@ jQuery(document).ready(function(){
 
    }
 
+   if(JSINFO['template'].match(/bootstrap/) && jQuery('div.editButtons').length>0) {       
+       //var n=jQuery('div.editButtons input').length;
+       jQuery( "div.editButtons input").each(function( index ) {
+           if(jQuery(this).hasClass('btn-success')) {
+               jQuery(this).removeClass('btn-success')
+           }
+           if(jQuery(this).hasClass('btn-danger')) {
+               jQuery(this).removeClass('btn-danger');
+           }
+           
+     });
+
+   }
+
 });
  
 function ckg_edit_mediaman_insert(edid, id, opts, dw_align) {
