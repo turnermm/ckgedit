@@ -725,8 +725,11 @@ function check_userfiles() {
        global $JSINFO;
        global  $INPUT;
        global $updateVersion;
-       global $conf;
-       
+       global $conf, $USERINFO;
+
+       if(isset($USERINFO)) {
+           $this->startup_msg();
+       }
        $acl_defines = array('EDIT'=> 2,'CREATE'=> 4,'UPLOAD'=> 8,'DELETE'=> 16,'ADMIN'=> 255);
        $_auth =  $this->getConf('captcha_auth');
        $auth_captcha = (int)$acl_defines[$_auth];     
@@ -892,12 +895,11 @@ function reset_user_rewrite_check() {
 
       global $ACT;
        global $conf;
-	   global $JSINFO;
-	  
+	   global $JSINFO,$USERINFO;	  
+
        if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] =='_false_' ) return;
-       if($ACT == 'login') $this->chk_dbl_clk_time();
        if($ACT == 'edit') {
-          $this->user_rewrite = $conf['userewrite'];
+         $this->user_rewrite = $conf['userewrite'];
 	     $conf['userewrite']  = 0; 
        }
       
@@ -907,14 +909,22 @@ function reset_user_rewrite_check() {
     else $JSINFO['htmlok'] = 0;
     }	  
 
-function chk_dbl_clk_time() {  
+function startup_msg() {  
    global $INFO;
+    global $ACT;
+  
    if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
 	       $show_msg = true;		   
 	}
    if(!$show_msg)  return;
-  $filename =  metaFN('fckl:dblck','.meta'); 
-  $msg = $this->getLang('dblclk');
+  $filename =  metaFN('fckl:merger','.meta'); 
+  $msg =  $this->locale_xhtml('merger');
+  if (!file_exists($filename)) {      
+      io_saveFile($filename,'1'); 
+       msg($msg,2);          
+       return;
+  }
+  if($ACT != 'login') return;
    if (file_exists($filename)) {      
            $reps = io_readFile($filename);
            if($reps <2) {
@@ -924,11 +934,7 @@ function chk_dbl_clk_time() {
               return;
            }
    }
-   else
-       {      
-       io_saveFile($filename,'1'); 
-       msg($msg,2);    
-   }
+
 }
 /**
   checked for additional dw priority possibilities only if the dw priority option is set to true

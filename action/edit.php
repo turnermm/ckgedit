@@ -568,24 +568,49 @@ if($fbsz_increment) {
 }
 
 $doku_url=  rtrim(DOKU_URL,'/');        
+$ns = getNS($_COOKIE['FCK_NmSp']);
+
+//get user file browser if allowed
+if ($this->getConf('allow_ckg_filebrowser') == 'all') {
+    $fb = $this->getUserFb();
+} else {
+    //use only allowed file browser
+    $fb = $this->getConf('allow_ckg_filebrowser');
+}
+
+//setup options
+if ($fb == 'dokuwiki') {
+    $fbOptions = "filebrowserImageBrowseUrl: \"$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insert&ckg_media=img\",
+    filebrowserBrowseUrl: \"$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insertlink&ckg_media=link\"";
+} else {
+    $fbOptions = "filebrowserImageBrowseUrl :  \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\",
+    filebrowserBrowseUrl: \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\"";
+}
+
 $ckeditor_replace =<<<CKEDITOR_REPLACE
 
 		   ckgeditCKInstance = CKEDITOR.replace('wiki__text',
 		       { 
                   toolbar: '$toolbar' ,    
                   height: $height,
-                 filebrowserWindowWidth: "$fbrowser_width",
-                 filebrowserWindowHeight:  "$fbrowser_height", 
-                 on :
-                   {
-                      'instanceReady' : function( evt )
-                      {
+                   filebrowserWindowWidth: $fbrowser_width,
+                   filebrowserWindowHeight:  $fbrowser_height,
+                  $fbOptions,
+                    on : {  'instanceReady' : function( evt ) {
                          evt.editor.document.on( 'mousedown', function()
-                         {   handlekeypress (evt);  } );
+                   {
+                               parent. handlekeypress(evt);
+                         } );
+                       }
+                     },
+                     on : {  'instanceReady' : function( evt ) {
+                         evt.editor.document.on( 'focus', function()
+                      {
+                               parent. handlekeypress(evt);
+                         } );
                       }
                    },  
-                 filebrowserImageBrowseUrl :  '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',
-                 filebrowserBrowseUrl: '$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php',                                
+
                } 
 		   );
            FCKeditor_OnComplete(ckgeditCKInstance);
@@ -692,6 +717,16 @@ $is_ckgeditChrome = false;
                  value="<?php echo $this->getLang('btn_dw_edit')?>"  
                  title="<?php echo $this->getLang('title_dw_edit')?>"
                   />
+             <?php endif; ?>
+
+             <?php if($this->getConf('allow_ckg_filebrowser') == 'all'): ?>
+            <input class="button" id="ebtn__fbswitch"
+                   style="font-size: 100%;"
+                   type="submit"
+                   name="do[save]"
+                   value="<?php echo $this->get_switch_fb_value() ?>"
+                   title="<?php echo $this->get_switch_fb_title() ?>"
+                   />
              <?php endif; ?>
 <?php
 global $INFO;
@@ -1197,7 +1232,7 @@ $text = preg_replace_callback(
         $xhtml = str_replace('ckgeditFONTClose', 'font&amp;gt;',$xhtml);
         $xhtml = str_replace('DBLBACKSPLASH', '\\ ',$xhtml);
         $xhtml = str_replace('NWPIPECHARACTER', '|',$xhtml);            
-        //DBLBACKSPLASH
+        
        $ua = strtolower ($_SERVER['HTTP_USER_AGENT']); 
 	  if(strpos($ua,'chrome') !== false) {
        $xhtml = preg_replace_callback(
@@ -1221,6 +1256,32 @@ $text = preg_replace_callback(
      fwrite($handle,"$what\n");
      fclose($handle);
   }
+
+    function get_switch_fb_value() {
+        if ($this->getUserFb() == 'dokuwiki') {
+            $fbText = $this->getLang('btn_val_ckg_fb');
+        } else {
+            $fbText = $this->getLang('btn_val_dw_fb');
+        }
+        return $fbText;
+    }
+
+    function get_switch_fb_title() {
+        if ($this->getUserFb() == 'dokuwiki') {
+            $fbText = $this->getLang('btn_title_ckg_fb');
+        } else {
+            $fbText = $this->getLang('btn_title_dw_fb');
+        }
+        return $fbText;
+    }
+
+    function getUserFb() {
+        //get user file browser
+        if (!isset($_COOKIE['ckgFbOpt'])) {
+            $_COOKIE['ckgFbOpt'] = $this->getConf('default_ckg_filebrowser');
+        }
+        return $_COOKIE['ckgFbOpt'];
+    }
 
 } //end of action class
 

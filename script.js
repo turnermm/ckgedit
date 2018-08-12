@@ -259,7 +259,7 @@ function dwedit_draft_delete() {
       }
       else which = 'on';      
       JSINFO['ckgEdPaste'] = which;   
-       document.cookie = 'ckgEdPaste=' + which +';expires="Thu, 18 Dec 2175 12:00:00 UTC";path=' +JSINFO['doku_base'];
+       document.cookie = 'ckgEdPaste=' + which +';expires="Thu, 18 Dec 2575 12:00:00 UTC";path=' +JSINFO['doku_base'];
       alert(LANG.plugins.ckgedit.ckg_paste_restart + ' ' + LANG.plugins.ckgedit[which]);    
    }
 
@@ -382,7 +382,7 @@ jQuery(document).ready(function(){
             f.submit();
         })
     }
-
+    
    if(JSINFO['template'].match(/bootstrap/) && jQuery('div.editButtons').length>0) {       
        //var n=jQuery('div.editButtons input').length;
        jQuery( "div.editButtons input").each(function( index ) {
@@ -398,3 +398,71 @@ jQuery(document).ready(function(){
    }
 
 });
+ 
+function ckg_edit_mediaman_insert(edid, id, opts, dw_align) {
+    var link, width, s, align;
+
+    //parse option string
+    var options = opts.substring(1).split('&');
+
+    //get width and link options
+    link = 'detail';
+    for (var i in options) {
+        var opt = options[i];
+         if (opt.match(/^\d+$/)) {   
+            width = opt;
+        } else  if (opt.match(/^\w+$/)) {   
+            link = opt;
+        }
+    }
+
+    //get alignment option
+    switch (dw_align) {
+    case '2':
+        align = 'medialeft';
+        break;
+    case '3':
+        align = 'mediacenter';
+        break;
+    case '4':
+        align = 'mediaright';
+        break;
+    default:
+        align = '';
+        break;
+    }
+
+    var funcNum = CKEDITOR.instances.wiki__text._.filebrowserFn;
+    var fileUrl = DOKU_BASE + 'lib/exe/fetch.php?media=' + id;
+    CKEDITOR.tools.callFunction(funcNum, fileUrl, function() {
+        var dialog = this.getDialog();
+        if ( dialog.getName() == "image" ) {
+            if (align != null) {
+                dialog.getContentElement("info", "cmbAlign").setValue(align);
+            }
+            if (link != null) {
+                dialog.getContentElement("info", "cmbLinkType").setValue(link);
+            }
+            if (width != null) {
+                dialog.getContentElement("info", "txtWidth").setValue(width);
+                dialog.dontResetSize = true;
+            }
+        }
+    });
+}
+
+function ckg_edit_mediaman_insertlink(edid, id, opts, dw_align) {
+    var funcNum = CKEDITOR.instances.wiki__text._.filebrowserFn;
+    CKEDITOR.tools.callFunction(funcNum, id, function() {
+        var dialog = this.getDialog();
+        if (dialog.getName() == "link") {
+            dialog.getContentElement('info', 'media').setValue(id);
+        }
+    });
+}
+
+function getCookie(name) {
+    var re = new RegExp(name + "=([^;]+)");
+    var value = re.exec(document.cookie);
+    return (value != null) ? unescape(value[1]) : null;
+}
