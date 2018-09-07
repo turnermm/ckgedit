@@ -34,6 +34,7 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
             }
             else $fname = $event->data[3];
             msg($this->getLang('mediamgr_imgonly') .  $fname);    
+             setcookie('ckgFbType', 'image',time()-10);
             $event->preventDefault();
         }    
     }
