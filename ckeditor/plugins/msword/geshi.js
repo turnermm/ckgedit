@@ -84,7 +84,9 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 					{
 						// Text input field for the abbreviation text.
 						type: 'html',
-                        html: '<div contenteditable="true" id="ckgedit_mswin" style="width:350px; height:250px">  This text can be edited by the user.</div>',
+                        html: '<div contenteditable="true" id="ckgedit_mswin" style="width:600px; height:350px; overflow:auto;"> </div>',
+                        minWidth: 350,
+		               minHeight: 350,                 
 						//id: ',
 						label: editor.lang.geshi.code,
 						// Validation checking whether the field is not empty.
@@ -153,19 +155,12 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
        {
             var dialog = this;         
             geshi_dialog = dialog;
-             selection = editor.getSelection();             
-             var text = selection.getSelectedText();     
-//var selectedElement = selection.getSelectedElement();
-//selectedElement = new CKEDITOR.dom.element('p');
-//selectedElement.setHtml();
-//editor.insertElement(selectedElement);
-/*
-var selected = "<p>~~START_MSWORD~~</p>"; 
-selected+=editor.getSelectedHtml(true)  ;
- editor.insertHtml(selected + "<p>~~END_MSWORD~~</p>");
-
-  */          //dialog.getContentElement(  'tab-basic', 'geshi' ).setValue();  
-           // dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( selected);  
+            selection = editor.getSelection();                     
+            var selected=editor.getSelectedHtml(true)  ;
+            if(selected) {
+                 var data_id = document.getElementById('ckgedit_mswin');
+                 data_id.innerHTML = selected;    
+            }
              String.prototype.escapeRegExpCkg = function(str) {
                    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
              };                
@@ -174,9 +169,33 @@ selected+=editor.getSelectedHtml(true)  ;
        },
        
 		
-		onOk: function() {	
+		onOk: function() {
+			// The context of this function is the dialog object itself.
+			// http://docs.ckeditor.com/#!/api/CKEDITOR.dialog
            var data_id = document.getElementById('ckgedit_mswin');
-           var inner = data_id.innerHTML;
+           var inner = data_id.innerHTML;    
+           var  regex = new RegExp('<xml>([^]*)<\/xml>','gm'); 
+            inner = inner.replace(regex, function(m,n) { 
+                return "";
+           });
+          var  regex = new RegExp('<style>([^]*)<\/style>','gm'); 
+              inner = inner.replace(regex, function(m,n) { 
+               return "";
+           });      
+           
+            inner = inner.replace(/&lt/gm,'<'); 
+            inner = inner.replace(/&gt/mg,'>');            
+            inner = inner.replace(/style="[^>]+"/gm,"");  
+            inner = inner.replace(/<h(\d).*?><span.*?>/gm,"<h$1>");   
+            inner = inner.replace(/(<span\s*>)+/gm,"");
+            inner = inner.replace(/(<\/span>)+/gm,"");
+            inner = inner.replace(/<tbody>([^]+)<\/tbody>/,function(m){
+                alert(m);
+                m = m.replace(/<\/p>/mg,"");
+                return m.replace(/<p.*?>/mg,"")
+             
+            });
+           inner =  "<p>~~START_MSWORD~~</p>" + inner + "<p>~~END_MSWORD~~</p>";
            editor.insertHtml(inner);       
 		}
 	};

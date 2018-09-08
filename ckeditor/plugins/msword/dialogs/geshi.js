@@ -155,19 +155,12 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
        {
             var dialog = this;         
             geshi_dialog = dialog;
-             selection = editor.getSelection();             
-             var text = selection.getSelectedText();     
-//var selectedElement = selection.getSelectedElement();
-//selectedElement = new CKEDITOR.dom.element('p');
-//selectedElement.setHtml();
-//editor.insertElement(selectedElement);
-/*
-var selected = "<p>~~START_MSWORD~~</p>"; 
-selected+=editor.getSelectedHtml(true)  ;
- editor.insertHtml(selected + "<p>~~END_MSWORD~~</p>");
-
-  */          //dialog.getContentElement(  'tab-basic', 'geshi' ).setValue();  
-           // dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( selected);  
+            selection = editor.getSelection();                     
+            var selected=editor.getSelectedHtml(true)  ;
+            if(selected) {
+                 var data_id = document.getElementById('ckgedit_mswin');
+                 data_id.innerHTML = selected;    
+            }
              String.prototype.escapeRegExpCkg = function(str) {
                    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
              };                
@@ -190,9 +183,18 @@ selected+=editor.getSelectedHtml(true)  ;
                return "";
            });      
            
-           inner = inner.replace(/style="[^>]+"/gm,"");          
-           inner = inner.replace(/<span>/gm,"")
-           inner = inner.replace(/<\/span>/gm,"")      
+            inner = inner.replace(/&lt/gm,'<'); 
+            inner = inner.replace(/&gt/mg,'>');            
+            inner = inner.replace(/style="[^>]+"/gm,"");  
+            inner = inner.replace(/<h(\d).*?><span.*?>/gm,"<h$1>");   
+            inner = inner.replace(/(<span\s*>)+/gm,"");
+            inner = inner.replace(/(<\/span>)+/gm,"");
+            inner = inner.replace(/<tbody>([^]+)<\/tbody>/,function(m){
+                alert(m);
+                m = m.replace(/<\/p>/mg,"");
+                return m.replace(/<p.*?>/mg,"")
+             
+            });
            inner =  "<p>~~START_MSWORD~~</p>" + inner + "<p>~~END_MSWORD~~</p>";
            editor.insertHtml(inner);       
 		}
