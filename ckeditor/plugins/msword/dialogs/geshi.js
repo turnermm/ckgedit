@@ -84,7 +84,9 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 					{
 						// Text input field for the abbreviation text.
 						type: 'html',
-                        html: '<div contenteditable="true" id="ckgedit_mswin" style="width:350px; height:250px">  This text can be edited by the user.</div>',
+                        html: '<div contenteditable="true" id="ckgedit_mswin" style="width:600px; height:350px; overflow:auto;"> </div>',
+                        minWidth: 350,
+		               minHeight: 350,                 
 						//id: ',
 						label: editor.lang.geshi.code,
 						// Validation checking whether the field is not empty.
@@ -174,9 +176,24 @@ selected+=editor.getSelectedHtml(true)  ;
        },
        
 		
-		onOk: function() {	
+		onOk: function() {
+			// The context of this function is the dialog object itself.
+			// http://docs.ckeditor.com/#!/api/CKEDITOR.dialog
            var data_id = document.getElementById('ckgedit_mswin');
-           var inner = data_id.innerHTML;
+           var inner = data_id.innerHTML;    
+           var  regex = new RegExp('<xml>([^]*)<\/xml>','gm'); 
+            inner = inner.replace(regex, function(m,n) { 
+                return "";
+           });
+          var  regex = new RegExp('<style>([^]*)<\/style>','gm'); 
+              inner = inner.replace(regex, function(m,n) { 
+               return "";
+           });      
+           
+           inner = inner.replace(/style="[^>]+"/gm,"");          
+           inner = inner.replace(/<span>/gm,"")
+           inner = inner.replace(/<\/span>/gm,"")      
+           inner =  "<p>~~START_MSWORD~~</p>" + inner + "<p>~~END_MSWORD~~</p>";
            editor.insertHtml(inner);       
 		}
 	};
