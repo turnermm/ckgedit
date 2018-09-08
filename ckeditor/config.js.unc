@@ -103,7 +103,7 @@ config.colors = new Array(
      // config.scayt_autoStartup = true;      
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
       config.extraSpecialChars  = ['↔'];
-      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags,timestamp,headerbuttons,geshi,wrap'; //,pastebase64',devtools';
+      config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags,timestamp,headerbuttons,geshi,wrap,msword'; //,pastebase64',devtools';
       config.contentsLangDirection = '';
       if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
       config.pasteFromWordRemoveFontStyles = false;   // preserve font style when "paste from word"
@@ -163,7 +163,7 @@ config.colors = new Array(
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
-   		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+   		{ name: 'clipboard', items : [ 'Cut','Copy','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup',config.ToolBarItemsAlt['Scayt'] ] },
 		{ name: 'tools', items : ['Source', 'Maximize','-','About'] },
          {name: 'extras', items: config.ToolBarItemsExtra }

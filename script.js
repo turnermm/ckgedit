@@ -60,16 +60,18 @@ var HTMLParser_Elements = new Array();
       // for [^]* :  https://stackoverflow.com/questions/1068280/javascript-regex-multiline-flag-doesnt-work
      var  regex = new RegExp('~~START_MSWORD~~([^]*)~~END_MSWORD~~','gm');  
      html = html.replace(regex, function(m,inner) { 
-              inner = inner.replace('&lt','<'); 
-              inner = inner.replace('&gt','>'); 
+              inner = inner.replace(/&lt;/gm,'<'); 
+              inner = inner.replace(/&gt;/mg,'>'); 
               inner = inner.replace(/<p.*?>/mg, "");
               inner = inner.replace(/<\/p>/mg, "");        
+              inner = inner.replace(/<w:.*?>/mg, "");        
+              inner = inner.replace(/<\/w:*?>/mg, "");        
               inner = inner.replace(/<table\s+class=.*?>/mg, "<table>");
               inner = inner.replace(/<table.*?>/mg, "<table>");
               inner = inner.replace(/<tr.*?>/mg, "<tr>");         
               inner = inner.replace(/<td.*?>/mg, "<td>");            
               inner = inner.replace(/<\/span>/mg, ""); 
-              inner = inner.replace(/<span.*?">/mg, ""); 
+              inner = inner.replace(/<span.*?"\s*>/mg, ""); 
               inner = inner.replace(/\n/mg, ""); 
               inner = inner.replace(/<font.*?>/img, ""); 
               inner = inner.replace(/<\/font>/img, ""); 

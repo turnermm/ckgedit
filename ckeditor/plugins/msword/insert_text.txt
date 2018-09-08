@@ -1,3 +1,0 @@
-var selected = "~~START_MSWORD~~<br />"; 
-selected+=editor.getSelectedHtml(true)  ;
-editor.insertHtml(selected + "</br>~~END_MSWORD~~<br />");
