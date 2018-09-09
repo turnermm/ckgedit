@@ -46,7 +46,6 @@ var HTMLParser_Elements = new Array();
                  html = html.replace(/~~START_HTML_BLOCK~~|~~CLOSE_HTML_BLOCK~~/gm,"");
                 } 
         
-               //adopted [\s\S] from Goyvaerts, Reg. Exp. Cookbook (O'Reilly)
              html = html.replace(/(<p.*?>)*\s*~~START_HTML_BLOCK~~\s*(<\/p>)*([\s\S]+)~~CLOSE_HTML_BLOCK~~\s*(<\/p>)*/gm, function(match,p,p1,text,p2) {       
              text = text.replace(/<\/?div.*?>/gm,"");
              text = text.replace(/<code>/gm,"");             
@@ -56,27 +55,6 @@ var HTMLParser_Elements = new Array();
              return  "~~START_HTML_BLOCK~~\n\n" +   text  + "\n\n~~CLOSE_HTML_BLOCK~~\n\n";
          }); 
         }
-      
-      // for [^]* :  https://stackoverflow.com/questions/1068280/javascript-regex-multiline-flag-doesnt-work
-     var  regex = new RegExp('~~START_MSWORD~~([^]*)~~END_MSWORD~~','gm');  
-     html = html.replace(regex, function(m,inner) { 
-              inner = inner.replace(/&lt;/gm,'<'); 
-              inner = inner.replace(/&gt;/mg,'>'); 
-              inner = inner.replace(/<p.*?>/mg, "");
-              inner = inner.replace(/<\/p>/mg, "");        
-              inner = inner.replace(/<w:.*?>/mg, "");        
-              inner = inner.replace(/<\/w:*?>/mg, "");        
-              inner = inner.replace(/<table\s+class=.*?>/mg, "<table>");
-              inner = inner.replace(/<table.*?>/mg, "<table>");
-              inner = inner.replace(/<tr.*?>/mg, "<tr>");         
-              inner = inner.replace(/<td.*?>/mg, "<td>");            
-              inner = inner.replace(/<\/span>/mg, ""); 
-              inner = inner.replace(/<span.*?"\s*>/mg, ""); 
-              inner = inner.replace(/\n/mg, ""); 
-              inner = inner.replace(/<font.*?>/img, ""); 
-              inner = inner.replace(/<\/font>/img, ""); 
-              return inner;
-        });
         /* remove dwfck note superscripts from inside links */
         html = html.replace(/(<sup\s+class=\"dwfcknote fckgL\d+\"\>fckgL\d+\s*\<\/sup\>)\<\/a\>/gm, function(match,sup,a) {
              return( '</a>' +sup);   
