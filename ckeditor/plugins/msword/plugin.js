@@ -13,7 +13,7 @@ CKEDITOR.plugins.add( 'msword', {
 
 	// Register the icons. They must match command names.
 	icons: 'msword',
-    lang: 'en',
+    lang: 'en,de',
     	
 	// The plugin initialization logic goes inside this method.
 	init: function( editor ) {
