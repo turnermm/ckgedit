@@ -10,9 +10,6 @@
 
 // Our dialog definition.
 CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
-    var radio, ckg_geshi_langopts = new Array();
-    var href,  t_display,s_display;
-    
 	return { 
 		// Basic properties of the dialog window: title, minimum size.
 		title: 'MS Word',
@@ -31,17 +28,18 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
 					{
 						// Text input field for the abbreviation text.
 						type: 'html',
-                        html: '<div contenteditable="true" id="ckgedit_mswin" style="width:600px; height:350px; overflow:auto;"> </div>',
+                        html: '<div contenteditable="true" id="ckgedit_mswin" style="border: 2px solid #ddd; padding:3px; width:600px; height:350px; overflow:auto; cursor:auto;"> </div>',
                         minWidth: 350,
-		                minHeight: 350,                 
-						label: editor.lang.geshi.code,
-				
+		                minHeight: 350,   
 					},
                     {
                         type: 'hbox',
-                      //widths: [ '33%', '33%','33%'],
-                        children: [
-
+                       height: [ '18px;'],
+                       children: [
+                        {
+                          type: 'html',
+                          html: '<span style="font-size: 11pt;">' +editor.lang.msword.info + '</span>',                          
+                        }
                   
                         ]          //hbox children
                     },            //hbox        
