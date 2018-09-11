@@ -111,45 +111,51 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
                 m = m.replace(/<\/p>/mg,"");
                 return m.replace(/<p.*?>/mg,"");             
             });     
-             inner = inner.replace(/<p class="MsoListParagraphCxSpFirst"\s+L_\d>([\s\S]+)<p class="MsoListParagraphCxSpLast"\s+L_\d>/gm, function(m,w){     
+     //       alert(inner);
+             inner = inner.replace(/<p class="MsoListParagraphCxSpFirst"\s+L_\d>([\s\S]+)<p class="MsoListParagraphCxSpLast"\s+L_\d>.*?\n(.*?)\/p>/gm, function(m,w){     
                         var n = m;
-                        m= m.replace(/&mbsp/gm);
-                        alert(m);
-                        //n = n.replace(/<\/p>/g,"");
-                         var ar = n.split(/\n/);
-                         
-              //             alert("(2) ins:\n >>>" + ar);
+                        n = n.replace(/&nbsp;/gm,"");
+                        n = n.replace(/>[1-5a-f]./gm,'>');
+                         var ar = n.split(/\n/);                  
+                  //       alert(ar);
+         //  var eolist=0;
                         var str = "";
-                          for(j=0;j<ar.length;j++) {  
+                          for(j=0;j<ar.length;j++) {                                                                                   
                                   if(ar[j].match(/SpFirst/)) {
-                                      //alert(ar[j]);
-                                     ar[j] = ar[j].replace(/<p.*?>/,"");
-                                      str += "<ol><li>" +ar[j] + '</li>';
-                                      
+                                     ar[j] = ar[j].replace(/<p.*?>/,""); 
+                                      ar[j] = ar[j].replace(/<\/p>/,""); 
+                                  
+                                           ar[j] = ar[j].replace(/<p.*?>(\d*|·)/,"");
+                                           str += "<ol><li>" +ar[j] + '</li>';
                                   } 
-                                  else if (ar[j].match(/SpMiddle/)) { 
-                                       ar[j] = ar[j].replace(/<p.*?>/,""); 
-                                       str+='<li>';
-                                        str+=ar[j] + '</li>';
+                                  else if (ar[j].match(/SpMiddle/)) {                               
+                                      ar[j] = ar[j].replace(/<p.*?>/,"");
+                                     ar[j] = ar[j].replace(/<p.*?>/,""); 
+                                      ar[j] = ar[j].replace(/<\/p>/,"");                                        
                                   } 
                                   else if (ar[j].match(/SpLast/)) {    
+                                    //    eolist=1;
+                                     //  alert("spLast> " +ar[j]);
                                        ar[j] = ar[j].replace(/<p.*?>/,""); 
-                                       str+='<li>';
-                                       str+=ar[j] + '</li></ol>';
+                                      ar[j] = ar[j].replace(/<\/p>/,""); 
+                                       ar[j] = ar[j].replace(/^\s+/,"");           
                                   }
-                                  else {
-                                       ar[j] = ar[j].replace(/<p.*?>/,""); 
-                                       str+='<li>';
-                                        str+=ar[j] + '</li>';
+                                  else {       
+                                    //   if(eolist) { alert("last=" +ar[j]);}
+                                         ar[j] = ar[j].replace(/<\/p>/,""); 
+                                         ar[j] = ar[j].replace(/^\s+/,""); 
+                                          ar[j] = ar[j].replace(/\s+$/,""); 
+                                           str+='<li>';
+                                           str+=ar[j] + '</li>';                                         
                                   }
                                   
                           }                            
-                          
-                   //alert("(3) ins:\n >>>" + str);
+                         str = str.replace(/<li>·*<\/li>/gm,"");                        
+                          str+="</ol>";
                           return str;
-                       //   return m;
+                       
         } );
-
+      
   //alert(inner);
           editor.insertHtml(inner);   
            data_id.innerHTML  ="";
