@@ -784,7 +784,7 @@ function check_userfiles() {
             $JSINFO['ckgEdPaste'] = $_COOKIE['ckgEdPaste'];
         }       
         $JSINFO[ 'rel_links'] = $this->getConf('rel_links');       
-        $JSINFO['template'] = $conf['template'];
+        $JSINFO['ckg_template'] = $conf['template'];
 	   $this->check_userfiles(); 
 	   $this->profile_dwpriority=($this->dokuwiki_priority && $this->in_dwpriority_group()) ? 1 :  0; 
        if(isset($_COOKIE['FCK_NmSp'])) $this->set_session(); 

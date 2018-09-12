@@ -383,8 +383,8 @@ jQuery(document).ready(function(){
         })
     }
     
-   if(JSINFO['template'].match(/bootstrap/) && jQuery('div.editButtons').length>0) {       
-       //var n=jQuery('div.editButtons input').length;
+   if(JSINFO['ckg_template'].match(/bootstrap/) && jQuery('div.editButtons').length>0) {       
+      // var n=jQuery('div.editButtons input').length;
        jQuery( "div.editButtons input").each(function( index ) {
            if(jQuery(this).hasClass('btn-success')) {
                jQuery(this).removeClass('btn-success')
