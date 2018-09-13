@@ -57,7 +57,7 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
               	elements: [
 					{				
 						type: 'html',                      
-                        html:  "<div style='padding:40px;'><ol><li style='" +olstyle + "><span style='font-size:11pt'>"+ ed_lang.instructions +'</span></li><li style="' +olstyle + '"><span style="font-size:11pt"> ' + ed_lang.instructions_2
+                        html:  "<div style='padding:40px;'><ol><li style='" +olstyle + "'><span style='font-size:11pt'>"+ ed_lang.instructions +'</span></li><li style="' +olstyle + '"><span style="font-size:11pt"> ' + ed_lang.instructions_2
                         +'</li><ul style="list-style-position: inside;"><li style="margin: 0 0 0 4px"><span style="font-size:11pt;">'+ed_lang.instructions_3 + '</span></li><li style="margin: 0 0 0 4px"><span style="font-size:11pt">'+ed_lang.instructions_4
                          + '</span></ul><li style="' +olstyle + '"><span style="font-size:11pt;overflow-wrap">'
                         + ed_lang.instructions_5 + '</span></li></ol></div>',
