@@ -10,6 +10,10 @@
 
 // Our dialog definition.
 CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
+    var ed_lang = editor.lang.msword;
+    /*top right  bottom left*/
+//    var olstyle ='list-style: decimal-leading-zero; font-size: 1.1em; margin: 0 0 0 .25em';
+    var olstyle ='font-size: 1.1em;';
 	return { 
 		// Basic properties of the dialog window: title, minimum size.
 		title: 'MS Word',
@@ -21,16 +25,15 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
 			{
 				// Definition of the Basic Settings dialog tab (page).
 				id: 'tab-basic',
-				label: 'Basic Settings',
+				label: 'Text',
 
 				// The tab content.
 				elements: [
-					{
-						// Text input field for the abbreviation text.
+					{					
 						type: 'html',
                         html: '<div contenteditable="true" id="ckgedit_mswin" style="border: 2px solid #ddd; padding:3px; width:600px; height:350px; overflow:auto; cursor:auto;"> </div>',
                         minWidth: 350,
-		                minHeight: 350,   
+		                minHeight: 350,                         
 					},
                     {
                         type: 'hbox',
@@ -38,15 +41,31 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
                        children: [
                         {
                           type: 'html',
-                          html: '<span style="font-size: 11pt;">' +editor.lang.msword.info + '</span>',                          
+                          html: editor.lang.msword.info,                          
                         }
                   
                         ]          //hbox children
                     },            //hbox        
                     
-				]  //elements
+				],  //elements
+    
 			},  //contents
+            {
+				id: 'Info',
+				label: editor.lang.msword.instructionsLabel,
+                
+              	elements: [
+					{				
+						type: 'html',                      
+                        html:  "<div style='padding:40px;'><ol><li style='" +olstyle + "><span style='font-size:11pt'>"+ ed_lang.instructions +'</span></li><li style="' +olstyle + '"><span style="font-size:11pt"> ' + ed_lang.instructions_2
+                        +'</li><ul style="list-style-position: inside;"><li style="margin: 0 0 0 4px"><span style="font-size:11pt;">'+ed_lang.instructions_3 + '</span></li><li style="margin: 0 0 0 4px"><span style="font-size:11pt">'+ed_lang.instructions_4
+                         + '</span></ul><li style="' +olstyle + '"><span style="font-size:11pt;overflow-wrap">'
+                        + ed_lang.instructions_5 + '</span></li></ol></div>',
 
+                  
+					},
+               ]                    
+            } 
 		], //contents
 
        onShow : function()
@@ -74,8 +93,9 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
            var inner = data_id.innerHTML;    
             inner = inner.replace(/&lt/gm,'<'); 
             inner = inner.replace(/&gt/mg,'>');
-                  
-//jQuery('.cke_dialog_ui_button_cancel').children().click();
+          //if(confirm("exit now")  {
+             //jQuery('.cke_dialog_ui_button_cancel').children().click();
+         // }
            var  regex = new RegExp('<xml>([^]*)<\/xml>','gm'); 
             inner = inner.replace(regex, function(m,n) { 
                 return "";
@@ -97,12 +117,11 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
             inner = inner.replace(/<td.*?>/mg, "<td>");  
            inner = inner.replace(/style="([^>]+)"/gm,function(m,i){
                 matches = i.match(/level(\d)/);
-                if(matches) {
-                  
-                   return  'L_'+matches[1];   
-                } 
+                if(matches) {                  
+                   return  'L_'+matches[1];                   } 
                  return m;
             });
+            
            inner = inner.replace(/style="[^>]+"/gm,"");  
            inner = inner.replace(/<h(\d).*?><span.*?>/gm,"<h$1>");   
             inner = inner.replace(/(<span\s*>)+/gm,"");
@@ -116,10 +135,9 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
                         var n = m;
                         n = n.replace(/&nbsp;/gm,"");
                         n = n.replace(/>[1-5a-f]./gm,'>');
-                         var ar = n.split(/\n/);                  
-                  //       alert(ar);
-         //  var eolist=0;
+                         var ar = n.split(/\n/);  
                         var str = "";
+                        
                           for(j=0;j<ar.length;j++) {                                                                                   
                                   if(ar[j].match(/SpFirst/)) {
                                      ar[j] = ar[j].replace(/<p.*?>/,""); 
@@ -134,29 +152,22 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
                                       ar[j] = ar[j].replace(/<\/p>/,"");                                        
                                   } 
                                   else if (ar[j].match(/SpLast/)) {    
-                                    //    eolist=1;
-                                     //  alert("spLast> " +ar[j]);
                                        ar[j] = ar[j].replace(/<p.*?>/,""); 
                                       ar[j] = ar[j].replace(/<\/p>/,""); 
                                        ar[j] = ar[j].replace(/^\s+/,"");           
                                   }
-                                  else {       
-                                    //   if(eolist) { alert("last=" +ar[j]);}
+                                  else {                                           
                                          ar[j] = ar[j].replace(/<\/p>/,""); 
                                          ar[j] = ar[j].replace(/^\s+/,""); 
                                           ar[j] = ar[j].replace(/\s+$/,""); 
                                            str+='<li>';
                                            str+=ar[j] + '</li>';                                         
                                   }
-                                  
                           }                            
                          str = str.replace(/<li>·*<\/li>/gm,"");                        
-                          str+="</ol>";
-                          return str;
-                       
+                         str+="</ol>";
+                         return str;
         } );
-      
-  //alert(inner);
           editor.insertHtml(inner);   
            data_id.innerHTML  ="";
 		}
