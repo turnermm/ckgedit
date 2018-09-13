@@ -8,6 +8,7 @@ CKEDITOR.plugins.setLang("msword","en",{
        instructions_4: 'Nested lists are not yet supported',        
        instructions_5:  'The best way to deal with complex lists is to paste them  into the CKEditor,<br /> select them with your mouse, then open this dialog.'
                       + 'The list will load into the Text Window. <br /> Click OK. This will clean up the list for  use in Dokuwiki. ',
+       instructions_6: 'Try to make your selections for lists and tables as exact as possible.',              
 
       
 });

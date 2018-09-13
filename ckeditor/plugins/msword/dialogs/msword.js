@@ -14,7 +14,7 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
     /*top right  bottom left*/
 //    var olstyle ='list-style: decimal-leading-zero; font-size: 1.1em; margin: 0 0 0 .25em';
       var olstyle ='font-size: 1.1em;';
-      var oli = '<li style=""><span style="font-size:11pt">';
+      var oli = '<li style="font-size: 1.1em"><span style="font-size:11pt">';
     
 	return { 
 		// Basic properties of the dialog window: title, minimum size.
@@ -59,14 +59,13 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
               	elements: [
 					{				
 						type: 'html',                  
-                        html:  "<div style='padding:40px;overflow:break-word'><ol><li><span style='font-size:11pt'>"+ ed_lang.instructions +'</span></li>'
-                        +'<li><span style="font-size:11pt"> ' + ed_lang.instructions_2 + '</span></li>'
+                        html:  "<div style='padding:40px;overflow:break-word'><ol><li style='font-size:1.2em;'><span style='font-size:11pt'>"+ ed_lang.instructions +'</span></li>'
+                        +'<li style="font-size:1.2em;"><span style="font-size:11pt"> ' + ed_lang.instructions_2 + '</span></li>'
                         +'<ul style="list-style-position: inside;"><li style="margin: 0 0 0 4px"><span style="font-size:11pt;">'+ed_lang.instructions_3 + '</span></li>'
-                        +'<li style="margin: 0 0 0 4px"><span style="font-size:11pt">'+ed_lang.instructions_4 + '</span></li>' 
+                        +'<li style="margin: 0 0 0 4px;"><span style="font-size:11pt">'+ed_lang.instructions_4 + '</span></li>' 
                         + '<li style="margin: 0 0 0 4px"><span style="font-size:11pt">'+ed_lang.instructions_5 + '</span></ul>' 
-                         //+'<li><span style="font-size:11pt;">'
-                       // + ed_lang.instructions_5 + '</span></li></ol>'                        
-                        +'</li></ol></div>',
+                         +'<li style="font-size:1.2em;"><span style="font-size:11pt;">' + ed_lang.instructions_6 + '</span></li>'                       
+                        +'</ol></div>',
 
                   
 					},
