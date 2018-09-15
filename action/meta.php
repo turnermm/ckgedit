@@ -880,7 +880,7 @@ SCRIPT;
   if(isset($_REQUEST['do']) && is_array($_REQUEST['do'])) {
     if(isset($_REQUEST['do']['preview'])) {
            echo '<script type="text/javascript">';
-           echo ' var dwform = GetE("dw__editform"); dwform["do[draftdel]"].value = "Exit";';
+           echo ' var dwform = GetE("dw__editform"); if(dwform["do[draftdel]"]) {dwform["do[draftdel]"].value = "Exit";}';
            echo "\ncreateRequestValue()\n";
            echo  '</script>';
     }
