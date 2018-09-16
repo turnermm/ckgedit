@@ -8,12 +8,13 @@ CKEDITOR.plugins.add( 'truetype',
 {
 	// The plugin initialization logic goes inside this method.
 	// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.pluginDefinition.html#init
+  
+    icons: 'truetype',
+    lang: 'en,de,da,es,ja,sv,nl,fi,zh,zh-tw,it,ru',    
 	init: function( editor )
 	{
-     //    var lang = editor.lang.signature;   
-    //     if(!lang) lang = CKEDITOR.lang['default']['signature'];
-             
-		// Define an editor command that inserts a timestamp. 
+       
+		// Define an editor command
 		// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.editor.html#addCommand
 		editor.addCommand( 'truetype',
 			{
@@ -22,12 +23,10 @@ CKEDITOR.plugins.add( 'truetype',
 				// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.commandDefinition.html#exec
 				exec : function( editor )
 				{    
-                  
 
                           var selection = editor.getSelection();                     
-                           var text = selection.getSelectedText();
-
-					// Insert the timestamp into the document.
+                           var text = selection.getSelectedText();  
+			
 					// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.editor.html#insertHtml				
                 	editor.insertHtml('<code>' + text + '</code>');
 				}
@@ -37,11 +36,13 @@ CKEDITOR.plugins.add( 'truetype',
 		editor.ui.addButton( 'TrueType',
 		{
 			// Toolbar button tooltip.
-			label: 'TrueType',
+         
+			label: editor.lang.truetype.title,
 			// Reference to the plugin command name.
 			command: 'truetype',
 			// Button's icon file path.
-			icon: this.path + 'images/truetype.png'
+			icon: this.path + 'images/truetype.gif'
 		} );
+      
 	}
 } );
