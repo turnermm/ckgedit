@@ -31,7 +31,7 @@ CKEDITOR.dialog.add("cellProperties", function(f) {
         m = f.plugins.colordialog;
     return {
         title: c.title,
-        minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 450 : 410,
+        minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 150: 110,
         minHeight: CKEDITOR.env.ie && (CKEDITOR.env.ie7Compat || CKEDITOR.env.quirks) ? 230 : 220,
         contents: [{
             id: "info",
@@ -39,9 +39,11 @@ CKEDITOR.dialog.add("cellProperties", function(f) {
             accessKey: "I",
             elements: [{
                 type: "hbox",
+               // hidden: true,
                 widths: ["40%", "5%", "40%"],
                 children: [{
                     type: "vbox",
+                    hidden:true,
                     padding: 0,
                     children: [{
                         type: "hbox",
@@ -245,6 +247,7 @@ CKEDITOR.dialog.add("cellProperties", function(f) {
                     }, g, {
                         type: "hbox",
                         padding: 0,
+                        hidden: true,
                         widths: ["60%", "40%"],
                         children: [{
                             type: "text",
@@ -281,6 +284,7 @@ CKEDITOR.dialog.add("cellProperties", function(f) {
                         widths: ["60%", "40%"],
                         children: [{
                             type: "text",
+                            hidden: true,
                             id: "borderColor",
                             label: c.borderColor,
                             "default": "",
@@ -297,6 +301,7 @@ CKEDITOR.dialog.add("cellProperties", function(f) {
                             id: "borderColorChoose",
                             "class": "colorChooser",
                             label: c.chooseColor,
+                            hidden: true,
                             style: (p ? "margin-right" : "margin-left") + ": 10px",
                             onLoad: function() {
                                 this.getElement().getParent().setStyle("vertical-align", "bottom")
