@@ -135,21 +135,25 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
                 m = m.replace(/<\/p>/mg,"");
                 return m.replace(/<p.*?>/mg,"");             
             });     
-     //       alert(inner);
+
              inner = inner.replace(/<p class="MsoListParagraphCxSpFirst"\s+L_\d>([\s\S]+)<p class="MsoListParagraphCxSpLast"\s+L_\d>.*?\n(.*?)\/p>/gm, function(m,w){     
                         var n = m;
                         n = n.replace(/&nbsp;/gm,"");
-                        n = n.replace(/>[1-5a-f]./gm,'>');
                          var ar = n.split(/\n/);  
                         var str = "";
-                        
+                        var list_type = "ul";
                           for(j=0;j<ar.length;j++) {                                                                                   
                                   if(ar[j].match(/SpFirst/)) {
+                                      if(ar[j]. match(/L_\d+>[a-b0-9]/)) {
+                                          list_type = 'ol';
+                                      }
+                                  //    alert(list_type);
                                      ar[j] = ar[j].replace(/<p.*?>/,""); 
                                       ar[j] = ar[j].replace(/<\/p>/,""); 
                                   
                                            ar[j] = ar[j].replace(/<p.*?>(\d*|·)/,"");
-                                           str += "<ol><li>" +ar[j] + '</li>';
+                                         //  alert(ar[j]);
+                                           str += "<" + list_type +">";
                                   } 
                                   else if (ar[j].match(/SpMiddle/)) {                               
                                       ar[j] = ar[j].replace(/<p.*?>/,"");
@@ -170,7 +174,8 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
                                   }
                           }                            
                          str = str.replace(/<li>·*<\/li>/gm,"");                        
-                         str+="</ol>";
+                         str+="</" + list_type +">";
+                  //       alert(str);
                          return str;
         } );
           editor.insertHtml(inner);   
