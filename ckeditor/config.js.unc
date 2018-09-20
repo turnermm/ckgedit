@@ -139,6 +139,23 @@ config.colors = new Array(
     }
     
      var xtra = top.extra_plugins(config);
+     
+     if(!xtra) {
+         xtra = 'Msword,Geshi';
+     }  
+     else {
+         var xtras = xtra.split(',');
+         if(xtras.indexOf('Msword') == -1) {
+             xtra += ',Msword';
+         }     
+          if(xtras.indexOf('Geshi') == -1) {
+             xtra += ',Geshi';
+         }     
+     }
+     
+         
+   
+   //  xtra = 'Msword,Gesh';
      if (top.JSINFO['has_tags']) {
          xtra+=',Tags';
      }
