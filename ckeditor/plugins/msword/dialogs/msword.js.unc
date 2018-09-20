@@ -111,8 +111,10 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
               inner = inner.replace(regex, function(m,n) { 
                return "";
            });    
-
-//      alert("START\n" +inner +"\nSTOP");
+        
+          regex = new RegExp('\\<\\!--\\[.*?endif\\]--\\>\\<\\!--\\[if gte.*?\\]\\>([^]*)\\<\\!\\[endif\\]-->','mg');          
+           inner = inner.replace(regex,"");
+       //   alert("START\n" +inner +"\nSTOP");
             
             inner = inner.replace(/&lt/gm,'<'); 
             inner = inner.replace(/&gt/mg,'>');
@@ -152,7 +154,7 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
                                       ar[j] = ar[j].replace(/<\/p>/,""); 
                                   
                                            ar[j] = ar[j].replace(/<p.*?>(\d*|·)/,"");
-                                         //  alert(ar[j]);
+                                         
                                            str += "<" + list_type +">";
                                   } 
                                   else if (ar[j].match(/SpMiddle/)) {                               
@@ -174,8 +176,7 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
                                   }
                           }                            
                          str = str.replace(/<li>·*<\/li>/gm,"");                        
-                         str+="</" + list_type +">";
-                  //       alert(str);
+                         str+="</" + list_type +">";                
                          return str;
         } );
           editor.insertHtml(inner);   
