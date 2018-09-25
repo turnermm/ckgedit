@@ -1,8 +1,10 @@
 CKEDITOR.plugins.setLang( 'tags', 'de', {        
-        dlgTitle: 'Schlagworte',
-        customTags:  'Gewohnheit Schlagwörter (Leerzeichen getrennte Liste von Schlüsselwörtern; Spaces in Schlüsselwörter können als Unterstrich angegeben werden ) :',        
-        info:  'If <code>Cursor</code> is chosen, the previous tag syntax and its contents must  be selected (highlighted) with the mouse. <br /> It will replaced by the new tag markup. If there are no old tags, the the new tag(s) will  be inserted at the cursor.',
-        bottom: 'Page Bottom',
-        cursor: 'Cursor',
-        top: 'Page Top'
+    dlgTitle: 'Schlagworte',
+    customTags:  'Neue Benutzerdefinierte Schlagwörter (Leerzeichen getrennte Liste von Schlüsselwörtern; Leerzeichen in Schlüsselwörtern können als Unterstrich angegeben werden): ',
+	info:  'Wenn <code>Cursor</code> ausgewählt wird, muss die vorherige Tag-Syntax und deren Inhalt mit der Maus ausgewählt (hervorgehoben) werden. <br /> Es wird durch das neue Tag-Markup ersetzt. Wenn keine alten Tags vorhanden sind, werden die neuen Tags am Cursor eingefügt.',
+	radioLabel: 'Tags einfügen: ',
+    bottom: 'Seite unten',
+    cursor: 'Cursor',
+    top: 'Seite oben'
+
 } );
