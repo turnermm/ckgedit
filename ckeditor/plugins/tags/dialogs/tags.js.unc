@@ -79,7 +79,7 @@ CKEDITOR.dialog.add( 'tagsDialog', function ( editor )
         {
             type: 'radio',
             id: 'which',
-            label: 'Place tags at: ',
+            label: lang.radioLabel, // 'Place tags at: ',
             items: [ [ lang.bottom, 'bottom' ], [ lang.cursor, 'cursor' ], [lang.top, 'top'] ],
             style: 'color: green',
             'default': tags_pos,
