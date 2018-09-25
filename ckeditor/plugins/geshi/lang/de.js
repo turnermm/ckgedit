@@ -8,4 +8,7 @@ CKEDITOR.plugins.setLang("geshi","de",{
         code: 'Text für Code-Schnippsel',
         code_empty: 'Code-Schnippsels erforderlich.',
         file: 'Dateiname des Code-Schnippsels',
+         quick_srch: 'Quick search',
+        tooltip: 'Enter full or partial name,  click to search language menu',
+           
 });

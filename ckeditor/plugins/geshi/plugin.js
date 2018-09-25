@@ -13,7 +13,7 @@ CKEDITOR.plugins.add( 'geshi', {
 
 	// Register the icons. They must match command names.
 	icons: 'geshi',
-    lang: 'en,de,fr',
+    lang: 'en,de',
     	
 	// The plugin initialization logic goes inside this method.
 	init: function( editor ) {
