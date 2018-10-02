@@ -153,4 +153,5 @@ CKEDITOR.lang.en["common"]["linkDirect"] = "Direct";
 CKEDITOR.lang.en["common"]["linkNoLink"] = "No Link";
 CKEDITOR.lang.en["common"]["linkOnly"] = "Link only";
  
-
+/* Below usually needed for languages other than English */
+/* CKEDITOR.lang['your iso code']["common"]["optionDefault"] = "Default"; */
