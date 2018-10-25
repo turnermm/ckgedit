@@ -6,7 +6,8 @@ be enabled at any one time.
 This version of ckgeditor should work with Linux, Windows, and versions of Dokuwiki installed with the 
 Ubuntu/Debian package manager.
 
-This branch uses CKEditor 4.7
+This branch uses CKEditor 4.9.2
+
 
 
 
