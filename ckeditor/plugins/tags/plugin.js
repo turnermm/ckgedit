@@ -1,7 +1,7 @@
 CKEDITOR.plugins.add("tags",
   {
     icons: 'tag',
-    lang: [ 'en', 'de'],
+    lang: [ 'en', 'de','fr'],
     init: function(editor) {
       CKEDITOR.dialog.add( 'tagsDialog', this.path + 'dialogs/tags.js' );
       editor.addCommand( 'editTags', new CKEDITOR.dialogCommand( 'tagsDialog') );
