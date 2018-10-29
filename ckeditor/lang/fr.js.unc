@@ -802,3 +802,4 @@ CKEDITOR.lang['fr']['signature'] = {
 CKEDITOR.lang.fr["format"]["panelTitle"]  = "En-têtes de section";
 CKEDITOR.lang.fr["format"]["label"] = "Titres";
 CKEDITOR.lang.fr["stylescombo"]["panelTitle"]="Styles de formatage de code";
+
