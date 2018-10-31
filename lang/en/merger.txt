@@ -1,6 +1,6 @@
 
 
-  - This version of [[doku>plugin:ckgedit|ckgedit]] upgrades the CKEditor from 4.7 to 4.9, which gives up-to-date and improved javascript.
-  - It integrates [[doku>plugin:ckgdoku|ckgdoku]] into ckgedit. This offers the option of using DokuWiki's Media Manager and Linkwiz, or ckgedit's file browser, or both. See ckgdoku's [[doku>plugin:ckgdoku#configuration|configuration options]].
+  - This version of [[doku>plugin:ckgedit|ckgedit]] upgrades CKEditor from 4.9 to 4.10, which gives up-to-date and improved javascript.
+  - With the upgrade to 4.9, ckgedit merged with [[doku>plugin:ckgdoku|ckgdoku]].  See ckgdoku's [[doku>plugin:ckgdoku#configuration|configuration options]].
 
 Please report any problems to [[https://github.com/turnermm/ckgedit/issues|ckgedit's issues]] on github. 
