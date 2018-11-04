@@ -81,35 +81,40 @@ config.colors = new Array(
 'FFFFFF','FFFFFF','FFFFFF'
 );
 
-     
+     var browser_level; 
+	 if (window.top != window.self) {
+		 browser_level = window.self;
+	 }
+	 else browser_level = window.top;
+	 //alert(window.self == browser_level);
      var ckedit_path;    
-     if(top.JSINFO['ckg_canonical']) {     
-          ckedit_path =  top.DOKU_BASE + 'lib/plugins/ckgedit/ckeditor/';
-          config.doku_url = top.DOKU_BASE;
-          config.ckedit_path = top.DOKU_BASE + 'lib/plugins/ckgedit/ckeditor/';
+     if(browser_level.JSINFO['ckg_canonical']) {     
+          ckedit_path =  browser_level.DOKU_BASE + 'lib/plugins/ckgedit/ckeditor/';
+          config.doku_url = browser_level.DOKU_BASE;
+          config.ckedit_path = browser_level.DOKU_BASE + 'lib/plugins/ckgedit/ckeditor/';
      }
      else {
-          ckedit_path =  window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
-      config.doku_url = window.location.protocol+ '//' + top.dokuBase;
-      config.ckedit_path = window.location.protocol +'//' + top.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
+          ckedit_path =  window.location.protocol +'//' + browser_level.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
+      config.doku_url = window.location.protocol+ '//' + browser_level.dokuBase;
+      config.ckedit_path = window.location.protocol +'//' + browser_level.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
      }
-      config.jquery = top.jQuery;
+      config.jquery = browser_level.jQuery;
     //  config.format_code = { element : 'code', attributes : { 'class' : 'dwcode' } };
 	// Define changes to default configuration here.
 	// For the complete reference:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
      config.scayt__disable = false;
-      top.ckgedit_language_chk(config);  //resets language if $conf['other_lang'] != 'default' and resets auto scayt to true of false
+      browser_level.ckgedit_language_chk(config);  //resets language if $conf['other_lang'] != 'default' and resets auto scayt to true of false
      // config.scayt_autoStartup = true;      
       config.format_tags = 'p;h1;h2;h3;h4;h5'; 
       config.extraSpecialChars  = ['↔'];
       config.extraPlugins = 'signature,footnote,shortcuts,fontAssist,tags,timestamp,headerbuttons,geshi,wrap,truetype'; //,pastebase64',devtools';
       config.contentsLangDirection = '';
-      if( top.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
+      if( browser_level.ckgedit_isRTL()) config.contentsLangDirection = 'rtl';
       config.pasteFromWordRemoveFontStyles = false;   // preserve font style when "paste from word"
       config.pasteFromWordRemoveStyles = false;       // preserve style (color) when "paste from word"
       config.allowedContent=true;                     // preserve highlight when "paste from word"     
-     config.removeButtons = top. remove_styling(); 
+     config.removeButtons = top.remove_styling(); 
      var font_assist = 'FontAssist';
      //config.removeButtons = 'TextColor,BGColor, FontAssist,Font,FontSize';
      if(config.removeButtons.match(/FontAssist/)) font_assist = "";
@@ -117,20 +122,20 @@ config.colors = new Array(
          config.extraPlugins +=',pastebase64';       
      }
      
-    config.skin =  top.getCKEditorGUI() ? top.getCKEditorGUI() : 'moono';
-    //alert(top.getCKEditorGUI());
-     config.wrapSyntaxDiv = top.JSINFO['wrapDiv'] ;
-     config.wrapSyntaxSpan = top.JSINFO['wrapSpan'] ;
+    config.skin =  browser_level.getCKEditorGUI() ? browser_level.getCKEditorGUI() : 'moono';
+    //alert(browser_level.getCKEditorGUI());
+     config.wrapSyntaxDiv = browser_level.JSINFO['wrapDiv'] ;
+     config.wrapSyntaxSpan = browser_level.JSINFO['wrapSpan'] ;
      config.ToolBarItemsAlt = {  
      'Signature':'Signature' ,'Footnotes':'Footnotes','Scayt':'Scayt'
      };
 
-    if(top.JSINFO['wrapDiv']) {
-       config.wrapSyntaxDiv = top.JSINFO['wrapDiv'];
+    if(browser_level.JSINFO['wrapDiv']) {
+       config.wrapSyntaxDiv = browser_level.JSINFO['wrapDiv'];
     }
     else config.wrapSyntaxDiv = "";
-    if(top.JSINFO['wrapSpan']) {
-       config.wrapSyntaxSpan = top.JSINFO['wrapSpan'];
+    if(browser_level.JSINFO['wrapSpan']) {
+       config.wrapSyntaxSpan = browser_level.JSINFO['wrapSpan'];
     }
     else config.wrapSyntaxSpan = "";
 
@@ -138,7 +143,7 @@ config.colors = new Array(
                config.ToolBarItemsAlt['Scayt'] = "";
     }
     
-     var xtra = top.extra_plugins(config);
+     var xtra = browser_level.extra_plugins(config);
      
      if(!xtra) {
          xtra = 'Msword,Geshi';
@@ -156,10 +161,10 @@ config.colors = new Array(
          
    
    //  xtra = 'Msword,Gesh';
-     if (top.JSINFO['has_tags']) {
+     if (browser_level.JSINFO['has_tags']) {
          xtra+=',Tags';
      }
-     if(top.JSINFO['has_wrap']) {
+     if(browser_level.JSINFO['has_wrap']) {
          xtra+=',Wrap';
      }
      config.ToolBarItemsExtra = "";
