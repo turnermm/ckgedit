@@ -194,15 +194,17 @@ var oldBeforeunload;
 
    /**
     *    event handler
-    *    handles both mousepresses and keystrokes from FCKeditor window
-    *    assigned in fckeditor.html
+    *    handles some mousepresses and all keystrokes from CKEditor window
   */
  
- var  nn__nn=0;
- var getnum = function () {  return (++nn__nn);  } 
- 
+ (function(w){ 
+  var  nn__nn=0;
+  var getnum = function () {  return (++nn__nn);  } 
+  w.getnum = getnum;
+})(window);
+
  function handlekeypress (e) {  
-    var n = getnum();
+    var n = window.getnum();
    if(ourLockTimerIsSet) {
          lockTimerRefresh();        
    }
