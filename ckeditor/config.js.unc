@@ -114,12 +114,12 @@ config.colors = new Array(
       config.pasteFromWordRemoveFontStyles = false;   // preserve font style when "paste from word"
       config.pasteFromWordRemoveStyles = false;       // preserve style (color) when "paste from word"
       config.allowedContent=true;                     // preserve highlight when "paste from word"     
-     config.removeButtons = top.remove_styling(); 
+      config.removeButtons = browser_level.remove_styling(); 
      var font_assist = 'FontAssist';
      //config.removeButtons = 'TextColor,BGColor, FontAssist,Font,FontSize';
      if(config.removeButtons.match(/FontAssist/)) font_assist = "";
      config.addPaste = function () {
-         config.extraPlugins +=',pastebase64';       
+     config.extraPlugins +=',pastebase64';       
      }
      
     config.skin =  browser_level.getCKEditorGUI() ? browser_level.getCKEditorGUI() : 'moono';

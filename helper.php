@@ -198,13 +198,17 @@ var oldBeforeunload;
     *    assigned in fckeditor.html
   */
  
+ var  nn__nn=0;
+ var getnum = function () {  return (++nn__nn);  } 
+ 
  function handlekeypress (e) {  
- 
- 
+    var n = getnum();
    if(ourLockTimerIsSet) {
          lockTimerRefresh();        
    }
    window.dwfckTextChanged = true;
+   
+   console.log('TextChanged  ' + n);
  }
 
  function unsetDokuWikiLockTimer() {
