@@ -194,17 +194,23 @@ var oldBeforeunload;
 
    /**
     *    event handler
-    *    handles both mousepresses and keystrokes from FCKeditor window
-    *    assigned in fckeditor.html
+    *    handles some mousepresses and all keystrokes from CKEditor window
   */
  
+ (function(w){ 
+  var  nn__nn=0;
+  var getnum = function () {  return (++nn__nn);  } 
+  w.getnum = getnum;
+})(window);
+
  function handlekeypress (e) {  
- 
- 
+    var n = window.getnum();
    if(ourLockTimerIsSet) {
          lockTimerRefresh();        
    }
    window.dwfckTextChanged = true;
+   
+   console.log('TextChanged  ' + n);
  }
 
  function unsetDokuWikiLockTimer() {

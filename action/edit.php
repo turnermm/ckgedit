@@ -599,14 +599,16 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
                     on : {  'instanceReady' : function( evt ) {
                          evt.editor.document.on( 'mousedown', function()
                    {
-                               parent. handlekeypress(evt);
+                              var browser_level = (window.top != window.self) ? window.self : window.top; browser_level.handlekeypress(evt);
+                             //  parent. handlekeypress(evt);
                          } );
                        }
                      },
                      on : {  'instanceReady' : function( evt ) {
                          evt.editor.document.on( 'focus', function()
                       {
-                               parent. handlekeypress(evt);
+                               var browser_level = (window.top != window.self) ? window.self : window.top; browser_level.handlekeypress(evt);
+                              // parent. handlekeypress(evt);
                          } );
                       }
                    },  
