@@ -196,21 +196,13 @@ var oldBeforeunload;
     *    event handler
     *    handles some mousepresses and all keystrokes from CKEditor window
   */
- 
- (function(w){ 
-  var  nn__nn=0;
-  var getnum = function () {  return (++nn__nn);  } 
-  w.getnum = getnum;
-})(window);
 
- function handlekeypress (e) {  
-    var n = window.getnum();
+
+ function handlekeypress (e) {      
    if(ourLockTimerIsSet) {
          lockTimerRefresh();        
    }
    window.dwfckTextChanged = true;
-   
-   console.log('TextChanged  ' + n);
  }
 
  function unsetDokuWikiLockTimer() {
