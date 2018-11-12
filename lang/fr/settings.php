@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author salabdou <salabdou@gmail.com>
  * @author TJ619 <rockandrollfever0@gmail.com>
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @author Blacklord049
@@ -41,6 +42,11 @@ $lang['alt_toolbar']           = 'Fonctions à retirer de la barre d\'outils CKE
 $lang['mfiles']                = 'Activer la gestion des \'mfiles\'';
 $lang['extra_plugins']         = 'Liste des extensions (séparées par des virgules) à ajouter dans la barre d\'outils de CKEditor. Voir la page à propos des plugins CKGEdit pour plus de détails.';
 $lang['dw_users']              = 'Nom du groupe d\'utilisateurs pour lesquels l\'éditeur par défaut est celui de DokuWiki quand <b>dw_priority</b> est sélectionné. Si non défini, tous les utilisateurs utiliseront l\'éditeur natif lorsque <b>dw_priority</b> est coché.';
+$lang['allow_ckg_filebrowser'] = 'Sélectionnez le ou les navigateurs de fichiers/médias que les utilisateurs peuvent utiliser';
+$lang['default_ckg_filebrowser'] = 'Sélectionnez quel navigateur de fichier/média est le navigateur par défaut. Ceci sera annulé si le navigateur sélectionné n\'est pas autorisé';
 $lang['captcha_auth']          = 'Niveau d\'ACL à partir duquel le captcha est désactivé lorsque l\'option <code>forusers</code> du greffon <a href="https://www.dokuwiki.org/plugin:captcha">captcha</a> est activée. Le défaut est <code>ACL_CREATE</code>, ce qui signifie que les utilisateurs n\'ayant que <code>ACL_EDIT</code> ou moins auront le captcha, et ceux qui ont <code>ACL_CREATE</code> ou plus ne l\'auront pas.';
 $lang['htmlblock_ok']          = 'Lors de l\'utilisation de <code>HTML_BLOCK</code>, il faut activer soit ce réglage, soit <code><a href="https://www.dokuwiki.org/fr:config:htmlok">htmlok</a></code> de DokuWiki.Cette option ci ne pose pas les mêmes risques de sécurité que <code>htmlok</code>. Néanmoins, il ne faudrait l\'utiliser que dans un environnement de confiance et pas dans un wiki ouvert.';
 $lang['dblclk']                = 'Réglez sur <code>off</code> pour désactiver la fonctionnalité d\'édition sur double clic dans l\'éditeur DokuWiki (voir <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>, en anglais).';
+$lang['preserve_enc']          = 'Conservez le codage d’URL dans les URL lorsque l’option dokuwiki deaccent est active.';
+$lang['gui']                   = 'Sélectionnez CKEditor GUI.';
+$lang['rel_links']             = 'Activer la prise en charge des liens relatifs internes et d\'image.';

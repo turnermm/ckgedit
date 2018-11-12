@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author salabdou <salabdou@gmail.com>
  * @author TJ619 <rockandrollfever0@gmail.com>
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @author Blacklord049
@@ -45,6 +46,9 @@ $lang['js']['dwp_updated']     = 'Priorité d\'éditeur mise à jour vers : ';
 $lang['js']['dwp_not_sel']     = 'Priorité d\'éditeur non sélectionnée : cela sera déterminé par le paramètre "dw_users"';
 $lang['js']['mediamgr_notice'] = 'Ouvrir la boîte de dialogue des liens pour une insertion';
 $lang['js']['font_conflict']   = 'Le parseur a trouvé un ou plusieurs conflits. En cliquand sur OK, vous retournez à l\'éditeur pour y supprimer les styles de caratère. Pour plus d\'informations (en anglais): https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links';
+$lang['js']['ckg_paste_restart'] = 'Lors du rechargement de l\'éditeur, un article supplémentaire de support sera utilisé.';
+$lang['js']['on']              = 'Marche';
+$lang['js']['off']             = 'Arrêt';
 $lang['mediamgr_imgonly']      = 'Envoyer des images en utilisant la boîte de dialogue spécifique:';
 $lang['uprofile_title']        = 'Sélectionnez votre éditeur par défaut';
 $lang['btn_val_dw_fb']         = 'Gestionnaire de fichiers DW';
@@ -53,6 +57,10 @@ $lang['btn_title_dw_fb']       = 'Sauver, fermer l\'éditeur et passer au gestio
 $lang['btn_title_ckg_fb']      = 'Sauver, fermer l\'éditeur et passer au gestionnaire de fichiers CKG';
 $lang['formatdel']             = 'Balisage supprimé des entêtes: indisponible dans DokuWiki';
 $lang['fontdel']               = 'Polices différentes supprimées des liens: indisponible dans DokuWiki';
+$lang['ckgcke_conflict']       = 'Une copie de ckgedit a été détectée. L\'un des Ckgedit et ckgedit doit être désactivé.';
+$lang['ws_cantcopy']           = 'Pour la configuration de Winstyle: impossible de copier vers';
+$lang['ws_copiedhtaccess']     = 'Pour l’installation de Winstyle, copiez le fichier .htaccess avec sécurité activée dans data/media
+Voir ckgedit/fckeditor/userfiles/.htaccess.security';
 $lang['userfiles_perm']        = 'Veuillez vérifier les permissions; ckgedit ne peut accéder à';
 $lang['sym_not created_1']     = 'Impossible de créer';
 $lang['sym_not created_2']     = 'Ne peut créer de lien symbolique pour le gestionnaire de fichiers: Ne peut accéder à: ';
@@ -60,3 +68,5 @@ $lang['sym_not created_3']     = 'Il y a eu une erreur en essayant de créer des
 $lang['syms_created']          = 'liens créés dans le dossier userfiles:';
 $lang['dblclk']                = '<b>Nouvelle fonctionnalité</b> Un double clic dans le navigateur édite la section sous le curseur dans l\'éditeur DW. <b>Voir, en anglais,</b> <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>.';
 $lang['dblclk_reminder']       = '<b>Rappel</b> ';
+$lang['on']                    = 'Marche';
+$lang['off']                   = 'Arrêt';
