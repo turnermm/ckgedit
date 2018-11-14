@@ -1,0 +1,2 @@
+ - Ova verzija [[doku>plugin:ckgedit|ckgedit]] nadograđuje CKEditor sa 4.9 na 4.10, što donosi aktualni i poboljšani javascript.
+ - S nadogradnjom na 4.9, ckgedit je spojen sa [[doku>plugin:ckgdoku|ckgdoku]]. Vidi ckgdoku [[doku>plugin:ckgdoku#configuration|opcije postavki]]. Molimo dojavite bilo kakav problem na [[https://github.com/turnermm/ckgedit/issues|ckgedit problemi]] na github-u.
