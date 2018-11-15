@@ -83,6 +83,22 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   }
  
 function _ajax_call(Doku_Event $event, $param) { 
+     
+     if ($event->data == 'cked_scaytchk') {  
+          global $lang,$INPUT;
+          $event->stopPropagation();
+          $event->preventDefault();
+		  $filename =  metaFN('fckl:scayt','.meta'); 
+		  $msg =  $this->locale_xhtml('scayt');
+		  if (!file_exists($filename)) {      
+			  io_saveFile($filename,'1');  
+              echo "$msg\n";			  
+			  return;
+		  }		   
+           
+           
+           return;           
+         }
        if ($event->data == 'cked_upload') {  
           global $lang;
            $event->stopPropagation();
@@ -181,7 +197,7 @@ function _ajax_call(Doku_Event $event, $param) {
          echo $t;
          return;
      }
-     if ($event->data == 'wrap_lang') {  //choose profile editor priority
+     if ($event->data == 'wrap_lang') {  // parse and return language file to ckeditor warp plugin
          $event->stopPropagation();
           $event->preventDefault();
          global $INPUT;
@@ -912,19 +928,40 @@ function reset_user_rewrite_check() {
 function startup_msg() {  
    global $INFO;
     global $ACT;
-  
+   $show_msg = false;
    if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
 	       $show_msg = true;		   
 	}
    if(!$show_msg)  return;
+   
+  $filename =  metaFN('fckl:scayt','.meta'); 
+  $msg =  $this->locale_xhtml('scayt');  
+  if (!file_exists($filename)) {      
+      io_saveFile($filename,'1'); 
+      msg($msg,2);          
+      
+  }
+  else {
+        $this->startup_check_twice($filename, 'scayt');
+  }
+  
   $filename =  metaFN('fckl:merger','.meta'); 
   $msg =  $this->locale_xhtml('merger');
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
-       msg($msg,2);          
-       return;
+       msg($msg,2);      
   }
-  if($ACT != 'login') return;
+  
+  
+
+  
+}
+
+function  startup_check_twice($filename, $which) {
+    global $ACT;
+
+    if($ACT != 'login') return;    
+    $msg =  $this->locale_xhtml($which);
    if (file_exists($filename)) {      
            $reps = io_readFile($filename);
            if($reps <2) {
@@ -934,7 +971,6 @@ function startup_msg() {
               return;
            }
    }
-
 }
 /**
   checked for additional dw priority possibilities only if the dw priority option is set to true
