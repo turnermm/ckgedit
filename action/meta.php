@@ -939,9 +939,9 @@ function startup_msg() {
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
       msg($msg,2);          
-      
   }
   else {
+        if($this->getConf('scayt_auto') != 'off') return;
         $this->startup_check_twice($filename, 'scayt');
   }
   
