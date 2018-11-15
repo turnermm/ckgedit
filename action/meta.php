@@ -933,23 +933,35 @@ function startup_msg() {
 	       $show_msg = true;		   
 	}
    if(!$show_msg)  return;
-   $filename =  metaFN('fckl:scayt','.meta'); 
+   
+  $filename =  metaFN('fckl:scayt','.meta'); 
   $msg =  $this->locale_xhtml('scayt');  
-
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
       msg($msg,2);          
-      return;
+      
   }
- /*
+  else {
+        $this->startup_check_twice($filename, 'scayt');
+  }
+  
   $filename =  metaFN('fckl:merger','.meta'); 
   $msg =  $this->locale_xhtml('merger');
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
-       msg($msg,2);          
-       return;
+       msg($msg,2);      
   }
-  if($ACT != 'login') return;
+  
+  
+
+  
+}
+
+function  startup_check_twice($filename, $which) {
+    global $ACT;
+
+    if($ACT != 'login') return;    
+    $msg =  $this->locale_xhtml($which);
    if (file_exists($filename)) {      
            $reps = io_readFile($filename);
            if($reps <2) {
@@ -959,7 +971,6 @@ function startup_msg() {
               return;
            }
    }
-*/
 }
 /**
   checked for additional dw priority possibilities only if the dw priority option is set to true

@@ -443,8 +443,7 @@ function  extra_plugins(config) {
 
 function ckgedit_language_chk(config) { 
     if("$scayt_auto" == 'on') {
-        config.scayt_autoStartup = true;      
-        check_scayt();
+        config.scayt_autoStartup = true;         
     }
     else config.scayt_autoStartup = false;
     if("$scayt_auto" == 'disable') {

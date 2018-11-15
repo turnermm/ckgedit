@@ -341,19 +341,7 @@ var dokuBase = location.host + DOKU_BASE;
                 'html'
             );    
  }
- 
- function check_scayt() {     
-         var params = 'call=cked_scaytchk';          
-        jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
-        function (data) {  
-            if(data) { 
-              alert(data);
-     
-            }   
-            },
-        'html'
-    );  
- }
+
  jQuery(document).ready(function() {
      if(JSINFO['hide_captcha_error'] =='hide') {
          jQuery("div.error").hide();
