@@ -332,7 +332,7 @@ var dokuBase = location.host + DOKU_BASE;
                       if(refresh_cb) {
                            refresh_cb.postMessage(JSINFO['doku_url'], JSINFO['doku_url']);
                       }
-                      console.log(data);
+                    //  console.log(data);
                     }
                       else  {
                     //      alert(LANG.plugins.ckgedit.dwp_save_err + data); 
@@ -340,6 +340,19 @@ var dokuBase = location.host + DOKU_BASE;
                     },
                 'html'
             );    
+ }
+ 
+ function check_scayt() {     
+         var params = 'call=cked_scaytchk';          
+        jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,   
+        function (data) {  
+            if(data) { 
+              alert(data);
+     
+            }   
+            },
+        'html'
+    );  
  }
  jQuery(document).ready(function() {
      if(JSINFO['hide_captcha_error'] =='hide') {
