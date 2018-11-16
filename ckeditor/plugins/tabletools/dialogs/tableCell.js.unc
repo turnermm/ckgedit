@@ -98,19 +98,21 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor ) {
 						],
 						setup: setupCells( function( element ) {
 							var alignAttr = element.getAttribute( 'align' ),
-								textAlignStyle = element.getStyle( 'text-align' );
+							textAlignStyle = element.getStyle( 'text-align' );
 
 							return textAlignStyle || alignAttr || '';
 						} ),
 						commit: function( selectedCell ) {
 							var value = this.getValue();
 
-							if ( value )
+							if ( value ) {
 								selectedCell.setStyle( 'text-align', value );
-							else
+                                selectedCell.setAttribute('class', value + 'align');                                
+                            }
+							else {
 								selectedCell.removeStyle( 'text-align' );
-
-							selectedCell.removeAttribute( 'align' );
+								selectedCell.removeAttribute( 'align' );
+							}	
 						}
 					},
  ]
