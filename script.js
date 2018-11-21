@@ -36,12 +36,23 @@ var HTMLParser_Elements = new Array();
 	// Special Elements (can contain anything)
 	var special = makeMap("script,style");
  
-   
+   //define ('BROKEN_IMAGE', DOKU_URL . 'lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34');
+   var broken_image ='http://' +  location.host +  DOKU_BASE +  '/lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34';
 	HTMLParser = this.HTMLParser = function( html, handler ) {
 		var index, chars, match, stack = [], last = html;      
+       
+      html =  html.replace(/(<img.*?src="data:image\/\w+;base64,\s*)(.*?)(\/>)/gm,
+                  function(match, p1, p2) {                     
+                   if(p2.length > 1000000 ) {
+                        jQuery('#dw__editform').append('<input type="hidden" id="broken_image" name="broken_image" value="' + p2.length +'" />');
+                        return  '{{' + broken_image + '}}';       
+                    }                        
+                    return match;
+           });
           html = html.replace(/~~OPEN_HTML_BLOCK~~/gm , '~~START_HTML_BLOCK~~') ;
           html = html.replace(/~~END_HTML_BLOCK~~/gm , '~~CLOSE_HTML_BLOCK~~') ;
-         if(html.match(/~~START_HTML_BLOCK~~/gm) ){            //adopted [\s\S] from Goyvaerts, Reg. Exp. Cookbook (O'Reilly)
+          
+          if(html.match(/~~START_HTML_BLOCK~~/gm) ){            //adopted [\s\S] from Goyvaerts, Reg. Exp. Cookbook (O'Reilly)
               if(!JSINFO['htmlok']) {
                  html = html.replace(/~~START_HTML_BLOCK~~|~~CLOSE_HTML_BLOCK~~/gm,"");
                 } 
