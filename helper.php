@@ -473,15 +473,13 @@ function FCKeditor_OnComplete( editorInstance )
           window.dwfckTextChanged = true;
     });
  
-    var broken_image ='http://' +  location.host +  DOKU_BASE +  '/lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34';
-   
-   editorInstance.on("paste", function(e) {
+   var broken_image ='http://' +  location.host +  DOKU_BASE +  '/lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34';
+   editorInstance.on("paste", function(e) {      
          var len =  e.data.dataValue.length;
          var broken_msg = "$ckg_brokenimg " + len;      
-        if(e.data.dataValue.match(/data:image\/\w+;base64/) &&  len > 100000 ) {
+         if(e.data.dataValue.match(/data:image\/\w+;base64/) &&  len > 100000 ) {
              alert(broken_msg + len);
-             e.data.dataValue = '<img src ='+ broken_image + '/>';           
-			
+             e.data.dataValue = '<img src ='+ broken_image + '/>';       
         }
     });
     

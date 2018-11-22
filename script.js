@@ -42,8 +42,13 @@ var HTMLParser_Elements = new Array();
 		var index, chars, match, stack = [], last = html;      
        
       html =  html.replace(/(<img.*?src="data:image\/\w+;base64,\s*)(.*?)(\/>)/gm,
-                  function(match, p1, p2) {                     
-                   if(p2.length > 1000000 ) {
+                  function(match, p1, p2) {  
+                  var skip = false;
+                   if(p1.match(/msword/) ) {
+                       skip = true;
+                       match = match.replace(/msword/,"");
+                   }
+                   if(p2.length > 1000000 && !skip ) {
                         jQuery('#dw__editform').append('<input type="hidden" id="broken_image" name="broken_image" value="' + p2.length +'" />');
                         return  '{{' + broken_image + '}}';       
                     }                        
