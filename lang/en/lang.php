@@ -63,3 +63,4 @@ $lang['off'] ='off';
 $lang['js']['on'] ='on';
 $lang['js']['off'] ='off';
 $lang['broken_image'] = 'Use the imagePaste plugin with the Dokuwiki Mediamanager. Raw data of Ctrl-v images cannot exceed 1M. This image is: '; 
+

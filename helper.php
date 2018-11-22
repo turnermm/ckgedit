@@ -146,7 +146,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
     }
   }
 
-
+$ckg_brokenimg = $this->getLang('broken_image');
  $default_fb = $this->getConf('default_fb');
  if($default_fb == 'none') {
      $client = "";
@@ -471,6 +471,18 @@ function FCKeditor_OnComplete( editorInstance )
 
   editorInstance.on("focus", function(e) {
           window.dwfckTextChanged = true;
+    });
+ 
+    var broken_image ='http://' +  location.host +  DOKU_BASE +  '/lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34';
+   
+   editorInstance.on("paste", function(e) {
+         var len =  e.data.dataValue.length;
+         var broken_msg = "$ckg_brokenimg " + len;      
+        if(e.data.dataValue.match(/data:image\/\w+;base64/) &&  len > 100000 ) {
+             alert(broken_msg + len);
+             e.data.dataValue = '<img src ='+ broken_image + '/>';           
+			
+        }
     });
     
   oDokuWiki_FCKEditorInstance.dwiki_user = "$user_type";   
