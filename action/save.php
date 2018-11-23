@@ -17,7 +17,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
     }
 
     function ckgedit_save_preprocess(Doku_Event $event){
-        global $ACT;
+        global $ACT,$INPUT;
         if (!isset($_REQUEST['ckgedit']) || ! is_array($ACT) || !(isset($ACT['save']) || isset($ACT['preview']))) return;
          if (isset($_REQUEST["fontdel"]) ) {
              msg($this->getLang("fontdel"),1);           
@@ -26,7 +26,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
              msg($this->getLang("formatdel"),1);           
          }         
 
- 
+         $img_size = $INPUT->int('broken_image');
+         if($img_size) msg($this->getLang('broken_image') . $img_size/1000000 . 'M' ); 
+      
        
         global $TEXT, $conf;
              

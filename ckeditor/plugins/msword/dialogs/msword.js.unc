@@ -105,8 +105,12 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
             inner = inner.replace(regex, function(m,n) { 
                 return "";
            });
-           
-        
+         
+          if(inner.match(/<img/)) {
+              inner = inner.replace(/<img\s/, '<img alt=\"msword\" ');         
+              editor.insertHtml(inner); 
+               inner = "";                
+          }
           var  regex = new RegExp('<style>([^]*)<\/style>','gm'); 
               inner = inner.replace(regex, function(m,n) { 
                return "";
@@ -179,7 +183,9 @@ CKEDITOR.dialog.add( 'mswordDialog', function( editor ) {
                          str+="</" + list_type +">";                
                          return str;
         } );
-          editor.insertHtml(inner);   
+          if(inner) {
+              editor.insertHtml(inner);   
+          }
            data_id.innerHTML  ="";
 		}
 	};
