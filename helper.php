@@ -475,14 +475,26 @@ function FCKeditor_OnComplete( editorInstance )
  
    var broken_image ='http://' +  location.host +  DOKU_BASE +  '/lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34';
    editorInstance.on("paste", function(e) {      
+       /* https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript */      
+        var formatBytes = function(bytes,decimals) {
+             if(bytes == 0) return '0 Bytes';
+             var k = 1024,
+             dm = decimals <= 0 ? 0 : decimals || 2,
+             sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+             i = Math.floor(Math.log(bytes) / Math.log(k));
+             return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
          var len =  e.data.dataValue.length;
-         var broken_msg = "$ckg_brokenimg " + len;      
-         if(e.data.dataValue.match(/data:image\/\w+;base64/) &&  len > 100000 ) {
-             alert(broken_msg + len);
+         var len = e.data.dataValue.length - 'data:image/png;base64,'.length;
+         var size =   formatBytes(len,1);     
+       
+         var broken_msg = "$ckg_brokenimg " + size
+         if(e.data.dataValue.match(/data:image\/\w+;base64/) &&  len > 1000000) {
+             alert(broken_msg);
              e.data.dataValue = '<img src ='+ broken_image + '/>';       
         }
     });
-    
+
   oDokuWiki_FCKEditorInstance.dwiki_user = "$user_type";   
   oDokuWiki_FCKEditorInstance.dwiki_client = "$client";    
   oDokuWiki_FCKEditorInstance.dwiki_usergroups = "$user_groups";  
