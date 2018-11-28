@@ -10,7 +10,7 @@ define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/');
  */
 
 class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
-
+     var $helper = false;
     function register(Doku_Event_Handler $controller) {
   
         $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'ckgedit_save_preprocess');
@@ -18,6 +18,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
 
     function ckgedit_save_preprocess(Doku_Event $event){
         global $ACT,$INPUT;
+        $this->helper = $this->loadhelper('ckgedit');
         if (!isset($_REQUEST['ckgedit']) || ! is_array($ACT) || !(isset($ACT['save']) || isset($ACT['preview']))) return;
          if (isset($_REQUEST["fontdel"]) ) {
              msg($this->getLang("fontdel"),1);           
@@ -186,6 +187,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
           $TEXT = preg_replace_callback(
            '#\[\[(.*?)\]\]#ms',
                function($matches){ 
+                    if($this->helper->has_plugin('button') && strpos($matches[0], '[[{') === 0) {    
+                        return $matches[0];
+                    }
                     if(preg_match('/(doku|this)\s*>/',$matches[0])) return $matches[0]; // exclude dokuwiki's wiki links
                     global $ID, $conf;      
                     $qs = "";
