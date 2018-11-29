@@ -487,9 +487,9 @@ function FCKeditor_OnComplete( editorInstance )
          var len =  e.data.dataValue.length;
          var len = e.data.dataValue.length - 'data:image/png;base64,'.length;
          var size =   formatBytes(len,1);     
-       
-         var broken_msg = "$ckg_brokenimg " + size
-         if(e.data.dataValue.match(/data:image\/\w+;base64/) &&  len > 1000000) {
+          var broken_msg = ckg_RawImgMsg();
+          broken_msg += " " + size;
+         if(e.data.dataValue.match(/data:image\/\w+;base64/) &&  len > 2500000) {
              alert(broken_msg);
              e.data.dataValue = '<img src ='+ broken_image + '/>';       
         }

@@ -62,5 +62,8 @@ $lang['on'] ='on';
 $lang['off'] ='off';
 $lang['js']['on'] ='on';
 $lang['js']['off'] ='off';
-$lang['broken_image'] = 'Use the imagePaste plugin with the Dokuwiki Mediamanager. Raw data of Ctrl-v images cannot exceed 1M. This image is: '; 
+$lang['broken_image'] = "Use the imagePaste plugin with the Dokuwiki Mediamanager or try the MS Word Paste Tool.  Raw data of Ctrl-v images  over 2.5M can hang. This image is: " ; 
+$lang['js']['broken_image_1'] = "Use the imagePaste plugin with the Dokuwiki Mediamanager or try the MS Word Paste Tool.";
+$lang['js']['broken_image_2'] =  "Ctrl-v images with raw data over 2.5M can hang. This image is: " ; 
+
 

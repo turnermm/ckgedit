@@ -1894,13 +1894,14 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
     if(!useComplexTables) {    results = results.replace(/~~COMPLEX_TABLES~~/gm,""); }
     results=results.replace(/_CKG_ASTERISK_/gm,'*');      
     results = results.replace(/_ESC_BKSLASH_/g,'\\');
+	results=results.replace(/divalNLine/gm,"\n");
     if(id == 'test') {
       if(HTMLParser_test_result(results)) {
          alert(results);
       }
       return; 
     }
-  results=results.replace(/divalNLine/gm,"\n")
+
     var dwform = GetE('dw__editform');
     dwform.elements.fck_wikitext.value = results;
 

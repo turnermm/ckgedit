@@ -48,7 +48,7 @@ var HTMLParser_Elements = new Array();
                        skip = true;
                        match = match.replace(/msword/,"");
                    }
-                   if(p2.length > 1000000 && !skip ) {
+                   if(p2.length > 2500000 && !skip ) {
                         jQuery('#dw__editform').append('<input type="hidden" id="broken_image" name="broken_image" value="' + p2.length +'" />');
                         return  '{{' + broken_image + '}}';       
                     }                        
@@ -268,6 +268,7 @@ function dwedit_draft_delete() {
         document.cookie = 'ckgEdht=' + h +';expires="";path=' +JSINFO['doku_base'];
    }
 
+   /* enable disable image paste */
   function ckgd_setImgPaste(which) {        
       var state = JSINFO['ckgEdPaste'] ? JSINFO['ckgEdPaste']  : "";
       if(state == 'on')  {
@@ -279,6 +280,9 @@ function dwedit_draft_delete() {
       alert(LANG.plugins.ckgedit.ckg_paste_restart + ' ' + LANG.plugins.ckgedit[which]);    
    }
 
+   function ckg_RawImgMsg() {
+       return LANG.plugins.ckgedit.broken_image_1 + "\n" +  LANG.plugins.ckgedit.broken_image_2 ;
+   }
   function GetE(e) {
        return  document.getElementById(e);
   }
