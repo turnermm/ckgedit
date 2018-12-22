@@ -1,0 +1,5 @@
+ 
+ - [[doku>plugin:ckgedit|ckgedit]]の当バージョンでは、CKEditorを4.9から4.10にアップグレードし、最新の、改善されたjavascriptが適用されます。
+  - 4.9へのアップグレードに際し、ckgeditは[[doku>plugin:ckgdoku|ckgdoku]]と統合しました。ckgdokuの[[doku>plugin:ckgdoku#configuration|サイト設定オプション]]をご参照下さい。
+
+何か問題が生じた場合には、GitHub上で[[https://github.com/turnermm/ckgedit/issues|ckgeditのissueトピック]]を立てて下さい。

@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author HokkaidoPerson <dosankomali@yahoo.co.jp>
  * @author Nobuyuki Fukuyori <self@spumoni.org>
  * @author Hideaki SAWADA <chuno@live.jp>
  */
@@ -36,3 +37,4 @@ $lang['nofont_styling']        = 'エディター内はプラグインのマー�
 $lang['font_options']          = 'フォントのオプションを削除する。';
 $lang['color_options']         = '配色のオプションを削除する。';
 $lang['alt_toolbar']           = 'CKEditor のツールバーから削除する機能';
+$lang['mfiles']                = 'mファイルのサポートを有効にする';
