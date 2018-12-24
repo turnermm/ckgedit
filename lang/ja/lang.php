@@ -45,6 +45,8 @@ $lang['js']['font_conflict']   = '分析した所、リンクフォントの競�
 $lang['js']['ckg_paste_restart'] = 'エディターを再読み込みすると、補助的な貼り付けサポートが有効になります';
 $lang['js']['on']              = 'ON';
 $lang['js']['off']             = 'OFF';
+$lang['js']['broken_image_1']  = 'DokuWikiメディアマネージャーとimagePasteプラグインを併用するか、Microsoft Wordの貼り付けオプションをお試し下さい。';
+$lang['js']['broken_image_2']  = 'Ctrl+Vで貼り付ける画像の生データが2.5Mより大きい場合、ハングアップする可能性があります。この画像のサイズ：';
 $lang['mediamgr_imgonly']      = '画像ダイアログは、画像に対してのみ用いて下さい。他のメディアについてはリンクダイアログを用いて下さい。選択したファイル：';
 $lang['uprofile_title']        = '使いたいデフォルトのエディターを選択';
 $lang['btn_val_dw_fb']         = 'DWファイルブラウザー';
@@ -62,3 +64,5 @@ $lang['sym_not created_1']     = '作成出来ません';
 $lang['sym_not created_2']     = 'シンボリックリンクをファイルブラウザーに作成出来ません。以下にアクセス出来ません：';
 $lang['sym_not created_3']     = '次に対しシンボリックリンクを作成しようとした際にエラーが発生しました：';
 $lang['syms_created']          = '以下のリンクがユーザーファイルのディレクトリに作成されました。';
+$lang['dblclk']                = '<b>新機能</b>ブラウザのウィンドウをダブルクリックするとテキストモードのエディターが開き、カーソル位置のセクションを編集出来ます。<b>参照：</b><a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>. ';
+$lang['dblclk_reminder']       = '<b>リマインダー</b>';
