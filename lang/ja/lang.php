@@ -62,3 +62,4 @@ $lang['sym_not created_1']     = '作成出来ません';
 $lang['sym_not created_2']     = 'シンボリックリンクをファイルブラウザーに作成出来ません。以下にアクセス出来ません：';
 $lang['sym_not created_3']     = '次に対しシンボリックリンクを作成しようとした際にエラーが発生しました：';
 $lang['syms_created']          = '以下のリンクがユーザーファイルのディレクトリに作成されました。';
+$lang['dblclk_reminder']       = '<b>リマインダー</b> ';
