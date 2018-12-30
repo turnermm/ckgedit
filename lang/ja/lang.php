@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Test <test@example.com>
  * @author HokkaidoPerson <dosankomali@yahoo.co.jp>
  * @author Hideaki SAWADA <chuno@live.jp>
  */
@@ -45,6 +46,7 @@ $lang['js']['font_conflict']   = '分析した所、リンクフォントの競�
 $lang['js']['ckg_paste_restart'] = 'エディターを再読み込みすると、補助的な貼り付けサポートが有効になります';
 $lang['js']['on']              = 'ON';
 $lang['js']['off']             = 'OFF';
+$lang['js']['broken_image_1']  = 'test please ignore';
 $lang['mediamgr_imgonly']      = '画像ダイアログは、画像に対してのみ用いて下さい。他のメディアについてはリンクダイアログを用いて下さい。選択したファイル：';
 $lang['uprofile_title']        = '使いたいデフォルトのエディターを選択';
 $lang['btn_val_dw_fb']         = 'DWファイルブラウザー';
