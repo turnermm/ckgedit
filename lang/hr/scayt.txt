@@ -1,0 +1,3 @@
+Scayt provjera pravopisa nudi tri podešavanja: uključeno, isključeno, onemogućeno. Od sada podrazumijevana postavka će biti **isključeno** umjesto **uključeno**. Sa **uključeno** sadržaj se obrađuje od strane Scayt i šalje se na provjeru pravopisa na Scayt server. Iako nema razloga vjerovati da je to sigurnosni rizik, ova promjena je učinjena radi korisnika sa privatnim Wiki-jima koji se mogu osjećati ugroženo sa slanjem njihovih podataka na vanjski server. Više informacija možete naći u opcijama Postavki ckedit dokumentacije na https://www.dokuwiki.org/plugin:ckgedit:configuration#scayt_lang.
+
+ 
