@@ -465,10 +465,8 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
        }
         else {            
             document.cookie = 'FCKG_USE=_false_;expires=';             
-            dom.value = 'dwiki';        
-           if(JSINFO['chrome_version'] >= 56 && window.dwfckTextChanged) {
-           }
-            else if(window.dwfckTextChanged  && !window.confirm("$discard")) {            
+            dom.value = 'dwiki';    
+            if(window.dwfckTextChanged  && !window.confirm("$discard")) {            
                var dom = GetE('dwsave_select');                
                ckgedit_dwedit_reject=true;
                window.dwfckTextChanged = false;
