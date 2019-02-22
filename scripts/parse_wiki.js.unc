@@ -1891,6 +1891,16 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
            results += "~~COMPLEX_TABLES~~\n"; 
         }
     }
+
+    if(HTMLParser_PRE) {
+		  results = results.replace(/<\/(code|file)>(.*?)\|/gm,
+		  function(all,type,line) {	
+			  var regex = new RegExp('\\\\','gm');	
+			  line=line.replace(regex,"");	
+			  return '<\/' + type+ '>' + line + '|';
+		  }	);
+	  }
+	
     if(!useComplexTables) {    results = results.replace(/~~COMPLEX_TABLES~~/gm,""); }
     results=results.replace(/_CKG_ASTERISK_/gm,'*');      
     results = results.replace(/_ESC_BKSLASH_/g,'\\');
