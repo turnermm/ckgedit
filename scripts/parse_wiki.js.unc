@@ -1899,11 +1899,27 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
 			  line=line.replace(regex,"");	
 			  return '<\/' + type+ '>' + line + '|';
 		  }	);
+ 
+
+		     results = results.replace(/<(code|file)>([\s\S]+)(<\/\1)/gm,        
+		      function(all,open,inner,close) {	    
+			  if(!inner.match(/\\/)) return all;			 
+			  var tmp = "";
+              for(var j=0; j<inner.length;j++) {
+			      if(inner[j] == "\\") {
+				    tmp +=  inner.charAt(j) + "_CKGE_BSLTMP_";				
+				  }
+				  else tmp +=  inner.charAt(j);
+			   }       			
+              return '<' + open + '>' +tmp+close;                 
+		  });
+     
 	  }
 	
     if(!useComplexTables) {    results = results.replace(/~~COMPLEX_TABLES~~/gm,""); }
     results=results.replace(/_CKG_ASTERISK_/gm,'*');      
     results = results.replace(/_ESC_BKSLASH_/g,'\\');
+	results = results.replace(/_CKGE_BSLTMP_/gm,"\\\\");	
 	results=results.replace(/divalNLine/gm,"\n");
     if(id == 'test') {
       if(HTMLParser_test_result(results)) {
