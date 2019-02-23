@@ -1105,6 +1105,17 @@ $text = preg_replace_callback(
                 return $matches[1] . $quot . $matches[3];' 
           ), $text); 
 
+          $text = preg_replace_callback('/\|([\s\S]+)\|/ms',  // prevents  extra backslash  from hanging on a new line
+            function ($matches) {
+                if(!strpos($matches[1], "_ckgedit_NL")) return $matches[0];                    
+                $matches[1]  =  str_replace("\\_ckgedit_NL","_ckgedit_NL",$matches[1]);                 
+               // $this->write_debug("1112=" . $matches[0]);
+               //   $this->write_debug("1113=" . $matches[1]);
+                return '|' . $matches[1] . '|';
+                return $matches[0];
+            },
+           $text
+        );          
        
           $text = preg_replace_callback('/(<code>|<file>)([^<]+)(<\/code>|<\/file>)/ms',
              create_function(
