@@ -288,15 +288,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
         },
         $TEXT 
     );
-    /*  Feb 23 2019
-	remove spaces and line feeds between beginning of table cell and start of code block
-	*/
-      $TEXT = preg_replace_callback(
-       '#\|(.*?)[\s\n]+\<(code|file)\>#ms',  
-       function($matches) {  	  
-	   return '|' . $matches[1] .'<'. $matches[2] .'>';         
-       },$TEXT
-       );
+
       /* remove extra line-feeds following in-table code blocks
          make sure cell-ending pipe not mistaken for a following link divider      
       */ 
@@ -324,6 +316,24 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
          $TEXT     
     );      
 
+        /*  Feb 23 2019
+	remove spaces and line feeds between beginning of table cell and start of code block
+	*/
+      $TEXT = preg_replace_callback(
+       '#\|(.*?)[\s\n]+\<(code|file)\>#ms',  
+       function($matches) {  	      
+	   return '|' . $matches[1] .'<'. $matches[2] .'>';         
+       },$TEXT
+       );
+     /*remove line feeds following block */
+    $TEXT = preg_replace_callback(
+       '#\<\/(code|file)\>([\s\S]+)\|#ms',  
+       function($matches) {  
+          $ret =  '</' . $matches[1] . '>' . str_replace('\\',"",$matches[2]) . '|';  
+          return $ret;  
+       },$TEXT
+       ); 
+       
          return;
     
     }
