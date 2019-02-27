@@ -8,7 +8,7 @@
  * @author 2576562185 <2576562185@qq.com>
  */
 $lang['btn_dw_edit']           = 'DW 脚本编辑器';
-$lang['dw_btn_fck_preview']    = 'CKG预览';
+$lang['dw_btn_fck_preview']    = 'CKG 预览';
 $lang['dw_btn_lang']           = '语言';
 $lang['title_dw_delete']       = '删除页面';
 $lang['title_dw_edit']         = '保存并退出，并切换回原生 DokuWiki 编辑器';
