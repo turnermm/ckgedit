@@ -1704,7 +1704,7 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
 
          if(HTMLFormatInList) {   
              /* removes extra newlines from lists */      
-             results =  results.replace(/(\s+[\-\*_]\s*)([\*\/_\']{2})(.*?)(\2)([^\n]*)\n+/gm, 
+             results =  results.replace(/^(\s+[\-\*_]\s*)([\*\/_\']{2})(.*?)(\2)([^\n]*)\n+/gm, 
                         function(match,list_type,format,text, list_type_close, rest) {
                            return(list_type+format+text+list_type_close+rest +"\n");
              }); 
