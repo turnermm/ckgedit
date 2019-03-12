@@ -485,5 +485,5 @@ function ckg_edit_mediaman_insertlink(edid, id, opts, dw_align) {
 function getCookie(name) {
     var re = new RegExp(name + "=([^;]+)");
     var value = re.exec(document.cookie);
-    return (value != null) ? unescape(value[1]) : null;
+    return (value != null) ? decodeURIComponent(value[1]) : null;
 }
