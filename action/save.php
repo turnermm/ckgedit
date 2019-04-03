@@ -191,6 +191,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                         return $matches[0];
                     }
                     if(preg_match('/(doku|this)\s*>/',$matches[0])) return $matches[0]; // exclude dokuwiki's wiki links
+	 	             if(preg_match('/([\w\.]+@[\w\.]+\.\w{2,3})\?.*?\|\1/i',$matches[0])) {
+                             return $matches[0];
+                     }
                     global $ID, $conf;      
                     $qs = "";
                     if(preg_match("/\[\[http/",$matches[0])) return $matches[0];  //not an internal link
