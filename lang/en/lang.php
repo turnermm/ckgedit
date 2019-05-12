@@ -65,5 +65,15 @@ $lang['js']['off'] ='off';
 $lang['broken_image'] = "Use the imagePaste plugin with the Dokuwiki Mediamanager or try the MS Word Paste Tool.  Raw data of Ctrl-v images  over 2.5M can hang. This image is: " ; 
 $lang['js']['broken_image_1'] = "Use the imagePaste plugin with the Dokuwiki Mediamanager or try the MS Word Paste Tool.";
 $lang['js']['broken_image_2'] =  "Ctrl-v images with raw data over 2.5M can hang. This image is: " ; 
+$lang['menu'] = 'CKEditor editor CSS tool'; 
+$lang['btn_hello']    = 'hello';
+$lang['btn_goodbye']  = 'goodbye'; 
+$lang['world']        = 'Hello, world!';
+$lang['again']        = 'Hello again!';
+$lang['goodbye']      = 'Goodbye.';
+$lang['invalid']      = 'invalid input detected!';
+$lang['style_sheet'] = 'Create Style sheet';
+$lang['style_sheet_msg'] = 'Creating Style sheet for the current template:';
+
 
 
