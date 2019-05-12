@@ -16,20 +16,21 @@ require_once(DOKU_INC.'inc/init.php');
  *
  * @author Andreas Gohr <andi@splitbrain.org>
  */
-function css_ckg_out($path)
+function css_ckg_out($path, $tpl = "")
 {
     global $conf;
     global $lang;
     global $config_cascade;
-    global $INPUT;
+  
     chdir($path);
 
         $mediatypes = array('screen', 'all');
         $type = '';
    
 
-
+    if(!$tpl) { 
     $tpl = $conf['template'];
+	}
     // load styl.ini
     $styleini = css_ckg_styleini($tpl);
 
@@ -128,10 +129,14 @@ $xcl =  'plugins|popup|fileuploader|toc.css|search|recent|diff|edit|form|admin|m
 ' . "\n";
 
   if( io_saveFile($path . 'Styles/_style.css' ,$css)) {
-	  return true;
+	  //return true;
 	  //msg("Stylesheet saved to $path" . 'Styles/_style.css');
+	  return 0;
   }
-  else msg("Failed to save stylesheet to $path" . 'Styles/_style.css');
+  else {
+	  //msg("Failed to save stylesheet to $path" . 'Styles/_style.css');
+	  return 1;
+  }
 }
 
 /**

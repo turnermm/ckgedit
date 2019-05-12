@@ -55,8 +55,17 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
       ptln('  <input type="submit" name="cmd[goodbye]"  value="'.$this->getLang('btn_goodbye').'" />');
 	  ptln('  <input type="submit" name="cmd[stylesheet]"  value="'.$this->getLang('style_sheet').'" />');
       ptln('</form>');   
-     css_ckg_out($this->tpl_inc);
-
+	  $path = $this->tpl_inc;
+	  $messages = array(
+		  "Stylesheet saved to $path" . 'Styles/_style.css',
+		  "Failed to save stylesheet to $path" . 'Styles/_style.css'		  
+		  );
+	  if($this->output && $this->output == 'style_sheet_msg') {	  
+		  ptln('<p>'.htmlspecialchars($this->getLang($this->output)). " " .$this->template.'</p>');	  
+		  $retv = css_ckg_out($path);
+		  $color = $retv == 0? '#333': 'blue';
+		  ptln('<span style = "color:'.$color. ';">'.htmlspecialchars($messages[$retv]).'</span>');
+      }
     }
 
 

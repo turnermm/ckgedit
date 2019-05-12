@@ -656,7 +656,8 @@ CKEDITOR_REPLACE;
     </div>
 
     <textarea name="wikitext" id="wiki__text" <?php echo $ro?> cols="80" rows="10" class="edit" tabindex="1"><?php echo "\n".$this->xhtml?></textarea>
-    
+     <!-- textarea name="wikitext" id="wiki__text" <?php echo $ro?> cols="80" rows="10" 
+	class="edit" tabindex="1"><?php echo "<body style='background-color:#fff;background-image:none;'>\n"  . $this->xhtml .'</body>' ?></textarea --!>
 <?php 
 
 $temp=array();
