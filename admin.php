@@ -25,7 +25,7 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
 	
       if (!checkSecurityToken()) return;
       if (!is_array($_REQUEST['cmd'])) return; 
-      // msg(print_r($_REQUEST,1));
+ 
        switch (key($_REQUEST['cmd'])) {
 	    case 'stylesheet' : {
 			$this->output = 'style_sheet_msg';
@@ -56,28 +56,38 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
 	  ptln('<p style = "line-height: 200%;">' . $this->getLang('alt_stylesheet') .'<br />');
       ptln('<input type = "text" name = "alt_stylesheet" value ="'.$alt_val.'">&nbsp;&nbsp;');
 	  ptln('<input type="submit" name="cmd[alt_stylesheet]"  value="'.$this->getLang('style_sheet').'" /></p>');
- 
+
       ptln('</form>');   
-	  $path = $this->tpl_inc;
+	  
 	  $messages = array(
 		  "Stylesheet saved to $path" . 'Styles/_style.css',
 		  "Failed to save stylesheet to $path" . 'Styles/_style.css'		  
 		  );
 	  ptln('<p>');	  
 	  if($this->output && $this->output == 'style_sheet_msg') {	  
+          $path = $this->tpl_inc;     
 		  ptln(htmlspecialchars($this->getLang($this->output)). " " .$this->template);	  
 		  $retv = css_ckg_out($path);
-		  $color = $retv == 0? '#333': 'blue';
-		  ptln('<br /><span style = "color:'.$color. ';">'.htmlspecialchars($messages[$retv]).'</span>');
+          $this->message($path, $retv);
+
       }
 	   if($this->output && $this->output == 'alt_style_sheet_msg') {		  
-	     ptln(htmlspecialchars($this->getLang($this->output)). " " .$this->alt);
-		$tmpl = str_replace('tpl/'.$this->template, 'tpl/'.$this->alt,$this->tpl_inc);
-	    echo  "<br />" .  $tmpl;
+	    ptln(htmlspecialchars($this->getLang($this->output)). " " .$this->alt);				
+		$path = str_replace('tpl/'.$this->template, 'tpl/'.$this->alt,$this->tpl_inc);
+        $retv = css_ckg_out($path);
+        $this->message($path, $retv);
 	   }
 	  
 	  ptln('</p>');
     }
 
-
+   function message($path, $which) {
+      $messages = array(
+		  "Stylesheet saved to $path" . 'Styles/_style.css',
+		  "Failed to save stylesheet to $path" . 'Styles/_style.css'		
+         );          
+     	  $color = $which == 0? '#333': 'blue';
+		   ptln('<br /><span style = "color:'.$color. ';">'.htmlspecialchars($messages[$which]).'</span>');
+	  
+   }
 }	

@@ -24,12 +24,12 @@ function css_ckg_out($path, $tpl = "")
   
     chdir($path);
 
-        $mediatypes = array('screen', 'all');
-        $type = '';
+    $mediatypes = array('screen', 'all');
+    $type = '';
    
 
     if(!$tpl) { 
-    $tpl = $conf['template'];
+        $tpl = $conf['template'];
 	}
     // load styl.ini
     $styleini = css_ckg_styleini($tpl);
