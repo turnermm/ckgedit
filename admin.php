@@ -27,13 +27,15 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
       if (!is_array($_REQUEST['cmd'])) return; 
       // msg(print_r($_REQUEST,1));
        switch (key($_REQUEST['cmd'])) {
-        case 'hello' : $this->output = 'again'; break;
-        case 'goodbye' : $this->output = 'goodbye'; break;
 	    case 'stylesheet' : {
-			//msg('stylesheet');
 			$this->output = 'style_sheet_msg';
 			break;
 		}
+	    case 'alt_stylesheet' : {	
+			$this->alt = $_REQUEST['alt_stylesheet'];			
+			$this->output = 'alt_style_sheet_msg';
+			break;
+		}	
       }    
 
 	
@@ -43,29 +45,36 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
      * output appropriate html
      */
     function html() {
-	 ptln('<p>'.htmlspecialchars($this->getLang($this->output)). " " .$this->template.'</p>');
- 
       ptln('<form action="'.wl($ID).'" method="post">'); 
       // output hidden values to ensure dokuwiki will return back to this plugin
       ptln('  <input type="hidden" name="do"   value="admin" />');
       ptln('  <input type="hidden" name="page" value="'.$this->getPluginName().'" />');
       formSecurityToken();
+	  ptln('<p style = "line-height: 200%;">Create a style sheet for the current template: (' .$this->template . ')<br />');
+	  ptln('<input type="submit" name="cmd[stylesheet]"  value="'.$this->getLang('style_sheet').'" /></p>');	  
+	  $alt_val = isset($this->alt)?$this->alt: "" ;
+	  ptln('<p style = "line-height: 200%;">' . $this->getLang('alt_stylesheet') .'<br />');
+      ptln('<input type = "text" name = "alt_stylesheet" value ="'.$alt_val.'">&nbsp;&nbsp;');
+	  ptln('<input type="submit" name="cmd[alt_stylesheet]"  value="'.$this->getLang('style_sheet').'" /></p>');
  
-      ptln('  <input type="submit" name="cmd[hello]"  value="'.$this->getLang('btn_hello').'" />');
-      ptln('  <input type="submit" name="cmd[goodbye]"  value="'.$this->getLang('btn_goodbye').'" />');
-	  ptln('  <input type="submit" name="cmd[stylesheet]"  value="'.$this->getLang('style_sheet').'" />');
       ptln('</form>');   
 	  $path = $this->tpl_inc;
 	  $messages = array(
 		  "Stylesheet saved to $path" . 'Styles/_style.css',
 		  "Failed to save stylesheet to $path" . 'Styles/_style.css'		  
 		  );
+	  ptln('<p>');	  
 	  if($this->output && $this->output == 'style_sheet_msg') {	  
-		  ptln('<p>'.htmlspecialchars($this->getLang($this->output)). " " .$this->template.'</p>');	  
+		  ptln(htmlspecialchars($this->getLang($this->output)). " " .$this->template);	  
 		  $retv = css_ckg_out($path);
 		  $color = $retv == 0? '#333': 'blue';
-		  ptln('<span style = "color:'.$color. ';">'.htmlspecialchars($messages[$retv]).'</span>');
+		  ptln('<br /><span style = "color:'.$color. ';">'.htmlspecialchars($messages[$retv]).'</span>');
       }
+	   if($this->output && $this->output == 'alt_style_sheet_msg') {		  
+	     ptln(htmlspecialchars($this->getLang($this->output)). " " .$this->alt);
+	   }
+	  
+	  ptln('</p>');
     }
 
 
