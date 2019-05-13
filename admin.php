@@ -72,6 +72,8 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
       }
 	   if($this->output && $this->output == 'alt_style_sheet_msg') {		  
 	     ptln(htmlspecialchars($this->getLang($this->output)). " " .$this->alt);
+		$tmpl = str_replace('tpl/'.$this->template, 'tpl/'.$this->alt,$this->tpl_inc);
+	    echo  "<br />" .  $tmpl;
 	   }
 	  
 	  ptln('</p>');
