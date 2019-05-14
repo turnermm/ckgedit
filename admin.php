@@ -61,7 +61,6 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
       ptln('<select name="templates" style = "line-height:100%">');
       echo $this->templates( $alt_val );
       ptln('</select>');
-    //  ptln('<input type = "text" name = "alt_stylesheet" value ="'.$alt_val.'">&nbsp;&nbsp;');
 	  ptln('<input type="submit" name="cmd[alt_stylesheet]"  value="'.$this->getLang('style_sheet').'" />');   
       ptln('</form></p>');   
 
@@ -99,7 +98,7 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
    foreach ($files AS $file) {
        if($file == '.' || $file == '..' || $file == $this->template) continue;
        $entry = $dir . $file;
-       $file = trim($file);
+       if(!is_writable($entry)) continue;
        if(is_dir ($entry ) ) {
              if($file == $selected) {
                  $list .= "<option value='$file'  selected>$file</option>";
