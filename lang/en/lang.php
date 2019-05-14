@@ -66,6 +66,7 @@ $lang['broken_image'] = "Use the imagePaste plugin with the Dokuwiki Mediamanage
 $lang['js']['broken_image_1'] = "Use the imagePaste plugin with the Dokuwiki Mediamanager or try the MS Word Paste Tool.";
 $lang['js']['broken_image_2'] =  "Ctrl-v images with raw data over 2.5M can hang. This image is: " ; 
 $lang['menu'] = 'CKEditor editor CSS tool'; 
+$lang['default_stylesheet']  = 'Create a style sheet for the current template';
 $lang['alt_stylesheet']  = 'Create a stylesheet for another template'; 
 $lang['style_sheet'] = 'Create Style sheet';
 $lang['style_sheet_msg'] = 'Creating Style sheet for the current template:';

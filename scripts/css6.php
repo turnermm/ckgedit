@@ -21,6 +21,8 @@ function css_ckg_out($path, $tpl = "")
     global $conf;
     global $lang;
     global $config_cascade;
+	global $INPUT;
+	$copy = $INPUT->str('ckg_save_ss',FALSE);   
   
     chdir($path);
 
@@ -29,6 +31,11 @@ function css_ckg_out($path, $tpl = "")
    
     if(!$tpl) { 
         $tpl = $conf['template'];
+		
+		if($copy) {
+		    $copy_path = DOKU_PLUGIN . 'ckgedit/ckeditor/css/_style.css';
+			 msg($copy_path,1);
+        }  
 	}
   
     // load styl.ini
@@ -76,7 +83,7 @@ function css_ckg_out($path, $tpl = "")
 
 
 //$xcl = 'plugins/popularity|usermanager|plugins/upgrade|plugins/acl|plugins/plugin|plugins/auth|plugins/config|plugins/revert|_imgdetail.css'
-$xcl =  'plugins|popup|fileuploader|toc.css|search|recent|diff|edit|form|admin|manager|media';
+$xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manager|media|modal';
 
 
 
@@ -130,6 +137,10 @@ $xcl =  'plugins|popup|fileuploader|toc.css|search|recent|diff|edit|form|admin|m
 ' . "\n";
 
   if( io_saveFile($path . 'Styles/_style.css' ,$css)) {
+	  if(isset($copy_path)) {		 ;
+	     $retv = io_saveFile($copy_path,$css); 
+		 if(!$retv) msg("failed: " . $copy_path);
+	  }	  
 	  return 0;
   }
   else {

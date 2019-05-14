@@ -11,6 +11,7 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
 
 	private $tpl_inc;
 	private $template;	
+	private $alt;
     function __construct() {      
 	    global $conf;
         $this->template = $conf['template']; 	
@@ -28,6 +29,7 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
  
        switch (key($_REQUEST['cmd'])) {
 	    case 'stylesheet' : {
+			$this->alt = "";
 			$this->output = 'style_sheet_msg';
 			break;
 		}
@@ -52,7 +54,9 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
       formSecurityToken();
       
       //Current style sheet
-	  ptln('<p style = "line-height: 200%;">Create a style sheet for the current template: (' .$this->template . ')<br />');
+	  ptln('<p style = "line-height: 200%;">' . $this->getLang('default_stylesheet') . ': (' .$this->template . ')<br />');
+	  ptln('<label for="ckg_save_ss">Copy to ckedit/css</label>');
+	  ptln('<input type="checkbox" name="ckg_save_ss">&nbsp;&nbsp;'); 
 	  ptln('<input type="submit" name="cmd[stylesheet]"  value="'.$this->getLang('style_sheet').'" /></p>');	  
       
       // Other style sheet
@@ -94,7 +98,7 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
    $dir = dirname($this->tpl_inc);
    $files = scandir($dir);
    $dir .= '/';
-   $list = "";
+   $list = "<option value=''  >Select</option>";
    foreach ($files AS $file) {
        if($file == '.' || $file == '..' || $file == $this->template) continue;
        $entry = $dir . $file;
