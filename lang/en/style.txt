@@ -1,0 +1,11 @@
+**Current Template** \\
+With this app you can create a style sheet for the CKEditor's editing window that is based on your template. It will place the style sheet in your template folder in the directory named **Styles**, which will be created when the style sheet is saved. The style sheet will be named **_styles.css**. To activate this style sheet two things must be done:
+
+  - it must be placed in **ckgedit/ckeditor/css**. This will automatically be done for you if you check off the checkbox labeled **Copy to ckeditor/css.**
+  - The **style_sheet**  option in the ''Configuration Settings''  must be set to **true**.
+
+**Other templates: installed but not activate** \\ You can also create additional style sheets for other templates which you might have stored in your **tpl**  folder. These will be copied to the Styles folder of the respective templates but not to **ckeditor/css**.
+
+----
+
+

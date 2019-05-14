@@ -487,3 +487,8 @@ function getCookie(name) {
     var value = re.exec(document.cookie);
     return (value != null) ? decodeURIComponent(value[1]) : null;
 }
+function tfunc(t){
+	if(t.innerHTML == 'Close Info')
+	  t.innerHTML ='Info';
+    else t.innerHTML = 'Close Info';
+} 

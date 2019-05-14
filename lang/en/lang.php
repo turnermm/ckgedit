@@ -71,6 +71,6 @@ $lang['alt_stylesheet']  = 'Create a stylesheet for another template';
 $lang['style_sheet'] = 'Create Style sheet';
 $lang['style_sheet_msg'] = 'Creating Style sheet for the current template:';
 $lang['alt_style_sheet_msg'] = 'Creating Style sheet for:';
-
+$lang['checkbox'] = 'Copy to ckeditor/css';
 
 

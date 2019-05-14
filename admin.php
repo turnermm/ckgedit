@@ -47,6 +47,13 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
      * output appropriate html
      */
     function html() {
+	  ptln('<div id = "ckg_styl_sheet" style = "display:none">');	
+      echo $this->locale_xhtml('style');
+	  ptln('</div>');
+      ptln('<button type = "button" id = "Infobut" onclick="jQuery(\'#ckg_styl_sheet\').toggle(1000,tfunc(this));">');
+	  
+	  echo "Info";
+	  ptln('</button>');
       ptln('<form action="'.wl($ID).'" method="post">'); 
       // output hidden values to ensure dokuwiki will return back to this plugin
       ptln('  <input type="hidden" name="do"   value="admin" />');
@@ -55,7 +62,7 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
       
       //Current style sheet
 	  ptln('<p style = "line-height: 200%;">' . $this->getLang('default_stylesheet') . ': (' .$this->template . ')<br />');
-	  ptln('<label for="ckg_save_ss">Copy to ckedit/css</label>');
+	  ptln('<label for="ckg_save_ss">' .$this->getLang('checkbox').'</label>');
 	  ptln('<input type="checkbox" name="ckg_save_ss">&nbsp;&nbsp;'); 
 	  ptln('<input type="submit" name="cmd[stylesheet]"  value="'.$this->getLang('style_sheet').'" /></p>');	  
       
