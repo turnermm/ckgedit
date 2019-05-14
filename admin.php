@@ -32,7 +32,7 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
 			break;
 		}
 	    case 'alt_stylesheet' : {	
-			$this->alt = $_REQUEST['alt_stylesheet'];			
+            $this->alt = $_REQUEST['templates'];		
 			$this->output = 'alt_style_sheet_msg';
 			break;
 		}	
@@ -50,20 +50,21 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
       ptln('  <input type="hidden" name="do"   value="admin" />');
       ptln('  <input type="hidden" name="page" value="'.$this->getPluginName().'" />');
       formSecurityToken();
+      
+      //Current style sheet
 	  ptln('<p style = "line-height: 200%;">Create a style sheet for the current template: (' .$this->template . ')<br />');
 	  ptln('<input type="submit" name="cmd[stylesheet]"  value="'.$this->getLang('style_sheet').'" /></p>');	  
+      
+      // Other style sheet
 	  $alt_val = isset($this->alt)?$this->alt: "" ;
 	  ptln('<p style = "line-height: 200%;">' . $this->getLang('alt_stylesheet') .'<br />');
-      ptln('<input type = "text" name = "alt_stylesheet" value ="'.$alt_val.'">&nbsp;&nbsp;');
-	  ptln('<input type="submit" name="cmd[alt_stylesheet]"  value="'.$this->getLang('style_sheet').'" /></p>');
+      ptln('<select name="templates" style = "line-height:100%">');
+      echo $this->templates( $alt_val );
+      ptln('</select>');
+    //  ptln('<input type = "text" name = "alt_stylesheet" value ="'.$alt_val.'">&nbsp;&nbsp;');
+	  ptln('<input type="submit" name="cmd[alt_stylesheet]"  value="'.$this->getLang('style_sheet').'" />');   
+      ptln('</form></p>');   
 
-      ptln('</form>');   
-	  
-	  $messages = array(
-		  "Stylesheet saved to $path" . 'Styles/_style.css',
-		  "Failed to save stylesheet to $path" . 'Styles/_style.css'		  
-		  );
-	  ptln('<p>');	  
 	  if($this->output && $this->output == 'style_sheet_msg') {	  
           $path = $this->tpl_inc;     
 		  ptln(htmlspecialchars($this->getLang($this->output)). " " .$this->template);	  
@@ -71,14 +72,13 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
           $this->message($path, $retv);
 
       }
-	   if($this->output && $this->output == 'alt_style_sheet_msg') {		  
+ 	 else  if($this->output && $this->output == 'alt_style_sheet_msg') {		  
 	    ptln(htmlspecialchars($this->getLang($this->output)). " " .$this->alt);				
 		$path = str_replace('tpl/'.$this->template, 'tpl/'.$this->alt,$this->tpl_inc);
-        $retv = css_ckg_out($path);
+        $retv = css_ckg_out($path,$this->alt);
         $this->message($path, $retv);
 	   }
 	  
-	  ptln('</p>');
     }
 
    function message($path, $which) {
@@ -90,4 +90,24 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
 		   ptln('<br /><span style = "color:'.$color. ';">'.htmlspecialchars($messages[$which]).'</span>');
 	  
    }
+   
+   function templates($selected="") {
+   $dir = dirname($this->tpl_inc);
+   $files = scandir($dir);
+   $dir .= '/';
+   $list = "";
+   foreach ($files AS $file) {
+       if($file == '.' || $file == '..' || $file == $this->template) continue;
+       $entry = $dir . $file;
+       $file = trim($file);
+       if(is_dir ($entry ) ) {
+             if($file == $selected) {
+                 $list .= "<option value='$file'  selected>$file</option>";
+             }
+            else   $list .= "<option value='$file'  >$file</option>";
+       }       
+   }
+
+  return $list;
+   } 
 }	

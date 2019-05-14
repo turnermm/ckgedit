@@ -27,10 +27,10 @@ function css_ckg_out($path, $tpl = "")
     $mediatypes = array('screen', 'all');
     $type = '';
    
-
     if(!$tpl) { 
         $tpl = $conf['template'];
 	}
+  
     // load styl.ini
     $styleini = css_ckg_styleini($tpl);
 
@@ -118,6 +118,7 @@ $xcl =  'plugins|popup|fileuploader|toc.css|search|recent|diff|edit|form|admin|m
    // echo $path . "Styles/_style.css\n";    
     
    $css = preg_replace("/(\#?|\.?|div\.)dokuwiki\.?/", '', $css);
+   $css = "/* template: $tpl */\n\n" . $css;
    $css .=  '
    span.multi_p_open {
     display: block;
@@ -129,12 +130,9 @@ $xcl =  'plugins|popup|fileuploader|toc.css|search|recent|diff|edit|form|admin|m
 ' . "\n";
 
   if( io_saveFile($path . 'Styles/_style.css' ,$css)) {
-	  //return true;
-	  //msg("Stylesheet saved to $path" . 'Styles/_style.css');
 	  return 0;
   }
   else {
-	  //msg("Failed to save stylesheet to $path" . 'Styles/_style.css');
 	  return 1;
   }
 }
