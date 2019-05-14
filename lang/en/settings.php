@@ -51,4 +51,7 @@ $lang['dblclk']="Set to <code>off</code> to turn off the double click feature wh
 $lang['preserve_enc'] ="Preserve urlencoding in urls when the dokuwiki deaccent option is active.";
 $lang['gui'] = "Select CKEditor GUI.";
 $lang['rel_links'] = "Activate support for relative internal and image links";
+$lang['style_sheet'] = 'Use an alternate style sheet for the Ckeditor editing window.' .
+    ' For more information see the <b>CKEditor editor CSS tool</b>, under <em>Additional Plugins</em> on the <code>Admin</code> page. Or ' .
+    ' see the ckgedit plugin page.';	
 
