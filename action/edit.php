@@ -518,6 +518,30 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
    }
 
    /**
+      Check for for alternate style sheet
+    */
+    function alt_style_sheet() {
+       $stylesheet = DOKU_PLUGIN . 'ckgedit/ckeditor/css/_style.css';
+       if(file_exists($stylesheet)) {
+           global $conf;
+           $tpl_name = $conf['template'];          
+           if($fh = fopen($stylesheet,"r")) { 
+               $line_num = 0;
+               while (!feof($fh) &&  $line_num < 4) {
+                    $line = fgets($fh,1024);            //msg($line);      
+                    if(strpos($line,$tpl_name)!==false) {
+                         return DOKU_BASE . '/lib/plugins/ckgedit/ckeditor/css/_style.css' ;
+                        break;
+                     }   
+                    $line_num ++;                     
+               }                    
+           }
+       }
+      return "";       
+    }
+    
+    
+   /**
     * function _print
     * @author  Myron Turner
     */ 
@@ -586,7 +610,8 @@ if ($fb == 'dokuwiki') {
     $fbOptions = "filebrowserImageBrowseUrl :  \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\",
     filebrowserBrowseUrl: \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\"";
 }
-
+$contents_css = $this->alt_style_sheet();
+//msg($contents_css);
 $ckeditor_replace =<<<CKEDITOR_REPLACE
 
 		   ckgeditCKInstance = CKEDITOR.replace('wiki__text',
@@ -616,7 +641,9 @@ $ckeditor_replace =<<<CKEDITOR_REPLACE
                } 
 		   );
            FCKeditor_OnComplete(ckgeditCKInstance);
-           
+           if("$contents_css") {
+            CKEDITOR.config.contentsCss = "$contents_css";
+         } 
                
 CKEDITOR_REPLACE;
 
@@ -650,9 +677,16 @@ CKEDITOR_REPLACE;
       }
       ?>
     </div>
+<?php
+/*
+$this->xhtml=<<<ERRTXT
+[<a class="wikilink1 curid" data-curid="true" href="/dokuwiki/doku.php?id=*:*" title="*:*">go to top</a> | <a class="wikilink1" href="/dokuwiki/doku.php?id=*:start#system_configuration" title="*:start">back to Index</a> | <a class="wikilink1" href="/dokuwiki/doku.php?id=*:start" title="*:start">Wiki start page</a> ]
+ERRTXT;*/
+?>
 
     <textarea name="wikitext" id="wiki__text" <?php echo $ro?> cols="80" rows="10" class="edit" tabindex="1"><?php echo "\n".$this->xhtml?></textarea>
-    
+     <!-- textarea name="wikitext" id="wiki__text" <?php echo $ro?> cols="80" rows="10" 
+	class="edit" tabindex="1"><?php echo "<body style='background-color:#fff;background-image:none;'>\n"  . $this->xhtml .'</body>' ?></textarea --!>
 <?php 
 
 $temp=array();

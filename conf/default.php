@@ -40,5 +40,8 @@ $conf['dblclk'] ='on';
 $conf['preserve_enc'] = 0;
 $conf['gui'] = 'moono';
 $conf['rel_links'] = 0;
+$conf['style_sheet'] = 0;
+
+
 
 

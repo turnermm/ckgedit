@@ -487,3 +487,8 @@ function getCookie(name) {
     var value = re.exec(document.cookie);
     return (value != null) ? decodeURIComponent(value[1]) : null;
 }
+function ckg_admininfo(t){
+	if(t.innerHTML == LANG.plugins.ckgedit.stylesheet_cinfo)
+	  t.innerHTML = LANG.plugins.ckgedit.stylesheet_oinfo;
+    else t.innerHTML = LANG.plugins.ckgedit.stylesheet_cinfo;
+} 
