@@ -50,7 +50,7 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
 	  ptln('<div id = "ckg_styl_sheet" style = "display:none">');	
       echo $this->locale_xhtml('style');
 	  ptln('</div>');
-      ptln('<button type = "button" id = "Infobut" onclick="jQuery(\'#ckg_styl_sheet\').toggle(1000,tfunc(this));">');
+      ptln('<button type = "button" id = "Infobut" onclick="jQuery(\'#ckg_styl_sheet\').toggle(800,ckg_admininfo(this));">');
 	  
 	  echo "Info";
 	  ptln('</button>');
