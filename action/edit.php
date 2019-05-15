@@ -610,7 +610,9 @@ if ($fb == 'dokuwiki') {
     $fbOptions = "filebrowserImageBrowseUrl :  \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\",
     filebrowserBrowseUrl: \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\"";
 }
+if($this->getConf('style_sheet')) {
 $contents_css = $this->alt_style_sheet();
+}
 //msg($contents_css);
 $ckeditor_replace =<<<CKEDITOR_REPLACE
 
