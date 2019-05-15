@@ -125,7 +125,7 @@ $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manag
    // echo $path . "Styles/_style.css\n";    
     
    $css = preg_replace("/(\#?|\.?|div\.)dokuwiki\.?/", '', $css);
-   $css = "/* template: $tpl */\n\n" . $css;
+   $css = "/* template: $tpl */\n@media screen {\n.$tpl{color:#ccc;}\n}\n" . $css;
    $css .=  '
    span.multi_p_open {
     display: block;
