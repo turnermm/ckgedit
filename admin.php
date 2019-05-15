@@ -52,8 +52,9 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
 	  ptln('</div>');
       ptln('<button type = "button" id = "Infobut" onclick="jQuery(\'#ckg_styl_sheet\').toggle(800,ckg_admininfo(this));">');
 	  
-	  echo "Info";
+	  echo $this->getLang('stylesheet_oinfo');
 	  ptln('</button>');
+		  
       ptln('<form action="'.wl($ID).'" method="post">'); 
       // output hidden values to ensure dokuwiki will return back to this plugin
       ptln('  <input type="hidden" name="do"   value="admin" />');

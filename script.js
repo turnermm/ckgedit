@@ -488,7 +488,7 @@ function getCookie(name) {
     return (value != null) ? decodeURIComponent(value[1]) : null;
 }
 function ckg_admininfo(t){
-	if(t.innerHTML == 'Close Info')
-	  t.innerHTML ='Info';
-    else t.innerHTML = 'Close Info';
+	if(t.innerHTML == LANG.plugins.ckgedit.stylesheet_cinfo)
+	  t.innerHTML = LANG.plugins.ckgedit.stylesheet_oinfo;
+    else t.innerHTML = LANG.plugins.ckgedit.stylesheet_cinfo;
 } 
