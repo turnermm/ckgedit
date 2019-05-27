@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author w.-g.esders <esders@esders.eu>
  * @author WhitesnakeS04 <whitesnakess04@gmail.com>
  * @author Sebastian Engel <mail@engel-s.de>
  * @author Joerg Maeder <member@toolcase.org>
@@ -54,6 +55,7 @@ $lang['js']['font_conflict']   = 'Der Parser fand einen oder mehrere Link-Font-K
 $lang['js']['ckg_paste_restart'] = 'Beim Neuladen des Editors wird die zus&auml;tzliche Unterst&uuml;tzung für das Einfügen eingeschaltet.';
 $lang['js']['on']              = 'ein';
 $lang['js']['off']             = 'aus';
+$lang['js']['broken_image_1']  = 'benutze das ImagePaste Plugin mit dem Dokuwiki Mediamanager oder versuche das MS Word Einfügen Tool';
 $lang['mediamgr_imgonly']      = 'Laden Sie nur Bilder hoch, wenn Sie den Bilddialog verwenden: ';
 $lang['uprofile_title']        = 'W&auml;hlen Sie ihren Standard Editor';
 $lang['btn_val_dw_fb']         = 'DW Dateibrowser';
