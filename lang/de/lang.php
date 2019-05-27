@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author w.-g.esders <esders@esders.eu>
  * @author WhitesnakeS04 <whitesnakess04@gmail.com>
  * @author Sebastian Engel <mail@engel-s.de>
  * @author Joerg Maeder <member@toolcase.org>
@@ -54,6 +55,8 @@ $lang['js']['font_conflict']   = 'Der Parser fand einen oder mehrere Link-Font-K
 $lang['js']['ckg_paste_restart'] = 'Beim Neuladen des Editors wird die zus&auml;tzliche Unterst&uuml;tzung für das Einfügen eingeschaltet.';
 $lang['js']['on']              = 'ein';
 $lang['js']['off']             = 'aus';
+$lang['js']['broken_image_1']  = 'benutze das ImagePaste Plugin mit dem Dokuwiki Mediamanager oder versuche das MS Word Einfügen Tool';
+$lang['js']['broken_image_2']  = 'Bilder grösser 2,5M mit Ctrl-v einfügen funktioniert nicht. Dieses Bild ist  ... gross';
 $lang['mediamgr_imgonly']      = 'Laden Sie nur Bilder hoch, wenn Sie den Bilddialog verwenden: ';
 $lang['uprofile_title']        = 'W&auml;hlen Sie ihren Standard Editor';
 $lang['btn_val_dw_fb']         = 'DW Dateibrowser';
@@ -62,6 +65,7 @@ $lang['btn_title_dw_fb']       = 'Speichern und Editor schließen und zum DW Dat
 $lang['btn_title_ckg_fb']      = 'Speichern und Editor schließen und zum CKG Dateibrowser wechseln';
 $lang['formatdel']             = 'Markup wurde aus Header(n) entfernt: Von DokuWiki nicht unterst&uuml;tzt';
 $lang['fontdel']               = 'Markup wurde aus Link(s) entfernt: Von DokuWiki nicht unterst&uuml;tzt';
+$lang['ckgcke_conflict']       = 'Ein 2. ckgedit wurde gefunden. Eines von beiden muss unbrauchbar gemacht werden.';
 $lang['ws_cantcopy']           = 'Für das winstyle Setup: kann nicht kopiert werden nach';
 $lang['ws_copiedhtaccess']     = 'Für das winstyle Setup wurde das Security-aktivierte .htaccess nach data/media kopiert. Siehe ckgedit/fckeditor/userfiles/.htacess.security ';
 $lang['userfiles_perm']        = 'Bitte &uuml;berprüfen Sie die Berechtigungen; ckgedit hat keinen Zugriff';
@@ -75,3 +79,4 @@ $lang['ckg_img_paste']         = 'Zusätzliche Unterstützung beim Einfügen von
 $lang['ckg_img_paste_title']   = 'Aus um doppeltes Einf&uuml;gen zu verhindern, oder Ein, um Einfügen zu erlauben';
 $lang['on']                    = 'Ein';
 $lang['off']                   = 'Aus';
+$lang['broken_image']          = 'Benutze das ImagePaste Plugin mit dem Mediamanager oder versuche das MS Word Tool. Ctrl-v mit Bildern > 2,5M funktioniert  evtl. nicht. Dieses Bild hat folgende Grösse:';
