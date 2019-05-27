@@ -487,10 +487,12 @@ SCRIPT;
 
 function check_userfiles() {	  
  
+   /*
+   removed 5/27/2019
     if($this->getConf('no_symlinks')) {	
 	   return;
 	}
-	
+	*/
     global $INFO;
     global $conf;
     

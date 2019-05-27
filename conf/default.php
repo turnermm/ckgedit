@@ -3,7 +3,6 @@ $conf['groups'] = 'ANY';
 $conf['guest_toolbar']= 1;
 $conf['guest_media']= 1;
 $conf['open_upload']=0;
-# $conf['xcl_plugins']="ckgedit_dwplugin";
 $conf['allow_ckg_filebrowser'] = 'all';
 $conf['default_ckg_filebrowser'] = 'ckgedit';
 $conf['default_fb'] = 'acl';
