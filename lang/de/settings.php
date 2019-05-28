@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author w.-g.esders <esders@esders.eu>
  * @author Gunnar Lindenblatt <gunnar.lindenblatt@gmail.com>
  * @author WhitesnakeS04 <whitesnakess04@gmail.com>
  * @author Leo Rudin <leo.rudin@gmx.ch>
@@ -40,6 +41,10 @@ $lang['font_options']          = 'Entfernt die Option zum Einstellen der Schrift
 $lang['color_options']         = 'Entfernt Farb-Optionen.';
 $lang['alt_toolbar']           = 'Funktionen, die nicht in der Werkzeugleiste angezeigt werden sollen';
 $lang['mfiles']                = 'mfile-Unterstützung einschalten.';
+$lang['extra_plugins']         = 'Durch Kommata getrennte Liste zusätzlicher CKeditor Plugins zum Einfügen in die Toolbar. Siehe Details bei "ckgedit plugin\'s"
+<a href=\'https://www.dokuwiki.org/ plugin:ckgedit:configuration#extra_plugins\'>config page</a>';
+$lang['allow_ckg_filebrowser'] = 'Auswählen, welche(n) Datei/Medien Browser Benutzer gebrauchen können';
+$lang['default_ckg_filebrowser'] = 'Auswählen, welche(r) Datei/Medien Browser "default" wird. Wenn der gewählte Browser unzulässig ist, wird überschrieben.';
 $lang['htmlblock_ok']          = 'Bei Verwendung von <code>HTML_BLOCK</code>s muss entweder diese Option oder die DokuWiki-Option <code>htmlok</code> eingeschaltet sein. Es stellt nicht das gleiche Sicherheitsrisiko dar wie <code>htmlok</code>. Dennoch sollte es nur in einer vertrauenswürdigen Benutzerumgebung und nicht in einem offenen Wiki verwendet werden. ';
 $lang['dblclk']                = '<code>off</code> schaltet das Bearbeiten einzelner Abschnitte (Sections) per Doppelklick mit dem DokuWiki-Editor aus (siehe:  <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>) 	';
 $lang['preserve_enc']          = 'Bewahre URL-Kodierung, falls die De-Akzent-Option von dokuwiki aktiv ist.';
