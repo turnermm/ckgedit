@@ -314,7 +314,10 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
          function($matches) {  
              $matches[3]  = preg_replace('/\n+/',"",$matches[3] );
              $matches[3]  = preg_replace('/\s+$/',"",$matches[3] ) . '|';     
-             return '|' . $matches[1]  . $matches[2]  .preg_replace("/\\\\\s/ms","",$matches[3]);
+             $matches[3] = str_replace(':\\', '~~WIN__DIR~~',$matches[3]);      //protect Windows drives, e.g. C:\
+             $matches[3] = preg_replace("/\\\\\\s/ms","",$matches[3]);
+              $retv = '|' . $matches[1]  . $matches[2]  .  $matches[3];   
+              return str_replace( '~~WIN__DIR~~', ':\\',$retv);                        
          },
          $TEXT     
     );      
@@ -332,7 +335,11 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
     $TEXT = preg_replace_callback(
        '#\<\/(code|file)\>([\s\S]+)\|#ms',  
        function($matches) {  
-          $ret =  '</' . $matches[1] . '>' . preg_replace("/\\\\\s/ms","",$matches[2]) . '|';   
+       $matches[2] = str_replace(':\\', '~~WIN__DIR~~',$matches[2]);     
+       $matches[2] = preg_replace('#([\w;.:=\:])\\\\#ms', "$1_bSL_",$matches[2]);  //protect backslashes in Windows paths
+       $ret =  '</' . $matches[1] . '>' . str_replace("\\","",$matches[2]) . '|';  
+       $ret = str_replace( '_bSL_', '\\',$ret); 
+       $ret = str_replace( '~~WIN__DIR~~', ':\\',$ret); 
           return $ret;  
        },$TEXT
        ); 
