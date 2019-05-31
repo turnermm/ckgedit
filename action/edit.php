@@ -314,7 +314,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
                   $matches[4] = preg_replace("/(?<!\s)>/ms", $close, $matches[4]);                    
                   }
                   $matches[4] = str_replace("\"", "__GESHI_QUOT__", $matches[4]);     
-                 $matches[4] = preg_replace("/\\\\\\\(\n|\s)/ms","ABX$1",$matches[4]);
+                  $matches[4] = preg_replace("/\\\\\\(\n|\s)/ms","CODE_BLOCK_EOL_MASK$1",$matches[4]);
                   return "<" . $matches[1] . $matches[2] . $matches[3] . $matches[4] . $matches[5];'            
             ),
             $text
@@ -1075,7 +1075,7 @@ if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
         if(strpos($text,'~~NO_STYLING~~') !== false) {
             $skip_styling = true;
         }
- //    $text = preg_replace("/\\\\(\n|\s)/ms","ABX$1",$text);
+ //    $text = preg_replace("/\\\\(\n|\s)/ms","CODE_BLOCK_EOL_MASK$1",$text);
      $text = preg_replace_callback('/\[\[(.*?>)(.*?)\]\]/ms',
               function ($matches) {    
                  if(strpos($matches[0],"\n") !== false) return $matches[0];
@@ -1161,7 +1161,7 @@ $text = preg_replace_callback(
                $matches[2] = str_replace("font&gt;","ckgeditFONTClose",$matches[2]);
                 return $matches[1] .$matches[2] . $matches[3]; '
           ), $text); 
-           $text = str_replace('ABX','\\', $text);
+           $text = str_replace('CODE_BLOCK_EOL_MASK','\\', $text);
          ///  msg($text);
             $instructions = p_get_instructions("=== header ==="); // loads DOKU_PLUGINS array --M.T. Dec 22 2009
         
