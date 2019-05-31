@@ -1148,7 +1148,7 @@ function parse_wikitext(id) {
                if(!this.attr) this.attr = 'code';          
                results += this.attr + '>'; 
                this.downloadable_file = "";
-               this.downloadable_code = false;
+               this.downloadable_code = false;			   
           }
 
         }   // if markup tag
@@ -1287,7 +1287,7 @@ function parse_wikitext(id) {
     }
     else if(tag == 'pre') {
           tag = markup_end[tag];
-          if(this.code_type) {        
+          if(this.code_type) {  
            tag += this.code_type + ">"; 
           }
           else {
@@ -1403,8 +1403,8 @@ function parse_wikitext(id) {
 
     chars: function( text ) {
 	text = text.replace(/\t/g,"    ");
-	if(this.code_type == 'code' && HTMLParser_TABLE){ 
-	   text = text.replace(/(\n?|\s+)\\/gm,"$1CBL__Bksl");	
+	if(this.code_type == 'code'){ 
+	   text = text.replace(/(\n?|\s+)\\/gm,"$1CBL__Bksl");
    }
     if(text.match(/~~START_HTML_BLOCK~~/)) {          
          text = text.replace(/~~START_HTML_BLOCK~~\n*/, "~~START_HTML_BLOCK~~\n<code>\n");
