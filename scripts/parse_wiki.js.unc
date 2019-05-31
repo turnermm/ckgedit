@@ -1403,7 +1403,9 @@ function parse_wikitext(id) {
 
     chars: function( text ) {
 	text = text.replace(/\t/g,"    ");
-   
+	if(this.code_type == 'code' && HTMLParser_TABLE){ 
+	   text = text.replace(/(\n?|\s+)\\/gm,"$1CBL__Bksl");	
+   }
     if(text.match(/~~START_HTML_BLOCK~~/)) {          
          text = text.replace(/~~START_HTML_BLOCK~~\n*/, "~~START_HTML_BLOCK~~\n<code>\n");
     }

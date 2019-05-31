@@ -312,12 +312,10 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
     $TEXT = preg_replace_callback(  
          '#\|[\s\n]+(\<file.*?\>)(.*?)(\<\/file>\s*.*?)\n?\|#ms',   
          function($matches) {  
+            //$ret =  '</' . $matches[1] . '>' . str_replace('\\',"",$matches[2]) . '|'; 
              $matches[3]  = preg_replace('/\n+/',"",$matches[3] );
              $matches[3]  = preg_replace('/\s+$/',"",$matches[3] ) . '|';     
-             $matches[3] = str_replace(':\\', '~~WIN__DIR~~',$matches[3]);      //protect Windows drives, e.g. C:\
-             $matches[3] = preg_replace("/\\\\\\s/ms","",$matches[3]);
-              $retv = '|' . $matches[1]  . $matches[2]  .  $matches[3];   
-              return str_replace( '~~WIN__DIR~~', ':\\',$retv);                        
+             return '|' . $matches[1]  . $matches[2]  . str_replace("\\ ","",$matches[3]);
          },
          $TEXT     
     );      
@@ -343,6 +341,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
           return $ret;  
        },$TEXT
        ); 
+	  $TEXT = str_replace('CBL__Bksl','\\',$TEXT);
       $TEXT = preg_replace("/<code\s+file/ms",'<code ',$TEXT);
        
          return;
