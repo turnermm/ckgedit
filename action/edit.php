@@ -342,9 +342,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             $text
           );
          $text = preg_replace('/TPRE_CLOSE\s+/ms',"TPRE_CLOSE",$text); 
-      
-         $text = preg_replace('/<(?!code|file|del|sup|sub|\/\/|\s|\/del|\/code|\/file|\/sup|\/sub)/ms',"&lt;",$text);
-   
+         $text = preg_replace('/<(?!code|file|nowiki|del|sup|sub|\/\/|\s|\/del|\/code|\/nowiki|\/file|\/sup|\/sub)/ms',"&lt;",$text);
+         $text = str_replace(array('<nowiki>','</nowiki>'),array('NWIKISTART<nowiki>','NWIKICLOSE</nowiki>'),$text);
          $text = str_replace('%%&lt;', '&#37;&#37;&#60;', $text);              
        }  
        
@@ -1198,6 +1197,10 @@ $text = preg_replace_callback(
         $data = array($mode,& $Renderer->doc);
         trigger_event('RENDERER_CONTENT_POSTPROCESS',$data);
         $xhtml = $Renderer->doc;
+	    $xhtml = str_replace(
+		    array('NWIKISTART','NWIKICLOSE'),
+		    array('&amp;lt;nowiki>','&amp;lt;/nowiki>'),$xhtml);
+		
         if(!$skip_styling) {  // create font styles from font plugin markup for html display
         $xhtml = preg_replace_callback(
             '|&amp;lt;font\s+(.*?)/([\w ,\-]+);;([\(\)),\w,\s\#]+);;([\(\)),\w,\s\#]+)&gt;(.*?)&amp;lt;/font&gt;|ms',
