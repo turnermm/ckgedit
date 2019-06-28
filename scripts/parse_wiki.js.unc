@@ -180,7 +180,8 @@ function parse_wikitext(id) {
     var HTML_InterWiki = false;
     var HTMLParserFont = false;   
     HTMLLinkInList = false;
-    var HTMLParserFontInfix = false;   
+    var HTMLParserFontInfix = false;
+	HTMLParser_TextBlock = false;	
     var CurrentTable;
 
     var HTMLParserTopNotes = new Array();
@@ -437,6 +438,9 @@ function parse_wikitext(id) {
                    HTMLParser_Geshi = true;
                    return;
             }
+			else if(tag == 'pre'&& attrs[i].escaped.match(/code.*?text/)) {
+			      HTMLParser_TextBlock = true;
+			}
             if(tag == 'span' && attrs[i].name == 'class') {
                  if(attrs[i].value == 'np_break') return;
             }
@@ -1867,6 +1871,9 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
         results = results.replace(/<\s+/g, '<');
         results = results.replace(/&lt;\s+/g, '<');
     }
+		
+		results = results.replace(/<code text>([\s\S]+)<\/code>/mg, "$1");
+		
 
    if(HTMLParser_NOWIKI) {
       /* any characters escaped by DW %%<char>%% are replaced by NOWIKI_<char>

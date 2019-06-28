@@ -260,6 +260,7 @@ function _ajax_call(Doku_Event $event, $param) {
        $gfile =  preg_replace("/\.php\n?$/","",$gfile);
         $selects[] = $gfile;
     }
+	$selects[] = 'text';
     $selects = implode ( ';;', $selects );
     echo $selects;
     return;
