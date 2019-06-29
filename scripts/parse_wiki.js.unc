@@ -1871,8 +1871,9 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
         results = results.replace(/<\s+/g, '<');
         results = results.replace(/&lt;\s+/g, '<');
     }
-		
+	if(HTMLParser_TextBlock) {	
 		results = results.replace(/<code text>([\s\S]+)<\/code>/mg, "$1");
+    }
 		
 
    if(HTMLParser_NOWIKI) {
@@ -1882,7 +1883,7 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
       var nowiki_escapes = '%';  //this technique allows for added chars to attach to NOWIKI_$1_
       var regex = new RegExp('([' + nowiki_escapes + '])', "g");
                  
-      results=results.replace(/(&lt;nowiki&gt;)(.*?)(&lt;\/nowiki&gt;)/mg,
+      results=results.replace(/(&lt;nowiki&gt;)([\s\S]+)(&lt;\/nowiki&gt;)/mg,
              function(all,start,mid,close) {
                      mid = mid.replace(/%%(.)%%/mg,"NOWIKI_$1_");
                      return start + mid.replace(regex,"NOWIKI_$1_") + close; 
