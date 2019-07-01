@@ -135,7 +135,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                             type: 'radio',
                                             id: 'which',
                                             label: editor.lang.geshi.which,
-                                            items: [ [ editor.lang.geshi.codeblock, 'block' ], [ editor.lang.geshi.snippet, 'snippet' ] ],
+                                            items: [ [ editor.lang.geshi.codeblock, 'block' ], [ editor.lang.geshi.snippet, 'snippet' ], [ editor.lang.geshi.plain_text, 'text' ]],
                                             'default': 'block',
                                             style: 'color: green',
                                               onClick: function() {    
@@ -177,7 +177,10 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
         
             var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
             if(p_lang.match(/Not Set/i)) {
-                         p_lang = "";                       
+				         if(which == 'text') {
+						     p_lang = 'text';
+						 }
+                         else p_lang = "";                       
               }
               
             if(!p_lang) {
@@ -187,7 +190,11 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                 }
                    
              if(p_lang) {
-                 if(which == 'block') {
+                 if(p_lang == 'text') {					
+					 text = text.replace(/^(.*?)\n$/gm,"<p>$1</p>");					
+					 retval = text;  
+				 }					 
+                 else if(which == 'block') {
                      retval = '<pre class="code ' + p_lang+ '">' + text + '</pre>';
                  }
                  else retval = downloadable_header(p_lang,dialog.getValueOf( 'tab-basic', 'file' ) ) + text + downloadable_footer();
