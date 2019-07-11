@@ -76,7 +76,15 @@ var HTMLParser_Elements = new Array();
              return( '</a>' +sup);   
          }
        );
-        
+     /* remove html5 attributes */
+	 var pos = html.indexOf('data-');
+     if(pos != -1) { 	   
+       html = html.replace(/(<\w+)([^>]+)>/gm,function(match,tag,atts){
+            atts = atts.replace(/data-[\w\-]+\s*=\s*(\"|\')\w+(\"|\')/,"");
+            //alert(atts);
+             return tag + atts+ '>';                        
+	  });
+	}
 		stack.last = function(){
 			return this[ this.length - 1 ];
 		};
