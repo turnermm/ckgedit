@@ -655,10 +655,18 @@ CKEDITOR_REPLACE;
             
 ?>
 <?php
+            global $INPUT;
             if($this->page_from_template) {
              $ckg_template = 'tpl';   
             }
             else $ckg_template ="";
+
+             if($INPUT->has('hid')) {            
+               $hid = $INPUT->str('hid');
+           }
+           else {
+               $hid = "";
+           }
 
  ?>
    <form id="dw__editform" method="post" action="<?php echo script()?>"  accept-charset="<?php echo $lang['encoding']?>">
@@ -672,6 +680,7 @@ CKEDITOR_REPLACE;
       <input type="hidden" id="fck_preview_mode"  name="fck_preview_mode" value="nil" />
       <input type="hidden" id="fck_wikitext"    name="fck_wikitext" value="__false__" />     
        <input type="hidden" id="styling"  name="styling" value="styles" />
+       <input type="hidden" id="hid"  name="hid" value="<?php echo $hid; ?>" />       
       <input type="hidden" id="template"  name="template`" value="<?php echo $ckg_template?>" />
       <?php
       if(function_exists('formSecurityToken')) {
