@@ -680,7 +680,9 @@ CKEDITOR_REPLACE;
       <input type="hidden" id="fck_preview_mode"  name="fck_preview_mode" value="nil" />
       <input type="hidden" id="fck_wikitext"    name="fck_wikitext" value="__false__" />     
        <input type="hidden" id="styling"  name="styling" value="styles" />
+	  <?php if(!empty($hid)):?>
        <input type="hidden" id="hid"  name="hid" value="<?php echo $hid; ?>" />       
+	  <?php endif ?>      
       <input type="hidden" id="template"  name="template`" value="<?php echo $ckg_template?>" />
       <?php
       if(function_exists('formSecurityToken')) {
