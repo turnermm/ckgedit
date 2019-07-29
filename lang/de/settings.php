@@ -3,7 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
- * @author w.-g.esders <esders@esders.eu>
+ * @author Christian Meyn <mail@christian-meyn.de>
  * @author Gunnar Lindenblatt <gunnar.lindenblatt@gmail.com>
  * @author WhitesnakeS04 <whitesnakess04@gmail.com>
  * @author Leo Rudin <leo.rudin@gmx.ch>
@@ -17,7 +17,7 @@ $lang['guest_media']           = 'Gäste können Medien-Dateien verlinken';
 $lang['open_upload']           = 'Gäste können hochladen';
 $lang['default_fb']            = 'Default Datei-browsing Zugang. Ohne diesen ist acl nicht anwendbar.';
 $lang['openfb']                = 'Geöffnete Dateien browsen. Benutzer erhalten Zugang zur gesamten Verzeichnisstruktur, unabhängig von der jeweiligen Zugangsberechtigung. ACL gilt weiterhin bei Uploads.';
-$lang['dw_edit_display']       = 'Kontrolliert, welche Benutzer Zugang zur "DW Edit"-Taste haben. Möglichkeiten: "all" für alle Benutzer; "admin" ausschließlich für Administratoren und Führungskräfte; "none" für Keinen. Defaults auf "all".';
+$lang['dw_edit_display']       = 'Kontrolliert, welche Benutzer Zugang zur "DW Edit"-Taste haben. Möglichkeiten: "all" für alle Benutzer; "admin" ausschließlich für Administratoren und Manager; "none" für niemanden. Standard: "all".';
 $lang['smiley_as_text']        = 'Smileys im CKeditor als Text anzeigen (wird im Browser weiterhin als Bild angezeigt)';
 $lang['editor_bak']            = 'Sicherung auf meta/&lt;namespace&gt;.ckgedit speichern';
 $lang['create_folder']         = 'Aktiviere den neuen-Ordner-Button im Datei-Browser (y/n)';
@@ -41,10 +41,9 @@ $lang['font_options']          = 'Entfernt die Option zum Einstellen der Schrift
 $lang['color_options']         = 'Entfernt Farb-Optionen.';
 $lang['alt_toolbar']           = 'Funktionen, die nicht in der Werkzeugleiste angezeigt werden sollen';
 $lang['mfiles']                = 'mfile-Unterstützung einschalten.';
-$lang['extra_plugins']         = 'Durch Kommata getrennte Liste zusätzlicher CKeditor Plugins zum Einfügen in die Toolbar. Siehe Details bei "ckgedit plugin\'s"
-<a href=\'https://www.dokuwiki.org/ plugin:ckgedit:configuration#extra_plugins\'>config page</a>';
-$lang['allow_ckg_filebrowser'] = 'Auswählen, welche(n) Datei/Medien Browser Benutzer gebrauchen können';
-$lang['default_ckg_filebrowser'] = 'Auswählen, welche(r) Datei/Medien Browser "default" wird. Wenn der gewählte Browser unzulässig ist, wird überschrieben.';
+$lang['dw_users']              = 'Gruppe, deren Standard-Editor der Dokuwiki-Editor ist, wenn <b>dw_priority</b> aktiviert ist. Wenn dieses Feld leer bleibt, nutzen alle User den Dokuwiki-Editor, wenn die Option <b>dw_priority</b> aktiviert ist.';
+$lang['allow_ckg_filebrowser'] = 'Auswählen, welche(n) Datei-/Medien-Browser die Nutzer verwenden können';
+$lang['default_ckg_filebrowser'] = 'Standard-Datei-/Medien-Browser auswählen. Ohne Funktion, wenn der ausgewählte Browser nicht verwendet werden kann.';
 $lang['htmlblock_ok']          = 'Bei Verwendung von <code>HTML_BLOCK</code>s muss entweder diese Option oder die DokuWiki-Option <code>htmlok</code> eingeschaltet sein. Es stellt nicht das gleiche Sicherheitsrisiko dar wie <code>htmlok</code>. Dennoch sollte es nur in einer vertrauenswürdigen Benutzerumgebung und nicht in einem offenen Wiki verwendet werden. ';
 $lang['dblclk']                = '<code>off</code> schaltet das Bearbeiten einzelner Abschnitte (Sections) per Doppelklick mit dem DokuWiki-Editor aus (siehe:  <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>) 	';
 $lang['preserve_enc']          = 'Bewahre URL-Kodierung, falls die De-Akzent-Option von dokuwiki aktiv ist.';
