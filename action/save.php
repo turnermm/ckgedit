@@ -178,6 +178,12 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
             $TEXT = str_replace('R_PARgr', ')',$TEXT);
        } 
        
+    $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers\s*=\"\s*\w{3,5}\"\]?.*?\])\s*\*\/#ms",
+      function($matches) {
+           return '<code ' . $matches[1] . $matches[2] .'>';
+      }, $TEXT
+    ) ;
+       
         $this->replace_entities();
  /*Remove urls from linkonly images inserted after second and additional saves, resulting in multiple urls  corrupting  HTML output */
         $TEXT = preg_replace("/\{\{http:\/\/.*?fetch.php\?media=(.*?linkonly.*?)\}\}/",'{{' . "$1" .'}}',$TEXT);
