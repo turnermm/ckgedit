@@ -144,7 +144,32 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                         },                    
                         ]          //hbox children
                     },            //hbox        
-                    
+                  
+                       {
+                        type: 'hbox',
+                         widths: [ '60%','40%'],
+                        children: [
+ 
+                                        {
+                                            type: 'radio',
+                                            id: 'numbers',
+                                            label: editor.lang.geshi.numbers_header||'For syntax numbering, select type',
+                                             items: [ [ editor.lang.geshi.nonumbers, 'nonumbers' ], [ editor.lang.geshi.numonly, 'numonly' ], [ editor.lang.geshi.startat, 'startat' ], [ editor.lang.geshi.xtra, 'xtra' ]],                           
+                                            'default': 'nonumbers',
+                                            style: 'color: green',
+                                              onClick: function() {    
+                                                 radio = this.getValue();
+                                            }
+                                        },          
+                                            {
+                                            type: 'text',
+                                            id: 'linenums',
+                                            label: editor.lang.geshi.linenums ||'Line number or numbers: line n or n1,n2..',
+                                            width: '175px',
+                                        },                                          
+                       ]
+                       },
+                   
 				]  //elements
 			},  //contents
 
