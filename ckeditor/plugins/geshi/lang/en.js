@@ -11,4 +11,10 @@ CKEDITOR.plugins.setLang("geshi","en",{
         file: 'Snippet File name',
         quick_srch: 'Quick search',
         tooltip: 'Enter full or partial name,  click to search language menu',
+        numbers_header: 'Select type of Syntax numbering. Default: "No numbers"',
+        nonumbers: "No numbers",
+        numonly: "Basic  numbering",
+        xtra:  "Hightlight <em>&lt;num1&gt,&lt;num2&gt. . .</em>",
+        startat: "Start at number <b>&lt;num&gt;</b>",
+        linenums: "Line number(s): <b>&lt;num&gt;</b> or <em>&lt;num1&gt,&lt;num2&gt. . .</em>",
 });

@@ -144,7 +144,31 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                         },                    
                         ]          //hbox children
                     },            //hbox        
-                    
+                  
+                       {
+                        type: 'hbox',
+                        widths: [ '60%','40%'],
+                        children: [
+                                        {
+                                            type: 'radio',
+                                            id: 'numbers',
+                                            label: editor.lang.geshi.numbers_header||'For syntax numbering, select type',
+                                             items: [ [ editor.lang.geshi.nonumbers, 'nonumbers' ], [ editor.lang.geshi.numonly, 'numonly' ], [ editor.lang.geshi.startat, 'startat' ], [ editor.lang.geshi.xtra, 'xtra' ]],                           
+                                            'default': 'nonumbers',
+                                            style: 'color: green',
+                                              onClick: function() {    
+                                                 radio = this.getValue();
+                                            }
+                                        },          
+                                            {
+                                            type: 'text',
+                                            id: 'linenums',
+                                            label: editor.lang.geshi.linenums ||'Line number or numbers: line n or n1,n2..',
+                                            width: '175px',
+                                        },                                          
+                       ]
+                     },//hbox
+                   
 				]  //elements
 			},  //contents
 
@@ -152,11 +176,11 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 
        onShow : function()
        {
-            var dialog = this;         
-            geshi_dialog = dialog;
+             var dialog = this;         
+             geshi_dialog = dialog;
              selection = editor.getSelection();             
              var text = selection.getSelectedText();                    
-            dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( text );  
+             dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( text );  
              String.prototype.escapeRegExpCkg = function(str) {
                    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
              };                
@@ -169,11 +193,26 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 			// The context of this function is the dialog object itself.
 			// http://docs.ckeditor.com/#!/api/CKEDITOR.dialog
            
-			var dialog = this, retval;      
+			 var dialog = this, retval;      
 	         var text = dialog.getValueOf( 'tab-basic', 'geshi' );
 			 text = text.replace(/</gm,'&lt;');
 			 text = text.replace(/>/gm,'&gt;');			
              var which = dialog.getValueOf( 'tab-basic', 'which' );   
+             var highlight = dialog.getValueOf( 'tab-basic', 'numbers' );
+			 var hiliting = '/*[enable_line_numbers="true"';
+			 if(highlight != 'nonumbers') {//'numonly'
+				 if(highlight == 'numonly'){
+			        text = "\n" + hiliting +']' +"*/\n" + text;
+				 }
+				 else if(highlight == 'startat'){
+					var num =  dialog.getValueOf( 'tab-basic', 'linenums' );
+				    text = "\n" + hiliting + ', start_line_numbers_at="'+num +'"]' +"*/\n" + text; 
+				 }
+				 else {  //hilite individual lines
+					 var num =  dialog.getValueOf( 'tab-basic', 'linenums' );
+					 text = "\n" + hiliting + ', highlight_lines_extra="'+num +'"]' +"*/\n" + text; 					 
+				 }
+			 }
         
             var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
             if(p_lang.match(/Not Set/i)) {
