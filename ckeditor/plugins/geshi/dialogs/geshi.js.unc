@@ -147,9 +147,8 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                   
                        {
                         type: 'hbox',
-                         widths: [ '60%','40%'],
+                        widths: [ '60%','40%'],
                         children: [
- 
                                         {
                                             type: 'radio',
                                             id: 'numbers',
@@ -168,7 +167,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
                                             width: '175px',
                                         },                                          
                        ]
-                       },
+                     },//hbox
                    
 				]  //elements
 			},  //contents
@@ -177,11 +176,11 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 
        onShow : function()
        {
-            var dialog = this;         
-            geshi_dialog = dialog;
+             var dialog = this;         
+             geshi_dialog = dialog;
              selection = editor.getSelection();             
              var text = selection.getSelectedText();                    
-            dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( text );  
+             dialog.getContentElement(  'tab-basic', 'geshi' ).setValue( text );  
              String.prototype.escapeRegExpCkg = function(str) {
                    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
              };                
@@ -194,11 +193,26 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 			// The context of this function is the dialog object itself.
 			// http://docs.ckeditor.com/#!/api/CKEDITOR.dialog
            
-			var dialog = this, retval;      
+			 var dialog = this, retval;      
 	         var text = dialog.getValueOf( 'tab-basic', 'geshi' );
 			 text = text.replace(/</gm,'&lt;');
 			 text = text.replace(/>/gm,'&gt;');			
              var which = dialog.getValueOf( 'tab-basic', 'which' );   
+             var highlight = dialog.getValueOf( 'tab-basic', 'numbers' );
+			 var hiliting = '/*[enable_line_numbers="true"';
+			 if(highlight != 'nonumbers') {//'numonly'
+				 if(highlight == 'numonly'){
+			        text = "\n" + hiliting +']' +"*/\n" + text;
+				 }
+				 else if(highlight == 'startat'){
+					var num =  dialog.getValueOf( 'tab-basic', 'linenums' );
+				    text = "\n" + hiliting + ', start_line_numbers_at="'+num +'"]' +"*/\n" + text; 
+				 }
+				 else {  //hilite individual lines
+					 var num =  dialog.getValueOf( 'tab-basic', 'linenums' );
+					 text = "\n" + hiliting + ', highlight_lines_extra="'+num +'"]' +"*/\n" + text; 					 
+				 }
+			 }
         
             var p_lang = dialog.getValueOf( 'tab-basic', 'ckg_geshi_lang' );
             if(p_lang.match(/Not Set/i)) {
