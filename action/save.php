@@ -337,18 +337,26 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
 	   return '|' . $matches[1] .'<'. $matches[2] .'>';         
        },$TEXT
        );
-     /*remove line feeds following block */
-    $TEXT = preg_replace_callback(
-       '#\<\/(code|file)\>([\s\S]+)\|#ms',  
+     /*
+     remove line feeds following block 
+     */
+     // 1. protect backslashes in Windows shares  
+       $TEXT  = preg_replace('#([\w;.:=\:])\\\\#ms', "$1_bSL_",$TEXT );  
+       
+       // 2. remove extra backslashes
+       $TEXT = preg_replace_callback(
+       '#\<\/(code|file)\>([^<]+)<#ms',
        function($matches) {  
-       $matches[2] = str_replace(':\\', '~~WIN__DIR~~',$matches[2]);     
-       $matches[2] = preg_replace('#([\w;.:=\:])\\\\#ms', "$1_bSL_",$matches[2]);  //protect backslashes in Windows paths
-       $ret =  '</' . $matches[1] . '>' . str_replace("\\","",$matches[2]) . '|';  
-       $ret = str_replace( '_bSL_', '\\',$ret); 
-       $ret = str_replace( '~~WIN__DIR~~', ':\\',$ret); 
-          return $ret;  
+       $this->write_debug($matches[2]);
+       $ret = "\n" .  '</' . $matches[1] . '>' . str_replace("\\\\","",$matches[2]) . "\n<";  
+        return $ret;  
        },$TEXT
        ); 
+       
+    //3 . restore  backslashes in Windows shares      
+     $TEXT = str_replace( '_bSL_', '\\',$TEXT);
+  
+       
 	  $TEXT = str_replace('CBL__Bksl','\\',$TEXT);
       $TEXT = preg_replace("/<code\s+file/ms",'<code ',$TEXT);
        
