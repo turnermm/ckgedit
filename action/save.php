@@ -345,10 +345,11 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
        
        // 2. remove extra backslashes
        $TEXT = preg_replace_callback(
-       '#\<\/(code|file)\>([^<]+)<#ms',
+       '#\<\/(code|file)\>([^\w]+)(.)#ms',
        function($matches) {  
-       $this->write_debug($matches[2]);
-       $ret = "\n" .  '</' . $matches[1] . '>' . str_replace("\\\\","",$matches[2]) . "\n<";  
+      // $this->write_debug('THREE= ' .$matches[3]);
+       $ret = "\n" .  '</' . $matches[1] . '>' . str_replace(array("\\\\", "\n"),"",$matches[2]) . "\n" . $matches[3];  
+       //$this->write_debug('RET=' .$ret);
         return $ret;  
        },$TEXT
        ); 
