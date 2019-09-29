@@ -65,7 +65,6 @@ $lang['btn_title_dw_fb']       = 'Speichern und Editor schließen und zum DW Dat
 $lang['btn_title_ckg_fb']      = 'Speichern und Editor schließen und zum CKG Dateibrowser wechseln';
 $lang['formatdel']             = 'Markup wurde aus Header(n) entfernt: Von DokuWiki nicht unterst&uuml;tzt';
 $lang['fontdel']               = 'Markup wurde aus Link(s) entfernt: Von DokuWiki nicht unterst&uuml;tzt';
-$lang['ckgcke_conflict']       = 'Ein 2. ckgedit wurde gefunden. Eines von beiden muss unbrauchbar gemacht werden.';
 $lang['ws_cantcopy']           = 'Für das winstyle Setup: kann nicht kopiert werden nach';
 $lang['ws_copiedhtaccess']     = 'Für das winstyle Setup wurde das Security-aktivierte .htaccess nach data/media kopiert. Siehe ckgedit/fckeditor/userfiles/.htacess.security ';
 $lang['userfiles_perm']        = 'Bitte &uuml;berprüfen Sie die Berechtigungen; ckgedit hat keinen Zugriff';

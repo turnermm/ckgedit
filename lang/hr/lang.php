@@ -54,7 +54,6 @@ $lang['btn_title_dw_fb']       = 'Snimi i zatvori uređivač i prebaci na DW ure
 $lang['btn_title_ckg_fb']      = 'Snimi i zatvori uređivač i prebaci na CKG uređivač datoteka';
 $lang['formatdel']             = 'Oznake uklonjene iz zaglavlja: nisu podržane u Dokuwiki-u';
 $lang['fontdel']               = 'Oznake fontova uklonjene iz poveznica: nisu podržane u Dokuwiki-u';
-$lang['ckgcke_conflict']       = 'Kopija ckgedit je otkrivena. Ili ckgedit ili ckgedit treba biti onemogućen.';
 $lang['ws_cantcopy']           = 'Za Win tip postavki:ne mogu kopirati u';
 $lang['ws_copiedhtaccess']     = 'Za Win tip postavki, kopirana sigurnosno omogućena .htaaccess u data/media.
 Vidi ckgedit/fckeditor/userfiles/.htacess sigurnost';

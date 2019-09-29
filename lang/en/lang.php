@@ -45,7 +45,6 @@ $lang['btn_title_dw_fb'] = "Save and close the editor and switch to the DW Fileb
 $lang['btn_title_ckg_fb'] = "Save and close the editor and switch to the CKG Filebrowser";
 $lang['formatdel'] = 'Markup removed from headers(s): not supported by Dokuwiki';
 $lang["fontdel"] ='Font Markup removed from link(s): not supported by Dokuwiki';
-$lang["ckgcke_conflict"] ='A copy of ckgedit has been detected.  Either ckgedit or ckgedit must be disabled.';
 $lang["ws_cantcopy"] ='For winstyle setup: cannot copy to ';
 $lang["ws_copiedhtaccess"]='For winstyle setup, copied security-enabled .htaccess to data/media' ."\n" .'See ckgedit/fckeditor/userfiles/.htacess.security';
 $lang["userfiles_perm"] ='Please check permissions; ckgedit cannot access ';
