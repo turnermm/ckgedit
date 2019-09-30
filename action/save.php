@@ -334,18 +334,18 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
       $TEXT = preg_replace_callback(
        '#\|(.*?)[\s\n]+\<(code|file)\>#ms',  
        function($matches) {  	      
-	   return '|' . $matches[1] .'<'. $matches[2] .'>';         
+	   return '|' . $matches[1] ."\n" . '<'. $matches[2] .'>';         
        },$TEXT
        );
      /*
-     remove line feeds following block 
+     remove line feeds following block 2019/09/28
      */
      // 1. protect backslashes in Windows shares  
        $TEXT  = preg_replace('#([\w;.:=\:])\\\\#ms', "$1_bSL_",$TEXT );  
        
        // 2. remove extra backslashes
        $TEXT = preg_replace_callback(
-       '#\<\/(code|file)\>([^\w]+)(.)#ms',
+       '#\<\/(code|file)\>([^\w\|]+)(.)#ms',
        function($matches) {   
        $ret = "\n" .  '</' . $matches[1] . '>' . str_replace(array("\\\\", "\n"),"",$matches[2]) . "\n" . $matches[3];   
         return $ret;  
