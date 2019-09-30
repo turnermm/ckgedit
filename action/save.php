@@ -184,7 +184,7 @@ $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers.*?\])\s*
     function($matches) {
         return '<code ' . $matches[1] .' ' . $matches[2] .'>';
     }, $TEXT
-    ) ;
+) ;
        
         $this->replace_entities();
  /*Remove urls from linkonly images inserted after second and additional saves, resulting in multiple urls  corrupting  HTML output */
@@ -334,30 +334,26 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
       $TEXT = preg_replace_callback(
        '#\|(.*?)[\s\n]+\<(code|file)\>#ms',  
        function($matches) {  	      
-	   return '|' . $matches[1] ."\n" . '<'. $matches[2] .'>';         
+	   return '|' . $matches[1] .'<'. $matches[2] .'>' . "\n";         
        },$TEXT
        );
-     /*
-     remove line feeds following block 2019/09/28
-     */
-     // 1. protect backslashes in Windows shares  
-       $TEXT  = preg_replace('#([\w;.:=\:])\\\\#ms', "$1_bSL_",$TEXT );  
-       
-       // 2. remove extra backslashes
-       $TEXT = preg_replace_callback(
-       '#\<\/(code|file)\>([^\w\|]+)(.)#ms',
-       function($matches) {   
-       $ret = "\n" .  '</' . $matches[1] . '>' . str_replace(array("\\\\", "\n"),"",$matches[2]) . "\n" . $matches[3];   
-        return $ret;  
+     /*remove line feeds following block */
+    $TEXT = preg_replace_callback(     
+	   '#\<\/(code|file)\>([^\w\|]+)#ms', 
+       function($matches) {  
+       $matches[2] = str_replace(':\\', '~~WIN__DIR~~',$matches[2]);     
+       $matches[2] = preg_replace('#([\w;.:=\:])\\\\#ms', "$1_bSL_",$matches[2]);  //protect backslashes in Windows paths
+       $ret = '</' . $matches[1] . '>' . str_replace("\\","",$matches[2]);  
+       $ret = str_replace( '_bSL_', '\\',$ret); 
+       $ret = str_replace( '~~WIN__DIR~~', ':\\',$ret); 
+          return "\n" .$ret;  
        },$TEXT
        ); 
-       
-    //3 . restore  backslashes in Windows shares      
-     $TEXT = str_replace( '_bSL_', '\\',$TEXT);
-  
-       
 	  $TEXT = str_replace('CBL__Bksl','\\',$TEXT);
-      $TEXT = preg_replace("/<code\s+file/ms",'<code ',$TEXT);
+	  $TEXT = preg_replace("/<code\s+file/ms",'<code ',$TEXT);
+	  
+     // $TEXT = preg_replace("/(={3,})<(code\|file)/ms","$1\n<$2",$TEXT);
+
        
          return;
     
