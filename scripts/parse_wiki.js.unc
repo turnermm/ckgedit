@@ -1474,7 +1474,7 @@ function parse_wikitext(id) {
         }
 
        if(this.in_td && !text) {
-           text = "_FCKG_BLANK_TD_";
+     //      text = "_FCKG_BLANK_TD_";
            this.in_td = false;
        }
     }
