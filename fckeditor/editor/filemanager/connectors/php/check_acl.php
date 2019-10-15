@@ -5,9 +5,11 @@ if(file_exists($CONF_DIR)) {
    if(!defined('DOKU_CONF')) define('DOKU_CONF',DOKU_INC.'conf/');
 }
 else {
+    if(file_exists(DOKU_INC. 'inc/preload.php')) {
     require_once(DOKU_INC. 'inc/preload.php');
  }
-require_once DOKU_INC.'inc/utf8.php';
+ }
+require_once ('utf8.php');
 
 // some ACL level defines
   define('AUTH_NONE',0);
@@ -25,14 +27,16 @@ require_once DOKU_INC.'inc/utf8.php';
   $AUTH_ACL = array();
   
  //load ACL into a global array XXX
- $auth_file = DOKU_CONF. '/acl.auth.php';
+ $auth_file = DOKU_CONF. 'acl.auth.php';
  if(isset( $_COOKIE['FCK_animal_inc'] )) {
    $animal_inc = $_COOKIE['FCK_animal_inc'];    
     $auth_file = $animal_inc.'conf/acl.auth.php';
 }
  
-  $AUTH_ACL = file($auth_file);
- 
+  if(file_exists($auth_file)) {
+      $AUTH_ACL = file($auth_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);    
+      $a_ACL = print_r($AUTH_ACL,1);     
+  }
 /**
  * Returns the maximum rights a user has for
  * the given ID or its namespace
@@ -45,9 +49,9 @@ require_once DOKU_INC.'inc/utf8.php';
  * @return int             permission level
  */
 function auth_aclcheck($id,$user,$groups, $_auth=1){
- 
   global $AUTH_ACL;
   $AUTH_ACL = auth_loadACL($AUTH_ACL);
+  
   if($_auth == 255) {
         return 255; 
   }
@@ -291,7 +295,7 @@ function auth_loadACL($acl_file){
     if(isset($_SERVER['REMOTE_USER'])){
         $len = count($acl);
         for($i=0; $i<$len; $i++){
-            if($acl[$i]{0} == '#') continue;
+            if($acl[$i][0] == '#') continue;
             list($id,$rest) = preg_split('/\s+/',$acl[$i],2);
             $id   = str_replace('%USER%',cleanID($_SERVER['REMOTE_USER']),$id);
             $rest = str_replace('%USER%',auth_nameencode($_SERVER['REMOTE_USER']),$rest);
@@ -304,14 +308,14 @@ function auth_loadACL($acl_file){
     return $acl;
 }
 
-function checkacl_write_debug($data) {
+function checkacl_write_debug($data, $line="") {  
     
-  return;
-  if (!$handle = fopen('acl.txt', 'a')) {
+  if (!$handle = fopen("fbrowser_dbg.txt", "a")) {
     return;
     }
-
-    fwrite($handle, "$data\n");
+   $out  = "check_acl:  ";
+   if($line) $out .= "Line $line=>";
+    fwrite($handle, "$out " . $data. "\n");
     fclose($handle);
 
 }
