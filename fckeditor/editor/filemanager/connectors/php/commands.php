@@ -537,8 +537,7 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
     $keys = array_keys($_FILES);    
     $_FILES['NewFile']['name'] = cleanID(str_replace('&','_', $_FILES['NewFile']['name']));
     $file_data = filter_var_array($_FILES[$keys[0]], $f_args);
-   // cmd_write_debug($_FILES);
-   // cmd_write_debug($file_data);
+ 
 	$sErrorNumber = '0' ;
 	$sFileName = '' ;
      
@@ -805,10 +804,13 @@ function can_delete(&$class) {
    if($_FolderClass >=16) $class = 'd'; 
 }
 
-function cmd_write_debug($what) {
+function cmd_write_debug($what, $line="") {
 return;
 if(is_array($what)) {
    $what = print_r($what,true);
+}
+if($line) {
+    $what = "Comands: Line:  $line => $what";
 }
 $dwfckFHandle = fopen("fbrowser_dbg.txt", "a");
 fwrite($dwfckFHandle, "$what\n");

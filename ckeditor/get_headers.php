@@ -6,7 +6,7 @@ define("PAGES", DOKU_INC . 'data/pages/');
 define("FCKEDITOR", DOKU_PLUGIN . 'ckgedit/fckeditor/editor/');
 define('CONNECTOR', FCKEDITOR . 'filemanager/connectors/php/');
 require_once(CONNECTOR . 'check_acl.php');
-require_once(DOKU_INC.'inc/Input.class.php');
+require_once(CONNECTOR . 'Input.class.php' );
 
 require_once(CONNECTOR . 'SafeFN.class.php');
 global $dwfck_conf;
