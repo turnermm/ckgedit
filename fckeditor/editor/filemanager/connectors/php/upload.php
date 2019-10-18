@@ -28,6 +28,7 @@ require('./io.php') ;
 require('./commands.php') ;
 require('./phpcompat.php') ;
 require_once('./SafeFN.class.php');
+require_once('./Input.class.php');
 require_once 'input_utils.php';
 
 function SendError( $number, $text )

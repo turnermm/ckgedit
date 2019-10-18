@@ -5,8 +5,7 @@
  *  @author Myron Turner
  */
  
-if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../../../../../../').'/');
-require_once(DOKU_INC.'inc/Input.class.php');
+require_once('./Input.class.php');
 global $INPUT; 
 if(!isset($INPUT)) {
     $INPUT = new Input();  
@@ -19,5 +18,12 @@ global $INPUT;
    if($cmp) return $cmp == $val;
    return $val;
 }
-
+function inutils_write_debug($what) {
+if(is_array($what)) {
+   $what = print_r($what,true);
+}
+$dwfckFHandle = fopen("iutls_dbg.txt", "a");
+fwrite($dwfckFHandle, "$what\n");
+fclose($dwfckFHandle);
+}
 ?>
