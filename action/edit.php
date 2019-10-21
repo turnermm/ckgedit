@@ -678,6 +678,8 @@ CKEDITOR_REPLACE;
            else {
                $hid = "";
            }
+         /* accommodates include plugin's redirect to original page after editing included page */  
+       $ckgedit_redirect =  $INPUT->str('redirect_id', "");      
 
  ?>
    <form id="dw__editform" method="post" action="<?php echo script()?>"  accept-charset="<?php echo $lang['encoding']?>">
@@ -691,6 +693,9 @@ CKEDITOR_REPLACE;
       <input type="hidden" id="fck_preview_mode"  name="fck_preview_mode" value="nil" />
       <input type="hidden" id="fck_wikitext"    name="fck_wikitext" value="__false__" />     
        <input type="hidden" id="styling"  name="styling" value="styles" />
+      <?php if(!empty($ckgedit_redirect)):?>
+     <input type="hidden" id="ckgedit_redirect"  name="ckgedit_redirect" value="<?php echo $ckgedit_redirect ?>" />
+      <?php endif ?>           
 	  <?php if(!empty($hid)):?>
        <input type="hidden" id="hid"  name="hid" value="<?php echo $hid; ?>" />       
 	  <?php endif ?>      

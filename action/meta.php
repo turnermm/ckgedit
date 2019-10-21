@@ -49,6 +49,14 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
             $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');                          
             $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
+            $controller->register_hook('ACTION_SHOW_REDIRECT', 'BEFORE', $this, 'handle_redirect');            
+              }
+
+    function handle_redirect(Doku_Event $event, $param) {
+        global $INPUT;
+        $ckg_redirect = $INPUT->str('ckgedit_redirect',"");
+        if($ckg_redirect) $event->data['id'] = $ckg_redirect;
+        //msg($ckg_redirect);
   }
 
   function handle_profile_form(Doku_Event $event, $param) {
