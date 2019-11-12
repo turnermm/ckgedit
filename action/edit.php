@@ -32,7 +32,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         $this->helper = plugin_load('helper', 'ckgedit');
         if(!plugin_isdisabled('captcha')) {
             $this->captcha = plugin_load('helper', 'captcha');
-            If(!$this->captcha) $this->captcha = false; 
         }
         else  $this->captcha  = false;
 
@@ -738,12 +737,10 @@ if(isset($INFO['userinfo'])&& isset($INFO['userinfo']['grps'])) {
    }
   if($INFO['client'] == 'guest') $guest_user = true; 
 }
-$CAPTCHA_HIDE = "";
+
 if(($guest_user || $guest_group) && $guest_perm <= 2) $DW_EDIT_disabled = 'disabled';
 global $USERINFO;
-if(($guest_user || $guest_group ||!$USERINFO) && $guest_perm < 4 && $this->captcha && $this->captcha->isEnabled())  $CAPTCHA_HIDE = 'display: none;'; 
 $DW_EDIT_hide = $this->dw_edit_displayed(); 
-
 $is_ckgeditChrome = false;
  if(stripos($_SERVER['HTTP_USER_AGENT'],'Chrome') !== false) {
       preg_match("/Chrome\/(\d+)/", $_SERVER['HTTP_USER_AGENT'],$cmatch);
@@ -768,7 +765,7 @@ $is_ckgeditChrome = false;
                    <?php echo $DW_EDIT_disabled; ?>
                    name="do[delete]" value="<?php echo $lang['btn_delete']?>"
                    title="<?php echo $this->getLang('title_dw_delete') ?>"
-                   style = "font-size: 100%; <?php echo $CAPTCHA_HIDE;?>"
+                   style = "font-size: 100%;"
             />
 
             
@@ -776,7 +773,7 @@ $is_ckgeditChrome = false;
              <input class="button"  id = "ebtn__dwedit"
                  <?php echo $DW_EDIT_disabled; ?>                 
                  <?php echo $DW_EDIT_hide; ?>
-                 style = "font-size: 100%;<?php echo $CAPTCHA_HIDE;?>"            
+                 style = "font-size: 100%;"            
                  type="submit" 
                  name="do[save]" 
                  value="<?php echo $this->getLang('btn_dw_edit')?>"  
@@ -847,7 +844,7 @@ global $INFO;
               <input class="button" type="submit"
                    name ="do[edit]" 
                    id = "no_styling_btn"                   
-                   style = "font-size: 100%;<?php echo $CAPTCHA_HIDE;?>"                   
+                   style = "font-size: 100%;"                   
                    value="<?php echo $this->getLang('dw_btn_styling')?>"  
                    title="<?php echo $this->getLang('title_styling')?>"  
                   />

@@ -30,9 +30,6 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
           io_saveFile($this->dw_priority_metafn, serialize(array()));
       }
        
-       if(!plugin_isdisabled('captcha')) {    
-           $this->captcha = true; 
-        }
   }
   /*
    * Register its handlers with the dokuwiki's event controller
@@ -756,14 +753,8 @@ function check_userfiles() {
        if(isset($USERINFO)) {
            $this->startup_msg();
        }
-       $acl_defines = array('EDIT'=> 2,'CREATE'=> 4,'UPLOAD'=> 8,'DELETE'=> 16,'ADMIN'=> 255);
-       $_auth =  $this->getConf('captcha_auth');
-       $auth_captcha = (int)$acl_defines[$_auth];     
+      
        $auth = auth_quickaclcheck($ID);  
-
-       if($auth >= $auth_captcha && $this->captcha) {         
-           $conf['plugin']['captcha']['forusers']=0;
-       }
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
        $JSINFO['doku_base'] = DOKU_BASE ;
        $JSINFO['cg_rev'] = $INPUT->str('rev');
