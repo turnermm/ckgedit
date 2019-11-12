@@ -1,0 +1,10 @@
+**Aktuelles Template Template** \\
+
+Mit dieser App können Sie ein Stylesheet für das Bearbeitungsfenster des CKEditors anlegen, das auf Ihrem Template basiert. Das Stylesheet wird in Ihrem Template-Verzeichnis in einem Verzeichnis mit dem Namen **Styles** abgelegt, wenn Sie es speichern. Das Stylesheet wird den Namen *_styles.css** tragen. Um es zu aktivieren, müssen folgende Dinge getan werden:
+
+  - es muss in **ckgedit/ckeditor/css** abgelegt werden. Dies wird automatisch geschehen, wenn Sie die Checkbox **Nach ckeditor/css kopieren** aktivieren.
+  - Die Option **Ein alternatives Stylesheet für den CKEditor verwenden.** in der Konfiguration muss aktiviert werden.
+
+**Weitere Templates, die installiert aber nicht aktiviert sind**\\ Sie können ebenfalls weitere Stylesheets für Templates anlegen, die in Ihrem tpl-Ordner vorhanden sind. Diese werden in den Styles-Ordner des entsprechenden Templates kopiert, nicht aber nach **ckeditor/css**.
+
+----
