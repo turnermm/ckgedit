@@ -2,7 +2,7 @@
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'action.php');
-
+use dokuwiki\Extension\PluginController;
 
 /**
  * @license    GNU GPLv2 version 2 or later (http://www.gnu.org/licenses/gpl.html)
@@ -28,9 +28,10 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
      */
     function __construct()
     {
+		global $plugin_controller;
         $this->setupLocale();
         $this->helper = plugin_load('helper', 'ckgedit');
-        if(!plugin_isdisabled('captcha')) {
+        if($plugin_controller->isEnabled('captcha')) {  
             $this->captcha = plugin_load('helper', 'captcha');
             If(!$this->captcha) $this->captcha = false; 
         }

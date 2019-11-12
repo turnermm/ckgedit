@@ -7,6 +7,8 @@ if(!defined('DOKU_INC')) die();
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 define('FCK_ACTION_SUBDIR',  DOKU_PLUGIN . 'ckgedit/action/');
 require_once(DOKU_PLUGIN.'action.php');
+use dokuwiki\Extension\PluginController;
+
  
 class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $session_id = false;    
@@ -21,7 +23,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $captcha = false;
   var $geshi_dir;
   function __construct() {
-      
+      global $plugin_controller;
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
       $this->dw_priority_group = $this->getConf('dw_users');
@@ -30,7 +32,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
           io_saveFile($this->dw_priority_metafn, serialize(array()));
       }
        
-       if(!plugin_isdisabled('captcha')) {    
+       if($plugin_controller->isEnabled('captcha')) {    
            $this->captcha = true; 
         }
   }
