@@ -46,8 +46,6 @@ $lang['extra_plugins']  = "Comma separated list of additional Ckeditor plugins t
 $lang['dw_users'] = "Group name of users whose editor defaults to Dokuwiki editor when <b>dw_priority</b> is slected.  If  not defined, then all users get the native Dokuwiki editor when <b>dw_priority</b> is selected.";
 $lang['allow_ckg_filebrowser'] = 'Select which file/media browser(s) users can use';
 $lang['default_ckg_filebrowser'] = 'Select which file/media browser is the default. This will be overridden if the selected browser is not allowed';
-$lang['captcha_auth'] ='ACL level at which the captcha is turned off when the captcha plugin\'s <code>forusers</code> option is set to true.  The default is <code>ACL_CREATE</code>, which means' 
-                                        .' that any user with <code>ACL_EDIT</code> or less will get the captcha, <code>ACL_CREATE</code> or higher will not.';
 $lang['htmlblock_ok'] ='When using <code>HTML_BLOCK</code>s  either this setting or Dokuwiki\'s <code>htmlok</code> option must be enabled. ' .
         ' It doesn\'t pose the same level of security  risk as <code>htmlok</code>.  Nevertheless, it is should be used only in a trusted user environment, and not in an open wiki.';                                    
 $lang['dblclk']="Set to <code>off</code> to turn off the double click feature which enables section editing using the Dokuwiki editor (see:  <a href='https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor'>direct_access_to_dokuwiki_editor</a>)";
