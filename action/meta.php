@@ -23,7 +23,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $captcha = false;
   var $geshi_dir;
   function __construct() {
-      global $plugin_controller;
+      
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
       $this->dw_priority_group = $this->getConf('dw_users');
@@ -32,9 +32,6 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
           io_saveFile($this->dw_priority_metafn, serialize(array()));
       }
        
-       if($plugin_controller->isEnabled('captcha')) {    
-           $this->captcha = true; 
-        }
   }
   /*
    * Register its handlers with the dokuwiki's event controller
@@ -51,6 +48,14 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
             $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');                          
             $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
+            $controller->register_hook('ACTION_SHOW_REDIRECT', 'BEFORE', $this, 'handle_redirect');            
+              }
+
+    function handle_redirect(Doku_Event $event, $param) {
+        global $INPUT;
+        $ckg_redirect = $INPUT->str('ckgedit_redirect',"");
+        if($ckg_redirect) $event->data['id'] = $ckg_redirect;
+        //msg($ckg_redirect);
   }
 
   function handle_profile_form(Doku_Event $event, $param) {
@@ -750,14 +755,8 @@ function check_userfiles() {
        if(isset($USERINFO)) {
            $this->startup_msg();
        }
-       $acl_defines = array('EDIT'=> 2,'CREATE'=> 4,'UPLOAD'=> 8,'DELETE'=> 16,'ADMIN'=> 255);
-       $_auth =  $this->getConf('captcha_auth');
-       $auth_captcha = (int)$acl_defines[$_auth];     
-       $auth = auth_quickaclcheck($ID);  
 
-       if($auth >= $auth_captcha && $this->captcha) {         
-           $conf['plugin']['captcha']['forusers']=0;
-       }
+       $auth = auth_quickaclcheck($ID);  
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
        $JSINFO['doku_base'] = DOKU_BASE ;
        $JSINFO['cg_rev'] = $INPUT->str('rev');
