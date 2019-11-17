@@ -80,7 +80,7 @@ var HTMLParser_Elements = new Array();
 	 var pos = html.indexOf('data-');
      if(pos != -1) { 	   
        html = html.replace(/(<\w+)([^>]+)>/gm,function(match,tag,atts){
-            atts = atts.replace(/data-[\w\-]+\s*=\s*(\"|\')\w+(\"|\')/,"");
+            atts = atts.replace(/data-[\w\-]+\s*=\s*(\"|\')\w+(\"|\')/gm,"");
             //alert(atts);
              return tag + atts+ '>';                        
 	  });
