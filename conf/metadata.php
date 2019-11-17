@@ -37,7 +37,6 @@ $meta['nofont_styling'] = array('onoff');
 $meta['alt_toolbar']  = array('multicheckbox','_choices' => array( 'HorizontalRule', 'Smiley','SpecialChar', 'Signature' ,'Footnotes',  'Font','FontSize', 'Source', 'Maximize','Underline','Strike', 'Subscript','Superscript', 'Indent','Outdent', 'Link','Unlink','FontAssist'));
 $meta['mfiles'] = array('onoff');
 $meta['extra_plugins'] = array('string');
-$meta['captcha_auth'] = array('multichoice','_choices' => array('READ','EDIT','CREATE','UPLOAD','DELETE','ADMIN'));
 $meta['htmlblock_ok'] = array('onoff');
 $meta['dblclk'] = array('multichoice','_choices' => array('on','off'));
 $meta['preserve_enc'] = array('onoff');

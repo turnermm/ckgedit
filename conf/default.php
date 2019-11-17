@@ -33,7 +33,6 @@ $conf['nofont_styling'] = 0;
 $conf['alt_toolbar'] = 'Paste,PasteText,PasteFromWord';
 $conf['mfiles'] = 0;
 $conf['extra_plugins'] ="Geshi,Msword";
-$conf['captcha_auth'] = 'CREATE';
 $conf['htmlblock_ok'] = 0;
 $conf['dblclk'] ='on';
 $conf['preserve_enc'] = 0;
