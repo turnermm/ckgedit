@@ -99,6 +99,82 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
              $TEXT
              );
         }     
+
+
+        global $INFO;
+        $ns = getNS($INFO["id"]);
+        $ns = trim($ns);
+
+        if (!empty($ns)) {
+            $ns = ":$ns:";
+            $dir = str_replace(":", "/", $ns);
+        } else {  // root namespace
+            $dir = "/";
+            $ns = ":";
+        }
+
+        // match all urls surrounded by curly brackets
+        $re = '/\{\{(https|ftp|http)(.*?)\}\}/ms';
+        preg_match_all($re, $TEXT, $matches, PREG_SET_ORDER, 0);
+
+        foreach ($matches as $match) {
+            $url = $match[1] . $match[2];
+
+            // extract possible description
+            $urls_pieces = explode("|", $url);
+            $url = $urls_pieces[0];
+            $description = $urls_pieces[0] != end($urls_pieces) ? end($urls_pieces) : "";
+
+            $ext = "";
+
+            // media_get_from_URL function requires image extension to work
+            // correctly, so we make a HTTP head request to determine
+            // image extension
+            $http = new DokuHTTPClient();
+            $http->max_redirect = 0;
+            $http->timeout = 25;
+            $http->keep_alive = false; // we do single ops here, no need for keep-alive
+            $http->sendRequest($url, '', 'HEAD');
+
+            if (isset($http->resp_headers['content-type'])) {
+                $ext = end(explode("/", $http->resp_headers['content-type']));
+            }
+
+            // fecths from url or from cache
+            $temp_file_path = media_get_from_URL($url, $ext, true);
+
+            // double check file existence
+            if ($temp_file_path !== false) {
+                if (file_exists($temp_file_path)) {
+
+                    $fn = md5_file($temp_file_path) . "." . $ext;
+                    $path = $conf["mediadir"] . $dir .  $fn;
+                    @io_makeFileDir($path);
+
+                    if (!file_exists($path)) {
+                        @file_put_contents($path, file_get_contents($temp_file_path));
+                        global $lang;
+                        $id = $dir .  $fn;
+                        $id = str_replace("/", ":", $id);
+                        addMediaLogEntry(time(), $id, DOKU_CHANGE_TYPE_CREATE, $lang["created"], "", null, strlen(base64_decode($matches[3])));
+                    } else {
+                        //msg("file for this image previousely saved", 2);
+                    }
+
+                    // builds final image string
+                    $final = "{{" . $fn;
+                    if (strlen($description) > 0) {
+                        $final .= "|" . $description;
+                    }
+                    $final .= "}}";
+
+                    // replaces url regex match
+                    $TEXT = str_replace($match[0], $final, $TEXT);
+                }
+            }
+        }
+
+
       $TEXT = str_replace('%%', "FCKGPERCENTESC",  $TEXT);
      
         if($deaccent || $preserve_enc) {

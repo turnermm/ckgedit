@@ -872,6 +872,9 @@ function parse_wikitext(id) {
                         }
                          if(!src.match(/https?:/)  && !src.match(/^:/)) src = ':' + src;  
                      } 
+                     else if(attrs[i].escaped.match(/\.php.*?/)){
+                              src = attrs[i].escaped;
+                     }
                      else if(attrs[i].escaped.match(/https?:\/\//)){
                               src = attrs[i].escaped;
                               src = src.replace(/\?.*?$/,"");
