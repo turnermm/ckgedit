@@ -166,19 +166,10 @@ if(window.dw_locktimer) {
 var FCKRecovery = "";
 var oldonload = window.onload;
 var ourLockTimerINI = false;
-var oldBeforeunload;
 
   var ckgedit_onload = function() { $js };
   
   jQuery(window).on('load',ckgedit_onload);
-  
- function ckgeditEditorTextChanged() {
-   window.textChanged = false;   
-   oldBeforeunload(); 
-   if(window.dwfckTextChanged) {        
-      return LANG.notsavedyet;
-   }  
- }
 
   function getCurrentWikiNS() {
         var DWikiMediaManagerCommand_ns = '$media_tmp_ns';
@@ -514,17 +505,10 @@ function FCKeditor_OnComplete( editorInstance )
   oDokuWiki_FCKEditorInstance.useheading = "$useheading"; 
   oDokuWiki_FCKEditorInstance.mfiles = parseInt("$mfiles");
   oDokuWiki_FCKEditorInstance.fbsz_increment=parseInt("$fbsz_increment");
- 
-  var index = navigator.userAgent.indexOf('Safari'); 
-  if(index == -1  || (navigator.userAgent.indexOf('Chrome'))) {
-    oldBeforeunload = window.onbeforeunload;
-    window.onbeforeunload = ckgeditEditorTextChanged;
-  }
- 
-  
+
 }
 
-   
+
  var DWikifnEncode = "$fnencode";
 
 /* Make sure that show buttons in top and/or bottom clear the fckl file */  
