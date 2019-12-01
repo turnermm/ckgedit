@@ -378,6 +378,7 @@ function draft_delete() {
     }
     });
 
+    window.textChanged = false;
 }
 
 function disableDokuWikiLockTimer() {
@@ -467,6 +468,7 @@ function FCKeditor_OnComplete( editorInstance )
 
   CKEDITOR.instances.wiki__text.on('change', function(event) {
         window.dwfckTextChanged = true;
+        window.textChanged = true;
   });
 
   editorInstance.on("focus", function(e) {
