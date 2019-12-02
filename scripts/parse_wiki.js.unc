@@ -1977,6 +1977,8 @@ jQuery( "#no_styling_btn" ).click(function() {
 });
 
 jQuery( "#ebut_cancel" ).mouseup(function() { 
+   if( this.form.template && this.form.template.value == 'tpl' ) return;
+   if(window.dwfckTextChanged) return;
    draft_delete();
 });
 jQuery( "#save_button" ).mousedown(function() { 
