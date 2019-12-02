@@ -698,7 +698,7 @@ CKEDITOR_REPLACE;
 	  <?php if(!empty($hid)):?>
        <input type="hidden" id="hid"  name="hid" value="<?php echo $hid; ?>" />       
 	  <?php endif ?>      
-      <input type="hidden" id="template"  name="template`" value="<?php echo $ckg_template?>" />
+      <input type="hidden" id="template"  name="template" value="<?php echo $ckg_template?>" />
       <?php
       if(function_exists('formSecurityToken')) {
            formSecurityToken();  
