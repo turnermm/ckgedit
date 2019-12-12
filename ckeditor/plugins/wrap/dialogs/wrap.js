@@ -18,6 +18,7 @@ CKEDITOR.dialog.add( 'wrapDialolg', function( editor ) {
      var emphasized = installed_lang['em'] ||  wr_lang['em'] ||  'especially emphasised';                    
      var highlighted = installed_lang['hi'] ||  wr_lang['hi']  || 'highlighted';                         
      var less_significant = installed_lang['lo'] ||  wr_lang['lo'] || 'less significant';                              
+    var reset =  installed_lang['reset'] ||  wr_lang['reset'] || 'Reset';         
     var Columns = '<img src= "' + toolbar_path + 'column.png" title="' +cols+'">';
     var Box = '<img src= "' + toolbar_path + 'box.png" title="' +box + '">';
     var InfoBox = '<img src= "' +  icons16_path + 'info.png" title="'+info_box+'">';
@@ -31,6 +32,7 @@ CKEDITOR.dialog.add( 'wrapDialolg', function( editor ) {
     var Emphasis ='<img src= "' +  toolbar_path + 'em.png" title="'+emphasized+'">';
     var Hi ='<img src= "' +  toolbar_path + 'hi.png" title="'+highlighted+'">';
     var Lo ='<img src= "' +  toolbar_path + 'lo.png" title="'+less_significant+'">';
+	
     return {
         title: 'wrap Properties',
         minWidth: 460,
@@ -54,10 +56,24 @@ CKEDITOR.dialog.add( 'wrapDialolg', function( editor ) {
 					    type: 'radio',
 						id: 'specials',
                        label: editor.lang.wrap.specials_title || 'Special types and Styles',
-						//label: editor.lang.wrap.selectOption,
 						items: [[ Columns, 'column' ], [Clear,'clear floats'],[Emphasis,'em'],[Hi,'hi'],[Lo,'lo']],
 						style: 'color: black',
 						'default': '',
+					},
+					{
+						type: 'checkbox',
+						id: 'reset',
+						label:  reset,
+						'default': false,
+						 onClick: function() {  
+							var nodes = jQuery(":radio" )
+							for(var i = 0; i<nodes.length; i++) {
+								if(nodes[i].checked)
+									nodes[i].checked = false;
+							}
+                            this.setValue(false);
+						
+						   }
 					},
 					{
                         type: 'text',
@@ -91,7 +107,7 @@ CKEDITOR.dialog.add( 'wrapDialolg', function( editor ) {
             
 			var TypeValue = dialog.getValueOf( 'tab-basic', 'div_types' );
             if(!TypeValue) TypeValue = dialog.getValueOf( 'tab-basic', 'specials' );
-                               
+            if(TypeValue == 0) return;                         
              switch (TypeValue) {
                         case 'column':                    
                             open   =  '<'+syntaxDiv+' group>\n<'+syntaxDiv+' half column>\n';

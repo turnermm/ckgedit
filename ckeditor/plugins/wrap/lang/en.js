@@ -16,4 +16,5 @@ CKEDITOR.plugins.setLang("wrap","en",{
 		 em: 'especially emphasised',
 		 hi: 'highlighted',
 		 lo: 'less significant',
+         reset: 'Reset',
 });

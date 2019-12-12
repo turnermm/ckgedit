@@ -202,7 +202,7 @@ function _ajax_call(Doku_Event $event, $param) {
          echo $t;
          return;
      }
-     if ($event->data == 'wrap_lang') {  // parse and return language file to ckeditor warp plugin
+     if ($event->data == 'wrap_lang') {  // parse and return language file to ckeditor wrap plugin
          $event->stopPropagation();
           $event->preventDefault();
          global $INPUT;
