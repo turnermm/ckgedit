@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author ISKANDER REKIK <rekik.iskander@gmail.com>
  * @author salabdou <salabdou@gmail.com>
  * @author TJ619 <rockandrollfever0@gmail.com>
  * @author Laurent Marquet <laurent.marquet@laposte.net>
@@ -57,6 +58,7 @@ $lang['btn_title_dw_fb']       = 'Sauver, fermer l\'éditeur et passer au gestio
 $lang['btn_title_ckg_fb']      = 'Sauver, fermer l\'éditeur et passer au gestionnaire de fichiers CKG';
 $lang['formatdel']             = 'Balisage supprimé des entêtes: indisponible dans DokuWiki';
 $lang['fontdel']               = 'Polices différentes supprimées des liens: indisponible dans DokuWiki';
+$lang['ckgcke_conflict']       = 'Une copie de ckgedit a été détectée. L\'un des Ckgedit et ckgedit doit être désactivé.';
 $lang['ws_cantcopy']           = 'Pour la configuration de Winstyle: impossible de copier vers';
 $lang['ws_copiedhtaccess']     = 'Pour l’installation de Winstyle, copiez le fichier .htaccess avec sécurité activée dans data/media
 Voir ckgedit/fckeditor/userfiles/.htaccess.security';
