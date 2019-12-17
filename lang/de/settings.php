@@ -30,9 +30,9 @@ $lang['nix_style']             = 'Für Windows-Server (Vista und später): Diese
 $lang['no_symlinks']           = 'Automatische Erstellung symbolischer Links unter ckgedit/userfiles deaktivieren.';
 $lang['direction']             = 'Einstellen der Sprach-Richtung in CKeditor: <b>nocheck</b>: ckgedit nimmt keine Einstellungsänderungen der Default-Richtung vor;  <b>dokuwiki</b>: die aktuelle Dokuwiki Sprach-Richtung; <b>ltr</b>: von links nach rechts ; <b>rtl</b>: von rechts nach links.';
 $lang['scayt_auto']            = 'Aktiviere die SCAYT-Rechtschreibprüfung automatisch; Vorbelegt ist "An" = eingeschaltet. Zum Ausschalten von SCAYT auf "Aus" umstellen.';
-$meta['scayt_auto_o_on'] = 'An';
-$meta['scayt_auto_o_off'] = 'Aus';
-$meta['scayt_auto_o_disable'] = 'Deaktiviert';
+$lang['scayt_auto_o_on'] = 'An';
+$lang['scayt_auto_o_off'] = 'Aus';
+$lang['scayt_auto_o_disable'] = 'Deaktiviert';
 $lang['scayt_lang']            = 'Standard-Sprache für die SCAYT-Rechtschreibprüfung auswählen.';
 $lang['smiley_hack']           = 'Bei Umzug auf neuen Server, die URL für CKeditor\'s Smileys zurücksetzen. Dies passiert seitenweise, sobald die Seite zur Bearbeitung geladen und gespeichert wird. Diese Option sollte i.d.R. ausgeschaltet sein.';
 $lang['complex_tables']        = 'Den Algorithmus für komplexe Tabellen standardmäßig aktivieren. Im Gegensatz zur Standard-Syntaxanalyse von Tabellen, erreicht man hiermit bessere Ergebnisse, wenn Zellen miteinander über Zeilen oder Spalten hinweg verbunden werden. Jedoch auf Kosten leicht erhöhter Durchlaufzeit.';
