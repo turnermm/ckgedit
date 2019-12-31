@@ -1310,7 +1310,8 @@ $text = preg_replace_callback(
         $xhtml = str_replace('ckgeditFONTClose', 'font&amp;gt;',$xhtml);
         $xhtml = str_replace('DBLBACKSPLASH', '\\ ',$xhtml);
         $xhtml = str_replace('NWPIPECHARACTER', '|',$xhtml);            
-        
+        $xhtml = str_replace('&amp;lt;blockquote&gt;','<blockquote>',$xhtml);
+        $xhtml = str_replace('&amp;lt;/blockquote&gt;','</blockquote>',$xhtml); 
        $ua = strtolower ($_SERVER['HTTP_USER_AGENT']); 
 	  if(strpos($ua,'chrome') !== false) {
        $xhtml = preg_replace_callback(
@@ -1323,7 +1324,7 @@ $text = preg_replace_callback(
 			 $xhtml
 			 );
 		}	 
-
+       
         return $xhtml;
     }
 
