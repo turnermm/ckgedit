@@ -1,0 +1,5 @@
+
+#       deleted:    ckeditor/plugins/blockquote/lang/bn.js
+#       deleted:    ckeditor/plugins/blockquote/lang/en-ca.js
+#       deleted:    ckeditor/plugins/blockquote/lang/ms.js
+#       deleted:    ckeditor/plugins/blockquote/lang/sr-latn.js

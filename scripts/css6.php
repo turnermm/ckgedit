@@ -133,7 +133,11 @@ $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manag
    body,html {
     background-color: #fff;
     background-image:none;
-}
+  }
+  blockquote {
+   padding-left: .5em;
+   margin-left: 1.5em;
+  }
 ' . "\n";
 
   if( io_saveFile($path . 'Styles/_style.css' ,$css)) {
