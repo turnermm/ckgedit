@@ -65,6 +65,10 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
 	  ptln('<p style = "line-height: 200%;">' . $this->getLang('default_stylesheet') . ': (' .$this->template . ')<br />');
 	  ptln('<label for="ckg_save_ss">' .$this->getLang('checkbox').'</label>');
 	  ptln('<input type="checkbox" name="ckg_save_ss">&nbsp;&nbsp;'); 
+      
+      ptln('<label for="ckg_bq_ss">' .$this->getLang('checkbox_bq').'</label>');
+	  ptln('<input type="checkbox" name="ckg_bq_ss">&nbsp;&nbsp;'); 
+      
 	  ptln('<input type="submit" name="cmd[stylesheet]"  value="'.$this->getLang('style_sheet').'" /></p>');	  
       
       // Other style sheet

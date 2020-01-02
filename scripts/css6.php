@@ -84,10 +84,12 @@ function css_ckg_out($path, $tpl = "")
 
 //$xcl = 'plugins/popularity|usermanager|plugins/upgrade|plugins/acl|plugins/plugin|plugins/auth|plugins/config|plugins/revert|_imgdetail.css'
 $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manager|media|modal';
+        if($blockquote_plugin) {
 $b_qoute =  DOKU_INC .'lib/plugins/blockquote/style.css';
 if(file_exists($b_qoute) ){
     $files[$mediatype][$b_qoute] = DOKU_BASE . 'lib/plugins/blockquote/';
 }
+        }   
         // load files
         $css_ckg_content = '';
         foreach($files[$mediatype] as $file => $location) {

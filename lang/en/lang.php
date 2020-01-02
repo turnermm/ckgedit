@@ -71,6 +71,7 @@ $lang['style_sheet'] = 'Create Style sheet';
 $lang['style_sheet_msg'] = 'Creating Style sheet for the current template:';
 $lang['alt_style_sheet_msg'] = 'Creating Style sheet for:';
 $lang['checkbox'] = 'Copy to ckeditor/css';
+$lang['checkbox_bq'] = 'Include the blockquote plugin styles';
 $lang['stylesheet_oinfo'] = 'Info';
 $lang['stylesheet_cinfo'] = 'Close Info';
 $lang['js']['stylesheet_oinfo'] = $lang['stylesheet_oinfo'];
