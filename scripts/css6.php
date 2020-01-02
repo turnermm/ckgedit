@@ -84,14 +84,17 @@ function css_ckg_out($path, $tpl = "")
 
 //$xcl = 'plugins/popularity|usermanager|plugins/upgrade|plugins/acl|plugins/plugin|plugins/auth|plugins/config|plugins/revert|_imgdetail.css'
 $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manager|media|modal';
-
-
-
+$b_qoute =  DOKU_INC .'lib/plugins/blockquote/style.css';
+if(file_exists($b_qoute) ){
+    $files[$mediatype][$b_qoute] = DOKU_BASE . 'lib/plugins/blockquote/';
+}
         // load files
         $css_ckg_content = '';
-        foreach($files[$mediatype] as $file => $location){
-           if(preg_match('#' .$xcl . '#',$file)) {			   
-			   continue;
+        foreach($files[$mediatype] as $file => $location) {
+           if(preg_match('#' .$xcl . '#',$file)  ) {			   
+               if(! preg_match("/blockquote/",$file)) {             	   
+                   continue;               
+               }
 		   }
             $display = str_replace(fullpath(DOKU_INC), '', fullpath($file));
             $css_ckg_content .= "\n/* XXXXXXXXX $display XXXXXXXXX */\n";
@@ -110,9 +113,6 @@ $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manag
 
     // apply style replacements
     $css = css_ckg_applystyle($css, $styleini['replacements']);
-
-
-
     // parse less
     $css = css_ckg_parseless($css);
 
@@ -121,8 +121,6 @@ $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manag
         $base = preg_quote(DOKU_BASE,'#');
         $css = preg_replace_callback('#(url\([ \'"]*)('.$base.')(.*?(?:\.(png|gif)))#i','css_ckg_datauri',$css);
     }
-
-   // echo $path . "Styles/_style.css\n";    
     
    $css = preg_replace("/(\#?|\.?|div\.)dokuwiki\.?/", '', $css);
    $css = "/* template: $tpl */\n@media screen {\n.$tpl{color:#ccc;}\n}\n" . $css;
