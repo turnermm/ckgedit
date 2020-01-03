@@ -155,12 +155,12 @@ config.colors = new Array(
          }     
           if(xtras.indexOf('Geshi') == -1) {
              xtra += ',Geshi';
-         }     
+         }    
+          if(xtras.indexOf('Blockquote') == -1) {
+			  config.ToolBarItemsAlt['Blockquote'] = 'Blockquote';             
+         }     		 
      }
      
-         
-   
-   //  xtra = 'Msword,Gesh';
      if (browser_level.JSINFO['has_tags']) {
          xtra+=',Tags';
      }
@@ -184,7 +184,7 @@ config.colors = new Array(
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
-		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
+		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent',config.ToolBarItemsAlt['Blockquote']] },
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup',config.ToolBarItemsAlt['Scayt'] ] },
 		{ name: 'tools', items : ['Source', 'Maximize','-','About'] },
