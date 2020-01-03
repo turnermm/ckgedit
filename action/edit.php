@@ -1169,8 +1169,7 @@ $text = preg_replace_callback(
             function ($matches) {
                 if(!strpos($matches[1], "_ckgedit_NL")) return $matches[0];                    
                 $matches[1]  =  str_replace("\\_ckgedit_NL","_ckgedit_NL",$matches[1]);                 
-               // $this->write_debug("1112=" . $matches[0]);
-               //   $this->write_debug("1113=" . $matches[1]);
+
                 return '|' . $matches[1] . '|';
                 return $matches[0];
             },
@@ -1312,6 +1311,13 @@ $text = preg_replace_callback(
         $xhtml = str_replace('NWPIPECHARACTER', '|',$xhtml);            
         $xhtml = str_replace('&amp;lt;blockquote&gt;','<blockquote>',$xhtml);
         $xhtml = str_replace('&amp;lt;/blockquote&gt;','</blockquote>',$xhtml); 
+         $xhtml = preg_replace_callback(
+             '/(<blockquote>)(.*?)(<\/blockquote>)/ms',
+             function($matches) {          
+                 return '<blockquote class="blockquote-plugin">' . $matches[2];
+              },
+            $xhtml
+         );
        $ua = strtolower ($_SERVER['HTTP_USER_AGENT']); 
 	  if(strpos($ua,'chrome') !== false) {
        $xhtml = preg_replace_callback(
@@ -1328,10 +1334,11 @@ $text = preg_replace_callback(
         return $xhtml;
     }
 
-  function write_debug($what) {
-     return;
+  function write_debug($what,$line="") {
+     //return;
      $handle = fopen("ckgedit_php.txt", "a");
     // if(is_array($what)) $what = print_r($what,true);
+     if($line) $what = "line $line\n" . $what;
      fwrite($handle,"$what\n");
      fclose($handle);
   }
