@@ -22,8 +22,8 @@ function css_ckg_out($path, $tpl = "")
     global $lang;
     global $config_cascade;
 	global $INPUT;
-	$copy = $INPUT->str('ckg_save_ss',FALSE);   
-  
+	$copy = $INPUT->str('ckg_save_ss',FALSE);
+    $blockquote_plugin = $INPUT->str('ckg_bq_ss',FALSE);
     chdir($path);
 
     $mediatypes = array('screen', 'all');
@@ -66,8 +66,6 @@ function css_ckg_out($path, $tpl = "")
         }
     }
 
-
-
     $css="";
 
     // build the stylesheet
@@ -81,23 +79,21 @@ function css_ckg_out($path, $tpl = "")
             $css .= '}';
         }
 
-
-//$xcl = 'plugins/popularity|usermanager|plugins/upgrade|plugins/acl|plugins/plugin|plugins/auth|plugins/config|plugins/revert|_imgdetail.css'
-$xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manager|media|modal';
-        if($blockquote_plugin) {
-$b_qoute =  DOKU_INC .'lib/plugins/blockquote/style.css';
-if(file_exists($b_qoute) ){
-    $files[$mediatype][$b_qoute] = DOKU_BASE . 'lib/plugins/blockquote/';
-}
+        $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manager|media|modal';
+         if($blockquote_plugin) {            
+            $b_qoute =  DOKU_INC .'lib/plugins/blockquote/style.css';
+            if(file_exists($b_qoute) ){
+                $files[$mediatype][$b_qoute] = DOKU_BASE . 'lib/plugins/blockquote/';
+            }
         }   
         // load files
         $css_ckg_content = '';
         foreach($files[$mediatype] as $file => $location) {
            if(preg_match('#' .$xcl . '#',$file)  ) {			   
-               if(! preg_match("/blockquote/",$file)) {             	   
+            if(! preg_match("/blockquote/",$file)) {             	   
                    continue;               
                }
-		   }
+		    }
             $display = str_replace(fullpath(DOKU_INC), '', fullpath($file));
             $css_ckg_content .= "\n/* XXXXXXXXX $display XXXXXXXXX */\n";
             $css_ckg_content .= css_ckg_loadfile($file, $location);
