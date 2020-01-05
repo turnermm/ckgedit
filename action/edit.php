@@ -1317,12 +1317,12 @@ $text = preg_replace_callback(
             function($matches) {
                 $matches[0] = preg_replace("/(<p>)?\s*(<blockquote>)\s*(<\/p>)?/m","<p></p>$2",$matches[0]);
                 $matches[0] = preg_replace("/(<p>)?\s*(<\/blockquote>)\s*(<\/p>)?/m","$2<p></p>",$matches[0]);
-           
+                $matches[0] = str_replace('<blockquote>',  '<blockquote class ="blockquote-plugin">', $matches[0]);  
                return $matches[0];
             },    $xhtml
         );
-       
-       $ua = strtolower ($_SERVER['HTTP_USER_AGENT']); 
+        
+      $ua = strtolower ($_SERVER['HTTP_USER_AGENT']); 
 	  if(strpos($ua,'chrome') !== false) {
        $xhtml = preg_replace_callback(
              '/(?<=<a )(href=\".*?\")(\s+\w+=\".*?\")(.*?)(?=>)/sm',
