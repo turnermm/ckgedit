@@ -121,7 +121,7 @@ config.colors = new Array(
      config.addPaste = function () {
      config.extraPlugins +=',pastebase64';       
      }
-     
+
     config.skin =  browser_level.getCKEditorGUI() ? browser_level.getCKEditorGUI() : 'moono';
     //alert(browser_level.getCKEditorGUI());
      config.wrapSyntaxDiv = browser_level.JSINFO['wrapDiv'] ;
@@ -180,7 +180,15 @@ config.colors = new Array(
            config.extraPlugins +=  ',' + xtra.toLowerCase();         
          }                
      }
-    
+ 
+ /*
+ jQuery(document).on('mouseup', '.cke_button__blockquote', function(){
+      jQuery("textarea", "#wiki__text blockquote") .addClass("blockquote-plugin");
+});
+var editor= jQuery("textarea", "#wiki__text"); 
+alert(jQuery("textarea", "#wiki__text blockquote")); 
+*/
+  
   config.toolbar_Dokuwiki =
 	[
 	{name: 'header_buttons', items: ['same_header', 'lower_header', 'higher_header', 'none_header']},

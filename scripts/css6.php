@@ -20,7 +20,7 @@ function css_ckg_out($path, $tpl = "")
 {
     global $conf;
     global $lang;
-    global $config_cascade;
+    global $config_cascade, $blockquote_plugin;
 	global $INPUT;
 	$copy = $INPUT->str('ckg_save_ss',FALSE);
     $blockquote_plugin = $INPUT->str('ckg_bq_ss',FALSE);
@@ -80,19 +80,12 @@ function css_ckg_out($path, $tpl = "")
         }
 
         $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manager|media|modal';
-         if($blockquote_plugin) {            
-            $b_qoute =  DOKU_INC .'lib/plugins/blockquote/style.css';
-            if(file_exists($b_qoute) ){
-                $files[$mediatype][$b_qoute] = DOKU_BASE . 'lib/plugins/blockquote/';
-            }
-        }   
+
         // load files
         $css_ckg_content = '';
         foreach($files[$mediatype] as $file => $location) {
-           if(preg_match('#' .$xcl . '#',$file)  ) {			   
-            if(! preg_match("/blockquote/",$file)) {             	   
+           if(preg_match('#' .$xcl . '#',$file)  ) {			               
                    continue;               
-               }
 		    }
             $display = str_replace(fullpath(DOKU_INC), '', fullpath($file));
             $css_ckg_content .= "\n/* XXXXXXXXX $display XXXXXXXXX */\n";
@@ -135,7 +128,18 @@ function css_ckg_out($path, $tpl = "")
    margin-left: 1.5em;
   }
 ' . "\n";
-
+if($blockquote_plugin) 
+{
+  $css .=  '   
+ blockquote {
+  border: 1px dotted #ccc;
+  background: #eee url(data:image/gif;base64,R0lGODlhLgAcAMQAAPT09PHx8e7u7unp6ejo6Ofn5+bm5uXl5eTk5OPj4+Li4t/f397e3t3d3dzc3Nvb29ra2v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAABEALAAAAAAuABwAAAW2YCSOJLkgaJqWrKi+ram8dBwJdB03Od3Ehh6MdUgIXwvWcVhyLFEMCEP5tD2WD1tkqY1chT/t0dB1CrNiIVl7OCbTwu722F0Cujzhoa6WG4UObGMBfEtvVEtrLU8qhyOMKIokkCl7IwOUCAWIlJOZCJyQlnOZBCWfCAqPqKesIm2frbEimLMjeZQJnpmhT45BlKMjX5C9RwKLkGiyiTaMqi3AXHA90EDTeD2Bcj1yJSeV3rugXSEAOw==) no-repeat 0.3em 0.3em;
+  padding: 1em;
+  overflow: hidden;
+  margin: 1em auto 1em auto;
+  max-width: 90%;
+}  ' . "\n";  
+}
   if( io_saveFile($path . 'Styles/_style.css' ,$css)) {
 	  if(isset($copy_path)) {		 ;
 	     $retv = io_saveFile($copy_path,$css); 

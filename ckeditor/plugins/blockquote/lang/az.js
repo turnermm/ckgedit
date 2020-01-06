@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("blockquote","az",{toolbar:"Sitat bloku"});
