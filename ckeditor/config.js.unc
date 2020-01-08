@@ -166,13 +166,7 @@ config.colors = new Array(
      }
      config.ToolBarItemsExtra = "";
   
-   // uncomment below to move the blockquote icon to the topmost row 
-  /*
-     if(xtras.indexOf('Blockquote') > -1) {
-        config.ToolBarItemsAlt['Blockquote'] = 'Blockquote'
-        xtra = xtra.replace(/,Blockquote/,"");  
-     }
-     */
+   
 
    if(xtra) {
          config.ToolBarItemsExtra = xtra.split(','); 
@@ -180,14 +174,6 @@ config.colors = new Array(
            config.extraPlugins +=  ',' + xtra.toLowerCase();         
          }                
      }
- 
- /*
- jQuery(document).on('mouseup', '.cke_button__blockquote', function(){
-      jQuery("textarea", "#wiki__text blockquote") .addClass("blockquote-plugin");
-});
-var editor= jQuery("textarea", "#wiki__text"); 
-alert(jQuery("textarea", "#wiki__text blockquote")); 
-*/
   
   config.toolbar_Dokuwiki =
 	[
@@ -198,7 +184,7 @@ alert(jQuery("textarea", "#wiki__text blockquote"));
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
-		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent',config.ToolBarItemsAlt['Blockquote']] },
+		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent','Blockquote'] },
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup',config.ToolBarItemsAlt['Scayt'] ] },
 		{ name: 'tools', items : ['Source', 'Maximize','-','About'] },
