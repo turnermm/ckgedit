@@ -20,10 +20,9 @@ function css_ckg_out($path, $tpl = "")
 {
     global $conf;
     global $lang;
-    global $config_cascade, $blockquote_plugin;
+    global $config_cascade;
 	global $INPUT;
 	$copy = $INPUT->str('ckg_save_ss',FALSE);
-    $blockquote_plugin = $INPUT->str('ckg_bq_ss',FALSE);
     chdir($path);
 
     $mediatypes = array('screen', 'all');
@@ -114,7 +113,8 @@ function css_ckg_out($path, $tpl = "")
     }
     
    $css = preg_replace("/(\#?|\.?|div\.)dokuwiki\.?/", '', $css);
-   $css = "/* template: $tpl */\n@media screen {\n.$tpl{color:#ccc;}\n}\n" . $css;
+ 
+   $css = "@import 'additional.css';\n/* template: $tpl */\n@media screen {\n.$tpl{color:#ccc;}\n}\n" . $css;
    $css .=  '
    span.multi_p_open {
     display: block;
@@ -128,18 +128,7 @@ function css_ckg_out($path, $tpl = "")
    margin-left: 1.5em;
   }
 ' . "\n";
-if($blockquote_plugin) 
-{
-  $css .=  '   
- blockquote {
-  border: 1px dotted #ccc;
-  background: #eee url(data:image/gif;base64,R0lGODlhLgAcAMQAAPT09PHx8e7u7unp6ejo6Ofn5+bm5uXl5eTk5OPj4+Li4t/f397e3t3d3dzc3Nvb29ra2v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAABEALAAAAAAuABwAAAW2YCSOJLkgaJqWrKi+ram8dBwJdB03Od3Ehh6MdUgIXwvWcVhyLFEMCEP5tD2WD1tkqY1chT/t0dB1CrNiIVl7OCbTwu722F0Cujzhoa6WG4UObGMBfEtvVEtrLU8qhyOMKIokkCl7IwOUCAWIlJOZCJyQlnOZBCWfCAqPqKesIm2frbEimLMjeZQJnpmhT45BlKMjX5C9RwKLkGiyiTaMqi3AXHA90EDTeD2Bcj1yJSeV3rugXSEAOw==) no-repeat 0.3em 0.3em;
-  padding: 1em;
-  overflow: hidden;
-  margin: 1em auto 1em auto;
-  max-width: 90%;
-}  ' . "\n";  
-}
+
   if( io_saveFile($path . 'Styles/_style.css' ,$css)) {
 	  if(isset($copy_path)) {		 ;
 	     $retv = io_saveFile($copy_path,$css); 
@@ -532,6 +521,4 @@ function css_ckg_comment_cb($matches){
     if(strlen($matches[2]) > 4) return '';
     return $matches[0];
 }
-//global $conf ;
-//css_ckg_out('/home/www/html/devel/lib/tpl/' . $conf['template'] .'/');
 
