@@ -121,7 +121,7 @@ config.colors = new Array(
      config.addPaste = function () {
      config.extraPlugins +=',pastebase64';       
      }
-     
+
     config.skin =  browser_level.getCKEditorGUI() ? browser_level.getCKEditorGUI() : 'moono';
     //alert(browser_level.getCKEditorGUI());
      config.wrapSyntaxDiv = browser_level.JSINFO['wrapDiv'] ;
@@ -155,12 +155,9 @@ config.colors = new Array(
          }     
           if(xtras.indexOf('Geshi') == -1) {
              xtra += ',Geshi';
-         }     
+         }    
      }
      
-         
-   
-   //  xtra = 'Msword,Gesh';
      if (browser_level.JSINFO['has_tags']) {
          xtra+=',Tags';
      }
@@ -168,13 +165,16 @@ config.colors = new Array(
          xtra+=',Wrap';
      }
      config.ToolBarItemsExtra = "";
-     if(xtra) {
+  
+   
+
+   if(xtra) {
          config.ToolBarItemsExtra = xtra.split(','); 
          if(xtra) {
            config.extraPlugins +=  ',' + xtra.toLowerCase();         
          }                
      }
-    
+  
   config.toolbar_Dokuwiki =
 	[
 	{name: 'header_buttons', items: ['same_header', 'lower_header', 'higher_header', 'none_header']},
@@ -184,7 +184,7 @@ config.colors = new Array(
    		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'styles', items : [ 'Format', 'Styles' ,'Font','FontSize'] },
     	{ name: 'colors', items : [ 'TextColor','BGColor', font_assist ] },		
-		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent'] },
+		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Indent','Outdent','Blockquote'] },
    		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     	{ name: 'basicstyles', items: [ 'basicstyles', 'cleanup',config.ToolBarItemsAlt['Scayt'] ] },
 		{ name: 'tools', items : ['Source', 'Maximize','-','About'] },

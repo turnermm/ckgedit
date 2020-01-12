@@ -469,7 +469,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             ),
             $this->xhtml
           );
-       
+
       if($this->draft_started) return $this->xhtml;
        $cname = getCacheName($INFO['client'].$ID,'.draft.fckl');
      
@@ -1169,8 +1169,7 @@ $text = preg_replace_callback(
             function ($matches) {
                 if(!strpos($matches[1], "_ckgedit_NL")) return $matches[0];                    
                 $matches[1]  =  str_replace("\\_ckgedit_NL","_ckgedit_NL",$matches[1]);                 
-               // $this->write_debug("1112=" . $matches[0]);
-               //   $this->write_debug("1113=" . $matches[1]);
+
                 return '|' . $matches[1] . '|';
                 return $matches[0];
             },
@@ -1310,8 +1309,20 @@ $text = preg_replace_callback(
         $xhtml = str_replace('ckgeditFONTClose', 'font&amp;gt;',$xhtml);
         $xhtml = str_replace('DBLBACKSPLASH', '\\ ',$xhtml);
         $xhtml = str_replace('NWPIPECHARACTER', '|',$xhtml);            
+        $xhtml = str_replace('&amp;lt;blockquote&gt;','<blockquote>',$xhtml);
+        $xhtml = str_replace('&amp;lt;/blockquote&gt;','</blockquote>',$xhtml); 
+       
+       $xhtml= preg_replace_callback(
+            '/(<p>\s*)?<blockquote>(.*?)<\/blockquote>(\s*<\/p>)?/ms',  
+            function($matches) {
+                $matches[0] = preg_replace("/(<p>)?\s*(<blockquote>)\s*(<\/p>)?/m","<p></p>$2",$matches[0]);
+                $matches[0] = preg_replace("/(<p>)?\s*(<\/blockquote>)\s*(<\/p>)?/m","$2<p></p>",$matches[0]);
+             //   $matches[0] = str_replace('<blockquote>',  '<blockquote class ="blockquote-plugin">', $matches[0]);  
+               return $matches[0];
+            },    $xhtml
+        );
         
-       $ua = strtolower ($_SERVER['HTTP_USER_AGENT']); 
+      $ua = strtolower ($_SERVER['HTTP_USER_AGENT']); 
 	  if(strpos($ua,'chrome') !== false) {
        $xhtml = preg_replace_callback(
              '/(?<=<a )(href=\".*?\")(\s+\w+=\".*?\")(.*?)(?=>)/sm',
@@ -1323,14 +1334,15 @@ $text = preg_replace_callback(
 			 $xhtml
 			 );
 		}	 
-
+       
         return $xhtml;
     }
 
-  function write_debug($what) {
-     return;
+  function write_debug($what,$line="") {
+     //return;
      $handle = fopen("ckgedit_php.txt", "a");
     // if(is_array($what)) $what = print_r($what,true);
+     if($line) $what = "line $line\n" . $what;
      fwrite($handle,"$what\n");
      fclose($handle);
   }

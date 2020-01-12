@@ -22,8 +22,7 @@ function css_ckg_out($path, $tpl = "")
     global $lang;
     global $config_cascade;
 	global $INPUT;
-	$copy = $INPUT->str('ckg_save_ss',FALSE);   
-  
+	$copy = $INPUT->str('ckg_save_ss',FALSE);
     chdir($path);
 
     $mediatypes = array('screen', 'all');
@@ -66,8 +65,6 @@ function css_ckg_out($path, $tpl = "")
         }
     }
 
-
-
     $css="";
 
     // build the stylesheet
@@ -81,18 +78,14 @@ function css_ckg_out($path, $tpl = "")
             $css .= '}';
         }
 
-
-//$xcl = 'plugins/popularity|usermanager|plugins/upgrade|plugins/acl|plugins/plugin|plugins/auth|plugins/config|plugins/revert|_imgdetail.css'
-$xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manager|media|modal';
-
-
+        $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manager|media|modal';
 
         // load files
         $css_ckg_content = '';
-        foreach($files[$mediatype] as $file => $location){
-           if(preg_match('#' .$xcl . '#',$file)) {			   
-			   continue;
-		   }
+        foreach($files[$mediatype] as $file => $location) {
+           if(preg_match('#' .$xcl . '#',$file)  ) {			               
+                   continue;               
+		    }
             $display = str_replace(fullpath(DOKU_INC), '', fullpath($file));
             $css_ckg_content .= "\n/* XXXXXXXXX $display XXXXXXXXX */\n";
             $css_ckg_content .= css_ckg_loadfile($file, $location);
@@ -110,9 +103,6 @@ $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manag
 
     // apply style replacements
     $css = css_ckg_applystyle($css, $styleini['replacements']);
-
-
-
     // parse less
     $css = css_ckg_parseless($css);
 
@@ -121,11 +111,10 @@ $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manag
         $base = preg_quote(DOKU_BASE,'#');
         $css = preg_replace_callback('#(url\([ \'"]*)('.$base.')(.*?(?:\.(png|gif)))#i','css_ckg_datauri',$css);
     }
-
-   // echo $path . "Styles/_style.css\n";    
     
    $css = preg_replace("/(\#?|\.?|div\.)dokuwiki\.?/", '', $css);
-   $css = "/* template: $tpl */\n@media screen {\n.$tpl{color:#ccc;}\n}\n" . $css;
+ 
+   $css = "@import 'additional.css';\n/* template: $tpl */\n@media screen {\n.$tpl{color:#ccc;}\n}\n" . $css;
    $css .=  '
    span.multi_p_open {
     display: block;
@@ -133,7 +122,11 @@ $xcl =  'plugins|popup|fileuploader|toc|search|recent|diff|edit|form|admin|manag
    body,html {
     background-color: #fff;
     background-image:none;
-}
+  }
+  blockquote {
+   padding-left: .5em;
+   margin-left: 1.5em;
+  }
 ' . "\n";
 
   if( io_saveFile($path . 'Styles/_style.css' ,$css)) {
@@ -528,6 +521,4 @@ function css_ckg_comment_cb($matches){
     if(strlen($matches[2]) > 4) return '';
     return $matches[0];
 }
-//global $conf ;
-//css_ckg_out('/home/www/html/devel/lib/tpl/' . $conf['template'] .'/');
 
