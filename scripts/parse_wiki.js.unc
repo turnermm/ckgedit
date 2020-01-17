@@ -1713,13 +1713,21 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
          }
     }
 
-         /* fix for links in lists, at ends of lines, which cause loss of line-feeds */
+         /* Fixes for links in lists*/
      if(HTMLLinkInList) {
+     /*fix for links in lists at ends of lines, which cause loss of line-feeds 
          results = results.replace(/(\]\]|\}\})(\s+)(\*|-)/mg,
                  function(match,link,spaces,type) {                
                   spaces =  spaces.replace(/\n/,"");              
                  return (link + "\n" + spaces+type);
-           });      
+           });
+         /*fix for links in lists before ends of lines, which cause extra  line-feeds */
+            results = results.replace(  /(\*|-).*?(\[\[|\{\{).*?(\]\]|\}\})([\s\w\/\-]+)\n\n/mg,
+                 function(all,type,b,c,tail) {    
+                  all = all.replace(/[\n]$/,"");                       
+			      return (all);
+           }); 
+           
     }
     
     var line_break_final = "\\\\";   
