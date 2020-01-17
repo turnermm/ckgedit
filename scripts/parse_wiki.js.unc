@@ -1722,7 +1722,7 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
                  return (link + "\n" + spaces+type);
            });      
          /*fix for links in lists before ends of lines, which cause extra  line-feeds */
-            results = results.replace(  /(\*|-).*?(\[\[|\{\{).*?(\]\]|\}\})([\s\w\/\-]+)\n\n/mg,
+            results = results.replace(  /(\*|-).*?(\[\[|\{\{).*?(\]\]|\}\})([\s\w\/\-\x3A-\x40\x5B-\x60\x7B-\x7F,;\>\<\&]+)\n\n/mg,
                  function(all,type,b,c,tail) {    
                   all = all.replace(/[\n]$/,"");                       
 			      return (all);
