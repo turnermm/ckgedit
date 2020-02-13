@@ -113,7 +113,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                     $TEXT
                  );
         }
-        
+  
         $TEXT = rawurldecode($TEXT);
         $TEXT = preg_replace('/NOWIKI_%_NOWIKI_%_/', '%%',$TEXT);
         $TEXT = preg_replace('/URLENC_PERCENT/', '%',$TEXT); 
@@ -333,8 +333,8 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
 	*/
       $TEXT = preg_replace_callback(
        '#\|(.*?)[\s\n]+\<(code|file)\>#ms',  
-       function($matches) {  	      
-	   return '|' . $matches[1] .'<'. $matches[2] .'>' . "\n";         
+       function($matches) { 
+	   return '|' . $matches[1] ."\n<". $matches[2] .'>' . "\n";         
        },$TEXT
        );
      /*remove line feeds following block */
@@ -354,7 +354,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
 	  
      // $TEXT = preg_replace("/(={3,})<(code\|file)/ms","$1\n<$2",$TEXT);
 
-       
+
          return;
     
     }
