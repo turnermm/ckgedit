@@ -1650,6 +1650,7 @@ results = results.replace(/(\s*={2,})(.*?)(\[\[|\{\{)(.*?)(\]\]|\}\})(.*?)\1/gm,
     }
    
 	results = results.replace(/\{ \{ rss&gt;Feed:/mg,'{{rss&gt;http://');
+	results = results.replace(/\{ \{ rss&gt;sFeed:/mg,'{{rss&gt;https://')
     results = results.replace(/~ ~ (NOCACHE|NOTOC)~ ~/mg,'~~'+"$1"+'~~');
     if(HTML_InterWiki) {
              var ReplaceLinkMatch = function(tag, link) {

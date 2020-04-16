@@ -201,15 +201,16 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             }
             else $text = $draft_text;
          
+
      $text = preg_replace_callback(
-    '/(~~NOCACHE~~|~~NOTOC~~|\{\{rss>http:\/\/.*?\}\})/ms',
+    '/(~~NOCACHE~~|~~NOTOC~~|\{\{rss>http(s?):\/\/.*?\}\})/ms',
      create_function(
                '$matches',
-               '$matches[0] = str_replace("{{rss>http://www.", "{ { rss>FEED",  $matches[0]);
-               $matches[0] = str_replace("{{rss>http://", "{ { rss>Feed:",  $matches[0]);
+               '$matches[0] = preg_replace("#{{rss>http(s?):\/\/#", "{ { rss>$1Feed:",  $matches[0]);
                $matches[0] = str_replace("~", "~ ",  $matches[0]);
                return $matches[0];'
                ),$text);
+			   
     if($this->getConf('smiley_hack')) {
         $new_addr = $_SERVER['SERVER_NAME'] . DOKU_BASE;
         $text=preg_replace("#(?<=http://)(.*?)(?=lib/plugins/ckgedit/ckeditor/plugins/smiley/images)#s", $new_addr,$text);        
@@ -408,8 +409,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        $this->xhtml = str_replace('CHEVRONescC', '>>',$this->xhtml);
        $this->xhtml = str_replace('CHEVRONescO', '<<',$this->xhtml);
        $this->xhtml = preg_replace('/_QUOT_/ms','>',$this->xhtml);  // dw quotes     
-       $this->xhtml = str_replace("rss&gt;FEED", "rss>Feed:www.",$this->xhtml); 
-
        $this->xhtml = preg_replace_callback(
          "/^(>+)(.*?)$/ms",
          function($matches) {
