@@ -235,7 +235,8 @@ $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers.*?\])\s*
                    }  
                    $tmp_ar = explode(':',$link_id);
                    $tmp_id = array_pop($tmp_ar);
-                   if(trim($linktext,'.: ' ) == trim($tmp_id,'.: ')) $linktext = "";
+                   if(!useHeading('content') && (trim($linktext,'.: ' ) == trim($tmp_id,'.: '))) 
+					   $linktext = "";
                               
                    $current_id = $current_id.'|'.$linktext;
                    return '[[' . $current_id .']]';
