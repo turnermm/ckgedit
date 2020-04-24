@@ -73,6 +73,6 @@ $lang['alt_style_sheet_msg'] = 'Creating Style sheet for:';
 $lang['checkbox'] = 'Copy to ckeditor/css';
 $lang['stylesheet_oinfo'] = 'Info';
 $lang['stylesheet_cinfo'] = 'Close Info';
-$lang['js']['stylesheet_oinfo'] = $lang['stylesheet_oinfo'];
-$lang['js']['stylesheet_cinfo'] = $lang['stylesheet_cinfo'];
+$lang['js']['stylesheet_oinfo'] = 'Info';
+$lang['js']['stylesheet_cinfo'] = 'Close Info';
 

@@ -90,5 +90,5 @@ $lang['alt_style_sheet_msg'] = 'Stylesheet anlegen für:';
 $lang['checkbox'] = 'Nach ckeditor/css kopieren';
 $lang['stylesheet_oinfo'] = 'Info';
 $lang['stylesheet_cinfo'] = 'Info schließen';
-$lang['js']['stylesheet_oinfo'] = $lang['stylesheet_oinfo'];
-$lang['js']['stylesheet_cinfo'] = $lang['stylesheet_cinfo'];
+$lang['js']['stylesheet_oinfo'] = 'Info';
+$lang['js']['stylesheet_cinfo'] = 'Info schließen';
