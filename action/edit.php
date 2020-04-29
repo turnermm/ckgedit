@@ -327,7 +327,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
                 '$matches[0] = str_replace("_ckgedit_NPBBR_","",$matches[0]);
                  return $matches[0];'
         ),$text);    
-        
+      
           $text = preg_replace_callback(
             '/(\|\s*)(<code>|<file>)(.*?)(<\/code>|<\/file>)\n_ckgedit_NPBBR_(?=.*?\|)/ms',
             create_function(
@@ -468,7 +468,9 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             ),
             $this->xhtml
           );
-
+		  //insures breaks are retained for single spacing
+      $this->xhtml = preg_replace('/<p>\s*<br\/>\s*<\/p>/ms', '<br/>', $this->xhtml);
+	   
       if($this->draft_started) return $this->xhtml;
        $cname = getCacheName($INFO['client'].$ID,'.draft.fckl');
      

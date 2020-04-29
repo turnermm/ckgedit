@@ -1433,7 +1433,8 @@ function parse_wikitext(id) {
      text = text.replace(/^(&gt;)+/,function(match,quotes) {
          return(match.replace(/(&gt;)/g, "\__QUOTE__")) ;         
      }
-     );     
+     );  
+     text = text.replace(/&not;ags/g, '&notags'); //replace &not entity in include notags param	 
       //adjust spacing on multi-formatted strings
     results=results.replace(/([\/\*_])_FORMAT_SPACE_([\/\*_]{2})_FORMAT_SPACE_$/,"$1$2@@_SP_@@");   
     if(text.match(/^&\w+;/)) {
