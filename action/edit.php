@@ -387,9 +387,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
       $text = preg_replace_callback( 
                '|(<code\s+\w+)(\s+\[enable_line_numbers.*?\])\s*>(.*?<\/code>)|ms',
             function($matches) {
-                $this->write_debug("1\n" . $matches[1]);                  
-                $this->write_debug("2\n" .$matches[2]);                  
-                $this->write_debug("3\n" .$matches[3]);     
                 $retstr = $matches[1] . ">\n/*" .   $matches[2] . "*/\n" . $matches[3];               
                return $retstr;              
             }, $text
