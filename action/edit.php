@@ -201,7 +201,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             }
             else $text = $draft_text;
          
-
+     $text = str_replace('&notags',  '&amp;amp;notags',$text);
      $text = preg_replace_callback(
     '/(~~NOCACHE~~|~~NOTOC~~|\{\{rss>http(s?):\/\/.*?\}\})/ms',
      create_function(
