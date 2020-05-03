@@ -1340,7 +1340,7 @@ $text = preg_replace_callback(
     }
 
   function write_debug($what,$line="") {
-     //return;
+     return;
      $handle = fopen("ckgedit_php.txt", "a");
     // if(is_array($what)) $what = print_r($what,true);
      if($line) $what = "line $line\n" . $what;
