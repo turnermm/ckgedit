@@ -718,6 +718,7 @@ function check_userfiles() {
            $expire = null;
            setcookie('FCK_NmSp_acl',$session_string, $expire, '/');           
 
+/*
            setcookie('FCK_SCAYT',$this->getConf('scayt'), $expire, '/');                
            setcookie('FCK_SCAYT_AUTO',$this->getConf('scayt_auto'), $expire, '/'); 
            $scayt_lang = $this->getConf('scayt_lang');
@@ -727,6 +728,7 @@ function check_userfiles() {
                   setcookie('FCK_SCAYT_LANG',$scayt_lang_code, $expire, '/'); 
                }
            }
+*/		   
            if ($this->getConf('winstyle')) {
               setcookie('FCKConnector','WIN', $expire, DOKU_BASE);                                
            }
