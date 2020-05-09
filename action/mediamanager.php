@@ -28,22 +28,22 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
             );
     }
     function upload_finish(Doku_Event $event) {
-        if(!preg_match("#^image/#",$event->data[3]) && strpos($_COOKIE['ckgFbType'],'image') !== false)  {
+        if(!preg_match("#^image/#",$event->data[3]) && $_COOKIE['ckgFbType'] == 'image') {
             if(!empty($event->data[3]) && strlen($event->data[3]) >30) {
                 $fname = substr($event->data[3],0,29) . '. . .';                 
             }
             else $fname = $event->data[3];
             msg($this->getLang('mediamgr_imgonly') .  $fname);    
-             setcookie('ckgFbType', 'image;SameSite=None;Secure;',time()-10);
+             setcookie('ckgFbType', 'image',time()-10);
             $event->preventDefault();
         }    
     }
     
     function mediaman_started(Doku_Event $event) {
         if ($_GET["onselect"] == "ckg_edit_mediaman_insert") {
-            setcookie('ckgFbType', 'image;SameSite=None;Secure;');
+            setcookie('ckgFbType', 'image');
         } else if ($_GET["onselect"] == "ckg_edit_mediaman_insertlink") {
-            setcookie('ckgFbType', 'link;SameSite=None;Secure;');
+            setcookie('ckgFbType', 'link');
         }
     }
 }
