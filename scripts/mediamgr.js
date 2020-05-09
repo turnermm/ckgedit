@@ -17,6 +17,10 @@
                         jQuery("#media__linkbtn4").css("display", "none");
                         ckg_nonimage_overlay();
                     }
+
+					 if(jQuery("form#dw__mediasearch button").length){				
+						 jQuery("form#dw__mediasearch").hide()				 
+					 }
                 });
 
                 jQuery(document).ajaxComplete(function() {
