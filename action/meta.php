@@ -450,10 +450,10 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
         var dom = document.getElementById('ckgedit_mode_type');                
           
          if(useDW_Editor) {
-                document.cookie = 'FCKG_USE=other;expires=';             
+                document.cookie = 'FCKG_USE=other;SameSite=Lax;expires=';             
               }  
              else {
-                document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;'
+                document.cookie='FCKG_USE=other;SameSite=Lax;expires=Thu,01-Jan-70 00:00:01 GMT;'
            }
         if(which == 1) {             
            if(e && e.form) {
@@ -469,7 +469,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
            e.form.submit(); 
        }
         else {            
-            document.cookie = 'FCKG_USE=_false_;expires=';             
+            document.cookie = 'FCKG_USE=_false_;SameSite=Lax;expires=';             
             dom.value = 'dwiki';    
            if(JSINFO['chrome_version'] >= 56 && window.dwfckTextChanged) {
            }
@@ -734,12 +734,12 @@ function check_userfiles() {
            }
           
            if ($this->dokuwiki_priority && $this->in_dwpriority_group() ) {
+			    $expire = time() -60*60*24*30;
                if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] == 'other') {           //if other go to ckeditor                   
-                   $expire = time() -60*60*24*30;
-                   setcookie('FCKG_USE','_false_', $expire, '/');           
+                   setcookie('FCKG_USE','_false_',[ 'expires' => $expire, 'path' => '/', 'secure' => false, 'samesite' => 'Lax', ]);           
                }
                else {            
-                  setcookie('FCKG_USE','_false_', $expire, '/');     //turn off ckeditor      
+                  setcookie('FCKG_USE','_false_',[ 'expires' => $expire, 'path' => '/', 'secure' => false, 'samesite' => 'Lax', ]);     //turn off ckeditor      
                 }
            }
   }
@@ -988,7 +988,7 @@ function in_dwpriority_group() {
          if(isset($ar[$client])) {
              if($ar[$client] =='Y') return true;    // Y = dw_priority selected    
              if($ar[$client] =='N') {   
-                 setcookie('FCKG_USE','_false_', $expire, '/');    
+                 setcookie('FCKG_USE','_false_', [ 'expires' => $expire, 'path' => '/', 'secure' => false, 'samesite' => 'Lax', ]);    
                  return false;  // N = CKEditor selected
              }
          }
@@ -998,7 +998,7 @@ function in_dwpriority_group() {
            return true;
         }
         
-         setcookie('FCKG_USE','_false_', $expire, '/');    
+         setcookie('FCKG_USE','_false_', [ 'expires' => $expire, 'path' => '/', 'secure' => false, 'samesite' => 'Lax', ]);    
  
       return false;
 }
