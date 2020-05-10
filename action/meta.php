@@ -734,12 +734,12 @@ function check_userfiles() {
            }
           
            if ($this->dokuwiki_priority && $this->in_dwpriority_group() ) {
-			    $expire = time() -60*60*24*30;
                if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] == 'other') {           //if other go to ckeditor                   
-                   setcookie('FCKG_USE','_false_',[ 'expires' => $expire, 'path' => '/', 'secure' => false, 'samesite' => 'Lax', ]);           
+			    $expire = time() -60*60*24*30;
+                   setcookie('FCKG_USE', '_false_', ['samesite' => 'lax', 'secure' => false,'expire'=>$expire]);              
                }
                else {            
-                  setcookie('FCKG_USE','_false_',[ 'expires' => $expire, 'path' => '/', 'secure' => false, 'samesite' => 'Lax', ]);     //turn off ckeditor      
+                  setcookie('FCKG_USE', '_false_', ['samesite' => 'lax', 'secure' => false]);          
                 }
            }
   }
