@@ -18,11 +18,15 @@
                         ckg_nonimage_overlay();
                     }
 
-					 if(jQuery("form#dw__mediasearch button").length){				
-						 jQuery("form#dw__mediasearch").hide()				 
-					 }
                 });
 
+		      if(!jQuery("mediamanager__uploader").length){					 
+		          jQuery("div.even img, div.odd img").click(function() {					   
+			      window.location.hash = 'ns=&edid=wiki__text&onselect=ckg_edit_mediaman_insert&ckg_media=img&CKEditor=wiki__text&CKEditorFuncNum=1&langCode=en';	
+  	   
+		     });
+                  };
+				  
                 jQuery(document).ajaxComplete(function() {
                     ckg_nonimage_overlay();
                 });
