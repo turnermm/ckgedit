@@ -26,7 +26,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
         $conf['defer_js'] = 0;                 
 
         /* Network Settings */
-        $conf['dnslookups'] = 0; 
+       // $conf['dnslookups'] = 0; 
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
       $this->dw_priority_group = $this->getConf('dw_users');
