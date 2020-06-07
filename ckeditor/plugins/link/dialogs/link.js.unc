@@ -1710,6 +1710,7 @@ var doku_linkwiz = {
         //insert link into field
         var dialog = CKEDITOR.dialog.getCurrent();
         dialog.getContentElement("info", "internal").setValue(link);
+        dialog.getContentElement("info", "internal_text").setValue(link);  
 
         doku_linkwiz.hide();
 
