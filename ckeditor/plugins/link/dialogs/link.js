@@ -1712,7 +1712,7 @@ var doku_linkwiz = {
         var dialog = CKEDITOR.dialog.getCurrent();
         dialog.getContentElement("info", "internal").setValue(link);
         dialog.getContentElement("info", "internal_text").setValue(link);  
-alert(link);
+
         doku_linkwiz.hide();
 
         // reset the entry to the parent namespace
