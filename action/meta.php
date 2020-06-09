@@ -928,6 +928,7 @@ function reset_user_rewrite_check() {
 function startup_msg() {  
    global $INFO;
     global $ACT;
+    global $updateVersion;
    $show_msg = false;
    if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
 	       $show_msg = true;		   
@@ -944,7 +945,9 @@ function startup_msg() {
         if($this->getConf('scayt_auto') != 'off') return;
         $this->startup_check_twice($filename, 'scayt');
   }
-  
+  if( (float)$updateVersion  < 51) {
+      return;
+  }
   $filename =  metaFN('fckl:hogfather','.meta'); 
   $msg =  $this->locale_xhtml('hogfather');
   if (!file_exists($filename)) {      

@@ -1,2 +1,2 @@
-Because of changes to hogfather, the ckgedit media browser does not work. Until this issue is solved, you wlll have to use the DokuWiki media manager.  To do this, go to the Configuration Manager, in the ckgedit section, and set both ''default_ckg_filebrowser'' and ''allow_ckg_filebrowser'' to dokuwiki  See [[doku>plugin:ckgedit#note_on_hogfather]]
+Because of changes to hogfather, the ckgedit media browser does not work. Until this issue is solved, you wlll have to use the DokuWiki media manager.  To do this, go to the Configuration Manager, in the ckgedit section, and set both "default_ckg_filebrowser" and "allow_ckg_filebrowser" to ''dokuwiki'' \\ See [[doku>plugin:ckgedit#note_on_hogfather]]
 
