@@ -23,8 +23,9 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   function __construct() {
   global $conf;
         /* Feature Flags */
-        $conf['defer_js'] = 0;                 
-
+       $conf['defer_js'] = 0;                 
+       $conf['allow_ckg_filebrowser'] = 'dokuwiki';
+       $conf['default_ckg_filebrowser'] = 'dokuwiki';
         /* Network Settings */
        // $conf['dnslookups'] = 0; 
       $this->helper = plugin_load('helper', 'ckgedit');
@@ -496,13 +497,7 @@ SCRIPT;
   }
 
 function check_userfiles() {	  
- 
-   /*
-   removed 5/27/2019
-    if($this->getConf('no_symlinks')) {	
-	   return;
-	}
-	*/
+
     global $INFO;
     global $conf;
     
@@ -754,7 +749,7 @@ function check_userfiles() {
        global  $INPUT;
        global $updateVersion;
        global $conf, $USERINFO;
-
+       //msg($updateVersion);
        if(isset($USERINFO)) {
            $this->startup_msg();
        }
@@ -934,28 +929,23 @@ function reset_user_rewrite_check() {
 function startup_msg() {  
    global $INFO;
     global $ACT;
-   $show_msg = false;
-   if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
-	       $show_msg = true;		   
-	}
-   if(!$show_msg)  return;
-   
+
   $filename =  metaFN('fckl:scayt','.meta'); 
   $msg =  $this->locale_xhtml('scayt');  
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
-      msg($msg,2);          
+      msg($msg,MSG_MANAGERS_ONLY);          
   }
   else {
         if($this->getConf('scayt_auto') != 'off') return;
         $this->startup_check_twice($filename, 'scayt');
   }
   
-  $filename =  metaFN('fckl:merger','.meta'); 
-  $msg =  $this->locale_xhtml('merger');
+  $filename =  metaFN('fckl:hogfather','.meta'); 
+  $msg =  $this->locale_xhtml('hogfather');
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
-       msg($msg,2);      
+       msg($msg,MSG_MANAGERS_ONLY);      
   }
   
   
