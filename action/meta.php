@@ -496,13 +496,7 @@ SCRIPT;
   }
 
 function check_userfiles() {	  
- 
-   /*
-   removed 5/27/2019
-    if($this->getConf('no_symlinks')) {	
-	   return;
-	}
-	*/
+
     global $INFO;
     global $conf;
     
@@ -944,18 +938,18 @@ function startup_msg() {
   $msg =  $this->locale_xhtml('scayt');  
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
-      msg($msg,2);          
+      msg($msg,MSG_MANAGERS_ONLY);          
   }
   else {
         if($this->getConf('scayt_auto') != 'off') return;
         $this->startup_check_twice($filename, 'scayt');
   }
   
-  $filename =  metaFN('fckl:merger','.meta'); 
-  $msg =  $this->locale_xhtml('merger');
+  $filename =  metaFN('fckl:hogfather','.meta'); 
+  $msg =  $this->locale_xhtml('hogfather');
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
-       msg($msg,2);      
+       msg($msg,MSG_MANAGERS_ONLY);      
   }
   
   
