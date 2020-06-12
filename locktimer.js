@@ -43,7 +43,6 @@
 
    locktimer.warning = function(){    
         window.clearTimeout(ourLockTimerWarningtimerID);
-        global JSINFO;
         var preview_button = JSINFO['ckg_preview_button'];         
         if(ourLockTimerIsSet) {
             if(locktimer.msg.match(/preview_button/i)) {              
