@@ -172,12 +172,14 @@ var ourLockTimerINI = false;
   //jQuery(window).on('load',ckgedit_onload);
 var ckgedit_onload = function() { $js };
 window.onload =  ckgedit_onload;
-/*
+
   function getCurrentWikiNS() {
         var DWikiMediaManagerCommand_ns = '$media_tmp_ns';
         return DWikiMediaManagerCommand_ns;
   }
- 
+  
+   var ourFCKEditorNode = null;
+/* 
  var ourLockTimerRefreshID;
  var ourLockTimerIsSet = true;
  var ourLockTimerWarningtimerID;
@@ -190,7 +192,7 @@ window.onload =  ckgedit_onload;
     //  handles some mousepresses and all keystrokes from CKEditor window
  
 
-/*
+
  function handlekeypress (e) {      
    if(ourLockTimerIsSet) {
          lockTimerRefresh();        
@@ -294,7 +296,7 @@ window.onload =  ckgedit_onload;
           
  }
 
-//  /* Renews lock and  creates a ckgedit backup if editor_bak config option is true */
+//  Renews lock and  creates a ckgedit backup if editor_bak config option is true
 function renewLock(bak) {
   if(ourLockTimerIsSet) {
          lockTimerRefresh(true);
@@ -336,8 +338,8 @@ function renewLock(bak) {
     }
 
 }
-
-
+*/
+// here
 function revert_to_prev() {
   if(!(GetE('saved_wiki_html').innerHTML.length)) {
             if(!confirm(backup_empty)) {
@@ -368,7 +370,7 @@ function draft_delete() {
 
     window.textChanged = false;
 }
-
+/*
 function disableDokuWikiLockTimer() {
   resetDokuWikiLockTimer(false);
   if(ourLockTimerIntervalID) {
@@ -387,7 +389,7 @@ function dwfckKeypressInstallHandler() {
      oDokuWiki_FCKEditorInstance.EditorDocument.attachEvent('onkeyup', handlekeypress ) ;
   }
 }
-
+*/
 var DWFCK_EditorWinObj;
 function FCKEditorWindowObj(w) { 
   DWFCK_EditorWinObj = w;
@@ -506,22 +508,8 @@ function FCKeditor_OnComplete( editorInstance )
 }
 
 
- var DWikifnEncode = "$fnencode";
+ window.DWikifnEncode = "$fnencode";
 
-//  Make sure that show buttons in top and/or bottom clear the fckl file  
- function get_showButtons() {	
-	var inputs = document.getElementsByTagName('input');
-    
-     for(var i=0; i<inputs.length; i++) {	    
-        if(inputs[i].type && inputs[i].type.match(/submit/i)) {		           		    
-			if(inputs[i].value.match(/Show/i) || (inputs[i].form &&  inputs[i].form.className.match(/btn_show/) ) )
-    			inputs[i].onmouseup = draft_delete;
-        }
-     }
-  }
-
- //  make sure the entire page has been loaded 
-// setTimeout("get_showButtons()", 3000);
  //]]>
  
 </script>

@@ -5,10 +5,10 @@
  var ourLockTimerRefreshID;
  var ourLockTimerIsSet = true;
  var ourLockTimerWarningtimerID;
- var ourFCKEditorNode = null;
+ //var ourFCKEditorNode = null;
  var ourLockTimerIntervalID;
  var dwfckTextChanged = false;
-var ourLockTimerINI = false;
+ var ourLockTimerINI = false;
    /**
     *    event handler
     *    handles some mousepresses and all keystrokes from CKEditor window
@@ -40,7 +40,7 @@ var ourLockTimerINI = false;
         window.clearTimeout(ourLockTimerWarningtimerID);
         ourLockTimerWarningtimerID =  window.setTimeout(function () { locktimer.warning(); }, locktimer.timeout);
    };
-
+   var  $locktimer_msg = "Your lock for editing this page is about to expire in a minute.\\n" 
    locktimer.warning = function(){    
         window.clearTimeout(ourLockTimerWarningtimerID);
 
@@ -156,4 +156,34 @@ function renewLock(bak) {
     }
 
 } 
+function dwfckKeypressInstallHandler() {
+  if(window.addEventListener){    
+      oDokuWiki_FCKEditorInstance.EditorDocument.addEventListener('keyup', handlekeypress , false) ;
+  }
+  else {   
+     oDokuWiki_FCKEditorInstance.EditorDocument.attachEvent('onkeyup', handlekeypress ) ;
+  }
+}
 //  p *p/
+function disableDokuWikiLockTimer() {
+  resetDokuWikiLockTimer(false);
+  if(ourLockTimerIntervalID) {
+     window.clearInterval(ourLockTimerIntervalID);
+  }
+  if(ourLockTimerIsSet) { 
+    ourLockTimerIntervalID = window.setInterval(function () { locktimer.refresh(); }, 30000);   
+  }
+}
+
+//  Make sure that show buttons in top and/or bottom clear the fckl file  
+ function get_showButtons() {	
+	var inputs = document.getElementsByTagName('input');
+    
+     for(var i=0; i<inputs.length; i++) {	    
+        if(inputs[i].type && inputs[i].type.match(/submit/i)) {		           		    
+			if(inputs[i].value.match(/Show/i) || (inputs[i].form &&  inputs[i].form.className.match(/btn_show/) ) )
+    			inputs[i].onmouseup = draft_delete;
+        }
+     }
+  }
+  setTimeout("get_showButtons()", 3000);
