@@ -4,7 +4,7 @@
  * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
  * @license    GPL 3 or later (http://www.gnu.org/licenses/gpl.html)
 */
-// ccc
+
 var HTMLParser;
 var HTMLParserInstalled=true;
 var HTMLParser_Elements = new Array(); 

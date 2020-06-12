@@ -21,7 +21,7 @@
    }
    window.dwfckTextChanged = true;
  }
-//// pp*
+
 
  function unsetDokuWikiLockTimer() {
      
@@ -40,18 +40,19 @@
         window.clearTimeout(ourLockTimerWarningtimerID);
         ourLockTimerWarningtimerID =  window.setTimeout(function () { locktimer.warning(); }, locktimer.timeout);
    };
-   var  $locktimer_msg = "Your lock for editing this page is about to expire in a minute.\\n" 
+
    locktimer.warning = function(){    
         window.clearTimeout(ourLockTimerWarningtimerID);
-
+        global JSINFO;
+        var preview_button = JSINFO['ckg_preview_button'];         
         if(ourLockTimerIsSet) {
-            if(locktimer.msg.match(/$preview_button/i)) {
-                locktimer.msg = locktimer.msg.replace(/$preview_button/i, "Back-up");      
+            if(locktimer.msg.match(/preview_button/i)) {              
+                locktimer.msg = locktimer.msg.replace(/preview_button/i, "Back-up");      
              }
             alert(locktimer.msg);
         }
         else {
-            alert("$locktimer_msg");
+            alert(LANG.plugins.ckgedit.lock_msg);
         }
      };
      
