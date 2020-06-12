@@ -56,7 +56,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   global $lang;
   global $skip_styling;
   global $JSINFO;
-  $JSINFO['ckg_preview_button'] = $lang['btn_preview'];
+
   $ckgedit_conf_direction = $this->getConf('direction');
    if($ckgedit_conf_direction == "dokuwiki") {
        $ckgedit_lang_direction = $lang['direction'];

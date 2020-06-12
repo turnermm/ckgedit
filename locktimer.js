@@ -1,11 +1,10 @@
  if(window.dw_locktimer) {
    var locktimer = dw_locktimer;
 } 
- //alert(locktimer);
+     
  var ourLockTimerRefreshID;
  var ourLockTimerIsSet = true;
  var ourLockTimerWarningtimerID;
- //var ourFCKEditorNode = null;
  var ourLockTimerIntervalID;
  var dwfckTextChanged = false;
  var ourLockTimerINI = false;
@@ -43,12 +42,8 @@
 
    locktimer.warning = function(){    
         window.clearTimeout(ourLockTimerWarningtimerID);
-        var preview_button = JSINFO['ckg_preview_button'];         
         if(ourLockTimerIsSet) {
-            if(locktimer.msg.match(/preview_button/i)) {              
-                locktimer.msg = locktimer.msg.replace(/preview_button/i, "Back-up");      
-             }
-            alert(locktimer.msg);
+            alert(LANG.plugins.ckgedit.willexpire);
         }
         else {
             alert(LANG.plugins.ckgedit.lock_msg);
@@ -140,7 +135,6 @@ function renewLock(bak) {
         params += '&wikitext='+encodeURIComponent(dwform.elements.fck_wikitext.value);      
         params += '&call=refresh_save';
         jQuery.post(
-           //     DOKU_BASE + 'lib/plugins/ckgedit/scripts/refresh_save.php',
                DOKU_BASE + 'lib/exe/ajax.php',
                 params,
                 function (data) {          
@@ -164,7 +158,7 @@ function dwfckKeypressInstallHandler() {
      oDokuWiki_FCKEditorInstance.EditorDocument.attachEvent('onkeyup', handlekeypress ) ;
   }
 }
-//  p *p/
+
 function disableDokuWikiLockTimer() {
   resetDokuWikiLockTimer(false);
   if(ourLockTimerIntervalID) {
