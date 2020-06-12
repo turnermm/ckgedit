@@ -167,10 +167,12 @@ var FCKRecovery = "";
 var oldonload = window.onload;
 var ourLockTimerINI = false;
 
-  var ckgedit_onload = function() { $js };
   
-  jQuery(window).on('load',ckgedit_onload);
 
+  //jQuery(window).on('load',ckgedit_onload);
+var ckgedit_onload = function() { $js };
+window.onload =  ckgedit_onload;
+/*
   function getCurrentWikiNS() {
         var DWikiMediaManagerCommand_ns = '$media_tmp_ns';
         return DWikiMediaManagerCommand_ns;
@@ -183,12 +185,12 @@ var ourLockTimerINI = false;
  var ourLockTimerIntervalID;
  var dwfckTextChanged = false;
 
-   /**
-    *    event handler
-    *    handles some mousepresses and all keystrokes from CKEditor window
-  */
+  
+    //  event handler
+    //  handles some mousepresses and all keystrokes from CKEditor window
+ 
 
-
+/*
  function handlekeypress (e) {      
    if(ourLockTimerIsSet) {
          lockTimerRefresh();        
@@ -266,12 +268,7 @@ var ourLockTimerINI = false;
  }
 
 
- /**
-   Legacy function has no current use
- */
- function getRecoveredText() {
-    return FCKRecovery;
- }
+
 
  function resetDokuWikiLockTimer(delete_checkbox) {
 
@@ -297,7 +294,7 @@ var ourLockTimerINI = false;
           
  }
 
-/* Renews lock and  creates a ckgedit backup if editor_bak config option is true */
+//  /* Renews lock and  creates a ckgedit backup if editor_bak config option is true */
 function renewLock(bak) {
   if(ourLockTimerIsSet) {
          lockTimerRefresh(true);
@@ -468,7 +465,7 @@ function FCKeditor_OnComplete( editorInstance )
  
    var broken_image ='http://' +  location.host +  DOKU_BASE +  '/lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34';
    editorInstance.on("paste", function(e) {      
-       /* https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript */      
+   //  / * https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript */      
         var formatBytes = function(bytes,decimals) {
              if(bytes == 0) return '0 Bytes';
              var k = 1024,
@@ -511,7 +508,7 @@ function FCKeditor_OnComplete( editorInstance )
 
  var DWikifnEncode = "$fnencode";
 
-/* Make sure that show buttons in top and/or bottom clear the fckl file */  
+//  Make sure that show buttons in top and/or bottom clear the fckl file  
  function get_showButtons() {	
 	var inputs = document.getElementsByTagName('input');
     
@@ -523,8 +520,8 @@ function FCKeditor_OnComplete( editorInstance )
      }
   }
 
- /* make sure the entire page has been loaded */
- setTimeout("get_showButtons()", 3000);
+ //  make sure the entire page has been loaded 
+// setTimeout("get_showButtons()", 3000);
  //]]>
  
 </script>

@@ -4,7 +4,7 @@
  * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
  * @license    GPL 3 or later (http://www.gnu.org/licenses/gpl.html)
 */
-
+// ccc
 var HTMLParser;
 var HTMLParserInstalled=true;
 var HTMLParser_Elements = new Array(); 
@@ -500,3 +500,6 @@ function ckg_admininfo(t){
 	  t.innerHTML = LANG.plugins.ckgedit.stylesheet_oinfo;
     else t.innerHTML = LANG.plugins.ckgedit.stylesheet_cinfo;
 } 
+
+  /* DOKUWIKI:include_once locktimer.js */
+  /* DOKUWIKI:include_once scripts/tmp/parse_wiki.js.unc */

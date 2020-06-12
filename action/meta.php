@@ -23,7 +23,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   function __construct() {
   global $conf;
         /* Feature Flags */
-       $conf['defer_js'] = 0;                 
+    //  $conf['defer_js'] = 0;                 
        $conf['allow_ckg_filebrowser'] = 'dokuwiki';
        $conf['default_ckg_filebrowser'] = 'dokuwiki';
         /* Network Settings */
@@ -869,11 +869,11 @@ SCRIPT;
 
     try {
     if(!window.HTMLParserInstalled || !HTMLParserInstalled){
-         LoadScript("$url");        
+       //  LoadScript("$url");        
     }
     }
     catch (ex) {  
-         LoadScript("$url");        
+       //  LoadScript("$url");        
     }             
     if("$url2") {
        LoadScriptDefer("$url2");        
