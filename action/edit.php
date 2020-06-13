@@ -113,15 +113,24 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         global $ID;
         global $REV;
         global $INFO;
-
-        $event->data['script'][] = 
-            array( 
-                'type'=>'text/javascript', 
-                'charset'=>'utf-8', 
-                '_data'=>'',
-                 'src'=>DOKU_BASE.'lib/plugins/ckgedit/' .$this->fck_location. '/ckeditor.js'
-            );
-
+        global $conf;
+            $event->data['script'][] = 
+                array( 
+                    'type'=>'text/javascript', 
+                    'charset'=>'utf-8', 
+                    '_data'=>'',             
+                     'src'=>DOKU_BASE.'lib/plugins/ckgedit/' .$this->fck_location. '/ckeditor.js'
+                )+($conf['plugin']['ckgedit']['preload_ckeditorjs'] ? [ 'defer' => 'defer'] : []);                
+              
+      if(isset($conf['fnencode']) && $conf['fnencode'] == 'safe') {
+            $event->data['script'][] = 
+                array( 
+                    'type'=>'text/javascript', 
+                    'charset'=>'utf-8', 
+                    '_data'=>'',             
+                     'src'=>'lib/plugins/ckgedit/scripts/safeFN_cmpr.js'
+                ) + ([ 'defer' => 'defer']);
+      } 
       $ua = strtolower ($_SERVER['HTTP_USER_AGENT']);
       if(strpos($ua, 'msie') !== false) {
           echo "\n" . '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />' ."\n";     

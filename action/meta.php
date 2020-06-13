@@ -823,26 +823,7 @@ function check_userfiles() {
   } 
 
 function loadScript(Doku_Event $event) {
-  echo <<<SCRIPT
-
-    <script type="text/javascript">
-    //<![CDATA[ 
-    function LoadScript( url )
-    {
-     document.write( '<scr' + 'ipt type="text/javascript" src="' + url + '"><\/scr' + 'ipt>' ) ;        
-
-    }
-   function LoadScriptDefer( url )
-    {
-     document.write( '<scr' + 'ipt type="text/javascript" src="' + url + '" defer><\/scr' + 'ipt>' ) ;        
-
-    }
-//]]> 
-
- </script>
-
-SCRIPT;
-
+    msg('loadscript called meta.php 826');
 }
 
 /** 
@@ -856,26 +837,11 @@ SCRIPT;
   global $ACT;
 
   $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';
-  if(($ACT == 'login' || $this->session_id == false) && $this->getConf('preload_ckeditorjs')) {
-     $url2 = DOKU_BASE.'lib/plugins/ckgedit/ckeditor/ckeditor.js';
-  }
-  else $url2 = "";
   echo <<<SCRIPT
 
     <script type="text/javascript">
     //<![CDATA[ 
 
-    try {
-    if(!window.HTMLParserInstalled || !HTMLParserInstalled){
-       //  LoadScript("$url");        
-    }
-    }
-    catch (ex) {  
-       //  LoadScript("$url");        
-    }             
-    if("$url2") {
-       LoadScriptDefer("$url2");        
-    }
     function createRequestValue() {
         try{
         var inputNode=document.createElement('input');
