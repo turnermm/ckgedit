@@ -22,12 +22,10 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $geshi_dir;
   function __construct() {
   global $conf;
-        /* Feature Flags */
-    //  $conf['defer_js'] = 0;                 
+ 
        $conf['allow_ckg_filebrowser'] = 'dokuwiki';
        $conf['default_ckg_filebrowser'] = 'dokuwiki';
-        /* Network Settings */
-       // $conf['dnslookups'] = 0; 
+
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
       $this->dw_priority_group = $this->getConf('dw_users');

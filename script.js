@@ -502,4 +502,4 @@ function ckg_admininfo(t){
 } 
 
   /* DOKUWIKI:include_once locktimer.js */
-  /* DOKUWIKI:include_once scripts/tmp/parse_wiki.js.unc */
+  /* DOKUWIKI:include_once scripts/parse_wiki.js.unc */
