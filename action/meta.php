@@ -823,20 +823,38 @@ function check_userfiles() {
   } 
 
 function loadScript(Doku_Event $event) {
-    msg('loadscript called meta.php 826');
+     echo <<<SCRIPT
+
+    <script type="text/javascript">
+    //<![CDATA[ 
+    function LoadScript( url )
+    {
+     document.write( '<scr' + 'ipt type="text/javascript" src="' + url + '"><\/scr' + 'ipt>' ) ;        
+
+    }
+   function LoadScriptDefer( url )
+    {
+     document.write( '<scr' + 'ipt type="text/javascript" src="' + url + '" defer><\/scr' + 'ipt>' ) ;        
+
+    }
+//]]> 
+
+ </script>
+ 
+SCRIPT;
+
 }
 
 /** 
  *  Handle features need for DW Edit: 
- *    1. load script, if not loaded
- *    2. Re-label Cancel Button "Exit" when doing a preview  
- *    3. set up $REQUEST value to identify a preview when in DW Edit , used in 
+ *    1. Re-label Cancel Button "Exit" when doing a preview  
+ *    2. set up $REQUEST value to identify a preview when in DW Edit , used in 
  *       set_session to remove ckgedit and DW drafts if present after a DW preview  
 */
   function setupDWEdit(Doku_Event $event) {
   global $ACT;
 
-  $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';
+ // $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';
   echo <<<SCRIPT
 
     <script type="text/javascript">

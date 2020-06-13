@@ -136,6 +136,19 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
           echo "\n" . '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />' ."\n";     
       }
             
+        if($this->test) {
+         $nval = substr(md5(time()), -20);
+         $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc';
+        }
+        else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
+        $event->data['script'][] = 
+            array( 
+                'type'=>'text/javascript', 
+                'charset'=>'utf-8', 
+                '_data'=>'',             
+                 'src'=> $parse_url
+            ) + ([ 'defer' => 'defer']);
+         
         return;
     }
 
@@ -1044,27 +1057,12 @@ var ckgedit_hasCaptcha = "<?php echo $this->captcha?1:0?>";
 <?php } ?>
 
 <?php  
-  if($this->test) {
-     $nval = substr(md5(time()), -20);
-     $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc?n=' . $nval;
-  }
-  else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';  
-  echo "var parse_url = '$parse_url';";
-?>
-
-   <?php
        global $conf;
 
        if(isset($conf['animal'])) {
          echo "var config_animal='" . $conf['animal'] . "';";
        }
    ?>
-
-LoadScriptDefer(parse_url);
-if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
-   LoadScript(DOKU_BASE + 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js' );
-}
-
 
  //]]>
 
