@@ -23,9 +23,6 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   function __construct() {
   global $conf;
  
-       $conf['allow_ckg_filebrowser'] = 'dokuwiki';
-       $conf['default_ckg_filebrowser'] = 'dokuwiki';
-
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
       $this->dw_priority_group = $this->getConf('dw_users');
@@ -751,6 +748,10 @@ function check_userfiles() {
        if(isset($USERINFO)) {
            $this->startup_msg();
        }
+       if((float)$updateVersion >= 51){
+           $conf['plugin']['ckgedit']['allow_ckg_filebrowser'] = 'dokuwiki';
+           $conf['plugin']['ckgedit']['default_ckg_filebrowser'] = 'dokuwiki';          
+       } 
       
        $auth = auth_quickaclcheck($ID);  
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
@@ -911,6 +912,7 @@ function reset_user_rewrite_check() {
 function startup_msg() {  
    global $INFO;
     global $ACT;
+   global $updateVersion;
 
   $filename =  metaFN('fckl:scayt','.meta'); 
   $msg =  $this->locale_xhtml('scayt');  
@@ -923,13 +925,14 @@ function startup_msg() {
         $this->startup_check_twice($filename, 'scayt');
   }
   
+  if((float)$updateVersion >= 51) {
   $filename =  metaFN('fckl:hogfather','.meta'); 
   $msg =  $this->locale_xhtml('hogfather');
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
        msg($msg,MSG_MANAGERS_ONLY);      
   }
-  
+  }   
   
 
   
