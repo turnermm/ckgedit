@@ -1035,17 +1035,12 @@ var ckgedit_hasCaptcha = "<?php echo $this->captcha?1:0?>";
 <?php } ?>
 
 <?php  
-/*
-   $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';    
-  echo "var script_url = '$url';";
   if($this->test) {
      $nval = substr(md5(time()), -20);
      $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc?n=' . $nval;
   }
-  else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
-  */
- // echo "var parse_url = '$parse_url';";
-//  $safe_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js';       
+  else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';  
+  echo "var parse_url = '$parse_url';";
 ?>
 
    <?php
@@ -1055,19 +1050,8 @@ var ckgedit_hasCaptcha = "<?php echo $this->captcha?1:0?>";
          echo "var config_animal='" . $conf['animal'] . "';";
        }
    ?>
-/*
-LoadScript(parse_url);
-try {
-  if(!window.HTMLParserInstalled){
-    LoadScript(script_url);   
-  }
-}
-catch (ex) {  
-   LoadScript(script_url); 
-}
-*/
 
-
+LoadScriptDefer(parse_url);
 if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
    LoadScript(DOKU_BASE + 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js' );
 }
