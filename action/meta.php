@@ -454,7 +454,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
         var dom = document.getElementById('ckgedit_mode_type');                
           
          if(useDW_Editor) {
-                document.cookie = 'FCKG_USE=other;expires=;SameSite=Lax';             
+                document.cookie = 'FCKG_USE=other;expires=0;SameSite=Lax';             
               }  
              else {
                 document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;SameSite=Lax'
@@ -473,7 +473,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
            e.form.submit(); 
        }
         else {            
-            document.cookie = 'FCKG_USE=_false_;expires=;SameSite=Lax';             
+            document.cookie = 'FCKG_USE=_false_;expires=0;SameSite=Lax';             
             dom.value = 'dwiki';    
            if(JSINFO['chrome_version'] >= 56 && window.dwfckTextChanged) {
            }
@@ -740,26 +740,6 @@ function check_userfiles() {
            }
   }
 
-    /**
-     * Support samesite cookie flag in both php 7.2 (current production) and php >= 7.3 (when we get there)
-     * From: https://github.com/GoogleChromeLabs/samesite-examples/blob/master/php.md and https://stackoverflow.com/a/46971326/2308553 
-     */
-    function setcookieSameSite($name, $value, $expire, $path ='/', $domain="", $httponly="HttpOnly", $secure=false, $samesite="Lax")
-    {
-        if (PHP_VERSION_ID < 70300) {
-            setcookie($name, $value, $expire, "$path; samesite=$samesite", $domain, $secure, $httponly);
-        }
-        else {
-            setcookie($name, $value, [
-                'expires' => $expire,
-                'path' => $path,
-                'domain' => $domain,
-                'samesite' => $samesite,
-                'secure' => $secure,
-                'httponly' => $httponly,
-            ]);
-        }
-    }
   function file_type(Doku_Event $event, $param) {	 
        global $ACT;
        global $ID; 
