@@ -3,7 +3,7 @@
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'action.php');
-
+require_once(DOKU_PLUGIN.'ckgedit/scripts/setsamesite.php');
 class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
     function __construct()
     {
@@ -33,17 +33,17 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
                 $fname = substr($event->data[3],0,29) . '. . .';                 
             }
             else $fname = $event->data[3];
-            msg($this->getLang('mediamgr_imgonly') .  $fname);    
-             setcookie('ckgFbType', 'image',time()-10);
+             msg($this->getLang('mediamgr_imgonly') .  $fname);    
+             setcookieSameSite('ckgFbType', 'image',time()-10);
             $event->preventDefault();
         }    
     }
     
     function mediaman_started(Doku_Event $event) {
         if ($_GET["onselect"] == "ckg_edit_mediaman_insert") {
-            setcookie('ckgFbType', 'image');
+            setcookieSameSite('ckgFbType', 'image');
         } else if ($_GET["onselect"] == "ckg_edit_mediaman_insertlink") {
-            setcookie('ckgFbType', 'link');
+            setcookieSameSite('ckgFbType', 'link');
         }
     }
 }
