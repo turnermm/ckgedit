@@ -273,7 +273,7 @@ function dwedit_draft_delete() {
   
   function setEdHeight(h) {  
         h = parseInt(h);        
-        document.cookie = 'ckgEdht=' + h +';expires="";path=' +JSINFO['doku_base'];
+        document.cookie = 'ckgEdht=' + h +';expires=0;path=' +JSINFO['doku_base'] + ';SameSite=Lax;';
    }
 
    /* enable disable image paste */

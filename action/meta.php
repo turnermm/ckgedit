@@ -7,6 +7,7 @@ if(!defined('DOKU_INC')) die();
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 define('FCK_ACTION_SUBDIR',  DOKU_PLUGIN . 'ckgedit/action/');
 require_once(DOKU_PLUGIN.'action.php');
+require_once(DOKU_PLUGIN.'ckgedit/scripts/setsamesite.php');
  
 class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $session_id = false;    
@@ -451,10 +452,10 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
         var dom = document.getElementById('ckgedit_mode_type');                
           
          if(useDW_Editor) {
-                document.cookie = 'FCKG_USE=other;expires=';             
+                document.cookie = 'FCKG_USE=other;expires=0;path=/;SameSite=Lax';             
               }  
              else {
-                document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;'
+                document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;path=/;SameSite=Lax'
            }
         if(which == 1) {             
            if(e && e.form) {
@@ -470,7 +471,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
            e.form.submit(); 
        }
         else {            
-            document.cookie = 'FCKG_USE=_false_;expires=';             
+            document.cookie = 'FCKG_USE=_false_;expires=0;path=/;SameSite=Lax';             
             dom.value = 'dwiki';    
            if(JSINFO['chrome_version'] >= 56 && window.dwfckTextChanged) {
            }
@@ -501,11 +502,11 @@ function check_userfiles() {
     
    $userfiles = DOKU_PLUGIN . "ckgedit/fckeditor/$animal/";
     if(isset($conf['animal']) && $conf['animal'] !== 'userfiles') {
-        setcookie('FCK_animal',$animal, $expire, '/');     
-		setcookie('FCK_animal_inc',$conf['animal_inc'], $expire, '/');     
+        setcookieSameSite('FCK_animal',$animal, $expire, '/');     
+		setcookieSameSite('FCK_animal_inc',$conf['animal_inc'], $expire, '/');     
         preg_match('#^(.*?' . $conf['animal'] . ')#', $save_dir,$matches);
         $save_dir=$matches[1] . '/data/pages';
-        setcookie('FCK_farmlocal',$save_dir, $expire, '/');     
+        setcookieSameSite('FCK_farmlocal',$save_dir, $expire, '/');     
     
         return;
     }
@@ -525,7 +526,7 @@ function check_userfiles() {
         $media_dir = DOKU_BASE . $mdir . 'image/';
         }
         else $media_dir = '/lib/plugins/ckgedit/fckeditor/'. $animal . '/image/';        
-        setcookie('FCK_media',$media_dir, $expire, '/');           
+        setcookieSameSite('FCK_media',$media_dir, $expire, '/');           
 
      }
      else {
@@ -709,30 +710,30 @@ function check_userfiles() {
 
             }
 
-          // $expire = time()+60*60*24*30;
-           $expire = null;
-           setcookie('FCK_NmSp_acl',$session_string, $expire, '/');           
+           $expire = time()+60*60*24*30;
+          // $expire = null;
+           setcookieSameSite('FCK_NmSp_acl',$session_string, $expire, '/');           
 
-           setcookie('FCK_SCAYT',$this->getConf('scayt'), $expire, '/');                
-           setcookie('FCK_SCAYT_AUTO',$this->getConf('scayt_auto'), $expire, '/'); 
+           setcookieSameSite('FCK_SCAYT',$this->getConf('scayt'), $expire, '/');                
+           setcookieSameSite('FCK_SCAYT_AUTO',$this->getConf('scayt_auto'), $expire, '/'); 
            $scayt_lang = $this->getConf('scayt_lang');
            if(isset($scayt_lang)) {
                list($scayt_lang_title,$scayt_lang_code) = explode('/',$scayt_lang);
                if($scayt_lang_code!="en_US") {
-                  setcookie('FCK_SCAYT_LANG',$scayt_lang_code, $expire, '/'); 
+                  setcookieSameSite('FCK_SCAYT_LANG',$scayt_lang_code, $expire, '/'); 
                }
            }
            if ($this->getConf('winstyle')) {
-              setcookie('FCKConnector','WIN', $expire, DOKU_BASE);                                
+              setcookieSameSite('FCKConnector','WIN', $expire, DOKU_BASE);                                
            }
           
            if ($this->dokuwiki_priority && $this->in_dwpriority_group() ) {
                if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] == 'other') {           //if other go to ckeditor                   
                    $expire = time() -60*60*24*30;
-                   setcookie('FCKG_USE','_false_', $expire, '/');           
+                   setcookieSameSite('FCKG_USE','_false_', $expire, '/');           
                }
                else {            
-                  setcookie('FCKG_USE','_false_', $expire, '/');     //turn off ckeditor      
+                   setcookieSameSite('FCKG_USE','_false_', $expire, '/');                //turn off ckeditor      
                 }
            }
   }
@@ -807,13 +808,13 @@ function check_userfiles() {
        /* set cookie to pass namespace to FCKeditor's media dialog */
       // $expire = time()+60*60*24*30;
        $expire = null;
-       setcookie ('FCK_NmSp',$ID, $expire, '/');     
+       setcookieSameSite('FCK_NmSp',$ID, $expire, '/');     
       
           
 
       /* Remove TopLevel cookie */         
        if(isset($_COOKIE['TopLevel'])) {
-            setcookie("TopLevel", $_REQUEST['TopLevel'], time()-3600, '/');
+            setcookieSameSite("TopLevel", $_REQUEST['TopLevel'], time()-3600, '/');
        }
 
      
@@ -966,7 +967,7 @@ function in_dwpriority_group() {
          if(isset($ar[$client])) {
              if($ar[$client] =='Y') return true;    // Y = dw_priority selected    
              if($ar[$client] =='N') {   
-                 setcookie('FCKG_USE','_false_', $expire, '/');    
+                 setcookieSameSite('FCKG_USE','_false_', $expire, '/');    
                  return false;  // N = CKEditor selected
              }
          }
@@ -976,7 +977,7 @@ function in_dwpriority_group() {
            return true;
         }
         
-         setcookie('FCKG_USE','_false_', $expire, '/');    
+         setcookieSameSite('FCKG_USE','_false_', $expire, '/');    
  
       return false;
 }
