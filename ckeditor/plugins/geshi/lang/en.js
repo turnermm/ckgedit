@@ -1,4 +1,6 @@
 CKEDITOR.plugins.setLang("geshi","en",{
+        window_title: 'Geshi',
+        basic_settings: 'Basic settings',
     	title: 'Geshi snippet or block',
         lang: 'Select language',
         which: 'Codeblock or Snippet? Plain Text removes HTML',		
