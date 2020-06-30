@@ -457,7 +457,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
                 document.cookie = 'FCKG_USE=other;expires=0;SameSite=Lax';             
               }  
              else {
-                document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;SameSite=Lax'
+                document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;SameSite=Lax';
            }
         if(which == 1) {             
            if(e && e.form) {

@@ -355,7 +355,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
 	  
      // $TEXT = preg_replace("/(={3,})<(code\|file)/ms","$1\n<$2",$TEXT);
 
-
+        $TEXT = preg_replace('#(\s*(\\\\)\s*)+$#ms', "",$TEXT);
          return;
     
     }
