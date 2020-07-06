@@ -51,6 +51,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
         "the text following the '<span style='font-weight:900'>&gt;</span>' will be inserted into the link, replacing  a place holder, which is enclosed in curly brackets, "  +
         "as in <span style='font-weight:600'>{NAME}</span>. When there is no place holder, the replacement text will be appended to the end of the link.</div>",
         MediaFileLink: "link to media file",
+        URLText:"<span style='font-weight:bold'>URL Display Text (optional, defaults to url)</span>",
      };   
      var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
     
@@ -703,6 +704,12 @@ var useHeading = function(wiki_id) {
 										this.getElement().show();
 								}
 							},
+                            {                             
+                                type : 'text',
+                                id : 'url_text',
+                                label : translateItem('URLText'),
+                                required: false,
+                            },    
 						]
 
 					},
@@ -1214,9 +1221,9 @@ var useHeading = function(wiki_id) {
 					  break;
 					case 'url':
 						var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
-							url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
-						attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
-
+						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
+					    attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
+                        url_text =  this.getValueOf( 'info', 'url_text' );
 						break;
 					case 'anchor':
 						var name = ( data.anchor && data.anchor.name ),
@@ -1402,6 +1409,9 @@ var useHeading = function(wiki_id) {
 			   if(internal_text) {
 				   text.setText(internal_text);
 			   }
+               else if(url_text) {
+                    text.setText(url_text);
+               }    
 				else if(text && data.adv.advTitle) {
 					  text.setText(data.adv.advTitle);
 				}
@@ -1700,6 +1710,7 @@ var doku_linkwiz = {
         //insert link into field
         var dialog = CKEDITOR.dialog.getCurrent();
         dialog.getContentElement("info", "internal").setValue(link);
+        dialog.getContentElement("info", "internal_text").setValue(link);  
 
         doku_linkwiz.hide();
 
