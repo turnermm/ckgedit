@@ -633,7 +633,7 @@ if ($this->getConf('allow_ckg_filebrowser') == 'all') {
 }
 
 //setup options
-sectoken=getSecurityToken();
+$sectoken=getSecurityToken();
 $fbOptions = "filebrowserImageUploadUrl: \"$doku_url/lib/plugins/ckgedit/imageupload.php?sectok=$sectoken&ns=$ns\",";
 
 if ($fb == 'dokuwiki') {
