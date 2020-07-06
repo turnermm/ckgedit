@@ -22,12 +22,11 @@
 
                 });
 
-		      if(!jQuery("mediamanager__uploader").length){					 
-                  jQuery("form[action]").each(function(index, val){
-                        var url = jQuery(this).attr('action'); 
-                        url = url + _action;              
-                        jQuery(this).attr('action',url); 
-		     });
+                /* update sarch form action */
+                 var valu = jQuery("#dw__mediasearch  input[type='text").val();
+                 if(valu == ""){
+                     var url = jQuery("form#dw__mediasearch").attr('action'); 
+                      jQuery("form#dw__mediasearch").attr('action', url+_action); 
                   };
 				  
                 jQuery(document).ajaxComplete(function() {
