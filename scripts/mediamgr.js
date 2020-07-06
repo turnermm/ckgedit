@@ -1,6 +1,8 @@
       
       if (opener != null && opener.CKEDITOR !== undefined) {
             window.onload = function () {
+                var _action = '?ns=&edid=wiki__text&onselect=ckg_edit_mediaman_insert&ckg_media=img&CKEditor=wiki__text&CKEditorFuncNum=1&langCode=en';
+                
                 jQuery( document ).ready(function() {
                     if ((location.search.split("ckg_media=")[1]||"").split("&")[0] == "link") {
                         jQuery(".select").on("click", function(event) {
@@ -20,15 +22,21 @@
 
                 });
 
-		      if(!jQuery("mediamanager__uploader").length){					 
-		          jQuery("div.even img, div.odd img").click(function() {					   
-			      window.location.hash = 'ns=&edid=wiki__text&onselect=ckg_edit_mediaman_insert&ckg_media=img&CKEditor=wiki__text&CKEditorFuncNum=1&langCode=en';	
   	   
+                jQuery("form[action]").each(function(index, val){
+                var url = jQuery(this).attr('action'); 
+                url = url + _action;              
+                jQuery(this).attr('action',url); 
 		     });
-                  };
+		        
 				  
                 jQuery(document).ajaxComplete(function() {
                     ckg_nonimage_overlay();
+                    jQuery("form[action]").each(function(index, val){
+                        var url = jQuery(this).attr('action'); 
+                        url = url + _action;              
+                        jQuery(this).attr('action',url); 
+                        });            
                 });
             };
             
@@ -45,4 +53,3 @@
                 return;
             }
         }    
-
