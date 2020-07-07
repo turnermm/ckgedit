@@ -1961,9 +1961,9 @@ jQuery( "#ebtn__dwedit" ).click(function() {
 
 jQuery("#ebtn__fbswitch").click(function(){
     if(getCookie('ckgFbOpt') == 'dokuwiki') {
-        document.cookie = 'ckgFbOpt=ckgedit;';
+        document.cookie = 'ckgFbOpt=ckgedit;SameSite=Lax';
     } else {
-        document.cookie = 'ckgFbOpt=dokuwiki;';
+        document.cookie = 'ckgFbOpt=dokuwiki;SameSite=Lax';
     }
     parse_wikitext('edbtn__save');
    this.form.submit();

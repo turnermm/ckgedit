@@ -353,9 +353,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
 	  $TEXT = str_replace('CBL__Bksl','\\',$TEXT);
 	  $TEXT = preg_replace("/<code\s+file/ms",'<code ',$TEXT);
 	  
-     // $TEXT = preg_replace("/(={3,})<(code\|file)/ms","$1\n<$2",$TEXT);
-
-
+        $TEXT = preg_replace('#((\\\\){2}\s*)$#', "",$TEXT);
          return;
     
     }
