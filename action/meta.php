@@ -939,10 +939,6 @@ function startup_msg() {
       io_saveFile($filename,'1'); 
        msg($msg,MSG_MANAGERS_ONLY);      
   }
-  
-  
-
-  
 }
 
 function  startup_check_twice($filename, $which) {
