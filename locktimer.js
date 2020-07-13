@@ -77,7 +77,13 @@
                 DOKU_BASE + 'lib/exe/ajax.php',
                 params,
                 function (data) {
+                    try {
+                      var data = JSON.parse(data);
+                      data.draft = data.draft +  ' by ckgedit';  
+                    }
+                     catch(err) {
                     data = data.replace(/auto/,"")  + ' by ckgedit';
+                     }
                     locktimer.response = data; 
                     locktimer.refreshed(data);
                 },
