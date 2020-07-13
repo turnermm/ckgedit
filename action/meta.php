@@ -745,7 +745,7 @@ function check_userfiles() {
        global  $INPUT;
        global $updateVersion;
        global $conf, $USERINFO;
-       //msg($updateVersion);
+
        if(isset($USERINFO)) {
            $this->startup_msg();
        }
@@ -914,6 +914,11 @@ function startup_msg() {
    global $INFO;
     global $ACT;
    global $updateVersion;
+   $show_msg = false;
+   if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
+	       $show_msg = true;		   
+	}
+   if(!$show_msg)  return;
 
   $filename =  metaFN('fckl:scayt','.meta'); 
   $msg =  $this->locale_xhtml('scayt');  
@@ -925,15 +930,16 @@ function startup_msg() {
         if($this->getConf('scayt_auto') != 'off') return;
         $this->startup_check_twice($filename, 'scayt');
   }
-  
-  if((float)$updateVersion >= 51) {
+  if( (float)$updateVersion  < 51) {
+      return;
+  }
   $filename =  metaFN('fckl:hogfather','.meta'); 
   $msg =  $this->locale_xhtml('hogfather');
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
        msg($msg,MSG_MANAGERS_ONLY);      
   }
-  }   
+  
   
 
   
