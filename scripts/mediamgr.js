@@ -1,4 +1,4 @@
-      
+
       if (opener != null && opener.CKEDITOR !== undefined) {
             window.onload = function () {
                 var _action = '?ns=&edid=wiki__text&onselect=ckg_edit_mediaman_insert&ckg_media=img&CKEditor=wiki__text&CKEditorFuncNum=1&langCode=en';
@@ -36,11 +36,13 @@
                 });
              };
             
+            if(!opener.oDokuWiki_FCKEditorInstanceInLinkDialog)  {
            jQuery( ".odd, .even" ).each( function( index, element ){
                 if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
                     jQuery( this ).html(LANG.plugins.ckgedit.mediamgr_notice+": <b>" + this.title  +"</b>");
                 }
             });
+            }
         
         }
 
