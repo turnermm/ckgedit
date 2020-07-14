@@ -2,7 +2,7 @@
     Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
-
+oDokuWiki_FCKEditorInstanceInLinkDialog = true;
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
 var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex;
  var ck_m_files_protocol, ckg_dialog, linkOpt;
