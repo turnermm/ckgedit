@@ -704,6 +704,12 @@ var useHeading = function(wiki_id) {
 										this.getElement().show();
 								}
 							},
+                            {                             
+                                type : 'text',
+                                id : 'url_text',
+                                label : translateItem('URLText'),
+                                required: false,
+                            },    
 						]
 
 					},
@@ -1123,6 +1129,7 @@ var useHeading = function(wiki_id) {
 
 
 				 var other_media = false;
+                 var media_text;
 
 				// Compose the URL.
 			   var other_mime_file = "";
@@ -1133,7 +1140,7 @@ var useHeading = function(wiki_id) {
 							data.url.url =  document.getElementById(fckgMediaInputId).value;
 						}
 						data.adv.advTitle = data.url.url;
-
+                        media_text = data.adv.advTitle;
 						var mf = data.url.url.match(/(\.(\w+))$/);
 						 other_mime_file = data.url.url.replace(/^:/,"");
 						data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;
@@ -1216,8 +1223,8 @@ var useHeading = function(wiki_id) {
 					case 'url':
 						var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
 						url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
-						attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
-
+					    attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
+                        url_text =  this.getValueOf( 'info', 'url_text' );
 						break;
 					case 'anchor':
 						var name = ( data.anchor && data.anchor.name ),
@@ -1400,9 +1407,16 @@ var useHeading = function(wiki_id) {
 					selection.selectElement( element );
 					delete this._.selectedElement;
 				}
-			   if(internal_text) {
+                
+              if(media_text) {
+                   text.setText(media_text);
+               }                  
+			   else if(internal_text) {
 				   text.setText(internal_text);
 			   }
+               else if(url_text) {
+                    text.setText(url_text);
+               }    
 				else if(text && data.adv.advTitle) {
 					  text.setText(data.adv.advTitle);
 				}
@@ -1701,6 +1715,7 @@ var doku_linkwiz = {
         //insert link into field
         var dialog = CKEDITOR.dialog.getCurrent();
         dialog.getContentElement("info", "internal").setValue(link);
+        dialog.getContentElement("info", "internal_text").setValue(link);  
 
         doku_linkwiz.hide();
 
