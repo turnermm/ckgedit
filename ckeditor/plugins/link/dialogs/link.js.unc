@@ -1129,6 +1129,7 @@ var useHeading = function(wiki_id) {
 
 
 				 var other_media = false;
+                 var media_text;
 
 				// Compose the URL.
 			   var other_mime_file = "";
@@ -1139,7 +1140,7 @@ var useHeading = function(wiki_id) {
 							data.url.url =  document.getElementById(fckgMediaInputId).value;
 						}
 						data.adv.advTitle = data.url.url;
-
+                        media_text = data.adv.advTitle;
 						var mf = data.url.url.match(/(\.(\w+))$/);
 						 other_mime_file = data.url.url.replace(/^:/,"");
 						data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;
@@ -1406,7 +1407,11 @@ var useHeading = function(wiki_id) {
 					selection.selectElement( element );
 					delete this._.selectedElement;
 				}
-			   if(internal_text) {
+                
+              if(media_text) {
+                   text.setText(media_text);
+               }                  
+			   else if(internal_text) {
 				   text.setText(internal_text);
 			   }
                else if(url_text) {
