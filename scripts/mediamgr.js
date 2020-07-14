@@ -36,11 +36,13 @@
                 });
              };
             
+            if(!opener.oDokuWiki_FCKEditorInstanceInLinkDialog)  {
            jQuery( ".odd, .even" ).each( function( index, element ){
                 if(!this.title.match(/\.(jpg|jpeg|png|tiff?|gif)$/)){
                     jQuery( this ).html(LANG.plugins.ckgedit.mediamgr_notice+": <b>" + this.title  +"</b>");
                 }
             });
+            }
         
         }
 
