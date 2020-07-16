@@ -5,11 +5,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 oDokuWiki_FCKEditorInstanceInLinkDialog = true;
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
 var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex;
- var ck_m_files_protocol, ckg_dialog, linkOpt;
+var ck_m_files_protocol, ckg_dialog, linkOpt;
  window.onbeforeunload = function() { };
    
 CKEDITOR.dialog.add( 'link', function( editor )
 {
+     //alert(editor.config.ckgProtocols);
     oDokuWiki_FCKEditorInstance.Lang = editor.lang;
     ck_m_files_protocol =  oDokuWiki_FCKEditorInstance.mfiles ?	[ 'm-files://\u200E', 'm-files://' ] : "";    
     var Doku_Base = oDokuWiki_FCKEditorInstance.dwiki_doku_base;
@@ -26,7 +27,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
     oRegex.samba =/file:\/\/\/\/\/(.*)/;
     oRegex.interwiki = /^(.*?)oIWIKIo(.*?)cIWIKIc/;    
 	oRegex.samba_unsaved =/^\\\\\w+(\\\w.*)/;	    
-    ckg_dialog = CKEDITOR.dialog;
+    ckg_dialog = CKEDITOR.dialog;    
 	 var fckgSMBInputId;
      var defaultFBLang = {
         InternalLink: "internal link",
@@ -575,9 +576,9 @@ var useHeading = function(wiki_id) {
 							[ linkLang.toUrl, 'url' ],							
                             [ translateItem('InternalLink'), 'internal' ],
                             [translateItem('InternalMedia'), 'media' ],
-							[ linkLang.toEmail, 'email' ],
-						   [  translateItem('SMBLabel'), 'samba' ]	,
-                           [translateItem('InterWikiLink'), 'interwiki' ]	                            
+						    [ linkLang.toEmail, 'email' ],
+						    [  translateItem('SMBLabel'), 'samba' ]	,
+                            [translateItem('InterWikiLink'), 'interwiki' ]	                            
 						],
 						onChange : linkTypeChanged,
 						setup : function( data )
@@ -612,7 +613,7 @@ var useHeading = function(wiki_id) {
 											[ 'http://\u200E', 'http://' ],                                            
 											[ 'https://\u200E', 'https://' ],
 											[ 'ftp://\u200E', 'ftp://' ],
-											[ 'news://\u200E', 'news://' ],
+											[ 'news://\u200E', 'news://' ],                                            
                                             ck_m_files_protocol    
 										],
 										setup : function( data )
@@ -1423,9 +1424,9 @@ var useHeading = function(wiki_id) {
 		{
             ckg_iwi_Select_Id_x = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;      
             var setUpIwikiSel = function() { 
-                if(!ckgeditIwikiData) return;
-                myStopFunction();
-                var select =document.getElementById(ckg_iwi_Select_Id_x);           
+               if(!ckgeditIwikiData) return;
+               myStopFunction();
+               var select =document.getElementById(ckg_iwi_Select_Id_x);           
                this.stack = select.options;
                this.stack.length = 0;
                this.stack[0] = (new Option("Not Set","not-set",false,false));
@@ -1438,32 +1439,54 @@ var useHeading = function(wiki_id) {
               }              
          }; 
          
-          var myVar = setInterval(function(){ setUpIwikiSel()}, 1000);
-           var  myStopFunction = function () {
-                 clearInterval(myVar);
-          } 
-            oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
-			fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
-            fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
-            fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id;
-            var el = this.getContentElement('info', 'iwiki_shortcut').getInputElement().$.id;        
-           //this.getContentElement("info", 'iwiki_shortcut'). disable();  //restricts attempts to enter filenames into text box
-           this.getContentElement('info', 'media').disable();
-		   this.hidePage( 'advanced' );		//Hide Advanded tab.
-	       this.showPage('info');				
-           ckg_dialog = this;
-           var tab = this._.tabs[ 'advanced' ] && this._.tabs[ 'advanced' ][ 0 ];               
-           var dialog = this;                  
-           var notSet = translateItem('NotSetOption');           
-           tab.on('focus', function(evt) {      
-               var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;          
-               var select =document.getElementById(select_id); 
-               select.selectedIndex = -1;
-               select.options.length = 0;                   
-               select.options[0] =  new Option(notSet,"",false,false);               
-           });             
-   
-		},
+        var myVar = setInterval(function(){ setUpIwikiSel()}, 1000);
+        var myStopFunction = function () {
+                 clearInterval(myVar); 
+            } 
+
+        oDokuWiki_FCKEditorInstance.isDwikiImage = false;			
+        fckgInternalInputId = this.getContentElement('info', 'internal').getInputElement().$.id;
+        fckgMediaInputId = this.getContentElement('info', 'media').getInputElement().$.id;
+        fckgSMBInputId = this.getContentElement('info', 'samba').getInputElement().$.id; 
+       // this.getContentElement("info", 'iwiki_shortcut'). disable();  //restricts attempts to enter filenames into text box
+       
+        var update_schemes = function(proto_ref, ed) {                      
+            var selectx = document.getElementById(proto_ref);   
+            var schemes = ed.config.ckgProtocols;          
+            var ar = schemes.split(/\n/);
+            var ar_final = new Array();
+            for(i=0;i<ar.length;i++) {
+                if(!ar[i].match(/\w/)) continue;
+                if(ar[i].match(/\#|http|https|ftp|news|m-files/)) {
+                continue;              
+                }          
+                    var option = document.createElement("option");
+                    option.value = ar[i];
+                    option.text = ar[i] + '://\u200E';
+                    selectx.add(option)           
+                    ar_final.push(ar[i]);
+                }             
+        }
+           
+       var proto_ref = this.getContentElement('info', 'protocol').getInputElement().$.id 
+       update_schemes(proto_ref, editor);
+           
+       this.getContentElement('info', 'media').disable();
+       this.hidePage( 'advanced' );		//Hide Advanded tab.
+       this.showPage('info');				
+       ckg_dialog = this;
+       var tab = this._.tabs[ 'advanced' ] && this._.tabs[ 'advanced' ][ 0 ];               
+       var dialog = this;                  
+       var notSet = translateItem('NotSetOption');           
+       tab.on('focus', function(evt) {      
+           var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;          
+           var select =document.getElementById(select_id); 
+           select.selectedIndex = -1;
+           select.options.length = 0;                   
+           select.options[0] =  new Option(notSet,"",false,false);               
+       });             
+
+    },
 	
 
 		// Inital focus on 'url' field if link is of type URL.

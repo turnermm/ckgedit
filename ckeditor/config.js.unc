@@ -52,7 +52,7 @@ config.colors = new Array(
 'BCB4F3','BD5CFE','BDF4CB','BDFFEA','BEFEEB','BF00BF','C06A45','C0A545','C0E0DA','C0E7F3','C0F7FE','C0F7FE','C0FF97','C17753','C269FE','C27E3A',
 'C47557','C48484','C4ABFE','C6C6FF','C79BF2','C87C5B','C88E8E','C8B400','C8C800','C98767','C98A4B','C9DECB','C9EAF3','CA00CA','CACAFF','CAFEB8',
 'CAFFD8','CB59E8','CB59E8','CB876D','CBC5F5','CC0000','CC0033','CC0066','CC0099','CC00CC','CC00FF','CC3300','CC3333','CC3366','CC3399','CC33CC',
-'CC33FF','CC6600','CC6633','CC6666','CC6699','CC66CC','CC66FF','CC9900','CC9933','CC9966','CC9999','CC99CC','CC99FF','CCCC00','CCCC33','CCCC66',
+'CC33FF','CC6600','CC66b33','CC6666','CC6699','CC66CC','CC66FF','CC9900','CC9933','CC9966','CC9999','CC99CC','CC99FF','CCCC00','CCCC33','CCCC66',
 'CCCC99','CCCCCC','CCCCCC','CCCCFF','CCFF00','CCFF33','CCFF66','CCFF99','CCFFCC','CCFFFF','CD85FE','CDD11B','CEA8F4','CEB86C','CEDEF4','CEF0FF',
 'CEFFFD','CF8D72','CFE7E2','CFFEF0','D0977B','D0BCFE','D0E6FF','D19C67','D1A0A0','D1D17A','D1FFB3','D29680','D2FFC4','D54FD5','D568FD','D698FE',
 'D69E87','D6C485','D6F8DE','D73E68','D7ACAC','D7D1F8','D7D78A','D881ED','D8F0F8','D900D9','D97BFD','D9C400','D9F3FF','DAA794','DAAC96','DAAF85',
@@ -98,6 +98,7 @@ config.colors = new Array(
       config.doku_url = window.location.protocol+ '//' + browser_level.dokuBase;
       config.ckedit_path = window.location.protocol +'//' + browser_level.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
      }
+     
       config.jquery = browser_level.jQuery;
     //  config.format_code = { element : 'code', attributes : { 'class' : 'dwcode' } };
 	// Define changes to default configuration here.
@@ -292,6 +293,19 @@ try {
 
 }
 
+config.ckgProtocols = "";
+var get_dw_protocols = function() {
+    config.jquery.post(
+            ckedit_path + "schemes.php",
+            function (data,status) { 
+                if(status == "success") {            
+                    config.ckgProtocols=data;
+                } else config.ckgProtocols = 'no data';                            
+            },
+            'html'
+        );
+}
+get_dw_protocols();
 config.ckgEditorVer;
 var get_ckgeditor_version = function() {
     config.jquery.post(
