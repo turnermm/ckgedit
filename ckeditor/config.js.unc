@@ -98,6 +98,7 @@ config.colors = new Array(
       config.doku_url = window.location.protocol+ '//' + browser_level.dokuBase;
       config.ckedit_path = window.location.protocol +'//' + browser_level.dokuBase + 'lib/plugins/ckgedit/ckeditor/';
      }
+     
       config.jquery = browser_level.jQuery;
     //  config.format_code = { element : 'code', attributes : { 'class' : 'dwcode' } };
 	// Define changes to default configuration here.
@@ -292,6 +293,19 @@ try {
 
 }
 
+config.ckgProtocols = "";
+var get_dw_protocols = function() {
+    config.jquery.post(
+            ckedit_path + "schemes.php",
+            function (data,status) { 
+                if(status == "success") {            
+                    config.ckgProtocols=data;
+                } else config.ckgProtocols = 'no data';                            
+            },
+            'html'
+        );
+}
+get_dw_protocols();
 config.ckgEditorVer;
 var get_ckgeditor_version = function() {
     config.jquery.post(
