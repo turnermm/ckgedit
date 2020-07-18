@@ -1118,7 +1118,9 @@ var useHeading = function(wiki_id) {
 			};
 
 			var ok_callback = jQuery.proxy(function (data, heading) {
-			   var internal_text = false;
+			    var internal_text = false;
+                var iwiki_text = false;
+                url_text = false;
 				var ImagesAllowed = new RegExp( oDokuWiki_FCKEditorInstance.imageUploadAllowedExtensions);
 				var attributes = {},
 					removeAttributes = [],
@@ -1217,8 +1219,9 @@ var useHeading = function(wiki_id) {
 						   data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
 						}
 					   else data.url.url = iwiki_pattern + data.url.selection;
-
-						attributes[ 'data-cke-saved-href' ] =  data.url.url;
+                       iwiki_text = data.url.url;
+					   attributes[ 'data-cke-saved-href' ] =  data.url.url;
+                        
 					  break;
 					case 'url':
 						var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
@@ -1354,8 +1357,7 @@ var useHeading = function(wiki_id) {
 						ranges[0].selectNodeContents( text );
 						selection.selectRanges( ranges );
 
-					}
-
+					} 
 
 				 if(navigator.userAgent.match(/(Trident|MSIE)/)) {
 						var el = editor.document.createElement( 'a' );
@@ -1414,9 +1416,12 @@ var useHeading = function(wiki_id) {
 			   else if(internal_text) {
 				   text.setText(internal_text);
 			   }
+              else if(iwiki_text) {                   
+                   text.setText(iwiki_text);
+               }                                
                else if(url_text) {
                     text.setText(url_text);
-               }    
+               }  
 				else if(text && data.adv.advTitle) {
 					  text.setText(data.adv.advTitle);
 				}
