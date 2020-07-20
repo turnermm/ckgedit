@@ -4,7 +4,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 oDokuWiki_FCKEditorInstanceInLinkDialog = true;
 var update_ckgeditInternalLink, update_ckgeditMediaLink;
-var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiData, ckgeditIwikiIndex;
+var fckgInternalInputId, fckgMediaInputId,ckgeditIwikiIndex,ckgeditIwikiData;
 var ck_m_files_protocol, ckg_dialog, linkOpt;
  window.onbeforeunload = function() { };
    
@@ -60,27 +60,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
             return fck_Lang[js_code];
       }  
       return defaultFBLang[js_code];
-    }   ; 
-    
-
-     jQuery.ajax({
-             method: "POST",
-             url: DOKU_BASE + 'lib/exe/ajax.php',
-             data: { call: 'iwiki_list'},                           
-            async: true,
-            dataType: "json",
-              })
-            .done(function(data)
-              {
-                  retv = data;
-                  ckgeditIwikiData  = retv;
-              })
-              .fail(function(jqXHR, textStatus, errorThrown )
-              {
-                alert(textStatus);
-                alert(errorThrown);
-              });      
-    
+    } ; 
+    ckgeditIwikiData = editor.config.ckgeditIwikiData;
      
     var getInternalHeaders = function() {     
     
@@ -347,7 +328,7 @@ var useHeading = function(wiki_id) {
                  var match = ckg_iwikiClass.match(/iw_([^\s]+)/);                 
                  var index = match[1].replace(/_/,'.');
                  if(!str) {                   
-                    var iwpattern =  ckgeditIwikiData[index];
+                    var iwpattern = ckgeditIwikiData[index];                   
                     iwpattern = iwpattern.replace(/\{\w+\}$/,"");
                     var regex = new RegExp(iwpattern + '\(.*\)');                   
                     match =  href.match(regex);
@@ -1440,10 +1421,11 @@ var useHeading = function(wiki_id) {
 		},
 		onLoad : function()
 		{
+            ckgeditIwikiData = editor.config.ckgeditIwikiData;  
+           
             ckg_iwi_Select_Id_x = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;      
             var setUpIwikiSel = function() { 
-               if(!ckgeditIwikiData) return;
-               myStopFunction();
+               if(!ckgeditIwikiData) return;             
                var select =document.getElementById(ckg_iwi_Select_Id_x);           
                this.stack = select.options;
                this.stack.length = 0;
@@ -1456,8 +1438,8 @@ var useHeading = function(wiki_id) {
                   count++;            
               }              
          }; 
-         
-        var myVar = setInterval(function(){ setUpIwikiSel()}, 1000);
+         setUpIwikiSel();
+    
         var myStopFunction = function () {
                  clearInterval(myVar); 
             } 
