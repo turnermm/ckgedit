@@ -322,8 +322,10 @@ var useHeading = function(wiki_id) {
            
               	retval.url = {};
                 ckg_iwikiClass = element.getAttribute( 'class' );  // save for interwiki  
-                var  iw_select = ckg_dialog.getContentElement("info", 'iwiki_shortcut');    
+                 var  iw_select = ckg_dialog.getContentElement("info", 'iwiki_shortcut');  
+                 
                  var tmp = iw_select.getInputElement().$.id;
+               //  alert('sel id' + tmp );
                  var select =document.getElementById(tmp);      
                  var match = ckg_iwikiClass.match(/iw_([^\s]+)/);                 
                  var index = match[1].replace(/_/,'.');
@@ -334,16 +336,16 @@ var useHeading = function(wiki_id) {
                     match =  href.match(regex);
                     str = match[1];                   
                  }
-                 index = ckgeditIwikiIndex[index];
+                 index = ckgeditIwikiIndex[index];               
                  if(index) {
                    select.selectedIndex = index;     
                  }
-                 else select.selectedIndex = '0';                   
+                 else select.selectedIndex = '0'; 
+                editor.config.selectedIwikiIndex = index;                  
                 iw_select.disable();                   
                 retval.type = 'interwiki';              
                 retval.url.selected =str;         
-                retval.url.url = str;
-             
+                retval.url.url = str;           
 
             }
             
@@ -1187,12 +1189,19 @@ var useHeading = function(wiki_id) {
 						attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
 						 break;
 					case 'interwiki':
-						  if( ckg_iwikiClass) {
-						   data.adv.advCSSClasses =    ckg_iwikiClass;
-						  }
+                 
+                      
+                        if(typeof editor.config.selectedIwikiIndex == "number") {
+                            var id = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;
+                            var select = document.getElementById(id);                           
+                            select.selectedIndex = editor.config.selectedIwikiIndex;                           
+                        }
+                       
+						if( ckg_iwikiClass) {
+						   data.adv.advCSSClasses = ckg_iwikiClass;
+						 }
 						 else data.adv.advCSSClasses = 'interwiki ' + 'iw_' + data.url.iwiki_shortcut;
-
-						var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
+					    var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
 						data.adv.advTitle = data.url.selection;
 						if(data.url.selection) data.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
 
@@ -1200,7 +1209,9 @@ var useHeading = function(wiki_id) {
 						   data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
 						}
 					   else data.url.url = iwiki_pattern + data.url.selection;
+                   
                        iwiki_text = data.url.url;
+                  
 					   attributes[ 'data-cke-saved-href' ] =  data.url.url;
                         
 					  break;
@@ -1212,7 +1223,7 @@ var useHeading = function(wiki_id) {
 						break;
 					case 'anchor':
 						var name = ( data.anchor && data.anchor.name ),
-							id = ( data.anchor && data.anchor.id );
+						  id = ( data.anchor && data.anchor.id );
 						attributes[ 'data-cke-saved-href' ] = '#' + ( name || id || '' );
 						break;
 					 case 'samba':
@@ -1280,7 +1291,7 @@ var useHeading = function(wiki_id) {
 
 						break;
 				}
-
+ 
 
 				// Advanced attributes.
 				if ( data.adv )
@@ -1315,8 +1326,9 @@ var useHeading = function(wiki_id) {
 					advAttr( 'advRel', 'rel' );
 				}
 
-				var selection = editor.getSelection();
+				var selection = editor.getSelection();               
 				var hasSelectedText = selection.getSelectedText() ? selection.getSelectedText() : false;
+                // alert('hasSelectedText='+hasSelectedText);
 				// Browser need the "href" fro copy/paste link to work. (#6641)
 				attributes.href = attributes[ 'data-cke-saved-href' ];
 
@@ -1340,7 +1352,7 @@ var useHeading = function(wiki_id) {
 
 					} 
 
-				 if(navigator.userAgent.match(/(Trident|MSIE)/)) {
+				 if(navigator.userAgent.match(/(Trident|MSIE)/)  || !text) {
 						var el = editor.document.createElement( 'a' );
 						el.setAttribute( 'href',  attributes['href']);
 						if(!hasSelectedText &&  (data.type == 'media' || data.type == 'internal')) {
@@ -1391,22 +1403,28 @@ var useHeading = function(wiki_id) {
 					delete this._.selectedElement;
 				}
                 
+                 
+              try {   
               if(media_text) {
                    text.setText(media_text);
                }                  
 			   else if(internal_text) {
 				   text.setText(internal_text);
 			   }
-              else if(iwiki_text) {                   
+              else if(text && iwiki_text) {                   
                    text.setText(iwiki_text);
                }                                
                else if(url_text) {
                     text.setText(url_text);
                }  
 				else if(text && data.adv.advTitle) {
-					  text.setText(data.adv.advTitle);
+					  text.setText(data.adv.advTitle);                      
 				}
+               }catch(err) {
+                alert(err.toString());
+            }          
             }, this);
+
 
             var data = {};
             this.commitContent( data );
