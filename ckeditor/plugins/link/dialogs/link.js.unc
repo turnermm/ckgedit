@@ -63,7 +63,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
     } ; 
     ckgeditIwikiData = editor.config.ckgeditIwikiData;
      
-    var getInternalHeaders = function() {     
+    var getInternalHeaders = function() {
     
 	  var dialog = this.getDialog();	
       var select_id = dialog.getContentElement('advanced', 'internalAnchor').getInputElement().$.id;          
@@ -118,7 +118,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
         doku_linkwiz.toggle();
     }
 
-var useHeading = function(wiki_id) {
+    var useHeading = function(wiki_id) {
         return jQuery.ajax({
              method: "POST",
              url: DOKU_BASE + 'lib/exe/ajax.php',
@@ -203,12 +203,14 @@ var useHeading = function(wiki_id) {
 		selectableTargets = /^(_(?:self|top|parent|blank))$/,
 		encodedEmailLinkRegex = /^javascript:void\(location\.href='mailto:'\+String\.fromCharCode\(([^)]+)\)(?:\+'(.*)')?\)$/,
 		functionCallProtectedEmailLinkRegex = /^javascript:([^(]+)\(([^)]+)\)$/;
-        var intlink = Doku_Base.replace('/','\/')+'doku.php\?id=(.*)$';     
-        var internalLinkRegex = '/' +  intlink + '/';
+    var intlink = Doku_Base.replace('/','\/')+'doku.php\?id=(.*)$';
+    var internalLinkRegex =  intlink + '/';
+   
+    
 	var popupRegex =
 		/\s*window.open\(\s*this\.href\s*,\s*(?:'([^']*)'|null)\s*,\s*'([^']*)'\s*\)\s*;\s*return\s*false;*\s*/;
 	var popupFeaturesRegex = /(?:^|,)([^=]+)=(\d+|yes|no)/gi;
-    
+
 	var parseLink = function( editor, element )
 	{  
 		var href = ( element  && ( element.data( 'cke-saved-href' ) || element.getAttribute( 'href' ) ) ) || '',
@@ -288,14 +290,16 @@ var useHeading = function(wiki_id) {
 					retval.url.url = "";
 					retval.url.selected =urlMatch[1];
               }
-            else if( (urlMatch = href.match( internalLinkRegex )) || ( urlMatch = href.match(oRegex.internal_link_rewrite_2)) 
+            else if( (urlMatch = href.match( oRegex.internal_link )) || (urlMatch = href.match( internalLinkRegex )) || ( urlMatch = href.match(oRegex.internal_link_rewrite_2)) 
                         || (urlMatch = href.match( oRegex.internal_link_rewrite_1 ))
                      ) 
             {
                     retval.type = 'internal';
                     retval.url = {};
                     var els = urlMatch[1].split('=');
-					retval.url.selected = els[1];                
+                 
+                    
+					retval.url.selected = els[0];                
 				    retval.url.protocol = "";
 				    retval.url.url = "";
                 }
@@ -325,10 +329,12 @@ var useHeading = function(wiki_id) {
                  var  iw_select = ckg_dialog.getContentElement("info", 'iwiki_shortcut');  
                  
                  var tmp = iw_select.getInputElement().$.id;
-               //  alert('sel id' + tmp );
                  var select =document.getElementById(tmp);      
-                 var match = ckg_iwikiClass.match(/iw_([^\s]+)/);                 
-                 var index = match[1].replace(/_/,'.');
+                 var match = ckg_iwikiClass.match(/iw_([^\s]+)/);
+                  if(match && match[1]) {                 
+                    var index = match[1].replace(/_/,'.');
+                  }
+                if(index) {
                  if(!str) {                   
                     var iwpattern = ckgeditIwikiData[index];                   
                     iwpattern = iwpattern.replace(/\{\w+\}$/,"");
@@ -336,7 +342,8 @@ var useHeading = function(wiki_id) {
                     match =  href.match(regex);
                     str = match[1];                   
                  }
-                 index = ckgeditIwikiIndex[index];               
+                 index = ckgeditIwikiIndex[index]; 
+                }                 
                  if(index) {
                    select.selectedIndex = index;     
                  }
@@ -1212,16 +1219,16 @@ var useHeading = function(wiki_id) {
 					    var iwiki_pattern = ckgeditIwikiData[data.url.iwiki_shortcut];
 						data.adv.advTitle = data.url.selection;
 						if(data.url.selection) data.url.selection = 'oIWIKIo'+data.url.selection+'cIWIKIc';
-
-						if(iwiki_pattern.match(/\{.*?\}/) ){
-						   data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
-						}
-					   else data.url.url = iwiki_pattern + data.url.selection;
+                        if(iwiki_pattern) {
+                            if(iwiki_pattern.match(/\{.*?\}/) ){
+                               data.url.url = ckgeditIwikiData[data.url.iwiki_shortcut].replace(/{.*?}/,data.url.selection);
+                            }
+                           else data.url.url = iwiki_pattern + data.url.selection;
+                        }
                    
                        iwiki_text = data.url.url;
-                  
-					   attributes[ 'data-cke-saved-href' ] =  data.url.url;
-                        
+					  attributes[ 'data-cke-saved-href' ] =  data.url.url;
+                       
 					  break;
 					case 'url':
 						var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
@@ -1410,7 +1417,7 @@ var useHeading = function(wiki_id) {
 					selection.selectElement( element );
 					delete this._.selectedElement;
 				}
-                
+               
             
               try {   
               if(media_text) {
