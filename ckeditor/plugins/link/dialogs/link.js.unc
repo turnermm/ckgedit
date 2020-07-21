@@ -1146,6 +1146,7 @@ var useHeading = function(wiki_id) {
 					break;
 					case 'internal':
 						internal_text =  this.getValueOf( 'info', 'internal_text' );
+                        //alert(internal_text);
 						 ilinkstyle =this.getValueOf( 'info', 'ilinkstyle' );
                          if(!data.url.url) {
                             data.url.url=document.getElementById(fckgInternalInputId).value;
@@ -1158,8 +1159,14 @@ var useHeading = function(wiki_id) {
                                     data.url.url = data.url.url.replace(/\:{2,}/g,':');
                                 }
                             }
-                        }
+                         }
 
+                        if(!data.url.url.match(/\w/)) {
+                            data.url.url = "";
+                            internal_text = "";
+                            break;    
+                        }
+                        
                         data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
                         data.url.url = data.url.url.replace(/^\:/,"");
                         data.url.url =  ':' + data.url.url.replace(/\//g,':');
@@ -1174,6 +1181,7 @@ var useHeading = function(wiki_id) {
 							  }
 							  else tested = false;
 						}
+                       
 					   if(ilinkstyle == 'page' && !tested) {
 							  var elms = data.url.url.split(':');
 							  data.adv.advTitle = elms.pop();
@@ -1181,7 +1189,7 @@ var useHeading = function(wiki_id) {
 						else if(!tested) {
 						 data.adv.advTitle = data.url.url;
 						 }
-						 data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;
+						 data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;                        
 						 if(data.hash) { data.url.url += '#' +data.hash;  }
 						 if(data.qstring) { data.url.url += '&' +data.qstring;  }
 						var protocol = ( data.url && data.url.protocol != undefined ) ? data.url.protocol : 'http://',
@@ -1328,7 +1336,7 @@ var useHeading = function(wiki_id) {
 
 				var selection = editor.getSelection();               
 				var hasSelectedText = selection.getSelectedText() ? selection.getSelectedText() : false;
-                // alert('hasSelectedText='+hasSelectedText);
+                
 				// Browser need the "href" fro copy/paste link to work. (#6641)
 				attributes.href = attributes[ 'data-cke-saved-href' ];
 
@@ -1403,13 +1411,13 @@ var useHeading = function(wiki_id) {
 					delete this._.selectedElement;
 				}
                 
-                 
+            
               try {   
               if(media_text) {
                    text.setText(media_text);
                }                  
 			   else if(internal_text) {
-				   text.setText(internal_text);
+               	   text.setText(internal_text);
 			   }
               else if(text && iwiki_text) {                   
                    text.setText(iwiki_text);
