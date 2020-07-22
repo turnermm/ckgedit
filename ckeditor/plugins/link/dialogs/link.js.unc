@@ -1154,8 +1154,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					break;
                     
 					case 'internal':
-						internal_text =  this.getValueOf( 'info', 'internal_text' );
-                      //  alert(internal_text);
+						internal_text =  this.getValueOf( 'info', 'internal_text' );                     
 						 ilinkstyle =this.getValueOf( 'info', 'ilinkstyle' );
                          if(!data.url.url) {
                             data.url.url=document.getElementById(fckgInternalInputId).value;
@@ -1344,10 +1343,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 				var selection = editor.getSelection();               
 				var hasSelectedText = selection.getSelectedText() ? selection.getSelectedText() : false;
-               // alert(hasSelectedText);
+             
 				// Browser need the "href" fro copy/paste link to work. (#6641)
 				attributes.href = attributes[ 'data-cke-saved-href' ];
-//alert(this._.selectedElement);
+
 				if ( !this._.selectedElement )
 				{
 
@@ -1400,8 +1399,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					 if(other_media) {
 						 attributes['type'] = 'other_mime';
 						 attributes['title'] = ':' + other_mime_file;
-					 }
-                   // alert(href);alert(textView);
+					 }                  
 					element.setAttributes( attributes );
 					element.removeAttributes( removeAttributes );
 
@@ -1415,11 +1413,11 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						element.setHtml( data.type == 'email' ?
 							data.email.address : attributes[ 'data-cke-saved-href' ] );
 					}
+                    
                     if(internal_text){
                         element.setText(internal_text);
                     }
-                    if(iwiki_text != data.adv.advTitle) { 
-                      alert(iwiki_text + " " +  data.adv.advTitle );
+                    else if(iwiki_text && iwiki_text != data.adv.advTitle) { 
                       var url =   href.replace(iwiki_text, data.adv.advTitle);                      
                       element.setText(url);                      
                     }  
@@ -1446,7 +1444,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					  text.setText(data.adv.advTitle);                      
 				}
                }catch(err) {
-                alert(err.toString());
+                //alert(err.toString());
             } }
             
             }, this);
