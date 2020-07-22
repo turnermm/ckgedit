@@ -194,6 +194,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
        };
 
 	// Loads the parameters in a selected link to the link dialog fields.
+
 	var javascriptProtocolRegex = /^javascript:/,
 		emailRegex = /^mailto:([^?]+)(?:\?(.+))?$/,
 		emailSubjectRegex = /subject=([^;?:@&=$,\/]*)/,
@@ -1151,9 +1152,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
 							url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
 						attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
 					break;
+                    
 					case 'internal':
 						internal_text =  this.getValueOf( 'info', 'internal_text' );
-                        //alert(internal_text);
+                      //  alert(internal_text);
 						 ilinkstyle =this.getValueOf( 'info', 'ilinkstyle' );
                          if(!data.url.url) {
                             data.url.url=document.getElementById(fckgInternalInputId).value;
@@ -1203,9 +1205,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 							url = ( data.url && CKEDITOR.tools.trim( data.url.url ) ) || '';
 						attributes[ 'data-cke-saved-href' ] = ( url.indexOf( '/' ) === 0 ) ? url : protocol + url;
 						 break;
-					case 'interwiki':
-                 
-                      
+                         
+					case 'interwiki':    
                         if(typeof editor.config.selectedIwikiIndex == "number") {
                             var id = this.getContentElement('info',  'iwiki_shortcut').getInputElement().$.id;
                             var select = document.getElementById(id);                           
@@ -1225,9 +1226,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
                             }
                            else data.url.url = iwiki_pattern + data.url.selection;
                         }
-                   
-                       iwiki_text = data.url.url;
-					  attributes[ 'data-cke-saved-href' ] =  data.url.url;
+               
+                       iwiki_text = data.url.url;                      
+					   attributes[ 'data-cke-saved-href' ] =  data.url.url;
                        
 					  break;
 					case 'url':
@@ -1343,10 +1344,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 				var selection = editor.getSelection();               
 				var hasSelectedText = selection.getSelectedText() ? selection.getSelectedText() : false;
-                
+               // alert(hasSelectedText);
 				// Browser need the "href" fro copy/paste link to work. (#6641)
 				attributes.href = attributes[ 'data-cke-saved-href' ];
-
+//alert(this._.selectedElement);
 				if ( !this._.selectedElement )
 				{
 
@@ -1400,6 +1401,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						 attributes['type'] = 'other_mime';
 						 attributes['title'] = ':' + other_mime_file;
 					 }
+                   // alert(href);alert(textView);
 					element.setAttributes( attributes );
 					element.removeAttributes( removeAttributes );
 
@@ -1413,12 +1415,20 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						element.setHtml( data.type == 'email' ?
 							data.email.address : attributes[ 'data-cke-saved-href' ] );
 					}
+                    if(internal_text){
+                        element.setText(internal_text);
+                    }
+                    if(iwiki_text != data.adv.advTitle) { 
+                      alert(iwiki_text + " " +  data.adv.advTitle );
+                      var url =   href.replace(iwiki_text, data.adv.advTitle);                      
+                      element.setText(url);                      
+                    }  
 
 					selection.selectElement( element );
 					delete this._.selectedElement;
 				}
                
-            
+           if(text) { 
               try {   
               if(media_text) {
                    text.setText(media_text);
@@ -1437,7 +1447,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				}
                }catch(err) {
                 alert(err.toString());
-            }          
+            } }
+            
             }, this);
 
 
