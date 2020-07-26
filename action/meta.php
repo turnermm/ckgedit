@@ -23,8 +23,6 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $geshi_dir;
   function __construct() {
   global $conf;
-        /* Feature Flags */
-        $conf['defer_js'] = 0;                 
 
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
@@ -454,10 +452,10 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
         var dom = document.getElementById('ckgedit_mode_type');                
           
          if(useDW_Editor) {
-                document.cookie = 'FCKG_USE=other;expires=0;SameSite=Lax';             
+                document.cookie = 'FCKG_USE=other;expires=0;path=/;SameSite=Lax';             
               }  
              else {
-                document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;SameSite=Lax';
+                document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;path=/;SameSite=Lax'
            }
         if(which == 1) {             
            if(e && e.form) {
@@ -473,7 +471,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
            e.form.submit(); 
        }
         else {            
-            document.cookie = 'FCKG_USE=_false_;expires=0;SameSite=Lax';             
+            document.cookie = 'FCKG_USE=_false_;expires=0;path=/;SameSite=Lax';             
             dom.value = 'dwiki';    
            if(JSINFO['chrome_version'] >= 56 && window.dwfckTextChanged) {
            }
@@ -751,6 +749,10 @@ function check_userfiles() {
        if(isset($USERINFO)) {
            $this->startup_msg();
        }
+       if((float)$updateVersion >= 51){
+           $conf['plugin']['ckgedit']['allow_ckg_filebrowser'] = 'dokuwiki';
+           $conf['plugin']['ckgedit']['default_ckg_filebrowser'] = 'dokuwiki';          
+       } 
       
        $auth = auth_quickaclcheck($ID);  
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
@@ -847,35 +849,19 @@ SCRIPT;
 
 /** 
  *  Handle features need for DW Edit: 
- *    1. load script, if not loaded
- *    2. Re-label Cancel Button "Exit" when doing a preview  
- *    3. set up $REQUEST value to identify a preview when in DW Edit , used in 
+ *    1. Re-label Cancel Button "Exit" when doing a preview  
+ *    2. set up $REQUEST value to identify a preview when in DW Edit , used in 
  *       set_session to remove ckgedit and DW drafts if present after a DW preview  
 */
   function setupDWEdit(Doku_Event $event) {
   global $ACT;
 
-  $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';
-  if(($ACT == 'login' || $this->session_id == false) && $this->getConf('preload_ckeditorjs')) {
-     $url2 = DOKU_BASE.'lib/plugins/ckgedit/ckeditor/ckeditor.js';
-  }
-  else $url2 = "";
+ // $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';
   echo <<<SCRIPT
 
     <script type="text/javascript">
     //<![CDATA[ 
 
-    try {
-    if(!window.HTMLParserInstalled || !HTMLParserInstalled){
-         LoadScript("$url");        
-    }
-    }
-    catch (ex) {  
-         LoadScript("$url");        
-    }             
-    if("$url2") {
-       LoadScriptDefer("$url2");        
-    }
     function createRequestValue() {
         try{
         var inputNode=document.createElement('input');
@@ -953,10 +939,6 @@ function startup_msg() {
       io_saveFile($filename,'1'); 
        msg($msg,MSG_MANAGERS_ONLY);      
   }
-  
-  
-
-  
 }
 
 function  startup_check_twice($filename, $which) {

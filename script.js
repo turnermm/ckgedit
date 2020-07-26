@@ -273,7 +273,7 @@ function dwedit_draft_delete() {
   
   function setEdHeight(h) {  
         h = parseInt(h);        
-        document.cookie = 'ckgEdht=' + h +';expires=0;path=' +JSINFO['doku_base'] +';SameSite=Lax';
+        document.cookie = 'ckgEdht=' + h +';expires=0;path=' +JSINFO['doku_base'] + ';SameSite=Lax;';
    }
 
    /* enable disable image paste */
@@ -500,3 +500,6 @@ function ckg_admininfo(t){
 	  t.innerHTML = LANG.plugins.ckgedit.stylesheet_oinfo;
     else t.innerHTML = LANG.plugins.ckgedit.stylesheet_cinfo;
 } 
+
+  /* DOKUWIKI:include_once locktimer.js */
+ 

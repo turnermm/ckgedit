@@ -113,20 +113,42 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         global $ID;
         global $REV;
         global $INFO;
-
+        global $conf;
         $event->data['script'][] = 
             array( 
                 'type'=>'text/javascript', 
                 'charset'=>'utf-8', 
                 '_data'=>'',
                  'src'=>DOKU_BASE.'lib/plugins/ckgedit/' .$this->fck_location. '/ckeditor.js'
-            );
+                )+($conf['plugin']['ckgedit']['preload_ckeditorjs'] ? [ 'defer' => 'defer'] : []);                
 
+      if(isset($conf['fnencode']) && $conf['fnencode'] == 'safe') {
+            $event->data['script'][] = 
+                array( 
+                    'type'=>'text/javascript', 
+                    'charset'=>'utf-8', 
+                    '_data'=>'',             
+                     'src'=>'lib/plugins/ckgedit/scripts/safeFN_cmpr.js'
+                ) + ([ 'defer' => 'defer']);
+      } 
       $ua = strtolower ($_SERVER['HTTP_USER_AGENT']);
       if(strpos($ua, 'msie') !== false) {
           echo "\n" . '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />' ."\n";     
       }
             
+        if($this->test) {
+         $nval = substr(md5(time()), -20);
+         $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc';
+        }
+        else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
+        $event->data['script'][] = 
+            array( 
+                'type'=>'text/javascript', 
+                'charset'=>'utf-8', 
+                '_data'=>'',             
+                 'src'=> $parse_url
+            ) + ([ 'defer' => 'defer']);
+         
         return;
     }
 
@@ -1035,41 +1057,12 @@ var ckgedit_hasCaptcha = "<?php echo $this->captcha?1:0?>";
 <?php } ?>
 
 <?php  
-   $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';    
-  echo "var script_url = '$url';";
-  if($this->test) {
-     $nval = substr(md5(time()), -20);
-     $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc?n=' . $nval;
-  }
-  else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
-  
-  echo "var parse_url = '$parse_url';";
-//  $safe_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js';       
-?>
-
-   <?php
        global $conf;
 
        if(isset($conf['animal'])) {
          echo "var config_animal='" . $conf['animal'] . "';";
        }
    ?>
-
-LoadScript(parse_url);
-try {
-  if(!window.HTMLParserInstalled){
-    LoadScript(script_url);   
-  }
-}
-catch (ex) {  
-   LoadScript(script_url); 
-}
-
-
-if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
-   LoadScript(DOKU_BASE + 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js' );
-}
-
 
  //]]>
 

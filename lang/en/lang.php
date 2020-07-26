@@ -75,4 +75,6 @@ $lang['stylesheet_oinfo'] = 'Info';
 $lang['stylesheet_cinfo'] = 'Close Info';
 $lang['js']['stylesheet_oinfo'] = 'Info';
 $lang['js']['stylesheet_cinfo'] = 'Close Info';
+$lang['js']['lock_msg'] = "Your lock for editing this page is about to expire in one minute\n";
+$lang['js']['willexpire']      = 'Your lock for editing this page is about to expire in a minute.\nTo avoid conflicts use the backup button to reset the locktimer.';
 

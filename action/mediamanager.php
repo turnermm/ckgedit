@@ -25,8 +25,9 @@ class action_plugin_ckgedit_mediamanager extends DokuWiki_Action_Plugin {
                 'charset'=>'utf-8', 
                 '_data'=>'',
                  'src'=>DOKU_BASE.'lib/plugins/ckgedit/scripts/mediamgr.js'
-            );
+            ) + ([ 'defer' => 'defer']);
     }
+    
     function upload_finish(Doku_Event $event) {
         if(!preg_match("#^image/#",$event->data[3]) && $_COOKIE['ckgFbType'] == 'image') {
             if(!empty($event->data[3]) && strlen($event->data[3]) >30) {
