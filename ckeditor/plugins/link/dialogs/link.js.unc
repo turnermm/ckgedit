@@ -1510,8 +1510,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
                 }             
         }
            
-       var proto_ref = this.getContentElement('info', 'protocol').getInputElement().$.id 
-       update_schemes(proto_ref, editor);
+      // var proto_ref = this.getContentElement('info', 'protocol').getInputElement().$.id 
+      // update_schemes(proto_ref, editor);
            
        this.getContentElement('info', 'media').disable();
        this.hidePage( 'advanced' );		//Hide Advanded tab.
@@ -1766,7 +1766,17 @@ var doku_linkwiz = {
         //insert link into field
         var dialog = CKEDITOR.dialog.getCurrent();
         dialog.getContentElement("info", "internal").setValue(link);
+        if(title && oDokuWiki_FCKEditorInstance.useheading == 'y') {
+          dialog.getContentElement("info", "internal_text").setValue(title);
+        }
+        else {                       
+            var ltype = dialog.getValueOf( 'info', 'ilinkstyle' );
+            if(ltype == 'page') {
+                var link_ar = link.split(':',link); 
+                link = link_ar.pop();
+            }    
         dialog.getContentElement("info", "internal_text").setValue(link);  
+       }        
 
         doku_linkwiz.hide();
 
