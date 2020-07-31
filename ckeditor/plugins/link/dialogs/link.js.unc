@@ -389,10 +389,18 @@ CKEDITOR.dialog.add( 'link', function( editor )
            document.getElementById(fckgInternalInputId).disabled = true;
            document.getElementById(fckgInternalInputId).style.fontWeight="bold" ;
            document.getElementById(fckgInternalInputId).style.backgroundColor="#DDDDDD" ;           
+           var ar = text.split(/;;/);
+           text = ar[0];
+           var title = ar[1];            
            text = text.replace(/^[\/\:]/,"");
            text =  text.replace(/\//g,':');             
            text = ':' + text; 
            document.getElementById(fckgInternalInputId).value = text; 
+           var dialog = CKEDITOR.dialog.getCurrent();
+       
+        if(title && oDokuWiki_FCKEditorInstance.useheading == 'y') {
+          dialog.getContentElement("info", "internal_text").setValue(title);
+        }
         };
         
     update_ckgeditInternalLink = insertInternalLinkText;
@@ -1108,7 +1116,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                 return url;
 			};
 
-			var ok_callback = jQuery.proxy(function (data, heading) {
+			//var ok_callback = jQuery.proxy(function () {
 			    var internal_text = false;
                 var iwiki_text = false;
                 url_text = false;
@@ -1118,11 +1126,14 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					linkstyle = 'page',
 					me = this,
 					tested  = false,
+                    data = {},
 					editor = this.getParentEditor();
 
 
 				 var other_media = false;
                  var media_text;
+
+                 this.commitContent( data );
 
 				// Compose the URL.
 			   var other_mime_file = "";
@@ -1174,27 +1185,23 @@ CKEDITOR.dialog.add( 'link', function( editor )
                             internal_text = "";
                             break;    
                         }
+                        var ar = data.url.url.split(/;;/);
+                        if(oDokuWiki_FCKEditorInstance.useheading == 'y') {
+                            data.adv.advTitle = ar[1];
+                        }
+                        data.url.url = ar[0];
                         
                         data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
                         data.url.url = data.url.url.replace(/^\:/,"");
                         data.url.url =  ':' + data.url.url.replace(/\//g,':');
                         data.adv.advCSSClasses = "wikilink1";
-						 if(heading && oDokuWiki_FCKEditorInstance.useheading == 'y') {
-							var tmp = heading;
-							var test_1 = tmp.replace(/^:/,"");
-							var test_2 = data.url.url.replace(/^:/,"");
-							if(test_1 != test_2) {
-								  data.adv.advTitle = tmp;
-								  tested = true;
-							  }
-							  else tested = false;
-						}
                        
-					   if(ilinkstyle == 'page' && !tested) {
+					   if(ilinkstyle == 'page' && oDokuWiki_FCKEditorInstance.useheading == 'n') {
 							  var elms = data.url.url.split(':');
 							  data.adv.advTitle = elms.pop();
 						}
-						else if(!tested) {
+						else   { //if(!tested) {
+                           data.url.url = data.url.url.replace(/^:/,"");
 						 data.adv.advTitle = data.url.url;
 						 }
 						 data.url.url=top.dokuBase + 'doku.php?id=' + data.url.url;                        
@@ -1447,20 +1454,11 @@ CKEDITOR.dialog.add( 'link', function( editor )
                 //alert(err.toString());
             } }
             
-            }, this);
+            }, //this);
 
 
-            var data = {};
-            this.commitContent( data );
 
-            if (data.type == 'internal' && oDokuWiki_FCKEditorInstance.useheading == 'y') {
-                jQuery.when(useHeading(wikiIdFromUrl(data.url.url)).then(function (heading) {
-                    ok_callback(data, heading);
-				}));
-			} else {
-                ok_callback(data);
-			}
-		},
+	//	},
 		onLoad : function()
 		{
             ckgeditIwikiData = editor.config.ckgeditIwikiData;  

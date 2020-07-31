@@ -217,7 +217,7 @@ function showImage(id) {
 }
 
 var foldersDone = { };
-oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fileTime )
+oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fileTime,iLinkTitle )
 {
     var c_type = "file";
     if(isImage) {
@@ -233,15 +233,20 @@ oListManager.GetFileRowHtml = function( fileName, fileUrl, fileSize, isImage, fi
 
    fileTime =  new Date(Number(fileTime)*1000);
    fileTime ="&nbsp;&nbsp;&nbsp;&nbsp;" + fileTime.toDateString().replace(/^\w+\s*/,"")  + "&nbsp;" + fileTime.toLocaleTimeString();
-   var Unlink,sUnlink,trash,sLink;
-
+   var Unlink,sUnlink,trash,sLink,sTitle;
+    if(iLinkTitle) {
+     sTitle = ';;' + iLinkTitle;
+     fileUrl += sTitle;    
+    }
 	// Build the link to view the folder.
 	var sLink = '<a href="#" onclick="OpenFile(\'' + ProtectPath( fileUrl ) + '\');return false;">' ;
 
     var trash = 'images/trash.png';    
     var sUnlink = '<td width="20" class="' + c_type +'"><a href="#" onclick="UnlinkFile(event,\'' + fileName + '\');return false;">' ;
             sUnlink += '<img src="' + trash  + '" border="0"></a><\/td>';
-    if(c_type == 'txt') sUnlink = ""; 
+    if(c_type == 'txt'){
+        sUnlink = ""; //ilink title here
+    }
     var imgTD = "";
     var fileSizeSpan="";
     if(isImage) {
@@ -479,6 +484,9 @@ function GetFoldersAndFilesCallBack( fckXml )
         var sFileTime = oNode.attributes.getNamedItem('time').value;
       
         if(isInternalLink) {
+            var sTitle = "";
+            sTitle = oNode.attributes.getNamedItem('title').value;
+           // if(sTitle) alert(sTitle);             
             if(!sFileName.match(/\.txt$/)) continue;
             sFileName = sFileName.replace(/\.txt$/,"");    
         }
@@ -501,7 +509,7 @@ function GetFoldersAndFilesCallBack( fckXml )
         if(isImage) {
                sFileUrl = dwikiUTF8_encodeFN(sFileUrl,DwikiFNencode);
        }
-		oHtml.Append( oListManager.GetFileRowHtml( sFileName, sFileUrl, sFileSize, isImage, sFileTime) ) ;
+		oHtml.Append( oListManager.GetFileRowHtml( sFileName, sFileUrl, sFileSize, isImage, sFileTime, sTitle) ) ;
 	}
 
 	oHtml.Append( '<\/table>' ) ;
