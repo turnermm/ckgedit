@@ -1095,28 +1095,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 		onOk : function()
 		{
-            var wikiIdFromUrl = function (url) {
-                if(!url) {
-                    url=document.getElementById(fckgInternalInputId).value;
-                    if(!url.match(/^:\w+/)) {
-                        var ns = top.getCurrentWikiNS() + ':';
-                        ns = ns.replace(/:$/,"");
-                        var regex = new RegExp(':?'+ ns+':');
-                        if(!url.match(regex)) {
-                            url = ns +':' + url;
-                            url = url.replace(/\:{2,}/g,':');
-                        }
-                    }
-                }
-
-                url =  url.replace(/^.*?\/data\/pages\//,"");
-                url = url.replace(/^\:/,"");
-                url =  ':' + url.replace(/\//g,':');
-
-                return url;
-			};
-
-			//var ok_callback = jQuery.proxy(function () {
 			    var internal_text = false;
                 var iwiki_text = false;
                 url_text = false;
@@ -1454,11 +1432,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
                 //alert(err.toString());
             } }
             
-            }, //this);
+            }, 
 
-
-
-	//	},
 		onLoad : function()
 		{
             ckgeditIwikiData = editor.config.ckgeditIwikiData;  
