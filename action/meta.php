@@ -749,9 +749,9 @@ function check_userfiles() {
        if(isset($USERINFO)) {
            $this->startup_msg();
        }
-       if((float)$updateVersion >= 51){
-           $conf['plugin']['ckgedit']['allow_ckg_filebrowser'] = 'dokuwiki';
-           $conf['plugin']['ckgedit']['default_ckg_filebrowser'] = 'dokuwiki';          
+       if((float)$updateVersion >= 51){  //   HOGFATHER +
+    //       $conf['plugin']['ckgedit']['allow_ckg_filebrowser'] = 'dokuwiki';
+    //       $conf['plugin']['ckgedit']['default_ckg_filebrowser'] = 'dokuwiki';          
        } 
       
        $auth = auth_quickaclcheck($ID);  
