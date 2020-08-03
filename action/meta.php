@@ -933,12 +933,15 @@ function startup_msg() {
   if( (float)$updateVersion  < 51) {
       return;
   }
+  
+/*
   $filename =  metaFN('fckl:hogfather','.meta'); 
   $msg =  $this->locale_xhtml('hogfather');
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
        msg($msg,MSG_MANAGERS_ONLY);      
-  }
+  } */
+  
 }
 
 function  startup_check_twice($filename, $which) {
