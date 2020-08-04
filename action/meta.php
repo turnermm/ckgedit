@@ -23,7 +23,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $geshi_dir;
   function __construct() {
   global $conf;
-
+ 
       $this->helper = plugin_load('helper', 'ckgedit');
       $this->dokuwiki_priority = $this->getConf('dw_priority');
       $this->dw_priority_group = $this->getConf('dw_users');
@@ -733,7 +733,7 @@ function check_userfiles() {
                    setcookieSameSite('FCKG_USE','_false_', $expire, '/');           
                }
                else {            
-                  setcookieSameSite('FCKG_USE','_false_', $expire, '/');     //turn off ckeditor      
+                   setcookieSameSite('FCKG_USE','_false_', $expire, '/');                //turn off ckeditor      
                 }
            }
   }
@@ -749,9 +749,9 @@ function check_userfiles() {
        if(isset($USERINFO)) {
            $this->startup_msg();
        }
-       if((float)$updateVersion >= 51){
-           $conf['plugin']['ckgedit']['allow_ckg_filebrowser'] = 'dokuwiki';
-           $conf['plugin']['ckgedit']['default_ckg_filebrowser'] = 'dokuwiki';          
+       if((float)$updateVersion >= 51){  //   HOGFATHER +
+    //       $conf['plugin']['ckgedit']['allow_ckg_filebrowser'] = 'dokuwiki';
+    //       $conf['plugin']['ckgedit']['default_ckg_filebrowser'] = 'dokuwiki';          
        } 
       
        $auth = auth_quickaclcheck($ID);  
@@ -825,7 +825,7 @@ function check_userfiles() {
   } 
 
 function loadScript(Doku_Event $event) {
-  echo <<<SCRIPT
+     echo <<<SCRIPT
 
     <script type="text/javascript">
     //<![CDATA[ 
@@ -842,7 +842,7 @@ function loadScript(Doku_Event $event) {
 //]]> 
 
  </script>
-
+ 
 SCRIPT;
 
 }
@@ -913,13 +913,13 @@ function reset_user_rewrite_check() {
 function startup_msg() {  
    global $INFO;
     global $ACT;
-    global $updateVersion;
+   global $updateVersion;
    $show_msg = false;
    if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
 	       $show_msg = true;		   
 	}
    if(!$show_msg)  return;
-   
+
   $filename =  metaFN('fckl:scayt','.meta'); 
   $msg =  $this->locale_xhtml('scayt');  
   if (!file_exists($filename)) {      
@@ -933,12 +933,15 @@ function startup_msg() {
   if( (float)$updateVersion  < 51) {
       return;
   }
+  
+/*
   $filename =  metaFN('fckl:hogfather','.meta'); 
   $msg =  $this->locale_xhtml('hogfather');
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
        msg($msg,MSG_MANAGERS_ONLY);      
-  }
+  } */
+  
 }
 
 function  startup_check_twice($filename, $which) {

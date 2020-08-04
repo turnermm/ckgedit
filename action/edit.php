@@ -114,14 +114,14 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         global $REV;
         global $INFO;
         global $conf;
-        $event->data['script'][] = 
-            array( 
-                'type'=>'text/javascript', 
-                'charset'=>'utf-8', 
-                '_data'=>'',
-                 'src'=>DOKU_BASE.'lib/plugins/ckgedit/' .$this->fck_location. '/ckeditor.js'
-                )+($conf['plugin']['ckgedit']['preload_ckeditorjs'] ? [ 'defer' => 'defer'] : []);                
-
+            $event->data['script'][] = 
+                array( 
+                    'type'=>'text/javascript', 
+                    'charset'=>'utf-8', 
+                    '_data'=>'',             
+                     'src'=>DOKU_BASE.'lib/plugins/ckgedit/' .$this->fck_location. '/ckeditor.js'
+                )+([ 'defer' => 'defer']);               
+              
       if(isset($conf['fnencode']) && $conf['fnencode'] == 'safe') {
             $event->data['script'][] = 
                 array( 
