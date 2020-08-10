@@ -25,8 +25,8 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   global $conf;
  
       $this->helper = plugin_load('helper', 'ckgedit');
-      $this->dokuwiki_priority = $this->getConf('dw_priority');
-      $this->dw_priority_group = $this->getConf('dw_users');
+      $this->dokuwiki_priority =  false;
+      $this->dw_priority_group =  "NOT_SET";
       $this->dw_priority_metafn=metaFN(':ckgedit:dw_priority', '.ser');
       if(!file_exists($this->dw_priority_metafn)) {
           io_saveFile($this->dw_priority_metafn, serialize(array()));
