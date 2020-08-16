@@ -25,8 +25,8 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   global $conf;
  
       $this->helper = plugin_load('helper', 'ckgedit');
-      $this->dokuwiki_priority = $this->getConf('dw_priority');
-      $this->dw_priority_group = $this->getConf('dw_users');
+      $this->dokuwiki_priority =  false;
+      $this->dw_priority_group =  "NOT_SET";
       $this->dw_priority_metafn=metaFN(':ckgedit:dw_priority', '.ser');
       if(!file_exists($this->dw_priority_metafn)) {
           io_saveFile($this->dw_priority_metafn, serialize(array()));
@@ -47,7 +47,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'reset_user_rewrite_check');                 
             $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
             $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');                          
-            $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
+            //$controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
             $controller->register_hook('ACTION_SHOW_REDIRECT', 'BEFORE', $this, 'handle_redirect');            
               }
 

@@ -198,7 +198,14 @@ $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers.*?\])\s*
                     if($this->helper->has_plugin('button') && strpos($matches[0], '[[{') === 0) {    
                         return $matches[0];
                     }
-                    if(preg_match('/(doku|this)\s*>/',$matches[0])) return $matches[0]; // exclude dokuwiki's wiki links
+                    if(preg_match('/[\w\.]+\s*>/',$matches[0])) {
+                        // exclude dokuwiki's wiki links but first remove url display text if needed
+                        list($type,$display_url,$rest) = explode('|', $matches[0]);
+                        if(!isset($display_url)) {                       
+                           return $matches[0]; 
+                        }
+                        return $type . '|]]';
+                    }
 	 	             if(preg_match('/([\w\.\-]+@[\w\.\-]+\.\w{2,3})\?.*?\|\1/i',$matches[0])) {
                              return $matches[0];
                      }
@@ -328,6 +335,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
          },
          $TEXT     
     );      
+    
 
         /*  Feb 23 2019
 	remove spaces and line feeds between beginning of table cell and start of code block
@@ -354,6 +362,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
 	  $TEXT = preg_replace("/<code\s+file/ms",'<code ',$TEXT);
 	  
         $TEXT = preg_replace('#((\\\\){2}\s*)$#', "",$TEXT);
+        
          return;
     
     }

@@ -237,12 +237,15 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         $new_addr = $_SERVER['SERVER_NAME'] . DOKU_BASE;
         $text=preg_replace("#(?<=http://)(.*?)(?=lib/plugins/ckgedit/ckeditor/plugins/smiley/images)#s", $new_addr,$text);        
      }
+ /*interwiki frasl refactoring*/
 
+/*
     $text = preg_replace_callback('/\[\[\w+>.*?\]\]/ms',
     create_function(
         '$matches',
         'return str_replace("/", "__IWIKI_FSLASH__" ,$matches[0]);'
     ), $text);
+    */
     
       global $useComplexTables;
       if($this->getConf('complex_tables') || strrpos($text, '~~COMPLEX_TABLES~~') !== false) {     
@@ -416,7 +419,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 
        $this->xhtml = $this->_render_xhtml($text);
 
-       $this->xhtml = str_replace("__IWIKI_FSLASH__", "&frasl;", $this->xhtml);
+ /*interwiki frasl refactoring*/  
+  //   $this->xhtml = str_replace("__IWIKI_FSLASH__", "&frasl;", $this->xhtml);
 	   if($this->getConf('duplicate_notes')) {
 			$this->xhtml = preg_replace("/FNoteINSert\d+/ms", "",$this->xhtml);
 	   }
