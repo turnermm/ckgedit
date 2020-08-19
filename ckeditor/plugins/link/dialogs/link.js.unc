@@ -45,13 +45,14 @@ CKEDITOR.dialog.add( 'link', function( editor )
         InterWikiLink: "Interwiki Link",
         InterWikiType: "Interwiki Type",
         InterwikiPlaceHolder: "Interwiki Replacement Text",
-        InterwikiInfo: "<div style='max-width:350px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
+        InterwikiInfo: "<div style='min-width:350px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
         "interwiki links are short-cuts which look like this: <span style='font-weight:600'>[[wp&gt;Shakespeare]]</span>, which will create a link to the English Wikipedia article on Shakespeare.  " +
         "The <span style='font-weight:600'>wp</span> part designates a link pattern;  " + 
         "the text following the '<span style='font-weight:900'>&gt;</span>' will be inserted into the link, replacing  a place holder, which is enclosed in curly brackets, "  +
         "as in <span style='font-weight:600'>{NAME}</span>. When there is no place holder, the replacement text will be appended to the end of the link.</div>",
         MediaFileLink: "link to media file",
         URLText:"<span style='font-weight:bold'>URL Display Text (optional, defaults to url)</span>",
+        LinkDispText: "Link display text (optional)",
      };   
      var fck_Lang = editor.lang.fbrowser ? editor.lang.fbrowser : defaultFBLang;
     
@@ -555,8 +556,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 	return {
 		title : linkLang.title,
-		minWidth :  375, //350,
-		minHeight : 250, //230,
+		minWidth :  475, //350,
+		minHeight : 300, //230,
 		contents : [
 			{
 				id : 'info',
@@ -810,6 +811,14 @@ CKEDITOR.dialog.add( 'link', function( editor )
                                 type: 'html',
                                 html:  translateItem('InterwikiInfo'),
                              } ,
+                             {
+                               id: 'iwikidisp',
+                               type: 'text',
+                               label: translateItem('LinkDispText'),
+							   required: false,                               
+                             },   
+                             
+                             
 						]
 					},
                     
@@ -1211,7 +1220,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                            else data.url.url = iwiki_pattern + data.url.selection;
                         }
                
-                       iwiki_text = data.url.url;                      
+                       iwiki_text = this.getValueOf('info', 'iwikidisp') || "";//data.url.url;                      
 					   attributes[ 'data-cke-saved-href' ] =  data.url.url;
                        
 					  break;
