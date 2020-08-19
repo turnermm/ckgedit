@@ -199,7 +199,8 @@ $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers.*?\])\s*
                         return $matches[0];
                     }
                     if(preg_match('/[\w\.]+\s*>/',$matches[0])) {
-                        // exclude dokuwiki's wiki links but first remove url display text if needed
+                        return $matches[0];
+                        $this->write_debug($type,$display_url,$rest);                      // exclude dokuwiki's wiki links but first remove url display text if needed
                         list($type,$display_url,$rest) = explode('|', $matches[0]);
                         if(!isset($display_url)) {                       
                            return $matches[0]; 

@@ -264,7 +264,6 @@ function parse_wikitext(id) {
                     var iw_type = class_name.match(/iw_(\w+\.?\w{0,12})/);                    
 					var iw_title = title.split(/\/\//);
                     var interwiki_label = iw_title[iw_title.length-1];
-                   // interwiki_label = interwiki_label.replace(String.frasl,"\/");    
                     if(!interwiki_label.match(/oIWIKIo.*?cIWIKIc/)) {
                        interwiki_label = 'oIWIKIo'  + interwiki_label + 'cIWIKIc';
                     }

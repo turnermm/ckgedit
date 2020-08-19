@@ -53,7 +53,7 @@ MediaFileLink: "link to media file",
 InterWikiLink: "Interwiki Link",
 InterWikiType: "Interwiki Type",
 InterwikiPlaceHolder: "Interwiki Replacement Text",
-InterwikiInfo: "<div style='max-width:350px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
+InterwikiInfo: "<div style='min-width:450px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
 "interwiki links are short-cuts which look like this: <span style='font-weight:600'>[[wp&gt;Shakespeare]]</span>, which will create a link to the English Wikipedia article on Shakespeare.  " +
 "The <span style='font-weight:600'>wp</span> part designates a link pattern;  " + 
 "the text following the '<span style='font-weight:900'>&gt;</span>' will be inserted into the link, replacing  a place holder, which is enclosed in curly brackets, "  +
