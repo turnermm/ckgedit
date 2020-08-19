@@ -1220,7 +1220,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                            else data.url.url = iwiki_pattern + data.url.selection;
                         }
                
-                       iwiki_text = "Big Test";//data.url.url;                      
+                       iwiki_text = this.getValueOf('info', 'iwikidisp') || "";//data.url.url;                      
 					   attributes[ 'data-cke-saved-href' ] =  data.url.url;
                        
 					  break;
