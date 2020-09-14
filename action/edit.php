@@ -2,7 +2,7 @@
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'action.php');
-
+use dokuwiki\Extension\Event;
 
 /**
  * @license    GNU GPLv2 version 2 or later (http://www.gnu.org/licenses/gpl.html)
@@ -737,13 +737,17 @@ ERRTXT;*/
 ?>
 
     <textarea name="wikitext" id="wiki__text" <?php echo $ro?> cols="80" rows="10" class="edit" tabindex="1"><?php echo "\n".$this->xhtml?></textarea>
-     <!-- textarea name="wikitext" id="wiki__text" <?php echo $ro?> cols="80" rows="10" 
-	class="edit" tabindex="1"><?php echo "<body style='background-color:#fff;background-image:none;'>\n"  . $this->xhtml .'</body>' ?></textarea --!>
+
 <?php 
 
 $temp=array();
-trigger_event('HTML_EDITFORM_INJECTION', $temp);
 
+if(class_exists('dokuwiki\Extension\Event')) {
+    Event::createAndTrigger('HTML_EDITFORM_INJECTION', $temp);
+}
+else {
+ trigger_event('HTML_EDITFORM_INJECTION', $temp);
+}
 $DW_EDIT_disabled = '';
 $guest_perm = auth_quickaclcheck($_REQUEST['id']);
 $guest_group = false;
