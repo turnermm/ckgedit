@@ -1217,7 +1217,13 @@ $text = preg_replace_callback(
 
         // Post process and return the output
         $data = array($mode,& $Renderer->doc);
+        if(class_exists('dokuwiki\Extension\Event')) {
+           Event::createAndTrigger('RENDERER_CONTENT_POSTPROCESS', $data);
+        }
+        else {
         trigger_event('RENDERER_CONTENT_POSTPROCESS',$data);
+        }
+       
         $xhtml = $Renderer->doc;
 	    $xhtml = str_replace(
 		    array('NWIKISTART','NWIKICLOSE'),
