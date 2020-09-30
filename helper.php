@@ -51,6 +51,33 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
       return in_array($plugin, $plugins_list);
   }
   
+     /** 
+    * function dw_edit_displayed
+    * @author  Myron Turner
+    * determines whether or not to show  or hide the
+    *  'DW Edit' button
+   */
+
+   function dw_edit_displayed() 
+   { 
+        global $INFO;
+
+        $dw_edit_display = @$this->getConf('dw_edit_display');
+        if(!isset($dw_edit_display))return "";  //version 0. 
+        if($dw_edit_display != 'all') {
+            $admin_exclusion = false;
+            if($dw_edit_display == 'admin' && ($INFO['isadmin'] || $INFO['ismanager']) ) {    
+                    $admin_exclusion = true;
+            }
+            if($dw_edit_display == 'none' || $admin_exclusion === false) {
+              return ' style = "display:none"; ';
+            }
+           return "";
+        }
+        return "";
+      
+   }
+
   function registerOnLoad($js){
   global $ID;
   global $lang;

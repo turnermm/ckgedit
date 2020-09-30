@@ -524,32 +524,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         return true;
     }
 
-   /** 
-    * function dw_edit_displayed
-    * @author  Myron Turner
-    * determines whether or not to show  or hide the
-    *  'DW Edit' button
-   */
-
-   function dw_edit_displayed() 
-   { 
-        global $INFO;
-
-        $dw_edit_display = @$this->getConf('dw_edit_display');
-        if(!isset($dw_edit_display))return "";  //version 0. 
-        if($dw_edit_display != 'all') {
-            $admin_exclusion = false;
-            if($dw_edit_display == 'admin' && ($INFO['isadmin'] || $INFO['ismanager']) ) {    
-                    $admin_exclusion = true;
-            }
-            if($dw_edit_display == 'none' || $admin_exclusion === false) {
-              return ' style = "display:none"; ';
-            }
-           return "";
-        }
-        return "";
-      
-   }
 
    /**
       Check for for alternate style sheet
@@ -768,7 +742,7 @@ if(isset($INFO['userinfo'])&& isset($INFO['userinfo']['grps'])) {
 
 if(($guest_user || $guest_group) && $guest_perm <= 2) $DW_EDIT_disabled = 'disabled';
 global $USERINFO;
-$DW_EDIT_hide = $this->dw_edit_displayed(); 
+$DW_EDIT_hide = $this->helper->dw_edit_displayed(); 
 $is_ckgeditChrome = false;
  if(stripos($_SERVER['HTTP_USER_AGENT'],'Chrome') !== false) {
       preg_match("/Chrome\/(\d+)/", $_SERVER['HTTP_USER_AGENT'],$cmatch);
