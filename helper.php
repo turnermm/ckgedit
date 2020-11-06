@@ -149,7 +149,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
      $create_folder = 'n';
 	 $user_type = 'visitor';
   }
-  $user_groups = implode(";;",$user_groups);
+  $user_groups = str_replace('"','\"',implode(";;",$user_groups));
 
   if($INFO['isadmin'] || $INFO['ismanager']) {    
      $client = "";
