@@ -238,10 +238,10 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         $text=preg_replace("#(?<=http://)(.*?)(?=lib/plugins/ckgedit/ckeditor/plugins/smiley/images)#s", $new_addr,$text);        
      }
  /*interwiki frasl refactoring*/
- 
+
 /*
     $text = preg_replace_callback('/\[\[\w+>.*?\]\]/ms',
-      create_function(
+    create_function(
         '$matches',
         'return str_replace("/", "__IWIKI_FSLASH__" ,$matches[0]);'
     ), $text);
@@ -720,7 +720,7 @@ if(class_exists('dokuwiki\Extension\Event')) {
     Event::createAndTrigger('HTML_EDITFORM_INJECTION', $temp);
 }
 else {
-trigger_event('HTML_EDITFORM_INJECTION', $temp);
+ trigger_event('HTML_EDITFORM_INJECTION', $temp);
 }
 $DW_EDIT_disabled = '';
 $guest_perm = auth_quickaclcheck($_REQUEST['id']);
