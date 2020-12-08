@@ -195,7 +195,7 @@ var FCKRecovery = "";
 var oldonload = window.onload;
 var ourLockTimerINI = false;
 
-  var ckgedit_onload = function() { $js };
+var ckgedit_onload = function() { $js };
 window.onload =  ckgedit_onload;
 
   function getCurrentWikiNS() {
