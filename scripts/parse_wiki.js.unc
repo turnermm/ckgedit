@@ -263,7 +263,7 @@ function parse_wikitext(id) {
     is_iwiki: function(class_name, title) {
                     var iw_type = class_name.match(/iw_(\w+\.?\w{0,12})/);                    
 					var iw_title = title.split(/\/\//);
-                     var interwiki_label = iw_title[iw_title.length-1];
+                    var interwiki_label = iw_title[iw_title.length-1];
                     if(!interwiki_label.match(/oIWIKIo.*?cIWIKIc/)) {
                        interwiki_label = 'oIWIKIo'  + interwiki_label + 'cIWIKIc';
                     }
@@ -1410,7 +1410,7 @@ function parse_wikitext(id) {
     }
     if(text.match(/~~CLOSE_HTML_BLOCK~~/)) {      
        text = text.replace(/~~CLOSE_HTML_BLOCK~~\n*/gm, "\n</code>\n\n~~CLOSE_HTML_BLOCK~~\n\n");
-    }   
+    } 
     
    /*interwiki frasl refactoring*/
     if(this.interwiki) {

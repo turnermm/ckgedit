@@ -199,8 +199,8 @@ $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers.*?\])\s*
                         return $matches[0];
                     }
                     if(preg_match('/[\w\.]+\s*>/',$matches[0])) {
-                           return $matches[0]; 
-                        }
+                        return $matches[0];
+                    }
 	 	             if(preg_match('/([\w\.\-]+@[\w\.\-]+\.\w{2,3})\?.*?\|\1/i',$matches[0])) {
                              return $matches[0];
                      }
@@ -245,7 +245,7 @@ $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers.*?\])\s*
                },
            $TEXT
          );      
-         
+      
         if($this->getConf('rel_links')) {    
           $TEXT = preg_replace_callback(
            '#\{\{(\s*)(.*?)(\s*)\}\}#ms',
@@ -329,7 +329,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
              return '|' . $matches[1]  . $matches[2]  . str_replace("\\ ","",$matches[3]);
          },
          $TEXT     
-    );      
+    );
     
 
         /*  Feb 23 2019
