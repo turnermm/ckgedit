@@ -561,6 +561,10 @@ a.interwiki:visited
     text-decoration:none;
 }
 
+  blockquote {
+   padding-left: .5em;
+   margin-left: 1.5em;
+  }
 
 
 
