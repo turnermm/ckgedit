@@ -3,7 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
- * @author Nicolás Arredondo <nicoarredondo76@gmail.com>
+ * @author Luna Frax <lunafrax@gmail.com>
  * @author Olaf Reitmaier <olafrv@gmail.com>
  */
 $lang['btn_dw_edit']           = 'Editor DW';
@@ -42,10 +42,11 @@ $lang['js']['dwp_updated']     = 'La prioridad del Editor ha sido actualizada a:
 $lang['js']['dwp_not_sel']     = 'La prioridad del Editor no está seleccionada: será determinada por el parámetro de configuración dw_users_group';
 $lang['js']['mediamgr_notice'] = 'Use la ventana de vínculo para insertar';
 $lang['js']['font_conflict']   = 'El interprete encontró uno o más conflictos vínculos-fuentes. Presionando OK, retornará al editor y removerá los estilos de fuente. Para mayor información véa: https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links';
-$lang['js']['ckg_paste_restart'] = 'Al actualizar el editor, se activara la opción Pegar';
-$lang['js']['on']              = 'Activado';
-$lang['js']['off']             = 'Desactivado';
-$lang['js']['broken_image_1']  = 'Usa el plugin pegar imagen del administrador de medios de Dokuwiki o intenta con la herramienta Pegar de MS Word';
+$lang['js']['ckg_paste_restart'] = 'Al recargar el editor, el soporte de pegado suplementario se activará';
+$lang['js']['on']              = 'Encendido';
+$lang['js']['off']             = 'Apagado';
+$lang['js']['broken_image_1']  = 'Usa el plugin imagePaste con el Dokuwiki Mediamanager o prueba la herramienta MS Word Paste.';
+$lang['js']['broken_image_2']  = 'Se pueden colgar imágenes Ctrl-v con datos en bruto de más de 2.5M. Esta imagen es:';
 $lang['mediamgr_imgonly']      = 'Cargue imágenes solamente usando la ventana de imágenes:';
 $lang['uprofile_title']        = 'Seleccione Su Editor Predeterminado';
 $lang['btn_val_dw_fb']         = 'Explorador de Archivos DW';
@@ -54,3 +55,19 @@ $lang['btn_title_dw_fb']       = 'Guardar y cerrar el editor y cambiar al Explor
 $lang['btn_title_ckg_fb']      = 'Guardar y cerrar el editor y cambiar al Explorador de Archivos CKG';
 $lang['formatdel']             = 'Etiquetas removidas de(los) encabezado(s): no soportados por Dokuwiki';
 $lang['fontdel']               = 'Etiquetas de Fuentes removidas de(los) vínculo(s): no soportados por Dokuwiki';
+$lang['ckgcke_conflict']       = 'Se ha detectado una copia de ckgedit. Tanto ckgedit como ckgedit deben ser desactivados. ';
+$lang['ws_cantcopy']           = 'Para la configuración de winstyle: no se puede copiar a';
+$lang['ws_copiedhtaccess']     = 'Para la configuración de Winstyle, copiado el .htaccess de seguridad a los datos/medios de comunicación
+Ver ckgedit/fckeditor/userfiles/.htacess.security 	';
+$lang['userfiles_perm']        = 'Por favor, compruebe los permisos; ckgedit no puede acceder ';
+$lang['sym_not created_1']     = 'Incapaz de crear';
+$lang['sym_not created_2']     = 'No puede crear enlaces simbólicos para el navegador de archivos: no puede acceder: ';
+$lang['sym_not created_3']     = 'Hubo un error al tratar de crear enlaces simbólicos en';
+$lang['syms_created']          = 'Los siguientes enlaces fueron creados en el directorio de archivos de usuario:';
+$lang['dblclk']                = '<b>Nueva Característica:</b> doble click en la ventana del navegador para abrir el DW Editor para editar la sección en el cursor. <b>Ver: </b><a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>.';
+$lang['dblclk_reminder']       = '<b>Recordatorio</b>';
+$lang['ckg_img_paste']         = 'Girar el soporte suplementario de pegado de imágenes';
+$lang['ckg_img_paste_title']   = 'Apagado para evitar los pegados dobles, o encendido para permitir los pegados';
+$lang['on']                    = 'Encendido';
+$lang['off']                   = 'Apagado';
+$lang['broken_image']          = 'Usa el plugin imagePaste con el Dokuwiki Mediamanager o probar la herramienta MS Word Paste.  Los datos en bruto de las imágenes Ctrl-v de más de 2.5M pueden colgarse. Esta imagen es: 	';
