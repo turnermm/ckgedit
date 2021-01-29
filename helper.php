@@ -131,7 +131,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   else {
    $user_type = 'user';
   }
-  $save_dir = DOKU_URL . ltrim($conf['savedir'],'/.\/');
+  $save_dir = DOKU_BASE . ltrim($conf['savedir'],'/.\/');
   $fbsz_increment = isset($_COOKIE['fbsz']) && $_COOKIE['fbsz'] ? $_COOKIE['fbsz'] : '0';
   $use_pastebase64 = (isset($_COOKIE['ckgEdPaste']) && $_COOKIE['ckgEdPaste'] == 'on' )  ? 'on' : 'off';
   // if no ACL is used always return upload rights
