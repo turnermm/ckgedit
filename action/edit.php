@@ -140,7 +140,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
          $nval = substr(md5(time()), -20);
          $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc';
         }
-        else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
+        else $parse_url = DOKU_BASE . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
         $event->data['script'][] = 
             array( 
                 'type'=>'text/javascript', 
