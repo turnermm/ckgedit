@@ -140,7 +140,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
          $nval = substr(md5(time()), -20);
          $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc';
         }
-        else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
+        else $parse_url = DOKU_BASE . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
         $event->data['script'][] = 
             array( 
                 'type'=>'text/javascript', 
@@ -599,7 +599,7 @@ if($fbsz_increment) {
     $fbrowser_height  =$fbrowser_height + ($fbrowser_height*($fbsz_increment/100));
 }
 
-$doku_url=  rtrim(DOKU_URL,'/');        
+$doku_base=  rtrim(DOKU_BASE,'/');        
 $ns = getNS($_COOKIE['FCK_NmSp']);
 
 //get user file browser if allowed
@@ -612,11 +612,11 @@ if ($this->getConf('allow_ckg_filebrowser') == 'all') {
 
 //setup options
 if ($fb == 'dokuwiki') {
-    $fbOptions = "filebrowserImageBrowseUrl: \"$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insert&ckg_media=img\",
-    filebrowserBrowseUrl: \"$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insertlink&ckg_media=link\"";
+    $fbOptions = "filebrowserImageBrowseUrl: \"$doku_base/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insert&ckg_media=img\",
+    filebrowserBrowseUrl: \"$doku_base/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insertlink&ckg_media=link\"";
 } else {
-    $fbOptions = "filebrowserImageBrowseUrl :  \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\",
-    filebrowserBrowseUrl: \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\"";
+    $fbOptions = "filebrowserImageBrowseUrl :  \"$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\",
+    filebrowserBrowseUrl: \"$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\"";
 }
 if($this->getConf('style_sheet')) {
 $contents_css = $this->alt_style_sheet();

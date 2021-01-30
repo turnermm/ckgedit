@@ -438,6 +438,9 @@ function ckg_edit_mediaman_insert(edid, id, opts, dw_align) {
     link = 'detail';
     for (var i in options) {
         var opt = options[i];
+        if (typeof opt !== 'string') {
+            continue;
+        }
          if (opt.match(/^\d+$/)) {   
             width = opt;
         } else  if (opt.match(/^\w+$/)) {   
