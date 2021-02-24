@@ -84,6 +84,7 @@ DlgFileBrowserInfo_1: "If you increase the zoom level of your browser,  Ckgedit'
 DlgFileBrowserInfo_2: "The file listings can be sorted by Name, Date, and File Size.  By default they sort in ascending order, but Date and File Size can " +
           "be sorted in descending order by checking the Reverse Order option.  The sort functions are not supported by Internet Explorer but do work in Win 10 Edge.",
 DlgFileBrowserInfo_3: "The search functions will search using whole or part of a file name.",
+LinkText: "<span style='font-weight:bold'>Link Display Text</span><br />Can be edited by user (takes precedence over Page Name or  ID)",
 };
 CKEDITOR.lang['en']['footnote'] = {
 FootNoteInfo: '<div style="padding: 18px;font-size:125%;line-height:125%;">'+

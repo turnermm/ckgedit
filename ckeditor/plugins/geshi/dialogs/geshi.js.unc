@@ -68,7 +68,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
     }
 	return { 
 		// Basic properties of the dialog window: title, minimum size.
-		title: 'Abbreviation Properties',
+		title: editor.lang.geshi.window_title,
 		minWidth: 600,
 		minHeight: 350,
 
@@ -77,7 +77,7 @@ CKEDITOR.dialog.add( 'geshiDialog', function( editor ) {
 			{
 				// Definition of the Basic Settings dialog tab (page).
 				id: 'tab-basic',
-				label: 'Basic Settings',
+				label: editor.lang.geshi.basic_settings,
 
 				// The tab content.
 				elements: [

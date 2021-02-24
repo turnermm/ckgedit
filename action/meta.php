@@ -7,6 +7,7 @@ if(!defined('DOKU_INC')) die();
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 define('FCK_ACTION_SUBDIR',  DOKU_PLUGIN . 'ckgedit/action/');
 require_once(DOKU_PLUGIN.'action.php');
+require_once(DOKU_PLUGIN.'ckgedit/scripts/setsamesite.php');
  
 class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $session_id = false;    
@@ -21,10 +22,11 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $captcha = false;
   var $geshi_dir;
   function __construct() {
-      
+  global $conf;
+ 
       $this->helper = plugin_load('helper', 'ckgedit');
-      $this->dokuwiki_priority = $this->getConf('dw_priority');
-      $this->dw_priority_group = $this->getConf('dw_users');
+      $this->dokuwiki_priority =  false;
+      $this->dw_priority_group =  "NOT_SET";
       $this->dw_priority_metafn=metaFN(':ckgedit:dw_priority', '.ser');
       if(!file_exists($this->dw_priority_metafn)) {
           io_saveFile($this->dw_priority_metafn, serialize(array()));
@@ -45,7 +47,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'reset_user_rewrite_check');                 
             $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'restore_conf');   
             $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');                          
-            $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
+            //$controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
             $controller->register_hook('ACTION_SHOW_REDIRECT', 'BEFORE', $this, 'handle_redirect');            
               }
 
@@ -450,10 +452,10 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
         var dom = document.getElementById('ckgedit_mode_type');                
           
          if(useDW_Editor) {
-                document.cookie = 'FCKG_USE=other;expires=';             
+                document.cookie = 'FCKG_USE=other;expires=0;path=/;SameSite=Lax';             
               }  
              else {
-                document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;'
+                document.cookie='FCKG_USE=other;expires=Thu,01-Jan-70 00:00:01 GMT;path=/;SameSite=Lax'
            }
         if(which == 1) {             
            if(e && e.form) {
@@ -469,7 +471,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
            e.form.submit(); 
        }
         else {            
-            document.cookie = 'FCKG_USE=_false_;expires=';             
+            document.cookie = 'FCKG_USE=_false_;expires=0;path=/;SameSite=Lax';             
             dom.value = 'dwiki';    
            if(JSINFO['chrome_version'] >= 56 && window.dwfckTextChanged) {
            }
@@ -491,13 +493,7 @@ SCRIPT;
   }
 
 function check_userfiles() {	  
- 
-   /*
-   removed 5/27/2019
-    if($this->getConf('no_symlinks')) {	
-	   return;
-	}
-	*/
+
     global $INFO;
     global $conf;
     
@@ -506,11 +502,11 @@ function check_userfiles() {
     
    $userfiles = DOKU_PLUGIN . "ckgedit/fckeditor/$animal/";
     if(isset($conf['animal']) && $conf['animal'] !== 'userfiles') {
-        setcookie('FCK_animal',$animal, $expire, '/');     
-		setcookie('FCK_animal_inc',$conf['animal_inc'], $expire, '/');     
+        setcookieSameSite('FCK_animal',$animal, $expire, '/');     
+		setcookieSameSite('FCK_animal_inc',$conf['animal_inc'], $expire, '/');     
         preg_match('#^(.*?' . $conf['animal'] . ')#', $save_dir,$matches);
         $save_dir=$matches[1] . '/data/pages';
-        setcookie('FCK_farmlocal',$save_dir, $expire, '/');     
+        setcookieSameSite('FCK_farmlocal',$save_dir, $expire, '/');     
     
         return;
     }
@@ -530,7 +526,7 @@ function check_userfiles() {
         $media_dir = DOKU_BASE . $mdir . 'image/';
         }
         else $media_dir = '/lib/plugins/ckgedit/fckeditor/'. $animal . '/image/';        
-        setcookie('FCK_media',$media_dir, $expire, '/');           
+        setcookieSameSite('FCK_media',$media_dir, $expire, '/');           
 
      }
      else {
@@ -714,30 +710,30 @@ function check_userfiles() {
 
             }
 
-          // $expire = time()+60*60*24*30;
-           $expire = null;
-           setcookie('FCK_NmSp_acl',$session_string, $expire, '/');           
+           $expire = time()+60*60*24*30;
+          // $expire = null;
+           setcookieSameSite('FCK_NmSp_acl',$session_string, $expire, '/');           
 
-           setcookie('FCK_SCAYT',$this->getConf('scayt'), $expire, '/');                
-           setcookie('FCK_SCAYT_AUTO',$this->getConf('scayt_auto'), $expire, '/'); 
+           setcookieSameSite('FCK_SCAYT',$this->getConf('scayt'), $expire, '/');                
+           setcookieSameSite('FCK_SCAYT_AUTO',$this->getConf('scayt_auto'), $expire, '/'); 
            $scayt_lang = $this->getConf('scayt_lang');
            if(isset($scayt_lang)) {
                list($scayt_lang_title,$scayt_lang_code) = explode('/',$scayt_lang);
                if($scayt_lang_code!="en_US") {
-                  setcookie('FCK_SCAYT_LANG',$scayt_lang_code, $expire, '/'); 
+                  setcookieSameSite('FCK_SCAYT_LANG',$scayt_lang_code, $expire, '/'); 
                }
            }
            if ($this->getConf('winstyle')) {
-              setcookie('FCKConnector','WIN', $expire, DOKU_BASE);                                
+              setcookieSameSite('FCKConnector','WIN', $expire, DOKU_BASE);                                
            }
           
            if ($this->dokuwiki_priority && $this->in_dwpriority_group() ) {
                if(isset($_COOKIE['FCKG_USE']) && $_COOKIE['FCKG_USE'] == 'other') {           //if other go to ckeditor                   
                    $expire = time() -60*60*24*30;
-                   setcookie('FCKG_USE','_false_', $expire, '/');           
+                   setcookieSameSite('FCKG_USE','_false_', $expire, '/');           
                }
                else {            
-                  setcookie('FCKG_USE','_false_', $expire, '/');     //turn off ckeditor      
+                   setcookieSameSite('FCKG_USE','_false_', $expire, '/');                //turn off ckeditor      
                 }
            }
   }
@@ -753,6 +749,10 @@ function check_userfiles() {
        if(isset($USERINFO)) {
            $this->startup_msg();
        }
+       if((float)$updateVersion >= 51){  //   HOGFATHER +
+    //       $conf['plugin']['ckgedit']['allow_ckg_filebrowser'] = 'dokuwiki';
+    //       $conf['plugin']['ckgedit']['default_ckg_filebrowser'] = 'dokuwiki';          
+       } 
       
        $auth = auth_quickaclcheck($ID);  
        $JSINFO['confirm_delete']= $this->getLang('confirm_delete');
@@ -808,13 +808,13 @@ function check_userfiles() {
        /* set cookie to pass namespace to FCKeditor's media dialog */
       // $expire = time()+60*60*24*30;
        $expire = null;
-       setcookie ('FCK_NmSp',$ID, $expire, '/');     
+       setcookieSameSite('FCK_NmSp',$ID, $expire, '/');     
       
           
 
       /* Remove TopLevel cookie */         
        if(isset($_COOKIE['TopLevel'])) {
-            setcookie("TopLevel", $_REQUEST['TopLevel'], time()-3600, '/');
+            setcookieSameSite("TopLevel", $_REQUEST['TopLevel'], time()-3600, '/');
        }
 
      
@@ -825,7 +825,7 @@ function check_userfiles() {
   } 
 
 function loadScript(Doku_Event $event) {
-  echo <<<SCRIPT
+     echo <<<SCRIPT
 
     <script type="text/javascript">
     //<![CDATA[ 
@@ -842,42 +842,26 @@ function loadScript(Doku_Event $event) {
 //]]> 
 
  </script>
-
+ 
 SCRIPT;
 
 }
 
 /** 
  *  Handle features need for DW Edit: 
- *    1. load script, if not loaded
- *    2. Re-label Cancel Button "Exit" when doing a preview  
- *    3. set up $REQUEST value to identify a preview when in DW Edit , used in 
+ *    1. Re-label Cancel Button "Exit" when doing a preview  
+ *    2. set up $REQUEST value to identify a preview when in DW Edit , used in 
  *       set_session to remove ckgedit and DW drafts if present after a DW preview  
 */
   function setupDWEdit(Doku_Event $event) {
   global $ACT;
 
-  $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';
-  if(($ACT == 'login' || $this->session_id == false) && $this->getConf('preload_ckeditorjs')) {
-     $url2 = DOKU_BASE.'lib/plugins/ckgedit/ckeditor/ckeditor.js';
-  }
-  else $url2 = "";
+ // $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';
   echo <<<SCRIPT
 
     <script type="text/javascript">
     //<![CDATA[ 
 
-    try {
-    if(!window.HTMLParserInstalled || !HTMLParserInstalled){
-         LoadScript("$url");        
-    }
-    }
-    catch (ex) {  
-         LoadScript("$url");        
-    }             
-    if("$url2") {
-       LoadScriptDefer("$url2");        
-    }
     function createRequestValue() {
         try{
         var inputNode=document.createElement('input');
@@ -929,32 +913,34 @@ function reset_user_rewrite_check() {
 function startup_msg() {  
    global $INFO;
     global $ACT;
+   global $updateVersion;
    $show_msg = false;
    if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
 	       $show_msg = true;		   
 	}
    if(!$show_msg)  return;
-   
+
   $filename =  metaFN('fckl:scayt','.meta'); 
   $msg =  $this->locale_xhtml('scayt');  
   if (!file_exists($filename)) {      
       io_saveFile($filename,'1'); 
-      msg($msg,2);          
+      msg($msg,MSG_MANAGERS_ONLY);          
   }
   else {
         if($this->getConf('scayt_auto') != 'off') return;
         $this->startup_check_twice($filename, 'scayt');
   }
-  
-  $filename =  metaFN('fckl:merger','.meta'); 
-  $msg =  $this->locale_xhtml('merger');
-  if (!file_exists($filename)) {      
-      io_saveFile($filename,'1'); 
-       msg($msg,2);      
+  if( (float)$updateVersion  < 51) {
+      return;
   }
   
-  
-
+/*
+  $filename =  metaFN('fckl:hogfather','.meta'); 
+  $msg =  $this->locale_xhtml('hogfather');
+  if (!file_exists($filename)) {      
+      io_saveFile($filename,'1'); 
+       msg($msg,MSG_MANAGERS_ONLY);      
+  } */
   
 }
 
@@ -986,7 +972,7 @@ function in_dwpriority_group() {
          if(isset($ar[$client])) {
              if($ar[$client] =='Y') return true;    // Y = dw_priority selected    
              if($ar[$client] =='N') {   
-                 setcookie('FCKG_USE','_false_', $expire, '/');    
+                 setcookieSameSite('FCKG_USE','_false_', $expire, '/');    
                  return false;  // N = CKEditor selected
              }
          }
@@ -996,7 +982,7 @@ function in_dwpriority_group() {
            return true;
         }
         
-         setcookie('FCKG_USE','_false_', $expire, '/');    
+         setcookieSameSite('FCKG_USE','_false_', $expire, '/');    
  
       return false;
 }

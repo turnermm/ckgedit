@@ -1,0 +1,2 @@
+  - Phiên bản này của [[doku>plugin:ckgedit|ckgedit]] nâng cấp CKEditor từ 4.9 lên 4.10, giúp cập nhật và cải tiến javascript. 
+  - Với bản nâng cấp lên 4.9, ckgedit được hợp nhất với [[doku>plugin:ckgdoku|ckgdoku]].  Xem ckgdoku's [[doku>plugin:ckgdoku#configuration|tùy chọn cấu hình]].

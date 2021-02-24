@@ -2,7 +2,7 @@
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 if(!defined('DOKU_MEDIA')) define('DOKU_MEDIA',DOKU_INC.'data/media/');
-define ('BROKEN_IMAGE', DOKU_URL . 'lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34');
+define ('BROKEN_IMAGE', DOKU_BASE . 'lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34');
 require_once(DOKU_PLUGIN.'action.php');
 define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/');
 /**
@@ -198,7 +198,9 @@ $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers.*?\])\s*
                     if($this->helper->has_plugin('button') && strpos($matches[0], '[[{') === 0) {    
                         return $matches[0];
                     }
-                    if(preg_match('/(doku|this)\s*>/',$matches[0])) return $matches[0]; // exclude dokuwiki's wiki links
+                    if(preg_match('/[\w\.]+\s*>/',$matches[0])) {
+                        return $matches[0];
+                    }
 	 	             if(preg_match('/([\w\.\-]+@[\w\.\-]+\.\w{2,3})\?.*?\|\1/i',$matches[0])) {
                              return $matches[0];
                      }
@@ -243,7 +245,7 @@ $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers.*?\])\s*
                },
            $TEXT
          );      
-         
+      
         if($this->getConf('rel_links')) {    
           $TEXT = preg_replace_callback(
            '#\{\{(\s*)(.*?)(\s*)\}\}#ms',
@@ -327,7 +329,8 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
              return '|' . $matches[1]  . $matches[2]  . str_replace("\\ ","",$matches[3]);
          },
          $TEXT     
-    );      
+    );
+    
 
         /*  Feb 23 2019
 	remove spaces and line feeds between beginning of table cell and start of code block
@@ -353,9 +356,8 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
 	  $TEXT = str_replace('CBL__Bksl','\\',$TEXT);
 	  $TEXT = preg_replace("/<code\s+file/ms",'<code ',$TEXT);
 	  
-     // $TEXT = preg_replace("/(={3,})<(code\|file)/ms","$1\n<$2",$TEXT);
-
-
+        $TEXT = preg_replace('#((\\\\){2}\s*)$#', "",$TEXT);
+        
          return;
     
     }
