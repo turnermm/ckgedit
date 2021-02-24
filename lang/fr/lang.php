@@ -2,14 +2,14 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- *
  * @author Hérisson grognon <dodoperso@laposte.net>
+ * @author Hérisson grognon <dodoperso@laposte.net>
+ * @author Schplurtz le Déboulonné <Schplurtz@laposte.net>
  * @author salabdou <salabdou@gmail.com>
  * @author TJ619 <rockandrollfever0@gmail.com>
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @author Blacklord049
  * @author Nicolas Friedli <nicolas@theologique.ch>
- * @author Schplurtz le Déboulonné <Schplurtz@laposte.net>
  */
 $lang['btn_dw_edit']           = 'Éditeur DW';
 $lang['dw_btn_fck_preview']    = 'Prévisualisation CKG';
@@ -33,6 +33,7 @@ $lang['title_draft']           = 'Voir, Afficher, Éditer le brouillon';
 $lang['btn_exit_draft']        = 'Quitter le brouillon';
 $lang['title_exit_draft']      = 'Retourner au document courant';
 $lang['draft_msg']             = 'Ce document a un brouillon. Le bouton Obtenir/Quitter le brouillon bascule entre ce document et le brouillon. Vous pouvez éditer et sauver l\'un ou l\'autre.';
+$lang['draft_msg']             = 'Ce document a un brouillon. Le bouton Obtenir/Quitter Brouillon bascule entre ce document et le brouillon. Vous pouvez éditer et sauver l\'un ou l\'autre.';
 $lang['whats_this']            = 'Qu\'est-ce que c\'est ?';
 $lang['complex_tables']        = 'Autoriser les tableaux complexes';
 $lang['minor_changes']         = 'Changements mineurs';
@@ -50,6 +51,8 @@ $lang['js']['font_conflict']   = 'Le parseur a trouvé un ou plusieurs conflits.
 $lang['js']['ckg_paste_restart'] = 'Lors du rechargement de l\'éditeur, un article supplémentaire de support sera utilisé.';
 $lang['js']['on']              = 'Marche';
 $lang['js']['off']             = 'Arrêt';
+$lang['js']['broken_image_1']  = 'Utilisez le greffon imagePaste avec le gestionnaire de média de DokuWiki ou essayez l\'outil coller de MS Word (MS Word Paste Tool).';
+$lang['js']['broken_image_2']  = 'Coller des images de données brutes supérieures à 2,5M peut bloquer. Cette image fait :';
 $lang['mediamgr_imgonly']      = 'Envoyer des images en utilisant la boîte de dialogue spécifique:';
 $lang['uprofile_title']        = 'Sélectionnez votre éditeur par défaut';
 $lang['btn_val_dw_fb']         = 'Gestionnaire de fichiers DW';
@@ -69,5 +72,8 @@ $lang['sym_not created_3']     = 'Il y a eu une erreur en essayant de créer des
 $lang['syms_created']          = 'liens créés dans le dossier userfiles:';
 $lang['dblclk']                = '<b>Nouvelle fonctionnalité</b> Un double clic dans le navigateur édite la section sous le curseur dans l\'éditeur DW. <b>Voir, en anglais,</b> <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>.';
 $lang['dblclk_reminder']       = '<b>Rappel</b> ';
+$lang['ckg_img_paste']         = 'Activer la prise en charge supplémentaire du coller d\'image';
+$lang['ckg_img_paste_title']   = 'Arrêté pour prévenir les coller doubles, ou en marche pour activer les coller';
 $lang['on']                    = 'Marche';
 $lang['off']                   = 'Arrêt';
+$lang['broken_image']          = 'Utilisez le greffon imagePaste avec le gestionnaire de média de DokuWiki  ou essayez l\'outil coller de MS Word (MS Word Paste Tool). Coller des images de données brutes supérieures à 2,5M peut bloquer. Cette image fait :';

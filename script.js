@@ -273,7 +273,7 @@ function dwedit_draft_delete() {
   
   function setEdHeight(h) {  
         h = parseInt(h);        
-        document.cookie = 'ckgEdht=' + h +';expires="";path=' +JSINFO['doku_base'];
+        document.cookie = 'ckgEdht=' + h +';expires=0;path=' +JSINFO['doku_base'] + ';SameSite=Lax;';
    }
 
    /* enable disable image paste */
@@ -438,6 +438,9 @@ function ckg_edit_mediaman_insert(edid, id, opts, dw_align) {
     link = 'detail';
     for (var i in options) {
         var opt = options[i];
+        if (typeof opt !== 'string') {
+            continue;
+        }
          if (opt.match(/^\d+$/)) {   
             width = opt;
         } else  if (opt.match(/^\w+$/)) {   
@@ -500,3 +503,6 @@ function ckg_admininfo(t){
 	  t.innerHTML = LANG.plugins.ckgedit.stylesheet_oinfo;
     else t.innerHTML = LANG.plugins.ckgedit.stylesheet_cinfo;
 } 
+
+  /* DOKUWIKI:include_once locktimer.js */
+ 

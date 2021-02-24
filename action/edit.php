@@ -2,7 +2,7 @@
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'action.php');
-
+use dokuwiki\Extension\Event;
 
 /**
  * @license    GNU GPLv2 version 2 or later (http://www.gnu.org/licenses/gpl.html)
@@ -113,20 +113,42 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         global $ID;
         global $REV;
         global $INFO;
-
-        $event->data['script'][] = 
-            array( 
-                'type'=>'text/javascript', 
-                'charset'=>'utf-8', 
-                '_data'=>'',
-                 'src'=>DOKU_BASE.'lib/plugins/ckgedit/' .$this->fck_location. '/ckeditor.js'
-            );
-
+        global $conf;
+            $event->data['script'][] = 
+                array( 
+                    'type'=>'text/javascript', 
+                    'charset'=>'utf-8', 
+                    '_data'=>'',             
+                     'src'=>DOKU_BASE.'lib/plugins/ckgedit/' .$this->fck_location. '/ckeditor.js'
+                )+([ 'defer' => 'defer']);               
+              
+      if(isset($conf['fnencode']) && $conf['fnencode'] == 'safe') {
+            $event->data['script'][] = 
+                array( 
+                    'type'=>'text/javascript', 
+                    'charset'=>'utf-8', 
+                    '_data'=>'',             
+                     'src'=>'lib/plugins/ckgedit/scripts/safeFN_cmpr.js'
+                ) + ([ 'defer' => 'defer']);
+      } 
       $ua = strtolower ($_SERVER['HTTP_USER_AGENT']);
       if(strpos($ua, 'msie') !== false) {
           echo "\n" . '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />' ."\n";     
       }
             
+        if($this->test) {
+         $nval = substr(md5(time()), -20);
+         $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc';
+        }
+        else $parse_url = DOKU_BASE . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
+        $event->data['script'][] = 
+            array( 
+                'type'=>'text/javascript', 
+                'charset'=>'utf-8', 
+                '_data'=>'',             
+                 'src'=> $parse_url
+            ) + ([ 'defer' => 'defer']);
+         
         return;
     }
 
@@ -201,7 +223,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             }
             else $text = $draft_text;
          
-
+     $text = str_replace('&notags',  '&amp;amp;notags',$text);
      $text = preg_replace_callback(
     '/(~~NOCACHE~~|~~NOTOC~~|\{\{rss>http(s?):\/\/.*?\}\})/ms',
      create_function(
@@ -215,12 +237,15 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         $new_addr = $_SERVER['SERVER_NAME'] . DOKU_BASE;
         $text=preg_replace("#(?<=http://)(.*?)(?=lib/plugins/ckgedit/ckeditor/plugins/smiley/images)#s", $new_addr,$text);        
      }
+ /*interwiki frasl refactoring*/
 
+/*
     $text = preg_replace_callback('/\[\[\w+>.*?\]\]/ms',
     create_function(
         '$matches',
         'return str_replace("/", "__IWIKI_FSLASH__" ,$matches[0]);'
     ), $text);
+    */
     
       global $useComplexTables;
       if($this->getConf('complex_tables') || strrpos($text, '~~COMPLEX_TABLES~~') !== false) {     
@@ -327,7 +352,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
                 '$matches[0] = str_replace("_ckgedit_NPBBR_","",$matches[0]);
                  return $matches[0];'
         ),$text);    
-        
+      
           $text = preg_replace_callback(
             '/(\|\s*)(<code>|<file>)(.*?)(<\/code>|<\/file>)\n_ckgedit_NPBBR_(?=.*?\|)/ms',
             create_function(
@@ -387,9 +412,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
       $text = preg_replace_callback( 
                '|(<code\s+\w+)(\s+\[enable_line_numbers.*?\])\s*>(.*?<\/code>)|ms',
             function($matches) {
-                $this->write_debug("1\n" . $matches[1]);                  
-                $this->write_debug("2\n" .$matches[2]);                  
-                $this->write_debug("3\n" .$matches[3]);     
                 $retstr = $matches[1] . ">\n/*" .   $matches[2] . "*/\n" . $matches[3];               
                return $retstr;              
             }, $text
@@ -397,7 +419,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 
        $this->xhtml = $this->_render_xhtml($text);
 
-       $this->xhtml = str_replace("__IWIKI_FSLASH__", "&frasl;", $this->xhtml);
+ /*interwiki frasl refactoring*/  
+  //   $this->xhtml = str_replace("__IWIKI_FSLASH__", "&frasl;", $this->xhtml);
 	   if($this->getConf('duplicate_notes')) {
 			$this->xhtml = preg_replace("/FNoteINSert\d+/ms", "",$this->xhtml);
 	   }
@@ -468,7 +491,9 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
             ),
             $this->xhtml
           );
-
+		  //insures breaks are retained for single spacing
+      $this->xhtml = preg_replace('/<p>\s*<br\/>\s*<\/p>/ms', '<br/>', $this->xhtml);
+	   
       if($this->draft_started) return $this->xhtml;
        $cname = getCacheName($INFO['client'].$ID,'.draft.fckl');
      
@@ -499,32 +524,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         return true;
     }
 
-   /** 
-    * function dw_edit_displayed
-    * @author  Myron Turner
-    * determines whether or not to show  or hide the
-    *  'DW Edit' button
-   */
-
-   function dw_edit_displayed() 
-   { 
-        global $INFO;
-
-        $dw_edit_display = @$this->getConf('dw_edit_display');
-        if(!isset($dw_edit_display))return "";  //version 0. 
-        if($dw_edit_display != 'all') {
-            $admin_exclusion = false;
-            if($dw_edit_display == 'admin' && ($INFO['isadmin'] || $INFO['ismanager']) ) {    
-                    $admin_exclusion = true;
-            }
-            if($dw_edit_display == 'none' || $admin_exclusion === false) {
-              return ' style = "display:none"; ';
-            }
-           return "";
-        }
-        return "";
-      
-   }
 
    /**
       Check for for alternate style sheet
@@ -600,7 +599,7 @@ if($fbsz_increment) {
     $fbrowser_height  =$fbrowser_height + ($fbrowser_height*($fbsz_increment/100));
 }
 
-$doku_url=  rtrim(DOKU_URL,'/');        
+$doku_base=  rtrim(DOKU_BASE,'/');        
 $ns = getNS($_COOKIE['FCK_NmSp']);
 
 //get user file browser if allowed
@@ -613,11 +612,11 @@ if ($this->getConf('allow_ckg_filebrowser') == 'all') {
 
 //setup options
 if ($fb == 'dokuwiki') {
-    $fbOptions = "filebrowserImageBrowseUrl: \"$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insert&ckg_media=img\",
-    filebrowserBrowseUrl: \"$doku_url/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insertlink&ckg_media=link\"";
+    $fbOptions = "filebrowserImageBrowseUrl: \"$doku_base/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insert&ckg_media=img\",
+    filebrowserBrowseUrl: \"$doku_base/lib/exe/mediamanager.php?ns=$ns&edid=wiki__text&onselect=ckg_edit_mediaman_insertlink&ckg_media=link\"";
 } else {
-    $fbOptions = "filebrowserImageBrowseUrl :  \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\",
-    filebrowserBrowseUrl: \"$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_url/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\"";
+    $fbOptions = "filebrowserImageBrowseUrl :  \"$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\",
+    filebrowserBrowseUrl: \"$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\"";
 }
 if($this->getConf('style_sheet')) {
 $contents_css = $this->alt_style_sheet();
@@ -712,13 +711,17 @@ ERRTXT;*/
 ?>
 
     <textarea name="wikitext" id="wiki__text" <?php echo $ro?> cols="80" rows="10" class="edit" tabindex="1"><?php echo "\n".$this->xhtml?></textarea>
-     <!-- textarea name="wikitext" id="wiki__text" <?php echo $ro?> cols="80" rows="10" 
-	class="edit" tabindex="1"><?php echo "<body style='background-color:#fff;background-image:none;'>\n"  . $this->xhtml .'</body>' ?></textarea --!>
+
 <?php 
 
 $temp=array();
-trigger_event('HTML_EDITFORM_INJECTION', $temp);
 
+if(class_exists('dokuwiki\Extension\Event')) {
+    Event::createAndTrigger('HTML_EDITFORM_INJECTION', $temp);
+}
+else {
+ trigger_event('HTML_EDITFORM_INJECTION', $temp);
+}
 $DW_EDIT_disabled = '';
 $guest_perm = auth_quickaclcheck($_REQUEST['id']);
 $guest_group = false;
@@ -739,7 +742,7 @@ if(isset($INFO['userinfo'])&& isset($INFO['userinfo']['grps'])) {
 
 if(($guest_user || $guest_group) && $guest_perm <= 2) $DW_EDIT_disabled = 'disabled';
 global $USERINFO;
-$DW_EDIT_hide = $this->dw_edit_displayed(); 
+$DW_EDIT_hide = $this->helper->dw_edit_displayed(); 
 $is_ckgeditChrome = false;
  if(stripos($_SERVER['HTTP_USER_AGENT'],'Chrome') !== false) {
       preg_match("/Chrome\/(\d+)/", $_SERVER['HTTP_USER_AGENT'],$cmatch);
@@ -1036,41 +1039,12 @@ var ckgedit_hasCaptcha = "<?php echo $this->captcha?1:0?>";
 <?php } ?>
 
 <?php  
-   $url = DOKU_URL . 'lib/plugins/ckgedit/scripts/script-cmpr.js';    
-  echo "var script_url = '$url';";
-  if($this->test) {
-     $nval = substr(md5(time()), -20);
-     $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki.js.unc?n=' . $nval;
-  }
-  else $parse_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/parse_wiki-cmpr.js';
-  
-  echo "var parse_url = '$parse_url';";
-//  $safe_url = DOKU_URL . 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js';       
-?>
-
-   <?php
        global $conf;
 
        if(isset($conf['animal'])) {
          echo "var config_animal='" . $conf['animal'] . "';";
        }
    ?>
-
-LoadScript(parse_url);
-try {
-  if(!window.HTMLParserInstalled){
-    LoadScript(script_url);   
-  }
-}
-catch (ex) {  
-   LoadScript(script_url); 
-}
-
-
-if(window.DWikifnEncode && window.DWikifnEncode == 'safe') {
-   LoadScript(DOKU_BASE + 'lib/plugins/ckgedit/scripts/safeFN_cmpr.js' );
-}
-
 
  //]]>
 
@@ -1217,7 +1191,13 @@ $text = preg_replace_callback(
 
         // Post process and return the output
         $data = array($mode,& $Renderer->doc);
+        if(class_exists('dokuwiki\Extension\Event')) {
+           Event::createAndTrigger('RENDERER_CONTENT_POSTPROCESS', $data);
+        }
+        else {
         trigger_event('RENDERER_CONTENT_POSTPROCESS',$data);
+        }
+       
         $xhtml = $Renderer->doc;
 	    $xhtml = str_replace(
 		    array('NWIKISTART','NWIKICLOSE'),
@@ -1338,7 +1318,7 @@ $text = preg_replace_callback(
     }
 
   function write_debug($what,$line="") {
-     //return;
+     return;
      $handle = fopen("ckgedit_php.txt", "a");
     // if(is_array($what)) $what = print_r($what,true);
      if($line) $what = "line $line\n" . $what;

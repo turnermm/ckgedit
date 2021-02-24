@@ -47,17 +47,19 @@ DlgFileBrowserMove: "Move",
 LinkText: "<span style='font-weight:bold'>Link Display Text</span><br />User defined Text (takes precedence over Page Name or  ID)",
 LinkPageOrId: 'Page Name creates default Dokuwiki Link: <code>[[namespace:page|]]</code><br />ID creates: <code>[[namespace:page|namespace:page]]</code>',
 InternalLink: "internal link",
+LinkText: "<span style='font-weight:bold'>Link Display Text</span><br />Can be edited by user (takes precedence over Page Name or  ID)",
 InternalMedia: "internal media",
 MediaFileLink: "link to media file",
 InterWikiLink: "Interwiki Link",
 InterWikiType: "Interwiki Type",
 InterwikiPlaceHolder: "Interwiki Replacement Text",
-InterwikiInfo: "<div style='max-width:350px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
+InterwikiInfo: "<div style='min-width:400px; white-space: pre-wrap;border:1px solid #cccccc; margin:auto; overflow:auto; padding:4px;line-height:125%;'>Dokuwiki\'s " +
 "interwiki links are short-cuts which look like this: <span style='font-weight:600'>[[wp&gt;Shakespeare]]</span>, which will create a link to the English Wikipedia article on Shakespeare.  " +
 "The <span style='font-weight:600'>wp</span> part designates a link pattern;  " + 
 "the text following the '<span style='font-weight:900'>&gt;</span>' will be inserted into the link, replacing  a place holder, which is enclosed in curly brackets, "  +
 "as in <span style='font-weight:600'>{NAME}.</span> When there is no place holder, the replacement text will be appended to the end of the link.</div>",
 MediaFileLink: "link to media file",
+LinkDispText: "Link Display Text (optional)",
 SMBLabel: "Samba Share",
 GetHeadingsLabel: 'Get Headings'	,
 QStringLabel: 'Query String (For example: value_1=1&value_2=2) ',	

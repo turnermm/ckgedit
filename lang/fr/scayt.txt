@@ -1,0 +1,3 @@
+Le correcteur orthographique Scayt offre trois options de configuration : arrêté, en marche, désactivé. Pour l'instant, le réglage par défaut sera **arrêté** au lieu de **en marche**. Avec **en marche", le contenu de l'éditeur est analysé par Scayt et envoyé à un serveur Scayt pour vérification orthographique. Bien qu'il n'y ait aucune raison de penser qu'il s'agisse d'un risque de sécurité, ce changement est réalisé en considération du fait que des utilisateurs de wiki privé pourraient se sentir mal à l'aise de voir leur données envoyées à un serveur distant. De plus amples informormation sont disponibles sur la page de documenation de ckgedit consacrée aux options de configuration située à https://www.dokuwiki.org/plugin:ckgedit:configuration#scayt_lang.
+ 
+  

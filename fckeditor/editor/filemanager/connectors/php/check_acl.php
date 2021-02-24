@@ -7,7 +7,7 @@ if(file_exists($CONF_DIR)) {
 else {
     require_once(DOKU_INC. 'inc/preload.php');
  }
-require_once DOKU_INC.'inc/utf8.php';
+require_once 'utf8.php';
 
 // some ACL level defines
   define('AUTH_NONE',0);
