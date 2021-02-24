@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Hérisson grognon <dodoperso@laposte.net>
  * @author salabdou <salabdou@gmail.com>
  * @author TJ619 <rockandrollfever0@gmail.com>
  * @author Laurent Marquet <laurent.marquet@laposte.net>
@@ -32,7 +33,7 @@ $lang['title_draft']           = 'Voir, Montrer, Éditer Brouillon';
 $lang['btn_exit_draft']        = 'Quitter Brouillon';
 $lang['title_exit_draft']      = 'Retourner au document courant';
 $lang['draft_msg']             = 'Ce document a un brouillon. Le bouton Obtenir/Quitter Brouillon bascule entre ce document et le brouillon. Vous pouvez éditer et sauver l\'un ou l\'autre.';
-$lang['whats_this']            = 'Qu\'est-ce ?';
+$lang['whats_this']            = 'Qu\'est-ce que c\'est ?';
 $lang['complex_tables']        = 'Autoriser les tableaux complexes';
 $lang['minor_changes']         = 'Changements mineurs';
 $lang['discard_edits']         = 'Pour sauver vos modifcations, cliquez sur OK, sinon cliquez sur Annuler.';
@@ -57,6 +58,7 @@ $lang['btn_title_dw_fb']       = 'Sauver, fermer l\'éditeur et passer au gestio
 $lang['btn_title_ckg_fb']      = 'Sauver, fermer l\'éditeur et passer au gestionnaire de fichiers CKG';
 $lang['formatdel']             = 'Balisage supprimé des entêtes: indisponible dans DokuWiki';
 $lang['fontdel']               = 'Polices différentes supprimées des liens: indisponible dans DokuWiki';
+$lang['ckgcke_conflict']       = 'Une copie de ckgedit a été détectée. L\'un des Ckgedit et ckgedit doit être désactivé.';
 $lang['ws_cantcopy']           = 'Pour la configuration de Winstyle: impossible de copier vers';
 $lang['ws_copiedhtaccess']     = 'Pour l’installation de Winstyle, copiez le fichier .htaccess avec sécurité activée dans data/media
 Voir ckgedit/fckeditor/userfiles/.htaccess.security';
