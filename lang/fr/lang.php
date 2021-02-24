@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- *
+ * @author Hérisson grognon <dodoperso@laposte.net>
  * @author Schplurtz le Déboulonné <Schplurtz@laposte.net>
  * @author salabdou <salabdou@gmail.com>
  * @author TJ619 <rockandrollfever0@gmail.com>
@@ -32,7 +32,7 @@ $lang['title_draft']           = 'Voir, Montrer, Éditer Brouillon';
 $lang['btn_exit_draft']        = 'Quitter Brouillon';
 $lang['title_exit_draft']      = 'Retourner au document courant';
 $lang['draft_msg']             = 'Ce document a un brouillon. Le bouton Obtenir/Quitter Brouillon bascule entre ce document et le brouillon. Vous pouvez éditer et sauver l\'un ou l\'autre.';
-$lang['whats_this']            = 'Qu\'est-ce ?';
+$lang['whats_this']            = 'Qu\'est-ce que c\'est ?';
 $lang['complex_tables']        = 'Autoriser les tableaux complexes';
 $lang['minor_changes']         = 'Changements mineurs';
 $lang['discard_edits']         = 'Pour sauver vos modifcations, cliquez sur OK, sinon cliquez sur Annuler.';
