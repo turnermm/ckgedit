@@ -2,7 +2,8 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Denis Belousov <belousov.denis41@gmail.com>
  * @author Ianka Kryukov <IanisKr@mail.ru>
  * @author serg <sergey_art82@inbox.ru>
  * @author Artem Trutko <trutko@facebook.com>
@@ -38,3 +39,25 @@ $lang['dw_btn_styling']        = 'Редактировать Шрифты';
 $lang['title_styling']         = 'Открыть с помощью стилей шрифта, как показано в разметки';
 $lang['js']['font_err_1']      = 'Стили шрифтов нельзя включить в ссылки. Нажмите OK чтобы принять следующие корректировки: ';
 $lang['js']['font_err_throw']  = 'Ошибка форматирования шрифта';
+$lang['js']['dwp_save_err']    = 'Невозможно сохранить изменения в:';
+$lang['js']['on']              = 'вкл';
+$lang['js']['off']             = 'выкл';
+$lang['js']['broken_image_2']  = 'Вставка изображений с данными Raw выше 2.5М может привести к зависанию. Данное изображение:';
+$lang['uprofile_title']        = 'Выберите редактор по умолчанию';
+$lang['btn_val_dw_fb']         = 'Браузер медиа/файлов DW';
+$lang['btn_val_ckg_fb']        = 'Браузер медиа/файлов CKG';
+$lang['btn_title_dw_fb']       = 'Сохранить и закрыть редактор, и переключиться на браузер медиа/файлов DW';
+$lang['btn_title_ckg_fb']      = 'Сохранить и закрыть редактор, и переключиться на браузер медиа/файлов CKG';
+$lang['formatdel']             = 'Markup был убран из заголовка(ов): не поддерживается Dokuwiki';
+$lang['fontdel']               = 'Шрифт Markup был убран из заголовка(ов): не поддерживается Dokuwiki';
+$lang['ckgcke_conflict']       = 'Была обнаружена копия ckgedit. Какая-то из ckgedit должна быть отключена.';
+$lang['ws_cantcopy']           = 'Для установки winstyle: невозможно скопировать в';
+$lang['ws_copiedhtaccess']     = 'Для установки winstyle был в data/media был скопирован .htaccess с расширенными параметрами доступа. Проверьте ckgedit/fckeditor/userfiles/.htacess.security';
+$lang['userfiles_perm']        = 'Пожалуйста, проверьте имеющиеся разрешения; ckgedit не может получить доступ';
+$lang['sym_not created_1']     = 'Невозможно создать';
+$lang['sym_not created_2']     = 'Невозможно создать символические ссылки для браузера медиа/файлов: невозможно получить доступ:';
+$lang['sym_not created_3']     = 'Произошла ошибка во время создания символических ссылок в';
+$lang['syms_created']          = 'Следующие ссылки были созданы в директории userfiles:';
+$lang['dblclk_reminder']       = '<b>Напоминание</b> ';
+$lang['on']                    = 'вкл';
+$lang['off']                   = 'выкл';
