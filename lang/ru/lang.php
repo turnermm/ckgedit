@@ -2,7 +2,8 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Serge Zhukov <aberdin2001@mail.ru>
  * @author Ianka Kryukov <IanisKr@mail.ru>
  * @author serg <sergey_art82@inbox.ru>
  * @author Artem Trutko <trutko@facebook.com>
@@ -38,3 +39,9 @@ $lang['dw_btn_styling']        = 'Редактировать Шрифты';
 $lang['title_styling']         = 'Открыть с помощью стилей шрифта, как показано в разметки';
 $lang['js']['font_err_1']      = 'Стили шрифтов нельзя включить в ссылки. Нажмите OK чтобы принять следующие корректировки: ';
 $lang['js']['font_err_throw']  = 'Ошибка форматирования шрифта';
+$lang['js']['dwp_save_err']    = 'Невозможно сохранить изменения в:';
+$lang['js']['dwp_updated']     = 'Приоритет редактора текста изменен на:';
+$lang['js']['mediamgr_notice'] = 'Используйте диалоговое окно ссылки для вставки';
+$lang['js']['on']              = 'вкл';
+$lang['js']['off']             = 'откл';
+$lang['sym_not created_1']     = 'Невозможно создать';
