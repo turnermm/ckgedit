@@ -24,7 +24,8 @@ $Dwfck_conf_values = $dwfck_conf;
 $page = str_replace(':', '/',$page);
 $page = dwiki_encodeFN($page);
 if(!empty($Dwfck_conf_values['ckg_savedir'])) {
-  $path = $Dwfck_conf_values['ckg_savedir'] . '/pages/' . $page . '.txt';
+  $path = realpath(DOKU_INC . $Dwfck_conf_values['ckg_savedir']);
+  $path  .= '/pages/' . $page . '.txt';
 }
 else $path = PAGES . $page . '.txt';
 
