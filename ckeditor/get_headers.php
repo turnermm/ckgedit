@@ -1,6 +1,5 @@
 <?php
 define("DOKU_INC", realpath(dirname(__FILE__).'/../../../../') . '/');
-
 define ("DOKU_PLUGIN", DOKU_INC . 'lib/plugins/');
 define("PAGES", DOKU_INC . 'data/pages/');
 define("FCKEDITOR", DOKU_PLUGIN . 'ckgedit/fckeditor/editor/');
@@ -23,12 +22,16 @@ $dwfck_conf = doku_config_values();  // needed for cleanID
 $Dwfck_conf_values = $dwfck_conf;
 $page = str_replace(':', '/',$page);
 $page = dwiki_encodeFN($page);
+
 if(!empty($Dwfck_conf_values['ckg_savedir'])) {
+  if (stristr(PHP_OS, 'WIN')) {
   $path = realpath(DOKU_INC . $Dwfck_conf_values['ckg_savedir']);
   $path  .= '/pages/' . $page . '.txt';
- // $path = $Dwfck_conf_values['ckg_savedir'] . '/pages/' . $page . '.txt';
+  }  
+  else $path = $Dwfck_conf_values['ckg_savedir'] . '/pages/' . $page . '.txt';
 }
 else $path = PAGES . $page . '.txt';
+//echo "Path=".$path;
 
 $resp = "";
 $headers = array();
