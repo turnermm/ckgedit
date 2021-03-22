@@ -64,6 +64,7 @@ echo "\n";
 function doku_config_values() {
   $dwphp = DOKU_INC . 'conf/dokuwiki.php';
   $localphp = DOKU_INC . 'conf/local.php';
+  $conf['ckg_savedir']= false;
   if(file_exists($dwphp))
   {
     include($dwphp);
