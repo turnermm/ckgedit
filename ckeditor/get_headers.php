@@ -26,6 +26,7 @@ $page = dwiki_encodeFN($page);
 if(!empty($Dwfck_conf_values['ckg_savedir'])) {
   $path = realpath(DOKU_INC . $Dwfck_conf_values['ckg_savedir']);
   $path  .= '/pages/' . $page . '.txt';
+ // $path = $Dwfck_conf_values['ckg_savedir'] . '/pages/' . $page . '.txt';
 }
 else $path = PAGES . $page . '.txt';
 
@@ -67,7 +68,8 @@ function doku_config_values() {
     {
       include($localphp);
     }
-    if(trim($conf['savedir'],'/.\/') != 'data') {
+    $sv = preg_replace("#^./#","",$conf['savedir']);
+    if($sv != 'data') {
      $conf['ckg_savedir']= $conf['savedir'];
    }
     return $conf;
