@@ -1178,7 +1178,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
                         }
                         data.url.url = ar[0];
                         
-                        data.url.url =  data.url.url.replace(/^.*?\/data\/pages\//,"");
+                        data.url.url =  data.url.url.replace(/^.*?\/pages\//,"");
                         data.url.url = data.url.url.replace(/^\:/,"");
                         data.url.url =  ':' + data.url.url.replace(/\//g,':');
                         data.adv.advCSSClasses = "wikilink1";
