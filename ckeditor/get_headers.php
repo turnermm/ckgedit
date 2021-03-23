@@ -71,7 +71,7 @@ function doku_config_values() {
     {
       include($localphp);
     }
-    $sv = preg_replace("#^./#","",$conf['savedir']);
+    $sv = preg_replace("#^\.+/#","",$conf['savedir']);
     if($sv != 'data') {
      $conf['ckg_savedir']= $conf['savedir'];
    }
