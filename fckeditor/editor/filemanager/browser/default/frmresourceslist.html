@@ -349,8 +349,7 @@ function OpenFile( fileUrl )
     }
     window.top.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl);
     if(isInternalLink) {  
-        fileUrl = fileUrl.replace(/^.*?\/pages\//,"")          
-        window.top.opener.update_ckgeditInternalLink(fileUrl);
+        window.top.opener.update_ckgeditInternalLink(fileUrl.replace(/^.*?\/data\/pages\//,""));
     }   
     else if(isDwikiMediaFile) {        
        var url;       

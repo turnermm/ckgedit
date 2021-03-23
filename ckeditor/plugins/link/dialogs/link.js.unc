@@ -387,13 +387,11 @@ CKEDITOR.dialog.add( 'link', function( editor )
      var  insertInternalLinkText = function (text)
        {
            if(!text) return;
-           
            document.getElementById(fckgInternalInputId).disabled = true;
            document.getElementById(fckgInternalInputId).style.fontWeight="bold" ;
            document.getElementById(fckgInternalInputId).style.backgroundColor="#DDDDDD" ;           
            var ar = text.split(/;;/);
            text = ar[0];
-          
            var title = ar[1];            
            text = text.replace(/^[\/\:]/,"");
            text =  text.replace(/\//g,':');             
