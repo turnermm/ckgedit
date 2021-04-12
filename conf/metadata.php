@@ -24,13 +24,10 @@ $meta['complex_tables'] = array('onoff');
 $meta['duplicate_notes'] = array('onoff');
 $meta['smiley_hack'] = array('onoff');
 $meta['winstyle'] = array('onoff');
-$meta['dw_priority'] = array('onoff');
-$meta['dw_users'] = array('string');
 $meta['other_lang'] = array('multichoice','_choices' => array('default','af','ar','bg','bn','bs','ca','cs','cy','da',
                                                              'de','el','en-au','en-ca','en-gb','en','eo','es','et','eu','fa','fi','fo','fr-ca','fr','gl','gu','he','hi','hr','hu',
                                                              'is','it','ja','ka','km','ko','ku','lt','lv','mk','mn','ms','nb','nl','no','pl','pt-br','pt','ro','ru','sk','sl','sr',
                                                              'sr-latn','sv','th','tr','ug','uk','vi','zh-cn','zh'));
-$meta['preload_ckeditorjs']  = array('onoff'); 
 $meta['color_options'] = array('onoff');
 $meta['font_options'] = array('onoff');
 $meta['nofont_styling'] = array('onoff');

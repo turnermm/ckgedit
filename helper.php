@@ -51,11 +51,39 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
       return in_array($plugin, $plugins_list);
   }
   
+     /** 
+    * function dw_edit_displayed
+    * @author  Myron Turner
+    * determines whether or not to show  or hide the
+    *  'DW Edit' button
+   */
+
+   function dw_edit_displayed() 
+   { 
+        global $INFO;
+
+        $dw_edit_display = @$this->getConf('dw_edit_display');
+        if(!isset($dw_edit_display))return "";  //version 0. 
+        if($dw_edit_display != 'all') {
+            $admin_exclusion = false;
+            if($dw_edit_display == 'admin' && ($INFO['isadmin'] || $INFO['ismanager']) ) {    
+                    $admin_exclusion = true;
+            }
+            if($dw_edit_display == 'none' || $admin_exclusion === false) {
+              return ' style = "display:none"; ';
+            }
+           return "";
+        }
+        return "";
+      
+   }
+
   function registerOnLoad($js){
   global $ID;
   global $lang;
   global $skip_styling;
-  $preview_button = $lang['btn_preview'];
+  global $JSINFO;
+
   $ckgedit_conf_direction = $this->getConf('direction');
    if($ckgedit_conf_direction == "dokuwiki") {
        $ckgedit_lang_direction = $lang['direction'];
@@ -103,7 +131,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
   else {
    $user_type = 'user';
   }
-  $save_dir = DOKU_URL . ltrim($conf['savedir'],'/.\/');
+  $save_dir = DOKU_BASE . ltrim($conf['savedir'],'/.\/');
   $fbsz_increment = isset($_COOKIE['fbsz']) && $_COOKIE['fbsz'] ? $_COOKIE['fbsz'] : '0';
   $use_pastebase64 = (isset($_COOKIE['ckgEdPaste']) && $_COOKIE['ckgEdPaste'] == 'on' )  ? 'on' : 'off';
   // if no ACL is used always return upload rights
@@ -121,7 +149,7 @@ class helper_plugin_ckgedit extends DokuWiki_Plugin {
      $create_folder = 'n';
 	 $user_type = 'visitor';
   }
-  $user_groups = implode(";;",$user_groups);
+  $user_groups = str_replace('"','\"',implode(";;",$user_groups));
 
   if($INFO['isadmin'] || $INFO['ismanager']) {    
      $client = "";
@@ -167,179 +195,15 @@ var FCKRecovery = "";
 var oldonload = window.onload;
 var ourLockTimerINI = false;
 
-  var ckgedit_onload = function() { $js };
-  
-  jQuery(window).on('load',ckgedit_onload);
+var ckgedit_onload = function() { $js };
+window.onload =  ckgedit_onload;
 
   function getCurrentWikiNS() {
         var DWikiMediaManagerCommand_ns = '$media_tmp_ns';
         return DWikiMediaManagerCommand_ns;
   }
  
- var ourLockTimerRefreshID;
- var ourLockTimerIsSet = true;
- var ourLockTimerWarningtimerID;
  var ourFCKEditorNode = null;
- var ourLockTimerIntervalID;
- var dwfckTextChanged = false;
-
-   /**
-    *    event handler
-    *    handles some mousepresses and all keystrokes from CKEditor window
-  */
-
-
- function handlekeypress (e) {      
-   if(ourLockTimerIsSet) {
-         lockTimerRefresh();        
-   }
-   window.dwfckTextChanged = true;
- }
-
- function unsetDokuWikiLockTimer() {
-     
-    if(window.locktimer && !ourLockTimerINI) {
-        locktimer.old_reset = locktimer.reset;
-        locktimer.old_warning = locktimer.warning;        
-        ourLockTimerINI=true;
-    }
-    else {
-        window.setTimeout("unsetDokuWikiLockTimer()", 600);
-
-    }
-  
-  locktimer.reset = function(){
-        locktimer.clear();  // alert(locktimer.timeout);
-        window.clearTimeout(ourLockTimerWarningtimerID);
-        ourLockTimerWarningtimerID =  window.setTimeout(function () { locktimer.warning(); }, locktimer.timeout);
-   };
-
-   locktimer.warning = function(){    
-        window.clearTimeout(ourLockTimerWarningtimerID);
-
-        if(ourLockTimerIsSet) {
-            if(locktimer.msg.match(/$preview_button/i)) {
-                locktimer.msg = locktimer.msg.replace(/$preview_button/i, "Back-up");      
-             }
-            alert(locktimer.msg);
-        }
-        else {
-            alert("$locktimer_msg");
-        }
-     };
-     
-
-    locktimer.ourLockTimerReset = locktimer.reset;
-    locktimer.our_lasttime = new Date();
-    lockTimerRefresh();
-
- }
-
- function lockTimerRefresh(bak) {
-        var now = new Date();
-        if(!ourLockTimerINI)  unsetDokuWikiLockTimer();
-
-        if((now.getTime() - locktimer.our_lasttime.getTime() > 45*1000) || bak){            
-           var dwform = GetE('dw__editform');
-            window.clearTimeout(ourLockTimerWarningtimerID);
-            var params = 'call=lock&id='+locktimer.pageid;
-            if(CKEDITOR.instances) {  
-                dwform.elements.wikitext.value = CKEDITOR.instances.wiki__text.getData();
-                params += '&prefix='+encodeURIComponent(dwform.elements.prefix.value);
-                params += '&wikitext='+encodeURIComponent(dwform.elements.wikitext.value);
-                params += '&suffix='+encodeURIComponent(dwform.elements.suffix.value);
-                params += '&date='+encodeURIComponent(dwform.elements.date.value);
-            }
-            locktimer.our_lasttime = now;  
-            jQuery.post(
-                DOKU_BASE + 'lib/exe/ajax.php',
-                params,
-                function (data) {
-                    data = data.replace(/auto/,"")  + ' by ckgedit';
-                    locktimer.response = data; 
-                    locktimer.refreshed(data);
-                },
-                'html'
-            );
-       }
-        
- }
-
-
- /**
-   Legacy function has no current use
- */
- function getRecoveredText() {
-    return FCKRecovery;
- }
-
- function resetDokuWikiLockTimer(delete_checkbox) {
-
-        var dom_checkbox = document.getElementById('ckgedit_timer');
-        var dom_label = document.getElementById('ckgedit_timer_label');
-        locktimer.clear();     
-        if(ourLockTimerIsSet) {
-
-             ourLockTimerIsSet = false;             
-             locktimer.reset = locktimer.old_reset; 
-             locktimer.refresh(); 
-             return;
-        }
-      
-     if(delete_checkbox) {
-       dom_checkbox.style.display = 'none';
-       dom_label.style.display = 'none';
-     }
-
-       ourLockTimerIsSet = true;
-       locktimer.reset = locktimer.ourLockTimerReset;     
-       lockTimerRefresh();
-          
- }
-
-/* Renews lock and  creates a ckgedit backup if editor_bak config option is true */
-function renewLock(bak) {
-  if(ourLockTimerIsSet) {
-         lockTimerRefresh(true);
-   }
-   else { 
-    locktimer.refresh();
-   }
-   locktimer.reset();
-
-
-    if(bak) {
-        var id = "$ID"; 
-        parse_wikitext('bakup');
-
-        var dwform = GetE('dw__editform');
-        if(dwform.elements.fck_wikitext.value == '__false__' ) return;
-         GetE('saved_wiki_html').innerHTML = CKEDITOR.instances.wiki__text.getData(); // ourFCKEditorNode.innerHTML; 
-        if(($editor_backup) == 0 ) {           
-           return; 
-        }
-     
-        var params = "rsave_id=" + encodeURIComponent("$meta_fn");       
-        params += '&wikitext='+encodeURIComponent(dwform.elements.fck_wikitext.value);      
-        params += '&call=refresh_save';
-        jQuery.post(
-           //     DOKU_BASE + 'lib/plugins/ckgedit/scripts/refresh_save.php',
-               DOKU_BASE + 'lib/exe/ajax.php',
-                params,
-                function (data) {          
-                    if(data == 'done') {
-                        show_backup_msg("$meta_id");  
-                    }
-                    else {
-                      alert("error saving: " + id);
-                    }
-                },
-                'html'
-            );
-    }
-
-}
-
 
 function revert_to_prev() {
   if(!(GetE('saved_wiki_html').innerHTML.length)) {
@@ -370,25 +234,6 @@ function draft_delete() {
     });
 
     window.textChanged = false;
-}
-
-function disableDokuWikiLockTimer() {
-  resetDokuWikiLockTimer(false);
-  if(ourLockTimerIntervalID) {
-     window.clearInterval(ourLockTimerIntervalID);
-  }
-  if(ourLockTimerIsSet) { 
-    ourLockTimerIntervalID = window.setInterval(function () { locktimer.refresh(); }, 30000);   
-  }
-}
-
-function dwfckKeypressInstallHandler() {
-  if(window.addEventListener){    
-      oDokuWiki_FCKEditorInstance.EditorDocument.addEventListener('keyup', handlekeypress , false) ;
-  }
-  else {   
-     oDokuWiki_FCKEditorInstance.EditorDocument.attachEvent('onkeyup', handlekeypress ) ;
-  }
 }
 
 var DWFCK_EditorWinObj;
@@ -468,7 +313,7 @@ function FCKeditor_OnComplete( editorInstance )
  
    var broken_image ='http://' +  location.host +  DOKU_BASE +  '/lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34';
    editorInstance.on("paste", function(e) {      
-       /* https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript */      
+   //   https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript       
         var formatBytes = function(bytes,decimals) {
              if(bytes == 0) return '0 Bytes';
              var k = 1024,
@@ -509,22 +354,8 @@ function FCKeditor_OnComplete( editorInstance )
 }
 
 
- var DWikifnEncode = "$fnencode";
+ window.DWikifnEncode = "$fnencode";
 
-/* Make sure that show buttons in top and/or bottom clear the fckl file */  
- function get_showButtons() {	
-	var inputs = document.getElementsByTagName('input');
-    
-     for(var i=0; i<inputs.length; i++) {	    
-        if(inputs[i].type && inputs[i].type.match(/submit/i)) {		           		    
-			if(inputs[i].value.match(/Show/i) || (inputs[i].form &&  inputs[i].form.className.match(/btn_show/) ) )
-    			inputs[i].onmouseup = draft_delete;
-        }
-     }
-  }
-
- /* make sure the entire page has been loaded */
- setTimeout("get_showButtons()", 3000);
  //]]>
  
 </script>

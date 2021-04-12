@@ -262,9 +262,8 @@ function parse_wikitext(id) {
     },
     is_iwiki: function(class_name, title) {
                     var iw_type = class_name.match(/iw_(\w+\.?\w{0,12})/);                    
-					 var iw_title = title.split(/\//);
-                     var interwiki_label = iw_title[iw_title.length-1];
-                    interwiki_label = interwiki_label.replace(String.frasl,"\/");    
+					var iw_title = title.split(/\/\//);
+                    var interwiki_label = iw_title[iw_title.length-1];
                     if(!interwiki_label.match(/oIWIKIo.*?cIWIKIc/)) {
                        interwiki_label = 'oIWIKIo'  + interwiki_label + 'cIWIKIc';
                     }
@@ -1411,10 +1410,11 @@ function parse_wikitext(id) {
     }
     if(text.match(/~~CLOSE_HTML_BLOCK~~/)) {      
        text = text.replace(/~~CLOSE_HTML_BLOCK~~\n*/gm, "\n</code>\n\n~~CLOSE_HTML_BLOCK~~\n\n");
-    }   
+    } 
     
+   /*interwiki frasl refactoring*/
     if(this.interwiki) {
-       text = text.replace(String.frasl,"\/");  
+   //    text = text.replace(String.frasl,"\/");  
     }
 	if(this.interwiki && results.match(/>\w+\s*\|$/)) 	{	 
 	    this.interwiki=false;
@@ -1433,7 +1433,8 @@ function parse_wikitext(id) {
      text = text.replace(/^(&gt;)+/,function(match,quotes) {
          return(match.replace(/(&gt;)/g, "\__QUOTE__")) ;         
      }
-     );     
+     );  
+     text = text.replace(/&not;ags/g, '&notags'); //replace &not entity in include notags param	 
       //adjust spacing on multi-formatted strings
     results=results.replace(/([\/\*_])_FORMAT_SPACE_([\/\*_]{2})_FORMAT_SPACE_$/,"$1$2@@_SP_@@");   
     if(text.match(/^&\w+;/)) {
@@ -1960,9 +1961,9 @@ jQuery( "#ebtn__dwedit" ).click(function() {
 
 jQuery("#ebtn__fbswitch").click(function(){
     if(getCookie('ckgFbOpt') == 'dokuwiki') {
-        document.cookie = 'ckgFbOpt=ckgedit;';
+        document.cookie = 'ckgFbOpt=ckgedit;SameSite=Lax';
     } else {
-        document.cookie = 'ckgFbOpt=dokuwiki;';
+        document.cookie = 'ckgFbOpt=dokuwiki;SameSite=Lax';
     }
     parse_wikitext('edbtn__save');
    this.form.submit();

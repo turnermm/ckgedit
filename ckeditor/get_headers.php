@@ -1,13 +1,16 @@
 <?php
 define("DOKU_INC", realpath(dirname(__FILE__).'/../../../../') . '/');
-
 define ("DOKU_PLUGIN", DOKU_INC . 'lib/plugins/');
 define("PAGES", DOKU_INC . 'data/pages/');
 define("FCKEDITOR", DOKU_PLUGIN . 'ckgedit/fckeditor/editor/');
 define('CONNECTOR', FCKEDITOR . 'filemanager/connectors/php/');
 require_once(CONNECTOR . 'check_acl.php');
+if(file_exists(DOKU_INC.'inc/Input.class.php')) {
 require_once(DOKU_INC.'inc/Input.class.php');
-
+}
+else {  
+ require_once(DOKU_PLUGIN . 'ckgedit/fckeditor/editor/filemanager/connectors/php/Input.class.php');
+}
 require_once(CONNECTOR . 'SafeFN.class.php');
 global $dwfck_conf;
 global $Dwfck_conf_values;
@@ -19,8 +22,13 @@ $dwfck_conf = doku_config_values();  // needed for cleanID
 $Dwfck_conf_values = $dwfck_conf;
 $page = str_replace(':', '/',$page);
 $page = dwiki_encodeFN($page);
+
 if(!empty($Dwfck_conf_values['ckg_savedir'])) {
-  $path = $Dwfck_conf_values['ckg_savedir'] . '/pages/' . $page . '.txt';
+  if (stristr(PHP_OS, 'WIN')) {
+      $path = realpath(DOKU_INC . $Dwfck_conf_values['ckg_savedir']);
+      $path  .= '/pages/' . $page . '.txt';
+  }  
+  else $path = $Dwfck_conf_values['ckg_savedir'] . '/pages/' . $page . '.txt';
 }
 else $path = PAGES . $page . '.txt';
 
@@ -55,6 +63,7 @@ echo "\n";
 function doku_config_values() {
   $dwphp = DOKU_INC . 'conf/dokuwiki.php';
   $localphp = DOKU_INC . 'conf/local.php';
+  $conf['ckg_savedir']= false;
   if(file_exists($dwphp))
   {
     include($dwphp);
@@ -62,7 +71,8 @@ function doku_config_values() {
     {
       include($localphp);
     }
-    if(trim($conf['savedir'],'/.\/') != 'data') {
+    $sv = preg_replace("#^\.+/#","",$conf['savedir']);
+    if($sv != 'data') {
      $conf['ckg_savedir']= $conf['savedir'];
    }
     return $conf;

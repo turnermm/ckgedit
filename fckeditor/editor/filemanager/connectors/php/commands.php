@@ -23,8 +23,7 @@
  */
 
 
-
-
+require_once  'useheading.php';
 require_once 'check_acl.php';
 require_once 'input_utils.php';
 global $dwfck_conf;
@@ -261,10 +260,10 @@ function GetFoldersAndFiles( $resourceType, $currentFolder )
 							$iFileSize = 1 ;
 					}
                     if($isInternalLink) {
-                        if(!preg_match('/\.txt$/', $sFile)) continue;
-                        if(has_permission(dwiki_encodeFN($currentFolder)  .$sFile,  $resourceType, false)) {                   
-       				   	 //  $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" />' ;
-                              $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" time="' . $cTime .'" />' ;
+                        if(has_permission(dwiki_encodeFN($currentFolder)  .DOKU_INC,  $resourceType, false)) {                        
+                           $title =ckg_get_title($sFile,$currentFolder);
+                       //   $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" time="' . $cTime .'" />' ;
+                            $aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" time="' . $cTime .'" title = "'.$title.'"/>' ;
                         }
                     }
                     else { 

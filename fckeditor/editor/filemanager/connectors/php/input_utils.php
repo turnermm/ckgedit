@@ -5,8 +5,8 @@
  *  @author Myron Turner
  */
  
-if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../../../../../../').'/');
-require_once(DOKU_INC.'inc/Input.class.php');
+# i(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../../../../../../').'/');
+require_once('Input.class.php');
 global $INPUT; 
 if(!isset($INPUT)) {
     $INPUT = new Input();  
