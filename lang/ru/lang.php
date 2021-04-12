@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Nikita <obraztsov568@gmail.com>
  * @author Ianka Kryukov <IanisKr@mail.ru>
  * @author serg <sergey_art82@inbox.ru>
