@@ -1,0 +1,5 @@
+- این نسخه از [[doku>plugin:ckgedit|ckgedit]] پلاگین CKGEditor را از ۴.۹ به ۴.۱۰ ارتقا می‌دهد، که جاوااسکریپت بِروز و بهبودیافته‌ای می‌دهد.
+- با ارتقا به ۴.۹، ckgedit با  [[doku>plugin:ckgdoku|ckgdoku]] یکی شد. نگاه‌کنید به  [[doku>plugin:ckgdoku#configuration|گزینه‌های پیکربندی]] ckgdoku.
+
+لطفاً هر مشکلی را به
+[[https://github.com/turnermm/ckgedit/issues|مسائل ckgedit]] گزارش دهید.
