@@ -3,7 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
- * @author Nicolás Arredondo <nicoarredondo76@gmail.com>
+ * @author Pablo <ardevolp@gmail.com>
  * @author Olaf Reitmaier <olafrv@gmail.com>
  */
 $lang['btn_dw_edit']           = 'Editor DW';
@@ -42,10 +42,10 @@ $lang['js']['dwp_updated']     = 'La prioridad del Editor ha sido actualizada a:
 $lang['js']['dwp_not_sel']     = 'La prioridad del Editor no está seleccionada: será determinada por el parámetro de configuración dw_users_group';
 $lang['js']['mediamgr_notice'] = 'Use la ventana de vínculo para insertar';
 $lang['js']['font_conflict']   = 'El interprete encontró uno o más conflictos vínculos-fuentes. Presionando OK, retornará al editor y removerá los estilos de fuente. Para mayor información véa: https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links';
-$lang['js']['ckg_paste_restart'] = 'Al actualizar el editor, se activara la opción Pegar';
-$lang['js']['on']              = 'Activado';
-$lang['js']['off']             = 'Desactivado';
-$lang['js']['broken_image_1']  = 'Usa el plugin pegar imagen del administrador de medios de Dokuwiki o intenta con la herramienta Pegar de MS Word';
+$lang['js']['ckg_paste_restart'] = 'Al refrescar el editor, el soporte de pega suplementario quedará';
+$lang['js']['on']              = 'activado';
+$lang['js']['off']             = 'desactivado';
+$lang['js']['broken_image_1']  = 'Usa el plugin imagePaste con el Dokuwiki Mediamanager o prueba el MS Word Paste Tool';
 $lang['mediamgr_imgonly']      = 'Cargue imágenes solamente usando la ventana de imágenes:';
 $lang['uprofile_title']        = 'Seleccione Su Editor Predeterminado';
 $lang['btn_val_dw_fb']         = 'Explorador de Archivos DW';
