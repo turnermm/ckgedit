@@ -4,7 +4,7 @@ if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 if(!defined('DOKU_MEDIA')) define('DOKU_MEDIA',DOKU_INC.'data/media/');
 define ('BROKEN_IMAGE', DOKU_BASE . 'lib/plugins/ckgedit/fckeditor/userfiles/blink.jpg?nolink&33x34');
 require_once(DOKU_PLUGIN.'action.php');
-define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/');
+if(!defined('FCK_ACTION_SUBDIR')) define('FCK_ACTION_SUBDIR', realpath(dirname(__FILE__)) . '/');
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  */
