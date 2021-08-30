@@ -290,6 +290,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
          $TEXT
        );
        /* insure space before and after ckgedit font oprning and closing tags*/
+       $TEXT = preg_replace("/<font.*?>\s+<\/font>/","", $TEXT); 
        $TEXT = preg_replace("/<font/ms"," <font", $TEXT); // add space
        $TEXT = preg_replace("/<\/font>/ms","</font> ", $TEXT);
        $TEXT = preg_replace('/\s{2,}<font/ms',' <font',$TEXT); // remove duplicate spaces
