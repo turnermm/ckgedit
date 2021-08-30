@@ -538,7 +538,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
                while (!feof($fh) &&  $line_num < 4) {
                     $line = fgets($fh,1024);            //msg($line);      
                     if(strpos($line,$tpl_name)!==false) {
-                         return DOKU_BASE . '/lib/plugins/ckgedit/ckeditor/css/_style.css' ;
+                         return DOKU_BASE . 'lib/plugins/ckgedit/ckeditor/css/_style.css' ;
                         break;
                      }   
                     $line_num ++;                     
