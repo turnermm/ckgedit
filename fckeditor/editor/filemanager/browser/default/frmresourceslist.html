@@ -348,7 +348,7 @@ function OpenFile( fileUrl )
         }
     }
     window.top.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl);
-    if(isInternalLink) {  
+    if(isInternalLink) { 
         fileUrl = fileUrl.replace(/^.*?\/pages\//,"")          
         window.top.opener.update_ckgeditInternalLink(fileUrl);
     }   
