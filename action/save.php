@@ -293,7 +293,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
        $TEXT = preg_replace("/<font.*?>\s+<\/font>/","", $TEXT); 
        $TEXT = preg_replace("/<font/ms"," <font", $TEXT); // add space
        $TEXT = preg_replace("/<\/font>/ms","</font> ", $TEXT);
-       $TEXT = preg_replace('/\s{2,}<font/ms',' <font',$TEXT); // remove duplicate spaces
+       $TEXT = preg_replace('/\s{2,}<font/ms',"\n <font",$TEXT); // remove duplicate spaces
        $TEXT = preg_replace('/font>{2,}/ms',' font> ',$TEXT);
        
        $TEXT = preg_replace('/__QUOTE__/ms',">",$TEXT);
