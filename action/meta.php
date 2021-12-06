@@ -42,6 +42,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook( 'TPL_METAHEADER_OUTPUT', 'AFTER', $this, 'loadScript');    
             $controller->register_hook( 'HTML_EDITFORM_INJECTION', 'AFTER', $this, 'preprocess'); 
             $controller->register_hook( 'HTML_EDITFORM_OUTPUT', 'BEFORE', $this, 'insertFormElement');            
+            $controller->register_hook( 'FORM_EDIT_OUTPUT', 'BEFORE', $this, 'insertFormElement');  
             $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'file_type');         
             $controller->register_hook('TPL_CONTENT_DISPLAY', 'AFTER', $this, 'setupDWEdit');       
             $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'reset_user_rewrite_check');                 
@@ -421,9 +422,15 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
                 $button['onmousedown'] = 'return setDWEditCookie(1, this);';
      }
 
+    if(is_a($event->data,\dokuwiki\Form\Form::class)) {
+        $button = '<button name="do[cancel]" type="submit" class="button" id="edbtn__edit" title="CKG Edit" onclick="return setDWEditCookie(1, this);">CKG Edit</button>';
+        $pos = $event->data->findPositionByAttribute('type','submit');
+        $event->data->addHTML($button,$pos++);
+    }
+    else {
     $pos = $event->data->findElementByAttribute('type','submit');
-       //inserts HTML data after that position.
     $event->data->insertElement(++$pos,$button);
+  }
 
    return;
  
