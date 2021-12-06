@@ -21,6 +21,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $dw_priority_metafn;
   var $captcha = false;
   var $geshi_dir;
+  
   function __construct() {
   global $conf;
  
@@ -367,12 +368,16 @@ function replace_entities() {
   $param = array();
 
    global $ID;
-   $dwedit_ns = @$this->getConf('dwedit_ns');
+   $dwedit_only = '';
+   $title = $this->getLang('btn_fck_edit');
+   $dwedit_ns = $this->getConf('dwedit_ns');
    if(isset($dwedit_ns) && $dwedit_ns) {
        $ns_choices = explode(',',$dwedit_ns);
        foreach($ns_choices as $ns) {
          $ns = trim($ns);
          if(preg_match("/$ns/",$ID)) {
+            $dwedit_only = 'background-color: #bbb; color: #999';
+            $title = $this->getLang('btn_dw_edit');
             echo "<style type = 'text/css'>#edbtn__preview,#edbtn__save, #edbtn__save { display: inline; } </style>";         
             break;
          }
@@ -411,6 +416,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
             'value' => $this->getLang('btn_fck_edit'),
             'class' => 'button',
             'id' => 'edbtn__edit',            
+            'style' => dwedit_only,             
             'title' => $this->getLang('btn_fck_edit')             
         );
 
@@ -423,9 +429,10 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
      }
 
     if(is_a($event->data,\dokuwiki\Form\Form::class)) {
-        $button = '<button name="do[cancel]" type="submit" class="button" id="edbtn__edit" title="CKG Edit" onclick="return setDWEditCookie(1, this);">CKG Edit</button>';
+        $button = '&nbsp;<button name="do[cancel]" type="submit" class="button" title="' . $title .'" id="edbtn__edit" value="CKG Edit" style = "' .$dwedit_only.'" onclick="return setDWEditCookie(1, this);"/>CKG Edit</button>&nbsp;';
         $pos = $event->data->findPositionByAttribute('type','submit');
-        $event->data->addHTML($button,$pos++);
+        $pos+=3;
+        $event->data->addHTML($button,$pos);
     }
     else {
     $pos = $event->data->findElementByAttribute('type','submit');
