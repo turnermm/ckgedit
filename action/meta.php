@@ -42,6 +42,7 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
             $controller->register_hook( 'TPL_METAHEADER_OUTPUT', 'AFTER', $this, 'loadScript');    
             $controller->register_hook( 'HTML_EDITFORM_INJECTION', 'AFTER', $this, 'preprocess'); 
             $controller->register_hook( 'HTML_EDITFORM_OUTPUT', 'BEFORE', $this, 'insertFormElement');            
+            $controller->register_hook( 'FORM_EDIT_OUTPUT', 'BEFORE', $this, 'insertFormElement');  
             $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'file_type');         
             $controller->register_hook('TPL_CONTENT_DISPLAY', 'AFTER', $this, 'setupDWEdit');       
             $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'reset_user_rewrite_check');                 
@@ -366,12 +367,18 @@ function replace_entities() {
   $param = array();
 
    global $ID;
-   $dwedit_ns = @$this->getConf('dwedit_ns');
+   $dwedit_only = '';
+   $disabled = '';
+   $title = $this->getLang('btn_fck_edit');
+   $dwedit_ns = $this->getConf('dwedit_ns');
    if(isset($dwedit_ns) && $dwedit_ns) {
        $ns_choices = explode(',',$dwedit_ns);
        foreach($ns_choices as $ns) {
          $ns = trim($ns);
          if(preg_match("/$ns/",$ID)) {
+            $dwedit_only = 'background-color: #bbb; color: #999';
+            $disabled = 'disabled';
+            $title = $this->getLang('btn_dw_edit');
             echo "<style type = 'text/css'>#edbtn__preview,#edbtn__save, #edbtn__save { display: inline; } </style>";         
             break;
          }
@@ -410,6 +417,8 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
             'value' => $this->getLang('btn_fck_edit'),
             'class' => 'button',
             'id' => 'edbtn__edit',            
+            'style' => $dwedit_only,
+            'disabled' => $disabled,
             'title' => $this->getLang('btn_fck_edit')             
         );
 
@@ -421,9 +430,16 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
                 $button['onmousedown'] = 'return setDWEditCookie(1, this);';
      }
 
+    if(is_a($event->data,\dokuwiki\Form\Form::class)) {
+        $button = '&nbsp;<button name="do[cancel]" type="submit" class="button" title="' . $title .'" id="edbtn__edit" value="CKG Edit" ' . $disabled. ' style = "' .$dwedit_only.'" onclick="return setDWEditCookie(1, this);"/>CKG Edit</button>&nbsp;';
+        $pos = $event->data->findPositionByAttribute('type','submit');
+        $pos+=3;
+        $event->data->addHTML($button,$pos);
+    }
+    else {
     $pos = $event->data->findElementByAttribute('type','submit');
-       //inserts HTML data after that position.
     $event->data->insertElement(++$pos,$button);
+  }
 
    return;
  
