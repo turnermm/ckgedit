@@ -566,6 +566,8 @@ a.interwiki:visited
    margin-left: 1.5em;
   }
 
-
+img.icon.smiley {
+    height: 1.2em;
+}
 
     
