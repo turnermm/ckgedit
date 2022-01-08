@@ -31,8 +31,8 @@ CKEDITOR.dialog.add( 'smiley', function( editor ) {
 					'data-cke-saved-src': src,
 					title: title,
 					alt: title,
-					width: target.$.width,
-					height: target.$.height
+					width: 22,
+					height:22
 				}
 			} );
 
