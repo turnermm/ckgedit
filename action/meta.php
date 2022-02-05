@@ -21,7 +21,6 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
   var $dw_priority_metafn;
   var $captcha = false;
   var $geshi_dir;
-  
   function __construct() {
   global $conf;
  
