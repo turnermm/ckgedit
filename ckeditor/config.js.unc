@@ -141,6 +141,7 @@ config.colors = new Array(
 
     if(config.scayt__disable) {       
                config.ToolBarItemsAlt['Scayt'] = "";
+               config.disableNativeSpellChecker = false;
     }
     
      var xtra = browser_level.extra_plugins(config);
