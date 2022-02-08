@@ -344,23 +344,21 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 
           $text = preg_replace_callback(
              '/~~START_HTML_BLOCK~~.*?CLOSE_HTML_BLOCK/ms',
-                 create_function(
-                '$matches',
-                '$matches[0] = str_replace("_ckgedit_NPBBR_","",$matches[0]);
-                 return $matches[0];'
-        ),$text);    
+                 function($matches) {
+                     $matches[0] = str_replace("_ckgedit_NPBBR_","",$matches[0]);
+                     return $matches[0];
+                 },$text);    
       
           $text = preg_replace_callback(
             '/(\|\s*)(<code>|<file>)(.*?)(<\/code>|<\/file>)\n_ckgedit_NPBBR_(?=.*?\|)/ms',
-            create_function(
-                '$matches',         
-                 '$matches[2] = preg_replace("/<code>/ms", "TPRE_CODE", $matches[2]); 
+            function($matches) {         
+                  $matches[2] = preg_replace("/<code>/ms", "TPRE_CODE", $matches[2]); 
                   $matches[2] = preg_replace("/<file>/ms", "TPRE_FILE", $matches[2]);    
                   $matches[4] = "TPRE_CLOSE";                    
                   $matches[3] = preg_replace("/^\n+/", "TC_NL",$matches[3]);  
                   $matches[3] = preg_replace("/\n/ms", "TC_NL",$matches[3]);                                   
-                  return $matches[1] . $matches[2] .  trim($matches[3]) .   $matches[4];'            
-            ),
+                  return $matches[1] . $matches[2] .  trim($matches[3]) .   $matches[4];            
+            },
             $text
           );
          $text = preg_replace('/TPRE_CLOSE\s+/ms',"TPRE_CLOSE",$text); 
