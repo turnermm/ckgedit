@@ -228,7 +228,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     '/(~~NOCACHE~~|~~NOTOC~~|\{\{rss>http(s?):\/\/.*?\}\})/ms',
          function($matches) {
                 $matches[0] = preg_replace("#{{rss>http(s?):\/\/#", "{ { rss>$1Feed:",  $matches[0]);
-               $matches[0] = str_replace("~", "~ ",  $matches[0]);
+                $matches[0] = str_replace("~", "~ ",  $matches[0]);
                 return $matches[0];
                },$text);
 			   
@@ -369,16 +369,15 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        
 	   if($this->getConf('duplicate_notes')) {
 			$text = preg_replace_callback('/\(\((.*?)\)\)/ms',
-				  create_function(
-				   '$matches',
-				   'static $count = 0;
+				  function($matches) {
+				   static $count = 0;
 				   $count++;
 				   $ins = "FNoteINSert" . $count;
-                   $needles =  array("[","]", "/",  ".", "*", "_","\'","<",">","%", "{", "}", "\\\","(");
+                   $needles =  array("[","]", "/",  ".", "*", "_","\'","<",">","%", "{", "}", "\\","(");
                    $replacements = array("&#91;","&#93;","&#47;", "&#46;", "&#42;", "&#95;", "&#39;", "&#60;","&#62;","&#37;", "&#123;","&#125;", "&#92;","&#40;"); 
                    $matches[1] = str_replace($needles, $replacements, $matches[1]);                    
-              	   return "(($ins" . $matches[1] . "))" ;'
-				 ), $text
+              	   return "(($ins" . $matches[1] . "))" ;
+                  }, $text
 			);			 
 		}
        $text = preg_replace('/^\>/ms',"_QUOT_",$text);  // dw quotes
@@ -439,51 +438,48 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
        if($pos !== false) {
        $this->xhtml = preg_replace_callback(
                 '/(TPRE_CODE|TPRE_FILE)(.*?)(TPRE_CLOSE)/ms',
-                create_function(
-                   '$matches', 
-                   '$matches[1] = preg_replace("/TPRE_CODE/","<pre class=\'code\'>\n", $matches[1]);  
+                function($matches) { 
+                   $matches[1] = preg_replace("/TPRE_CODE/","<pre class=\'code\'>\n", $matches[1]);  
                     $matches[1] = preg_replace("/TPRE_FILE/","<pre class=\'file\'>\n", $matches[1]);  
                     $matches[2] = preg_replace("/TC_NL/ms", "\n", $matches[2]);  
                     $matches[3] = "</pre>";                    
-                    return $matches[1] . $matches[2] . $matches[3];'            
-                ),
+                    return $matches[1] . $matches[2] . $matches[3];            
+                },
                 $this->xhtml
               ); 
 			  
-       }
+        }
+       
         $this->xhtml = preg_replace_callback(
-    '/~~START_HTML_BLOCK~~[\n\s]*(.*?)CLOSE_HTML_BLOCK/ms',
-        create_function(
-            '$matches',
-            '$matches[1] = str_replace("&amp;","&",$matches[1]);
-         $matches[1] =  html_entity_decode($matches[1],ENT_QUOTES, "UTF-8");
-             $matches[1] = preg_replace("/<\/?code.*?>/", "",$matches[1]);
-         $matches[1] = preg_replace("/^\s*<\/p>/","",$matches[1]);
-         $tmp = explode("\n", $matches[1]);
-         for($n=0; $n<7; $n++) {
-               if( (preg_match("/(<p>\s*)*(&nbsp;|\s+)<\/p>/",$tmp[$n])) || (preg_match("/^\s+$/",$tmp[$n]))) {
-                unset($tmp[$n]);
-             }
-          }
-         return "~~START_HTML_BLOCK~~" . implode("\n",$tmp) . "CLOSE_HTML_BLOCK"; '
-        ),$this->xhtml);
-        
+        '/~~START_HTML_BLOCK~~[\n\s]*(.*?)CLOSE_HTML_BLOCK/ms',
+        function($matches) {
+            $matches[1] = str_replace("&amp;","&",$matches[1]);
+            $matches[1] =  html_entity_decode($matches[1],ENT_QUOTES, "UTF-8");
+            $matches[1] = preg_replace("/<\/?code.*?>/", "",$matches[1]);
+            $matches[1] = preg_replace("/^\s*<\/p>/","",$matches[1]);
+            $tmp = explode("\n", $matches[1]);
+            for($n=0; $n<7; $n++) {
+                if( (preg_match("/(<p>\s*)*(&nbsp;|\s+)<\/p>/",$tmp[$n])) || (preg_match("/^\s+$/",$tmp[$n]))) {
+                    unset($tmp[$n]);
+                }
+            }
+            return "~~START_HTML_BLOCK~~" . implode("\n",$tmp) . "CLOSE_HTML_BLOCK";
+        },$this->xhtml);
+            
         $this->xhtml = preg_replace_callback(
             '/(<pre)(.*?)(>)(.*?)(<\/pre>)/ms',
-            create_function(
-                '$matches',                          
-                  '$matches[4] = preg_replace("/(\||\^)[ ]+(\||\^)/ms","$1 &nbsp; $2" , $matches[4]);                    
-                  return  $matches[1] . $matches[2] . $matches[3] . $matches[4] . $matches[5];'            
-            ),
+            function($matches) {
+                $matches[4] = preg_replace("/(\||\^)[ ]+(\||\^)/ms","$1 &nbsp; $2" , $matches[4]);
+                return  $matches[1] . $matches[2] . $matches[3] . $matches[4] . $matches[5];
+            },
             $this->xhtml
-          );
-      
+        );
+              
           $this->xhtml = preg_replace_callback(
             '/~~MULTI_PLUGIN_OPEN~~(.*?)~~MULTI_PLUGIN_CLOSE~~/ms',
-            create_function(
-                '$matches',                          
-                'return str_replace("&lt;", "< ",$matches[0]);'
-            ),
+            function($matches) {                          
+                return str_replace("&lt;", "< ",$matches[0]);
+            },
             $this->xhtml
           );
 		  //insures breaks are retained for single spacing
