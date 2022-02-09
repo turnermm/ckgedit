@@ -299,10 +299,9 @@ function _ajax_call(Doku_Event $event, $param) {
           /* preserve newlines in code blocks */
           $this->wiki_text = preg_replace_callback(
             '/(<code>|<file>)(.*?)(<\/code>|<\/file>)/ms',
-            create_function(
-                '$matches',         
-                'return  str_replace("\n", "__code_NL__",$matches[0]);'
-            ),
+            function($matches) {         
+                return  str_replace("\n", "__code_NL__",$matches[0]);
+            },
             $this->wiki_text
           );
 
@@ -320,19 +319,17 @@ function _ajax_call(Doku_Event $event, $param) {
         if($pos !== false) {
            $this->wiki_text = preg_replace_callback(
             '|MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE|ms',
-            create_function(
-                '$matches',         
-                  'return  preg_replace("/\\\\\\\\/ms","\n",$matches[0]);'
-            ),
+            function($matches) {         
+                  return  preg_replace("/\\\\\\\\/ms","\n",$matches[0]);
+            },
             $this->wiki_text
           );
 
            $this->wiki_text = preg_replace_callback(
             '|MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE|ms',
-            create_function(
-                '$matches',         
-                  'return  preg_replace("/^\s+/ms","",$matches[0]);'
-            ),
+             function($matches) {         
+                  return  preg_replace("/^\s+/ms","",$matches[0]);
+             },
             $this->wiki_text
           );
 
@@ -353,10 +350,9 @@ function replace_entities() {
 
        $this->wiki_text = preg_replace_callback(
             '|(&(\w+);)|',
-            create_function(         
-                '$matches',
-                'global $ents; return $ents[$matches[2]];'
-            ),
+            function($matches) {
+                global $ents; return $ents[$matches[2]];
+            },
             $this->wiki_text
         );
     
