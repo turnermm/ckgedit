@@ -77,4 +77,4 @@ $lang['js']['stylesheet_oinfo'] = 'Info';
 $lang['js']['stylesheet_cinfo'] = 'Close Info';
 $lang['js']['lock_msg'] = "Your lock for editing this page is about to expire in one minute\n";
 $lang['js']['willexpire']      = 'Your lock for editing this page is about to expire in a minute.\nTo avoid conflicts use the backup button to reset the locktimer.';
-
+$lang['list_in_table'] = 'Dokuwiki does not support lists in tables. The list markup has been removed but the content retained';
