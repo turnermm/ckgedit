@@ -385,6 +385,7 @@ function parse_wikitext(id) {
                 if (tag == 'ol' || tag == 'ul') {
                     if(this.in_table) { 
                         markup_end['li'] = "\\\\";
+                        this.list_level = 0;
                         jQuery('#dw__editform').append('<input type="hidden" id="linkintbl" name="linkintbl" value="del" />');
                     }
                     else markup_end['li'] = "\n";
