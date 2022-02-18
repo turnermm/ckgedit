@@ -47,20 +47,18 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
 
   $TEXT = preg_replace_callback(
     '|\{\{data:(.*?);base64|ms',
-      create_function(
-        '$matches',
-         'if(!preg_match("/image/",$matches[1])) {
+      function($matches) {
+         if(!preg_match("/image/",$matches[1])) {
           return "{{data:image/jpeg;base64";
          }
-          return $matches[0];'
-     ),$TEXT);
+          return $matches[0];         
+        },$TEXT);
       
     if(strpos($TEXT,'data:image') !== false) {
         $TEXT = preg_replace_callback(
              '|\{\{(\s*)data:image\/(\w+;base64,\s*)(.*?)\?nolink&(\s*)\}\}|ms',
-             create_function(
-                '$matches',
-                'list($ext,$base) = explode(";",$matches[2]);
+             function($matches) {
+                list($ext,$base) = explode(";",$matches[2]);
                 if($ext == "jpeg" || $ext == "tiff") $ext = "jpg";                    
                  if(function_exists("imagecreatefromstring") && !imagecreatefromstring (base64_decode($matches[3]))) {
                      msg("Clipboard paste: invalid $ext image format");
@@ -96,8 +94,8 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                  if($matches[4]) $right = $matches[4] . $right;
                  
                 $retv = "$left" . $ns. $fn . "$right";              
-                 return $retv;'
-             ),
+                 return $retv;
+             },
              $TEXT
              );
         }     
@@ -105,13 +103,12 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
      
         if($deaccent || $preserve_enc) {
               $TEXT = preg_replace_callback('/^(.*?)(\[\[.*?\]\])*(.*?)$/ms', 
-                   create_function(
-                         '$matches',         
-                         '$matches[1] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[1]);
+                   function($matches) {         
+                         $matches[1] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[1]);
                          $matches[2] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[2]);
-                          $matches[3] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[3]);
-                          return $matches[1].$matches[2].$matches[3];'            
-                    ),
+                         $matches[3] = preg_replace("/%([A-F0-9]{1,3})/i", "URLENC_PERCENT$1", $matches[3]);
+                         return $matches[1].$matches[2].$matches[3];            
+                    },
                     $TEXT
                  );
         }
@@ -124,10 +121,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
           /* preserve newlines in code blocks */
           $TEXT = preg_replace_callback(
             '/(<code>|<file>)(.*?)(<\/code>|<\/file>)/ms',
-            create_function(
-                '$matches',         
-                'return  str_replace("\n", "__code_NL__",$matches[0]);'
-            ),
+            function($matches) {         
+                return  str_replace("\n", "__code_NL__",$matches[0]);
+            },
             $TEXT
           );
 
@@ -149,19 +145,17 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
          if($pos !== false) {
             $TEXT = preg_replace_callback(
              '|MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE|ms',
-             create_function(
-                 '$matches',
-                   'return  preg_replace("/\\\\\\\\/ms","\n",$matches[0]);'
-             ),
+             function($matches) {
+                   return  preg_replace("/\\\\\\\\/ms","\n",$matches[0]);
+             },
              $TEXT
            );
 
             $TEXT = preg_replace_callback(
              '|MULTI_PLUGIN_OPEN.*?MULTI_PLUGIN_CLOSE|ms',
-             create_function(
-                 '$matches',
-                   'return  preg_replace("/^\s+/ms","",$matches[0]);'
-             ),
+             function($matches) {
+                   return  preg_replace("/^\s+/ms","",$matches[0]);
+             },
              $TEXT
            );
           $TEXT = str_replace("~~MULTI_PLUGIN_OPEN~~","~~MULTI_PLUGIN_OPEN~~\n",$TEXT);
@@ -170,10 +164,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
        if(strpos($TEXT,'L_PARgr') !== false) {        
             $TEXT = preg_replace_callback(
                  '|\(\((.*?)\)\)|ms',
-                 create_function(
-                     '$matches',
-                       'return  "((" . trim($matches[1]) . "))"; '
-                 ),
+                 function($matches) {
+                       return  "((" . trim($matches[1]) . "))"; 
+                 },
                  $TEXT
              );         
             $TEXT = str_replace('L_PARgr', '(',$TEXT);
@@ -269,11 +262,10 @@ Remove discarded font syntax
 */
         $TEXT = preg_replace_callback(
             '|_REMOVE_FONTS_START_(.*?)_REMOVE_FONTS_END_|ms',
-            create_function(
-                '$matches',
-                '$matches[1] = preg_replace("/<font.*?>/ms","",$matches[1]);
-                 return preg_replace("/<\/font>/ms","",$matches[1]);'
-            ),
+            function($matches) {
+                $matches[1] = preg_replace("/<font.*?>/ms","",$matches[1]);
+                return preg_replace("/<\/font>/ms","",$matches[1]);
+            },
             $TEXT
         );
 
@@ -283,12 +275,11 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
  */
         $TEXT = preg_replace_callback(
          '|(<font.*?>)(.*?)(?=</font>)|ms',
-         create_function(
-             '$matches',
-               '$matches[2]=preg_replace("/^\s+/ms","",$matches[2]);
+           function($matches) {
+               $matches[2]=preg_replace("/^\s+/ms","",$matches[2]);
                $matches[2]=preg_replace("/\s+$/ms","",$matches[2]);              
-               return $matches[1]. $matches[2];'
-         ),
+               return $matches[1]. $matches[2];
+         },
          $TEXT
        );
        /* insure space before and after ckgedit font oprning and closing tags*/
@@ -379,10 +370,9 @@ global $ents;
 
        $TEXT = preg_replace_callback(
             '|(&(\w+);)|',
-            create_function(         
-                '$matches',
-                'global $ents; return $ents[$matches[2]];'
-            ),
+            function($matches) {
+                global $ents; return $ents[$matches[2]];
+            },          
             $TEXT
         );
     
