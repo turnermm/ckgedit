@@ -26,7 +26,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
          if (isset($_REQUEST["formatdel"]) ) {
              msg($this->getLang("formatdel"),1);           
          }         
-
+        if (isset($_REQUEST["linkintbl"]) ) {             
+             msg($this->getLang("list_in_table"),1);
+         }         
          $img_size = $INPUT->int('broken_image');
          if($img_size) msg($this->getLang('broken_image') . $img_size/1000000 . 'M' ); 
       
