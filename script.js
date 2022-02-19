@@ -370,15 +370,14 @@ var dokuBase = location.host + DOKU_BASE;
             );    
  }
 
- jQuery(document).ready(function() {
+jQuery(function() {   
      if(JSINFO['hide_captcha_error'] =='hide') {
          jQuery("div.error").hide();
      }   
  });    
 
  
-jQuery(document).ready(function(){
-
+jQuery(function() {   
     jQuery( "#editor_height" ).keydown(function(event) { 
           if ( event.which == 13 ) {
            event.preventDefault();
