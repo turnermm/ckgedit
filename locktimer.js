@@ -15,6 +15,9 @@
 
 
  function handlekeypress (e) {      
+  if( e.data.keyCode == CKEDITOR.CTRL + 88) {
+      jQuery("#save_button").trigger("mousedown");    
+  }
    if(ourLockTimerIsSet) {
          lockTimerRefresh();        
    }
