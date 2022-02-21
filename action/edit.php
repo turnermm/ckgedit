@@ -165,6 +165,12 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     {
   
         global $INFO;
+        global $conf;
+        if($this->helper->has_plugin('imgpaste')) {
+            $imgpaste = plugin_load('action','imgpaste'); 
+            $ifn = $imgpaste->getConf('filename');
+            echo '<pre>' .print_r($ifn,1) . '</pre>';
+        }
 
         // we only change the edit behaviour
         if ($event->data != 'edit') {
