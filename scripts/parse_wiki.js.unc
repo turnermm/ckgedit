@@ -1928,7 +1928,7 @@ function parse_wikitext(id) {
 
 jQuery(document).ready(function() {
     var edit__summary = false;
-    jQuery(document).on("keypress", "input#edit__summary", function(e) {
+    jQuery(document).on("keydown", "input#edit__summary", function(e) {
         if (e.which == 13) {
             edit__summary = true;
             jQuery("#save_button").trigger("mousedown");
