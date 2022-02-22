@@ -44,8 +44,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
               $TEXT = trim($TEXT);
         }
 
-  $filename = $this->get_imgpaste_fname();
-  $this->write_debug($filename);
+   
   $TEXT = preg_replace_callback(
     '|\{\{data:(.*?);base64|ms',
       function($matches) {
@@ -66,6 +65,8 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                      return "{{" . BROKEN_IMAGE .  "}}";
                  }                 
                   global $INFO,$conf,$ID;                 
+                  $fn = $this->get_imgpaste_fname($ext);               
+                  if(!$fn) {                  
                   $ns = getNS($INFO["id"]);                                    
                   $ns = trim($ns);
                   if(!empty($ns)) {                     
@@ -77,8 +78,13 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                       $ns = ":";
                   }
                  $fn = md5($matches[3]) . ".$ext";
-                // $this->write_debug($fn);
                  $path = $conf["mediadir"] . $dir .  $fn;   
+                  }
+                  else { 
+                      $path =  $conf["mediadir"] .  "/$fn";
+                      $path = str_replace(':','/',$path);
+                  }                                
+                  
                  @io_makeFileDir($path);
                  if(!file_exists($path)) {
                     @file_put_contents($path, base64_decode($matches[3]));
@@ -364,9 +370,10 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
     
     }
 
- function get_imgpaste_fname() {
+ function get_imgpaste_fname($ext) {
         global $ID;
-        $this->write_debug("ID-$ID");
+        if(!$this->helper->has_plugin('imgpaste')) return;
+        if(!$this->getConf('imgpaste')) return;
         $imgpaste = plugin_load('action','imgpaste'); 
         $filename = $imgpaste->getConf('filename');
         if(!filename) return false;
@@ -387,7 +394,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
                     );
         $filename  = strftime($filename);    
         $filename = cleanID($filename);
-        return $filename;
+        return $filename . '.' . $ext;
 }
 
 function replace_entities() {
@@ -408,7 +415,7 @@ global $ents;
 
 
 function write_debug($data) {
-//return;
+  return;
   if (!$handle = fopen(DOKU_INC . 'save.txt', 'a')) {
     return;
     }
