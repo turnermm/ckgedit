@@ -1,7 +1,6 @@
 <?php
 $lang['gui'] = "CKEditor GUI.";
 $lang['_fbrowser']     = ' Ckgedit Filebrowser ';
-$lang['_editor'] = " Ckgedit Editor "; 
 $lang['guest_media'] = "Guest Can Link to Media Files";
 $lang['open_upload'] = "Guest Can Upload";
 $lang['default_fb'] = "Default file-browing access. With none, acl does not apply.";
@@ -24,7 +23,6 @@ $lang['dw_edit_display'] = 'Controls which users have access to the "DW Edit" bu
 $lang['dw_edit_display_o_all'] = 'all';
 $lang['dw_edit_display_o_admin'] = 'admin';
 $lang['dw_edit_display_o_none'] = 'none';
-
 $lang['smiley_as_text']  = 'Display smileys as text in CKEditor (will still display as image in browser)';
 $lang['editor_bak'] = "Save backup to meta/&lt;namespace&gt;.ckgedit";
 $lang['dwedit_ns'] = "Comma separated list of namespaces and/or pages where ckgedit automatically switches " .
@@ -34,7 +32,8 @@ $lang['smiley_hack'] = "Reset URL for CKEditor's smilies when moving to new serv
 $lang['other_lang'] = 'Your default language for the CKEditor is the language set for your browser.   You can, however, choose another language here; it is independent of the Dokuwiki interface language.';
 $lang['direction'] = 'Set Language direction in CKEditor:  <b>nocheck</b>: ckgedit will make no changes to the default direction setting; ' 
                        . ' <b>dokuwiki</b>:  the current Dokuwiki language direction;  <b>ltr</b>: Left-to-right ; <b>rtl</b>: Right-to-left.';
-$lang['_editor'] = " Ckgedit Editor ";
+
+$lang['_editor'] = " Ckgedit Editor Features";
 $lang['scayt_auto'] = 'Set whether or not the Scayt check-as-you-type spell checker is active at startup. Defaults to <code>off</code>; the user can re-enable spell checking on a per page basis.' .            
            ' To remove the Scayt spell checker completely, select <code>disable</code>. '.
            '(See <a href="https://www.dokuwiki.org/plugin:ckgedit:configuration#scayt_auto">ckgedit:configuration#scayt_auto</a>") ';
