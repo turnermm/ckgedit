@@ -1,15 +1,16 @@
 <?php
+$meta['gui'] =  array('multichoice','_choices' => array('moono','moono-lisa','kama'));
 $meta[ '_fbrowser' ] = array('_fieldset');
+$meta['allow_ckg_filebrowser'] = array('multichoice', '_choices' => array('all','ckgedit','dokuwiki'));
+$meta['default_ckg_filebrowser'] = array('multichoice', '_choices' => array('ckgedit','dokuwiki'));
+$meta[ 'nix_style' ] = array('onoff');
+$meta[ 'winstyle' ] = array('onoff');
 $meta['guest_media'] = array('onoff');
 $meta['open_upload'] = array('onoff');
 $meta[ 'default_fb' ] = array('multichoice','_choices' => array('none','acl'));
 $meta[ 'acl_del' ] = array('onoff');
 $meta[ 'openfb' ] = array('onoff');
 $meta[ 'create_folder' ] = array('multichoice','_choices' => array('n','y'));
-$meta['allow_ckg_filebrowser'] = array('multichoice', '_choices' => array('all','ckgedit','dokuwiki'));
-$meta['default_ckg_filebrowser'] = array('multichoice', '_choices' => array('ckgedit','dokuwiki'));
-$meta[ 'nix_style' ] = array('onoff');
-$meta[ 'winstyle' ] = array('onoff');
 $meta['complex_tables'] = array('onoff');
 $meta['duplicate_notes'] = array('onoff');
 
@@ -34,12 +35,13 @@ $meta['nofont_styling'] = array('onoff');
 $meta['font_options'] = array('onoff'); 
 $meta['color_options'] = array('onoff');
 $meta['alt_toolbar']  = array('multicheckbox','_choices' => array( 'HorizontalRule', 'Smiley','SpecialChar', 'Signature' ,'Footnotes',  'Font','FontSize', 'Source', 'Maximize','Underline','Strike', 'Subscript','Superscript', 'Indent','Outdent', 'Blockquote', 'Link','Unlink','FontAssist'));
-$meta['mfiles'] = array('onoff');
-$meta['extra_plugins'] = array('string');
 $meta['htmlblock_ok'] = array('onoff');
+$meta['extra_plugins'] = array('string');
+
+$meta[ '_xtras' ] =  array('_fieldset');
+$meta['mfiles'] = array('onoff');
 $meta['dblclk'] = array('multichoice','_choices' => array('on','off')); 
 $meta['preserve_enc'] = array('onoff');
-$meta['gui'] =  array('multichoice','_choices' => array('moono','moono-lisa','kama'));
 $meta['rel_links'] = array('onoff');
 $meta['style_sheet']= array('onoff');
 $meta['imgpaste'] =  array('onoff');
