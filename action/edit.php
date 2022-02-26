@@ -165,7 +165,6 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
     {
   
         global $INFO;
-        global $conf;
 
         // we only change the edit behaviour
         if ($event->data != 'edit') {
