@@ -44,7 +44,7 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
               $TEXT = trim($TEXT);
         }
 
-
+   
   $TEXT = preg_replace_callback(
     '|\{\{data:(.*?);base64|ms',
       function($matches) {
@@ -64,7 +64,9 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                      msg("Clipboard paste: invalid $ext image format");
                      return "{{" . BROKEN_IMAGE .  "}}";
                  }                 
-                  global $INFO,$conf;                 
+                  global $INFO,$conf,$ID;                 
+                  $fn = $this->get_imgpaste_fname($ext);               
+                  if(!$fn) {                  
                   $ns = getNS($INFO["id"]);                                    
                   $ns = trim($ns);
                   if(!empty($ns)) {                     
@@ -77,6 +79,12 @@ class action_plugin_ckgedit_save extends DokuWiki_Action_Plugin {
                   }
                  $fn = md5($matches[3]) . ".$ext";
                  $path = $conf["mediadir"] . $dir .  $fn;   
+                  }
+                  else { 
+                      $path =  $conf["mediadir"] .  "/$fn";
+                      $path = str_replace(':','/',$path);
+                  }                                
+                  
                  @io_makeFileDir($path);
                  if(!file_exists($path)) {
                     @file_put_contents($path, base64_decode($matches[3]));
@@ -362,6 +370,33 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
     
     }
 
+ function get_imgpaste_fname($ext) {
+        global $ID;
+        if(!$this->helper->has_plugin('imgpaste')) return;
+        if(!$this->getConf('imgpaste')) return;
+        $imgpaste = plugin_load('action','imgpaste'); 
+        $filename = $imgpaste->getConf('filename');
+        if(!filename) return false;
+        $filename = str_replace(
+                        array(
+                             '@NS@',
+                             '@ID@',
+                             '@USER@',
+                             '@PAGE@'
+                        ),
+                        array(
+                             getNS($ID),// getNS($INPUT->post->str('id')),
+                             $ID,// $INPUT->post->str('id'),
+                             $_SERVER['REMOTE_USER'],
+                             noNS($ID)  //noNS($INPUT->post->str('id'))
+                        ),
+                        $filename
+                    );
+        $filename  = strftime($filename);    
+        $filename = cleanID($filename);
+        return $filename . '.' . $ext;
+}
+
 function replace_entities() {
 global $TEXT;
 global $ents;
@@ -380,8 +415,8 @@ global $ents;
 
 
 function write_debug($data) {
-return;
-  if (!$handle = fopen('save.txt', 'a')) {
+  return;
+  if (!$handle = fopen(DOKU_INC . 'save.txt', 'a')) {
     return;
     }
 

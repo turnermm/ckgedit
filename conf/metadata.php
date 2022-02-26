@@ -1,9 +1,8 @@
 <?php
-#$meta['groups'] = array('multichoice','_choices' => array('ANY'));
+
 $meta['guest_toolbar'] = array('onoff');
 $meta['guest_media'] = array('onoff');
 $meta['open_upload'] = array('onoff');
-#$meta['xcl_plugins'] = array('string');
 $meta['allow_ckg_filebrowser'] = array('multichoice', '_choices' => array('all','ckgedit','dokuwiki'));
 $meta['default_ckg_filebrowser'] = array('multichoice', '_choices' => array('ckgedit','dokuwiki'));
 $meta['default_fb'] = array('multichoice','_choices' => array('none','acl'));
@@ -16,7 +15,6 @@ $meta['dwedit_ns'] = array('string');
 $meta['acl_del'] = array('onoff');
 $meta['auth_ci'] = array('onoff');
 $meta['nix_style'] = array('onoff');
-#$meta['no_symlinks'] = array('onoff');
 $meta['direction'] = array('multichoice','_choices' => array('nocheck','dokuwiki','ltr','rtl'));
 $meta['scayt_auto'] = array('multichoice','_choices' => array('on','off','disable'));
 $meta['scayt_lang'] = array('multichoice','_choices' => array('American English/en_US','Brazilian Portuguese/pt_BR','British English/en_GB','Canadian English/en_CA','Canadian French/fr_CA','Danish/da_DK','Dutch/nl_NL','Finnish/fi_FI','French/fr_FR','German/de_DE','Greek/el_GR','Italian/it_IT', 'Norwegian/nb_NO','Portuguese/pt_PT', 'Spanish/es_ES','Swedish/sv_SE'));
@@ -40,3 +38,4 @@ $meta['preserve_enc'] = array('onoff');
 $meta['gui'] =  array('multichoice','_choices' => array('moono','moono-lisa','kama'));
 $meta['rel_links'] = array('onoff');
 $meta['style_sheet']= array('onoff');
+$meta['imgpaste'] =  array('onoff');

@@ -54,4 +54,5 @@ $lang['rel_links'] = "Activate support for relative internal and image links";
 $lang['style_sheet'] = 'Use an alternate style sheet for the Ckeditor editing window.' .
     ' For more information see the <b>CKEditor editor CSS tool</b>, under <em>Additional Plugins</em> on the <code>Admin</code> page. Or ' .
     ' see the ckgedit plugin page.';	
+$lang['imgpaste'] = 'If the imgpaste plugin is installed, use the imgpaste naming system for naming your saved images.';  
 
