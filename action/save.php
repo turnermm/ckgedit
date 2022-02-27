@@ -376,7 +376,7 @@ Removed newlines and spaces from beginnings and ends of text enclosed by font ta
         if(!$this->getConf('imgpaste')) return;
         $imgpaste = plugin_load('action','imgpaste'); 
         $filename = $imgpaste->getConf('filename');
-        if(!filename) return false;
+        if(!$filename) return false;
         $filename = str_replace(
                         array(
                              '@NS@',
