@@ -11,8 +11,7 @@ $meta[ 'default_fb' ] = array('multichoice','_choices' => array('none','acl'));
 $meta[ 'acl_del' ] = array('onoff');
 $meta[ 'openfb' ] = array('onoff');
 $meta[ 'create_folder' ] = array('multichoice','_choices' => array('n','y'));
-$meta['complex_tables'] = array('onoff');
-$meta['duplicate_notes'] = array('onoff');
+
 
 $meta[ '_tools' ] = array('_fieldset');
 $meta['guest_toolbar'] = array('onoff');
@@ -27,6 +26,8 @@ $meta['other_lang'] = array('multichoice','_choices' => array('default','af','ar
                                                              'is','it','ja','ka','km','ko','ku','lt','lv','mk','mn','ms','nb','nl','no','pl','pt-br','pt','ro','ru','sk','sl','sr',
                                                              'sr-latn','sv','th','tr','ug','uk','vi','zh-cn','zh'));
 $meta['direction'] = array('multichoice','_choices' => array('nocheck','dokuwiki','ltr','rtl')); 
+$meta['complex_tables'] = array('onoff');
+$meta['duplicate_notes'] = array('onoff'); 
 
 $meta[ '_editor' ] =  array('_fieldset');
 $meta['scayt_auto'] = array('multichoice','_choices' => array('on','off','disable'));
