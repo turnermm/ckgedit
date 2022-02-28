@@ -93,18 +93,9 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
 function _ajax_call(Doku_Event $event, $param) { 
      
      if ($event->data == 'cked_scaytchk') {  
-          global $lang,$INPUT;
+         // legacy, no longer active     
           $event->stopPropagation();
           $event->preventDefault();
-		  $filename =  metaFN('fckl:scayt','.meta'); 
-		  $msg =  $this->locale_xhtml('scayt');
-		  if (!file_exists($filename)) {      
-			  io_saveFile($filename,'1');  
-              echo "$msg\n";			  
-			  return;
-		  }		   
-           
-           
            return;           
          }
        if ($event->data == 'cked_upload') {  
@@ -927,32 +918,9 @@ function startup_msg() {
     global $ACT;
    global $updateVersion;
    $show_msg = false;
-   if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
-	       $show_msg = true;		   
-	}
-   if(!$show_msg)  return;
-
-  $filename =  metaFN('fckl:scayt','.meta'); 
-  $msg =  $this->locale_xhtml('scayt');  
-  if (!file_exists($filename)) {      
-      io_saveFile($filename,'1'); 
-      msg($msg,MSG_MANAGERS_ONLY);          
-  }
-  else {
-        if($this->getConf('scayt_auto') != 'off') return;
-        $this->startup_check_twice($filename, 'scayt');
-  }
-  if( (float)$updateVersion  < 51) {
+   if( (float)$updateVersion  < 51) { //hogfather
       return;
   }
-  
-/*
-  $filename =  metaFN('fckl:hogfather','.meta'); 
-  $msg =  $this->locale_xhtml('hogfather');
-  if (!file_exists($filename)) {      
-      io_saveFile($filename,'1'); 
-       msg($msg,MSG_MANAGERS_ONLY);      
-  } */
   
 }
 

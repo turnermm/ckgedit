@@ -1,5 +1,5 @@
 <?php
-$lang['gui'] = "CKEditor GUI.";
+$lang['gui'] = "CKEditor GUI ";
 $lang['_fbrowser']     = ' Ckgedit Filebrowser ';
 $lang['guest_media'] = "Guest Can Link to Media Files";
 $lang['open_upload'] = "Guest Can Upload";
@@ -34,9 +34,11 @@ $lang['direction'] = 'Set Language direction in CKEditor:  <b>nocheck</b>: ckged
                        . ' <b>dokuwiki</b>:  the current Dokuwiki language direction;  <b>ltr</b>: Left-to-right ; <b>rtl</b>: Right-to-left.';
 
 $lang['_editor'] = " Ckgedit Editor Features";
-$lang['scayt_auto'] = 'Set whether or not the Scayt check-as-you-type spell checker is active at startup. Defaults to <code>off</code>; the user can re-enable spell checking on a per page basis.' .            
-           ' To remove the Scayt spell checker completely, select <code>disable</code>. '.
-           '(See <a href="https://www.dokuwiki.org/plugin:ckgedit:configuration#scayt_auto">ckgedit:configuration#scayt_auto</a>") ';
+$lang['scayt_auto'] = 'Set whether or not the Scayt check-as-you-type spell checker is active or present at startup. Defaults to <code>disable</code>.'
+                   .  ' In this case the browser\'s own spell checking should be active.' 
+                   .  ' When set to <code>off</code> the Scayt toolbutton will be present and Scayt can be activated on a'
+                   .  ' per-page basis.'
+                   .  ' (See <a href="https://www.dokuwiki.org/plugin:ckgedit:configuration#scayt_auto">ckgedit:configuration#scayt_auto</a>") ';
 $lang['scayt_auto_o_on'] = 'on';
 $lang['scayt_auto_o_off'] = 'off';
 $lang['scayt_auto_o_disable'] = 'disable'; 
