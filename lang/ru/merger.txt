@@ -1,0 +1,4 @@
+- Эта версия [[doku>plugin:ckgedit|ckgedit]] обновляет CKEditor с 4.9 до 4.10, что обеспечивает обновленный и улучшенный javascript.
+  - При обновлении до 4.9 ckgedit объединился с [[doku>plugin:ckgdoku|ckgdoku]]. См. [[doku>plugin:ckgdoku#configuration|параметры конфигурации] ckgdoku.
+
+Пожалуйста, сообщайте о любых проблемах по адресу [[https://github.com/turnermm/ckgedit/issues|ckgedit's Issues]] на github. 

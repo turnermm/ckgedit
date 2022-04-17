@@ -2,7 +2,8 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Iliya <iliyabylich04@gmail.com>
  * @author Ianka Kryukov <IanisKr@mail.ru>
  * @author serg <sergey_art82@inbox.ru>
  * @author Artem Trutko <trutko@facebook.com>
@@ -37,4 +38,39 @@ $lang['discard_edits']         = 'Для сохранения изменений
 $lang['dw_btn_styling']        = 'Редактировать Шрифты';
 $lang['title_styling']         = 'Открыть с помощью стилей шрифта, как показано в разметки';
 $lang['js']['font_err_1']      = 'Стили шрифтов нельзя включить в ссылки. Нажмите OK чтобы принять следующие корректировки: ';
+$lang['js']['font_err_2']      = 'Для исправления введите полную разметку ссылки на «Докувики» ниже, включая скобки. Чтобы вернуться в редактор, нажмите «Отмена».';
 $lang['js']['font_err_throw']  = 'Ошибка форматирования шрифта';
+$lang['js']['dwp_save_err']    = 'Невозможно сохранить изменения на:';
+$lang['js']['dwp_updated']     = 'Редактирование обнавлен на:';
+$lang['js']['dwp_not_sel']     = 'Приоритет редактора не выбран: он будет определяться от dw_users группа конфигурации настроек';
+$lang['js']['mediamgr_notice'] = 'Используйте ссылку диалогового окна для вставки';
+$lang['js']['font_conflict']   = 'Парсер нашел один из или больше ссылочных-шрифтов проблем. По нажатию кнопки OK,вы можете вернуться на редактор и удалите шрифты стили. Подробнее:  https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links';
+$lang['js']['ckg_paste_restart'] = 'На перезагружаемом редакторе, поддержка вставки должно быть включено';
+$lang['js']['on']              = 'Включен';
+$lang['js']['off']             = 'Выключен';
+$lang['js']['broken_image_1']  = 'Используйте ImagePaste плагин с Dokuwiki Медиаменеджеоу или попробуйте MS Word инструмента вставки.';
+$lang['js']['broken_image_2']  = 'Ctrl-v изображения с raw данными около 2.5 М можно загрузить. Это изображение:';
+$lang['mediamgr_imgonly']      = 'Используйте диалоговое окно для изображений, Диалоговое окно Ссылок для других медиа. Этот файл это:';
+$lang['uprofile_title']        = 'Выбирите Ваш По Умолчанию Редактор';
+$lang['btn_val_dw_fb']         = 'DW Файловый браузер';
+$lang['btn_val_ckg_fb']        = 'CKG Файловый браузер';
+$lang['btn_title_dw_fb']       = 'Сохранить и закрыть редактор и переключиться на DW Файловый браузер';
+$lang['btn_title_ckg_fb']      = 'Сохранить и закрыть редактор и переключиться на CKG Файловый браузер';
+$lang['formatdel']             = 'Пометить убранное от скобок (и): не поддерживается от Dokuwiki';
+$lang['fontdel']               = 'Шрифтовые пометки удалены от ссылки (ок): не поддерживается от Dokuwiki';
+$lang['ckgcke_conflict']       = 'Копия ckgedit был обнаружен. Поздняя chgedit или ckgedit может отключен.';
+$lang['ws_cantcopy']           = 'Для установки winstyle: невозможно скопировать в';
+$lang['ws_copiedhtaccess']     = 'Для установки winstyle скопируйте защищенный файл .htaccess в данные/носитель.
+См. ckgedit/fckeditor/userfiles/.htacess.security.';
+$lang['userfiles_perm']        = 'Пожалуйста, проверьте права; ckgedit не имеет доступа';
+$lang['sym_not created_1']     = 'Невозможно создать';
+$lang['sym_not created_2']     = 'Невозможно создать мультиссылки для файлобраузера: нет доступа:';
+$lang['sym_not created_3']     = 'Эти когда ошибки требуют создания символических ссылок на';
+$lang['syms_created']          = 'Эти вышеуказанные ссылки были созданы в пользовательских директорий:';
+$lang['dblclk']                = '<b>Новая функция:</b> дважды щелкните окно браузера, чтобы открыть редактор DW для редактирования раздела, на котором находится курсор. <b>См.:  </b><a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>.';
+$lang['dblclk_reminder']       = '<b>Напоминание</b>';
+$lang['ckg_img_paste']         = 'Включите поддержку вставки дополнительных изображений';
+$lang['ckg_img_paste_title']   = 'Выключено, чтобы предотвратить двойную вставку, или включено, чтобы включить вставку.';
+$lang['on']                    = 'Включить ';
+$lang['off']                   = 'Выключить';
+$lang['broken_image']          = 'Используйте плагин imagePaste с Dokuwiki Mediamanager или попробуйте инструмент вставки MS Word. Необработанные данные изображений Ctrl-v размером более 2,5 М могут зависать. Это изображение:';
