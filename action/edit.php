@@ -40,6 +40,7 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 
     function register(Doku_Event_Handler $controller)
     {
+       global $INPUT;
        $version = explode('.', phpversion());
        define('PHP_VERSION_NUM', $version[0] * 10+ $version[1]);
         
@@ -63,12 +64,13 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
         if(isset($_COOKIE['FCK_NmSp'])) {
           $Fck_NmSp = $_COOKIE['FCK_NmSp'];
         }
-        $dwedit_ns = @$this->getConf('dwedit_ns');
+        $dwedit_ns = $this->getConf('dwedit_ns');
         if(isset($dwedit_ns) && $dwedit_ns) {
             $ns_choices = explode(',',$dwedit_ns);
             foreach($ns_choices as $ns) {
               $ns = trim($ns);
-              if(preg_match("/$ns/",$_REQUEST['id']) || preg_match("/$ns/",$Fck_NmSp)) {
+              $id = $INPUT->str('id');             
+              if(($id && preg_match("/$ns/",$id)) || ($Fck_NmSp && preg_match("/$ns/",$Fck_NmSp))) {
                       $FCKG_show_preview = true;     
                        return;
              }
