@@ -489,9 +489,9 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
 	   
       if($this->draft_started) return $this->xhtml;
        $cname = getCacheName($INFO['client'].$ID,'.draft.fckl');
-     
+   // msg($cname); 
        $this->draft_started = false;
-        if(file_exists($cname)  && !$this->draft_started) {
+       if(file_exists($cname)  && !$this->draft_started) {
     
            $this->draft_started = true;
          
@@ -513,8 +513,8 @@ class action_plugin_ckgedit_edit extends DokuWiki_Action_Plugin {
           }
           unlink($cname);
        }    
-       if($draft_started) return $this->xhtml;
-        return true;
+       if($this->draft_started) return $this->xhtml;
+       return true;
     }
 
 
@@ -612,7 +612,10 @@ if ($fb == 'dokuwiki') {
     filebrowserBrowseUrl: \"$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=$doku_base/lib/plugins/ckgedit/fckeditor/editor/filemanager/connectors/php/connector.php\"";
 }
 if($this->getConf('style_sheet')) {
-$contents_css = $this->alt_style_sheet();
+   $contents_css = $this->alt_style_sheet();
+}
+else { 
+   $contents_css = "";
 }
 //msg($contents_css);
 $ckeditor_replace =<<<CKEDITOR_REPLACE
@@ -1055,9 +1058,11 @@ var ckgedit_hasCaptcha = "<?php echo $this->captcha?1:0?>";
     function _render_xhtml($text){
         $mode = 'ckgedit';
 
-        global $skip_styling;
+        global $skip_styling, $INPUT;
+        $post_styling = $INPUT->post->str('styling');
         $skip_styling =  $this->getConf('nofont_styling');
-        if(!$skip_styling && $_POST['styling'] == 'no_styles') {
+        
+        if(!$skip_styling && $post_styling == 'no_styles') {
             $skip_styling = true;
         }  
 
