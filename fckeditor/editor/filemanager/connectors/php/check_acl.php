@@ -172,7 +172,7 @@ function auth_nameencode($name,$skip_group=false){
     if($name == '%GROUP%') return $name;
 
   if (!isset($cache[$name][$skip_group])) {
-    if($skip_group && $name{0} =='@'){
+    if($skip_group && $name[0] =='@'){
             $cache[$name][$skip_group] = '@'.preg_replace_callback(
                 '/([\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f])/',
                 'auth_nameencode_callback', substr($name, 1)
@@ -291,7 +291,7 @@ function auth_loadACL($acl_file){
     if(isset($_SERVER['REMOTE_USER'])){
         $len = count($acl);
         for($i=0; $i<$len; $i++){
-            if($acl[$i]{0} == '#') continue;
+            if($acl[$i][0] == '#') continue;
             list($id,$rest) = preg_split('/\s+/',$acl[$i],2);
             $id   = str_replace('%USER%',cleanID($_SERVER['REMOTE_USER']),$id);
             $rest = str_replace('%USER%',auth_nameencode($_SERVER['REMOTE_USER']),$rest);
