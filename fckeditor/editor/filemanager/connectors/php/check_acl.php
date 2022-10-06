@@ -238,13 +238,14 @@ function cleanID($raw_id,$ascii=false,$media=false){
   $id = utf8_strtolower($id);
 
   //alternative namespace seperator
+  /*
   $id = strtr($id,';',':');
   if($dwfck_conf['useslash']){
     $id = strtr($id,'/',':');
   }else{
     $id = strtr($id,'/',$sepchar);
   }
-
+*/
   if($dwfck_conf['deaccent'] == 2 || $ascii) $id = utf8_romanize($id);
   if($dwfck_conf['deaccent'] || $ascii) $id = utf8_deaccent($id,-1);
 
