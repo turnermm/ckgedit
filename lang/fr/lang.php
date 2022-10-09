@@ -3,12 +3,12 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Schplurtz le Déboulonné <schplurtz@laposte.net>
  * @author salabdou <salabdou@gmail.com>
  * @author TJ619 <rockandrollfever0@gmail.com>
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @author Blacklord049
  * @author Nicolas Friedli <nicolas@theologique.ch>
- * @author Schplurtz le Déboulonné <Schplurtz@laposte.net>
  */
 $lang['btn_dw_edit']           = 'Éditeur DW';
 $lang['dw_btn_fck_preview']    = 'Prévisualisation CKG';
@@ -49,6 +49,8 @@ $lang['js']['font_conflict']   = 'Le parseur a trouvé un ou plusieurs conflits.
 $lang['js']['ckg_paste_restart'] = 'Lors du rechargement de l\'éditeur, un article supplémentaire de support sera utilisé.';
 $lang['js']['on']              = 'Marche';
 $lang['js']['off']             = 'Arrêt';
+$lang['js']['broken_image_1']  = 'Utilisez le greffon ImagePaste avec le gestionnaire de médias ou essayez  l\'outil coller de MS Word.';
+$lang['js']['broken_image_2']  = 'Coller des images dont les données brutes dépassent 2,5Mo peut bloquer. Cette image pèse :';
 $lang['mediamgr_imgonly']      = 'Envoyer des images en utilisant la boîte de dialogue spécifique:';
 $lang['uprofile_title']        = 'Sélectionnez votre éditeur par défaut';
 $lang['btn_val_dw_fb']         = 'Gestionnaire de fichiers DW';
@@ -57,6 +59,7 @@ $lang['btn_title_dw_fb']       = 'Sauver, fermer l\'éditeur et passer au gestio
 $lang['btn_title_ckg_fb']      = 'Sauver, fermer l\'éditeur et passer au gestionnaire de fichiers CKG';
 $lang['formatdel']             = 'Balisage supprimé des entêtes: indisponible dans DokuWiki';
 $lang['fontdel']               = 'Polices différentes supprimées des liens: indisponible dans DokuWiki';
+$lang['ckgcke_conflict']       = 'Une copie de ckgedit a été détectée. L\'un des Ckgedit et ckgedit doit être désactivé.';
 $lang['ws_cantcopy']           = 'Pour la configuration de Winstyle: impossible de copier vers';
 $lang['ws_copiedhtaccess']     = 'Pour l’installation de Winstyle, copiez le fichier .htaccess avec sécurité activée dans data/media
 Voir ckgedit/fckeditor/userfiles/.htaccess.security';
@@ -67,5 +70,8 @@ $lang['sym_not created_3']     = 'Il y a eu une erreur en essayant de créer des
 $lang['syms_created']          = 'liens créés dans le dossier userfiles:';
 $lang['dblclk']                = '<b>Nouvelle fonctionnalité</b> Un double clic dans le navigateur édite la section sous le curseur dans l\'éditeur DW. <b>Voir, en anglais,</b> <a href=\'https://www.dokuwiki.org/plugin:ckgedit#direct_access_to_dokuwiki_editor\'>direct_access_to_dokuwiki_editor</a>.';
 $lang['dblclk_reminder']       = '<b>Rappel</b> ';
+$lang['ckg_img_paste']         = 'Activer le collage d\'image supplémentaire';
+$lang['ckg_img_paste_title']   = 'Désactiver pour éviter les collage multiples, ou activer pour activer les collages.';
 $lang['on']                    = 'Marche';
 $lang['off']                   = 'Arrêt';
+$lang['broken_image']          = 'Utilisez le greffon ImagePaste avec le gestionnaire de médias ou essayez  l\'outil coller de MS Word. Coller des images dont les données brutes dépassent 2,5Mo peut bloquer. Cette image pèse :';
