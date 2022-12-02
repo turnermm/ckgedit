@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author 零鸠沅 <zerotys@vip.qq.com>
  * @author RainSlide <RainSlide@outlook.com>
  * @author chenb <chenb84@foxmail.com>
  * @author 2576562185 <2576562185@qq.com>
@@ -32,6 +33,9 @@ $lang['complex_tables']        = '启用复杂型表格';
 $lang['minor_changes']         = '小修改';
 $lang['discard_edits']         = '点“确定”保存，点“取消”撤销修改';
 $lang['dw_btn_styling']        = '修改字体';
+$lang['js']['dwp_save_err']    = '无法保存更改到：';
+$lang['js']['dwp_updated']     = '编辑器优先级已改为：';
+$lang['js']['dwp_not_sel']     = '编辑器优先级不能改动，因为它被dw_users组设定事先决定了。';
 $lang['js']['on']              = '启用';
 $lang['js']['off']             = '禁用';
 $lang['uprofile_title']        = '选择默认编辑器';
