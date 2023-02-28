@@ -1,0 +1,1 @@
+Deze versie van ckgedit is aangepast voor de Hogfather DokuWiki uitgave. De meest significante verandering ten opzichte van de vorige versies is dat er niet langer toegang is tot de ckgedit bestandsbrowser. Het gebruikt in plaats daarvan de DokuWiki media-dialoog voor bestanden en de Linkwizard voor de interne links. Zie [[doku>plugin:ckgedit#note_on_hogfather]]

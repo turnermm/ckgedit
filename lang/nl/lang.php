@@ -3,7 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
- * @author Gerrit Uitslag <klapinklapin@gmail.com>
+ * @author Gerrit <klapinklapin@gmail.com>
  * @author Coen Eisma <info@coeneisma.nl>
  * @author Mijndert <mijndert@mijndertstuij.nl>
  * @author Peter van Diest <peter.van.diest@xs4all.nl>
@@ -49,6 +49,10 @@ $lang['js']['on']              = 'Aan';
 $lang['js']['off']             = 'Uit';
 $lang['js']['broken_image_1']  = 'Gebruik de imagePaste plugin met de DokuWiki Mediabeheerder of probeer de MS Word plak-functie';
 $lang['js']['broken_image_2']  = 'Ctrl+V van afbeeldingen met ruwe bestandsgrootte groter dan 2.5 MB kunnen blijven hangen. Deze afbeelding is:';
+$lang['js']['stylesheet_oinfo'] = 'Info';
+$lang['js']['stylesheet_cinfo'] = 'Sluit info';
+$lang['js']['lock_msg']        = 'Je vergrendeling voor het bewerken van deze pagina gaat in een minuut verlopen';
+$lang['js']['willexpire']      = 'Je vergrendeling voor het bewerken van deze pagina gaat in een minuut verlopen\nOm conflicten te vermijden gebruik je de backup-knop om de vergrendelingstimer te resetten.';
 $lang['mediamgr_imgonly']      = 'Upload alleen afbeeldingen wanneer je het afbeeldingsdialoogvenster gebruikt.';
 $lang['uprofile_title']        = 'Selecteer je standaard editor';
 $lang['btn_val_dw_fb']         = 'DW bestandsbrowser';
@@ -57,7 +61,6 @@ $lang['btn_title_dw_fb']       = 'Sla op en sluit de editor en schakel over naar
 $lang['btn_title_ckg_fb']      = 'Sla op en sluit de editor en schakel over naar de CKG bestandsbrowser';
 $lang['formatdel']             = 'Opmaak verwijderd van de kopteksten: niet ondersteund door Dokuwiki';
 $lang['fontdel']               = 'Letteropmaak verwijderd uit links: niet ondersteund door Dokuwiki';
-$lang['ckgcke_conflict']       = 'Er is een kopie van ckgedit gedetecteerd. Ckgedit of ckgdoku moet zijn uitgeschakeld.';
 $lang['ws_cantcopy']           = 'Voor winstyle-instellingen: kan niet kopiëren naar';
 $lang['ws_copiedhtaccess']     = 'Voor winstyle-instellingen: de beveiligingsinstellingen van .htaccess zijn naar data/media gekopieerd
 Kijk op ckgedit/fckeditor/userfiles/.htacess.security';
@@ -73,3 +76,13 @@ $lang['ckg_img_paste_title']   = 'Uit om dubbel plakken te voorkomen of Aan om p
 $lang['on']                    = 'aan';
 $lang['off']                   = 'uit';
 $lang['broken_image']          = 'Gebruik de imagePaste plugin met de DokuWiki Mediabeheerder of probeer de MS Word plak-functie. Ctrl+V van afbeeldingen met ruwe bestandsgrootte groter dan 2.5 MB kunnen blijven hangen. Deze afbeelding is:';
+$lang['menu']                  = 'CKEeditor Editor CSS tool';
+$lang['default_stylesheet']    = 'Maak een stijlbestand voor de huidige template';
+$lang['alt_stylesheet']        = 'Maak een stijlbestand voor een andere template';
+$lang['style_sheet']           = 'Maak Stijlbestand';
+$lang['style_sheet_msg']       = 'Maak Stijlbestand voor de huidige template:';
+$lang['alt_style_sheet_msg']   = 'Maak een Stijlbestand voor:';
+$lang['checkbox']              = 'Kopieer naar ckeditor/css';
+$lang['stylesheet_oinfo']      = 'Info';
+$lang['stylesheet_cinfo']      = 'Sluit Info';
+$lang['list_in_table']         = 'DokuWiki ondersteunt geen lijsten in tabellen. De lijst-opmaak is verwijderd, maar de inhoud is behouden.';
