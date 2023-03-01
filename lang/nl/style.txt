@@ -1,0 +1,10 @@
+**Huidige Template** \\
+Met deze app kun je een stijlbestand maken voor het CKEditor bewerkvenster dat gebaseerd is op je template. Het zal het stijlbestand in de template-map plaatsen in de map genaamd **Styles**. Deze map wordt aangemaakt bij het opslaan. Het stijlbestand zal **_styles.css** genoemd worden. Om het stijlbestand te activeren moet je twee dingen doen:
+
+  - het moet worden geplaatst in **ckgedit/ckeditor/css**. Dit zal automatisch gebeuren als je de optie **Kopieer naar ckeditor/css** aanvinkt.
+  - De **style_sheet** optie in het "Configuratieinstellingen" moet op aangezet worden.
+
+**Andere templates: geïnstalleerd maar niet geactiveerd** \\ Je kunt ook extra stijlbestanden maken voor andere templates die in de **tpl**-map worden bewaard. Deze zullen worden gekopieerd naar de **Styles** map van de respectievelijke templates maar niet naar **ckeditor/css**.
+
+----
+
