@@ -93,9 +93,18 @@ class action_plugin_ckgedit_meta extends DokuWiki_Action_Plugin {
 function _ajax_call(Doku_Event $event, $param) { 
      
      if ($event->data == 'cked_scaytchk') {  
-         // legacy, no longer active     
+          global $lang,$INPUT;
           $event->stopPropagation();
           $event->preventDefault();
+		  $filename =  metaFN('fckl:scayt','.meta'); 
+		  $msg =  $this->locale_xhtml('scayt');
+		  if (!file_exists($filename)) {      
+			  io_saveFile($filename,'1');  
+              echo "$msg\n";			  
+			  return;
+		  }		   
+           
+           
            return;           
          }
        if ($event->data == 'cked_upload') {  
@@ -418,7 +427,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
      }
 
     if(is_a($event->data,\dokuwiki\Form\Form::class)) {
-        $button = '&nbsp;<button name="do[cancel]" type="submit" class="button" title="' . $title .'" id="edbtn__edit" value="CKG Edit" ' . $disabled. ' style = "' .$dwedit_only.'" onclick="return setDWEditCookie(1, this);"/>' . $title .'</button>&nbsp;';
+        $button = '&nbsp;<button name="do[cancel]" type="submit" class="button" title="' . $title .'" id="edbtn__edit" value="CKG Edit" ' . $disabled. ' style = "' .$dwedit_only.'" onclick="return setDWEditCookie(1, this);"/>CKG Edit</button>&nbsp;';
         $pos = $event->data->findPositionByAttribute('type','submit');
         $pos+=3;
         $event->data->addHTML($button,$pos);
@@ -591,7 +600,7 @@ function check_userfiles() {
 	       $show_msg = true;		   
 	   }
 	   $link_names = array('flash',  'image',  'media', 'file', 'image');
-	   if(is_array($winlinks) && count($winlinks)) {
+	   if(isset($winlinks) && is_array($winlinks) && count($winlinks)) {
 	       $link_names = array_diff($link_names, $winlinks);
 	   }
 	   $links = array();
@@ -918,9 +927,32 @@ function startup_msg() {
     global $ACT;
    global $updateVersion;
    $show_msg = false;
-   if( (float)$updateVersion  < 51) { //hogfather
+   if($INFO['isadmin'] || $INFO['ismanager'] )    {  // only admins and mgrs get messages
+	       $show_msg = true;		   
+	}
+   if(!$show_msg)  return;
+
+  $filename =  metaFN('fckl:scayt','.meta'); 
+  $msg =  $this->locale_xhtml('scayt');  
+  if (!file_exists($filename)) {      
+      io_saveFile($filename,'1'); 
+      msg($msg,MSG_MANAGERS_ONLY);          
+  }
+  else {
+        if($this->getConf('scayt_auto') != 'off') return;
+        $this->startup_check_twice($filename, 'scayt');
+  }
+  if( (float)$updateVersion  < 51) {
       return;
   }
+  
+/*
+  $filename =  metaFN('fckl:hogfather','.meta'); 
+  $msg =  $this->locale_xhtml('hogfather');
+  if (!file_exists($filename)) {      
+      io_saveFile($filename,'1'); 
+       msg($msg,MSG_MANAGERS_ONLY);      
+  } */
   
 }
 

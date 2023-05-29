@@ -15,7 +15,7 @@
 
 
  function handlekeypress (e) {      
-  if( e.data.keyCode == CKEDITOR.CTRL + 81) {
+  if(e.data && e.data.keyCode == CKEDITOR.CTRL + 81) {
       jQuery("#save_button").trigger("mousedown");    
   }
    if(ourLockTimerIsSet) {

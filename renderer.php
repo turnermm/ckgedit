@@ -65,7 +65,7 @@ class renderer_plugin_ckgedit extends Doku_Renderer_xhtml
     /*
      * The standard xhtml renderer adds anchors we do not need.
      */
-    function header($text, $level, $pos) {
+    function header($text, $level, $pos, $returnonly = false) {
         // write the header
         $this->doc .= DOKU_LF.'<h'.$level.'>';
         $this->doc .= $this->_xmlEntities($text);
