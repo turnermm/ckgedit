@@ -418,7 +418,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
      }
 
     if(is_a($event->data,\dokuwiki\Form\Form::class)) {
-        $button = '&nbsp;<button name="do[cancel]" type="submit" class="button" title="' . $title .'" id="edbtn__edit" value="CKG Edit" ' . $disabled. ' style = "' .$dwedit_only.'" onclick="return setDWEditCookie(1, this);"/>CKG Edit</button>&nbsp;';
+        $button = '&nbsp;<button name="do[cancel]" type="submit" class="button" title="' . $title .'" id="edbtn__edit" value="CKG Edit" ' . $disabled. ' style = "' .$dwedit_only.'" onclick="return setDWEditCookie(1, this);"/>' . $title .'</button>&nbsp;';
         $pos = $event->data->findPositionByAttribute('type','submit');
         $pos+=3;
         $event->data->addHTML($button,$pos);
