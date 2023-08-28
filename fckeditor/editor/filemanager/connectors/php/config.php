@@ -196,7 +196,7 @@ function setupBasePathsNix() {
     
     $dir = preg_replace('/editor\/filemanager\/connectors\/.*/', "$animal/",$dir);
     $Config['UserFilesAbsolutePath'] = $dir;
-    $document_root = $_SERVER['DOCUMENT_ROOT'];
+    $document_root = realpath($_SERVER['DOCUMENT_ROOT']);
     $relative_dir = str_replace($document_root, "", $dir);
     $Config['UserFilesPath'] = $relative_dir;
 }
