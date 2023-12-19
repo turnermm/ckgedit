@@ -55,6 +55,12 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
 	  echo $this->getLang('stylesheet_oinfo');
 	  ptln('</button>');
 		  
+      $ID = ""; // Initialize $ID with an empty string
+      //----- Correction Start
+      if (isset($_REQUEST['ID'])) {
+          $ID = $_REQUEST['ID']; // Assign the value from $_REQUEST['ID'] to $ID
+      }      
+      //---- Correction End 
       ptln('<form action="'.wl($ID).'" method="post">'); 
       // output hidden values to ensure dokuwiki will return back to this plugin
       ptln('  <input type="hidden" name="do"   value="admin" />');
@@ -75,8 +81,8 @@ class admin_plugin_ckgedit extends DokuWiki_Admin_Plugin {
       ptln('</select>');
 	  ptln('<input type="submit" name="cmd[alt_stylesheet]"  value="'.$this->getLang('style_sheet').'" />');   
       ptln('</form></p>');   
-
-	  if($this->output && $this->output == 'style_sheet_msg') {	  
+      
+      if($this->output && $this->output == 'style_sheet_msg') {	  
           $path = $this->tpl_inc;     
 		  ptln(htmlspecialchars($this->getLang($this->output)). " " .$this->template);	  
 		  $retv = css_ckg_out($path);

@@ -385,8 +385,34 @@ function replace_entities() {
         return;
    }
 
+
+
+
   // restore preview button if standard DW editor is in place
   // $FCKG_show_preview is set in edit.php in the register() function
+
+
+
+
+if (isset($_REQUEST['fck_preview_mode'])) {
+    if ($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !empty($FCKG_show_preview)) {
+        echo '<style type="text/css">#edbtn__preview { display:none; }</style>';
+    } elseif (!empty($FCKG_show_preview)) {
+        echo '<style type="text/css">#edbtn__preview { display: inline; } </style>';
+    } else {
+        echo '<style type="text/css">#edbtn__preview, .btn_show { position:absolute }</style>';
+    }
+
+    global $ckgedit_lang;
+
+    if ($_REQUEST['fck_preview_mode'] == 'preview') {
+        return;
+    }
+}
+
+
+
+/*
 if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$FCKG_show_preview) {    
      echo '<style type="text/css">#edbtn__preview { display:none; }</style>';
  }
@@ -402,6 +428,7 @@ if($_REQUEST['fck_preview_mode'] != 'nil' && !isset($_COOKIE['FCKG_USE']) && !$F
   if($_REQUEST['fck_preview_mode']== 'preview'){
     return;
   }
+*/
 
  $param = array();
  $this->preprocess($event, $param);  // create the setDWEditCookie() js function
@@ -823,12 +850,21 @@ function check_userfiles() {
        setcookieSameSite('FCK_NmSp',$ID, $expire, '/');     
       
           
+// Verifica se a chave 'TopLevel' está definida no array $_COOKIE
+if (isset($_COOKIE['TopLevel'])) {
+    // Verifica se $_REQUEST['TopLevel'] está definido
+    $topLevelValue = isset($_REQUEST['TopLevel']) ? $_REQUEST['TopLevel'] : '';
+
+    // Remove o cookie 'TopLevel'
+    setcookieSameSite("TopLevel", $topLevelValue, time() - 3600, '/');
+}
 
       /* Remove TopLevel cookie */         
+/*
        if(isset($_COOKIE['TopLevel'])) {
             setcookieSameSite("TopLevel", $_REQUEST['TopLevel'], time()-3600, '/');
        }
-
+*/
      
        if(!isset($_REQUEST['id']) || isset($ACT['preview'])) return;
        if(isset($_REQUEST['do']) && isset($_REQUEST['do']['edit'])) {
@@ -916,7 +952,7 @@ function reset_user_rewrite_check() {
 	     $conf['userewrite']  = 0; 
        }
       
-       if($conf['htmlok'] || $this->getConf('htmlblock_ok')) { 
+       if((isset($conf['htmlok'])&& $conf['htmlok']) || $this->getConf('htmlblock_ok')) { 
          $JSINFO['htmlok'] = 1;
     }	  
     else $JSINFO['htmlok'] = 0;
