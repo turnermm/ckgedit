@@ -234,6 +234,7 @@ function css_ckg_styleini($tpl) {
     $incbase = tpl_incdir($tpl);
     $webbase = tpl_basedir($tpl);
     $ini = $incbase.'style.ini';
+$data = []; // Define a variável <link>$data</link> como um array vazio
     if(file_exists($ini)){
         $data = parse_ini_file($ini, true);
 

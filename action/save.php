@@ -221,7 +221,7 @@ $TEXT = preg_replace_callback("#<code\s+(\w+)>.*?(\[enable_line_numbers.*?\])\s*
                    }                
                 
                    $link = explode('?',$matches[1]);
-                   if($link[1]) {                       
+                   if (isset($link[1])) {                       
                        $link_id = $link[0];
                        list($qs,$linktext) = explode('|', $link[1]);     
                    }
