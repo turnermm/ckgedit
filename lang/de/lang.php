@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Anonymous <test@test.de>
  * @author w.-g.esders <esders@esders.eu>
  * @author WhitesnakeS04 <whitesnakess04@gmail.com>
  * @author Sebastian Engel <mail@engel-s.de>
@@ -53,7 +54,15 @@ $lang['js']['dwp_updated']     = 'Editor Priorität aktualisiert auf:';
 $lang['js']['dwp_not_sel']     = 'Editor-Priorität nicht ausgewählt: Es wird durch die Konfiguration der dw_users-Gruppe bestimmt';
 $lang['js']['mediamgr_notice'] = 'Verwenden Sie den Link Dialog um Links einzufügen';
 $lang['js']['font_conflict']   = 'Der Parser fand einen oder mehrere Link-Font-Konflikte. Wenn Sie auf OK klicken, können Sie zum Editor zurückkehren und die Schriftstile entfernen. Weitere Informationen finden Sie unter: https://www.dokuwiki.org/plugin:ckgedit:font_styling#conflicts_with_dokuwiki_links';
-$lang['mediamgr_imgonly'] = 'Benutzen Sie den Bild-Dialog nur für Bilder. Verwenden Sie den Link-Dialog für andere Dateitypen. Die betroffene Datei ist:';
+$lang['js']['ckg_paste_restart'] = 'Beim Neuladen des Editors wird die zusätzliche Unterstützung für das Einfügen eingeschaltet.';
+$lang['js']['on']              = 'ein';
+$lang['js']['off']             = 'aus';
+$lang['js']['broken_image_1']  = 'benutze das ImagePaste Plugin mit dem Dokuwiki Mediamanager oder versuche das MS Word Einfügen Tool';
+$lang['js']['broken_image_2']  = 'Bilder grösser 2,5M mit STRG + V einfügen funktioniert nicht. Dieses Bild hat folgende Größe:';
+$lang['js']['stylesheet_oinfo'] = 'Info';
+$lang['js']['stylesheet_cinfo'] = 'Info schließen';
+$lang['js']['lock_msg']        = 'Ihre Sperre zum Bearbeiten dieser Seite läuft in einer Minute ab.';
+$lang['js']['willexpire']      = 'Ihre Sperre zum Bearbeiten dieser Seite läuft in einer Minute ab.\n Um Konflikte zu vermeiden, nutzen Sie die Backup-Schaltfläche, um den Sperrtimer zurückzusetzen.';
 $lang['mediamgr_imgonly']      = 'Laden Sie nur Bilder hoch, wenn Sie den Bilddialog verwenden: ';
 $lang['uprofile_title']        = 'Wählen Sie ihren Standard Editor';
 $lang['btn_val_dw_fb']         = 'DW Dateibrowser';
@@ -73,22 +82,16 @@ $lang['dblclk']                = '<b>Neues Feature:</b> Doppelklick im Browserfe
 $lang['dblclk_reminder']       = '<b>Erinnerung</b>';
 $lang['ckg_img_paste']         = 'Zusätzliche Unterstützung beim Einfügen von Bildern aus der Zwischenablage';
 $lang['ckg_img_paste_title']   = 'Aus um doppeltes Einfügen zu verhindern, oder Ein, um Einfügen zu erlauben';
-$lang['js']['ckg_paste_restart'] = 'Beim Neuladen des Editors wird die zusätzliche Unterstützung für das Einfügen eingeschaltet.';
 $lang['on']                    = 'Ein';
 $lang['off']                   = 'Aus';
-$lang['js']['on']              = 'ein';
-$lang['js']['off']             = 'aus';
 $lang['broken_image']          = 'Benutze das ImagePaste Plugin mit dem Mediamanager oder versuche das MS Word Tool. STRG + V mit Bildern > 2,5M funktioniert evtl. nicht. Dieses Bild hat folgende Größe:';
-$lang['js']['broken_image_1']  = 'benutze das ImagePaste Plugin mit dem Dokuwiki Mediamanager oder versuche das MS Word Einfügen Tool';
-$lang['js']['broken_image_2']  = 'Bilder grösser 2,5M mit STRG + V einfügen funktioniert nicht. Dieses Bild hat folgende Größe:';
-$lang['menu'] = 'CKEditor CSS Tool'; 
-$lang['default_stylesheet']  = 'Ein Stylesheet für das aktuelle Template anlegen';
-$lang['alt_stylesheet']  = 'Ein Stylesheet für ein anderes Template anlegen'; 
-$lang['style_sheet'] = 'Stylesheet anlegen';
-$lang['style_sheet_msg'] = 'Ein Stylesheet für das aktuelle Template anlegen:';
-$lang['alt_style_sheet_msg'] = 'Stylesheet anlegen für:';
-$lang['checkbox'] = 'Nach ckeditor/css kopieren';
-$lang['stylesheet_oinfo'] = 'Info';
-$lang['stylesheet_cinfo'] = 'Info schließen';
-$lang['js']['stylesheet_oinfo'] = 'Info';
-$lang['js']['stylesheet_cinfo'] = 'Info schließen';
+$lang['menu']                  = 'CKEditor CSS Tool';
+$lang['default_stylesheet']    = 'Ein Stylesheet für das aktuelle Template anlegen';
+$lang['alt_stylesheet']        = 'Ein Stylesheet für ein anderes Template anlegen';
+$lang['style_sheet']           = 'Stylesheet anlegen';
+$lang['style_sheet_msg']       = 'Ein Stylesheet für das aktuelle Template anlegen:';
+$lang['alt_style_sheet_msg']   = 'Stylesheet anlegen für:';
+$lang['checkbox']              = 'Nach ckeditor/css kopieren';
+$lang['stylesheet_oinfo']      = 'Info';
+$lang['stylesheet_cinfo']      = 'Info schließen';
+$lang['list_in_table']         = 'DokuWiki unterstützt keine Listen in Tabellen. Die Listen-Markierung wurde entfernt, aber der Inhalt beibehalten.';

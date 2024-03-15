@@ -1,0 +1,1 @@
+Diese Version von ckgedit wurde für die Hogfather-Distribution von DokuWiki angepasst. Der bedeutendste Unterschied zu früheren Versionen ist, dass sie keinen Zugriff mehr auf den ckgedit-Dateibrowser hat. Stattdessen verwendet sie die DokuWiki-Medien-App für Medien und den Linkwiz für interne Links. Siehe [[doku>plugin:ckgedit#note_on_hogfather]]
