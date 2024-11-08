@@ -1,0 +1,1 @@
+这个版本的 ckgedit 已经为 hogfather DokuWiki 发行版进行了调整。与之前的版本相比，最显著的区别是它不再访问 ckgedit 文件浏览器，而是使用 DokuWiki 媒体应用程序来处理媒体文件，使用 linkwiz 处理内部链接。有关更多信息，请参见 [[doku>plugin:ckgedit#note_on_hogfather]]。
